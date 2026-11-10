@@ -1,0 +1,2833 @@
+{
+  "runs": {
+    "control-warmup": {
+      "suite_ms": 828.349,
+      "cpu_ms": 2623.867,
+      "sample_outer_ms": {
+        "n": 21,
+        "p50": 72.743,
+        "p95": 85.92699999999999,
+        "min": 62.011000000000024,
+        "max": 438.464,
+        "sum": 1886.2979999999998
+      },
+      "fork_ms": {
+        "n": 21,
+        "p50": 37.62299999999999,
+        "p95": 42.41,
+        "min": 21.210999999999984,
+        "max": 55.79200000000003,
+        "sum": 776.494
+      }
+    },
+    "diagnostic-warmup": {
+      "suite_ms": 527.573,
+      "cpu_ms": 2657.8669999999997,
+      "sample_outer_ms": {
+        "n": 21,
+        "p50": 90.363,
+        "p95": 112.44999999999999,
+        "min": 45.37300000000002,
+        "max": 125.89100000000002,
+        "sum": 1786.6730000000002
+      },
+      "fork_ms": {
+        "n": 21,
+        "p50": 28.53299999999996,
+        "p95": 42.95999999999998,
+        "min": 20.17200000000001,
+        "max": 45.65100000000001,
+        "sum": 630.597
+      },
+      "children": [
+        {
+          "lane": "TestDeleteUser/user_15",
+          "body_ms": 41.800667,
+          "operation_total_ms": {
+            "begin": 0.455083,
+            "commit": 0.190542,
+            "item_insert": 22.243501000000006,
+            "order_insert": 5.8436639999999995,
+            "prepare_item": 0.639208,
+            "prepare_order": 0.886167,
+            "prepare_stock": 1.141625,
+            "statement_close": 0.000333,
+            "stock_update": 10.364208999999999
+          },
+          "residual_ms": 0.036334999999986906,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -232,
+            "innodb_buffer_pool_pages_dirty": -1,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 232,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 1,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35158,
+            "innodb_pages_read": 1,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/two_lines",
+          "body_ms": 41.8025,
+          "operation_total_ms": {
+            "begin": 0.353167,
+            "commit": 0.13825,
+            "item_insert": 22.209167000000004,
+            "order_insert": 6.114413999999998,
+            "prepare_item": 0.546333,
+            "prepare_order": 0.962667,
+            "prepare_stock": 0.698666,
+            "statement_close": 0.000207,
+            "stock_update": 10.739501999999998
+          },
+          "residual_ms": 0.04012700000000535,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -238,
+            "innodb_buffer_pool_pages_dirty": -1,
+            "innodb_buffer_pool_pages_flushed": 151,
+            "innodb_buffer_pool_pages_free": 238,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 3,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35158,
+            "innodb_pages_read": 3,
+            "innodb_pages_written": 151,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "shared",
+          "body_ms": 41.790167,
+          "operation_total_ms": {
+            "begin": 0.15,
+            "commit": 0.132458,
+            "item_insert": 21.778374,
+            "order_insert": 6.703668,
+            "prepare_item": 1.191167,
+            "prepare_order": 0.854167,
+            "prepare_stock": 0.647542,
+            "statement_close": 0.000251,
+            "stock_update": 10.290251000000003
+          },
+          "residual_ms": 0.04228899999999669,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -215,
+            "innodb_buffer_pool_pages_dirty": -2,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 215,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 4,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 4,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_22",
+          "body_ms": 77.225375,
+          "operation_total_ms": {
+            "begin": 0.309333,
+            "commit": 0.220166,
+            "item_insert": 38.31112799999998,
+            "order_insert": 11.204004,
+            "prepare_item": 3.378625,
+            "prepare_order": 2.963875,
+            "prepare_stock": 0.950667,
+            "statement_close": 0.00025100000000000003,
+            "stock_update": 19.824829000000015
+          },
+          "residual_ms": 0.06249699999999336,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -132,
+            "innodb_buffer_pool_pages_dirty": 44,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 132,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 162,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35884,
+            "innodb_pages_read": 162,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/five_lines",
+          "body_ms": 102.835292,
+          "operation_total_ms": {
+            "begin": 16.777333,
+            "commit": 0.15775,
+            "item_insert": 44.618335,
+            "order_insert": 11.228875,
+            "prepare_item": 3.114417,
+            "prepare_order": 1.916667,
+            "prepare_stock": 2.512917,
+            "statement_close": 0.00025,
+            "stock_update": 22.432043
+          },
+          "residual_ms": 0.07670499999998981,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -285,
+            "innodb_buffer_pool_pages_dirty": -17,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 285,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 29,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 29,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/one_line",
+          "body_ms": 68.64225,
+          "operation_total_ms": {
+            "begin": 0.042875,
+            "commit": 0.164333,
+            "item_insert": 34.689417999999996,
+            "order_insert": 11.078334,
+            "prepare_item": 1.408625,
+            "prepare_order": 1.328125,
+            "prepare_stock": 0.825542,
+            "statement_close": 0.000167,
+            "stock_update": 19.001087999999992
+          },
+          "residual_ms": 0.10374300000002279,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -25,
+            "innodb_buffer_pool_pages_dirty": 44,
+            "innodb_buffer_pool_pages_flushed": 131,
+            "innodb_buffer_pool_pages_free": 25,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 153,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1139,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 153,
+            "innodb_pages_written": 131,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/out_of_stock",
+          "body_ms": 100.315792,
+          "operation_total_ms": {
+            "begin": 1.022208,
+            "commit": 0.293875,
+            "item_insert": 43.33096000000002,
+            "order_insert": 17.847793,
+            "prepare_item": 1.836375,
+            "prepare_order": 1.87275,
+            "prepare_stock": 6.077125,
+            "statement_close": 0.0006670000000000001,
+            "stock_update": 27.947751000000004
+          },
+          "residual_ms": 0.08628799999998193,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -12,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 12,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 156,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 156,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_36",
+          "body_ms": 70.206167,
+          "operation_total_ms": {
+            "begin": 0.038667,
+            "commit": 0.179166,
+            "item_insert": 35.043043999999995,
+            "order_insert": 11.205540000000004,
+            "prepare_item": 0.652208,
+            "prepare_order": 0.502042,
+            "prepare_stock": 0.662583,
+            "statement_close": 0.00075,
+            "stock_update": 21.847921999999993
+          },
+          "residual_ms": 0.07424500000000478,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_29",
+          "body_ms": 84.515167,
+          "operation_total_ms": {
+            "begin": 0.134583,
+            "commit": 0.413208,
+            "item_insert": 47.68257999999999,
+            "order_insert": 12.535254000000002,
+            "prepare_item": 0.642583,
+            "prepare_order": 0.517291,
+            "prepare_stock": 0.770083,
+            "statement_close": 0.000583,
+            "stock_update": 21.731797999999998
+          },
+          "residual_ms": 0.08720400000002826,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/shipped",
+          "body_ms": 69.926583,
+          "operation_total_ms": {
+            "begin": 0.278958,
+            "commit": 0.67075,
+            "item_insert": 37.569580999999985,
+            "order_insert": 9.810623999999999,
+            "prepare_item": 0.666584,
+            "prepare_order": 1.110458,
+            "prepare_stock": 0.741625,
+            "statement_close": 0.00024900000000000004,
+            "stock_update": 19.015710000000002
+          },
+          "residual_ms": 0.06204400000001442,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 1,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -1,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 1,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 1,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/paid",
+          "body_ms": 85.126083,
+          "operation_total_ms": {
+            "begin": 0.0785,
+            "commit": 0.526958,
+            "item_insert": 48.05695599999999,
+            "order_insert": 10.198292,
+            "prepare_item": 0.654792,
+            "prepare_order": 0.851334,
+            "prepare_stock": 0.736041,
+            "statement_close": 0.00025,
+            "stock_update": 23.955830999999996
+          },
+          "residual_ms": 0.06712899999999422,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/pending",
+          "body_ms": 82.018333,
+          "operation_total_ms": {
+            "begin": 0.316792,
+            "commit": 0.382625,
+            "item_insert": 36.589289000000015,
+            "order_insert": 11.189668,
+            "prepare_item": 3.365667,
+            "prepare_order": 1.924875,
+            "prepare_stock": 0.848416,
+            "statement_close": 0.000834,
+            "stock_update": 27.334211000000007
+          },
+          "residual_ms": 0.06595599999998569,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 30,
+            "innodb_buffer_pool_pages_dirty": -3,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -30,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 29,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1086,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35011,
+            "innodb_pages_read": 29,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/books_10",
+          "body_ms": 87.914792,
+          "operation_total_ms": {
+            "begin": 0.104625,
+            "commit": 0.652583,
+            "item_insert": 44.642413,
+            "order_insert": 14.721255000000001,
+            "prepare_item": 1.801542,
+            "prepare_order": 1.178167,
+            "prepare_stock": 1.215333,
+            "statement_close": 0.0005009999999999999,
+            "stock_update": 23.52891599999999
+          },
+          "residual_ms": 0.06945700000001409,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 46,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -40,
+            "innodb_buffer_pool_read_requests": 2757,
+            "innodb_buffer_pool_reads": 24,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35011,
+            "innodb_pages_read": 21,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/movies_50",
+          "body_ms": 85.176791,
+          "operation_total_ms": {
+            "begin": 0.038167,
+            "commit": 0.14325,
+            "item_insert": 44.814331999999986,
+            "order_insert": 13.453415000000003,
+            "prepare_item": 0.744334,
+            "prepare_order": 0.413542,
+            "prepare_stock": 0.779917,
+            "statement_close": 0.00025,
+            "stock_update": 24.722338
+          },
+          "residual_ms": 0.06724599999999725,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35011,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/games_0",
+          "body_ms": 96.505709,
+          "operation_total_ms": {
+            "begin": 0.163375,
+            "commit": 0.664833,
+            "item_insert": 44.64316899999997,
+            "order_insert": 13.446750000000002,
+            "prepare_item": 3.901292,
+            "prepare_order": 6.81975,
+            "prepare_stock": 3.638708,
+            "statement_close": 0.000667,
+            "stock_update": 22.986579
+          },
+          "residual_ms": 0.24058600000000752,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -124,
+            "innodb_buffer_pool_pages_dirty": 16,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 124,
+            "innodb_buffer_pool_read_requests": 2601,
+            "innodb_buffer_pool_reads": 169,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35884,
+            "innodb_pages_read": 169,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/another_paid",
+          "body_ms": 115.275709,
+          "operation_total_ms": {
+            "begin": 0.119125,
+            "commit": 0.138458,
+            "item_insert": 65.242083,
+            "order_insert": 11.899496999999998,
+            "prepare_item": 1.190292,
+            "prepare_order": 0.837541,
+            "prepare_stock": 0.992167,
+            "statement_close": 0.000167,
+            "stock_update": 34.782340000000005
+          },
+          "residual_ms": 0.07403900000001329,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/music_25",
+          "body_ms": 102.169875,
+          "operation_total_ms": {
+            "begin": 0.395833,
+            "commit": 1.755,
+            "item_insert": 51.202831999999994,
+            "order_insert": 17.434254999999997,
+            "prepare_item": 0.742375,
+            "prepare_order": 0.762875,
+            "prepare_stock": 0.714958,
+            "statement_close": 0.000167,
+            "stock_update": 29.086002999999998
+          },
+          "residual_ms": 0.07557700000002399,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 11,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -8,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 2,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35011,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/twice",
+          "body_ms": 81.691166,
+          "operation_total_ms": {
+            "begin": 0.037292,
+            "commit": 0.133,
+            "item_insert": 42.39112199999999,
+            "order_insert": 11.685372000000001,
+            "prepare_item": 1.8295,
+            "prepare_order": 1.024875,
+            "prepare_stock": 2.188708,
+            "statement_close": 0.00021,
+            "stock_update": 22.336373
+          },
+          "residual_ms": 0.06471399999999505,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 64,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -64,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 64,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 64,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/one_paid",
+          "body_ms": 88.64425,
+          "operation_total_ms": {
+            "begin": 0.046292,
+            "commit": 0.111792,
+            "item_insert": 44.382625,
+            "order_insert": 15.280207,
+            "prepare_item": 0.67075,
+            "prepare_order": 4.517583,
+            "prepare_stock": 2.442667,
+            "statement_close": 0.00020899999999999998,
+            "stock_update": 21.129539000000012
+          },
+          "residual_ms": 0.06258599999999603,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -247,
+            "innodb_buffer_pool_pages_dirty": 26,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 247,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 32,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35896,
+            "innodb_pages_read": 32,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/all_paid",
+          "body_ms": 54.380416,
+          "operation_total_ms": {
+            "begin": 0.049125,
+            "commit": 0.18325,
+            "item_insert": 28.368250999999994,
+            "order_insert": 8.000208,
+            "prepare_item": 0.650709,
+            "prepare_order": 0.600083,
+            "prepare_stock": 0.786917,
+            "statement_close": 0.00021,
+            "stock_update": 15.690087999999994
+          },
+          "residual_ms": 0.05157500000000681,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 11,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -11,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 11,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 11,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/pending_rejected",
+          "body_ms": 46.099417,
+          "operation_total_ms": {
+            "begin": 0.241959,
+            "commit": 0.165584,
+            "item_insert": 24.081750999999997,
+            "order_insert": 6.725293999999999,
+            "prepare_item": 0.6735,
+            "prepare_order": 1.465042,
+            "prepare_stock": 0.711917,
+            "statement_close": 0.000166,
+            "stock_update": 11.987832000000001
+          },
+          "residual_ms": 0.04637200000000519,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -173,
+            "innodb_buffer_pool_pages_dirty": -17,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 173,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 9,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 9,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        }
+      ],
+      "body_ms": {
+        "n": 21,
+        "p50": 82.018333,
+        "p95": 102.835292,
+        "min": 41.790167,
+        "max": 115.275709,
+        "sum": 1624.062501
+      },
+      "probe_before_ms": {
+        "n": 21,
+        "p50": 6.852166,
+        "p95": 9.990625,
+        "min": 2.58675,
+        "max": 10.506334,
+        "sum": 133.37837700000003
+      },
+      "probe_after_ms": {
+        "n": 21,
+        "p50": 1.064042,
+        "p95": 3.147958,
+        "min": 0.873417,
+        "max": 4.753291,
+        "sum": 29.165747999999997
+      },
+      "per_child_operation_total_ms": {
+        "begin": {
+          "n": 21,
+          "p50": 0.15,
+          "p95": 1.022208,
+          "min": 0.037292,
+          "max": 16.777333,
+          "sum": 21.153291999999997
+        },
+        "prepare_order": {
+          "n": 21,
+          "p50": 1.024875,
+          "p95": 4.517583,
+          "min": 0.413542,
+          "max": 6.81975,
+          "sum": 33.309876
+        },
+        "prepare_item": {
+          "n": 21,
+          "p50": 0.744334,
+          "p95": 3.378625,
+          "min": 0.546333,
+          "max": 3.901292,
+          "sum": 30.300878
+        },
+        "prepare_stock": {
+          "n": 21,
+          "p50": 0.825542,
+          "p95": 3.638708,
+          "min": 0.647542,
+          "max": 6.077125,
+          "sum": 30.084124
+        },
+        "order_insert": {
+          "n": 21,
+          "p50": 11.205540000000004,
+          "p95": 17.434254999999997,
+          "min": 5.8436639999999995,
+          "max": 17.847793,
+          "sum": 237.60638300000002
+        },
+        "item_insert": {
+          "n": 21,
+          "p50": 42.39112199999999,
+          "p95": 51.202831999999994,
+          "min": 21.778374,
+          "max": 65.242083,
+          "sum": 821.8909109999997
+        },
+        "stock_update": {
+          "n": 21,
+          "p50": 21.847921999999993,
+          "p95": 29.086002999999998,
+          "min": 10.290251000000003,
+          "max": 34.782340000000005,
+          "sum": 440.735153
+        },
+        "commit": {
+          "n": 21,
+          "p50": 0.18325,
+          "p95": 0.67075,
+          "min": 0.111792,
+          "max": 1.755,
+          "sum": 7.4178310000000005
+        },
+        "statement_close": {
+          "n": 21,
+          "p50": 0.00025,
+          "p95": 0.00075,
+          "min": 0.000166,
+          "max": 0.000834,
+          "sum": 0.007339
+        }
+      },
+      "per_call_operation_ms": {
+        "begin": {
+          "n": 21,
+          "p50": 0.15,
+          "p95": 1.022208,
+          "min": 0.037292,
+          "max": 16.777333,
+          "sum": 21.153291999999997
+        },
+        "prepare_order": {
+          "n": 21,
+          "p50": 1.024875,
+          "p95": 4.517583,
+          "min": 0.413542,
+          "max": 6.81975,
+          "sum": 33.309876
+        },
+        "prepare_item": {
+          "n": 21,
+          "p50": 0.744334,
+          "p95": 3.378625,
+          "min": 0.546333,
+          "max": 3.901292,
+          "sum": 30.300878
+        },
+        "prepare_stock": {
+          "n": 21,
+          "p50": 0.825542,
+          "p95": 3.638708,
+          "min": 0.647542,
+          "max": 6.077125,
+          "sum": 30.084124
+        },
+        "order_insert": {
+          "n": 840,
+          "p50": 0.170104,
+          "p95": 0.718875,
+          "min": 0.1195,
+          "max": 3.762292,
+          "sum": 237.60638300000008
+        },
+        "item_insert": {
+          "n": 2100,
+          "p50": 0.2363755,
+          "p95": 0.973625,
+          "min": 0.183709,
+          "max": 10.439042,
+          "sum": 821.8909110000004
+        },
+        "stock_update": {
+          "n": 2100,
+          "p50": 0.1161665,
+          "p95": 0.529667,
+          "min": 0.086042,
+          "max": 4.539042,
+          "sum": 440.7351529999995
+        },
+        "commit": {
+          "n": 21,
+          "p50": 0.18325,
+          "p95": 0.67075,
+          "min": 0.111792,
+          "max": 1.755,
+          "sum": 7.4178310000000005
+        },
+        "statement_close": {
+          "n": 63,
+          "p50": 8.4e-05,
+          "p95": 0.00025,
+          "min": 4.1e-05,
+          "max": 0.000334,
+          "sum": 0.007339000000000002
+        }
+      },
+      "operation_share_of_total_body_percent": {
+        "begin": 1.3024924833234601,
+        "prepare_order": 2.0510218036245393,
+        "prepare_item": 1.8657458060476455,
+        "prepare_stock": 1.8523993985130498,
+        "order_insert": 14.630371851680357,
+        "item_insert": 50.60709858727289,
+        "stock_update": 27.13781967926861,
+        "commit": 0.45674541438106886,
+        "statement_close": 0.00045189147557320517
+      },
+      "status_delta": {
+        "innodb_buffer_pool_pages_data": {
+          "n": 21,
+          "p50": 0,
+          "p95": 46,
+          "min": -285,
+          "max": 64,
+          "sum": -1520
+        },
+        "innodb_buffer_pool_pages_dirty": {
+          "n": 21,
+          "p50": 12,
+          "p95": 45,
+          "min": -17,
+          "max": 45,
+          "sum": 320
+        },
+        "innodb_buffer_pool_pages_flushed": {
+          "n": 21,
+          "p50": 0,
+          "p95": 150,
+          "min": 0,
+          "max": 151,
+          "sum": 1332
+        },
+        "innodb_buffer_pool_pages_free": {
+          "n": 21,
+          "p50": 0,
+          "p95": 247,
+          "min": -64,
+          "max": 285,
+          "sum": 1529
+        },
+        "innodb_buffer_pool_read_requests": {
+          "n": 21,
+          "p50": 2539,
+          "p95": 2629,
+          "min": 2539,
+          "max": 2757,
+          "sum": 54139
+        },
+        "innodb_buffer_pool_reads": {
+          "n": 21,
+          "p50": 9,
+          "p95": 162,
+          "min": 0,
+          "max": 169,
+          "sum": 849
+        },
+        "innodb_buffer_pool_wait_free": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "innodb_buffer_pool_write_requests": {
+          "n": 21,
+          "p50": 1085,
+          "p95": 1140,
+          "min": 1085,
+          "max": 1140,
+          "sum": 23169
+        },
+        "innodb_log_waits": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "innodb_log_write_requests": {
+          "n": 21,
+          "p50": 1099,
+          "p95": 1100,
+          "min": 1086,
+          "max": 1100,
+          "sum": 23074
+        },
+        "innodb_log_writes": {
+          "n": 21,
+          "p50": 1,
+          "p95": 3,
+          "min": 1,
+          "max": 3,
+          "sum": 37
+        },
+        "innodb_os_log_written": {
+          "n": 21,
+          "p50": 35016,
+          "p95": 35884,
+          "min": 35000,
+          "max": 35896,
+          "sum": 741544
+        },
+        "innodb_pages_read": {
+          "n": 21,
+          "p50": 9,
+          "p95": 162,
+          "min": 0,
+          "max": 169,
+          "sum": 844
+        },
+        "innodb_pages_written": {
+          "n": 21,
+          "p50": 0,
+          "p95": 150,
+          "min": 0,
+          "max": 151,
+          "sum": 1332
+        },
+        "innodb_row_lock_time": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "innodb_row_lock_waits": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "open_table_definitions": {
+          "n": 21,
+          "p50": 4,
+          "p95": 4,
+          "min": 4,
+          "max": 4,
+          "sum": 84
+        },
+        "open_tables": {
+          "n": 21,
+          "p50": 5,
+          "p95": 5,
+          "min": 5,
+          "max": 5,
+          "sum": 105
+        },
+        "opened_table_definitions": {
+          "n": 21,
+          "p50": 4,
+          "p95": 4,
+          "min": 4,
+          "max": 4,
+          "sum": 84
+        },
+        "opened_tables": {
+          "n": 21,
+          "p50": 5,
+          "p95": 5,
+          "min": 5,
+          "max": 5,
+          "sum": 105
+        },
+        "table_open_cache_hits": {
+          "n": 21,
+          "p50": 582,
+          "p95": 582,
+          "min": 582,
+          "max": 582,
+          "sum": 12222
+        },
+        "table_open_cache_misses": {
+          "n": 21,
+          "p50": 5,
+          "p95": 5,
+          "min": 5,
+          "max": 5,
+          "sum": 105
+        },
+        "table_open_cache_overflows": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        }
+      },
+      "missing_status": [
+        "Innodb_rows_inserted",
+        "Innodb_rows_updated"
+      ],
+      "settings_values": {
+        "autocommit": [
+          "ON"
+        ],
+        "check_constraint_checks": [
+          "ON"
+        ],
+        "foreign_key_checks": [
+          "ON"
+        ],
+        "innodb_adaptive_hash_index": [
+          "OFF"
+        ],
+        "innodb_buffer_pool_size": [
+          "16777216"
+        ],
+        "innodb_buffer_pool_size_max": [
+          "16777216"
+        ],
+        "innodb_doublewrite": [
+          "ON"
+        ],
+        "innodb_flush_log_at_trx_commit": [
+          "1"
+        ],
+        "innodb_log_buffer_size": [
+          "2097152"
+        ],
+        "innodb_purge_threads": [
+          "1"
+        ],
+        "innodb_read_io_threads": [
+          "1"
+        ],
+        "innodb_write_io_threads": [
+          "2"
+        ],
+        "query_cache_size": [
+          "1048576"
+        ],
+        "query_cache_type": [
+          "OFF"
+        ],
+        "table_definition_cache": [
+          "400"
+        ],
+        "table_open_cache": [
+          "32"
+        ],
+        "unique_checks": [
+          "ON"
+        ]
+      },
+      "missing_settings": []
+    },
+    "control": {
+      "suite_ms": 507.664,
+      "cpu_ms": 2575.0800000000004,
+      "sample_outer_ms": {
+        "n": 21,
+        "p50": 74.74000000000001,
+        "p95": 81.97699999999998,
+        "min": 40.028999999999996,
+        "max": 102.57000000000001,
+        "sum": 1518.1020000000003
+      },
+      "fork_ms": {
+        "n": 21,
+        "p50": 39.11099999999999,
+        "p95": 43.535,
+        "min": 20.642999999999972,
+        "max": 43.627999999999986,
+        "sum": 748.6769999999999
+      }
+    },
+    "diagnostic": {
+      "suite_ms": 485.173,
+      "cpu_ms": 2713.83,
+      "sample_outer_ms": {
+        "n": 21,
+        "p50": 81.07999999999998,
+        "p95": 93.33000000000001,
+        "min": 60.82499999999999,
+        "max": 97.524,
+        "sum": 1679.0960000000002
+      },
+      "fork_ms": {
+        "n": 21,
+        "p50": 32.91,
+        "p95": 54.255000000000024,
+        "min": 22.201999999999998,
+        "max": 65.62,
+        "sum": 742.0649999999998
+      },
+      "children": [
+        {
+          "lane": "TestApplyDiscount/books_10",
+          "body_ms": 63.235459,
+          "operation_total_ms": {
+            "begin": 0.044083,
+            "commit": 0.258417,
+            "item_insert": 33.68849500000002,
+            "order_insert": 9.411416999999998,
+            "prepare_item": 0.637416,
+            "prepare_order": 0.404792,
+            "prepare_stock": 1.097917,
+            "statement_close": 0.000334,
+            "stock_update": 17.629709
+          },
+          "residual_ms": 0.06287899999997393,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "shared",
+          "body_ms": 62.593,
+          "operation_total_ms": {
+            "begin": 0.037791,
+            "commit": 0.127958,
+            "item_insert": 34.14199799999999,
+            "order_insert": 10.467332999999998,
+            "prepare_item": 0.733833,
+            "prepare_order": 0.459917,
+            "prepare_stock": 0.755459,
+            "statement_close": 0.000249,
+            "stock_update": 15.799629000000005
+          },
+          "residual_ms": 0.06883300000002635,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/one_paid",
+          "body_ms": 68.426459,
+          "operation_total_ms": {
+            "begin": 0.040416,
+            "commit": 0.432584,
+            "item_insert": 36.920457999999996,
+            "order_insert": 10.578583000000002,
+            "prepare_item": 1.960458,
+            "prepare_order": 0.532708,
+            "prepare_stock": 0.995708,
+            "statement_close": 0.001,
+            "stock_update": 16.896375999999997
+          },
+          "residual_ms": 0.068168,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/another_paid",
+          "body_ms": 69.681666,
+          "operation_total_ms": {
+            "begin": 0.033625,
+            "commit": 0.404583,
+            "item_insert": 36.865292999999994,
+            "order_insert": 11.759041999999996,
+            "prepare_item": 0.629583,
+            "prepare_order": 0.42025,
+            "prepare_stock": 1.523667,
+            "statement_close": 0.000584,
+            "stock_update": 17.980797000000006
+          },
+          "residual_ms": 0.06424200000000724,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/shipped",
+          "body_ms": 66.075958,
+          "operation_total_ms": {
+            "begin": 0.376917,
+            "commit": 0.141625,
+            "item_insert": 32.70595699999999,
+            "order_insert": 9.363253,
+            "prepare_item": 2.281542,
+            "prepare_order": 1.151125,
+            "prepare_stock": 2.271333,
+            "statement_close": 0.00025,
+            "stock_update": 17.715165999999993
+          },
+          "residual_ms": 0.06879000000000701,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 29,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -29,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 29,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 29,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/paid",
+          "body_ms": 64.197875,
+          "operation_total_ms": {
+            "begin": 0.087584,
+            "commit": 0.153458,
+            "item_insert": 35.02154999999999,
+            "order_insert": 10.308083000000002,
+            "prepare_item": 0.603417,
+            "prepare_order": 0.430792,
+            "prepare_stock": 1.053709,
+            "statement_close": 0.00025,
+            "stock_update": 16.472670000000004
+          },
+          "residual_ms": 0.06636199999999803,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -99,
+            "innodb_buffer_pool_pages_dirty": -11,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 99,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 12,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1086,
+            "innodb_log_writes": 2,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 12,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/all_paid",
+          "body_ms": 66.938083,
+          "operation_total_ms": {
+            "begin": 0.964041,
+            "commit": 0.463834,
+            "item_insert": 31.807956000000008,
+            "order_insert": 9.625630000000001,
+            "prepare_item": 2.233292,
+            "prepare_order": 4.5505,
+            "prepare_stock": 0.803417,
+            "statement_close": 0.00041600000000000003,
+            "stock_update": 16.420453999999996
+          },
+          "residual_ms": 0.06854300000000535,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -31,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 131,
+            "innodb_buffer_pool_pages_free": 31,
+            "innodb_buffer_pool_read_requests": 2629,
+            "innodb_buffer_pool_reads": 210,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 210,
+            "innodb_pages_written": 131,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/twice",
+          "body_ms": 70.627334,
+          "operation_total_ms": {
+            "begin": 0.04025,
+            "commit": 0.210917,
+            "item_insert": 36.820043000000005,
+            "order_insert": 9.694751999999998,
+            "prepare_item": 0.745375,
+            "prepare_order": 0.553125,
+            "prepare_stock": 1.913792,
+            "statement_close": 0.000792,
+            "stock_update": 20.580419999999997
+          },
+          "residual_ms": 0.06786800000000426,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 6,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -6,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 6,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 6,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/games_0",
+          "body_ms": 69.260083,
+          "operation_total_ms": {
+            "begin": 0.0415,
+            "commit": 0.160458,
+            "item_insert": 36.94670800000001,
+            "order_insert": 9.917999,
+            "prepare_item": 0.659958,
+            "prepare_order": 0.424166,
+            "prepare_stock": 0.776667,
+            "statement_close": 0.00020899999999999998,
+            "stock_update": 20.275208999999997
+          },
+          "residual_ms": 0.05720899999998608,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 0,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": 0,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 0,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35012,
+            "innodb_pages_read": 0,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/music_25",
+          "body_ms": 82.883833,
+          "operation_total_ms": {
+            "begin": 0.391542,
+            "commit": 0.182583,
+            "item_insert": 44.041535,
+            "order_insert": 10.979207,
+            "prepare_item": 1.198916,
+            "prepare_order": 2.013791,
+            "prepare_stock": 2.252917,
+            "statement_close": 0.000291,
+            "stock_update": 21.727703999999996
+          },
+          "residual_ms": 0.09534700000000385,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 143,
+            "innodb_buffer_pool_pages_dirty": 37,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -140,
+            "innodb_buffer_pool_read_requests": 2757,
+            "innodb_buffer_pool_reads": 137,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1116,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 132,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestShipOrder/pending_rejected",
+          "body_ms": 80.197875,
+          "operation_total_ms": {
+            "begin": 0.035667,
+            "commit": 0.231625,
+            "item_insert": 40.43462500000002,
+            "order_insert": 9.99517,
+            "prepare_item": 3.935958,
+            "prepare_order": 3.359666,
+            "prepare_stock": 0.822208,
+            "statement_close": 0.000542,
+            "stock_update": 21.307874000000005
+          },
+          "residual_ms": 0.07453999999997052,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -144,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 131,
+            "innodb_buffer_pool_pages_free": 144,
+            "innodb_buffer_pool_read_requests": 2601,
+            "innodb_buffer_pool_reads": 155,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 155,
+            "innodb_pages_written": 131,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestApplyDiscount/movies_50",
+          "body_ms": 84.863917,
+          "operation_total_ms": {
+            "begin": 0.169292,
+            "commit": 0.195666,
+            "item_insert": 42.84200399999998,
+            "order_insert": 12.098747999999997,
+            "prepare_item": 1.759417,
+            "prepare_order": 1.132208,
+            "prepare_stock": 2.460375,
+            "statement_close": 0.00025,
+            "stock_update": 24.129373000000026
+          },
+          "residual_ms": 0.07658399999999688,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 19,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -19,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 19,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35012,
+            "innodb_pages_read": 19,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/two_lines",
+          "body_ms": 84.979917,
+          "operation_total_ms": {
+            "begin": 0.0405,
+            "commit": 0.379167,
+            "item_insert": 48.88483600000002,
+            "order_insert": 12.411372,
+            "prepare_item": 0.682083,
+            "prepare_order": 0.476958,
+            "prepare_stock": 0.867709,
+            "statement_close": 0.000792,
+            "stock_update": 21.164041000000008
+          },
+          "residual_ms": 0.07245899999998073,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 19,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -19,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 19,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 19,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/five_lines",
+          "body_ms": 77.575417,
+          "operation_total_ms": {
+            "begin": 0.178333,
+            "commit": 0.166584,
+            "item_insert": 39.434790999999976,
+            "order_insert": 9.925918000000001,
+            "prepare_item": 2.360833,
+            "prepare_order": 3.372458,
+            "prepare_stock": 2.521916,
+            "statement_close": 0.00025,
+            "stock_update": 19.548000000000016
+          },
+          "residual_ms": 0.06633399999999767,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 23,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 131,
+            "innodb_buffer_pool_pages_free": -23,
+            "innodb_buffer_pool_read_requests": 2601,
+            "innodb_buffer_pool_reads": 174,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 174,
+            "innodb_pages_written": 131,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCancelOrder/pending",
+          "body_ms": 67.790334,
+          "operation_total_ms": {
+            "begin": 0.053417,
+            "commit": 0.120666,
+            "item_insert": 33.483372,
+            "order_insert": 11.195753000000002,
+            "prepare_item": 2.076625,
+            "prepare_order": 4.612542,
+            "prepare_stock": 1.135958,
+            "statement_close": 0.000251,
+            "stock_update": 15.050915000000002
+          },
+          "residual_ms": 0.06083499999999731,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -163,
+            "innodb_buffer_pool_pages_dirty": -17,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 163,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 28,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 28,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/out_of_stock",
+          "body_ms": 76.0305,
+          "operation_total_ms": {
+            "begin": 0.036416,
+            "commit": 0.262917,
+            "item_insert": 42.855333,
+            "order_insert": 10.102455,
+            "prepare_item": 2.656167,
+            "prepare_order": 0.4735,
+            "prepare_stock": 1.85925,
+            "statement_close": 0.00025,
+            "stock_update": 17.721164000000005
+          },
+          "residual_ms": 0.06304799999999489,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -218,
+            "innodb_buffer_pool_pages_dirty": -1,
+            "innodb_buffer_pool_pages_flushed": 151,
+            "innodb_buffer_pool_pages_free": 218,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 3,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35158,
+            "innodb_pages_read": 3,
+            "innodb_pages_written": 151,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestCreateOrder/one_line",
+          "body_ms": 84.452584,
+          "operation_total_ms": {
+            "begin": 0.037708,
+            "commit": 0.231209,
+            "item_insert": 42.347456,
+            "order_insert": 11.894711999999998,
+            "prepare_item": 1.534959,
+            "prepare_order": 4.099542,
+            "prepare_stock": 0.80975,
+            "statement_close": 0.00020899999999999998,
+            "stock_update": 23.420791999999995
+          },
+          "residual_ms": 0.07624700000000928,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -144,
+            "innodb_buffer_pool_pages_dirty": 45,
+            "innodb_buffer_pool_pages_flushed": 131,
+            "innodb_buffer_pool_pages_free": 144,
+            "innodb_buffer_pool_read_requests": 2601,
+            "innodb_buffer_pool_reads": 155,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1140,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35868,
+            "innodb_pages_read": 155,
+            "innodb_pages_written": 131,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_15",
+          "body_ms": 52.381125,
+          "operation_total_ms": {
+            "begin": 0.040459,
+            "commit": 0.240625,
+            "item_insert": 25.8995,
+            "order_insert": 8.523121999999999,
+            "prepare_item": 1.408375,
+            "prepare_order": 0.464125,
+            "prepare_stock": 2.224583,
+            "statement_close": 0.000333,
+            "stock_update": 13.521127
+          },
+          "residual_ms": 0.05887599999999793,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 10,
+            "innodb_buffer_pool_pages_dirty": -3,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -10,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 9,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1086,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 9,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_29",
+          "body_ms": 55.837083,
+          "operation_total_ms": {
+            "begin": 0.162375,
+            "commit": 0.19175,
+            "item_insert": 29.105339,
+            "order_insert": 8.868625999999995,
+            "prepare_item": 0.708292,
+            "prepare_order": 0.685791,
+            "prepare_stock": 0.812459,
+            "statement_close": 0.00020899999999999998,
+            "stock_update": 15.240918
+          },
+          "residual_ms": 0.06132400000000615,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -231,
+            "innodb_buffer_pool_pages_dirty": -2,
+            "innodb_buffer_pool_pages_flushed": 150,
+            "innodb_buffer_pool_pages_free": 231,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 3,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1100,
+            "innodb_log_writes": 3,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 3,
+            "innodb_pages_written": 150,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_36",
+          "body_ms": 53.468417,
+          "operation_total_ms": {
+            "begin": 0.072708,
+            "commit": 0.175875,
+            "item_insert": 26.668879,
+            "order_insert": 8.302539000000001,
+            "prepare_item": 0.83325,
+            "prepare_order": 0.915625,
+            "prepare_stock": 1.275583,
+            "statement_close": 0.00029299999999999997,
+            "stock_update": 15.16090800000001
+          },
+          "residual_ms": 0.06275699999999063,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": 44,
+            "innodb_buffer_pool_pages_dirty": 12,
+            "innodb_buffer_pool_pages_flushed": 0,
+            "innodb_buffer_pool_pages_free": -44,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 44,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1099,
+            "innodb_log_writes": 1,
+            "innodb_os_log_written": 35000,
+            "innodb_pages_read": 44,
+            "innodb_pages_written": 0,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        },
+        {
+          "lane": "TestDeleteUser/user_22",
+          "body_ms": 52.383333,
+          "operation_total_ms": {
+            "begin": 0.063125,
+            "commit": 0.14,
+            "item_insert": 27.844077000000006,
+            "order_insert": 7.6624170000000005,
+            "prepare_item": 0.940416,
+            "prepare_order": 0.795292,
+            "prepare_stock": 0.781083,
+            "statement_close": 0.000251,
+            "stock_update": 14.109962999999995
+          },
+          "residual_ms": 0.04670899999999989,
+          "status_delta": {
+            "innodb_buffer_pool_pages_data": -55,
+            "innodb_buffer_pool_pages_dirty": -7,
+            "innodb_buffer_pool_pages_flushed": 149,
+            "innodb_buffer_pool_pages_free": 54,
+            "innodb_buffer_pool_read_requests": 2539,
+            "innodb_buffer_pool_reads": 9,
+            "innodb_buffer_pool_wait_free": 0,
+            "innodb_buffer_pool_write_requests": 1085,
+            "innodb_log_waits": 0,
+            "innodb_log_write_requests": 1086,
+            "innodb_log_writes": 2,
+            "innodb_os_log_written": 35016,
+            "innodb_pages_read": 9,
+            "innodb_pages_written": 149,
+            "innodb_row_lock_time": 0,
+            "innodb_row_lock_waits": 0,
+            "open_table_definitions": 4,
+            "open_tables": 5,
+            "opened_table_definitions": 4,
+            "opened_tables": 5,
+            "table_open_cache_hits": 582,
+            "table_open_cache_misses": 5,
+            "table_open_cache_overflows": 0
+          },
+          "missing_status": [
+            "Innodb_rows_inserted",
+            "Innodb_rows_updated"
+          ]
+        }
+      ],
+      "body_ms": {
+        "n": 21,
+        "p50": 68.426459,
+        "p95": 84.863917,
+        "min": 52.381125,
+        "max": 84.979917,
+        "sum": 1453.8802519999997
+      },
+      "probe_before_ms": {
+        "n": 21,
+        "p50": 7.934625,
+        "p95": 17.576542,
+        "min": 2.551625,
+        "max": 29.658458,
+        "sum": 194.55433599999998
+      },
+      "probe_after_ms": {
+        "n": 21,
+        "p50": 1.232667,
+        "p95": 2.510583,
+        "min": 0.910542,
+        "max": 2.578292,
+        "sum": 30.616707999999996
+      },
+      "per_child_operation_total_ms": {
+        "begin": {
+          "n": 21,
+          "p50": 0.044083,
+          "p95": 0.391542,
+          "min": 0.033625,
+          "max": 0.964041,
+          "sum": 2.9477489999999995
+        },
+        "prepare_order": {
+          "n": 21,
+          "p50": 0.685791,
+          "p95": 4.5505,
+          "min": 0.404792,
+          "max": 4.612542,
+          "sum": 31.328872999999998
+        },
+        "prepare_item": {
+          "n": 21,
+          "p50": 1.198916,
+          "p95": 2.656167,
+          "min": 0.603417,
+          "max": 3.935958,
+          "sum": 30.580164999999997
+        },
+        "prepare_stock": {
+          "n": 21,
+          "p50": 1.097917,
+          "p95": 2.460375,
+          "min": 0.755459,
+          "max": 2.521916,
+          "sum": 29.015459999999997
+        },
+        "order_insert": {
+          "n": 21,
+          "p50": 9.99517,
+          "p95": 12.098747999999997,
+          "min": 7.6624170000000005,
+          "max": 12.411372,
+          "sum": 213.086131
+        },
+        "item_insert": {
+          "n": 21,
+          "p50": 36.820043000000005,
+          "p95": 44.041535,
+          "min": 25.8995,
+          "max": 48.88483600000002,
+          "sum": 758.7602049999998
+        },
+        "stock_update": {
+          "n": 21,
+          "p50": 17.715165999999993,
+          "p95": 23.420791999999995,
+          "min": 13.521127,
+          "max": 24.129373000000026,
+          "sum": 381.873209
+        },
+        "commit": {
+          "n": 21,
+          "p50": 0.195666,
+          "p95": 0.432584,
+          "min": 0.120666,
+          "max": 0.463834,
+          "sum": 4.872500999999999
+        },
+        "statement_close": {
+          "n": 21,
+          "p50": 0.000251,
+          "p95": 0.000792,
+          "min": 0.00020899999999999998,
+          "max": 0.001,
+          "sum": 0.008005000000000002
+        }
+      },
+      "per_call_operation_ms": {
+        "begin": {
+          "n": 21,
+          "p50": 0.044083,
+          "p95": 0.391542,
+          "min": 0.033625,
+          "max": 0.964041,
+          "sum": 2.9477489999999995
+        },
+        "prepare_order": {
+          "n": 21,
+          "p50": 0.685791,
+          "p95": 4.5505,
+          "min": 0.404792,
+          "max": 4.612542,
+          "sum": 31.328872999999998
+        },
+        "prepare_item": {
+          "n": 21,
+          "p50": 1.198916,
+          "p95": 2.656167,
+          "min": 0.603417,
+          "max": 3.935958,
+          "sum": 30.580164999999997
+        },
+        "prepare_stock": {
+          "n": 21,
+          "p50": 1.097917,
+          "p95": 2.460375,
+          "min": 0.755459,
+          "max": 2.521916,
+          "sum": 29.015459999999997
+        },
+        "order_insert": {
+          "n": 840,
+          "p50": 0.1785,
+          "p95": 0.54125,
+          "min": 0.13375,
+          "max": 2.40825,
+          "sum": 213.0861309999999
+        },
+        "item_insert": {
+          "n": 2100,
+          "p50": 0.2450415,
+          "p95": 0.773209,
+          "min": 0.202083,
+          "max": 6.093375,
+          "sum": 758.7602049999982
+        },
+        "stock_update": {
+          "n": 2100,
+          "p50": 0.121646,
+          "p95": 0.398083,
+          "min": 0.092416,
+          "max": 1.908167,
+          "sum": 381.87320899999924
+        },
+        "commit": {
+          "n": 21,
+          "p50": 0.195666,
+          "p95": 0.432584,
+          "min": 0.120666,
+          "max": 0.463834,
+          "sum": 4.872500999999999
+        },
+        "statement_close": {
+          "n": 63,
+          "p50": 8.4e-05,
+          "p95": 0.000292,
+          "min": 4.1e-05,
+          "max": 0.000417,
+          "sum": 0.008005
+        }
+      },
+      "operation_share_of_total_body_percent": {
+        "begin": 0.20275046696211677,
+        "prepare_order": 2.154845487233429,
+        "prepare_item": 2.103348261174401,
+        "prepare_stock": 1.995725573690508,
+        "order_insert": 14.656374258256314,
+        "item_insert": 52.18863135091266,
+        "stock_update": 26.265795169491035,
+        "commit": 0.33513771119026103,
+        "statement_close": 0.0005505955520743948
+      },
+      "status_delta": {
+        "innodb_buffer_pool_pages_data": {
+          "n": 21,
+          "p50": 0,
+          "p95": 44,
+          "min": -231,
+          "max": 143,
+          "sum": -792
+        },
+        "innodb_buffer_pool_pages_dirty": {
+          "n": 21,
+          "p50": 12,
+          "p95": 45,
+          "min": -17,
+          "max": 45,
+          "sum": 296
+        },
+        "innodb_buffer_pool_pages_flushed": {
+          "n": 21,
+          "p50": 0,
+          "p95": 150,
+          "min": 0,
+          "max": 151,
+          "sum": 1274
+        },
+        "innodb_buffer_pool_pages_free": {
+          "n": 21,
+          "p50": 0,
+          "p95": 218,
+          "min": -140,
+          "max": 231,
+          "sum": 794
+        },
+        "innodb_buffer_pool_read_requests": {
+          "n": 21,
+          "p50": 2539,
+          "p95": 2629,
+          "min": 2539,
+          "max": 2757,
+          "sum": 53813
+        },
+        "innodb_buffer_pool_reads": {
+          "n": 21,
+          "p50": 12,
+          "p95": 174,
+          "min": 0,
+          "max": 210,
+          "sum": 1012
+        },
+        "innodb_buffer_pool_wait_free": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "innodb_buffer_pool_write_requests": {
+          "n": 21,
+          "p50": 1085,
+          "p95": 1140,
+          "min": 1085,
+          "max": 1140,
+          "sum": 23036
+        },
+        "innodb_log_waits": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "innodb_log_write_requests": {
+          "n": 21,
+          "p50": 1099,
+          "p95": 1100,
+          "min": 1086,
+          "max": 1100,
+          "sum": 23043
+        },
+        "innodb_log_writes": {
+          "n": 21,
+          "p50": 1,
+          "p95": 3,
+          "min": 1,
+          "max": 3,
+          "sum": 29
+        },
+        "innodb_os_log_written": {
+          "n": 21,
+          "p50": 35012,
+          "p95": 35868,
+          "min": 35000,
+          "max": 35868,
+          "sum": 739586
+        },
+        "innodb_pages_read": {
+          "n": 21,
+          "p50": 12,
+          "p95": 174,
+          "min": 0,
+          "max": 210,
+          "sum": 1007
+        },
+        "innodb_pages_written": {
+          "n": 21,
+          "p50": 0,
+          "p95": 150,
+          "min": 0,
+          "max": 151,
+          "sum": 1274
+        },
+        "innodb_row_lock_time": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "innodb_row_lock_waits": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        },
+        "open_table_definitions": {
+          "n": 21,
+          "p50": 4,
+          "p95": 4,
+          "min": 4,
+          "max": 4,
+          "sum": 84
+        },
+        "open_tables": {
+          "n": 21,
+          "p50": 5,
+          "p95": 5,
+          "min": 5,
+          "max": 5,
+          "sum": 105
+        },
+        "opened_table_definitions": {
+          "n": 21,
+          "p50": 4,
+          "p95": 4,
+          "min": 4,
+          "max": 4,
+          "sum": 84
+        },
+        "opened_tables": {
+          "n": 21,
+          "p50": 5,
+          "p95": 5,
+          "min": 5,
+          "max": 5,
+          "sum": 105
+        },
+        "table_open_cache_hits": {
+          "n": 21,
+          "p50": 582,
+          "p95": 582,
+          "min": 582,
+          "max": 582,
+          "sum": 12222
+        },
+        "table_open_cache_misses": {
+          "n": 21,
+          "p50": 5,
+          "p95": 5,
+          "min": 5,
+          "max": 5,
+          "sum": 105
+        },
+        "table_open_cache_overflows": {
+          "n": 21,
+          "p50": 0,
+          "p95": 0,
+          "min": 0,
+          "max": 0,
+          "sum": 0
+        }
+      },
+      "missing_status": [
+        "Innodb_rows_inserted",
+        "Innodb_rows_updated"
+      ],
+      "settings_values": {
+        "autocommit": [
+          "ON"
+        ],
+        "check_constraint_checks": [
+          "ON"
+        ],
+        "foreign_key_checks": [
+          "ON"
+        ],
+        "innodb_adaptive_hash_index": [
+          "OFF"
+        ],
+        "innodb_buffer_pool_size": [
+          "16777216"
+        ],
+        "innodb_buffer_pool_size_max": [
+          "16777216"
+        ],
+        "innodb_doublewrite": [
+          "ON"
+        ],
+        "innodb_flush_log_at_trx_commit": [
+          "1"
+        ],
+        "innodb_log_buffer_size": [
+          "2097152"
+        ],
+        "innodb_purge_threads": [
+          "1"
+        ],
+        "innodb_read_io_threads": [
+          "1"
+        ],
+        "innodb_write_io_threads": [
+          "2"
+        ],
+        "query_cache_size": [
+          "1048576"
+        ],
+        "query_cache_type": [
+          "OFF"
+        ],
+        "table_definition_cache": [
+          "400"
+        ],
+        "table_open_cache": [
+          "32"
+        ],
+        "unique_checks": [
+          "ON"
+        ]
+      },
+      "missing_settings": []
+    }
+  },
+  "interpretation": "One current-only P8 primary suite per mode; warmups separate. Status probes warm the connection and may perturb scheduling/caches. No speedup or causal setting benefit claim."
+}

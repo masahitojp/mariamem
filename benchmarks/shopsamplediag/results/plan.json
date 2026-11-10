@@ -1,0 +1,28 @@
+{
+  "question": "Which parts of child sample loading consume time, and is cache/log pressure visible without settings changes?",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "harness_ancestor": "c0b696046dca55c648a1268fbd24168b02ec855c",
+  "go": "go1.27.3",
+  "parallel": 8,
+  "max_forks": 9,
+  "transport": "Pipe",
+  "cases": {
+    "read": 50,
+    "write": 20
+  },
+  "processes": [
+    "control-warmup",
+    "diagnostic-warmup",
+    "control",
+    "diagnostic"
+  ],
+  "primary_repeats": 1,
+  "scope": "Current mariamem only; no pgmem/old arm; no configuration or product changes. Timing observer changes scheduling; coarse counters do not identify internal wait owner.",
+  "stop": "Stop on first failure or after four processes, no retries or automatic parameter experiments",
+  "budget": {
+    "timeout_seconds": 1200,
+    "owned_gib": 8,
+    "min_free_gib": 12,
+    "per_process_seconds": 150
+  }
+}

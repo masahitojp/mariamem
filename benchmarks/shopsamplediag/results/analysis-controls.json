@@ -1,0 +1,18 @@
+[
+  {
+    "control": "missing_run",
+    "result": "REJECTED"
+  },
+  {
+    "control": "operation_count",
+    "result": "REJECTED"
+  },
+  {
+    "control": "unreaped_mapping",
+    "result": "REJECTED"
+  },
+  {
+    "control": "missing_counter_explicit",
+    "result": "PRESERVED_AS_MISSING"
+  }
+]
