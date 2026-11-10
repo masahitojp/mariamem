@@ -1,0 +1,47 @@
+{
+  "question": "Does overlap with other children SQL/cleanup contribute to longer parallel Fork?",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "harness_ancestor": "9edc93e59ee53cda4437b579a9e8760d3cae89c3",
+  "go": "go1.26.10",
+  "route": "Pipe",
+  "count": 48,
+  "seed_rows": 1000,
+  "parallel": [
+    4,
+    8
+  ],
+  "cap": "equals parallel; startup/ready/SQL/cleanup all occupy slots",
+  "arms": [
+    "mixed",
+    "wave"
+  ],
+  "pairs": 3,
+  "order": "rotate P4/P8 each round, alternate arm order; same binary",
+  "controls": "positive2children/P1 and wrong-seed4children/P4 per arm; barrier unit/race tests",
+  "warmup": "one full48children per P/arm before primaries",
+  "diagnostic": "one extra pair per P after primaries, existing per-child timing only; never pool with primary speed samples",
+  "primary_processes": 12,
+  "total_processes": 24,
+  "settings": "unchanged read1/buffer16MiB; GOMAXPROCS8/GOGC100/CGO0",
+  "metrics": [
+    "suite and batch wall",
+    "suite and batch process CPU",
+    "per-child Fork p50/p95/max",
+    "SQL/retire/Close spans and >100ms counts",
+    "lifetime high-water RSS",
+    "overlap with other child SQL and cleanup",
+    "wave barrier wait",
+    "SQL/isolation/cap/mapping/scratch cleanup"
+  ],
+  "interpretation": "wave is a workload scheduling intervention, not CPU/bandwidth isolation or product recommendation; all barriers/drain charged to suite. Fork improvement alone is not total speed improvement.",
+  "stop": "first unexpected error/cleanup failure or fixed processes completed. Preserve failure; no retry/extra rounds. Close investigation remains paused.",
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 20,
+    "heavy_ci": 0,
+    "timeout_seconds": 1800,
+    "process_timeout_seconds": 190,
+    "owned_gib": 6,
+    "min_free_gib": 12
+  }
+}
