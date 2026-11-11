@@ -62,7 +62,9 @@ func checkSettings(p *sql.DB, r *trace.Recorder) {
 	var name string
 	var readThreads int
 	must(p.QueryRow("SHOW VARIABLES LIKE 'innodb_read_io_threads'").Scan(&name, &readThreads))
-	if readThreads != 1 { panic("unexpected read IO threads") }
+	if readThreads != 1 {
+		panic("unexpected read IO threads")
+	}
 	r.Set("innodb_read_io_threads", strconv.Itoa(readThreads))
 	var v string
 	must(p.QueryRow("SELECT VERSION()").Scan(&v))

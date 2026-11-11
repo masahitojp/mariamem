@@ -55,7 +55,10 @@ func retire(owner *database, p *sql.DB) {
 	must(owner.close())
 }
 func TestMain(m *testing.M) {
-	if os.Getenv("TIMER_LIFECYCLE") == "1" { lifecycleBatch(); return }
+	if os.Getenv("TIMER_LIFECYCLE") == "1" {
+		lifecycleBatch()
+		return
+	}
 	if os.Getenv("TIMER_ANALYZE_PROBE") == "1" {
 		analyzeProbe()
 		return
