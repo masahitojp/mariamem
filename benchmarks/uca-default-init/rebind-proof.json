@@ -1,0 +1,30 @@
+{
+  "sources": {
+    "prior": "b0c457e1d314b8a957ff7b149d400be4ae05a146",
+    "current": "500020e7dc6d702ef059f0e73a4bab738103b774"
+  },
+  "method": "Full bodies compared after replacing helper call names with hashes of their complete definition, normalizing only each helper declaration name. No other substitutions.",
+  "functions": [
+    {
+      "function": 465,
+      "literal_body_equal": false,
+      "verified_helper_body_normalized_equal": true,
+      "prior_body_sha256": "89c7cc319228b710e472b8ff47a67a39ac4dfd646a21caaee2f670f373a7fe50",
+      "current_body_sha256": "f9359e097155334b54c8d12373467668892ecf30ce3b5cbd7c45cbec0bed45c8"
+    },
+    {
+      "function": 468,
+      "literal_body_equal": false,
+      "verified_helper_body_normalized_equal": true,
+      "prior_body_sha256": "04d9c239de481f9095741c02372c00859990871f35723d5534d8d9de1a5f449a",
+      "current_body_sha256": "210e096d6c8fea0d194587327c21a120455edad29b88352b2a3deaef445b155b"
+    },
+    {
+      "function": 610,
+      "literal_body_equal": true,
+      "verified_helper_body_normalized_equal": true,
+      "prior_body_sha256": "71c418c83682932cf9f12a0a2d776a7492e33c9dfd5e8cf6c8c78563e4383b88",
+      "current_body_sha256": "71c418c83682932cf9f12a0a2d776a7492e33c9dfd5e8cf6c8c78563e4383b88"
+    }
+  ]
+}

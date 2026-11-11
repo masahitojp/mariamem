@@ -1,0 +1,31 @@
+{
+  "runs": [
+    {
+      "result": "PASS_DIAGNOSTIC",
+      "sql_cases": 70,
+      "forks": 21,
+      "fresh": 1,
+      "uca_records": 110,
+      "phase_count_oracle": "3 occurrences per selected phase per collation",
+      "active_mappings_after": 0,
+      "scratch_empty": true,
+      "binary_sha256": "9695ad570df10a7646bd47dc8e45c5e36652b34722134b896808a7aa7c188a44"
+    },
+    {
+      "result": "PASS_DIAGNOSTIC",
+      "sql_cases": 70,
+      "forks": 21,
+      "fresh": 1,
+      "uca_records": 110,
+      "phase_count_oracle": "3 occurrences per selected phase per collation",
+      "active_mappings_after": 0,
+      "scratch_empty": true,
+      "binary_sha256": "9695ad570df10a7646bd47dc8e45c5e36652b34722134b896808a7aa7c188a44"
+    }
+  ],
+  "raw_observation_sha256": {
+    "uca-0.jsonl": "10039035d80069014d866beb3761d6ca21a1c877bff8cefcea51c05573759780",
+    "uca-1.jsonl": "ca20c3ed58eaf9f539b4d7d020397cde90aa0d2a0f3ffc37a4c20c497335eb84"
+  },
+  "reduction": "All per-collation phase counts and durations retained in observations.csv; routine logs and full upstream source omitted."
+}

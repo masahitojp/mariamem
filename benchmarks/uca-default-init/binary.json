@@ -1,0 +1,9 @@
+{
+  "source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774",
+  "harness_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+  "binary_sha256": "9695ad570df10a7646bd47dc8e45c5e36652b34722134b896808a7aa7c188a44",
+  "go": "1.26.10",
+  "route": "Pipe",
+  "parallel": 4,
+  "fork_cap": 5
+}

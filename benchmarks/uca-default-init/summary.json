@@ -1,0 +1,96 @@
+{
+  "unit": "elapsed milliseconds, diagnostic observer enabled",
+  "p95_method": "nearest rank",
+  "groups": {
+    "fresh": {
+      "n": 2,
+      "phases": {
+        "setup": {
+          "p50_ms": 0.0025615,
+          "p95_ms": 0.002624,
+          "aggregate_share_percent": 0.11627650976184764
+        },
+        "pages": {
+          "p50_ms": 0.485395,
+          "p95_ms": 0.530332,
+          "aggregate_share_percent": 22.033978706169055
+        },
+        "contractions": {
+          "p50_ms": 0.8445640000000001,
+          "p95_ms": 0.925668,
+          "aggregate_share_percent": 38.33806527054659
+        },
+        "hash_allocate": {
+          "p50_ms": 0.061375,
+          "p95_ms": 0.066417,
+          "aggregate_share_percent": 2.7860514490077684
+        },
+        "hash_zero": {
+          "p50_ms": 0.20833400000000002,
+          "p95_ms": 0.227668,
+          "aggregate_share_percent": 9.45709560207877
+        },
+        "hash_populate": {
+          "p50_ms": 0.5803754999999999,
+          "p95_ms": 0.640667,
+          "aggregate_share_percent": 26.345515319651458
+        },
+        "remaining": {
+          "p50_ms": 0.003144,
+          "p95_ms": 0.003331,
+          "aggregate_share_percent": 0.14271846445100486
+        },
+        "total": {
+          "p50_ms": 2.2029385,
+          "p95_ms": 2.425293,
+          "aggregate_share_percent": 100.0
+        }
+      }
+    },
+    "fork": {
+      "n": 42,
+      "phases": {
+        "setup": {
+          "p50_ms": 0.0032505,
+          "p95_ms": 0.004917,
+          "aggregate_share_percent": 0.1396770950651945
+        },
+        "pages": {
+          "p50_ms": 0.4842075,
+          "p95_ms": 0.928454,
+          "aggregate_share_percent": 22.13343277483288
+        },
+        "contractions": {
+          "p50_ms": 0.8347495,
+          "p95_ms": 1.439752,
+          "aggregate_share_percent": 37.817751816029464
+        },
+        "hash_allocate": {
+          "p50_ms": 0.0701875,
+          "p95_ms": 0.126542,
+          "aggregate_share_percent": 3.2578347038409716
+        },
+        "hash_zero": {
+          "p50_ms": 0.2319575,
+          "p95_ms": 0.320167,
+          "aggregate_share_percent": 10.235101328004312
+        },
+        "hash_populate": {
+          "p50_ms": 0.559145,
+          "p95_ms": 1.163418,
+          "aggregate_share_percent": 26.09768229715703
+        },
+        "remaining": {
+          "p50_ms": 0.0030410000000000003,
+          "p95_ms": 0.005169,
+          "aggregate_share_percent": 0.13779602364077628
+        },
+        "total": {
+          "p50_ms": 2.2113965,
+          "p95_ms": 3.958083,
+          "aggregate_share_percent": 100.0
+        }
+      }
+    }
+  }
+}

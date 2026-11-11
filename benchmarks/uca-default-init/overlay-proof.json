@@ -1,0 +1,53 @@
+{
+  "source": {
+    "object_sha": "500020e7dc6d702ef059f0e73a4bab738103b774",
+    "object_type": "commit",
+    "source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774"
+  },
+  "files": [
+    {
+      "path": "internal/generatedgo/code/base/base.go",
+      "original_sha256": "729c92214dc6302ce1f56f014b7a0d919a154a8df08b79cb475a39d261276e60",
+      "overlay_sha256": "bf02a1621e9da3502fa967121227c793074ab234e5442fd5da2960329d9841de"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "original_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "overlay_sha256": "76a093532f44b3b6adb04fea4fd0bf6d4a399c40548cb31874cd6eaf9f999886"
+    },
+    {
+      "function": 468,
+      "anchors": [
+        [
+          "pages",
+          "L13:\n\t;"
+        ],
+        [
+          "contractions",
+          "L122:\n\t;"
+        ],
+        [
+          "hash_allocate",
+          "L361:\n\t;"
+        ],
+        [
+          "hash_zero",
+          "\tbase.MemoryFill(m, v2281, v2286, int32(245760))"
+        ],
+        [
+          "remaining",
+          "L359:\n\t;"
+        ]
+      ],
+      "unit": "elapsed ns, phase intervals; remaining includes booster and following level validation"
+    },
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "original_sha256": "3195a31b3597ff05ed5d41e46d28fa545d47cd09666a5624b878548d39419008",
+      "overlay_sha256": "227f15682dbb9225fc8a6d7690fe5cd7be44ad9f906020c1f2527b9f087ac68c"
+    }
+  ],
+  "probe_sha256": "9b615a4ffa9ea16b7f2049efcb2f58230884c81311409e9c9ae2895c1bb65a81",
+  "original_instruction_recovery": "PASS",
+  "limitations": "elapsed diagnostic intervals; logging happens after recorded UCA interval but affects later scheduling; no observer-off performance claim"
+}
