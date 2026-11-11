@@ -267,3 +267,23 @@
      return my_timer_cycles();
  #else
      return my_timer_microseconds();
+--- a/mysys/my_rdtsc.c
++++ b/mysys/my_rdtsc.c
+@@ -534,6 +534,17 @@
+   {
+     if (mti->milliseconds.routine == MY_TIMER_ROUTINE_TIME)
+       mti->milliseconds.resolution= 1000;
++#if defined(__wasi__) && !defined(HAVE_PSI_INTERFACE) && \
++    defined(MY_CLOCK_ID) && defined(CLOCK_MONOTONIC) && \
++    MY_CLOCK_ID == CLOCK_MONOTONIC
++    else if (!mti->cycles.routine &&
++             mti->milliseconds.routine == MY_TIMER_ROUTINE_CLOCK_GETTIME)
++      /* Bounded embedded WASI profile: nominal integer-millisecond unit,
++         not a measured host/scheduler resolution. No PFS consumer is built,
++         and without cycles the frequency-calibration paths below are off.
++         Keep discovery, frequencies, overhead and real clock reads intact. */
++      mti->milliseconds.resolution= 1;
++#endif
+     else
+       mti->milliseconds.resolution=
+       my_timer_init_resolution(&my_timer_milliseconds, 0);
