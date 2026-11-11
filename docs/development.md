@@ -27,6 +27,48 @@ Issues own checklists and acceptance evidence; [project status](project-status.m
 retains approved scope and decisions. Keep reference-only accepted limitations
 without a release milestone unless work on them is explicitly scheduled.
 
+## Preparing a PR for review
+
+The PR author (including Codex) owns this pass **before moving Draft/WIP to Ready
+for review or requesting Human Review**. Apply it also to PRs opened directly as
+Ready. WIP is a place to iterate, not a reason to retain raw evidence in the
+final diff. Keep routine collection output in owned scratch or CI artifacts.
+
+1. Inspect the complete diff against the current PR base, not only the latest
+   commit. Separate authored code, required generated product code, regression
+   inputs, documentation and evidence. For a large diff, explain its dominant
+   files and why they belong; do not hand-trim canonical generated code merely
+   to reduce line counts.
+2. Reduce new/revised evidence under [Compact CI receipts](#compact-ci-receipts).
+   Remove routine console logs, full REST responses, duplicate host/build
+   metadata and disposable outputs. Keep decision-relevant unique observations,
+   exact source/run/job/artifact identities, essential outcomes and checksums.
+   Verify original bytes before reduction and retain original hashes plus the
+   inspected source anchor. A CI link alone is insufficient if artifact expiry
+   would remove facts needed to assess the claim; compression alone is not
+   reduction. Leave unrelated historical receipts in their original context.
+3. Verify retained checksums, references and the correspondence between summaries
+   and original results. State the tested source and any reuse basis without
+   relabeling receipts as head PASS. Check diff/status and use verification
+   proportional to the changed boundary; documentation-only reduction does not
+   require rebuilding or rerunning unchanged runtime acceptance or benchmarks.
+4. Rewrite the PR title/body around the final change, validation, limitations
+   and decision requested. Record the short checklist below in the PR body;
+   mark evidence reduction not applicable, with a reason, when none was added.
+   Complete this pass before setting Ready. If new results or scope arrive after
+   Ready, refresh the affected checks and body before the next review request.
+
+```markdown
+- [ ] Final base-to-head diff inspected; large/generated changes explained.
+- [ ] Evidence reduced and identities preserved (or N/A with reason).
+- [ ] Retained results/checksums/references checked; tested source stated.
+- [ ] PR body matches final scope, validation and remaining limitations.
+```
+
+This is an author workflow requirement, not an automated CI/content gate or an
+additional Human approval. It adds no mandatory report file, measurement campaign
+or heavy CI run. CI success alone does not establish that evidence is compact.
+
 ## Bounded investigations
 
 Human-approved working rule, 2026-10-30, following the P1 process review. Apply
