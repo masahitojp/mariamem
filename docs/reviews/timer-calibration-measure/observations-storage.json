@@ -1,0 +1,7 @@
+{
+  "method": "Lossless gzip decompression into minified JSON to satisfy public-source no-binary rule; no observation filtered or rewritten",
+  "original_gzip_sha256": "9e38ee48bc31e5c6ad5a69580be5bde6c4ee1f4cff598737a8273c55a85871fe",
+  "published_json_sha256": "1098d92ca5982a1b2df1075c5598f454f6a4c9f9fc2f3f7f993e0cc36ec50eab",
+  "original_bytes": 40402,
+  "published_bytes": 370772
+}

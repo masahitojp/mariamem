@@ -1,0 +1,736 @@
+{
+  "result": "PASS",
+  "qualification": false,
+  "transport": "PyMySQL/TCP",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "python": "3.14.10",
+  "pymysql": "1.2.0",
+  "binary_sha256": "659139e49a6870d4ef919f9a4f66fbaedad8bb115f46bda8a3b81abc7e9ea6a2",
+  "observations": [
+    {
+      "phase": "fresh",
+      "pair": 0,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.603209,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.043
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.086,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.007,
+                "r_other_time_ms": 0.075,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "fresh",
+      "pair": 0,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 25.986709,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.04
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 25.427,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.015,
+                "r_other_time_ms": 25.41,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "fresh",
+      "pair": 1,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.373625,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.019
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.012,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.005,
+                "r_other_time_ms": 0.005,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "fresh",
+      "pair": 1,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.041916,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.022
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 25.61,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.017,
+                "r_other_time_ms": 25.591,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "fresh",
+      "pair": 2,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.387917,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.021
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.013,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.006,
+                "r_other_time_ms": 0.005,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "fresh",
+      "pair": 2,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.366459,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.023
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 25.882,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.02,
+                "r_other_time_ms": 25.86,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child1",
+      "pair": 0,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.419167,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.025
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.016,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.004,
+                "r_other_time_ms": 0.009,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child1",
+      "pair": 0,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.517583,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.022
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 26.124,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.011,
+                "r_other_time_ms": 26.112,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child1",
+      "pair": 1,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.37375,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.02
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.012,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.006,
+                "r_other_time_ms": 0.004,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child1",
+      "pair": 1,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 23.929,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.021
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 23.406,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.021,
+                "r_other_time_ms": 23.383,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child1",
+      "pair": 2,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.434959,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.028
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.016,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.006,
+                "r_other_time_ms": 0.007,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child1",
+      "pair": 2,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.60125,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.029
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 26.11,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.013,
+                "r_other_time_ms": 26.094,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child2",
+      "pair": 0,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.391875,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.028
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.019,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.004,
+                "r_other_time_ms": 0.011,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child2",
+      "pair": 0,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.498917,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.025
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 26.065,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.007,
+                "r_other_time_ms": 26.056,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child2",
+      "pair": 1,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.334292,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.016
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.01,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.003,
+                "r_other_time_ms": 0.005,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child2",
+      "pair": 1,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.647208,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.019
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 26.09,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.017,
+                "r_other_time_ms": 26.072,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child2",
+      "pair": 2,
+      "delayed": false,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+      "wall_ms": 0.375,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.017
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 0.01,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.005,
+                "r_other_time_ms": 0.003,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    },
+    {
+      "phase": "child2",
+      "pair": 2,
+      "delayed": true,
+      "sql": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+      "wall_ms": 26.497416,
+      "report": {
+        "query_optimization": {
+          "r_total_time_ms": 0.023
+        },
+        "query_block": {
+          "select_id": 1,
+          "cost": 0.0111808,
+          "r_loops": 1,
+          "r_total_time_ms": 26.052,
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "timer_probe",
+                "access_type": "ALL",
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 2,
+                "r_rows": 2,
+                "cost": 0.0111808,
+                "r_table_time_ms": 0.007,
+                "r_other_time_ms": 26.044,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100
+              }
+            }
+          ]
+        }
+      },
+      "subsequent_select": "PASS"
+    }
+  ],
+  "isolated_children": 2,
+  "cleanup": "PASS",
+  "host_exit_code": 0,
+  "remaining_session_refs": 0,
+  "session_directory_exists": false
+}

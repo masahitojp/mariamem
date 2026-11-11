@@ -1,0 +1,47 @@
+{
+  "run": {
+    "id": 42928025946,
+    "head_sha": "1731c394031b781ff813190bf9c42bee63516044",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 1,
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42928025946"
+  },
+  "jobs": [
+    {
+      "id": 130219367115,
+      "name": "guest",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42928025946/job/130219367115"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13815456820,
+      "name": "timer-calibration-evidence-1731c394031b781ff813190bf9c42bee63516044",
+      "digest": "sha256:014463a447a4951ccaba4497c0907c5e4d2304e91cb4f70c93f61cf1b43c4193",
+      "size_in_bytes": 331417,
+      "archive_digest_verified": true
+    },
+    {
+      "id": 13814809081,
+      "name": "timer-calibration-guest-1731c394031b781ff813190bf9c42bee63516044",
+      "digest": "sha256:2f99c67b79caae6a7cc8bee87fc820f3bebd783efb1c26a4e46d3bec9d556342",
+      "size_in_bytes": 11875989,
+      "archive_digest_verified": true
+    }
+  ],
+  "assessment": {
+    "result": "UNQUALIFIED_GUEST_BUILT",
+    "source_commit": "1731c394031b781ff813190bf9c42bee63516044",
+    "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+    "baseline_guest_sha256": "b68fce3a4785f5a9dd858c96572ed0a765ee4352715b416cdf168784054b4fc6",
+    "patch_sha256": "d54085650c1ab94f5f56f80eb3733605f3b9e0ca638544f75987651028580a1c",
+    "runtime_analyze": "NOT_RUN",
+    "host_regeneration": "NOT_RUN",
+    "calibration_change": "milliseconds_resolution_probe_only",
+    "next": "Review strict CRC/ownership binding; rerun actual SQL timing/cleanup; compare against corrected-clock baseline. No speedup claim before paired measurements."
+  },
+  "original_assessment_sha256": "247002f704cef97ecc2c55fea5d99f0d2e5b74723d860f5385f720bbc9909301"
+}

@@ -6,6 +6,19 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## WASI timer startup reduction — bounded Mac comparison completed
+
+The [paired comparison](reviews/timer-calibration-measure/README.md) on2026-11-11
+keeps the corrected SQL clock in both arms. Skipping only the millisecond-resolution
+probe improves sequential Fresh/Fork elapsed in all6 paired batches:
+20.794→18.847ms and18.555→16.776ms. SQL timing, isolation and cleanup pass in both
+arms; the compiled bypass and unchanged host/CRC/ownership bindings are checked.
+The complete shop70 benefit is not established: P4 median570.689→577.152ms and
+P8 median572.549→666.411ms, with P8 sample tails retained in both arms (7/105 above
+100ms each). Recommend retaining a startup-improvement candidate for platform
+confirmation; do not advertise whole-suite acceleration or absence of regression.
+Native comparison, Ubuntu runtime, Human adoption and release remain separate.
+
 ## WASI timer startup reduction — bounded prototype authorized
 
 On2026-11-11 the Human asked to proceed with the startup-cost prototype after

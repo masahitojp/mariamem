@@ -1,0 +1,58 @@
+{
+  "started_at_utc": "2026-11-11T01:09:26.872265+00:00",
+  "arm": "baseline",
+  "kind": "analyze",
+  "repeat": 0,
+  "parallel": 4,
+  "process_wall_ms": 1204.2517090158071,
+  "exit_code": 0,
+  "scratch_empty": true,
+  "data": {
+    "active_mappings_after": 0,
+    "rows": [
+      {
+        "delay": false,
+        "query": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+        "raw": "{\n  \"query_optimization\": {\n    \"r_total_time_ms\": 0.048\n  },\n  \"query_block\": {\n    \"select_id\": 1,\n    \"cost\": 0.0111808,\n    \"r_loops\": 1,\n    \"r_total_time_ms\": 0.115,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"timer_probe\",\n          \"access_type\": \"ALL\",\n          \"loops\": 1,\n          \"r_loops\": 1,\n          \"rows\": 2,\n          \"r_rows\": 2,\n          \"cost\": 0.0111808,\n          \"r_table_time_ms\": 0.061,\n          \"r_other_time_ms\": 0.048,\n          \"r_engine_stats\": {\n            \"pages_accessed\": 1\n          },\n          \"filtered\": 100,\n          \"r_total_filtered\": 100,\n          \"r_filtered\": 100\n        }\n      }\n    ]\n  }\n}",
+        "repeat": 0,
+        "wall_ms": 1.2165
+      },
+      {
+        "delay": true,
+        "query": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+        "raw": "{\n  \"query_optimization\": {\n    \"r_total_time_ms\": 0.052\n  },\n  \"query_block\": {\n    \"select_id\": 1,\n    \"cost\": 0.0111808,\n    \"r_loops\": 1,\n    \"r_total_time_ms\": 26.175,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"timer_probe\",\n          \"access_type\": \"ALL\",\n          \"loops\": 1,\n          \"r_loops\": 1,\n          \"rows\": 2,\n          \"r_rows\": 2,\n          \"cost\": 0.0111808,\n          \"r_table_time_ms\": 0.029,\n          \"r_other_time_ms\": 26.143,\n          \"r_engine_stats\": {\n            \"pages_accessed\": 1\n          },\n          \"filtered\": 100,\n          \"r_total_filtered\": 100,\n          \"r_filtered\": 100\n        }\n      }\n    ]\n  }\n}",
+        "repeat": 0,
+        "wall_ms": 26.621583
+      },
+      {
+        "delay": false,
+        "query": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+        "raw": "{\n  \"query_optimization\": {\n    \"r_total_time_ms\": 0.022\n  },\n  \"query_block\": {\n    \"select_id\": 1,\n    \"cost\": 0.0111808,\n    \"r_loops\": 1,\n    \"r_total_time_ms\": 0.012,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"timer_probe\",\n          \"access_type\": \"ALL\",\n          \"loops\": 1,\n          \"r_loops\": 1,\n          \"rows\": 2,\n          \"r_rows\": 2,\n          \"cost\": 0.0111808,\n          \"r_table_time_ms\": 0.004,\n          \"r_other_time_ms\": 0.006,\n          \"r_engine_stats\": {\n            \"pages_accessed\": 1\n          },\n          \"filtered\": 100,\n          \"r_total_filtered\": 100,\n          \"r_filtered\": 100\n        }\n      }\n    ]\n  }\n}",
+        "repeat": 1,
+        "wall_ms": 0.22225
+      },
+      {
+        "delay": true,
+        "query": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+        "raw": "{\n  \"query_optimization\": {\n    \"r_total_time_ms\": 0.025\n  },\n  \"query_block\": {\n    \"select_id\": 1,\n    \"cost\": 0.0111808,\n    \"r_loops\": 1,\n    \"r_total_time_ms\": 26.133,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"timer_probe\",\n          \"access_type\": \"ALL\",\n          \"loops\": 1,\n          \"r_loops\": 1,\n          \"rows\": 2,\n          \"r_rows\": 2,\n          \"cost\": 0.0111808,\n          \"r_table_time_ms\": 0.023,\n          \"r_other_time_ms\": 26.108,\n          \"r_engine_stats\": {\n            \"pages_accessed\": 1\n          },\n          \"filtered\": 100,\n          \"r_total_filtered\": 100,\n          \"r_filtered\": 100\n        }\n      }\n    ]\n  }\n}",
+        "repeat": 1,
+        "wall_ms": 26.477792
+      },
+      {
+        "delay": false,
+        "query": "ANALYZE FORMAT=JSON SELECT SUM(id) FROM timer_probe",
+        "raw": "{\n  \"query_optimization\": {\n    \"r_total_time_ms\": 0.017\n  },\n  \"query_block\": {\n    \"select_id\": 1,\n    \"cost\": 0.0111808,\n    \"r_loops\": 1,\n    \"r_total_time_ms\": 0.011,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"timer_probe\",\n          \"access_type\": \"ALL\",\n          \"loops\": 1,\n          \"r_loops\": 1,\n          \"rows\": 2,\n          \"r_rows\": 2,\n          \"cost\": 0.0111808,\n          \"r_table_time_ms\": 0.003,\n          \"r_other_time_ms\": 0.005,\n          \"r_engine_stats\": {\n            \"pages_accessed\": 1\n          },\n          \"filtered\": 100,\n          \"r_total_filtered\": 100,\n          \"r_filtered\": 100\n        }\n      }\n    ]\n  }\n}",
+        "repeat": 2,
+        "wall_ms": 0.2145
+      },
+      {
+        "delay": true,
+        "query": "ANALYZE FORMAT=JSON SELECT SUM(id + SLEEP(0.01)) FROM timer_probe",
+        "raw": "{\n  \"query_optimization\": {\n    \"r_total_time_ms\": 0.028\n  },\n  \"query_block\": {\n    \"select_id\": 1,\n    \"cost\": 0.0111808,\n    \"r_loops\": 1,\n    \"r_total_time_ms\": 26.101,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"timer_probe\",\n          \"access_type\": \"ALL\",\n          \"loops\": 1,\n          \"r_loops\": 1,\n          \"rows\": 2,\n          \"r_rows\": 2,\n          \"cost\": 0.0111808,\n          \"r_table_time_ms\": 0.015,\n          \"r_other_time_ms\": 26.084,\n          \"r_engine_stats\": {\n            \"pages_accessed\": 1\n          },\n          \"filtered\": 100,\n          \"r_total_filtered\": 100,\n          \"r_filtered\": 100\n        }\n      }\n    ]\n  }\n}",
+        "repeat": 2,
+        "wall_ms": 26.402541
+      }
+    ],
+    "subsequent_select": "PASS"
+  }
+}

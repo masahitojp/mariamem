@@ -1,0 +1,31 @@
+{
+  "result": "BOUNDED_MAC_COMPARISON_COMPLETE",
+  "question": "Does skipping only the millisecond-resolution probe reduce startup and complete-workload cost while preserving SQL timing?",
+  "conclusion": "Fresh/Fork elapsed improved in all6 paired batches; complete shop70 speedup not established at P4/P8.",
+  "recommendation": "Retain as a bounded startup-improvement candidate; require platform confirmation and separate adoption review, do not advertise overall-suite acceleration.",
+  "baseline_guest_source_commit": "9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+  "candidate_guest_source_commit": "1731c394031b781ff813190bf9c42bee63516044",
+  "harness_source_commit": "f225968c332a692f5bce189b31aed1fab26e642a",
+  "correctness": "PASS both arms: actual PyMySQL/TCP Fresh/two Forks and Go Pipe delayed ANALYZE/SELECT/cleanup",
+  "actual_new_guest": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "native_sql_comparison": "NOT_RUN",
+  "ubuntu_runtime": "NOT_RUN",
+  "product_adoption": "NOT_AUTHORIZED",
+  "qualification": "NOT_RUN",
+  "runtime_retries": 0,
+  "warmup_processes": 6,
+  "measured_processes": 32,
+  "separate_pipe_oracle_processes": 2,
+  "setup_attempts": [
+    "Dirty-tree provenance check rejected staged harness before generation; harness moved out, clean source revalidated, then changes committed.",
+    "Initial host comparison used a relative workspace path and stopped before emitting evidence; absolute-path inventory comparison then passed."
+  ],
+  "source_boundary": "Only docs/tests/development binding installer differ after guest origin; host runtime and SDK unchanged apart from generated guest and exact guest identity.",
+  "verification": {
+    "binding_unit_cases": 10,
+    "public_source_files": 7005,
+    "read_only_replay": "PASS",
+    "diff_check": "PASS",
+    "python_syntax": "PASS"
+  }
+}

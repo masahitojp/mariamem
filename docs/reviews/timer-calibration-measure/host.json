@@ -1,0 +1,9 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M1",
+  "memory_bytes": 17179869184,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "go": "1.26.10",
+  "harness_source_commit": "f225968c332a692f5bce189b31aed1fab26e642a"
+}

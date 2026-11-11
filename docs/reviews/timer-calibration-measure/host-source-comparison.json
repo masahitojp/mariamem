@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "identical_host_sdk_files": 157,
+  "areas": [
+    "internal excluding generatedgo/runtimekind",
+    "cmd",
+    "python excluding bytecode"
+  ],
+  "allowed_runtime_differences": [
+    "generated guest from separately pinned Wasm",
+    "runtimekind.GuestSHA256 identity"
+  ],
+  "baseline_host_source_commit": "7383940e8bd3fbaf4b0a2ff49d28f669ba92e6b2",
+  "candidate_host_source_commit": "f225968c332a692f5bce189b31aed1fab26e642a",
+  "identical_handwritten_generated_glue_files": 53,
+  "runtimekind_only_exact_guest_sha_changed": true
+}
