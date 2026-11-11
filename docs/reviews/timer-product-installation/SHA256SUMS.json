@@ -1,5 +1,8 @@
 {
   "binding-comparison.json": "debabe93bfa7dce715635998ccff1f8c668d99a288559c2a82f5542898c81a41",
+  "checked-commit.json": "5de9551cfdef5f1da956f80612773355decdff6b85431a1f328f4eacb265fd0b",
   "function-map-proof.json": "f4e8eed480d465d3fcfad1f3b8ba7f32caf9e9c2a8d7e8cce7f638595f8c7701",
-  "generated-delta.json": "b4036d32cb79310f1daa1e52bdc5bcfb1358bdba9843a3027631e54b035ea6c0"
+  "generated-delta.json": "b4036d32cb79310f1daa1e52bdc5bcfb1358bdba9843a3027631e54b035ea6c0",
+  "local-result.json": "0241d385fb89cac27a0510839805cea4013ce2cdfabde143f90ca66131ef333e",
+  "runtime-result.json": "16ec9101a49d78b3d008b33a11701a577f35362d5b5e7b669bec45e3beaf97ed"
 }

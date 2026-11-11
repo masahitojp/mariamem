@@ -1,0 +1,25 @@
+{
+  "source_commit": "147e72aea0368c350dbef900abd495d122c2bfd6",
+  "results": [
+    {
+      "name": "host",
+      "exit_code": 0,
+      "seconds": 87.821,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "timer",
+      "exit_code": 0,
+      "seconds": 52.655,
+      "log_sha256": "8d91936a12b36014317fa2874dfa13cdbf9f39df04aa623dca5b5149def0ab3f"
+    },
+    {
+      "name": "actual-tables",
+      "exit_code": 0,
+      "seconds": 4.14,
+      "log_sha256": "805d0ed6d086716caf63f4fd86248cc65ef7011fb34afe0eb636fb3de96ea02f"
+    }
+  ],
+  "result": "PASS_FOCUSED_RUNTIME",
+  "scope": "Timer TCP/Pipe Fresh/two children; actual UCA/lexer and worker; initial host unstamped, separate attributed host recorded in release/generated-license-evidence.json"
+}

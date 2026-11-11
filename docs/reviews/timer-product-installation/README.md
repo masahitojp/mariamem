@@ -21,6 +21,10 @@ worktree layout. The first local host has no VCS stamp and is not attribution
 proof. An exact147e72ae clean local clone produced a correctly stamped host;
 `audit_generated_licenses.py` passed without relaxing its identity requirement.
 An initial daily attempt incorrectly inherited that build-only Git environment;
-it was interrupted, the checkout stayed clean, and tests were rerun without
-GIT_DIR/GIT_WORK_TREE. Subsequent ordinary validation identified the two actual
+it was interrupted, the product checkout stayed clean, and tests were rerun without
+GIT_DIR/GIT_WORK_TREE. The failed attempt had also written shared core.worktree
+and test user settings; those exact test values were removed, the original
+primary-worktree dirty-file list and global user identity were verified restored.
+One unpublished commit's author metadata was corrected without changing its
+tree; checked-commit.json preserves the original measured object for verification. Subsequent ordinary validation identified the two actual
 pin/workflow issues recorded in the checkpoint, which were fixed before CI.

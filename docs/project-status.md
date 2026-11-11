@@ -17,7 +17,7 @@ no uniform speedup or regression-free claim is authorized.
 The canonical patch, normal regression tests and generated provenance must be
 assembled before integration review. Canonical-source bootstrap CI42955063307
 passed on498e186e and its checksum-verified receipt is retained in the
-[product checkpoint](reviews/timer-product.md). Generated Go is installed;
+[product checkpoint](reviews/timer-product.md). Generated Go is installed and local daily/smoke checks pass;
 independent canonical reproduction and both-platform verification remain pending.
 Previous receipts do not describe this new candidate. Main integration,
 Qualification and release remain separate. UCA work is not part of this candidate.

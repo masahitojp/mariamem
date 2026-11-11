@@ -1,0 +1,5 @@
+{
+  "source_commit": "3da600c9210d3106e6d740f6c59f39b5faa42135",
+  "tree": "aab178f91db6d9321294d84b3032025993e38053",
+  "commit_object": "tree aab178f91db6d9321294d84b3032025993e38053\nparent 147e72aea0368c350dbef900abd495d122c2bfd6\nauthor Test <test@example.invalid> 1794370996 +0900\ncommitter Test <test@example.invalid> 1794370996 +0900\n\nfix: align timer candidate preparation pins and manual CI policy\n"
+}
