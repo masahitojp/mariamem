@@ -19,16 +19,22 @@ P8 median572.549→666.411ms, with P8 sample tails retained in both arms (7/105 
 as a startup-improvement candidate, based on the reviewed record37e08920.
 The [retention decision](reviews/timer-calibration-measure/human-decision.json)
 does not approve main integration or product adoption. Do not advertise whole-suite
-acceleration or absence of regression. Native comparison, Ubuntu runtime,
-separate Human adoption, Qualification and release remain outstanding gates.
+acceleration or absence of regression. Separate Human adoption, Qualification
+and release remain outstanding gates.
 
 On 2026-11-11 the Human authorized the next bounded Ubuntu/native confirmation
 and parallel investigation of the other common-startup cost (UCA/collation).
 The [Ubuntu plan](reviews/timer-calibration-measure/ubuntu-plan.md) reuses the
 exact development guest and pinned host source, without relaxing origin checks.
-CI execution and native SQL comparison are not yet PASS. UCA attribution uses
-a separate experiment without the timer change; this does not authorize
-integrating either prototype.
+[CI42940198738](https://github.com/masahitojp/mariamem/actions/runs/42940198738)
+passed at orchestration source `6c654011`, with the unchanged pinned host source
+`f225968c` and guest source `1731c394`. The checksum-verified
+[receipt](reviews/timer-calibration-measure/ci-42940198738/README.md) records
+native/guest SQL semantics and timing, Go Pipe, isolation and cleanup PASS on
+Ubuntu24.04 x86_64. This is runtime confirmation, not an Ubuntu performance
+comparison or Qualification. The next timer gate is separate Human adoption
+review; no integration is authorized by CI success.
+UCA attribution uses a separate experiment without the timer change.
 
 ## WASI timer startup reduction — bounded prototype authorized
 

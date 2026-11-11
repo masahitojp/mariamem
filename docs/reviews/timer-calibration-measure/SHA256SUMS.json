@@ -1,5 +1,5 @@
 {
-  "README.md": "5d398e5832c42bcf92962e21c463da9daef95548a704088f0c8b522c61aa899e",
+  "README.md": "dedaf04f210db69251cfe7071925a492126a1a07cefa023e3ffa3e1fcad8f10a",
   "analyze.py": "335ffcd975ced7c2c4c3927e9b9319190fb250a814a48498b25e2cb17f178fef",
   "assessment.json": "07d71f9cd8809b5d65901a9b041b3b9079e1ee7d5a679816d6a56feed5a33c83",
   "baseline-host.json": "8bee671ff7a57756df77d59c3f298cf0729c1939dca7da6125759585fbf15aea",
@@ -11,6 +11,17 @@
   "candidate-oracle.json": "f62c71a385c795b7755ced371c18b05d95755b6596d10c0ff25247b7eb4253af",
   "candidate-pipe-analyze.json": "babce0e75066758aee4f5c5cd8adc6b76eb485cfa07739faa9a3625111d2957b",
   "candidate-runner.json": "73834d012e352afdcd8b7da290b461af1a5c2c14ad2dffa327a9931d43334196",
+  "ci-42940198738/README.md": "6a8988209bd96909726b56baf22c698a8f70671861bb4c255add179e0b968bbd",
+  "ci-42940198738/artifact-file-sha256.json": "fac01e694eecfb48eba7decc181d20f1bb1b4d6652178c9e403b8ed403427c22",
+  "ci-42940198738/assessment.json": "1ff8fb95065fa3ea01fd1918ddebbe4824b24665209a3321f96bc818299e953e",
+  "ci-42940198738/development-summary.json": "b79bc3ee1cf982a2025562cc3afff1c1f2c960056f75fbf332cf19c0ba7eeec2",
+  "ci-42940198738/guest-sql.json": "39c11c8615c4b3b07861da6abee6b04f7d307195f33c7469292ad8db38675bee",
+  "ci-42940198738/lifecycle.json": "3220f5a4cd2b9e62bcca959ab634b64e1a709033e4f9cff700f0aa169ff7b1c5",
+  "ci-42940198738/native-sql.json": "69f34db85e3150faf77f7a1bb41bf2ffdeeac0018b056c051cfa83d2052d96ed",
+  "ci-42940198738/native-summary.json": "2b9a22b1692d343db4e39726f9b36fde56d7abe3348c02e563e7370988a35b50",
+  "ci-42940198738/pipe-sql.json": "fae9e6321a13cce075bde8b921a92241b04b2d4a19c02d5fb96cd6b3fde4eea6",
+  "ci-42940198738/receipt.json": "44fa176e66e9cf9cf88605bc9c2f4fcf6190aa1aaa6acb714a98789642fb83d2",
+  "ci-42940198738/source.json": "836e219f6c1919a2ee98dc66f6361af08b9d6d307f2a5064cd565de4b7eb851a",
   "ci-receipt.json": "567d7743f0c3b3d04802b7b4a742f2a7503b5c4a0188e315b0f1cf678f7338c1",
   "compiled-path.json": "05235a837aecb05a7973b7c6c57c76eac83d51c8ee7e8c91d27a5c680ecf237b",
   "completion.json": "1479740ce2749ba444b3a19ce4f646f21b802653276263bb809d8d3da323fb1c",
@@ -29,5 +40,6 @@
   "reproduction/run-pairs.py": "a7510afce234283134d354654e0cb5c1866a1ca81e765fcf9a56e767d94e67b7",
   "reproduction/translate.py": "875642736d435761eddfebd58ed21588a63848688d00d333cc1d0f8c1c7afb95",
   "reproduction/verify-acquisition.py": "1d26dd6198125a67ec4db110bf97deb2fe1ced0b43fcd7429b222f0ecbef4868",
-  "summary.json": "74748d6fe19f43be43eb02605ff49f97a583f6fd418dd4b222906fc75b05053e"
+  "summary.json": "74748d6fe19f43be43eb02605ff49f97a583f6fd418dd4b222906fc75b05053e",
+  "ubuntu-plan.md": "e1c7554a801682834ef4e488e4ff26b7a78ecb9f3f7f316f1daeb2ee652d0496"
 }

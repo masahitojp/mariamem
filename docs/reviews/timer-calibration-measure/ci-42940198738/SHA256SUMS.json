@@ -1,0 +1,13 @@
+{
+  "README.md": "6a8988209bd96909726b56baf22c698a8f70671861bb4c255add179e0b968bbd",
+  "artifact-file-sha256.json": "fac01e694eecfb48eba7decc181d20f1bb1b4d6652178c9e403b8ed403427c22",
+  "assessment.json": "1ff8fb95065fa3ea01fd1918ddebbe4824b24665209a3321f96bc818299e953e",
+  "development-summary.json": "b79bc3ee1cf982a2025562cc3afff1c1f2c960056f75fbf332cf19c0ba7eeec2",
+  "guest-sql.json": "39c11c8615c4b3b07861da6abee6b04f7d307195f33c7469292ad8db38675bee",
+  "lifecycle.json": "3220f5a4cd2b9e62bcca959ab634b64e1a709033e4f9cff700f0aa169ff7b1c5",
+  "native-sql.json": "69f34db85e3150faf77f7a1bb41bf2ffdeeac0018b056c051cfa83d2052d96ed",
+  "native-summary.json": "2b9a22b1692d343db4e39726f9b36fde56d7abe3348c02e563e7370988a35b50",
+  "pipe-sql.json": "fae9e6321a13cce075bde8b921a92241b04b2d4a19c02d5fb96cd6b3fde4eea6",
+  "receipt.json": "44fa176e66e9cf9cf88605bc9c2f4fcf6190aa1aaa6acb714a98789642fb83d2",
+  "source.json": "836e219f6c1919a2ee98dc66f6361af08b9d6d307f2a5064cd565de4b7eb851a"
+}

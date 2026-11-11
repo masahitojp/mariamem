@@ -1,0 +1,46 @@
+{
+  "run": {
+    "id": 42940198738,
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42940198738",
+    "head_sha": "6c654011508f9480a6fc2fecb44e42b02909b4fc",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 1,
+    "created_at": "2026-11-11T01:36:38Z",
+    "updated_at": "2026-11-11T01:51:08Z"
+  },
+  "job": {
+    "id": 130259901965,
+    "name": "runtime",
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42940198738/job/130259901965",
+    "conclusion": "success",
+    "started_at": "2026-11-11T01:36:40Z",
+    "completed_at": "2026-11-11T01:51:08Z",
+    "runner_name": "GitHub Actions 1000003380",
+    "labels": [
+      "ubuntu-24.04"
+    ]
+  },
+  "artifact": {
+    "id": 13821256248,
+    "node_id": "MDg6QXJ0aWZhY3QxMzgyMTI1NjI0OA==",
+    "name": "timer-ubuntu-native-6c654011508f9480a6fc2fecb44e42b02909b4fc",
+    "size_in_bytes": 871494,
+    "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13821256248",
+    "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13821256248/zip",
+    "expired": false,
+    "digest": "sha256:238e6415a2fa2dbcb29a26c996ebbc3f36fd81f2701aae368857c26e53b6e356",
+    "created_at": "2026-11-11T01:51:03Z",
+    "updated_at": "2026-11-11T01:51:03Z",
+    "expires_at": "2026-11-25T01:51:02Z",
+    "workflow_run": {
+      "id": 42940198738,
+      "repository_id": 1383417913,
+      "head_repository_id": 1383417913,
+      "head_branch": "experiment/timer-ubuntu-native",
+      "head_sha": "6c654011508f9480a6fc2fecb44e42b02909b4fc"
+    }
+  },
+  "zip_sha256": "238e6415a2fa2dbcb29a26c996ebbc3f36fd81f2701aae368857c26e53b6e356",
+  "internal_checksums_verified": 33
+}

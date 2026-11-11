@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "qualification": false,
+  "source_commit": "6c654011508f9480a6fc2fecb44e42b02909b4fc",
+  "host_source_commit": "f225968c332a692f5bce189b31aed1fab26e642a",
+  "guest_source_commit": "1731c394031b781ff813190bf9c42bee63516044",
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "performance_comparison": false,
+  "sql_comparison": "PASS",
+  "pipe_sql": "PASS",
+  "lifecycle": "PASS",
+  "binary_sha256": "0f97ab4dc8f38ab794ee9df32a97448ec93b956fe222b36f5a54d684bbeee18a",
+  "pipe_binary_sha256": "3cf0e5e78a1853ce74fb108533eebcf01619ece6d3c8812400cc944f5981ca90",
+  "native_schema_count_after": 0
+}

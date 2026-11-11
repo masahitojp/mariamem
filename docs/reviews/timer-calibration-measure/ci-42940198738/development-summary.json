@@ -1,0 +1,16 @@
+{
+  "original_file": "development.json",
+  "original_sha256": "bea3e9c472dd4d7d73998efd1f4c721b2584327c26edbaa604995607d1b226f3",
+  "contract": "development-unqualified-v1",
+  "result": "UNQUALIFIED",
+  "smoke": "PASS",
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "guest_record_sha256": "b5b070b9e5dea7982d6800379b104ae8e305b8510bae373b2ece0b65e7f31dcc",
+  "binary_sha256": "0f97ab4dc8f38ab794ee9df32a97448ec93b956fe222b36f5a54d684bbeee18a",
+  "binary_bytes": 114830575,
+  "installation_inputs_sha256": "89a450de5429b6bd1e4747d5b3fdc405ace1cf58338d8e4f384378648b88b1c3",
+  "host_source_commit": "f225968c332a692f5bce189b31aed1fab26e642a",
+  "guest_source_commit": "1731c394031b781ff813190bf9c42bee63516044",
+  "generated_files": 118,
+  "generated_inventory_sha256": "6203a921c0e2c312278e05e9de3c2c7c882af23b5e068e1f517012b26f91c781"
+}

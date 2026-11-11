@@ -2,7 +2,8 @@
 
 **The bounded prototype reduces Fresh/Fork startup in this Mac cohort. It does
 not yet establish faster complete test execution.** Keep it as a startup candidate
-for platform confirmation and a separate adoption review. The strongest concern
+for a separate adoption review; subsequent platform confirmation is recorded
+below. The strongest concern
 is that P8's five-run suite median is higher despite three of five paired suites
 being faster; sample-loading tails remain in both arms. Do not call this uniformly
 faster or regression-free, and do not silently discard the slow runs.
@@ -24,6 +25,16 @@ Qualification or release. The complete-suite limitation and all source-bound
 receipts remain unchanged. Ubuntu runtime/platform confirmation and native SQL
 comparison precede a separate adoption review. No new runtime or benchmark result
 is claimed by this documentation-only decision update.
+
+## Subsequent Ubuntu/native confirmation, 2026-11-11
+
+[CI42940198738](https://github.com/masahitojp/mariamem/actions/runs/42940198738)
+passed at orchestration commit `6c654011`, host source `f225968c` and guest
+source `1731c394`. The [checksum-verified receipt](ci-42940198738/README.md)
+closes the bounded Ubuntu runtime and native SQL comparison tasks for this
+combined clock-correction/probe-omission candidate. It does not relabel earlier
+clock-only receipts, establish Ubuntu performance or approve product adoption.
+The historical Mac result and limitations below are unchanged.
 
 ## Result
 
@@ -109,7 +120,9 @@ established. No follow-up repetitions were selected after seeing the outcome.
 
 The only intended metadata difference is **nominal1ms resolution**, not a measured
 host/scheduler guarantee, in the WASI/no-PFS/monotonic/no-cycles profile. Native SQL
-comparison, Ubuntu runtime/performance and product adoption are still separate.
+comparison and Ubuntu runtime were separate at this measurement checkpoint;
+the subsequent confirmation above closes those two bounded correctness tasks.
+Ubuntu performance and product adoption remain separate.
 No main integration, Qualification or release was performed.
 
 ## Reproduction and retention
