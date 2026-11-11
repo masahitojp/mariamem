@@ -1,0 +1,94 @@
+name: UCA copy experiment (UNQUALIFIED build and translation)
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/uca-default-init]
+    paths:
+      - .github/workflows/uca-copy-experiment.yml
+      - guest/experimental.patch
+      - tests/uca_copy_translate.py
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 100
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    steps:
+      - name: Source builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Exact clean source and one UNQUALIFIED guest build
+        env:
+          HOME: /root
+          MARIAMEM_PHASE_TRACE: /tmp/uca-copy-evidence/guest-phases.jsonl
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p /tmp/uca-copy-evidence
+          python3 scripts/git_identity.py inspect HEAD > /tmp/uca-copy-evidence/source.json
+          python3 -c 'import json,os;assert json.load(open("/tmp/uca-copy-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          test -f guest/experimental.patch
+          python3 scripts/build_generated_guest.py --development-output /tmp/uca-copy-guest > /tmp/uca-copy-evidence/build.txt 2>&1
+          python3 -c 'import json,os; r=json.load(open("/tmp/uca-copy-guest/guest.json")); assert r["result"]=="UNQUALIFIED" and r["contract"]=="development-unqualified-v1" and len(r["repetitions"])==1 and r["source_commit"]==os.environ["GITHUB_SHA"]; assert r["prepared_source"]["experimental_patch"]["file"]=="guest/experimental.patch"'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: uca-copy-unqualified-guest-${{ github.sha }}
+          path: /tmp/uca-copy-guest
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: uca-copy-build-evidence-${{ github.sha }}
+          path: /tmp/uca-copy-evidence
+          if-no-files-found: warn
+          retention-days: 14
+  translation:
+    needs: guest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: uca-copy-unqualified-guest-${{ github.sha }}
+          path: ${{ runner.temp }}/uca-copy-guest
+      - name: Bound source-only translation; retain runtime guards
+        env:
+          MARIAMEM_PHASE_TRACE: ${{ runner.temp }}/uca-copy-evidence/translation-phases.jsonl
+        run: |
+          mkdir -p "$RUNNER_TEMP/uca-copy-evidence"
+          python scripts/git_identity.py inspect HEAD > "$RUNNER_TEMP/uca-copy-evidence/source.json"
+          python -c 'import json,os;assert json.load(open(os.environ["RUNNER_TEMP"]+"/uca-copy-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python tests/uca_copy_translate.py --guest-dir "$RUNNER_TEMP/uca-copy-guest" --output "$RUNNER_TEMP/uca-copy-native" > "$RUNNER_TEMP/uca-copy-evidence/translation.txt" 2>&1
+          cp "$RUNNER_TEMP/uca-copy-native/assessment.json" "$RUNNER_TEMP/uca-copy-evidence/assessment.json"
+          cp "$RUNNER_TEMP/uca-copy-native/translation/input-manifest.json" "$RUNNER_TEMP/uca-copy-evidence/input-manifest.json"
+          tar -czf "$RUNNER_TEMP/uca-copy-evidence/source-only.tgz" -C "$RUNNER_TEMP/uca-copy-native" candidate/module translation/module
+      - name: Preserve failure identity
+        if: failure()
+        run: |
+          if test -f "$RUNNER_TEMP/uca-copy-native/failure.json"; then
+            cp "$RUNNER_TEMP/uca-copy-native/failure.json" "$RUNNER_TEMP/uca-copy-evidence/failure.json"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: uca-copy-translation-evidence-${{ github.sha }}
+          path: ${{ runner.temp }}/uca-copy-evidence
+          if-no-files-found: warn
+          retention-days: 14
