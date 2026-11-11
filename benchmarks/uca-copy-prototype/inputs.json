@@ -1,0 +1,11 @@
+{
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "sha256": {
+    "uca-dump.c": "ccecbad5125d5ab6d6d1096ec7ef6637546be52f0415098f3e627a2139db303d",
+    "allkeys1400.txt": "c38aa26b5afe8564caf683120db2d165f8f67fec231614f3517b02996aa94804",
+    "ctype-uca.c": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+    "m_ctype.h": "b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b",
+    "ctype-uca.h": "348281bd7dbb673100ee13ed81fc24f51b3912066ed0fafda8ece1f986d4a6ea",
+    "ctype-uca1400.h": "6fcb2aee6637f59fc7143a822c4b1e68fceec6b9f8b1d083a08abb72aba49eb9"
+  }
+}
