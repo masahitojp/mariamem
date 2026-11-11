@@ -65,3 +65,31 @@ MariaDB SQL comparison, alias/variant order, two children, reSnapshot/disposal
 and failure handling. Mac/product adoption and observer-off Pipe P4/P8 timing
 remain later gates. This staged dependency changes the next submission, not
 Issue154's correctness/performance exit conditions.
+
+## Bootstrap failure and bounded network correction
+
+Run [43034233695](https://github.com/masahitojp/mariamem/actions/runs/43034233695)
+at source `d9363eae9f673e77d7a2318da93616fd365f6073` failed before checkout/build:
+`ports.ubuntu.com` could not be resolved inside the job container. Attempt1
+job130568790900 and attempt3 job130580523116 show the same failure; translation
+was skipped. These are infrastructure failures, not UCA correctness results.
+Repeated retry has not resolved the observed problem. The logs do not establish
+whether the fault belongs to Docker DNS forwarding or upstream DNS.
+
+The bounded correction retains the exact image digest, arm64 runner, root user,
+dependency set, source/patch guards and one-build UNQUALIFIED operation. It runs
+the fixed builder explicitly with Docker's Linux
+[host network](https://docs.docker.com/engine/network/drivers/host/), bypassing the
+job-container bridge path. Runner and builder name resolution are checked with
+20-second bounds; resolver evidence and bootstrap output remain CI artifacts.
+APT update uses error-mode=any and two acquisition retries, so a failed index
+fetch cannot continue into misleading package-not-found errors. No hardcoded
+server IP, alternate package origin, guest/runtime change or acceptance bypass
+is introduced. The existing build100m/translation45m ceilings remain unchanged.
+The Human's new failure report authorizes this one corrected submission; the
+prior failed run is not relabeled. Success of this workaround remains unverified
+until the corrected CI executes. No additional local guest build is needed.
+
+Local checks pass for YAML parsing, runner/inner-builder shell syntax, unchanged
+image/dependencies/build guards/translation, and mounted artifact paths. The diff
+is restricted to this workflow and diagnosis record; no runtime tests are rerun.

@@ -13,38 +13,49 @@ jobs:
   guest:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 100
-    container:
-      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
     steps:
-      - name: Source builder dependencies
-        run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - name: Exact clean source and one UNQUALIFIED guest build
-        env:
-          HOME: /root
-          MARIAMEM_PHASE_TRACE: /tmp/uca-copy-evidence/guest-phases.jsonl
+      - name: Fixed builder with runner network; one UNQUALIFIED guest build
+        shell: bash
         run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/uca-copy/evidence"
+          {
+            cat /etc/resolv.conf
+            timeout 20 getent ahosts ports.ubuntu.com
+          } > "$RUNNER_TEMP/uca-copy/evidence/runner-dns.txt" 2>&1
+          docker run --rm -i --network host --user 0:0 \
+            -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" \
+            -v "$RUNNER_TEMP/uca-copy:/uca-copy" \
+            -w "$GITHUB_WORKSPACE" \
+            -e GITHUB_SHA -e GITHUB_WORKSPACE -e HOME=/root \
+            -e MARIAMEM_PHASE_TRACE=/uca-copy/evidence/guest-phases.jsonl \
+            ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3 \
+            bash -seuo pipefail <<'BUILD' 2>&1 | tee "$RUNNER_TEMP/uca-copy/evidence/bootstrap.txt"
+          cat /etc/resolv.conf > /uca-copy/evidence/builder-dns.txt
+          timeout 20 getent ahosts ports.ubuntu.com >> /uca-copy/evidence/builder-dns.txt
+          apt-get -o APT::Update::Error-Mode=any -o Acquire::Retries=2 update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          mkdir -p /tmp/uca-copy-evidence
-          python3 scripts/git_identity.py inspect HEAD > /tmp/uca-copy-evidence/source.json
-          python3 -c 'import json,os;assert json.load(open("/tmp/uca-copy-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          mkdir -p /uca-copy/evidence
+          python3 scripts/git_identity.py inspect HEAD > /uca-copy/evidence/source.json
+          python3 -c 'import json,os;assert json.load(open("/uca-copy/evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
           test -f guest/experimental.patch
-          python3 scripts/build_generated_guest.py --development-output /tmp/uca-copy-guest > /tmp/uca-copy-evidence/build.txt 2>&1
-          python3 -c 'import json,os; r=json.load(open("/tmp/uca-copy-guest/guest.json")); assert r["result"]=="UNQUALIFIED" and r["contract"]=="development-unqualified-v1" and len(r["repetitions"])==1 and r["source_commit"]==os.environ["GITHUB_SHA"]; assert r["prepared_source"]["experimental_patch"]["file"]=="guest/experimental.patch"'
+          python3 scripts/build_generated_guest.py --development-output /uca-copy/guest > /uca-copy/evidence/build.txt 2>&1
+          python3 -c 'import json,os; r=json.load(open("/uca-copy/guest/guest.json")); assert r["result"]=="UNQUALIFIED" and r["contract"]=="development-unqualified-v1" and len(r["repetitions"])==1 and r["source_commit"]==os.environ["GITHUB_SHA"]; assert r["prepared_source"]["experimental_patch"]["file"]=="guest/experimental.patch"'
+          BUILD
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: uca-copy-unqualified-guest-${{ github.sha }}
-          path: /tmp/uca-copy-guest
+          path: ${{ runner.temp }}/uca-copy/guest
           if-no-files-found: error
           retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
           name: uca-copy-build-evidence-${{ github.sha }}
-          path: /tmp/uca-copy-evidence
+          path: ${{ runner.temp }}/uca-copy/evidence
           if-no-files-found: warn
           retention-days: 14
   translation:
