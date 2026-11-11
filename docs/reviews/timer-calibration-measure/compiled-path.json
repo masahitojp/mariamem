@@ -1,0 +1,13 @@
+{
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "function": "Fn5573",
+  "whole_body_sha256": "51ce1c548841cde7fe740fef076bd80e87e45bc4ac8e71964acdc91148c45ac2",
+  "source": "exact translated candidate before installation",
+  "timer_info_addresses": {
+    "cycles_routine": 26639680,
+    "milliseconds_routine": 26639776,
+    "milliseconds_resolution": 26639800
+  },
+  "interpretation": "CLOCK_GETTIME routine11 plus cycles routine0 branches to nominal1 store; otherwise original10million-iteration probe remains. Unavailable/time paths retained. This is compiled-branch inspection, not an exclusive elapsed measurement.",
+  "excerpt": "L1362:\n\t;\n\tif v5754 != int64(11) {\n\t\tgoto L1364\n\t} else {\n\t\tgoto L1365\n\t}\nL1363:\n\t;\n\tswitch base.I32_wrap_i64(v5754) - int32(1) {\n\tcase 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14:\n\t\tgoto L1362\n\tcase 15:\n\t\tv5918 = int64(1000)\n\t\tgoto L1361\n\tdefault:\n\t\tgoto L1360\n\t}\nL1364:\n\t;\n\tv5770 = int32(10000000)\n\tgoto L1368\nL1365:\n\t;\n\tv5765 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639680, 0, 8)))\n\tif v5765 != int64(0) {\n\t\tgoto L1364\n\t} else {\n\t\tgoto L1366\n\t}\nL1366:\n\t;\n\tv5918 = int64(1)\n\tgoto L1361\n"
+}

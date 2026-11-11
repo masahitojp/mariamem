@@ -1,0 +1,24 @@
+{
+  "source_commit": "809036801dc8d3f6d4dae543e73eb57bfca42b23",
+  "files_sha256": {
+    "benchmarks/shopforkstages/UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "benchmarks/shopforkstages/go.mod": "2053e4eb9df841fce68e24db8d23977abd4831110eab5fabebe7d3975703497c",
+    "benchmarks/shopforkstages/go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "benchmarks/shopforkstages/internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+    "benchmarks/shopforkstages/maria/store/analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+    "benchmarks/shopforkstages/maria/store/backend_test.go": "47fa8b31645ddc83039ff8b7ac4d8984640777d57097cfe0bc57ef5f0b996c03",
+    "benchmarks/shopforkstages/maria/store/fixture_test.go": "66c59bfcef7fd992b506b43b471aef2319d110fa58319f453844fee037d88bb5",
+    "benchmarks/shopforkstages/maria/store/fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+    "benchmarks/shopforkstages/maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+    "benchmarks/shopforkstages/maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4",
+    "benchmarks/shopforkstages/maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+    "benchmarks/shopforkstages/maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+    "benchmarks/shopforkstages/maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+    "benchmarks/shopforkstages/maria/store/read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+    "benchmarks/shopforkstages/maria/store/seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+    "benchmarks/shopforkstages/maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+    "benchmarks/shopforkstages/maria/store/write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72"
+  },
+  "adaptation": "go.mod Go1.26.0 and relative replacement ../../../; added lifecycle branch and read1 setup assertion; workload SQL unchanged",
+  "route": "Go Pipe; stage observers disabled"
+}

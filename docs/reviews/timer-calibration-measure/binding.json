@@ -1,0 +1,53 @@
+{
+  "baseline_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "data_sha256": "c72fba3e13f65b1c9be455ee4533a5dc91f2121f0fed600a3c8db6ea8c157faf",
+  "functions": {
+    "code/p3/p3_pure.go": [
+      "Fn153",
+      "c0ee0ebf54f6d47449613c68411aff49c1529c7684d339b82a1b651a39d6da4e"
+    ],
+    "code/p5/p5_pure.go": [
+      "Fn214",
+      "58d275858c6b01c3b0215602d551abf6eae55ead54a8afb75a6cbfdd91abfd08"
+    ],
+    "code/p8/p8_pure.go": [
+      "Fn131",
+      "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"
+    ]
+  },
+  "crc": {
+    "path": "code/p4/p4_pure.go",
+    "function": "Fn18145",
+    "body_sha256": "6f6e3b37817d3a0f876a70d3aaaaf511baeea4294acdebe711291e75f9bb1d37",
+    "table_offset": 7180928,
+    "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad"
+  },
+  "proof": {
+    "Fn153": {
+      "old_sha256": "c0ee0ebf54f6d47449613c68411aff49c1529c7684d339b82a1b651a39d6da4e",
+      "new_sha256": "c0ee0ebf54f6d47449613c68411aff49c1529c7684d339b82a1b651a39d6da4e",
+      "identical_normalized_body": true
+    },
+    "Fn214": {
+      "old_sha256": "58d275858c6b01c3b0215602d551abf6eae55ead54a8afb75a6cbfdd91abfd08",
+      "new_sha256": "58d275858c6b01c3b0215602d551abf6eae55ead54a8afb75a6cbfdd91abfd08",
+      "identical_normalized_body": true
+    },
+    "Fn131": {
+      "old_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "new_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "identical_normalized_body": true
+    },
+    "crc": {
+      "old_sha256": "6f6e3b37817d3a0f876a70d3aaaaf511baeea4294acdebe711291e75f9bb1d37",
+      "new_sha256": "6f6e3b37817d3a0f876a70d3aaaaf511baeea4294acdebe711291e75f9bb1d37",
+      "identical_body": true,
+      "identical_table": true,
+      "old_table_offset": 7180928,
+      "new_table_offset": 7180928
+    }
+  },
+  "guest_source_commit": "1731c394031b781ff813190bf9c42bee63516044",
+  "comparison_baseline_guest_sha256": "b68fce3a4785f5a9dd858c96572ed0a765ee4352715b416cdf168784054b4fc6"
+}

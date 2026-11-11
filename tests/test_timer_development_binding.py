@@ -13,9 +13,9 @@ import runtime_crc32c as crc
 import runtime_thread_lifetime as threads
 
 
-@pytest.fixture
-def binding(monkeypatch):
-    record = json.loads((ROOT/'docs/reviews/wasi-timer-runtime/binding.json').read_text())
+@pytest.fixture(params=['wasi-timer-runtime', 'timer-calibration-measure'])
+def binding(monkeypatch, request):
+    record = json.loads((ROOT/'docs/reviews'/request.param/'binding.json').read_text())
     monkeypatch.setattr(crc, 'GUEST_SHA256', record['baseline_guest_sha256'])
     monkeypatch.setattr(threads, 'GUEST_SHA256', record['baseline_guest_sha256'])
     return record

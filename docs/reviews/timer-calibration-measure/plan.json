@@ -1,0 +1,18 @@
+{
+  "scope": "post-CI corrected-clock versus corrected-clock plus millisecond-probe omission; two host builds, same Go1.26.10, no unrelated tuning",
+  "runtime_budget_minutes": 120,
+  "tooling_budget_minutes": 30,
+  "workspace_budget_gib": {
+    "candidate": 16,
+    "baseline": 12
+  },
+  "min_free_gib": 8,
+  "total_processes": 38,
+  "schedule": {
+    "lifecycle": "one warmup+six paired batches; 8 Fresh and16Fork per process",
+    "shop": "P4/P8 one warmup+five alternating pairs each"
+  },
+  "observer": "No internal stages or guest diagnostic observers during timings; ordinary harness spans and process CPU only",
+  "acceptance": "Both real SQL/cleanup oracles before measurement; keep all tails; no performance claim on partial work",
+  "product_adoption": false
+}

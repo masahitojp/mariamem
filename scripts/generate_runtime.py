@@ -124,8 +124,11 @@ def adapt_driver(text):
 
 def select_timer_development_binding(pins):
     """Exact experimental guest only; preserve every canonical ABI/body guard."""
-    record = json.loads((ROOT/'docs/reviews/wasi-timer-runtime/binding.json').read_text())
-    if pins['guest_sha256'] != record['guest_sha256']:
+    records = [json.loads((ROOT/path).read_text()) for path in (
+        'docs/reviews/wasi-timer-runtime/binding.json',
+        'docs/reviews/timer-calibration-measure/binding.json')]
+    record = next((r for r in records if r['guest_sha256'] == pins['guest_sha256']), None)
+    if record is None:
         return
     import runtime_thread_lifetime as threads
     import runtime_crc32c as crc
