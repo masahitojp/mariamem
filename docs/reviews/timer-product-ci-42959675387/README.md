@@ -24,9 +24,12 @@ bounds on both guest platforms. The prior single-build bootstrap retains its
 original UNQUALIFIED identity and is not relabeled.
 
 `assessment.json` binds source, jobs, artifacts, guest and host hashes;
-`artifact-file-sha256.json` inventories all original artifact files. Small test
-outputs and JSON results are retained with `SHA256SUMS.json`. Full compiler logs,
-WASM and duplicate regeneration inventories remain disposable CI artifacts.
+`artifact-file-sha256.json` inventories all original artifact files. [results.md](results.md) preserves the SQL, negative, cleanup and named test
+outcomes after checking equality across hosts. Routine transcripts, full REST
+responses and duplicated per-host payloads are removed; `reduction.json` records
+their original hashes and inspected source anchor. `SHA256SUMS.json` covers the
+retained files. Full compiler logs, WASM and regeneration inventories remain
+disposable CI artifacts.
 
 These receipts establish bounded candidate correctness, not Qualification,
 release approval or a whole-suite speedup. Main integration needs its own Human
