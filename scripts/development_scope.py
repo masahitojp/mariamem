@@ -31,6 +31,7 @@ WORKFLOW_SCOPES = {
     '.github/workflows/uca-canonical.yml': 'python',
     '.github/workflows/lexer-canonical-input.yml': 'python',
     '.github/workflows/startup-cap-candidate.yml': 'python',
+    '.github/workflows/timer-product.yml': 'python',
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
