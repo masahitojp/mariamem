@@ -36,8 +36,8 @@ substitutes for source or runtime acceptance.
 ## Scope and ownership
 
 Six Orca worktrees were inspected, including ignored files and exact remote refs.
-All were clean. Five have no observed process cwd; their ignored helper evidence
-was exported and disposable bytecode identified. The upgrade-trial workspace
+All were clean. Five had no observed process cwd; their ignored helper evidence
+was exported and the clean checkouts were removed without force. The upgrade-trial workspace
 still has an attached shell/Codex session and is protected pending owner input.
 `worktree-disposition.json` records the before sizes and final actions.
 
@@ -68,3 +68,20 @@ candidate-dependent final reproduction audit. This bounded audit does not close
 #65, resume#138, waive a contract or claim all original artifacts are available.
 No runtime code/tests/build, benchmark or CI was run. Only source/evidence/hash,
 public-source and workspace/ref checks were performed.
+
+## Final cleanup result
+
+Five clean, inactive Orca checkouts removed: 1,880,916 KiB (about1.79GiB) of
+allocated checkout space. Branch refs remain remotely available. The attached
+upgrade-trial retains429,340 KiB (about419MiB). Original small raw evidence retains
+3,000 KiB; normalized complete CI evidence is on this pushed report branch.
+No individual audited Issue65 workspace remains above1GiB. The broader root
+helper aggregate remains about1.90GiB across compact evidence and unrelated
+Live/scope/performance work; this is explicitly not a global disk-cleanup claim.
+The scoped native-live helper action only finalized metadata, growing the root
+aggregate by4096 bytes; no recovery is credited to it.
+
+`cleanup-result.json` and `worktree-disposition.json` record the accounting.
+Protected root modified-file fingerprints were checked unchanged. The owner
+question about the remaining attached session is pending. Source/runtime
+acceptance is not inferred from deletion or Git reachability.

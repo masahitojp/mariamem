@@ -16,8 +16,9 @@
       "refs/heads/experiment/issue131-maintenance-map"
     ],
     "workspace": "experiment-issue131-maintenance-map",
-    "decision": "DELETE after evidence export and activity recheck",
-    "before_allocated_kib": 396488
+    "decision": "REMOVED clean inactive checkout; remote ref and evidence preserved",
+    "before_allocated_kib": 396488,
+    "after_allocated_kib": 0
   },
   {
     "head": "46915e50c12795da4787c9d1ee0b73e6c6a829dc",
@@ -28,8 +29,9 @@
       "refs/heads/experiment/issue127-bootstrap-spike"
     ],
     "workspace": "experiment-issue65-bootstrap-spike",
-    "decision": "DELETE after evidence export and activity recheck",
-    "before_allocated_kib": 375492
+    "decision": "REMOVED clean inactive checkout; remote ref and evidence preserved",
+    "before_allocated_kib": 375492,
+    "after_allocated_kib": 0
   },
   {
     "head": "c24cbb6ec2063088cf2edd08eb9358ecb0579f19",
@@ -40,8 +42,9 @@
       "refs/heads/masahitojp/experiment-issue65-evidence-cleanup"
     ],
     "workspace": "experiment-issue65-evidence-cleanup",
-    "decision": "DELETE after evidence export and activity recheck",
-    "before_allocated_kib": 366556
+    "decision": "REMOVED clean inactive checkout; remote ref and evidence preserved",
+    "before_allocated_kib": 366556,
+    "after_allocated_kib": 0
   },
   {
     "head": "fd7aea9178a0f798de4a742ddb573a877f6c1f28",
@@ -56,8 +59,9 @@
       "refs/heads/experiment/issue127-129-130-source-integration"
     ],
     "workspace": "experiment-issue65-lifetime-fixtures",
-    "decision": "DELETE after evidence export and activity recheck",
-    "before_allocated_kib": 375828
+    "decision": "REMOVED clean inactive checkout; remote ref and evidence preserved",
+    "before_allocated_kib": 375828,
+    "after_allocated_kib": 0
   },
   {
     "head": "3c47dfbcd3b44691e99cbcf2fe3b1b1d042b049c",
@@ -71,8 +75,9 @@
       "refs/heads/masahitojp/experiment-issue65-settings-fixtures"
     ],
     "workspace": "experiment-issue65-settings-fixtures",
-    "decision": "DELETE after evidence export and activity recheck",
-    "before_allocated_kib": 366552
+    "decision": "REMOVED clean inactive checkout; remote ref and evidence preserved",
+    "before_allocated_kib": 366552,
+    "after_allocated_kib": 0
   },
   {
     "head": "f4507b514aabac2eb834170668c69f37067b6732",
@@ -84,6 +89,8 @@
     ],
     "workspace": "experiment-issue65-upgrade-trial",
     "decision": "KEEP active attached session",
-    "before_allocated_kib": 429340
+    "before_allocated_kib": 429340,
+    "after_allocated_kib": 429340,
+    "remaining_condition": "Attached session; owner question pending, no stop/removal performed"
   }
 ]

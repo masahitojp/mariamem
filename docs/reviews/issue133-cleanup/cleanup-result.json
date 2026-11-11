@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-11",
+  "scope": "six historical Issue65 Orca checkouts plus scoped root helper audit; not a whole-machine cleanup",
+  "worktree_before_kib": 2310256,
+  "worktree_after_kib": 429340,
+  "removed_checkouts_kib": 1880916,
+  "raw_evidence_retained_kib": 3000,
+  "root_helper_before_bytes": 2039316480,
+  "root_helper_after_bytes": 2039320576,
+  "root_helper_note": "One scoped cleaned receipt finalized; metadata grew4096 bytes, not claimed as disk recovery. Other compact evidence and unrelated workspaces preserved.",
+  "over_1gib": "No individual audited Issue65 workspace exceeds1GiB. Root build/experiment-work aggregate is about1.90GiB across retained evidence and unrelated Live/scope/performance work; aggregate not deleted under this task.",
+  "protected_root_fingerprints_unchanged": true,
+  "runtime_build_or_ci": false,
+  "remaining": [
+    "active upgrade-trial owner/session confirmation",
+    "conditional selected-candidate clean generation/public acceptance audit; no new build authorized here"
+  ]
+}
