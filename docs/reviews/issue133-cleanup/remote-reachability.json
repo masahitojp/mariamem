@@ -1,0 +1,25 @@
+{
+  "method": "Exact advertised remote heads with locally available Git commit objects; ancestor walk, not a fresh clone or binary availability check",
+  "sources": [
+    {
+      "source_commit": "584004b21132e28886330484bfec00fdda99642c",
+      "reachable_from_advertised_remote_heads": true
+    },
+    {
+      "source_commit": "73d1dca153348feab07a7638172782056af7897d",
+      "reachable_from_advertised_remote_heads": true
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "reachable_from_advertised_remote_heads": true
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "reachable_from_advertised_remote_heads": true
+    },
+    {
+      "source_commit": "e1c0136a9adefa68c1e5a16bfe01d7f250480c5c",
+      "reachable_from_advertised_remote_heads": true
+    }
+  ]
+}

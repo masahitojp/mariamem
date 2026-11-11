@@ -1,0 +1,55 @@
+{
+  "run_id": 42801293564,
+  "files": [
+    {
+      "file": "call.json",
+      "raw_sha256": "b8342118d429ddbb98bcb5c5719732859ff924afe1bbd939851ba0ee89d355f1",
+      "normalized_sha256": "b8342118d429ddbb98bcb5c5719732859ff924afe1bbd939851ba0ee89d355f1",
+      "substitutions": 0,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    },
+    {
+      "file": "call.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "substitutions": 0,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    },
+    {
+      "file": "development.json",
+      "raw_sha256": "6189c4e7bf0b7e0d09ba74caba352e85780d736e46b15a26f8da89eae19732eb",
+      "normalized_sha256": "71d2c7c35d999a0ef3afe68c63272871177e422818199b8d5b5d3914ffecd4a8",
+      "substitutions": 1,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    },
+    {
+      "file": "host.txt",
+      "raw_sha256": "8af7bdf098bc61c84206a5062d9c50ff1583e0f53ee67d0b2cd5a71c62f8fab5",
+      "normalized_sha256": "9ff9ec6efa64ab0cd45a5c406947556dcd71d3f0e34aeec6bbdea7e1f0dcdc9b",
+      "substitutions": 2,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    },
+    {
+      "file": "metadata-guest.json",
+      "raw_sha256": "48e4b41d435f6e312b02e7aba3c07bce517035e77dcaf3392e2e9551cfae9149",
+      "normalized_sha256": "48e4b41d435f6e312b02e7aba3c07bce517035e77dcaf3392e2e9551cfae9149",
+      "substitutions": 0,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    },
+    {
+      "file": "prepared.txt",
+      "raw_sha256": "e4083fe9e4460d574f7457091b53ead8da9062ae08a9bb4ccda3fb2e698522cc",
+      "normalized_sha256": "e4083fe9e4460d574f7457091b53ead8da9062ae08a9bb4ccda3fb2e698522cc",
+      "substitutions": 0,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    },
+    {
+      "file": "source.json",
+      "raw_sha256": "bbcaf327f84e0d17177b168371159564982b530413995749fad7ce0bb49c70ea",
+      "normalized_sha256": "bbcaf327f84e0d17177b168371159564982b530413995749fad7ce0bb49c70ea",
+      "substitutions": 0,
+      "rule": "CI host directory prefix to ${CI_HOST}/; all remaining bytes unchanged"
+    }
+  ],
+  "raw_retention": "root build/issue133-retained/ci42801293564; original evidence, not runtime input"
+}

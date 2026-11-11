@@ -1,0 +1,89 @@
+[
+  {
+    "head": "eda6f8bafc74c2bab00270b19f7b3c35c95c4aa0",
+    "branch": "experiment/issue131-maintenance-map",
+    "status": "",
+    "ignored": [
+      "build/experiment-work/issue131-source/.experiment.lock",
+      "build/experiment-work/issue131-source/cleanup-policy.json",
+      "build/experiment-work/issue131-source/evidence/doc-public-check.json",
+      "build/experiment-work/issue131-source/evidence/temp-checksums.json",
+      "build/experiment-work/issue131-source/evidence/temp/evidence.py",
+      "build/experiment-work/issue131-source/evidence/worktree-checksums.json",
+      "build/experiment-work/issue131-source/experiment.json"
+    ],
+    "remote_exact": [
+      "refs/heads/experiment/issue131-maintenance-map"
+    ],
+    "workspace": "experiment-issue131-maintenance-map",
+    "decision": "DELETE after evidence export and activity recheck",
+    "before_allocated_kib": 396488
+  },
+  {
+    "head": "46915e50c12795da4787c9d1ee0b73e6c6a829dc",
+    "branch": "experiment/issue127-bootstrap-spike",
+    "status": "",
+    "ignored": [],
+    "remote_exact": [
+      "refs/heads/experiment/issue127-bootstrap-spike"
+    ],
+    "workspace": "experiment-issue65-bootstrap-spike",
+    "decision": "DELETE after evidence export and activity recheck",
+    "before_allocated_kib": 375492
+  },
+  {
+    "head": "c24cbb6ec2063088cf2edd08eb9358ecb0579f19",
+    "branch": "masahitojp/experiment-issue65-evidence-cleanup",
+    "status": "",
+    "ignored": [],
+    "remote_exact": [
+      "refs/heads/masahitojp/experiment-issue65-evidence-cleanup"
+    ],
+    "workspace": "experiment-issue65-evidence-cleanup",
+    "decision": "DELETE after evidence export and activity recheck",
+    "before_allocated_kib": 366556
+  },
+  {
+    "head": "fd7aea9178a0f798de4a742ddb573a877f6c1f28",
+    "branch": "experiment/issue127-129-130-source-integration",
+    "status": "",
+    "ignored": [
+      "scripts/__pycache__/check_public.cpython-314.pyc",
+      "scripts/__pycache__/common.cpython-314.pyc",
+      "scripts/__pycache__/git_identity.cpython-314.pyc"
+    ],
+    "remote_exact": [
+      "refs/heads/experiment/issue127-129-130-source-integration"
+    ],
+    "workspace": "experiment-issue65-lifetime-fixtures",
+    "decision": "DELETE after evidence export and activity recheck",
+    "before_allocated_kib": 375828
+  },
+  {
+    "head": "3c47dfbcd3b44691e99cbcf2fe3b1b1d042b049c",
+    "branch": "masahitojp/experiment-issue65-settings-fixtures",
+    "status": "",
+    "ignored": [
+      "scripts/__pycache__/common.cpython-314.pyc",
+      "scripts/__pycache__/git_identity.cpython-314.pyc"
+    ],
+    "remote_exact": [
+      "refs/heads/masahitojp/experiment-issue65-settings-fixtures"
+    ],
+    "workspace": "experiment-issue65-settings-fixtures",
+    "decision": "DELETE after evidence export and activity recheck",
+    "before_allocated_kib": 366552
+  },
+  {
+    "head": "f4507b514aabac2eb834170668c69f37067b6732",
+    "branch": "experiment/issue137-prepared-profile",
+    "status": "",
+    "ignored": [],
+    "remote_exact": [
+      "refs/heads/experiment/issue137-prepared-profile"
+    ],
+    "workspace": "experiment-issue65-upgrade-trial",
+    "decision": "KEEP active attached session",
+    "before_allocated_kib": 429340
+  }
+]
