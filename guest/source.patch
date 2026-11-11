@@ -247,3 +247,23 @@
  
  			mysql_mutex_lock(&recv_sys.mutex);
  			recv_sys.apply(true);
+--- a/sql/sql_analyze_stmt.h
++++ b/sql/sql_analyze_stmt.h
+@@ -41,7 +41,7 @@
+ 
+ static inline double timer_tracker_frequency()
+ {
+-#if (MY_TIMER_ROUTINE_CYCLES)
++#if (MY_TIMER_ROUTINE_CYCLES) && !defined(__wasi__)
+   return static_cast<double>(sys_timer_info.cycles.frequency);
+ #else
+   return static_cast<double>(sys_timer_info.microseconds.frequency);
+@@ -65,7 +65,7 @@
+ 
+   ulonglong measure() const
+   {
+-#if (MY_TIMER_ROUTINE_CYCLES)
++#if (MY_TIMER_ROUTINE_CYCLES) && !defined(__wasi__)
+     return my_timer_cycles();
+ #else
+     return my_timer_microseconds();

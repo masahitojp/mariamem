@@ -6,6 +6,19 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## WASI timer correction and startup reduction — product candidate approved
+
+On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)
+after reviewing evidence `d24087ee`, Mac paired measurements and Ubuntu/native
+CI42940198738. Implement the SQL clock-selection correction and bounded
+millisecond-resolution probe omission as separable changes from main.
+Whole-suite acceleration remains unestablished and this limitation is accepted;
+no uniform speedup or regression-free claim is authorized.
+The canonical patch, normal regression tests and generated provenance must be
+assembled before integration review. Product generation/verification is in
+progress; previous receipts do not describe this new candidate. Main integration,
+Qualification and release remain separate. UCA work is not part of this candidate.
+
 ## Issue150 — versioned legacy preparation candidate (2026-11-10)
 
 The Human authorized independent v0.7.0 preparation tooling for later13.x
