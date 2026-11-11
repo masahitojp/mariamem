@@ -1,0 +1,13 @@
+{
+  "original_sha256": {
+    "observations.json": "87438426ebc5d955794f01784a398f9f211789f33885d45014106367555f9b1e",
+    "summary.json": "743263bcbbd15bc033db8ee69c6034de19b2decaa6abfb43568eed7c78a760e7",
+    "baseline-runner.json": "a646ed1f89592618e8f3d68198dea0d9f44d91b970659a09471bbfb14188c707",
+    "candidate-runner.json": "958cd9d20ea6eb11982b3329a7a995579551fdbf7d78da0ea3d4fffdd617fd30",
+    "baseline-pipe-analyze.json": "4f37c06b2bdbf42c77c9363a6a6809e43396ba8df8a2d4c365c4b8e75e79e1f1",
+    "candidate-pipe-analyze.json": "b4bb72cd4c7e836d8d45bc3fc9301df1e9568105c5c48b2edc2a2d4c63aeb951"
+  },
+  "reduction": "CSV retains every lifecycle wall/CPU observation, every shop fork/sample/cleanup/boot duration, full batch wall/CPU/order and warmups. All statistics/paired deltas reproduce exactly from CSV. SQL controls retain reported values and cleanup. Other SQL spans/timestamps and routine console transcripts are not needed for these claims; raw payloads are not committed.",
+  "original_analyzer_source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+  "omitted_scope": "No timeline/critical-path reconstruction or full workload-span attribution from the reduced files."
+}
