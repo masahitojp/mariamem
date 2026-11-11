@@ -93,3 +93,30 @@ until the corrected CI executes. No additional local guest build is needed.
 Local checks pass for YAML parsing, runner/inner-builder shell syntax, unchanged
 image/dependencies/build guards/translation, and mounted artifact paths. The diff
 is restricted to this workflow and diagnosis record; no runtime tests are rerun.
+
+## Runner DNS failure: correction to the earlier hypothesis
+
+[Run43044547572](https://github.com/masahitojp/mariamem/actions/runs/43044547572),
+at `5251df5270050b7cb5e8877c905dda2f0bfd8b9a`, guest job130604908388, failed
+in the **runner** DNS check before Docker was started. Artifact13867290696
+has ZIP SHA256 `b2d22d32fc3beca1b24c5568cded4db82ba28b56a7403c74708e513a79052c89`
+(verified download); its only file is runner-dns.txt. The shell's getent call
+returned2. Host networking therefore did not resolve the blocker, and blaming
+Docker forwarding alone is unsupported. Guest build/translation remain unstarted.
+
+The next bounded bootstrap uses `azure.ports.ubuntu.com/ubuntu-ports` in the
+fixed image's Ubuntu deb822 sources. Original/selected name-resolution results
+and before/after APT sources are artifacts. Only the URI is replaced; suites,
+components and Ubuntu archive signing keys/verification stay unchanged. No
+fixed IP, unsigned package acceptance or guest input changes are introduced.
+On the local Mac, both HTTPS noble/InRelease endpoints returned identical255850
+bytes, SHA256 `cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0`.
+This establishes current content equivalence locally, not CI DNS reachability
+or package/version reproducibility. The CI still validates archive signatures.
+The exact upstream/runner DNS cause is unknown. One corrected submission follows
+the Human's failure report; repeated blind reruns are not the resolution.
+
+Local YAML and both shell syntax checks pass. Three controlled runner DNS cases
+verify original-fail/selected-success, both-success and both-fail admission. A
+URI-only rewrite fixture preserves signing keys/suites; build and translation
+bodies are unchanged. Actual runner reachability remains for the submitted CI.

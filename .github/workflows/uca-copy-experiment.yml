@@ -22,7 +22,12 @@ jobs:
           mkdir -p "$RUNNER_TEMP/uca-copy/evidence"
           {
             cat /etc/resolv.conf
-            timeout 20 getent ahosts ports.ubuntu.com
+            if timeout 20 getent ahosts ports.ubuntu.com; then
+              echo 'original archive DNS resolved'
+            else
+              echo 'original archive DNS unavailable'
+            fi
+            timeout 20 getent ahosts azure.ports.ubuntu.com
           } > "$RUNNER_TEMP/uca-copy/evidence/runner-dns.txt" 2>&1
           docker run --rm -i --network host --user 0:0 \
             -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" \
@@ -33,7 +38,12 @@ jobs:
             ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3 \
             bash -seuo pipefail <<'BUILD' 2>&1 | tee "$RUNNER_TEMP/uca-copy/evidence/bootstrap.txt"
           cat /etc/resolv.conf > /uca-copy/evidence/builder-dns.txt
-          timeout 20 getent ahosts ports.ubuntu.com >> /uca-copy/evidence/builder-dns.txt
+          timeout 20 getent ahosts azure.ports.ubuntu.com >> /uca-copy/evidence/builder-dns.txt
+          # Same Ubuntu archive/signing keys through its Azure-facing name.
+          cp /etc/apt/sources.list.d/ubuntu.sources /uca-copy/evidence/ubuntu.sources.before
+          grep -Fq 'http://ports.ubuntu.com/ubuntu-ports' /etc/apt/sources.list.d/ubuntu.sources
+          sed -i 's|http://ports.ubuntu.com/ubuntu-ports|http://azure.ports.ubuntu.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
+          cp /etc/apt/sources.list.d/ubuntu.sources /uca-copy/evidence/ubuntu.sources.after
           apt-get -o APT::Update::Error-Mode=any -o Acquire::Retries=2 update
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
