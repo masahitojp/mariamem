@@ -22,6 +22,14 @@ does not approve main integration or product adoption. Do not advertise whole-su
 acceleration or absence of regression. Native comparison, Ubuntu runtime,
 separate Human adoption, Qualification and release remain outstanding gates.
 
+On 2026-11-11 the Human authorized the next bounded Ubuntu/native confirmation
+and parallel investigation of the other common-startup cost (UCA/collation).
+The [Ubuntu plan](reviews/timer-calibration-measure/ubuntu-plan.md) reuses the
+exact development guest and pinned host source, without relaxing origin checks.
+CI execution and native SQL comparison are not yet PASS. UCA attribution uses
+a separate experiment without the timer change; this does not authorize
+integrating either prototype.
+
 ## WASI timer startup reduction — bounded prototype authorized
 
 On2026-11-11 the Human asked to proceed with the startup-cost prototype after
