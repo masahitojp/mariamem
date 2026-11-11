@@ -1,5 +1,5 @@
 {
-  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
   "result": "UNQUALIFIED fixed layout; actual J1 controls not yet run",
@@ -59,7 +59,7 @@
       "old_function": 82,
       "new_function": 82,
       "function": "Fn82",
-      "file": "p4/p4_pure.go",
+      "file": "p8/p8_pure.go",
       "normalized_sha256": "5d47974851b4306097cde1eeb2b123cb08c4a7a4f525c59ec00787df74985160",
       "integer_changes": [],
       "direct_calls": [
@@ -602,5 +602,22 @@
     "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
     "status": "PASS"
   },
-  "previous_lexer_canonical_source_origin": "fd615a53495b615ca2fec6007006f4a24f98d902"
+  "previous_lexer_canonical_source_origin": "fd615a53495b615ca2fec6007006f4a24f98d902",
+  "timer_binding": {
+    "source_commit": "498e186e6f4871b81e3665a76cadd64d58cb422d",
+    "previous_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "data_and_bound_functions": "EXACTLY_IDENTICAL",
+    "canonical_acceptance": {
+      "status": "PASS: bounded canonical correctness; main integration and release remain separate",
+      "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
+      "run_id": 42959675387,
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387",
+      "receipt": "docs/reviews/timer-product-ci-42959675387/assessment.json",
+      "independent_generation_files": 118,
+      "platforms": [
+        "darwin-arm64",
+        "ubuntu24.04-x86_64"
+      ]
+    }
+  }
 }

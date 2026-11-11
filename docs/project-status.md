@@ -6,6 +6,26 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## WASI timer correction and startup reduction — product candidate approved
+
+On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)
+after reviewing evidence `d24087ee`, Mac paired measurements and Ubuntu/native
+CI42940198738. Implement the SQL clock-selection correction and bounded
+millisecond-resolution probe omission as separable changes from main.
+Whole-suite acceleration remains unestablished and this limitation is accepted;
+no uniform speedup or regression-free claim is authorized.
+The canonical patch, normal regression tests and generated provenance must be
+assembled before integration review. Canonical-source bootstrap CI42955063307
+passed on498e186e and its checksum-verified receipt is retained in the
+[product checkpoint](reviews/timer-product.md). Generated Go is installed and local daily/smoke checks pass;
+independent two-build canonical reproduction and both-platform verification now
+pass at37023152 in [CI42959675387](reviews/timer-product-ci-42959675387/README.md).
+All118 generated files agree; timer TCP/Pipe Fresh/two children, CRC/UCA/lexer,
+worker/J1, native SQL and disposal controls pass. Evidence/acceptance metadata
+updates preserve the tested runtime bytes and original receipt source.
+PR152 is ready for Human main-integration review. No new performance claim is made. Main integration,
+Qualification and release remain separate. UCA work is not part of this candidate.
+
 ## Issue150 — versioned legacy preparation candidate (2026-11-10)
 
 The Human authorized independent v0.7.0 preparation tooling for later13.x

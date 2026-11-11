@@ -22,7 +22,7 @@ from experiment_disk import DiskGuard, run_guarded
 from guest_preparation_context import resolve, verify_receipt
 from git_identity import inspect_ref
 
-PRODUCERS = [('12.3.3', 'legacy-full', 'b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50'),
+PRODUCERS = [('12.3.3', 'legacy-full', '498e186e6f4871b81e3665a76cadd64d58cb422d'),
              ('13.0.2', 'legacy-full', '32c799031f619164d3730b61a0bc9d7ae48dcd9b')]
 
 

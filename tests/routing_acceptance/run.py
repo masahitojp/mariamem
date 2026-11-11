@@ -10,7 +10,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
-GUEST = '8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df'
+GUEST = 'a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18'
 MUTATIONS = {'no_pool_check':('R2','idle-generation'), 'fallback':('R5','missing-target'),
              'ignore_retired':('R5','retired-context'), 'global_target':('R4','parallel-targets'),
              'retain_session':('R2','idle-session-state'),

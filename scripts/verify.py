@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # broad pytest invocation excludes these owners, not their guarantees.
 SOURCE_TESTS = ["tests/test_generated_runtime_inventory.py",
                 "tests/test_distribution_licenses.py",
-                "tests/test_packaging_license_mirrors.py"]
+                "tests/test_packaging_license_mirrors.py",
+                "tests/test_timer_source.py"]
 BENCHMARKS = {
     "envelope": "memory_envelope.py",
     "competitive": "testcontainers_compare.py",
@@ -156,10 +157,10 @@ def smoke():
     run(["go", "test", "-p", "1", "-vet=off", "-tags", "integration",
          "./tests/godefault", "-run", "^TestInProcess", "-count=1"], env=env)
 
-    # Exercise shutdown-purpose selection through the public API in normal CI,
-    # including a Fork child whose client changed the global before reSnapshot.
+    # Exercise shutdown-purpose selection and nonzero SQL timing on Fresh/Forks
+    # through the public API in normal CI, including both TCP and Pipe.
     run(["go", "test", "-p", "1", "-vet=off", "-tags", "integration",
-         "./tests/gointegration", "-run", "^TestShutdownModeSnapshotAndResnapshot$",
+         "./tests/gointegration", "-run", "^(TestShutdownModeSnapshotAndResnapshot|TestAnalyzeTimerFreshAndFork)$",
          "-count=1"], env=env)
 
 

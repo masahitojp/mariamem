@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Timer product candidate versus main](timer-product/README.md): single-Mac
+  Go Pipe paired Fresh/Fork and P4/P8 shop70 results; startup improves,
+  whole-suite benefit remains uncertain. Exact candidate/source identities retained.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

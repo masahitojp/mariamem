@@ -1,0 +1,124 @@
+# Timer product candidate — implementation checkpoint
+
+The Human approved [the adoption decision](../decisions/wasi-timer-startup.md)
+on 2026-11-11. This candidate starts at main
+`584004b21132e28886330484bfec00fdda99642c`; it does not merge the experimental
+measurement history or include UCA work.
+
+The two canonical source changes are separate commits:
+`348dbaff` selects the matching SQL microsecond read/frequency for WASI;
+`4c65f6ae` omits only the millisecond-resolution probe for the bounded
+WASI/no-PFS/monotonic/no-runtime-cycles profile.
+These are the exact reviewed hunks, now in `guest/source.patch`.
+There is no `guest/experimental.patch` or development binding exception.
+
+Normal verification now owns:
+
+- Offline source units in `tests/test_timer_source.py`: the exact pinned upstream
+  methods/initializer with6 selection observations /2 mutations and10
+  calibration profiles /4 mutations. These run before Go compilation in
+  `verify.py check`, and in the Release preparation owner through SOURCE_TESTS.
+- `TestAnalyzeTimerFreshAndFork` in `tests/gointegration`: Fresh and two children,
+  TCP and Pipe, delayed/ordinary SQL, meaningful reported elapsed time,
+  following SELECT, isolation and checked disposal. Both daily smoke and full
+  integration select it. Local and hosted-platform PASS are recorded below.
+
+## Current boundary and remaining work
+
+The [single-build receipt](timer-product-ci-42955063307/README.md) is verified
+at source `498e186e6f4871b81e3665a76cadd64d58cb422d`. The canonical-source guest
+matches the reviewed SHA256
+`a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18`.
+The normal generated Go and exact input/provenance pins are now installed.
+[Canonical CI42959675387](timer-product-ci-42959675387/README.md) now passes at
+`370231520c373fae05378bddb791c9b6d7fdf84f` on both supported hosts. Technical
+candidate verification is complete; main adoption is awaiting Human review.
+
+- Initial static data, full CRC body/table and all19 bound worker/J1 function
+  bodies are unchanged. Fn82 moves partition; only its file location is rebound
+  after complete normalized-body equality. No wildcard or development binding
+  exception is accepted. See [installation proofs](timer-product-installation/).
+- Binaryen133 reproduces the exact guest while emitting the unchanged function
+  map. Native retained-library attribution passes on clean source147e72ae.
+- Build ledger `completed=true` / `full_guest_regeneration=true` now records
+  the independent two-build/platform acceptance at37023152. Its bootstrap
+  origin remains explicitly single-build/UNQUALIFIED. Old canonical receipts remain bound
+  to their old source and guest; no receipt is relabeled.
+- `timer-product.yml` now requires two independent canonical C builds,
+  macOS15 arm64/Ubuntu24.04 x86_64 independent full Go regeneration and build
+  guards, source timer mutations, actual TCP/Pipe Fresh/two-child timer checks,
+  CRC/UCA/lexer/worker controls, native SQL and cleanup checks. All passed
+  on both hosts;118 regenerated files match the candidate exactly.
+
+Remaining: Human main-integration review of PR152. Development check,
+integration and Live required gate also passed at37023152 (run42959673358).
+The acceptance-record follow-up leaves product/guest/generator/test-implementation
+bytes unchanged; the original receipts stay bound to37023152. Qualification and
+release remain separate decisions.
+
+This sequence follows the existing startup-cap bootstrap/canonical workflow.
+It does not add an experiment or require another decision to continue the
+authorized implementation. CI submission hands off; no polling follows.
+The accepted whole-suite performance limitation is unchanged.
+
+Initial input checkpoint:104 focused tests passed (canonical timer source controls,
+normal smoke selection and Development scope contracts); public-source check
+and diff/format checks pass. The first focused run detected the new workflow
+missing from WORKFLOW_SCOPES; registering its tooling boundary resolved it
+without changing runtime selection for guest source or Go integration files.
+New-runtime local controls at147e72ae pass: TCP/Pipe timer Fresh/two children,
+actual UCA/lexer parity/corruption and worker isolation. The first daily run
+found stale current12.3.3 selected-preparation patch pins and the candidate's
+automatic push trigger violating the manual-CI policy. These are corrected;
+13.0.2 remains frozen, and the12.3.3 comparison oracle now points to the exact
+canonical-patch source498e186e. Resolver/source-context units pass; no new full
+selected-source comparison or13.x adoption is claimed. Daily/smoke rerun passes at3da600c9: source units71PASS, remaining Python
+1908PASS/98SKIP/119subtests, Go units/vet and Python/Go Live, in-process SQL,
+shutdown and timer smoke. Commit metadata was corrected toba28801a with the
+exact same tree; the receipt preserves the measured commit object and does not
+relabel it. After147e72ae, runtime/generated bytes are unchanged. Host attribution
+is separately bound to147e72ae. See [local results](timer-product-installation/local-result.json). No benchmark, Qualification or release was run.
+
+## Subsequent candidate measurement and integration review
+
+The [paired candidate/main comparison](../../benchmarks/timer-product/README.md)
+measured exact candidate `1f0e6fc4` against main `584004b2` on 2026-11-11.
+Fresh/Fork wall improve in all six pairs (median -8.63%/-8.96%). Complete-suite
+P4 is +2.23%, P8 -20.47%; P8 sample-loading tails remain on both arms. The
+recommendation is main integration for bounded startup/timing correctness, with
+the whole-suite limitation preserved. This is a recommendation, not adoption.
+The report includes the prior-condition review and compact replayable CSVs;
+source/run identities and earlier historical results remain unchanged.
+
+## PR diff and receipt retention
+
+At the inspected record commit `98c4390824498e3d87ac572f6ca5be6b03a49c46`,
+relative to base `584004b21132e28886330484bfec00fdda99642c`:
+
+| Boundary | Added lines | Deleted lines | Meaning |
+| --- | ---: | ---: | --- |
+| Generated runtime (33 files) | 82,917 | 79,977 | Installed product code, not measurement output |
+| Documentation (45 files, before reduction) | 2,163 | 0 | Included excessive CI payloads, reduced below |
+| Pinned upstream timer test source (3 files) | 1,575 | 0 | Offline regression inputs, not test outputs |
+| Other source and metadata (29 files) | 891 | 116 | Includes the 40-line canonical guest patch addition |
+
+The generator moved 28 functions between partition files. For 22 of these,
+full textual bodies are identical (8,602 body lines); their delete/add pairs
+inflate the diff. The existing [generated comparison](timer-product-installation/generated-delta.json)
+also checks 1,024 fused helpers by full-body multiset equality. After verified
+helper identity substitution, 63 function bodies still differ. These counts are
+not additive and do not prove semantic equivalence of the remaining changes.
+All 118 regenerated files matched the candidate independently on both platforms.
+Do not manually discard or rearrange generated output to shrink the diff:
+that would invalidate the verified runtime inventory. Stable generator layout
+would be a separate tooling change, requiring its own regeneration acceptance.
+
+The original receipt representation did not follow
+[the compact CI receipt policy](../development.md#compact-ci-receipts): it kept
+full REST responses, routine transcripts and repeated per-host/source-unit
+payloads. They are now reduced into readable result summaries, with original
+hashes and the inspected record commit in each `reduction.json`. Source/run/job/
+artifact identities, essential SQL/negative/cleanup outcomes and current-file
+checksums remain. Original assessments are unchanged; bootstrap is still
+UNQUALIFIED and installed correctness remains bound to `37023152`.
+This cleanup changes documentation only and makes no new measurement claim.

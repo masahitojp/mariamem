@@ -1,0 +1,31 @@
+{
+  "source_commit": "3da600c9210d3106e6d740f6c59f39b5faa42135",
+  "results": [
+    {
+      "name": "daily",
+      "exit_code": 0,
+      "seconds": 125.584,
+      "log_sha256": "9a1545fb2ebb96056d3bbd31d73511c759415dee224d7c092eceaba6051e0f50"
+    },
+    {
+      "name": "smoke",
+      "exit_code": 0,
+      "seconds": 10.516,
+      "log_sha256": "e217856c4d60641342dcf243688208fb69273becbe9ae4250880a1eb62e1bf40"
+    }
+  ],
+  "result": "PASS_LOCAL_DAILY_AND_SMOKE",
+  "platform": "darwin-arm64 macOS27.2; hosted macOS15 acceptance pending",
+  "python": {
+    "source_units_passed": 71,
+    "remaining_passed": 1908,
+    "skipped": 98,
+    "subtests_passed": 119
+  },
+  "commit_metadata_correction": {
+    "checked_source_commit": "3da600c9210d3106e6d740f6c59f39b5faa42135",
+    "corrected_source_commit": "ba28801a415cc0f9d2e5503e2a965d976ad1e9f4",
+    "identical_tree": "aab178f91db6d9321294d84b3032025993e38053",
+    "reason": "Restore author after test-only Git configuration leaked from the interrupted setup; no source bytes changed."
+  }
+}

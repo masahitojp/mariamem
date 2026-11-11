@@ -1,0 +1,115 @@
+{
+  "baseline": {
+    "exit_code": 0,
+    "scratch_empty": true,
+    "subsequent_select": "PASS",
+    "active_mappings_after": 0,
+    "observations": [
+      {
+        "repeat": 0,
+        "delayed": false,
+        "client_wall_ms": 1.00475,
+        "reported_total_ms": null,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 0,
+        "delayed": true,
+        "client_wall_ms": 26.455667,
+        "reported_total_ms": null,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 1,
+        "delayed": false,
+        "client_wall_ms": 0.22425,
+        "reported_total_ms": null,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 1,
+        "delayed": true,
+        "client_wall_ms": 26.251041,
+        "reported_total_ms": null,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 2,
+        "delayed": false,
+        "client_wall_ms": 0.19325,
+        "reported_total_ms": null,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 2,
+        "delayed": true,
+        "client_wall_ms": 26.294041,
+        "reported_total_ms": null,
+        "rows": 2,
+        "loops": 1
+      }
+    ]
+  },
+  "candidate": {
+    "exit_code": 0,
+    "scratch_empty": true,
+    "subsequent_select": "PASS",
+    "active_mappings_after": 0,
+    "observations": [
+      {
+        "repeat": 0,
+        "delayed": false,
+        "client_wall_ms": 1.011208,
+        "reported_total_ms": 0.152,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 0,
+        "delayed": true,
+        "client_wall_ms": 25.668625,
+        "reported_total_ms": 25.197,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 1,
+        "delayed": false,
+        "client_wall_ms": 0.185,
+        "reported_total_ms": 0.01,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 1,
+        "delayed": true,
+        "client_wall_ms": 26.365375,
+        "reported_total_ms": 26.11,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 2,
+        "delayed": false,
+        "client_wall_ms": 0.234,
+        "reported_total_ms": 0.013,
+        "rows": 2,
+        "loops": 1
+      },
+      {
+        "repeat": 2,
+        "delayed": true,
+        "client_wall_ms": 26.477542,
+        "reported_total_ms": 26.152,
+        "rows": 2,
+        "loops": 1
+      }
+    ]
+  },
+  "interpretation": "Baseline SQL execution and cleanup PASS; delayed query total timing field is absent (known timer defect). Candidate all three delayed totals within [18, client wall+5]ms. This control is outside performance samples."
+}

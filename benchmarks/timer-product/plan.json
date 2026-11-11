@@ -1,0 +1,41 @@
+{
+  "question": "Does the assembled timer candidate improve startup and complete Go Pipe shop70 execution relative to current main?",
+  "sources": {
+    "baseline": {
+      "object_sha": "584004b21132e28886330484bfec00fdda99642c",
+      "object_type": "commit",
+      "source_commit": "584004b21132e28886330484bfec00fdda99642c"
+    },
+    "candidate": {
+      "object_sha": "1f0e6fc4313278c10027864285df7b70a85f91e4",
+      "object_type": "commit",
+      "source_commit": "1f0e6fc4313278c10027864285df7b70a85f91e4"
+    },
+    "harness": {
+      "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+      "object_type": "commit",
+      "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+    }
+  },
+  "scope": "Both SQL clock correction and bounded probe omission vs unmodified main, not isolation of the probe alone. Single local Mac; no pgmem/new Ubuntu performance.",
+  "workload": "Existing immutable timer_calibration runner; 16MiB buffer pool/read1; GOMAXPROCS8 GOGC100; no internal observers. 50 shared-child reads +20 private-child writes, cap=P+1, P4/P8.",
+  "sampling": {
+    "lifecycle_pairs": 6,
+    "fresh_per_batch": 8,
+    "fork_per_batch": 16,
+    "shop_pairs_per_parallelism": 5,
+    "warmup_processes": 6,
+    "order": "alternating arms and P4/P8 order",
+    "tail_policy": "retain every sample, no outcome-selected repeats"
+  },
+  "exit": "Report paired wall/CPU changes, lifecycle and child-stage distributions, >100ms tails, correctness and cleanup; inconclusive effects remain inconclusive. No speed threshold silently converted to approval.",
+  "budget": {
+    "active_hours": 2,
+    "tooling_minutes": 30,
+    "heavy_CI_submissions": 0,
+    "disk_gib": 8,
+    "min_free_gib": 8
+  },
+  "measurement_clock": "host monotonic wall and process rusage CPU, not corrected guest SQL timer",
+  "baseline_negative_control": "Baseline ANALYZE may report zero (known defect); require valid SQL rows, subsequent SELECT and cleanup. Candidate delayed report must be [18, client wall+5]ms."
+}

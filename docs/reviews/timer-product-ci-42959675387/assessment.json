@@ -1,0 +1,111 @@
+{
+  "result": "PASS_BOUNDED_CANONICAL_CORRECTNESS",
+  "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
+  "run_id": 42959675387,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387",
+  "artifacts": [
+    {
+      "id": 13830166494,
+      "name": "timer-product-canonical-native-macos-15-370231520c373fae05378bddb791c9b6d7fdf84f",
+      "digest": "sha256:2f56db4c5c33b7ded48fb07df5a4238c3c3a59dbef5b24f9598cdcb138aba4e1"
+    },
+    {
+      "id": 13829033112,
+      "name": "timer-product-canonical-guest-370231520c373fae05378bddb791c9b6d7fdf84f",
+      "digest": "sha256:5f4983093d97c280d0af015642eba739ad94181f9ab9cfddad10fc5b0f79bc0c"
+    },
+    {
+      "id": 13828903802,
+      "name": "timer-product-canonical-native-ubuntu-24.04-370231520c373fae05378bddb791c9b6d7fdf84f",
+      "digest": "sha256:86e9b4c11b8ed304fb17ce251eb5f4101b54a5313d26a2a3de703ee40af7230e"
+    },
+    {
+      "id": 13828897446,
+      "name": "timer-product-canonical-build-370231520c373fae05378bddb791c9b6d7fdf84f",
+      "digest": "sha256:2bc95261d5e20661cb6890a0c45a217ab212e6d39ed41adf8538cd5d87f735f4"
+    },
+    {
+      "id": 13828687402,
+      "name": "timer-product-native-reference-370231520c373fae05378bddb791c9b6d7fdf84f",
+      "digest": "sha256:cd90fdbe35f5c501da85270c6e8530cf4711d5b7dd22dadf1eb1a6e9f1ec83bd"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 130322997502,
+      "name": "guest",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387/job/130322997502",
+      "conclusion": "success"
+    },
+    {
+      "id": 130322997726,
+      "name": "reference",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387/job/130322997726",
+      "conclusion": "success"
+    },
+    {
+      "id": 130328306911,
+      "name": "native (ubuntu-24.04)",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387/job/130328306911",
+      "conclusion": "success"
+    },
+    {
+      "id": 130328306921,
+      "name": "native (macos-15)",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387/job/130328306921",
+      "conclusion": "success"
+    }
+  ],
+  "archive_checksums_verified": true,
+  "hosts": {
+    "macos": {
+      "result": "PASS",
+      "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+      "generated_files": 118,
+      "host_sha256": "435f1b64cc0aa6189945d97c98a91e9c146f4444c4e3af02c643545738f515a7",
+      "children": 2,
+      "cleanup": {
+        "refs": 0,
+        "process_exit": 0,
+        "reaped": true,
+        "root_exists": false
+      },
+      "timer_routes": [
+        "TCP",
+        "Pipe"
+      ],
+      "source_timer_controls": "PASS",
+      "evidence_mutations_rejected": 20,
+      "J1_expected_failures": 2,
+      "J1_protected_successes": 4
+    },
+    "ubuntu": {
+      "result": "PASS",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "generated_files": 118,
+      "host_sha256": "35ce5b86da662eb2a98940803278ed9c33c35816bf3cd3edad5783a4a0cee671",
+      "children": 2,
+      "cleanup": {
+        "refs": 0,
+        "process_exit": 0,
+        "reaped": true,
+        "root_exists": false
+      },
+      "timer_routes": [
+        "TCP",
+        "Pipe"
+      ],
+      "source_timer_controls": "PASS",
+      "evidence_mutations_rejected": 20,
+      "J1_expected_failures": 2,
+      "J1_protected_successes": 4
+    }
+  },
+  "main_integration": "AWAITING_HUMAN_REVIEW",
+  "qualification": "NOT_RUN",
+  "release": "NOT_APPROVED",
+  "performance": "NO_NEW_MEASUREMENT; accepted single-Mac startup benefit and whole-suite limits unchanged",
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "linked_sha256": "575000f5990162222db9010c069edbf2beab889de1042d460663db6aee619318",
+  "independent_source_builds": 2
+}
