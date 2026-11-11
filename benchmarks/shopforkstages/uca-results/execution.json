@@ -1,0 +1,16 @@
+{
+  "result": "PASS_BOUNDED_OBSERVATION",
+  "harness_source_commit": "b0c457e1d314b8a957ff7b149d400be4ae05a146",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "binary_sha256": "3c3818fcd52403b2e34560ecf0997fd53488d416be363b513735375b2b516054",
+  "runner_sha256": "bc3ba1aeda73f3c7b376ab4f4088ad4ee7520d5f098a5daf5eb2a7f34d320c6b",
+  "builds": 1,
+  "processes": 2,
+  "forks": 42,
+  "fresh": 2,
+  "retries": 0,
+  "product_changes": false,
+  "guest_regenerated": false,
+  "ci_submitted": false,
+  "observer_limit": "Selected startup profile only; CommonSpan is detached after common init; no general lazy-collation diagnostic claim."
+}

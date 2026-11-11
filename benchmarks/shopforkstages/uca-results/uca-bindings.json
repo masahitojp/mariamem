@@ -1,0 +1,37 @@
+[
+  {
+    "path": "internal/generatedgo/code/base/base.go",
+    "before": "dd50eb979eceeb6be466a50fd59436c3a510f018be2e3629047647d28cf86ce0",
+    "after": "e0ad8dff46e1dcf3ce07d2d7c73bc21ed0385c8b29d804c3dca36c571f5917b1"
+  },
+  {
+    "path": "internal/generatedgo/runtime_instance.go",
+    "before": "436843e8e341037de07bd4b855df7d85fd7f1e92bfb70a73402bf202e3288770",
+    "after": "bd887a385c0a5db5834c61a2fbc2a6b8041eb85febb9bca2e361c26f6bc56208"
+  },
+  {
+    "function": 610,
+    "symbol": "my_uca_level_booster_populate",
+    "body_before_sha256": "71c418c83682932cf9f12a0a2d776a7492e33c9dfd5e8cf6c8c78563e4383b88"
+  },
+  {
+    "path": "internal/generatedgo/code/p3/p3_pure.go",
+    "before": "de28e439060183d28ae972805d4b10b9bf1b13bcae41aa3d9d5071c0dbc5d4dd",
+    "after": "b3690c465ed224fc476bad0e9ccfb12871011f78f487ebfc45fda7e03568f87e"
+  },
+  {
+    "function": 465,
+    "symbol": "my_coll_init_uca",
+    "body_before_sha256": "7f1cd470cefdf34258dfb9c73b0ddca18f8a2c66578c048266b53993c61dde30"
+  },
+  {
+    "function": 468,
+    "symbol": "my_uca_info_init",
+    "body_before_sha256": "04d9c239de481f9095741c02372c00859990871f35723d5534d8d9de1a5f449a"
+  },
+  {
+    "path": "internal/generatedgo/code/p2/p2_pure.go",
+    "before": "78a35dedb418390b8c72a6f3a35468734c651daeed5009b059a8ca0c6790e1fb",
+    "after": "d9d50b8e35ab3ebd91b8be04ff21232d0e5b1b2eb0a2565ca35a51b4bdd5d5b8"
+  }
+]

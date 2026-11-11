@@ -1,0 +1,22 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "verified_git_tree": "36a2f18e356a59f3aed1a5bfd61042fe64390ee4",
+  "files": {
+    "strings/ctype-uca.c": {
+      "sha256": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca.c"
+    },
+    "strings/ctype-uca1400.c": {
+      "sha256": "f924fa753db27ab87caead5dc51f623ed571cae5074309cdc0d088881ba3ae42",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca1400.c"
+    },
+    "mysys/charset.c": {
+      "sha256": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/charset.c"
+    },
+    "include/m_ctype.h": {
+      "sha256": "b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/m_ctype.h"
+    }
+  }
+}
