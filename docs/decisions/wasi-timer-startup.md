@@ -31,3 +31,19 @@ UCA/collation work stays separate.
 Candidate implementation is authorized. Main integration, Qualification,
 version changes and publication remain separate decisions. Successful prototype
 receipts retain their original sources and do not certify the new candidate.
+
+## Main adoption, 2026-11-11
+
+The Human approved main integration of the canonical timer candidate after the
+[paired product measurement](../../benchmarks/timer-product/README.md).
+Fresh/Fork wall improved in all six pairs (-8.63%/-8.96% medians); whole-suite
+acceleration remains unestablished (P4 +2.23%, P8 -20.47%, tails retained).
+This limitation is explicitly accepted for the startup/timing-correctness change.
+[PR152](https://github.com/masahitojp/mariamem/pull/152) merged approved head
+`ba9bf77bcaf6e49a6b3a6ed4df54ed8837856b18` into main as
+`500020e7dc6d702ef059f0e73a4bab738103b774`, following successful check,
+integration and Live required gate in
+[CI43008225827](https://github.com/masahitojp/mariamem/actions/runs/43008225827).
+Earlier receipts retain their original source identities. This closes main
+integration only; Qualification/publication remain separate. UCA work starts
+as a separate bounded investigation, with no new UCA product adoption.

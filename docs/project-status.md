@@ -6,7 +6,7 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## WASI timer correction and startup reduction — product candidate approved
+## WASI timer correction and startup reduction — adopted on main
 
 On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)
 after reviewing evidence `d24087ee`, Mac paired measurements and Ubuntu/native
@@ -23,8 +23,18 @@ pass at37023152 in [CI42959675387](reviews/timer-product-ci-42959675387/README.m
 All118 generated files agree; timer TCP/Pipe Fresh/two children, CRC/UCA/lexer,
 worker/J1, native SQL and disposal controls pass. Evidence/acceptance metadata
 updates preserve the tested runtime bytes and original receipt source.
-PR152 is ready for Human main-integration review. No new performance claim is made. Main integration,
-Qualification and release remain separate. UCA work is not part of this candidate.
+On 2026-11-11 the Human approved main integration, accepting the measured
+Fresh/Fork startup benefit and the absence of an established whole-suite benefit.
+[PR152](https://github.com/masahitojp/mariamem/pull/152) merged approved head
+`ba9bf77bcaf6e49a6b3a6ed4df54ed8837856b18` as main source_commit
+`500020e7dc6d702ef059f0e73a4bab738103b774`. All three protected checks passed
+at that head in [CI43008225827](https://github.com/masahitojp/mariamem/actions/runs/43008225827).
+The [candidate measurement](../benchmarks/timer-product/README.md) remains bound
+to its original measured source: Fresh/Fork median -8.63%/-8.96%, complete-suite
+P4 +2.23% and P8 -20.47% on one Mac. This authorizes bounded startup/timing
+correctness adoption, not a uniform end-to-end speedup claim. Main integration
+is complete; Qualification and release remain separate. The Human also authorized
+starting the separate UCA investigation, without adopting a new UCA change.
 
 ## Issue150 — versioned legacy preparation candidate (2026-11-10)
 
