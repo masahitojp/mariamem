@@ -15,3 +15,12 @@ which was resolved by full-body equality, and an already-completed workspace
 cache selection, before installation succeeded with explicitly owned cache
 paths. An inefficient all-function scan was stopped before mutation. No failed
 preparation attempt is counted as runtime acceptance.
+
+The fixed Go1.26.10 VCS scanner does not detect `.git` files in this nested
+worktree layout. The first local host has no VCS stamp and is not attribution
+proof. An exact147e72ae clean local clone produced a correctly stamped host;
+`audit_generated_licenses.py` passed without relaxing its identity requirement.
+An initial daily attempt incorrectly inherited that build-only Git environment;
+it was interrupted, the checkout stayed clean, and tests were rerun without
+GIT_DIR/GIT_WORK_TREE. Subsequent ordinary validation identified the two actual
+pin/workflow issues recorded in the checkpoint, which were fixed before CI.

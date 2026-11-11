@@ -1,10 +1,7 @@
 name: Timer canonical candidate (not Qualification)
 # Stage1:42955063307 at498e186e, single UNQUALIFIED input; never relabel.
-# Product-candidate branch submission; no Qualification or publication.
+# Explicit manual dispatch; Development owns PR checks.
 on:
-  push:
-    branches: [experiment/timer-product]
-    paths: [.github/workflows/timer-product.yml]
   workflow_dispatch:
 permissions:
   contents: read

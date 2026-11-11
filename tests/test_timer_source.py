@@ -36,5 +36,7 @@ def test_product_candidate_requires_canonical_and_platform_timer_checks():
                      'tests/routine_thread_fixture.py',
                      'tests/lexer_prepared_acceptance.py']:
         assert required in workflow
+    assert '  push:' not in workflow
+    assert '  workflow_dispatch:' in workflow
     assert 'continue-on-error' not in workflow
     assert 'operation: release' not in workflow
