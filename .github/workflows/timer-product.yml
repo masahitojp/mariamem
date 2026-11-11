@@ -1,18 +1,13 @@
-name: Timer product input (not Qualification)
+name: Timer canonical candidate (not Qualification)
+# Stage1:42955063307 at498e186e, single UNQUALIFIED input; never relabel.
+# Product-candidate branch submission; no Qualification or publication.
 on:
   push:
     branches: [experiment/timer-product]
-    paths:
-      - guest/source.patch
-      - tests/timer_source/**
-      - tests/test_timer_source.py
-      - .github/workflows/timer-product.yml
+    paths: [.github/workflows/timer-product.yml]
   workflow_dispatch:
 permissions:
   contents: read
-concurrency:
-  group: timer-product-${{ github.ref }}
-  cancel-in-progress: false
 jobs:
   guest:
     runs-on: ubuntu-24.04-arm
@@ -20,14 +15,12 @@ jobs:
       image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
     timeout-minutes: 100
     steps:
-      - name: Builder dependencies
+      - name: Source builder dependencies
         run: |
           apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          fetch-depth: 0
-      - name: Exact clean canonical source and timer controls
+      - name: Bind clean exact candidate and build twice
         env:
           HOME: /root
         run: |
@@ -37,35 +30,125 @@ jobs:
           python3 -c 'import json,os;assert json.load(open("build/timer-product-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
           test ! -e guest/experimental.patch
-          python3 tests/timer_source/selection.py --work /tmp/timer-selection --output build/timer-product-ci/selection.json > build/timer-product-ci/selection.txt 2>&1
-          python3 tests/timer_source/calibration.py --work /tmp/timer-calibration --output build/timer-product-ci/calibration.json > build/timer-product-ci/calibration.txt 2>&1
-      - name: Single UNQUALIFIED bootstrap from canonical patch
-        env:
-          HOME: /root
-        run: |
-          python3 scripts/build_generated_guest.py --development-output /tmp/timer-product-guest > build/timer-product-ci/build.txt 2>&1
-          python3 - <<'PY'
-          import hashlib,json,pathlib
-          p=pathlib.Path('/tmp/timer-product-guest')
-          r=json.loads((p/'guest.json').read_text())
-          expected='a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18'
-          assert r['contract']=='development-unqualified-v1' and r['result']=='UNQUALIFIED'
-          assert r['guest_sha256']==hashlib.sha256((p/'mariamem.wasm').read_bytes()).hexdigest()==expected
-          assert len(r['repetitions'])==1 and not r['prepared_source'].get('experimental_patch')
-          out=pathlib.Path('build/timer-product-ci')
-          (out/'assessment.json').write_text(json.dumps(dict(result='UNQUALIFIED_INPUT_BUILT',source_commit=r['source_identity']['commit'],guest_sha256=expected,guest_record_sha256=hashlib.sha256((p/'guest.json').read_bytes()).hexdigest(),canonical_patch_sha256=hashlib.sha256(pathlib.Path('guest/source.patch').read_bytes()).hexdigest(),independent_source_builds=1,product_runtime='NOT_INSTALLED',qualification=False),indent=2)+'\n')
-          (out/'SHA256SUMS.json').write_text(json.dumps({f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(out.iterdir()) if f.is_file()},indent=2)+'\n')
-          PY
+          python3 scripts/build_generated_guest.py --repetitions 2 > build/timer-product-ci/guest-build.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: timer-product-guest-${{ github.sha }}
-          path: /tmp/timer-product-guest
+          name: timer-product-canonical-guest-${{ github.sha }}
+          path: build/generated-release
           if-no-files-found: error
           retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: timer-product-evidence-${{ github.sha }}
+          name: timer-product-canonical-build-${{ github.sha }}
           path: build/timer-product-ci
+          if-no-files-found: error
+          retention-days: 14
+  reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      mariadb:
+        image: mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+          MARIADB_DATABASE: test
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed MariaDB native control
+        run: |
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          mkdir -p build/timer-product-reference
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/timer-product-reference/image.json
+          python scripts/git_identity.py inspect HEAD > build/timer-product-reference/source.json
+          python -c 'import json,os;assert json.load(open("build/timer-product-reference/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          python tests/lexer_prepared_acceptance.py --native-port 3307 --output build/timer-product-reference/native.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: timer-product-native-reference-${{ github.sha }}
+          path: build/timer-product-reference
+          if-no-files-found: error
+          retention-days: 14
+  native:
+    needs: [guest, reference]
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: timer-product-canonical-guest-${{ github.sha }}
+          path: build/generated-release
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: timer-product-native-reference-${{ github.sha }}
+          path: build/timer-product-reference
+      - name: Exact clean source and source input controls
+        run: |
+          go clean -testcache
+          python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          mkdir -p build/timer-product-ci
+          python scripts/git_identity.py inspect HEAD > build/timer-product-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/timer-product-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python -m unittest discover -s tests -p test_lexer_prepared_input.py -v > build/timer-product-ci/input.txt 2>&1
+          python -m unittest discover -s tests -p test_startup_concurrency.py -v > build/timer-product-ci/startup-input.txt 2>&1
+      - name: Canonical timer source regression and mutations
+        run: python -m pytest tests/test_timer_source.py -q > build/timer-product-ci/timer-source.txt 2>&1
+      - name: Independent Go regeneration and canonical build guard
+        run: |
+          python scripts/regenerate_release_guest.py --output "$RUNNER_TEMP/timer-product-regeneration" > build/timer-product-ci/regeneration.txt 2>&1
+          cp build/generated-release/guest.json build/timer-product-ci/guest.json
+          cp build/generated-release/regeneration.json build/timer-product-ci/regeneration.json
+          python -c 'import os,sys;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/timer-product-ci/build-guard.txt 2>&1
+      - name: Evidence guard mutation controls
+        run: python scripts/check_prepared_build_guards.py --output build/timer-product-ci/build-negative.json > build/timer-product-ci/build-negative.txt 2>&1
+      - name: Exact CRC body and validation differential
+        run: go test -trimpath -p 1 -count=1 ./internal/generatedgo/code/p4 -run '^TestCRC32C' -v > build/timer-product-ci/crc.txt 2>&1
+      - name: Actual UCA/lexer parity, corruption, profiling separation and worker survival
+        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/timer-product-ci/actual-tables.txt 2>&1
+      - name: SQL timer Fresh and two pristine children through TCP and Pipe
+        run: go test -trimpath -p 1 -tags integration -count=1 ./tests/gointegration -run '^TestAnalyzeTimerFreshAndFork$' -v > build/timer-product-ci/timer-sql.txt 2>&1
+      - name: Worker ownership negative and protected controls
+        run: |
+          python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/timer-product-worker" --run > build/timer-product-ci/worker.txt 2>&1
+          cp "$RUNNER_TEMP/timer-product-worker/identities.json" build/timer-product-ci/worker-identities.json
+          cp "$RUNNER_TEMP/timer-product-worker/results.json" build/timer-product-ci/worker-results.json
+      - name: Normal/binary-prepared native SQL differential, two children and cleanup
+        run: |
+          go build -p 1 -trimpath -o build/timer-product-ci/mariamem-host ./cmd/mariamem-host
+          PYTHONPATH=python python tests/lexer_prepared_acceptance.py --host build/timer-product-ci/mariamem-host --native build/timer-product-reference/native.json --output build/timer-product-ci/sql-children.json > build/timer-product-ci/sql-children.txt 2>&1
+          PYTHONPATH=python MARIAMEM_TEST_HOST="$GITHUB_WORKSPACE/build/timer-product-ci/mariamem-host" python -m pytest tests/test_dev_guest_smoke.py -q > build/timer-product-ci/snapshot-smoke.txt 2>&1
+      - name: Bind compact receipt checksums
+        if: success()
+        run: |
+          python -c 'import hashlib,json,pathlib;d=pathlib.Path("build/timer-product-ci");(d/"SHA256SUMS.json").write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.suffix in (".txt",".json") and p.name!="SHA256SUMS.json"},indent=2)+"\n")'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: timer-product-canonical-native-${{ matrix.runner }}-${{ github.sha }}
+          path: |
+            build/timer-product-ci/*.txt
+            build/timer-product-ci/*.json
           if-no-files-found: error
           retention-days: 14

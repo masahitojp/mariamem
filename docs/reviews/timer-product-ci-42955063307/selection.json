@@ -1,0 +1,98 @@
+{
+  "result": "SELECTION_UNIT_PASS",
+  "source_patch_sha256": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee",
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "patch_sha256": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee",
+  "header_before_sha256": "b1448683d58426071ff95a4fe95868eb1d9884de490bf6919e701bfe23cb5748",
+  "header_after_sha256": "44274055f6e399fb640f6016cd95c191765ec9b22bc9025a4f6adef9db605aa7",
+  "cases": [
+    {
+      "profile": "wasi",
+      "treatment": "before",
+      "returncode": 3,
+      "observed": {
+        "frequency": 0,
+        "delta": 0,
+        "correct_20ms": false
+      },
+      "source_sha256": "489f50c48111754568f89194588bc5791cf0a559f52b5c9362ac6623776279de"
+    },
+    {
+      "profile": "wasi",
+      "treatment": "after",
+      "returncode": 0,
+      "observed": {
+        "frequency": 1000000,
+        "delta": 20000,
+        "correct_20ms": true
+      },
+      "source_sha256": "5135de92ab231d2a01dacfe2eeca040c0217ef5868d4c5c1cc6c92123aa40d36"
+    },
+    {
+      "profile": "native_cycles",
+      "treatment": "before",
+      "returncode": 0,
+      "observed": {
+        "frequency": 1000000000,
+        "delta": 20000000,
+        "correct_20ms": true
+      },
+      "source_sha256": "489f50c48111754568f89194588bc5791cf0a559f52b5c9362ac6623776279de"
+    },
+    {
+      "profile": "native_cycles",
+      "treatment": "after",
+      "returncode": 0,
+      "observed": {
+        "frequency": 1000000000,
+        "delta": 20000000,
+        "correct_20ms": true
+      },
+      "source_sha256": "5135de92ab231d2a01dacfe2eeca040c0217ef5868d4c5c1cc6c92123aa40d36"
+    },
+    {
+      "profile": "native_no_cycles",
+      "treatment": "before",
+      "returncode": 0,
+      "observed": {
+        "frequency": 1000000,
+        "delta": 20000,
+        "correct_20ms": true
+      },
+      "source_sha256": "489f50c48111754568f89194588bc5791cf0a559f52b5c9362ac6623776279de"
+    },
+    {
+      "profile": "native_no_cycles",
+      "treatment": "after",
+      "returncode": 0,
+      "observed": {
+        "frequency": 1000000,
+        "delta": 20000,
+        "correct_20ms": true
+      },
+      "source_sha256": "5135de92ab231d2a01dacfe2eeca040c0217ef5868d4c5c1cc6c92123aa40d36"
+    }
+  ],
+  "negative_controls": [
+    {
+      "reverted": "static inline double timer_tracker_frequency()",
+      "rejected": true,
+      "observed": {
+        "frequency": 0,
+        "delta": 20000,
+        "correct_20ms": false
+      }
+    },
+    {
+      "reverted": "ulonglong measure() const",
+      "rejected": true,
+      "observed": {
+        "frequency": 1000000,
+        "delta": 0,
+        "correct_20ms": false
+      }
+    }
+  ],
+  "limitation": "Exact methods with stub clocks; not actual guest/SQL/runtime evidence."
+}

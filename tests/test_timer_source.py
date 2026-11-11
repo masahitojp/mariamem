@@ -22,3 +22,19 @@ def test_canonical_timer_source(tmp_path, name, result, cases, mutations):
     assert record['result'] == result
     assert len(record['cases']) == cases
     assert len(record['negative_controls']) == mutations
+
+
+def test_product_candidate_requires_canonical_and_platform_timer_checks():
+    workflow = (ROOT / '.github/workflows/timer-product.yml').read_text()
+    for required in ['scripts/build_generated_guest.py --repetitions 2',
+                     'test ! -e guest/experimental.patch',
+                     'runner: [macos-15, ubuntu-24.04]',
+                     'scripts/regenerate_release_guest.py',
+                     'scripts/check_prepared_build_guards.py',
+                     'tests/test_timer_source.py',
+                     "-run '^TestAnalyzeTimerFreshAndFork$'",
+                     'tests/routine_thread_fixture.py',
+                     'tests/lexer_prepared_acceptance.py']:
+        assert required in workflow
+    assert 'continue-on-error' not in workflow
+    assert 'operation: release' not in workflow

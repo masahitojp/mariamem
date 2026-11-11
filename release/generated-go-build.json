@@ -1,6 +1,6 @@
 {
-  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained",
-  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission",
+  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -178,7 +178,7 @@
       "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
-      "source.patch": "9209fdfdecb09f6aed48061c6c5dadd0e36992f5dc3b30bce29d79e242c870ef",
+      "source.patch": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
       "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
@@ -359,54 +359,44 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
-  "guest_size": 21177331,
-  "linked_guest_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
+  "source_commit": "498e186e6f4871b81e3665a76cadd64d58cb422d",
+  "guest_size": 21177619,
+  "linked_guest_sha256": "575000f5990162222db9010c069edbf2beab889de1042d460663db6aee619318",
   "repetitions": [
     {
-      "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
-      "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee"
-    },
-    {
-      "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
-      "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee"
+      "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+      "linked_sha256": "575000f5990162222db9010c069edbf2beab889de1042d460663db6aee619318"
     }
   ],
-  "completed": true,
-  "full_guest_regeneration": true,
+  "completed": false,
+  "full_guest_regeneration": false,
   "ci_evidence": {
-    "status": "PASS: bounded canonical correctness; Development repair and main-adoption review remain separate",
-    "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
-    "run_id": 42531554501,
-    "receipt": "docs/reviews/startup-cap-ci-42531554501/assessment.json",
-    "independent_generation_files": 110,
-    "platforms": [
-      "darwin-arm64",
-      "ubuntu24.04-x86_64"
-    ],
-    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42531554501"
+    "status": "SINGLE_BOOTSTRAP_PASS; installed candidate and canonical matrix pending",
+    "source_commit": "498e186e6f4871b81e3665a76cadd64d58cb422d",
+    "run_id": 42955063307,
+    "receipt": "docs/reviews/timer-product-ci-42955063307/assessment.json"
   },
   "previous_canonical_evidence": {
-    "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
-    "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
+    "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
     "ci_evidence": {
-      "status": "PASS: bounded canonical candidate; not Qualification or release approval",
-      "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
-      "run_id": 42463414255,
-      "receipt": "docs/reviews/lexer-canonical-ci-42463414255/assessment.json",
+      "status": "PASS: bounded canonical correctness; Development repair and main-adoption review remain separate",
+      "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
+      "run_id": 42531554501,
+      "receipt": "docs/reviews/startup-cap-ci-42531554501/assessment.json",
       "independent_generation_files": 110,
       "platforms": [
         "darwin-arm64",
         "ubuntu24.04-x86_64"
       ],
-      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42463414255"
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42531554501"
     },
-    "record_sha256": "191221bc08f02ac9bca951cabb841b979a37163ee568cf84fe4811571f836379"
+    "record_sha256": "3b1d9fb6a9c4c3af23e19012bae2bf12cc5b3be389516370fb52efd3460ca276"
   },
   "incoming_guest_origin": {
-    "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
+    "source_commit": "498e186e6f4871b81e3665a76cadd64d58cb422d",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
-    "use": "Historical single-build bootstrap only; separate two-build canonical acceptance is recorded in ci_evidence."
+    "use": "Single-build canonical-source bootstrap; independent two-build acceptance pending."
   }
 }

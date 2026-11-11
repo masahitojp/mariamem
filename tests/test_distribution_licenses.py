@@ -96,6 +96,13 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
     for name in ('provenance.json', 'image/layout.json'):
         shutil.copyfile(ROOT/'internal/generatedgo'/name, target/name)
     evidence = json.loads((ROOT/'release/generated-license-evidence.json').read_text())
+    # Exercise the historical metadata-only path independently of whether the
+    # current canonical audit already includes image metadata.
+    import hashlib
+    historical = json.loads((target/'provenance.json').read_text())
+    historical['files_sha256'].pop('image/layout.json')
+    evidence['generated_provenance_sha256'] = hashlib.sha256(
+        (json.dumps(historical, indent=2)+'\n').encode()).hexdigest()
     assert verify_generated_attribution(tmp_path, evidence) == 'unchanged-generated-code; image-metadata-only'
     original = (target/'provenance.json').read_bytes()
     for mutation in ('source', 'extra', 'guest'):

@@ -25,22 +25,31 @@ Normal verification now owns:
 
 ## Current boundary and remaining work
 
-The normal generated runtime and release provenance still describe the old
-guest. This is an input-stage checkpoint, **not merge-ready**. Do not run old
-runtime bytes and claim they prove the new patch.
+The [single-build receipt](timer-product-ci-42955063307/README.md) is verified
+at source `498e186e6f4871b81e3665a76cadd64d58cb422d`. The canonical-source guest
+matches the reviewed SHA256
+`a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18`.
+The normal generated Go and exact input/provenance pins are now installed.
+This remains **not merge-ready** until canonical/platform verification succeeds.
 
-1. Build one UNQUALIFIED bootstrap from the canonical patch using the existing
-   development-output route. Require the reviewed guest SHA256
-   `a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18`;
-   unexpected bytes stop for diagnosis. This stage has no product installation,
-   release eligibility or publication.
-2. Verify that artifact and canonical preparation identity; translate and
-   install generated source with normal strict body/data/ownership bindings.
-   Update generated/runtime/provenance records together, keeping prior evidence
-   historical and the bootstrap explicitly single-build/UNQUALIFIED.
-3. Perform the existing independent canonical build/regeneration and both-OS
-   product checks, including these new regression owners. Then make the minimal
-   candidate reviewable in a PR. Main integration and release are separate.
+- Initial static data, full CRC body/table and all19 bound worker/J1 function
+  bodies are unchanged. Fn82 moves partition; only its file location is rebound
+  after complete normalized-body equality. No wildcard or development binding
+  exception is accepted. See [installation proofs](timer-product-installation/).
+- Binaryen133 reproduces the exact guest while emitting the unchanged function
+  map. A clean candidate native host audit is the next attribution check.
+- Build ledger `completed=false` / `full_guest_regeneration=false` accurately
+  records the single UNQUALIFIED bootstrap. Old canonical receipts remain bound
+  to their old source and guest; no receipt is relabeled.
+- `timer-product.yml` now requires two independent canonical C builds,
+  macOS15 arm64/Ubuntu24.04 x86_64 independent full Go regeneration and build
+  guards, source timer mutations, actual TCP/Pipe Fresh/two-child timer checks,
+  CRC/UCA/lexer/worker controls, native SQL and cleanup checks. These are pending,
+  not inferred from bootstrap success.
+
+Remaining: finish local canonical checks, submit the exact candidate for that
+both-host campaign, then present the minimal candidate in a PR. Main integration,
+Qualification and release remain separate decisions.
 
 This sequence follows the existing startup-cap bootstrap/canonical workflow.
 It does not add an experiment or require another decision to continue the

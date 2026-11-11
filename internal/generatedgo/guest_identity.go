@@ -1,3 +1,3 @@
 package generatedgo
 
-const compiledGuestSHA256 = "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df"
+const compiledGuestSHA256 = "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18"
