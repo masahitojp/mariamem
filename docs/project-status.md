@@ -6,7 +6,7 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## WASI timer startup reduction — bounded Mac comparison completed
+## WASI timer startup reduction — Human retained the startup candidate
 
 The [paired comparison](reviews/timer-calibration-measure/README.md) on2026-11-11
 keeps the corrected SQL clock in both arms. Skipping only the millisecond-resolution
@@ -15,9 +15,12 @@ probe improves sequential Fresh/Fork elapsed in all6 paired batches:
 arms; the compiled bypass and unchanged host/CRC/ownership bindings are checked.
 The complete shop70 benefit is not established: P4 median570.689→577.152ms and
 P8 median572.549→666.411ms, with P8 sample tails retained in both arms (7/105 above
-100ms each). Recommend retaining a startup-improvement candidate for platform
-confirmation; do not advertise whole-suite acceleration or absence of regression.
-Native comparison, Ubuntu runtime, Human adoption and release remain separate.
+100ms each). On2026-11-11 the Human accepted retaining this bounded prototype
+as a startup-improvement candidate, based on the reviewed record37e08920.
+The [retention decision](reviews/timer-calibration-measure/human-decision.json)
+does not approve main integration or product adoption. Do not advertise whole-suite
+acceleration or absence of regression. Native comparison, Ubuntu runtime,
+separate Human adoption, Qualification and release remain outstanding gates.
 
 ## WASI timer startup reduction — bounded prototype authorized
 

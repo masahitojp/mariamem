@@ -1,0 +1,20 @@
+{
+  "decision": "RETAIN_STARTUP_IMPROVEMENT_CANDIDATE",
+  "authority": "Human",
+  "date": "2026-11-11",
+  "reviewed_record_commit": "37e08920ccd8fcdb478821f8302280fde2ae438e",
+  "accepted_basis": "Fresh/Fork elapsed improved in all six paired Mac batches while tested SQL timing, isolation and cleanup remained correct.",
+  "limitation": "Complete shop70 acceleration and regression-free behavior remain unestablished; retain all P4/P8 results and tails.",
+  "scope": "Preserve the bounded probe-omission prototype and evidence as a startup-improvement candidate.",
+  "not_authorized": [
+    "main integration",
+    "product adoption",
+    "Qualification",
+    "release"
+  ],
+  "remaining_before_adoption": [
+    "Ubuntu runtime/platform confirmation",
+    "native SQL comparison",
+    "separate Human adoption review"
+  ]
+}

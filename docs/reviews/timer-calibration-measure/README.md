@@ -14,6 +14,17 @@ about1.8–1.9ms in every paired batch. No exclusive timer-stage measurement ran
 these binaries, so that delta is an API-level observation, not a claimed exact
 partition of the earlier instrumented1ms estimate.
 
+## Human decision, 2026-11-11
+
+The Human accepted the recommendation to **retain this startup-improvement
+candidate**, on the basis of record `37e08920ccd8fcdb478821f8302280fde2ae438e`.
+[Decision record](human-decision.json). This accepts preserving the bounded
+prototype and evidence; it does not authorize main integration, product adoption,
+Qualification or release. The complete-suite limitation and all source-bound
+receipts remain unchanged. Ubuntu runtime/platform confirmation and native SQL
+comparison precede a separate adoption review. No new runtime or benchmark result
+is claimed by this documentation-only decision update.
+
 ## Result
 
 Same Apple M1/16GiB, macOS27.2 arm64, Go1.26.10, GOMAXPROCS8/GOGC100. Corrected
