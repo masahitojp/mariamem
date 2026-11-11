@@ -21,7 +21,7 @@ Normal verification now owns:
 - `TestAnalyzeTimerFreshAndFork` in `tests/gointegration`: Fresh and two children,
   TCP and Pipe, delayed/ordinary SQL, meaningful reported elapsed time,
   following SELECT, isolation and checked disposal. Both daily smoke and full
-  integration select it. Local runtime PASS is recorded below; hosted-platform verification remains pending.
+  integration select it. Local and hosted-platform PASS are recorded below.
 
 ## Current boundary and remaining work
 
@@ -30,7 +30,9 @@ at source `498e186e6f4871b81e3665a76cadd64d58cb422d`. The canonical-source guest
 matches the reviewed SHA256
 `a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18`.
 The normal generated Go and exact input/provenance pins are now installed.
-This remains **not merge-ready** until canonical/platform verification succeeds.
+[Canonical CI42959675387](timer-product-ci-42959675387/README.md) now passes at
+`370231520c373fae05378bddb791c9b6d7fdf84f` on both supported hosts. Technical
+candidate verification is complete; main adoption is awaiting Human review.
 
 - Initial static data, full CRC body/table and all19 bound worker/J1 function
   bodies are unchanged. Fn82 moves partition; only its file location is rebound
@@ -38,18 +40,21 @@ This remains **not merge-ready** until canonical/platform verification succeeds.
   exception is accepted. See [installation proofs](timer-product-installation/).
 - Binaryen133 reproduces the exact guest while emitting the unchanged function
   map. Native retained-library attribution passes on clean source147e72ae.
-- Build ledger `completed=false` / `full_guest_regeneration=false` accurately
-  records the single UNQUALIFIED bootstrap. Old canonical receipts remain bound
+- Build ledger `completed=true` / `full_guest_regeneration=true` now records
+  the independent two-build/platform acceptance at37023152. Its bootstrap
+  origin remains explicitly single-build/UNQUALIFIED. Old canonical receipts remain bound
   to their old source and guest; no receipt is relabeled.
 - `timer-product.yml` now requires two independent canonical C builds,
   macOS15 arm64/Ubuntu24.04 x86_64 independent full Go regeneration and build
   guards, source timer mutations, actual TCP/Pipe Fresh/two-child timer checks,
-  CRC/UCA/lexer/worker controls, native SQL and cleanup checks. These are pending,
-  not inferred from bootstrap success.
+  CRC/UCA/lexer/worker controls, native SQL and cleanup checks. All passed
+  on both hosts;118 regenerated files match the candidate exactly.
 
-Remaining: submit the exact candidate for the both-host canonical campaign,
-then assess its results for main integration. Local daily and smoke checks pass. Main integration,
-Qualification and release remain separate decisions.
+Remaining: Human main-integration review of PR152. Development check,
+integration and Live required gate also passed at37023152 (run42959673358).
+The acceptance-record follow-up leaves product/guest/generator/test-implementation
+bytes unchanged; the original receipts stay bound to37023152. Qualification and
+release remain separate decisions.
 
 This sequence follows the existing startup-cap bootstrap/canonical workflow.
 It does not add an experiment or require another decision to continue the

@@ -18,8 +18,12 @@ The canonical patch, normal regression tests and generated provenance must be
 assembled before integration review. Canonical-source bootstrap CI42955063307
 passed on498e186e and its checksum-verified receipt is retained in the
 [product checkpoint](reviews/timer-product.md). Generated Go is installed and local daily/smoke checks pass;
-independent canonical reproduction and both-platform verification remain pending.
-Previous receipts do not describe this new candidate. Main integration,
+independent two-build canonical reproduction and both-platform verification now
+pass at37023152 in [CI42959675387](reviews/timer-product-ci-42959675387/README.md).
+All118 generated files agree; timer TCP/Pipe Fresh/two children, CRC/UCA/lexer,
+worker/J1, native SQL and disposal controls pass. Evidence/acceptance metadata
+updates preserve the tested runtime bytes and original receipt source.
+PR152 is ready for Human main-integration review. No new performance claim is made. Main integration,
 Qualification and release remain separate. UCA work is not part of this candidate.
 
 ## Issue150 — versioned legacy preparation candidate (2026-11-10)

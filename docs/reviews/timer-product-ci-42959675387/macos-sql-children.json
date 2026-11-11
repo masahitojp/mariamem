@@ -1,0 +1,57 @@
+{
+  "result": "PASS_GUEST",
+  "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+  "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
+  "native_sha256": "c2d6ba119653708a3899ca9a2d0017a1187590054ed8b0d29300e0a0f238fc8f",
+  "host_sha256": "435f1b64cc0aa6189945d97c98a91e9c146f4444c4e3af02c643545738f515a7",
+  "children": 2,
+  "semantic": {
+    "literals": [
+      [
+        "\u65e5\u672c\u8a9e",
+        "0041",
+        5,
+        "word",
+        "a'b"
+      ]
+    ],
+    "comments": [
+      [
+        5
+      ]
+    ],
+    "identifier": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "nul": [
+      [
+        "610062"
+      ]
+    ],
+    "modes": [
+      [
+        2,
+        "a\\b"
+      ]
+    ]
+  },
+  "prepared": {
+    "protocol": "COM_STMT_PREPARE/EXECUTE",
+    "text_hex": "4100275ce697a5e69cace8aa9e",
+    "number": 7
+  },
+  "cleanup_errors": [],
+  "cleanup": {
+    "refs": 0,
+    "process_exit": 0,
+    "reaped": true,
+    "root_exists": false
+  }
+}

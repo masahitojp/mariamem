@@ -607,6 +607,17 @@
     "source_commit": "498e186e6f4871b81e3665a76cadd64d58cb422d",
     "previous_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
     "data_and_bound_functions": "EXACTLY_IDENTICAL",
-    "canonical_acceptance": "PENDING"
+    "canonical_acceptance": {
+      "status": "PASS: bounded canonical correctness; main integration and release remain separate",
+      "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
+      "run_id": 42959675387,
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387",
+      "receipt": "docs/reviews/timer-product-ci-42959675387/assessment.json",
+      "independent_generation_files": 118,
+      "platforms": [
+        "darwin-arm64",
+        "ubuntu24.04-x86_64"
+      ]
+    }
   }
 }

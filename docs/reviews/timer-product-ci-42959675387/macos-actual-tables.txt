@@ -1,0 +1,26 @@
+=== RUN   TestPreparedLexerTablesActualGuest
+=== RUN   TestPreparedLexerTablesActualGuest/normal_ambient_ignored
+=== RUN   TestPreparedLexerTablesActualGuest/profiling_does_not_verify
+    lexer_prepared_integration_test.go:175: ordinary profiling diagnostics: 
+=== RUN   TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors
+=== RUN   TestPreparedLexerTablesActualGuest/corrupt_table_rejected
+--- PASS: TestPreparedLexerTablesActualGuest (0.72s)
+    --- PASS: TestPreparedLexerTablesActualGuest/normal_ambient_ignored (0.29s)
+    --- PASS: TestPreparedLexerTablesActualGuest/profiling_does_not_verify (0.09s)
+    --- PASS: TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors (0.10s)
+    --- PASS: TestPreparedLexerTablesActualGuest/corrupt_table_rejected (0.24s)
+=== RUN   TestPreparedUCATablesActualGuest
+=== RUN   TestPreparedUCATablesActualGuest/normal_ambient_ignored
+=== RUN   TestPreparedUCATablesActualGuest/profiling_does_not_verify
+    uca_prepared_integration_test.go:186: ordinary profiling diagnostics: 
+=== RUN   TestPreparedUCATablesActualGuest/six_resolved_tables
+=== RUN   TestPreparedUCATablesActualGuest/corrupt_table_rejected
+--- PASS: TestPreparedUCATablesActualGuest (1.06s)
+    --- PASS: TestPreparedUCATablesActualGuest/normal_ambient_ignored (0.08s)
+    --- PASS: TestPreparedUCATablesActualGuest/profiling_does_not_verify (0.07s)
+    --- PASS: TestPreparedUCATablesActualGuest/six_resolved_tables (0.13s)
+    --- PASS: TestPreparedUCATablesActualGuest/corrupt_table_rejected (0.79s)
+=== RUN   TestWorkerTrapActualGuestNotifiesAndIsolatesPeer
+--- PASS: TestWorkerTrapActualGuestNotifiesAndIsolatesPeer (0.21s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	2.026s
