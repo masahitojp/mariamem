@@ -1,0 +1,158 @@
+{
+  "scope": "Pinned source audit, not runtime verification",
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "runtime_source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774",
+  "prior_observation_commit": "ff468f024c9af68be0ac51ce2440a8c0447b26f2",
+  "files": {
+    "strings/ctype-uca.c": {
+      "sha256": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+      "git_blob_sha": "fd09c72c836450a0cdae6ae3aa4e5bef85af2126",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca.c",
+      "definitions": {
+        "my_uca_add_contraction_flag": {
+          "line": 31320,
+          "through_line": 31323,
+          "body_sha256": "104e1e972f5a5b80f431aa5ddc24aba63c135cd4e6b02bafeee599b0211d4c43"
+        },
+        "my_uca_add_contraction": {
+          "line": 31338,
+          "through_line": 31363,
+          "body_sha256": "1bed5052ec1080e95373a33eb7b1823d4f6880c007af75a568d5409b98056125"
+        },
+        "my_uca_alloc_contractions": {
+          "line": 31379,
+          "through_line": 31389,
+          "body_sha256": "462384161e59710556159d7a74b60e07113ef4df6c1ef76ab85d9c58f1aaf708"
+        },
+        "my_uca_contraction_hash_allocate": {
+          "line": 31711,
+          "through_line": 31721,
+          "body_sha256": "d1619ad2aba32c73187dc9bdfc87d959aaa59984d293852f123d4acd4f8ef2f4"
+        },
+        "my_uca_contraction_hash_populate": {
+          "line": 31728,
+          "through_line": 31755,
+          "body_sha256": "bad50a9f15b955a0c405d8e249d5af1d64b776f834ef300991c67a2b4f660124"
+        },
+        "my_uca_contraction_hash_find": {
+          "line": 31681,
+          "through_line": 31704,
+          "body_sha256": "69a913a9594850532ef833dc77395bffadf555c58abee8e7e5c63d65bfbf7c9a"
+        },
+        "my_uca_init_one_contraction": {
+          "line": 33570,
+          "through_line": 33588,
+          "body_sha256": "ad09f1ca38b3605b46e3ccf9ad4fc6e1faa8ccafe90e24e936cacea12d268a8f"
+        },
+        "apply_one_rule": {
+          "line": 33592,
+          "through_line": 33671,
+          "body_sha256": "baff8b6010ecc49dd7b92d853f5c51019efe1ca5a34e11e65f411508bee6191a"
+        },
+        "my_uca_generate_pages": {
+          "line": 33757,
+          "through_line": 33788,
+          "body_sha256": "0be9ec50bf4c7635804cd4bc15ffd544ad29422792281a2296484855bbb7ec0c"
+        },
+        "init_weight_level": {
+          "line": 34460,
+          "through_line": 34572,
+          "body_sha256": "f4f2c3610496b56ae7f4c826333428ef320b94fd14b2c9241db7d69af4e339d2"
+        },
+        "my_uca_info_init": {
+          "line": 34676,
+          "through_line": 34689,
+          "body_sha256": "b035af70c9001fb66dd48aa7651c0fa43503b817efd9a0ad918c34082087fd79"
+        },
+        "my_uca1400_collation_get_initialized_shared_uca": {
+          "line": 34698,
+          "through_line": 34713,
+          "body_sha256": "99d856d3d84be00a7ca565efefb5791f635aa47e471ad3e1a36bb95a60823e24"
+        },
+        "create_tailoring": {
+          "line": 34734,
+          "through_line": 34823,
+          "body_sha256": "d2739386958e89209e914ade649c98b304e424119bd308960bee947f1e91e8b9"
+        },
+        "my_uca_previous_context_find": {
+          "line": 31861,
+          "through_line": 31871,
+          "body_sha256": "f796e89bc040efc26b65c773738150d9511ea7827845b0b891bbd8dbaa180203"
+        }
+      }
+    },
+    "strings/ctype-uca1400.c": {
+      "sha256": "f924fa753db27ab87caead5dc51f623ed571cae5074309cdc0d088881ba3ae42",
+      "git_blob_sha": "7ff3d1f1c7e49491b44236db092ff8cee12798fe",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca1400.c",
+      "definitions": {
+        "my_uca1400_collation_definition_init": {
+          "line": 242,
+          "through_line": 263,
+          "body_sha256": "9fca489a8aba874d25d04247ac450a7a7bd00b7fd5b03fd448609c9000faa039"
+        }
+      }
+    },
+    "include/m_ctype.h": {
+      "sha256": "b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b",
+      "git_blob_sha": "226d94175889fc79c15cf7546c322b6dba4fba12",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/m_ctype.h"
+    },
+    "mysys/charset.c": {
+      "sha256": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+      "git_blob_sha": "2bd977bf7349b23c6e34c08398fd35bc2c287c24",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/charset.c",
+      "definitions": {
+        "get_internal_charset": {
+          "line": 862,
+          "through_line": 924,
+          "body_sha256": "73384c87cdb9adf4c2119c80793e17a2fed0b028700c74b82992ad4c8547604f"
+        },
+        "my_once_alloc_c": {
+          "line": 487,
+          "through_line": 488,
+          "body_sha256": "ba0d7377eafaa82d9de236aecae2050c83219d7ed225fe9285897b0bc79d61f0"
+        }
+      }
+    },
+    "strings/ctype-uca.inl": {
+      "sha256": "df2299fe06b0e4c50b0576690154263fd7d7addd56d44cd4115bf3fc565b9545",
+      "git_blob_sha": "471ae8595ac8b444b1d654e88706cb6e33cca365",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca.inl"
+    },
+    "strings/ctype-uca1400.h": {
+      "sha256": "6fcb2aee6637f59fc7143a822c4b1e68fceec6b9f8b1d083a08abb72aba49eb9",
+      "git_blob_sha": "5b60dcd629a52780d4ae6d8270fc1cec818c1de8",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca1400.h"
+    },
+    "mysys/my_once.c": {
+      "sha256": "481a161d3d3603219ec2072667b5341c086ef0ef8f9ed2fa4a10fe9e536a0b1c",
+      "git_blob_sha": "091210ebd3830bb7d814018bea4eb315c9a35276",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_once.c",
+      "definitions": {
+        "my_once_alloc": {
+          "line": 39,
+          "through_line": 85,
+          "body_sha256": "44a37a57d48d644d16d5db334cb2c9f92d1dc8bea47b9f4db1ebdf31397947ca"
+        },
+        "my_once_free": {
+          "line": 114,
+          "through_line": 130,
+          "body_sha256": "525f65d87954d7ec8e5286a6be23972cff062c722cb443e83381be05c10cc42e"
+        }
+      }
+    },
+    "strings/ctype-uca-scanner_next.inl": {
+      "sha256": "80fa3dc429c58ed69f53baf82bebbbe43b56e1f018e7c9aaa5b9eb4ba596f319",
+      "git_blob_sha": "5c78d751890d05a398a5057fd4dc35525f4726eb",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca-scanner_next.inl"
+    },
+    "strings/CMakeLists.txt": {
+      "sha256": "5ebce15fb4458c86a94f274a1fd7e60c8d687d350760096a573b8386296835ae",
+      "git_blob_sha": "0d637b6947f8324720f8ba3fc4d750f214274a5d",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/CMakeLists.txt"
+    }
+  },
+  "generated_header": "strings/ctype-uca1400data.h is generated by uca-dump from mysql-test/std_data/unicode/allkeys1400.txt; not a tracked source file. No generated payload equality is claimed.",
+  "canonical_source_patch_sha256": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee"
+}
