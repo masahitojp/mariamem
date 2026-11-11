@@ -88,9 +88,9 @@
       "refs/heads/experiment/issue137-prepared-profile"
     ],
     "workspace": "experiment-issue65-upgrade-trial",
-    "decision": "KEEP active attached session",
+    "decision": "REMOVED after owner confirmed work finished; attached terminal closed via Orca; clean checkout removed without force; remote ref preserved",
     "before_allocated_kib": 429340,
-    "after_allocated_kib": 429340,
-    "remaining_condition": "Attached session; owner question pending, no stop/removal performed"
+    "after_allocated_kib": 0,
+    "owner_confirmation_date": "2026-11-11"
   }
 ]

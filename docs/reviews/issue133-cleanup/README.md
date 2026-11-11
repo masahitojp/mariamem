@@ -37,14 +37,15 @@ substitutes for source or runtime acceptance.
 
 Six Orca worktrees were inspected, including ignored files and exact remote refs.
 All were clean. Five had no observed process cwd; their ignored helper evidence
-was exported and the clean checkouts were removed without force. The upgrade-trial workspace
-still has an attached shell/Codex session and is protected pending owner input.
+was exported and the clean checkouts were removed without force. The owner subsequently confirmed that upgrade-trial work was finished. Its sole
+attached terminal was closed through Orca (PTY termination confirmed); clean/ignored
+state and exact remote HEAD were rechecked before removing that checkout without force.
 `worktree-disposition.json` records the before sizes and final actions.
 
 The main working tree has pre-existing modified documentation/tooling and
 untracked design/review files. They remain untouched. The issue123/uca worktrees
 and unrelated root Live/scope tasks are outside this cleanup. No branch/ref is
-deleted and no active process is stopped. Missing worktree registrations need
+deleted. Only the owner-confirmed finished session was stopped. Missing worktree registrations need
 no disk recovery and are not used as a reason to prune unrelated metadata.
 
 ## Reproduction and remaining conditions
@@ -63,17 +64,17 @@ build. Partial raw-row CI used an expiring previous-run guest artifact; its
 source/identity and results are saved, but the temporary CI workflow is not a
 permanent regeneration path.
 
-Issue133 should remain open for the protected active workspace and the
-candidate-dependent final reproduction audit. This bounded audit does not close
+Issue133 should remain open for the candidate-dependent final reproduction audit.
+All six scoped checkout removals are complete. This bounded audit does not close
 #65, resume#138, waive a contract or claim all original artifacts are available.
 No runtime code/tests/build, benchmark or CI was run. Only source/evidence/hash,
 public-source and workspace/ref checks were performed.
 
 ## Final cleanup result
 
-Five clean, inactive Orca checkouts removed: 1,880,916 KiB (about1.79GiB) of
-allocated checkout space. Branch refs remain remotely available. The attached
-upgrade-trial retains429,340 KiB (about419MiB). Original small raw evidence retains
+Six clean Orca checkouts removed: 2,310,256 KiB (about2.20GiB) of
+allocated checkout space, including the final429,340 KiB (about419MiB)
+owner-confirmed finished upgrade-trial. Branch refs remain remotely available. Original small raw evidence retains
 3,000 KiB; normalized complete CI evidence is on this pushed report branch.
 No individual audited Issue65 workspace remains above1GiB. The broader root
 helper aggregate remains about1.90GiB across compact evidence and unrelated
@@ -83,5 +84,5 @@ aggregate by4096 bytes; no recovery is credited to it.
 
 `cleanup-result.json` and `worktree-disposition.json` record the accounting.
 Protected root modified-file fingerprints were checked unchanged. The owner
-question about the remaining attached session is pending. Source/runtime
+confirmation and final removal are recorded in the disposition inventory. Source/runtime
 acceptance is not inferred from deletion or Git reachability.
