@@ -23,8 +23,11 @@ These are promoted bounded tests, not broader lazy-init/OOM coverage claims.
 
 Local installation verification and151 focused Python tests/15 subtests pass.
 The fixed Binaryen133 Mac archive reproduces the exact guest from linked.wasm
-while generating its function-name map. Clean-source host attribution and actual
-runtime checks are pending at this checkpoint. No performance run is added.
+while generating its function-name map. Clean-source host attribution at cd33ad5d and the actual guest UCA/lexer/worker,
+CRC, timer, six J1 controls, Snapshot/reSnapshot and disposal checks pass.
+An additional68 attribution/inventory tests pass. [Local compact receipt](local.json)
+retains the tested source and original-log hashes. CI native comparison and
+independent both-platform regeneration remain pending. No performance run is added.
 
 Reproduce via the existing pinned translate_guest.py and setup_candidate.py
 --source-only, then scripts/generate_runtime.py with current canonical input
@@ -33,3 +36,14 @@ fixture, adaptation, installation and complete-file comparison in each CI host.
 The source tools reject drift before execution. Dedicated temp/cache/downloads
 are removed after recording compact proofs. Generated source in the PR is
 product code; it is not retained measurement output.
+
+## Reviewable diff
+
+At installed source cd33ad5d versus main500020e7, generated product source
+accounts for719,644 added /718,081 deleted lines across37 files. The accepted
+static data changes downstream addresses and generated partition contents.
+The canonical C patch adds2,938 lines, mostly required numeric table source.
+Documentation and compact evidence at that checkpoint add389 lines across6
+files; no raw CI log, REST body, downloaded binary or diagnostic journal is
+committed. Full generation remains authoritative; hand-editing transpiled
+addresses to shrink the diff would invalidate reproducibility.

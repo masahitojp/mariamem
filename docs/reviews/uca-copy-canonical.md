@@ -61,7 +61,9 @@ Stage1 passed at c4c60edaf7c6c9bd51023f352be696033e17438d in
 [Compact verified receipt](uca-copy-stage1-43185761193.json) retains the job,
 artifact ZIP hashes and individual-file checksums; no raw logs/REST are added.
 The normal generated runtime and exact worker/CRC fixtures are now installed.
-The full canonical workflow is restored. Both-platform acceptance and merge
+Local actual-guest correctness and clean-source host attribution pass at
+cd33ad5d; license-evidence follow-up changes only records/mirrors. The full
+canonical workflow is restored. Both-platform acceptance and merge
 remain pending; no old receipt is relabeled as this installed source.
 No Release CI, tag or publication is requested. The staged workflow does not
 run automatically on push; after submission CI owns execution and Codex hands off.

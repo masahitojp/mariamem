@@ -1,0 +1,107 @@
+{
+  "source_commit": "cd33ad5d66b8cd2d8a4538ab12c1c077ae014923",
+  "checks": [
+    {
+      "name": "clone",
+      "exit_code": 0
+    },
+    {
+      "name": "checkout",
+      "exit_code": 0
+    },
+    {
+      "name": "host-build",
+      "exit_code": 0
+    },
+    {
+      "name": "license-audit",
+      "exit_code": 0
+    },
+    {
+      "name": "crc",
+      "exit_code": 0
+    },
+    {
+      "name": "uca-lexer-worker",
+      "exit_code": 0
+    },
+    {
+      "name": "timer-sql",
+      "exit_code": 0
+    },
+    {
+      "name": "j1",
+      "exit_code": 0
+    },
+    {
+      "name": "snapshot-uca",
+      "exit_code": 0
+    }
+  ],
+  "python_focused": {
+    "passed": 151,
+    "subtests": 15
+  },
+  "attribution_inventory_checks": {
+    "passed": 68
+  },
+  "j1_controls": [
+    {
+      "name": "heap-0",
+      "exit_code": 1,
+      "expected_failure": true,
+      "passed": true
+    },
+    {
+      "name": "heap-1",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "heap-1-race",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "mmap-0",
+      "exit_code": 1,
+      "expected_failure": true,
+      "passed": true
+    },
+    {
+      "name": "mmap-1",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "mmap-1-race",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    }
+  ],
+  "log_sha256": {
+    "attribution-tests.log": "d41fefaf959baa8a09be81561301ba6858a94513ec5acec195323262c4bbe84e",
+    "checkout.log": "91a5db01fd813826a45ff66d569a3332021299163a7e77f8050bf5b3e0c14939",
+    "clone.log": "81a0fb6ef0cf27caeffbdda86eb94e92a616a1c71c32eba933341d013ef4f901",
+    "crc.log": "ac23eebc9f2afc6020e01b3eaeb5188efdd5fd390acf81cd7cc18173023505ff",
+    "host-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "install.log": "5e9c943db1dab80c6a28288e9e193481ea038d77fd26345963756590d795baae",
+    "j1.log": "b1beb4c493fe8ec44bd84873b825c1479f9c316671ba087d29695f216bc2c78f",
+    "license-audit.log": "40f5cd7f28594b1978985d7235df9a186b8c5901e6217d1899812bb5101ce7c4",
+    "snapshot-uca.log": "d5d8d274eefe767fb2fa12f43ec421ee5539c255afdc409a6a3ff4154b343c4e",
+    "symbols.log": "9925f96a4f5c258ca491d4a80e16a02debe808b3269d0c8a989becd720b54e2a",
+    "timer-sql.log": "857e3889bd38f83347a9f9311c55588f6d20853564b8e6da4c2da76ac3e92966",
+    "translation.log": "2668d12c36c6d3d649b4b1ae4df4c710f81f7dedc3085222824a61b74767d660",
+    "uca-lexer-worker.log": "b916aa40b353259f896c46165db2ad8a511e7b4c24d305e2067d187490fcb8ac",
+    "verify-local.log": "90e33989d946607fa9556211347f9cd15b0082c94cecfe21f1756089cd384025"
+  },
+  "limits": [
+    "single Mac local runtime correctness",
+    "native differential and independent both-platform regeneration pending",
+    "no new benchmark or whole-suite speedup claim"
+  ]
+}
