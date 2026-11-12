@@ -39,6 +39,20 @@ Implementation and bounded verification are complete; main integration remains
 subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
 new guest build or release follows from source preparation PASS.
 
+## Issue156 — dictionary-latch wait identified in saved PREPARE profiles
+
+The [source-path reconciliation](reviews/issue156-source-path/README.md) identifies
+master-task dictionary-cache eviction waiting without local tpool notification
+in all four saved PREPARE profiles; one profile also has purge waiting on the
+shared dictionary latch. The table-opening source contract holds the exclusive
+dictionary latch across the foreground page load. This gives a concrete
+source-inferred dependency, not a measured owner/pending/recovery timeline.
+Three purge read waits and the buffer loader have notification paths; their
+runtime WAITING state was not captured. Recommend a bounded dictionary-contention
+notification prototype after checking nested/caller scope, initially master
+only if explicitly limited. No product fix, adoption or new timing result is
+claimed. #140/#156 remain open; UCA adoption remains independent.
+
 ## Issue156 — controlled generated-guest mechanism confirmed
 
 The [bounded generated-guest experiment](../benchmarks/pool-pending-guest/README.md)

@@ -1,0 +1,544 @@
+{
+  "product_source_commit": "8df45792a927e440972266ee799d6f7223713e14",
+  "baseline_profile_product_source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774",
+  "profile_record_source_commit": "e556c36570e1be023f8a9c8243381c6605079592",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_files_sha256": {
+    "storage/innobase/buf/buf0buf.cc": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+    "storage/innobase/buf/buf0dump.cc": "ec2c958d91a49126f2fd960f2260d11428c4bd5c7e72f1dd6f65c2ef83da12fe",
+    "storage/innobase/buf/buf0rea.cc": "44fe14486d5fe9a3eff29e90353beec07da49d42413deac08acdeaa984be62ca",
+    "storage/innobase/dict/dict0dict.cc": "96123218a2b946fda9c8dadb3c3bc1d592900c0955afaf3d7ee7f4f2c4844085",
+    "storage/innobase/dict/dict0load.cc": "0c76cb948d0a405404879fb97f6379817e116fbc51b49d0e66c302f55ca84953",
+    "storage/innobase/fil/fil0fil.cc": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+    "storage/innobase/include/buf0buf.h": "01532d5d3495f1cb73a9c269b61e49e2671c5c43de37b9a10344b71192df8727",
+    "storage/innobase/include/dict0dict.h": "aa2856da9a0c091525a3b998d5dc6922ef95bbca40002ee7d6a7b3899b6232c2",
+    "storage/innobase/include/srw_lock.h": "242c8c99edfb8c3d75b42edd9b997e9a31c0dc509ea5d80e0d585968cb31dea0",
+    "storage/innobase/include/sux_lock.h": "f2248421436f0a140e106b82206f753f89c5bb8cea896cfa88e13ded43af146d",
+    "storage/innobase/os/os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+    "storage/innobase/srv/srv0srv.cc": "18e1b6b8771f6abc837c14747522371052e08b0c9ed0e13305ca799500b04c04",
+    "storage/innobase/trx/trx0purge.cc": "7956ec9af7e034edc8701c17f85d6b50edaacd44ba08709ba8802a4c14beeefd",
+    "tpool/aio_simulated.cc": "05d9a1046ca39bd039876b81d051a03e708e5b5274dad979400920ce4eaf6475",
+    "tpool/task.cc": "350435454e5ff80534a06641f387fb09194da203e62c26b46ecb853e46a34d54",
+    "tpool/task_group.cc": "efe0e8153e81aaeac6d39755f84114c35bda1ccacc09ed318515cc5407813b8e",
+    "tpool/tpool.h": "f987e9a2c9fbbf798f0039385f6adfedad5c477946552e75ad23d23ef71cbb31",
+    "tpool/tpool_generic.cc": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+    "tpool/tpool_structs.h": "a23e146c15799960082b27953f7813cd63169afd02c5b487e8e4d4a774198d0f",
+    "tpool/wait_notification.cc": "94e4d1d51371db78fe424a78d593489b3270cf883f196ec427be207adb6273a4"
+  },
+  "generated_functions": {
+    "Fn17217": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "current_line": 897209,
+      "current_sha256": "3b1c49188c10762d0280395045833b338f0792f920e2c5b11a03c8d4d3669b91",
+      "baseline_line": 896862,
+      "baseline_sha256": "4226c5e6ed7b5b0c767c8c1ab8589969d67153e112b3e16584da3a2db53903be",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17739": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "current_line": 966432,
+      "current_sha256": "f73e9af38f8894ceb054c55e69b96707acb9bf1a37508733badd6adfd5f18ed1",
+      "baseline_line": 966085,
+      "baseline_sha256": "ec400df27f518c2733a0d9500d8db276bfcd6a25f3817e27482a6a99bffbee5b",
+      "same_non_numeric_tokens": true
+    },
+    "Fn18162": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "current_line": 1033797,
+      "current_sha256": "83664ddcf068ab5e9110b53f0b501c494e8161986b8bdb0a6dd6be1864b3f75c",
+      "baseline_line": 1034879,
+      "baseline_sha256": "974a58c53282a641d5da2bd0f49ea33632c9b6d465eb070237234da70def0d49",
+      "same_non_numeric_tokens": true
+    },
+    "Fn18236": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "current_line": 1046908,
+      "current_sha256": "a3fb6cfb29e9d55aa63bd0aa4945a6bdd469bd9abc601f859a09e27ad2642e0e",
+      "baseline_line": 1047990,
+      "baseline_sha256": "a0115c4026d7e4743f191dff56d42cfda65e075252f8e37851299a6aa812751f",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17500": {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "current_line": 871393,
+      "current_sha256": "aad949d754efda09e49934c2c606c2dbf983efb9f5a67e067dcdd98a18d09b04",
+      "baseline_line": 872918,
+      "baseline_sha256": "77cedc25c98a04e3f626b7b498f9a9ce113729b4ac0d2ce2bf3b17006624b9e4",
+      "same_non_numeric_tokens": true
+    },
+    "Fn18164": {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "current_line": 961092,
+      "current_sha256": "b930ad158a60bda73652e4935a4115cfe4550345e9bb5d2a235a4827f753735f",
+      "baseline_line": 962617,
+      "baseline_sha256": "f019e263eb536cbc496f600050eb5a30c087fa96dabcc4eaa05fe605ddea1b06",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17710": {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "current_line": 986587,
+      "current_sha256": "f062520ab604a1416658e502ad9aa9e71cc0e64d4fd971f51c94eaaceb5d96fd",
+      "baseline_line": 986393,
+      "baseline_sha256": "2a6070ed22676f63cbb5dad4d400c10c6e763d9bb1fb43a686c9a7ac9b6d3ac8",
+      "same_non_numeric_tokens": true
+    },
+    "Fn18228": {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "current_line": 1026043,
+      "current_sha256": "0caee38cdcd0eda7ad39312eb1c9bb06fa3797c8bed130627389d9e3d55496d4",
+      "baseline_line": 1024420,
+      "baseline_sha256": "ceca736b24a51827bbe6723272f38c458581acfee58ccfca2b9835e464971538",
+      "same_non_numeric_tokens": true
+    },
+    "Fn16602": {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "current_line": 852102,
+      "current_sha256": "a06742b9df98e0c3e53bc768c569a746dc0e2667d47ea0feda587a02ef192d6b",
+      "baseline_line": 851928,
+      "baseline_sha256": "a06742b9df98e0c3e53bc768c569a746dc0e2667d47ea0feda587a02ef192d6b",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17499": {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "current_line": 904014,
+      "current_sha256": "cb28b12218780104e0a697fd9281fe7c6b0d959e86205a8f7886ae902b752779",
+      "baseline_line": 903840,
+      "baseline_sha256": "2da6951243889ed932cc9ec22b5fb48907206d53493151a18ecaeb48d5ab8e07",
+      "same_non_numeric_tokens": true
+    },
+    "Fn18276": {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "current_line": 950054,
+      "current_sha256": "bde0b88f5a22d6bc6a46670403359c24b5be5a9320365851d9c8b822b8dfe01e",
+      "baseline_line": 949880,
+      "baseline_sha256": "2269efaf20ccea978394514277f16067e478ca396acd18901a057a4457bd4916",
+      "same_non_numeric_tokens": true
+    },
+    "Fn16556": {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "current_line": 351170,
+      "current_sha256": "230fe6616271785cb4bb968d203719e92f026f1fe968af09927893c28bdefb62",
+      "baseline_line": 350732,
+      "baseline_sha256": "230fe6616271785cb4bb968d203719e92f026f1fe968af09927893c28bdefb62",
+      "same_non_numeric_tokens": true
+    },
+    "Fn16787": {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "current_line": 359479,
+      "current_sha256": "b79e696c495ce3c2ab0347f413f20f5939758fb706fa7f5911831a959e646019",
+      "baseline_line": 359041,
+      "baseline_sha256": "b79e696c495ce3c2ab0347f413f20f5939758fb706fa7f5911831a959e646019",
+      "same_non_numeric_tokens": true
+    },
+    "Fn16624": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "current_line": 896656,
+      "current_sha256": "ec37161878eac1c181e8e5e8fa83d34e6d493031e9f0c0b4c1559207923a5510",
+      "baseline_line": 896459,
+      "baseline_sha256": "6ebbf6fd7dead009bca7b6be4ecf05728beca3cc43aaec3a6dca5a7efd1c6420",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17733": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "current_line": 965626,
+      "current_sha256": "c3f269675eca8a36cecfe7f47254f923a761ad38e027805800d072058bc666d9",
+      "baseline_line": 965429,
+      "baseline_sha256": "c633a0e1944c5e57ad95db2bee2f31649fe50bb736801af251ebddc6e8d80e8e",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17744": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "current_line": 969030,
+      "current_sha256": "74c7a453fbd4e14f7da9d1142c2a3665b25b30553d8b565fa8e0786e3cd71538",
+      "baseline_line": 968833,
+      "baseline_sha256": "7de783a65ca6b6864912b1e25cbf9b21a11910abf306e4edee388d8f8a8b1d37",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17221": {
+      "path": "internal/generatedgo/code/p1/p1_pure.go",
+      "current_line": 787474,
+      "current_sha256": "2d3443bffad2fd05d5c4ad9c3b2263fea7e8a8e7f61f4e3d7599d53e284cec8b",
+      "baseline_line": 786930,
+      "baseline_sha256": "14a51e9e383208f4fc0b7490b8303b329abb339c1a3e9860822c256d9e9fabd9",
+      "same_non_numeric_tokens": false
+    },
+    "Fn17711": {
+      "path": "internal/generatedgo/code/p1/p1_pure.go",
+      "current_line": 875600,
+      "current_sha256": "49abe4c3be5e2030e917f87b7f49d68e20f91952791effaab1e6e8076d1b37ed",
+      "baseline_line": 875056,
+      "baseline_sha256": "69d3343e31fa7126b98aaa097bd456a459a8c42e7bed08ad59367164563ee555",
+      "same_non_numeric_tokens": true
+    },
+    "Fn17220": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "current_line": 899386,
+      "current_sha256": "270f6eb23f706f14109255023465320cfebdc7852c5de4fa1f0ec13ac8373ea0",
+      "baseline_line": 899039,
+      "baseline_sha256": "3c257fe6e30ebfeb518996acf2903076ad73eddaf2f122324e35c89bb2c67436",
+      "same_non_numeric_tokens": true
+    }
+  },
+  "profiles": [
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-0-baseline-profile.txt",
+      "sha256": "169b4d10fb51c69e88711de3662ca99412a3df83c85cad5e81875b07e7f87287",
+      "stacks": [
+        {
+          "db_id": "uca-db-13",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18162",
+            "Fn17217",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-13",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18164",
+            "Fn18010",
+            "Fn17711",
+            "Fn17710",
+            "Fn17739",
+            "Fn18458",
+            "Fn7142",
+            "Fn15721",
+            "Fn13464",
+            "Fn13492",
+            "Fn13502",
+            "Fn14813",
+            "Fn14811",
+            "Fn5562",
+            "Fn267",
+            "Fn214"
+          ],
+          "pool_worker": false,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-13",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-13",
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-1-candidate-profile.txt",
+      "sha256": "c7d2359f6e890bc644bd19d32be4372e461b98a825073aeb4f9c6dea828a2f8f",
+      "stacks": [
+        {
+          "db_id": "uca-db-5",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18164",
+            "Fn17711",
+            "Fn17710",
+            "Fn17739",
+            "Fn18458",
+            "Fn7142",
+            "Fn15721",
+            "Fn13464",
+            "Fn13492",
+            "Fn13504",
+            "Fn15184",
+            "Fn14811",
+            "Fn5562",
+            "Fn267",
+            "Fn214"
+          ],
+          "pool_worker": false,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-5",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18162",
+            "Fn17217",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-5",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-5",
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-2-candidate-profile.txt",
+      "sha256": "c46a1adb347a132b3f8645b46243531ce2a14c0c4f33f879c7e52ba76a7d65ee",
+      "stacks": [
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18164",
+            "Fn17711",
+            "Fn17710",
+            "Fn17739",
+            "Fn18458",
+            "Fn7142",
+            "Fn15721",
+            "Fn13464",
+            "Fn13492",
+            "Fn13502",
+            "Fn14813",
+            "Fn14811",
+            "Fn5562",
+            "Fn267",
+            "Fn214"
+          ],
+          "pool_worker": false,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17220",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-3-baseline-profile.txt",
+      "sha256": "1d9456733b4ac8bedae223e0584c239f8d6d56e32d65e2cd298f1af474cf4939",
+      "stacks": [
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18162",
+            "Fn17217",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18164",
+            "Fn18010",
+            "Fn17711",
+            "Fn17710",
+            "Fn17739",
+            "Fn18458",
+            "Fn7142",
+            "Fn15721",
+            "Fn13464",
+            "Fn13492",
+            "Fn13502",
+            "Fn14813",
+            "Fn14811",
+            "Fn5562",
+            "Fn267",
+            "Fn214"
+          ],
+          "pool_worker": false,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        },
+        {
+          "db_id": "uca-db-7",
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "pool_worker": true,
+          "untimed_wait": true
+        }
+      ]
+    }
+  ],
+  "interpretation": "Structural C/generated correspondences and saved stacks; not a new runtime observation, complete C symbol map or observed owner/creation timeline.",
+  "literal_anchors": {
+    "8451053": "enforcing dict cache limit",
+    "8702522": "/work/source/storage/innobase/dict/dict0dict.cc",
+    "8892562": "table->referenced_set.empty()",
+    "8593812": " seconds) was observed for dict_sys.latch",
+    "8705264": "/work/source/storage/innobase/trx/trx0purge.cc",
+    "8759171": "hdr_page_no != FIL_NULL",
+    "8705783": "/work/source/storage/innobase/dict/dict0load.cc",
+    "8509964": "Loading buffer pool(s) from %s"
+  },
+  "binding_limit": "18/19 functions match non-numeric tokens between baseline and current. Fn17221 additionally renames four generated SIMD helpers fx265..268 to fx267..270; its selected transaction-forwarding calls are verified directly. Numeric normalization is an analysis aid, never an execution guard or full equivalence proof.",
+  "patch_boundary": {
+    "canonical_source_patch_sha256": "07188f71ed2fed76083a9eb39313e74cb7b8acca00d2c6fb738f459873a98a9a",
+    "note": "No declared patch targets dict0dict.cc/dict0dict.h/dict0load.cc/trx0purge.cc/srv0srv.cc/buf0rea.cc/tpool files. common-portability adds WASIX file-lock no-op to os0file.cc outside AIO callbacks/waits. canonical source.patch changes buf_dump_load_func to normal global concurrency; both current set_concurrency calls pass zero. Do not apply old upstream read1 cap to current source."
+  },
+  "purge_profile_variants": {
+    "read_wait_profiles": 3,
+    "dictionary_shared_lock_profile": "diagnostic-2-candidate",
+    "annotation": "Fn17220 structurally matches trx_purge_table_open; its observed futex call uses the same dictionary latch address18662528 and has no direct tpool wait notification."
+  }
+}
