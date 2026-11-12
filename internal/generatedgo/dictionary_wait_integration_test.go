@@ -264,7 +264,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 						if address == dictionaryLatch && c.G1 == tls.Load() {
 							futexes.Add(1)
 							if mode != "nonpool" {
-								dictionaryRequire(dictionaryFlags(c)&2 != 0, "guest marks worker WAITING before futex")
+								dictionaryRequire(dictionaryFlags(c)&4 != 0, "guest marks worker WAITING before futex")
 							}
 							parkedOnce.Do(func() { close(parked) })
 						}

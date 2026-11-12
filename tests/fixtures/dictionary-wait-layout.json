@@ -49,8 +49,20 @@
     "Fn17744": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
       "normalized_sha256": "513d4c0e65c5f899415f431104aec322c61528d15a6b2a64a0e89a698f7bc124"
+    },
+    "Fn16606": {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "normalized_sha256": "9988ea7e7a42bd4b5fb6128e3ce3d325717f547f285c0a835e9c4c5a08a4131b"
+    },
+    "Fn16607": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "3cb8f97c763b6b80764da6ac35fb4138e973a3e7440ba91aaaccf6cfbae7765a"
     }
   },
   "scope": "Actual guest contention regression; helper bodies and data remain exact. No injected notification.",
-  "caller_precondition": "Master-style pool worker without WAITING/LONG; nonpool TLS control; no nesting/exception claim"
+  "caller_precondition": "Master-style pool worker without WAITING/LONG; nonpool TLS control; no nesting/exception claim",
+  "worker_flags": {
+    "LONG": 2,
+    "WAITING": 4
+  }
 }
