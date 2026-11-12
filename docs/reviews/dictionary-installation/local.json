@@ -1,0 +1,16 @@
+{
+  "source_commit": "5fe162de99710928bc4c96ab90ccffe732137d65",
+  "actual_dictionary_guest": {
+    "result": "PASS",
+    "cases": 21,
+    "log_sha256": "67d352a78fb7acc6c0fccb0d246b230bbf0ac125f47e7e6a4c5ca16debda6d88"
+  },
+  "attribution": {
+    "result": "PASS",
+    "host_sha256": "454c013ed31e733f1b5f005a72e94278f20e65c205b96963da2cd1cb94b6bb19",
+    "evidence_sha256": "038321c0bc21293734472cc5f460e731a6824ca6e504409e8b906f988c6c29f3"
+  },
+  "normal_local_checks": "PENDING",
+  "platform_acceptance": "PENDING",
+  "performance": "PENDING"
+}
