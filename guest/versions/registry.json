@@ -4,12 +4,12 @@
     "12.3.3/legacy-full": {
       "descriptor": {
         "file": "guest/versions/12.3.3/legacy-full.json",
-        "sha256": "be54dd64f06f4889bd4ee4954c45fb0437b9c68d49836acea45c998f80f2d259"
+        "sha256": "b38151ec030a664fd70df3d6f44cc5f336aa9d1b2aaac80f8b34dd9f4496187f"
       },
       "input_sha256": "e1a0ecaf8afd248b6506c39ca97aa0e510af94cb734bbf47f7488d914f8dab4b",
       "lock_sha256": "18a5dcc553e7623bd19c48a24994ba3b1b7bd575ed4656dbe95d55871c5b3c31",
       "stages_sha256": "1e6554449eb2ef322e11d603756bbddd4bd137279cac7d7520c935ff4f6dfda9",
-      "origin": "498e186e6f4871b81e3665a76cadd64d58cb422d"
+      "origin": "cb5a2e0ff1b772e6196ea0ae4295392ac361a891"
     },
     "13.0.2/legacy-full": {
       "descriptor": {

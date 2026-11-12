@@ -2,7 +2,7 @@
   "schema": 1,
   "engine": "12.3.3",
   "profile": "legacy-full",
-  "origin": "498e186e6f4871b81e3665a76cadd64d58cb422d",
+  "origin": "cb5a2e0ff1b772e6196ea0ae4295392ac361a891",
   "guest_input": {
     "schema": 1,
     "candidate": "MariaDB 12.3.3",
