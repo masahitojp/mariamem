@@ -77,3 +77,12 @@ perturbation is plausible but unproven. The later follow-up should distinguish
 observer effects from the pending-clear/task-wait interleaving, with a controlled
 case rather than repeating until a tail appears. Integration does not claim that
 the original unfavorable observer-off P8 result disappeared.
+
+## Subsequent canonical acceptance and Development correction
+
+Both-platform canonical verification passed at 6da771df in
+[CI43190662084](uca-copy-ci-43190662084/README.md).
+The compact receipt records exact source/artifacts and the separate Development
+failure caused by an outdated init-flag address in the image test. The follow-up
+relocates that test fixture and strengthens its preconditions; product runtime
+bytes are unchanged. Protected merge remains pending new Development checks.

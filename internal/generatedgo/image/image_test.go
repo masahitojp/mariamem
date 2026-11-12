@@ -24,6 +24,17 @@ import (
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
 )
 
+// Init completion flag written to 2 by the pinned generated p7.Fn67.
+// Keep this test-only address bound to the constructor when guest data relocates.
+const initialMemoryFlagOffset = 27745648
+
+func assertInitialMemoryFlag(t *testing.T, m *base.Module) {
+	t.Helper()
+	if initialMemoryFlagOffset <= m.DataEnd || binary.LittleEndian.Uint32(m.Memory[initialMemoryFlagOffset:]) != 2 {
+		t.Fatal("init-flag fixture no longer matches generated constructor")
+	}
+}
+
 func TestMain(m *testing.M) {
 	code := m.Run()
 	stats := base.MemoryMappingStats()
@@ -107,7 +118,8 @@ func TestFullInitialEqualityAndIsolation(t *testing.T) {
 	if a.m.Threads == b.m.Threads || a.m.MemMu == b.m.MemMu || a.m.MemSize == b.m.MemSize || &a.m.T0[0] == &b.m.T0[0] {
 		t.Fatal("siblings share module state")
 	}
-	t.Logf("initial256MiB_sha256=%x globals=%v DataEnd=%d init_flag=%d", sha256.Sum256(m.Memory[:generated.InitialMemoryBytes]), base.SaveGlobals(m), m.DataEnd, binary.LittleEndian.Uint32(m.Memory[26996016:]))
+	assertInitialMemoryFlag(t, m)
+	t.Logf("initial256MiB_sha256=%x globals=%v DataEnd=%d init_flag=%d", sha256.Sum256(m.Memory[:generated.InitialMemoryBytes]), base.SaveGlobals(m), m.DataEnd, binary.LittleEndian.Uint32(m.Memory[initialMemoryFlagOffset:]))
 	// Negative controls: each known easy-to-miss state must be detected.
 	a.m.G1 = 0
 	if sameInitial(m, a.m) == nil {
@@ -124,7 +136,7 @@ func TestFullInitialEqualityAndIsolation(t *testing.T) {
 		t.Fatal("missed dropped segment mutation")
 	}
 	a.m.DataSegs[0] = nil
-	for _, off := range []int{8388608, 17370304, 18012928, 18013440, 26996016} {
+	for _, off := range []int{8388608, 18119936, 18762560, 18763072, initialMemoryFlagOffset} {
 		original := m.Memory[off]
 		a.m.Memory[off] ^= 0xff
 		if sameInitial(m, a.m) == nil || b.m.Memory[off] != original {
@@ -396,7 +408,9 @@ func TestPageOnlyRangeCompleteness(t *testing.T) {
 	old := append([]base.ImageRange(nil), f.ranges...)
 	// Remove just the init-flag page; the full initial-memory oracle must reject it.
 	page := uint64(os.Getpagesize())
-	flag := uint64(26996016) / page * page
+	assertInitialMemoryFlag(t, first.m)
+	flag := uint64(initialMemoryFlagOffset) / page * page
+	removed := false
 	f.ranges = nil
 	for _, r := range old {
 		end := r.Offset + r.Length
@@ -404,12 +418,16 @@ func TestPageOnlyRangeCompleteness(t *testing.T) {
 			f.ranges = append(f.ranges, r)
 			continue
 		}
+		removed = true
 		if r.Offset < flag {
 			f.ranges = append(f.ranges, base.ImageRange{Offset: r.Offset, Length: flag - r.Offset})
 		}
 		if flag+page < end {
 			f.ranges = append(f.ranges, base.ImageRange{Offset: flag + page, Length: end - flag - page})
 		}
+	}
+	if !removed {
+		t.Fatal("init-flag page was not in the image ranges")
 	}
 	bad := mustChild(t, f)
 	if sameInitial(first.m, bad.m) == nil {

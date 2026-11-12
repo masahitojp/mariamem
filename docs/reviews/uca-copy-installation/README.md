@@ -47,3 +47,12 @@ Documentation and compact evidence at that checkpoint add389 lines across6
 files; no raw CI log, REST body, downloaded binary or diagnostic journal is
 committed. Full generation remains authoritative; hand-editing transpiled
 addresses to shrink the diff would invalidate reproducibility.
+
+## Subsequent canonical acceptance and Development correction
+
+Both-platform canonical verification passed at 6da771df in
+[CI43190662084](../uca-copy-ci-43190662084/README.md).
+The compact receipt records exact source/artifacts and the separate Development
+failure caused by an outdated init-flag address in the image test. The follow-up
+relocates that test fixture and strengthens its preconditions; product runtime
+bytes are unchanged. Protected merge remains pending new Development checks.

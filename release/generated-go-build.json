@@ -360,21 +360,33 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "c4c60edaf7c6c9bd51023f352be696033e17438d",
+  "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
   "guest_size": 21928598,
   "linked_guest_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
   "repetitions": [
     {
       "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
       "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
+    },
+    {
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
     }
   ],
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "PENDING independent two-build and both-platform canonical acceptance",
-    "bootstrap_run": 43185761193,
-    "receipt": "docs/reviews/uca-copy-stage1-43185761193.json"
+    "status": "PASS: bounded canonical correctness; protected main integration pending",
+    "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+    "run_id": 43190662084,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43190662084",
+    "receipt": "docs/reviews/uca-copy-ci-43190662084/assessment.json",
+    "independent_generation_files": 119,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ],
+    "followup_scope": "image_test.go fixture relocation and records only; no production runtime change"
   },
   "previous_canonical_evidence": {
     "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
