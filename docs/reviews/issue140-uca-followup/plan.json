@@ -1,0 +1,20 @@
+{
+  "question": "After Human acceptance of UCA private-copy, identify what existing Issue140 evidence already proves and the next unmeasured progress condition; do not repeat a timing-only campaign.",
+  "scope": "Source and saved-profile reconciliation first; no runtime change, new workload, guest build or heavy CI in this source step.",
+  "inputs": {
+    "uca_attribution": "e556c36570e1be023f8a9c8243381c6605079592",
+    "baseline": "500020e7dc6d702ef059f0e73a4bab738103b774",
+    "upstream": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "prior_global_admission": "bcab9e6e07f9bf237c98a39eeba62cbcfd1e3997",
+    "residual_after_cap_patch": "260633b8c36078d5830983217ec2ed53a2c61920"
+  },
+  "exit": "Record accepted tradeoff separately; reconcile closed/deferred/open issue ownership; inventory current retained worker stacks and pinned progress paths; identify missing same-request observations without asserting natural causality from static paths.",
+  "budget": {
+    "active_minutes_max": 120,
+    "tooling_minutes_max": 30,
+    "heavy_ci_max": 0,
+    "guest_builds_max": 0,
+    "workspace_gib_max": 2,
+    "minimum_free_gib": 6
+  }
+}

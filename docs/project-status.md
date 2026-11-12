@@ -6,33 +6,28 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## Issue154 — experimental UCA private-copy bounded correctness complete on both hosts
+## Issue154 — UCA private-copy accepted; canonical integration pending
 
-The Human authorized continuing the separate UCA experiment after timer adoption.
-[Ubuntu CI43137408120](reviews/issue154-uca-data/execution-stage.md#ubuntu-correctness-completed--2026-11-12)
-at execution sourcea197034c passes the bounded actual-table/CRC/native SQL/two-child/
-reSnapshot/disposal checks using the original f4325722 experimental guest.
-[Mac CI43148033625](reviews/issue154-uca-data/ci-43148033625.json) at eae21ae9
-passes the same bounded checks on macOS15.8.2 arm64, with the authenticated Ubuntu
-native reference reused (no Mac native server rerun). Both receipts retain their
-original execution/guest identities. Real-guest OOM, lazy initialization-order
-and complete BSS-name proofs remain outside these claims. The authorized [fixed Mac comparison](../benchmarks/uca-copy-performance/README.md)
-is complete: lifecycle Fork wall improved in6/6 pairs (median paired -6.76%);
-P4 suite wall improved in4/5 (-5.04%), but P8 slowed in4/5 (+36.90%).
-P8 sample-insertion spans >100ms increased1→5 of105 children; no Fork exceeded
-100ms. Peak process RSS did not improve. This locates a tail outside Fork, not
-its cause. Recommend a separate bounded P8 sample-wait decision before adoption;
-do not claim uniform overall acceleration or automatically expand the campaign.
-The authorized [P8 attribution](../benchmarks/uca-p8-attribution/results/README.md)
-now completes ten observer-off pairs and four diagnostic pairs: candidate slower
-in8/10 off pairs (median paired +15.70%), sample >100ms5→8/210 children.
-Four natural profiles bind long PREPAREs to the same read-completion/shared-lock
-wait and host untimed notification branch in both guests. This is the Issue140
-path class, not a reproduced UPDATE/UNDO writer wait. Cause of the candidate's
-higher observer-off incidence remains unknown. Recommendation: retain but hold
-adoption pending a Human tradeoff/next-observation decision; no further campaign
-or runtime fix has been started. No new UCA product adoption, main integration,
-Qualification or release is approved.
+On 2026-11-12 the Human accepted the bounded UCA private-copy change and asked to
+continue investigating the remaining waits alongside existing issues. The
+[decision](decisions/uca-default-private-copy.md) accepts the measured startup
+benefit together with the repeated P8 disadvantage, without a uniform whole-suite
+speedup claim. Bounded Ubuntu CI43137408120 and Mac CI43148033625 retain their
+original experimental source/artifact identities and documented limits.
+The [initial comparison](../benchmarks/uca-copy-performance/README.md) and
+[P8 attribution](../benchmarks/uca-p8-attribution/results/README.md) are historical
+reports; their hold recommendation is superseded by the Human decision, not by
+new favorable measurements. Ten observer-off P8 pairs remain slower in8/10,
+median paired +15.70%; cause of the higher tail incidence remains unresolved.
+
+Assemble the smallest canonical product candidate from current main; exploratory
+history is not merge-ready. Canonical validation/provenance and protected
+integration remain unfinished. No release is authorized. Separately,
+[Issue140 reconciliation](reviews/issue140-uca-followup/README.md) owns residual
+PREPARE/read-completion investigation; #68 stays closed and #143 UPDATE/UNDO
+stays deferred. The source follow-up reuses saved profiles and traces, with no
+new performance result or runtime fix. Resolving that tail is not an added UCA
+adoption prerequisite.
 
 ## WASI timer correction and startup reduction — adopted on main
 

@@ -1,0 +1,370 @@
+{
+  "profile_source_commit": "e556c36570e1be023f8a9c8243381c6605079592",
+  "profiles": [
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-0-baseline-profile.txt",
+      "sha256": "169b4d10fb51c69e88711de3662ca99412a3df83c85cad5e81875b07e7f87287",
+      "pool_worker_shaped_stacks": [
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18162",
+            "Fn17217",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-1-candidate-profile.txt",
+      "sha256": "c7d2359f6e890bc644bd19d32be4372e461b98a825073aeb4f9c6dea828a2f8f",
+      "pool_worker_shaped_stacks": [
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18162",
+            "Fn17217",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-2-candidate-profile.txt",
+      "sha256": "c46a1adb347a132b3f8645b46243531ce2a14c0c4f33f879c7e52ba76a7d65ee",
+      "pool_worker_shaped_stacks": [
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17220",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/uca-p8-attribution/results/diagnostic-3-baseline-profile.txt",
+      "sha256": "1d9456733b4ac8bedae223e0584c239f8d6d56e32d65e2cd298f1af474cf4939",
+      "pool_worker_shaped_stacks": [
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16624",
+            "Fn16787",
+            "Fn18162",
+            "Fn17217",
+            "Fn17221",
+            "Fn18228",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn216",
+            "Fn16556",
+            "Fn18276",
+            "Fn17500",
+            "Fn17499",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        },
+        {
+          "count": 1,
+          "chain": [
+            "Fn88",
+            "Fn92",
+            "Fn17733",
+            "Fn17744",
+            "Fn18236",
+            "Fn16602",
+            "Fn16586",
+            "Fn16595",
+            "Fn16599",
+            "Fn214"
+          ],
+          "untimed_atomic_wait": true,
+          "get_task_on_stack": false,
+          "task_execute_on_stack": true
+        }
+      ]
+    }
+  ],
+  "baseline_function_binding": {
+    "source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774",
+    "functions": {
+      "Fn16595": {
+        "path": "internal/generatedgo/code/p6/p6_pure.go",
+        "sha256": "8396bd1b32223b2eafa8e42f1f7fae7a01f8000d465782662daa52586b6b1706"
+      },
+      "Fn16596": {
+        "path": "internal/generatedgo/code/p7/p7_pure.go",
+        "sha256": "74eaa5c5bc297eb0982be515cb0194d35dcc2ffbaeae6f632fe242adcb39f8a9"
+      },
+      "Fn16605": {
+        "path": "internal/generatedgo/code/p7/p7_pure.go",
+        "sha256": "19a88714aa2b3b622ef2e2e647f2e3f0dcce33ae0c24276489ac079718d4af99"
+      },
+      "Fn16606": {
+        "path": "internal/generatedgo/code/p7/p7_pure.go",
+        "sha256": "cad0195100202f6db157aaa1712cb5347cdb1d452a599005678972ad0524d5c4"
+      },
+      "Fn16597": {
+        "path": "internal/generatedgo/code/p4/p4_pure.go",
+        "sha256": "f5b77d493fa1ec66ad4c455721c2a0b03a3a61cf53f3797c084f615855d84543"
+      },
+      "Fn16603": {
+        "path": "internal/generatedgo/code/p5/p5_pure.go",
+        "sha256": "7a3f62b4affbd70bce76424f94d265b0ac0f1489db51b993c41bc143bc53d7a2"
+      }
+    }
+  },
+  "historical_residual": {
+    "source_commit": "260633b8c36078d5830983217ec2ed53a2c61920",
+    "path": "benchmarks/issue88cappool/results/observations.json",
+    "sha256": "ab44441b22d95d6f7200dd2c8770b64a91a97ffe288cd251295a65bf85de2a5a",
+    "run": "natural-16-pool8-on",
+    "db_id": "issue68-db-2",
+    "request": {
+      "initial_admission": {
+        "pool": 268563744,
+        "dequeued_us": 534465,
+        "group_enter_us": 534466,
+        "group_gate_us": 534466,
+        "group_run_us": 534467,
+        "group": 268514560,
+        "running": 0,
+        "limit": 1,
+        "group_queue": 0,
+        "queued": false,
+        "blocked_count": 0,
+        "first_blocked": null,
+        "last_blocked": null,
+        "last_allowed": {
+          "at_us": 534407,
+          "pool": 268563744,
+          "active": 4,
+          "long": 0,
+          "waiting": 1,
+          "concurrency": 16,
+          "queue": 257,
+          "caller": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16605"
+        }
+      },
+      "completion_admission": {
+        "pool": 268563744,
+        "dequeued_us": 541029,
+        "group_enter_us": 541031,
+        "group_gate_us": 541044,
+        "group_run_us": 541056,
+        "group": 268514560,
+        "running": 1,
+        "limit": 1,
+        "group_queue": 2,
+        "queued": true,
+        "blocked_count": 56,
+        "first_blocked": {
+          "at_us": 540024,
+          "pool": 268563744,
+          "active": 19,
+          "long": 0,
+          "waiting": 2,
+          "concurrency": 16,
+          "queue": 190,
+          "caller": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16605"
+        },
+        "last_blocked": {
+          "at_us": 540996,
+          "pool": 268563744,
+          "active": 19,
+          "long": 0,
+          "waiting": 2,
+          "concurrency": 16,
+          "queue": 212,
+          "caller": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16605"
+        },
+        "last_allowed": {
+          "at_us": 539953,
+          "pool": 268563744,
+          "active": 18,
+          "long": 0,
+          "waiting": 2,
+          "concurrency": 16,
+          "queue": 189,
+          "caller": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16605"
+        }
+      },
+      "id": 3,
+      "cb": 413516256,
+      "block": 417339744,
+      "space": 10,
+      "page": 0,
+      "submit_us": 145044,
+      "submit_return_us": 145049,
+      "worker_us": 534467,
+      "sync_end_us": 534469,
+      "completion_submit_us": 534470,
+      "completion_submit_return_us": 534581,
+      "callback_us": 541056,
+      "callback_return_us": 541092
+    },
+    "interpretation": "Historical only; sparse gate snapshots do not prove continuous permission or identify creation outcomes."
+  }
+}
