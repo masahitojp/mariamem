@@ -107,3 +107,30 @@ The generic development-build boundary was additionally checked:21 dev-guest
 tooling tests pass. The prepared-source precompile assertion applies only to
 canonical builds; the bootstrap validates its exact prepared source in the
 resulting UNQUALIFIED record. Experimental build support is preserved.
+
+## Bootstrap failure and receipt repair — 2026-11-13
+
+[CI43240513507](https://github.com/masahitojp/mariamem/actions/runs/43240513507)
+at `ef956a759ed446fbd21db5c7a46a69101aaa961d` completed the single guest build
+with both reviewed guest/linked hashes, then correctly failed the dictionary
+source-record guard. The [compact diagnosis](../reviews/dictionary-bootstrap-43240513507.json)
+binds the original source, artifact and build-log digest. `modified_files` omitted
+`storage/innobase/dict/dict0dict.cc`: the canonical migration removed its former
+experimental-patch inventory path without adding a normal preparation entry.
+This is missing provenance, not an observed compiled-guest byte mismatch.
+The failed run remains failed; its guest artifact was not uploaded.
+
+The repair records the dictionary file's actual final digest in the common
+preparation manifest. A regression invokes that producer with stubbed archives
+and source helpers through default and selected preparation, checking both the
+returned and saved records. Both cases fail before the repair and pass after it.
+The receipt guard additionally tests a missing entry, alongside wrong hashes.
+No expected hash or runtime/source-patch behavior is changed. Resubmit the same
+UNQUALIFIED bootstrap; installation, actual-guest controls, platform acceptance
+and the fixed comparison remain the subsequent authorized steps.
+
+Local repair verification:89 tests and28 subtests pass across dictionary/UCA
+guards, guest input/resolver/preparation, dev-guest tooling and preparation
+reproduction controls. Touched Python syntax, both source-only guards,
+public-source boundary and clean diff checks pass. No local compiler/runtime
+or performance campaign was run for this manifest-only repair.

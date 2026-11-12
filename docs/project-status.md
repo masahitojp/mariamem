@@ -17,9 +17,12 @@ uniform acceleration and complete natural-tail causal attribution are not claime
 Build the minimal candidate from8df45792, retaining unchanged host/API/settings.
 Canonical source migration and source/identity guards are implemented; generated
 runtime installation, actual-C-guest regression, both-platform acceptance and
-candidate measurement remain pending. First submit one canonical-source bootstrap
-that must match the reviewed guest/linked hashes. This is UNQUALIFIED input,
-not a runtime PASS. Product adoption/main integration and release remain separate.
+candidate measurement remain pending. Bootstrap CI43240513507 built the reviewed
+guest/linked bytes but failed because the preparation receipt omitted the
+dictionary source file. The [receipt repair](decisions/dictionary-wait-notification.md#bootstrap-failure-and-receipt-repair--2026-11-13)
+adds its actual digest and a producer regression; a fresh bootstrap must pass
+before installation. This remains UNQUALIFIED input, not a runtime PASS. Product
+adoption/main integration and release remain separate.
 
 ## WASI timer correction and startup reduction — product candidate approved
 
