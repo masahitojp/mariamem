@@ -101,7 +101,7 @@ The earlier historical statement that shutdown-mode changes were unapproved is
 superseded only for this bounded implementation. No broad startup tuning is added.
 
 
-## UCA default private-copy — accepted, canonical integration pending
+## UCA default private-copy — adopted on main, unreleased
 
 On2026-11-12 the Human accepted the bounded default contraction/flags/hash
 private-copy optimization, including the measured unfavorable P8 tradeoff,
@@ -116,7 +116,10 @@ builds and both-platform canonical acceptance passed at 6da771df in
 [CI43190662084](reviews/uca-copy-ci-43190662084/README.md). PR157 Development
 checks found an outdated test-only init-flag address after data relocation. The
 fixture is corrected with explicit flag/page preconditions; production runtime
-bytes are unchanged. Protected merge remains pending new required checks.
+bytes are unchanged. Development CI43201340611 passed all three required checks
+at a8dd2f1c. [PR157](https://github.com/masahitojp/mariamem/pull/157) was squash
+merged as `8df45792a927e440972266ee799d6f7223713e14` with strict-base and
+admin protection retained. [Completion record](reviews/uca-copy-main-adoption.md).
 #140/#156 retain the residual
 PREPARE investigation independently; NOT_REPRODUCED is not a fix. No release is
 authorized and no uniform complete-suite performance improvement is claimed.
