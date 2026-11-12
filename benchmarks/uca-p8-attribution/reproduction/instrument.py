@@ -1,6 +1,6 @@
 """Inject the historical caller collector, preserving current SQL and product sources."""
 from pathlib import Path
-import hashlib,json,subprocess,sys
+import hashlib,json,subprocess,sys,re
 root,runner=map(Path,sys.argv[1:]);old='7e6547f95b84b12c608a88c39221da62da4ce256'
 def get(name):return subprocess.check_output(['git','show',old+':benchmarks/issue88modelcase/maria/store/'+name],cwd=root,text=True)
 def edit(path,a,b):
@@ -9,6 +9,7 @@ d=runner/'maria/store';before={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
 s=(d/'seed.go').read_text();replacement=get('seed.go')
 a=s.index('func LoadSample(');b=s.index('// ResetSample',a);aa=replacement.index('func LoadSample(');bb=replacement.index('// ResetSample',aa)
 assert s[:a]==replacement[:aa] and s[b:]==replacement[bb:]
+assert re.findall(r'`[^`]*`',s[a:b])==re.findall(r'`[^`]*`',replacement[aa:bb]), 'SQL literals/order changed'
 (d/'seed.go').write_text(s[:a]+replacement[aa:bb]+s[b:])
 for name in ['sample_observe.go','prepare_capture.go']:(d/name).write_text(get(name))
 p=d/'sample_observe.go';edit(p,'if phase == "prepare" {','if true {')
