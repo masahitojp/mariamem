@@ -78,6 +78,7 @@ def test_evidence_scope_does_not_exempt_unknown_code_or_directories(path):
     'tests/consumer/run_sqlalchemy.py', 'tests/consumer/run_gorm.py',
     'tests/verify_alpha.py', '.github/workflows/v044-product-validation.yml', 'scripts/runtime_validation.py',
     'tests/test_runtime_validation.py', '.github/workflows/check.yml',
+    '.github/workflows/uca-copy-mac.yml',
     '.agents/skills/experiment-workspace/SKILL.md',
     '.agents/skills/review/SKILL.md',
 ])

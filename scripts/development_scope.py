@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_SCOPES = {
     '.github/workflows/uca-copy-experiment.yml': 'python',
     '.github/workflows/uca-copy-execution.yml': 'python',
+    '.github/workflows/uca-copy-mac.yml': 'python',
     '.github/workflows/issue123-layout.yml': 'python',
     '.github/workflows/disconnect-notify.yml': 'python',
     '.github/workflows/shutdown-candidate.yml': 'python',

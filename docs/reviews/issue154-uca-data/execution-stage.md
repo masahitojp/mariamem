@@ -149,3 +149,40 @@ Next recommendation: verify this same guest on Mac, then compare baseline and
 candidate with verification/timing diagnostics disabled, fixed Pipe P4/P8 inputs,
 and alternating order. Report Fork and complete-suite time together; retain
 tails. A correctness PASS is not evidence of speedup or product adoption.
+
+## Mac correctness submission — 2026-11-12
+
+The Human authorized continuing after the Ubuntu checkpoint. Reuse exactly the
+same f4325722 guest and translation artifacts; reproduce only the converter,
+installation and arm64 host build. The separate `uca-copy-mac.yml` job targets
+macOS15 arm64 and asserts the architecture. It does not retrigger the Ubuntu
+job or the C build. Budget: active2h including tooling30m, one heavy CI submission,
+60-minute job limit. Local work is workflow/reference verification only.
+
+Repeat the same CRC, actual-table/corruption/worker, native SQL/two-child,
+reSnapshot and confirmed-disposal checks. The native server is **not** rerun on
+Mac: `uca_copy_reference.py` authenticates Ubuntu artifact13908017919's complete
+ZIP, original source and native-result bytes before reuse. Its provenance travels
+with the new result. Missing/expired or mismatched evidence stops the job; it must
+not fall back to another run. Old Ubuntu PASS remains bound to a197034c.
+Local checks:116 focused tests plus2 subtests pass, including reference/source/
+manifest rejection and workflow scope selection. The actual Ubuntu ZIP/native
+bytes also verify. YAML, shell syntax, touched Python AST and diff checks pass.
+Mac acceptance is pending; this submission has no performance/adoption claim.
+
+### Following performance comparison (not executed by this job)
+
+Reuse the immutable timer calibration harness at d24087ee and the existing
+shop70 input: 50 shared-child reads and20 private-child writes; Go Pipe,
+16MiB buffer pool/read1, cap=P+1, GOMAXPROCS8/GOGC100. Baseline is timer-adopted
+main500020e7; candidate uses this guest with the same SDK/host runtime. Verify
+source and generated identities before building and prove non-guest runtime
+sources equal. Use six lifecycle pairs (8 Fresh/16 Fork per process) and five
+complete-suite pairs each at P4/P8, alternating arms and parallelism order.
+Warmups follow the existing timer-product plan (six separate processes).
+Verification/timing/lock observers stay disabled. Retain every tail and report
+paired wall/CPU, per-child p50/p95 and >100ms counts, plus SQL/cleanup results.
+No speedup conclusion follows from correctness or from deleting outliers.
+Record the exact measurement host/binary/guest and a fresh storage/time budget
+before execution; Mac CI receipt comes first. No pgmem rerun, product adoption,
+main integration, Qualification or release is included in this checkpoint.
