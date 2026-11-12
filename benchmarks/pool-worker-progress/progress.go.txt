@@ -1,0 +1,34 @@
+package base
+
+// Experimental event journal. Guest fields are read only at hook sites holding
+// the original pool mutex. Naked worker events do not inspect shared guest data.
+type ProgressEvent struct {
+ At int64 `json:"at_us"`
+ Kind string `json:"kind"`
+ Actor string `json:"actor"`
+ Pool uint32 `json:"pool"`
+ Worker uint32 `json:"worker"`
+ Task uint32 `json:"task"`
+ Aux int64 `json:"aux"`
+ Locked bool `json:"locked"`
+ Active uint32 `json:"active"`
+ Standby uint32 `json:"standby"`
+ Waiting uint32 `json:"waiting"`
+ Long uint32 `json:"long"`
+ Cap uint32 `json:"cap"`
+ Queue uint32 `json:"queue"`
+}
+func progressSave(m *Module,e ProgressEvent) {
+ v,ok:=readRegistry.Load(m.Threads);if !ok{return};r:=v.(*ReadObserver)
+ r.mu.Lock();defer r.mu.Unlock()
+ if len(r.Progress)>=32768{r.Truncated=true;return}
+ e.Actor=m.ProgressActor;e.At=readClock();r.Progress=append(r.Progress,e)
+}
+func Progress(m *Module,pool,worker,task int32,kind string,aux int64){progressSave(m,ProgressEvent{Pool:uint32(pool),Worker:uint32(worker),Task:uint32(task),Kind:kind,Aux:aux})}
+func ProgressLocked(m *Module,pool,task int32,kind string,aux int64){
+ e:=ProgressEvent{Pool:uint32(pool),Worker:uint32(m.ProgressWorker),Task:uint32(task),Kind:kind,Aux:aux,Locked:true}
+ e.Active=ioWord(m,pool,180);e.Standby=ioWord(m,pool,168);e.Waiting=ioWord(m,pool,372);e.Long=ioWord(m,pool,368);e.Cap=ioWord(m,pool,344)
+ c,h,t:=ioWord(m,pool,136),ioWord(m,pool,156),ioWord(m,pool,152)
+ if c==0||h>=c||t>=c{panic("invalid bound queue")};e.Queue=(t+c-h)%c
+ progressSave(m,e)
+}

@@ -1,0 +1,13 @@
+package base
+import("testing";"sync")
+func TestProgressBoundedAndQueue(t *testing.T){
+ m,off:=readTestModule("progress");defer off();pool:=int32(1024)
+ admissionQueue(m,pool,3,1)
+ ProgressLocked(m,pool,300,"enqueue",0)
+ v,_:=readRegistry.Load(m.Threads);r:=v.(*ReadObserver)
+ if len(r.Progress)!=1||r.Progress[0].Queue!=2||r.Progress[0].Cap!=1||!r.Progress[0].Locked {t.Fatal("wrapped queue/cap not extracted")}
+ var wg sync.WaitGroup
+ for i:=0;i<4;i++{wg.Add(1);go func(){defer wg.Done();for j:=0;j<10000;j++{Progress(m,pool,7,300,"test",0)}}()};wg.Wait()
+ if len(r.Progress)!=32768||!r.Truncated{t.Fatal("journal overflow not rejected")}
+}
+func TestProgressInvalidQueue(t *testing.T){m,off:=readTestModule("bad-progress");defer off();defer func(){if recover()==nil{t.Fatal("bad queue accepted")}}();ProgressLocked(m,1024,0,"test",0)}
