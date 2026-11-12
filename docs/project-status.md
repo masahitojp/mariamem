@@ -20,7 +20,11 @@ repaired dictionary preparation receipt. The [installed checkpoint](reviews/dict
 records normal generated installation, unchanged worker/CRC/data bindings and
 the actual-guest regression. Local runtime, daily/smoke, worker controls and
 clean-source attribution pass. The installed-candidate fixed30 comparison is
-complete with all observations retained. Both-OS canonical acceptance is pending. The bootstrap remains
+complete with all observations retained. CI43318436823 passed two-build and
+both-OS full regeneration, then failed daily Python checks before integration.
+The [CI setup/selection repair](reviews/dictionary-installation/ci-43318436823/README.md)
+passes fresh-environment Python checks; both-OS runtime acceptance remains pending.
+The bootstrap remains
 UNQUALIFIED; no old runtime or performance result is relabeled. Product adoption,
 main integration and release remain separate.
 

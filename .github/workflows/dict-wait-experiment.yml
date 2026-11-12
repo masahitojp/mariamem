@@ -88,6 +88,8 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0 # Daily fixture checks verify pinned historical source.
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
@@ -107,7 +109,7 @@ jobs:
         run: |
           go clean -testcache
           python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
-          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          python -m pip install pytest==9.1.1 -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
           mkdir -p build/dictionary-canonical-ci
           python scripts/git_identity.py inspect HEAD > build/dictionary-canonical-ci/source.json
           python -c 'import json,os;assert json.load(open("build/dictionary-canonical-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'

@@ -1,0 +1,291 @@
+{
+  "run_id": 43318436823,
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/43318436823",
+  "result": "FAIL",
+  "platforms": {
+    "ubuntu-24.04": {
+      "artifact_id": 13991945269,
+      "artifact_sha256": "375aa6e58636f53f8b61a307e833c35337eac9956e5f174b36c2008c47371fe0",
+      "source_commit": "ad7deda13ef205774af34c152dd531c85c02782c",
+      "failed_tests": [
+        "tests/test_ci_runtime_selection.py::test_full_integration_retains_regressions_without_duplicate_routing",
+        "tests/test_fixture_design_contract.py::test_current_contract_never_claims_runtime_acceptance_or_new_authorization",
+        "tests/test_fixture_design_contract.py::test_current_lint_does_not_replay_adoption_or_v060_placement",
+        "tests/test_p1_pytest_entry.py::test_xdist_reports_final_cleanup_and_keeps_other_worker_running",
+        "tests/test_routing.py::test_pool_disposal_authority_and_sibling_survival",
+        "tests/test_routing.py::test_pool_active_and_custom_creator_refuse",
+        "tests/test_routing_pytest.py::test_routed_fixture_owns_only_binding_and_separate_children",
+        "tests/test_routing_pytest.py::test_worker_local_registry",
+        "tests/test_routing_pytest.py::test_prepare_runs_once_per_worker"
+      ],
+      "check_summary": "9 failed, 1901 passed, 99 skipped, 7 warnings, 119 subtests passed in 110.11s (0:01:50)",
+      "check_log_sha256": "8ebbdc522f695959cc577c7aaac8518f21100f350b4f20d7149f4c57b3ddb6e1",
+      "integration": "NOT_RUN",
+      "regeneration": {
+        "result": "PASS",
+        "files": 120,
+        "sha256": "064a0a25bcbe9c323e2b8304e6eed68aba4618e16d870da7c1a2295340e985aa"
+      },
+      "guest_repetitions": [
+        {
+          "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+          "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
+        },
+        {
+          "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+          "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
+        }
+      ],
+      "build_guard": "PASS",
+      "negative_guard": {
+        "source_commit": "ad7deda13ef205774af34c152dd531c85c02782c",
+        "positive": "PASS",
+        "negative": [
+          {
+            "mutation": "contract",
+            "rejected": true,
+            "error": "wrong build contract"
+          },
+          {
+            "mutation": "source",
+            "rejected": true,
+            "error": "build source differs"
+          },
+          {
+            "mutation": "guest",
+            "rejected": true,
+            "error": "guest identity differs"
+          },
+          {
+            "mutation": "linked",
+            "rejected": true,
+            "error": "linked guest differs"
+          },
+          {
+            "mutation": "one-build",
+            "rejected": true,
+            "error": "independent rebuild evidence missing/different"
+          },
+          {
+            "mutation": "different-builds",
+            "rejected": true,
+            "error": "independent rebuild evidence missing/different"
+          },
+          {
+            "mutation": "experimental",
+            "rejected": true,
+            "error": "experimental guest patch"
+          },
+          {
+            "mutation": "source-file",
+            "rejected": true,
+            "error": "modified guest source differs"
+          },
+          {
+            "mutation": "lexer-input",
+            "rejected": true,
+            "error": "prepared lexer source-input provenance differs"
+          },
+          {
+            "mutation": "startup-missing",
+            "rejected": true,
+            "error": "canonical startup concurrency inputs differ"
+          },
+          {
+            "mutation": "startup-input",
+            "rejected": true,
+            "error": "canonical startup concurrency inputs differ"
+          },
+          {
+            "mutation": "overlay",
+            "rejected": true,
+            "error": "source overlays differ"
+          },
+          {
+            "mutation": "toolchain",
+            "rejected": true,
+            "error": "toolchain archives differ"
+          },
+          {
+            "mutation": "regen-source",
+            "rejected": true,
+            "error": "build source differs"
+          },
+          {
+            "mutation": "regen-result",
+            "rejected": true,
+            "error": "generation inputs differ"
+          },
+          {
+            "mutation": "inventory",
+            "rejected": true,
+            "error": "generated source inventory differs"
+          },
+          {
+            "mutation": "provenance",
+            "rejected": true,
+            "error": "generated provenance differs"
+          },
+          {
+            "mutation": "converter",
+            "rejected": true,
+            "error": "converter identity/output differs: converter_commit"
+          },
+          {
+            "mutation": "patch",
+            "rejected": true,
+            "error": "converter identity/output differs: patches_sha256"
+          },
+          {
+            "mutation": "translation",
+            "rejected": true,
+            "error": "converter identity/output differs: files_sha256"
+          }
+        ],
+        "result": "PASS"
+      }
+    },
+    "macos-15": {
+      "artifact_id": 13990279152,
+      "artifact_sha256": "390875daae67480b9fdc1a7bb72f3d20ae6c6b504334c57dd5d5780f13a9302f",
+      "source_commit": "ad7deda13ef205774af34c152dd531c85c02782c",
+      "failed_tests": [
+        "tests/test_ci_runtime_selection.py::test_full_integration_retains_regressions_without_duplicate_routing",
+        "tests/test_fixture_design_contract.py::test_current_contract_never_claims_runtime_acceptance_or_new_authorization",
+        "tests/test_fixture_design_contract.py::test_current_lint_does_not_replay_adoption_or_v060_placement",
+        "tests/test_p1_pytest_entry.py::test_xdist_reports_final_cleanup_and_keeps_other_worker_running",
+        "tests/test_routing.py::test_pool_disposal_authority_and_sibling_survival",
+        "tests/test_routing.py::test_pool_active_and_custom_creator_refuse",
+        "tests/test_routing_pytest.py::test_routed_fixture_owns_only_binding_and_separate_children",
+        "tests/test_routing_pytest.py::test_worker_local_registry",
+        "tests/test_routing_pytest.py::test_prepare_runs_once_per_worker"
+      ],
+      "check_summary": "9 failed, 1901 passed, 99 skipped, 7 warnings, 119 subtests passed in 140.67s (0:02:20)",
+      "check_log_sha256": "4d0b0c2b7542a58014600bf13fcb0fb908259d8cb12f0e5034df5bf2cda2b4a6",
+      "integration": "NOT_RUN",
+      "regeneration": {
+        "result": "PASS",
+        "files": 120,
+        "sha256": "1df0bebdffdf080a55a036b24f047e0a1c557e7e6f09e03aa49636f84a6987a5"
+      },
+      "guest_repetitions": [
+        {
+          "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+          "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
+        },
+        {
+          "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+          "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
+        }
+      ],
+      "build_guard": "PASS",
+      "negative_guard": {
+        "source_commit": "ad7deda13ef205774af34c152dd531c85c02782c",
+        "positive": "PASS",
+        "negative": [
+          {
+            "mutation": "contract",
+            "rejected": true,
+            "error": "wrong build contract"
+          },
+          {
+            "mutation": "source",
+            "rejected": true,
+            "error": "build source differs"
+          },
+          {
+            "mutation": "guest",
+            "rejected": true,
+            "error": "guest identity differs"
+          },
+          {
+            "mutation": "linked",
+            "rejected": true,
+            "error": "linked guest differs"
+          },
+          {
+            "mutation": "one-build",
+            "rejected": true,
+            "error": "independent rebuild evidence missing/different"
+          },
+          {
+            "mutation": "different-builds",
+            "rejected": true,
+            "error": "independent rebuild evidence missing/different"
+          },
+          {
+            "mutation": "experimental",
+            "rejected": true,
+            "error": "experimental guest patch"
+          },
+          {
+            "mutation": "source-file",
+            "rejected": true,
+            "error": "modified guest source differs"
+          },
+          {
+            "mutation": "lexer-input",
+            "rejected": true,
+            "error": "prepared lexer source-input provenance differs"
+          },
+          {
+            "mutation": "startup-missing",
+            "rejected": true,
+            "error": "canonical startup concurrency inputs differ"
+          },
+          {
+            "mutation": "startup-input",
+            "rejected": true,
+            "error": "canonical startup concurrency inputs differ"
+          },
+          {
+            "mutation": "overlay",
+            "rejected": true,
+            "error": "source overlays differ"
+          },
+          {
+            "mutation": "toolchain",
+            "rejected": true,
+            "error": "toolchain archives differ"
+          },
+          {
+            "mutation": "regen-source",
+            "rejected": true,
+            "error": "build source differs"
+          },
+          {
+            "mutation": "regen-result",
+            "rejected": true,
+            "error": "generation inputs differ"
+          },
+          {
+            "mutation": "inventory",
+            "rejected": true,
+            "error": "generated source inventory differs"
+          },
+          {
+            "mutation": "provenance",
+            "rejected": true,
+            "error": "generated provenance differs"
+          },
+          {
+            "mutation": "converter",
+            "rejected": true,
+            "error": "converter identity/output differs: converter_commit"
+          },
+          {
+            "mutation": "patch",
+            "rejected": true,
+            "error": "converter identity/output differs: patches_sha256"
+          },
+          {
+            "mutation": "translation",
+            "rejected": true,
+            "error": "converter identity/output differs: files_sha256"
+          }
+        ],
+        "result": "PASS"
+      }
+    }
+  }
+}

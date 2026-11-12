@@ -26,3 +26,9 @@ comparison](performance.md) is complete; all observations and limits are retaine
 independent C builds, complete regeneration on both product OSes, normal daily
 checks/integration, worker ownership controls and native SQL/child comparison.
 CI submission is a handoff. Main integration and release remain separate.
+
+[CI43318436823 repair](ci-43318436823/README.md) records successful two-build
+and both-OS full regeneration, followed by nine Python-check failures on each
+OS before integration. CI prerequisites and the old selector assertion are
+corrected; fresh-environment Python checks pass. Both-OS runtime acceptance
+remains pending a new submission.

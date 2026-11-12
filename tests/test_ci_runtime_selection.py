@@ -1,5 +1,6 @@
 """Daily runtime checks reuse one host and do not invoke release campaigns."""
 from pathlib import Path
+import re
 import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'scripts'))
@@ -25,7 +26,10 @@ def test_full_integration_retains_regressions_without_duplicate_routing(monkeypa
     calls = []
     monkeypatch.setattr(verify, 'run', lambda argv, **kw: calls.append(argv))
     verify.integration()
-    assert any('-run=TestWorkerTrapActualGuest' in a for a in calls)
+    actual_guest = next(a for a in calls if './internal/generatedgo' in a and '-tags=integration' in a)
+    selector = next(a.removeprefix('-run=') for a in actual_guest if a.startswith('-run='))
+    assert re.search(selector, 'TestWorkerTrapActualGuest')
+    assert re.search(selector, 'TestDictionaryWaitActualGuest')
     assert any('scripts/check_prepared_consumers.py' in a for a in calls)
     race = next(a for a in calls if a[:3] == ['go', 'test', '-race'])
     assert {'./internal/live', './internal/generatedgo', './internal/generatedgo/code/base'} <= set(race)

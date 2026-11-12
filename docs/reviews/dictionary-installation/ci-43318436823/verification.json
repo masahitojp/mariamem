@@ -1,0 +1,45 @@
+{
+  "base_source_commit": "ad7deda13ef205774af34c152dd531c85c02782c",
+  "result": "PASS",
+  "runtime_change": false,
+  "local_guest_build": "NOT_RUN",
+  "local_benchmark": "NOT_RUN",
+  "verification": {
+    "focused": {
+      "summary": "134 passed, 6 warnings in 20.04s",
+      "raw_sha256": "a92c03b3e7874bfbfc40c436b41b17196aad5adc0aecf277ac15389b7dc7f31e",
+      "plugin_autoload": false
+    },
+    "python-check": {
+      "summary": "1997 passed, 99 skipped, 7 warnings, 142 subtests passed in 131.97s (0:02:11)",
+      "raw_sha256": "630d4842d383d7e75184145c3ff669dea5cc4303c97232916125779c245470a0",
+      "plugin_autoload": false
+    },
+    "ci-default-python": {
+      "summary": "1997 passed, 99 skipped, 7 warnings, 142 subtests passed in 132.18s (0:02:12)",
+      "raw_sha256": "2dd0578e25f7e88b2a79346de1313856428658b1e333201bae50f2e471d0dedd",
+      "plugin_autoload": true
+    }
+  },
+  "dependencies": {
+    "pytest": "9.1.1",
+    "mysql-connector-python": "26.7.0",
+    "pytest-xdist": "3.8.0",
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "pluggy": "1.7.0",
+    "execnet": "2.1.2",
+    "iniconfig": "2.3.1",
+    "packaging": "26.3",
+    "Pygments": "2.21.0",
+    "typing_extensions": "4.16.0"
+  },
+  "workflow": "dict-wait-experiment.yml",
+  "repairs": [
+    "Use normal unit-requirements (SQLAlchemy and pytest-xdist included).",
+    "Fetch complete native-job history; wire source e1eb9c2f is an ancestor of this candidate.",
+    "Validate both required actual-guest names against the integration selector rather than its old literal spelling."
+  ],
+  "python_version": "3.14.10",
+  "dependency_install_report_sha256": "865cfc708314d32fdc549aadb6c072daad061024a48dd05ee1fc4efaa86d9681"
+}
