@@ -35,5 +35,6 @@
   },
   "measurement_clock": "host monotonic wall and process rusage CPU, not corrected guest SQL timer",
   "baseline_negative_control": "Both arms contain adopted timer correction; require valid ANALYZE rows, subsequent SELECT and completed disposal.",
-  "candidate_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22"
+  "candidate_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "resources": "Process peak RSS from macOS /usr/bin/time -l for each existing invocation, not per-child RSS or live retention; guest/static image/data and runner byte sizes retained with build identities."
 }

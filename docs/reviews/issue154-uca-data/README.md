@@ -173,5 +173,6 @@ unverified. This does not revise the historical source-only claims above.
 
 The subsequent [Ubuntu correctness checkpoint](execution-stage.md#ubuntu-correctness-completed--2026-11-12)
 at a197034c passes the fixed actual-guest/native/children/disposal checks.
-Mac and speed comparisons remain unperformed. This is prototype evidence,
+The [Mac checkpoint](execution-stage.md#mac-correctness-completed--2026-11-12)
+at eae21ae9 also passes; speed comparison remains unperformed. This is prototype evidence,
 not approval to adopt the new UCA implementation.
