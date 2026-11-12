@@ -6,17 +6,20 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## Issue154 — experimental UCA private-copy Ubuntu correctness complete
+## Issue154 — experimental UCA private-copy bounded correctness complete on both hosts
 
 The Human authorized continuing the separate UCA experiment after timer adoption.
 [Ubuntu CI43137408120](reviews/issue154-uca-data/execution-stage.md#ubuntu-correctness-completed--2026-11-12)
 at execution sourcea197034c passes the bounded actual-table/CRC/native SQL/two-child/
 reSnapshot/disposal checks using the original f4325722 experimental guest.
-The source-only allocation-failure and operation-order evidence keeps its stated
-limits. A separate same-guest macOS15 arm64 correctness job is prepared, reusing
-the checksum-bound Ubuntu native reference without a C rebuild. Its result and
-observer-off Fork/complete-suite comparisons remain pending;
-no new UCA product adoption, main integration, Qualification or release is approved.
+[Mac CI43148033625](reviews/issue154-uca-data/ci-43148033625.json) at eae21ae9
+passes the same bounded checks on macOS15.8.2 arm64, with the authenticated Ubuntu
+native reference reused (no Mac native server rerun). Both receipts retain their
+original execution/guest identities. Real-guest OOM, lazy initialization-order
+and complete BSS-name proofs remain outside these claims. The Human authorized
+continuing to the fixed observer-off Fork/complete-suite comparison; performance
+is not yet established. No new UCA product adoption, main integration,
+Qualification or release is approved.
 
 ## WASI timer correction and startup reduction — adopted on main
 

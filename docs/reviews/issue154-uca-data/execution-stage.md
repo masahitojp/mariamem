@@ -186,3 +186,22 @@ No speedup conclusion follows from correctness or from deleting outliers.
 Record the exact measurement host/binary/guest and a fresh storage/time budget
 before execution; Mac CI receipt comes first. No pgmem rerun, product adoption,
 main integration, Qualification or release is included in this checkpoint.
+
+## Mac correctness completed — 2026-11-12
+
+[CI43148033625](https://github.com/masahitojp/mariamem/actions/runs/43148033625)
+at eae21ae9046672ec4257b69b480abf618d0bdb48 passes on macOS15.8.2 arm64,
+Go1.26.10/Python3.14.10. [Receipt](ci-43148033625.json) and
+[checksum](ci-43148033625-SHA256SUMS.json) bind job130950378812,
+artifact13913196647 and all11 verified files. The same fifteen-copy, corruption,
+CRC832/80, existing UCA/lexer/worker, native semantic comparison, two-child,
+reSnapshot and confirmed disposal checks pass; no runtime test skipped. Native
+results retain their Ubuntu source and are not relabeled as a Mac server run.
+
+Both observed-host correctness checkpoints are complete. OOM/retry remains
+source/stub evidence, query order does not prove lazy internal ordering, and not
+all BSS symbol names have independent proof. Performance and adoption remain
+separate; old pending paragraphs describe their original submission contexts.
+The next local measurement follows the fixed comparison above with active2h,
+tooling30m, no heavy CI, owned disk8GiB/free6GiB budgets. The measurement may
+reproduce Go conversion/installation/build only; no guest C rebuild.

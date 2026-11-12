@@ -1,0 +1,39 @@
+{
+  "question": "Does default UCA private-copy initialization reduce Fork and complete-suite cost relative to timer-adopted main?",
+  "sources": {
+    "baseline": {
+      "source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774"
+    },
+    "guest_origin": {
+      "source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b"
+    },
+    "execution_harness": {
+      "source_commit": "eae21ae9046672ec4257b69b480abf618d0bdb48"
+    },
+    "harness": {
+      "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+    }
+  },
+  "scope": "Single local Mac; same SDK/host runtime with experimental guest and exact approved adapter bindings. No pgmem rerun, C rebuild, integration or release.",
+  "workload": "Existing immutable timer_calibration runner; 16MiB buffer pool/read1; GOMAXPROCS8 GOGC100; no internal observers. 50 shared-child reads +20 private-child writes, cap=P+1, P4/P8.",
+  "sampling": {
+    "lifecycle_pairs": 6,
+    "fresh_per_batch": 8,
+    "fork_per_batch": 16,
+    "shop_pairs_per_parallelism": 5,
+    "warmup_processes": 6,
+    "order": "alternating arms and P4/P8 order",
+    "tail_policy": "retain every sample, no outcome-selected repeats"
+  },
+  "exit": "Report paired wall/CPU changes, lifecycle and child-stage distributions, >100ms tails, correctness and cleanup; inconclusive effects remain inconclusive. No speed threshold silently converted to approval.",
+  "budget": {
+    "active_hours": 2,
+    "tooling_minutes": 30,
+    "heavy_CI_submissions": 0,
+    "disk_gib": 8,
+    "min_free_gib": 6
+  },
+  "measurement_clock": "host monotonic wall and process rusage CPU, not corrected guest SQL timer",
+  "baseline_negative_control": "Both arms contain adopted timer correction; require valid ANALYZE rows, subsequent SELECT and completed disposal.",
+  "candidate_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22"
+}

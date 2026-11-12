@@ -1,0 +1,100 @@
+{
+  "result": "PASS_BOUNDED_MAC_CORRECTNESS",
+  "run": 43148033625,
+  "attempt": 1,
+  "job": {
+    "id": 130950378812,
+    "name": "mac-correctness",
+    "runner": "macos-15",
+    "conclusion": "success"
+  },
+  "execution_source_commit": "eae21ae9046672ec4257b69b480abf618d0bdb48",
+  "guest_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "host_sha256": "05ccab0bf7ad40cb07c685392cbe70ec71550c52e7e486cf8c8243d4c662033e",
+  "artifact": {
+    "id": 13913196647,
+    "name": "uca-copy-mac-eae21ae9046672ec4257b69b480abf618d0bdb48",
+    "zip_sha256": "d29a6656816d18dd1e234663422130467ac4a18aae672145bea7fa0dd4d6f889",
+    "size_bytes": 39565,
+    "download_verified": true
+  },
+  "artifact_files_sha256": {
+    "actual-guest.txt": "f05c5c1c5c7a8f41da5754e76d774de4792d4d044c1fc32cbabddbfcab90478a",
+    "crc.txt": "4987d95f1f2b3303312b5decf7376f43858656452d9dab19c7e3b4ab7d6ee345",
+    "installation.json": "1a5fd84725ed54775b4be35e9fed863edd8d25fd4cfeeab60de4fa982fdf7419",
+    "installation.txt": "3c2438a15c473dd6f88631181758574692beb6e323cb3f1236a47bdf214e3ac6",
+    "native-reuse.json": "dbbd037c359191abe14cdc20bd94edc4cec855c1bc874fe1d52c7e0619f5b0ff",
+    "native.json": "1e50fe15df475c29a3d58c9192106b0e890e104c4f2dde8ddc6118caa86e3c81",
+    "platform.txt": "8cd5c93632e31a8f23da7b2a48df65fe4722e35c8a5f8ea218055eceb8ac37a1",
+    "snapshot.txt": "b834d154d8fc19fda76f00fad8fc11f1864ec2cdb75b2d532f7ca2baa05191a8",
+    "source.json": "4af7244b48c69c57f057a5868028e09023b44668971c6a703a3dc58a5f3fe026",
+    "sql-children.json": "bfe9d911fa7d12bedaf3b22f47ed9d58735522decbd793d5ee314cf2febcd62a",
+    "sql-children.txt": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431"
+  },
+  "all_artifact_checksums_verified": true,
+  "platform": [
+    "ProductName:\t\tmacOS",
+    "ProductVersion:\t\t15.8.2",
+    "BuildVersion:\t\t24H232",
+    "go version go1.26.10 darwin/arm64",
+    "Python 3.14.10"
+  ],
+  "native_reuse": {
+    "run": 43137408120,
+    "artifact": 13908017919,
+    "source_commit": "a197034c6dabd663c84262323d6b42c5c20fb2a2",
+    "zip_sha256": "895a25a0df71274629ebdf3550e6032ce1f8aaa26f622bef909b789d046b27ef",
+    "native_sha256": "1e50fe15df475c29a3d58c9192106b0e890e104c4f2dde8ddc6118caa86e3c81",
+    "native_server_platform": "Ubuntu 24.04 x86_64",
+    "native_rerun_on_mac": false
+  },
+  "go_test_passes": [
+    "TestPreparedLexerTablesActualGuest",
+    "TestUCACopyActualGuest",
+    "TestPreparedUCATablesActualGuest",
+    "TestWorkerTrapActualGuestNotifiesAndIsolatesPeer"
+  ],
+  "go_subtest_passes": [
+    "TestPreparedLexerTablesActualGuest/normal_ambient_ignored",
+    "TestPreparedLexerTablesActualGuest/profiling_does_not_verify",
+    "TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors",
+    "TestPreparedLexerTablesActualGuest/corrupt_table_rejected",
+    "TestUCACopyActualGuest/normal_ambient_ignored",
+    "TestUCACopyActualGuest/profiling_does_not_verify",
+    "TestUCACopyActualGuest/fifteen_default_levels",
+    "TestUCACopyActualGuest/corruption_without_verifier",
+    "TestUCACopyActualGuest/corrupt_table_rejected",
+    "TestPreparedUCATablesActualGuest/normal_ambient_ignored",
+    "TestPreparedUCATablesActualGuest/profiling_does_not_verify",
+    "TestPreparedUCATablesActualGuest/six_resolved_tables",
+    "TestPreparedUCATablesActualGuest/corrupt_table_rejected"
+  ],
+  "crc_calculation_cases": 832,
+  "crc_page_validation_cases": 80,
+  "snapshot_pytest_passes": 2,
+  "native_semantic_matches": true,
+  "sql_children": {
+    "result": "PASS",
+    "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "native_sha256": "1e50fe15df475c29a3d58c9192106b0e890e104c4f2dde8ddc6118caa86e3c81",
+    "children": 2,
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "cleanup_errors": []
+  },
+  "limitations": {
+    "performance": "NOT_MEASURED",
+    "allocation_failure_and_retry": "source/stub only, not real guest OOM",
+    "alias_order": "query order; lazy internal order not proven",
+    "bss_symbol_identity": "not all names independently proven",
+    "adoption": false,
+    "qualification": false,
+    "release": false
+  }
+}
