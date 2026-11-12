@@ -1,0 +1,8 @@
+package base
+
+// Diagnostic-only callback, fixed before guest entry and removed after join.
+var PendingProbe func(*Module, string, int32, int32)
+var PendingTimerManual func(*Module) bool
+
+// Experimental eviction slow-path notification; test scopes it to one TLS.
+var DictWaitHook func(*Module, bool)

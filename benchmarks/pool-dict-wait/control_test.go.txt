@@ -1,0 +1,436 @@
+//go:build integration
+
+package generatedgo
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"os"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p3"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p5"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p6"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p7"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
+)
+
+const dictLatch int32 = 18662528
+
+type dictEvent struct {
+	Name         string
+	MS           float64
+	Pool, Worker int32
+}
+type dictRow struct {
+	Arm                                                  string
+	Concurrency, Repeat                                  int
+	Result                                               string
+	Events                                               []dictEvent
+	Occupied, Waiting, Long, Pending                     int32
+	Created, Retired, RefBalance                         int32
+	SlowEntries, NotifyBegin, NotifyEnd, FutexCalls      int32
+	WaitingDuring, WaitingAfter, FlagsBefore, FlagsAfter int32
+	Evicted                                              int32
+	Exclusion                                            bool
+	Queued                                               uint64
+	ObservationMS                                        float64
+	MappingsBefore, MappingsAfter                        uint64
+}
+type dictWriter struct {
+	base.Wasi_snapshot_preview1Imports
+	once sync.Once
+	run  func(*base.Module)
+}
+
+func (w *dictWriter) Fd_write(m *base.Module, fd, iov, n, out int32) int32 {
+	if fd == 1 {
+		w.once.Do(func() { w.run(m) })
+	}
+	return w.Wasi_snapshot_preview1Imports.Fd_write(m, fd, iov, n, out)
+}
+
+type dictWasix struct {
+	base.Wasix_32v1Imports
+	tap func(*base.Module, int32)
+}
+
+func (w *dictWasix) Futex_wait(m *base.Module, a, b, c, d int32) int32 {
+	w.tap(m, a)
+	return w.Wasix_32v1Imports.Futex_wait(m, a, b, c, d)
+}
+func dw32(m *base.Module, a int32) *int32 {
+	return (*int32)(unsafe.Add(m.M, base.MemoryEA(m, uint64(uint32(a)), 0, 4)))
+}
+func dw64(m *base.Module, a int32) *uint64 {
+	return (*uint64)(unsafe.Add(m.M, base.MemoryEA(m, uint64(uint32(a)), 0, 8)))
+}
+func dwAssert(ok bool, label string) {
+	if !ok {
+		panic("control assertion: " + label)
+	}
+}
+func dwWait(ch <-chan struct{}, label string) {
+	select {
+	case <-ch:
+	case <-time.After(2 * time.Second):
+		panic("control timeout: " + label)
+	}
+}
+func dwLock(m *base.Module) {
+	if base.AtomicRmwCmpxchg32(m, dictLatch, 0, 0, 2147483647) != 0 {
+		p6.Fn17733(m)
+	}
+	dwAssert(m.ExcPending == 0, "owner lock exception")
+}
+
+// Same exclusive-release CAS/wake semantics as Fn17744's inlined wr_unlock.
+// Only the harness owner uses this; the tested eviction runs its original unlock.
+func dwUnlock(m *base.Module) {
+	for {
+		waiters := atomic.LoadInt32(dw32(m, dictLatch+4))
+		state := atomic.LoadInt32(dw32(m, dictLatch))
+		dwAssert(state&2147483647 == 2147483647, "exclusive owner state")
+		if atomic.CompareAndSwapInt32(dw32(m, dictLatch), state, 0) {
+			if waiters != 0 || state < 0 {
+				p8.Fn89(m, dictLatch, 2147483647)
+			}
+			return
+		}
+	}
+}
+func dwFlags(m *base.Module) int32 {
+	worker := *dw32(m, m.G1+396)
+	if worker == 0 {
+		return 0
+	}
+	return *dw32(m, worker+64)
+}
+
+func TestDictWaitGuest(t *testing.T) {
+	warmProcessImage(t)
+	rows := []dictRow{}
+	for rep := 1; rep <= 3; rep++ {
+		for _, conc := range []int{1, 16} {
+			for _, arm := range []string{"pending_unreported", "pending_reported", "late_submit", "uncontended", "nonpool"} {
+				if arm == "nonpool" && conc != 1 {
+					continue
+				}
+				row := dictRow{Arm: arm, Concurrency: conc, Repeat: rep, Result: "FAIL"}
+				row.MappingsBefore = base.MemoryMappingStats()["active_mappings"]
+				var mu sync.Mutex
+				start := time.Now()
+				record := func(name string, pool, worker int32) {
+					mu.Lock()
+					defer mu.Unlock()
+					row.Events = append(row.Events, dictEvent{name, float64(time.Since(start).Nanoseconds()) / 1e6, pool, worker})
+				}
+				var manualFactory atomic.Bool
+				var controlledPool, targetTLS atomic.Int32
+				var ownerReleased atomic.Bool
+				parked := make(chan struct{})
+				var parkedOnce sync.Once
+				var futexCalls, slowEntries, notifyBegin, notifyEnd atomic.Int32
+				base.PendingTimerManual = func(_ *base.Module) bool { return manualFactory.Load() }
+				base.PendingProbe = func(_ *base.Module, name string, pool, worker int32) {
+					if name == "timer_suppressed" && manualFactory.Load() {
+						controlledPool.Store(pool)
+					}
+					if pool == controlledPool.Load() {
+						record(name, pool, worker)
+					}
+				}
+				base.DictWaitHook = func(c *base.Module, begin bool) {
+					if c.G1 != targetTLS.Load() {
+						return
+					}
+					pool := controlledPool.Load()
+					if begin {
+						slowEntries.Add(1)
+						row.FlagsBefore = dwFlags(c)
+						dwAssert(row.FlagsBefore&6 == 0, "no nested WAITING or LONG on selected caller")
+						record("dict_slow_begin", pool, c.G1)
+						if arm == "pending_reported" || arm == "nonpool" {
+							// Public TLS-aware notification, not the pool method called directly.
+							notifyBegin.Add(1)
+							record("notify_begin", pool, c.G1)
+							p8.Fn16583(c)
+							if arm == "nonpool" {
+								p7.Fn16559(c, pool+184)
+								row.WaitingDuring = *dw32(c, pool+372)
+								p7.Fn16561(c, pool+184)
+								dwAssert(row.WaitingDuring == 0, "nonpool notification no-op before wait")
+							}
+						}
+					} else {
+						dwAssert(ownerReleased.Load(), "eviction cannot acquire before owner release")
+						dwAssert(atomic.LoadInt32(dw32(c, dictLatch))&2147483647 == 2147483647, "eviction holds exclusive latch")
+						row.Exclusion = true
+						record("dict_acquired", pool, c.G1)
+						if arm == "pending_reported" || arm == "nonpool" {
+							p8.Fn16584(c)
+							notifyEnd.Add(1)
+							record("notify_end", pool, c.G1)
+						}
+						row.FlagsAfter = dwFlags(c)
+						dwAssert(row.FlagsAfter&6 == 0, "WAITING/LONG cleared")
+					}
+				}
+				ran := false
+				var runErr any
+				run := func(m *base.Module) {
+					ran = true
+					defer func() { runErr = recover() }()
+					manualFactory.Store(true)
+					pool := p3.Fn16610(m)
+					manualFactory.Store(false)
+					dwAssert(pool != 0 && m.ExcPending == 0, "pool constructed")
+					p8.Fn16604(m, pool, int32(conc))
+					dwAssert(*dw32(m, pool+344) == int32(conc), "effective concurrency")
+					p5.Fn16603(m, pool) // prime empty maintenance timestamp; not a rescue event
+					initEntered, initRelease, aDone, bDone, bRelease := make(chan struct{}), make(chan struct{}), make(chan struct{}), make(chan struct{}), make(chan struct{})
+					var created, retired, refs atomic.Int32
+					allocate := func(n int32) int32 {
+						p := p8.Fn157(m, 16, n)
+						dwAssert(p != 0 && p%16 == 0, "allocation")
+						base.MemoryFill(m, p, 0, n)
+						return p
+					}
+					table, taskA, taskB := allocate(12), allocate(16), allocate(16)
+					add := func(f any) int32 { i := int32(len(m.T0)); m.T0 = append(m.T0, f); return i }
+					originalInit := m.T0[*dw32(m, pool+12)].(func(*base.Module))
+					originalDestroy := m.T0[*dw32(m, pool+16)].(func(*base.Module))
+					*dw32(m, pool+12) = add(func(c *base.Module) {
+						originalInit(c)
+						n := created.Add(1)
+						record("worker_init", pool, n)
+						if n == 1 && arm != "nonpool" {
+							close(initEntered)
+							dwWait(initRelease, "init release")
+						}
+					})
+					*dw32(m, pool+16) = add(func(c *base.Module) { originalDestroy(c); retired.Add(1); record("worker_retire", pool, 0) })
+					*dw32(m, table) = add(func(_ *base.Module, _ int32) { refs.Add(1) })
+					*dw32(m, table+4) = add(func(_ *base.Module, _ int32) { refs.Add(-1) })
+					*dw32(m, table+8) = add(p6.Fn16586)
+					*dw32(m, taskA) = table
+					*dw32(m, taskB) = table
+					snapshot := func(c *base.Module) {
+						p7.Fn16559(c, pool+184)
+						row.Occupied = *dw32(c, pool+180)
+						row.Waiting = *dw32(c, pool+372)
+						row.Long = *dw32(c, pool+368)
+						row.Pending = base.AtomicLoad32_8u(c, pool, 408)
+						row.Queued = *dw64(c, pool+320) - *dw64(c, pool+328)
+						p7.Fn16561(c, pool+184)
+					}
+					// This is the actual dictionary/global and eviction body; no table is evicted.
+					dwAssert(*dw32(m, 18662604) < *dw32(m, 27744792), "small dictionary below eviction threshold")
+					if arm == "nonpool" {
+						ownerReady, ownerRelease := make(chan struct{}), make(chan struct{})
+						*dw32(m, taskA+4) = add(func(c *base.Module, _ int32) {
+							dwLock(c)
+							record("owner_locked", pool, c.G1)
+							close(ownerReady)
+							dwWait(ownerRelease, "owner release")
+							ownerReleased.Store(true)
+							record("owner_release", pool, c.G1)
+							dwUnlock(c)
+							close(aDone)
+						})
+						p7.Fn16605(m, pool, taskA)
+						dwWait(ownerReady, "owner ready")
+						dwAssert(*dw32(m, m.G1+392) == 0 && *dw32(m, m.G1+396) == 0, "nonpool TLS")
+						targetTLS.Store(m.G1)
+						// No guest stack use from this helper goroutine; only releases Go barrier.
+						helperDone := make(chan struct{})
+						go func() { defer close(helperDone); dwWait(parked, "nonpool real futex"); close(ownerRelease) }()
+						row.Evicted = p6.Fn17744(m, 0)
+						dwAssert(m.ExcPending == 0, "nonpool eviction exception")
+						dwWait(helperDone, "helper completion")
+						dwWait(aDone, "owner completion")
+						snapshot(m)
+						row.WaitingAfter = row.Waiting
+						dwAssert(row.Waiting == 0, "nonpool notification has no pool accounting effect")
+					} else {
+						if arm != "uncontended" {
+							dwLock(m)
+							record("owner_locked", pool, m.G1)
+						}
+						*dw32(m, taskA+4) = add(func(c *base.Module, _ int32) {
+							targetTLS.Store(c.G1)
+							record("a_start", pool, c.G1)
+							row.Evicted = p6.Fn17744(c, 0)
+							dwAssert(c.ExcPending == 0, "eviction exception")
+							record("a_end", pool, c.G1)
+							close(aDone)
+						})
+						*dw32(m, taskB+4) = add(func(_ *base.Module, _ int32) { record("b_run", pool, 0); close(bDone); dwWait(bRelease, "B release") })
+						record("submit_a", pool, 0)
+						p7.Fn16605(m, pool, taskA)
+						dwWait(initEntered, "first init")
+						if arm != "late_submit" {
+							record("submit_b", pool, 0)
+							p7.Fn16605(m, pool, taskB)
+						}
+						close(initRelease)
+						if arm != "uncontended" {
+							dwWait(parked, "actual dictionary futex")
+						}
+						if arm == "late_submit" {
+							record("submit_b", pool, 0)
+							p7.Fn16605(m, pool, taskB)
+						}
+						if arm == "pending_unreported" {
+							obs := time.Now()
+							select {
+							case <-bDone:
+								panic("B progressed before maintenance")
+							case <-time.After(50 * time.Millisecond):
+							}
+							row.ObservationMS = float64(time.Since(obs).Nanoseconds()) / 1e6
+							dwAssert(time.Since(obs) < 250*time.Millisecond, "observation scheduling budget")
+							snapshot(m)
+							dwAssert(row.Occupied == 1 && row.Waiting == 0 && row.Long == 0 && row.Pending == 0 && row.Queued == 1, "stalled pool state")
+							record("maintenance", pool, 0)
+							p5.Fn16603(m, pool)
+						}
+						dwWait(bDone, "B progress")
+						p7.Fn16559(m, pool+184)
+						row.WaitingDuring = *dw32(m, pool+372)
+						p7.Fn16561(m, pool+184)
+						expectedWaiting := int32(0)
+						if arm == "pending_reported" {
+							expectedWaiting = 1
+						}
+						dwAssert(row.WaitingDuring == expectedWaiting, "waiting during dictionary contention")
+						if arm != "uncontended" {
+							select {
+							case <-aDone:
+								panic("A escaped exclusion")
+							default:
+							}
+							ownerReleased.Store(true)
+							record("owner_release", pool, m.G1)
+							dwUnlock(m)
+						}
+						dwWait(aDone, "A complete")
+						p7.Fn16559(m, pool+184)
+						row.WaitingAfter = *dw32(m, pool+372)
+						p7.Fn16561(m, pool+184)
+						dwAssert(row.WaitingAfter == 0, "waiting count restored")
+						close(bRelease)
+					}
+					p8.Fn16609(m, pool)
+					row.Created = created.Load()
+					row.Retired = retired.Load()
+					row.RefBalance = refs.Load()
+					expectedWorkers := int32(2)
+					if arm == "uncontended" || arm == "nonpool" {
+						expectedWorkers = 1
+					}
+					dwAssert(row.Created == expectedWorkers && row.Retired == expectedWorkers && row.RefBalance == 0, "retirement and references")
+					row.SlowEntries = slowEntries.Load()
+					row.NotifyBegin = notifyBegin.Load()
+					row.NotifyEnd = notifyEnd.Load()
+					row.FutexCalls = futexCalls.Load()
+					if arm == "uncontended" {
+						dwAssert(row.SlowEntries == 0 && row.FutexCalls == 0, "fast path bypass")
+					} else {
+						dwAssert(row.SlowEntries == 1 && row.FutexCalls >= 1 && row.Exclusion, "actual slow path exclusion")
+					}
+					dwAssert(row.Evicted == 0, "no dictionary mutation")
+					expectedNotify := int32(0)
+					if arm == "pending_reported" || arm == "nonpool" {
+						expectedNotify = 1
+					}
+					dwAssert(row.NotifyBegin == expectedNotify && row.NotifyEnd == expectedNotify, "balanced notifications")
+					for _, p := range []int32{taskA, taskB, table} {
+						p8.Fn153(m, p)
+					}
+					record("pool_disposed", pool, 0)
+					mu.Lock()
+					refusal, clears, timers := 0, 0, 0
+					for _, e := range row.Events {
+						switch e.Name {
+						case "pending_refusal":
+							refusal++
+						case "pending_clear":
+							clears++
+						case "timer_suppressed":
+							timers++
+						}
+					}
+					mu.Unlock()
+					dwAssert(timers == 1 && clears == int(expectedWorkers), "source hooks exercised")
+					expectedRefusal := 0
+					if arm != "late_submit" && arm != "nonpool" {
+						expectedRefusal = 1
+					}
+					dwAssert(refusal == expectedRefusal, "exact pending refusal")
+				}
+				tap := func(c *base.Module, addr int32) {
+					if addr == dictLatch && c.G1 == targetTLS.Load() {
+						futexCalls.Add(1)
+						record("dict_futex", controlledPool.Load(), c.G1)
+						parkedOnce.Do(func() { close(parked) })
+					}
+				}
+				var stderr bytes.Buffer
+				done := startInstance(bytes.NewReader([]byte{0, 0, 0, 0}), io.Discard, &stderr, "", nil, false, nil, func(h *host) (*base.Module, func() error, error) {
+					m, release, err := newMemoryModule(h)
+					if err == nil {
+						m.Wasi_snapshot_preview1 = &dictWriter{Wasi_snapshot_preview1Imports: m.Wasi_snapshot_preview1, run: run}
+						m.Wasix_32v1 = &dictWasix{Wasix_32v1Imports: m.Wasix_32v1, tap: tap}
+					}
+					return m, release, err
+				})
+				select {
+				case err := <-done:
+					base.PendingProbe = nil
+					base.PendingTimerManual = nil
+					base.DictWaitHook = nil
+					if err != nil {
+						t.Fatalf("%s/%d/%d: %v stderr=%s", arm, conc, rep, err, stderr.String())
+					}
+				case <-time.After(10 * time.Second):
+					t.Fatalf("%s/%d/%d guest cleanup timeout", arm, conc, rep)
+				}
+				if runErr != nil {
+					partial, _ := json.MarshalIndent(row, "", "  ")
+					os.WriteFile(os.Getenv("PENDING_RESULTS")+".failed", partial, 0600)
+					t.Fatal(runErr)
+				}
+				if !ran {
+					t.Fatal("ready interception absent")
+				}
+				row.MappingsAfter = base.MemoryMappingStats()["active_mappings"]
+				if row.MappingsAfter != row.MappingsBefore {
+					t.Fatal("mapping debt", row)
+				}
+				row.Result = "PASS"
+				rows = append(rows, row)
+				t.Logf("%s concurrency=%d repeat=%d PASS", arm, conc, rep)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := os.Getenv("PENDING_RESULTS")
+	if path == "" {
+		t.Fatal("PENDING_RESULTS required")
+	}
+	if err = os.WriteFile(path, append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println("controlled dictionary cases:", len(rows))
+}
