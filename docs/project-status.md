@@ -39,6 +39,20 @@ Implementation and bounded verification are complete; main integration remains
 subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
 new guest build or release follows from source preparation PASS.
 
+## Issue156 — experimental C candidate prepared for source build
+
+The Human authorized continuation from the27-case control into a narrow
+experimental C patch and ordinary workload comparison. The
+[fixed plan](../benchmarks/pool-dict-c/PLAN.md) changes only the contended lock
+acquisition in dictionary eviction; canonical source.patch, host/API and product
+inputs remain unchanged. Stage1 submits one UNQUALIFIED Linux arm64 build and
+source-only translation, preserving binding guards. Build/translation success
+is not runtime acceptance. Stage2 uses the existing shop70 Go Pipe runner at
+P4/P8,16MiB/read1, with30 fixed suites across warmup, observer-off comparison and
+separate lightweight SQL phase timing. No natural-tail fix or speedup is claimed
+before measurement; purge shared-latch waits remain outside this candidate.
+Product adoption, platform acceptance, Qualification and release are separate.
+
 ## Issue156 — localized dictionary-wait prototype passes controlled cases
 
 The [dictionary notification experiment](../benchmarks/pool-dict-wait/README.md)

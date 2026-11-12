@@ -1,0 +1,119 @@
+name: Dictionary wait experiment (UNQUALIFIED build and translation)
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/pool-dict-c]
+    paths:
+      - .github/workflows/dict-wait-experiment.yml
+      - guest/experimental.patch
+      - tests/dict_wait_translate.py
+      - benchmarks/pool-dict-c/input.json
+      - benchmarks/pool-dict-c/check_source.py
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Fixed builder with runner network; one UNQUALIFIED guest build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/dict-wait/evidence"
+          {
+            cat /etc/resolv.conf
+            if timeout 20 getent ahosts ports.ubuntu.com; then
+              echo 'original archive DNS resolved'
+            else
+              echo 'original archive DNS unavailable'
+            fi
+            timeout 20 getent ahosts azure.ports.ubuntu.com
+          } > "$RUNNER_TEMP/dict-wait/evidence/runner-dns.txt" 2>&1
+          docker run --rm -i --network host --user 0:0 \
+            -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" \
+            -v "$RUNNER_TEMP/dict-wait:/dict-wait" \
+            -w "$GITHUB_WORKSPACE" \
+            -e GITHUB_SHA -e GITHUB_WORKSPACE -e HOME=/root \
+            -e MARIAMEM_PHASE_TRACE=/dict-wait/evidence/guest-phases.jsonl \
+            ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3 \
+            bash -seuo pipefail <<'BUILD' 2>&1 | tee "$RUNNER_TEMP/dict-wait/evidence/bootstrap.txt"
+          cat /etc/resolv.conf > /dict-wait/evidence/builder-dns.txt
+          timeout 20 getent ahosts azure.ports.ubuntu.com >> /dict-wait/evidence/builder-dns.txt
+          # Same Ubuntu archive/signing keys through its Azure-facing name.
+          cp /etc/apt/sources.list.d/ubuntu.sources /dict-wait/evidence/ubuntu.sources.before
+          grep -Fq 'http://ports.ubuntu.com/ubuntu-ports' /etc/apt/sources.list.d/ubuntu.sources
+          sed -i 's|http://ports.ubuntu.com/ubuntu-ports|http://azure.ports.ubuntu.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
+          cp /etc/apt/sources.list.d/ubuntu.sources /dict-wait/evidence/ubuntu.sources.after
+          apt-get -o APT::Update::Error-Mode=any -o Acquire::Retries=2 update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p /dict-wait/evidence
+          python3 scripts/git_identity.py inspect HEAD > /dict-wait/evidence/source.json
+          python3 -c 'import json,os;assert json.load(open("/dict-wait/evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          test -f guest/experimental.patch
+          python3 benchmarks/pool-dict-c/check_source.py --mutation-controls
+          python3 scripts/build_generated_guest.py --development-output /dict-wait/guest > /dict-wait/evidence/build.txt 2>&1
+          python3 -c 'import json,os; r=json.load(open("/dict-wait/guest/guest.json")); assert r["result"]=="UNQUALIFIED" and r["contract"]=="development-unqualified-v1" and len(r["repetitions"])==1 and r["source_commit"]==os.environ["GITHUB_SHA"]; assert r["prepared_source"]["experimental_patch"]["file"]=="guest/experimental.patch"'
+          python3 benchmarks/pool-dict-c/check_source.py --guest-record /dict-wait/guest/guest.json
+          BUILD
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: dict-wait-unqualified-guest-${{ github.sha }}
+          path: ${{ runner.temp }}/dict-wait/guest
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dict-wait-build-evidence-${{ github.sha }}
+          path: ${{ runner.temp }}/dict-wait/evidence
+          if-no-files-found: warn
+          retention-days: 14
+  translation:
+    needs: guest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: dict-wait-unqualified-guest-${{ github.sha }}
+          path: ${{ runner.temp }}/dict-wait-guest
+      - name: Bound source-only translation; retain runtime guards
+        env:
+          MARIAMEM_PHASE_TRACE: ${{ runner.temp }}/dict-wait-evidence/translation-phases.jsonl
+        run: |
+          mkdir -p "$RUNNER_TEMP/dict-wait-evidence"
+          python scripts/git_identity.py inspect HEAD > "$RUNNER_TEMP/dict-wait-evidence/source.json"
+          python -c 'import json,os;assert json.load(open(os.environ["RUNNER_TEMP"]+"/dict-wait-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python tests/dict_wait_translate.py --guest-dir "$RUNNER_TEMP/dict-wait-guest" --output "$RUNNER_TEMP/dict-wait-native" > "$RUNNER_TEMP/dict-wait-evidence/translation.txt" 2>&1
+          cp "$RUNNER_TEMP/dict-wait-native/assessment.json" "$RUNNER_TEMP/dict-wait-evidence/assessment.json"
+          cp "$RUNNER_TEMP/dict-wait-native/translation/input-manifest.json" "$RUNNER_TEMP/dict-wait-evidence/input-manifest.json"
+          tar -czf "$RUNNER_TEMP/dict-wait-evidence/source-only.tgz" -C "$RUNNER_TEMP/dict-wait-native" candidate/module translation/module
+      - name: Preserve failure identity
+        if: failure()
+        run: |
+          if test -f "$RUNNER_TEMP/dict-wait-native/failure.json"; then
+            cp "$RUNNER_TEMP/dict-wait-native/failure.json" "$RUNNER_TEMP/dict-wait-evidence/failure.json"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dict-wait-translation-evidence-${{ github.sha }}
+          path: ${{ runner.temp }}/dict-wait-evidence
+          if-no-files-found: warn
+          retention-days: 14

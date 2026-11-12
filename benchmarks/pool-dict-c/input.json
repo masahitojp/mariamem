@@ -1,0 +1,11 @@
+{
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "product_baseline_source_commit": "8df45792a927e440972266ee799d6f7223713e14",
+  "controlled_evidence_source_commit": "b18aad041b4267debe222bb41e7839b8858b7b10",
+  "file": "storage/innobase/dict/dict0dict.cc",
+  "before_sha256": "96123218a2b946fda9c8dadb3c3bc1d592900c0955afaf3d7ee7f4f2c4844085",
+  "after_sha256": "a301ec1c4a2853c37d1b5fba14224da8b66a6909adb4ac83ee2c3563caf77df5",
+  "patch_sha256": "8609bef5c2bfb96e14d407bec08ba36c95cd8e7c190dbacd1959773f63f68744",
+  "original_fragment": "\tulint n_evicted = 0;\n\n\tlock(SRW_LOCK_CALL);\n\tut_ad(dict_lru_validate());",
+  "candidate_fragment": "\tulint n_evicted = 0;\n\n\t/* A blocked housekeeping worker must yield pool concurrency to I/O. */\n\tif (!latch.wr_lock_try()) {\n\t\ttpool::tpool_wait_begin();\n\t\tlock_wait(SRW_LOCK_CALL);\n\t\ttpool::tpool_wait_end();\n\t}\n\tut_ad(dict_lru_validate());"
+}

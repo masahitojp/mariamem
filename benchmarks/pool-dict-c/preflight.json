@@ -1,0 +1,27 @@
+{
+  "result": "SOURCE_PREFLIGHT_PASS_NOT_BUILT",
+  "checks": [
+    "exact upstream preimage SHA256",
+    "zero-fuzz patch application and postimage SHA256",
+    "full preimage recovery outside declared include/eviction fragment",
+    "six invalid synthetic receipts rejected",
+    "Python syntax",
+    "YAML parsing and embedded shell syntax",
+    "dedicated branch and narrow path triggers",
+    "translation tool unchanged except docstring vs f4325722",
+    "git diff --check"
+  ],
+  "local_builds": 0,
+  "guest_execution": false,
+  "performance": false,
+  "translation_origin_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "files_sha256": {
+    "guest/experimental.patch": "8609bef5c2bfb96e14d407bec08ba36c95cd8e7c190dbacd1959773f63f68744",
+    ".github/workflows/dict-wait-experiment.yml": "2866825cfb49bdd905008e006853324567597c5c39e7590be986730eb2fb3fa3",
+    "tests/dict_wait_translate.py": "a7351bf35849ccbe694cc1b0559e9d3f9e08477e6fcdf9cabcb906134ecfd3a7",
+    "benchmarks/pool-dict-c/PLAN.md": "95c185c7b1ea5349f1dde1663675758569bf2b15c7b79f9a0a4283b20342c339",
+    "benchmarks/pool-dict-c/input.json": "771aef72d688121b709412058bb98dc1512cdd509f607c5cd58b27ac4477da24",
+    "benchmarks/pool-dict-c/check_source.py": "6b9caf00f9ff38ccac46b2973185bfeba372651831fce9f2b297034493a8bd7b"
+  },
+  "next": "one exact-source CI guest build + source-only translation; hand off, no polling"
+}

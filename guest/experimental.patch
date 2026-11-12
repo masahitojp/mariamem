@@ -1,0 +1,24 @@
+--- a/storage/innobase/dict/dict0dict.cc
++++ b/storage/innobase/dict/dict0dict.cc
+@@ -73,6 +73,7 @@
+ 
+ #include <vector>
+ #include <algorithm>
++#include <tpool.h>
+ 
+ /** the dictionary system */
+ dict_sys_t	dict_sys;
+@@ -1314,7 +1315,12 @@
+ #endif
+ 	ulint n_evicted = 0;
+ 
+-	lock(SRW_LOCK_CALL);
++	/* A blocked housekeeping worker must yield pool concurrency to I/O. */
++	if (!latch.wr_lock_try()) {
++		tpool::tpool_wait_begin();
++		lock_wait(SRW_LOCK_CALL);
++		tpool::tpool_wait_end();
++	}
+ 	ut_ad(dict_lru_validate());
+ 
+ 	const ulint len = UT_LIST_GET_LEN(table_LRU);
