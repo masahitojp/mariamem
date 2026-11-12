@@ -1,4 +1,4 @@
-# UCA private-copy canonical migration — stage1
+# UCA private-copy canonical migration — installed checkpoint
 
 **Human adoption is approved; main integration is not complete.** This minimum
 candidate starts at main500020e7dc6d702ef059f0e73a4bab738103b774, retaining that
@@ -23,8 +23,9 @@ Local patch application to SHA-verified pinned MariaDB ctype-uca.c reproduces:
 
 These match the accepted prototype exactly. Preparation now inventories the new
 header when present. The current12.3.3 selected profile pins the combined patch;
-13.0.2 remains frozen. No installed guest/generated runtime or release identity
-is updated speculatively. Stage1 is intentionally not a merge-ready product tree.
+13.0.2 remains frozen. Stage1 made no speculative installed-runtime change. The subsequent
+[installed checkpoint](uca-copy-installation/README.md) records the actual
+generated source and remaining verification.
 
 Local focused checks:119 tests and20 subtests PASS (migration, selected-input
 resolver/context, Development workflow contract, timer and previous build guards).
@@ -55,7 +56,13 @@ They guard migration identity, not SQL behavior or full failure correctness.
 4. Submit the minimal product PR and merge through normal required checks and
    strict-base protection. Only then mark main integration complete.
 
-Stage1 C build is PENDING at this source checkpoint. Steps2–4 are unfinished.
+Stage1 passed at c4c60edaf7c6c9bd51023f352be696033e17438d in
+[CI43185761193](https://github.com/masahitojp/mariamem/actions/runs/43185761193).
+[Compact verified receipt](uca-copy-stage1-43185761193.json) retains the job,
+artifact ZIP hashes and individual-file checksums; no raw logs/REST are added.
+The normal generated runtime and exact worker/CRC fixtures are now installed.
+The full canonical workflow is restored. Both-platform acceptance and merge
+remain pending; no old receipt is relabeled as this installed source.
 No Release CI, tag or publication is requested. The staged workflow does not
 run automatically on push; after submission CI owns execution and Codex hands off.
 

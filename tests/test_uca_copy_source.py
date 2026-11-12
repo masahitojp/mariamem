@@ -68,12 +68,21 @@ class UCACopySourceTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     guard.validate_record(broken, commit)
 
-    def test_stage1_is_manual_bounded_and_not_runtime_acceptance(self):
+    def test_canonical_gate_is_manual_and_requires_real_platform_controls(self):
         text = (ROOT/'.github/workflows/uca-canonical.yml').read_text()
         for expected in ('  workflow_dispatch:', 'timeout-minutes: 100',
                          'test ! -e guest/experimental.patch',
-                         'scripts/check_uca_copy_source.py --guest-dir',
-                         '--development-output /uca-copy/guest'):
+                         'scripts/build_generated_guest.py --repetitions 2',
+                         'runner: [macos-15, ubuntu-24.04]',
+                         'scripts/regenerate_release_guest.py',
+                         'scripts/check_prepared_build_guards.py',
+                         'test_uca_copy_source.py',
+                         'TestUCACopyActualGuest|TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest',
+                         'tests/routine_thread_fixture.py',
+                         'tests/uca_copy_acceptance.py --native-port',
+                         'tests/uca_copy_acceptance.py --host',
+                         'tests/test_uca_copy_resnapshot.py',
+                         'TestAnalyzeTimerFreshAndFork'):
             self.assertIn(expected, text)
         for forbidden in ('  push:', 'continue-on-error:', 'operation: release'):
             self.assertNotIn(forbidden, text)

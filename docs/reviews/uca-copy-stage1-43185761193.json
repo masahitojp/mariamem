@@ -1,0 +1,57 @@
+{
+  "run": 43185761193,
+  "job": {
+    "id": 131072389348,
+    "name": "guest",
+    "conclusion": "success"
+  },
+  "source_commit": "c4c60edaf7c6c9bd51023f352be696033e17438d",
+  "artifacts": [
+    {
+      "kind": "guest",
+      "id": 13928617464,
+      "zip_sha256": "34c6e61e3e9d133902f721e63336e618021bc9156a8c83da68501d6ee05cb12f",
+      "verified": true
+    },
+    {
+      "kind": "evidence",
+      "id": 13928279524,
+      "zip_sha256": "9f73728a6ece51c20a32328a2ecea270481cf7750834d38ef6915ac4fc573d20",
+      "verified": true
+    }
+  ],
+  "assessment": {
+    "base_patch_sha256": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee",
+    "accepted_delta_sha256": "be6d8077d9df40b8a79ec6d653a0ec41d0178b9b862a103c850ed8c4ac77b376",
+    "canonical_patch_sha256": "07188f71ed2fed76083a9eb39313e74cb7b8acca00d2c6fb738f459873a98a9a",
+    "experimental_origin": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+    "result": "PASS_CANONICAL_SOURCE_SAME_GUEST_UNQUALIFIED",
+    "source_commit": "c4c60edaf7c6c9bd51023f352be696033e17438d",
+    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
+    "independent_builds": 1,
+    "installation": "PENDING",
+    "platform_acceptance": "PENDING"
+  },
+  "files_sha256": {
+    "guest": {
+      "CMakeCache.txt": "3dcb95754856e5065cd523573e67c44d210011b94d726af61fb04740cfd1ce97",
+      "flags.make": "69eaaffdf3a881b44a842c30fa84b4cd6c34b1ba4263cf07b71d63acb69cfdc4",
+      "guest.json": "f99821b432ff426a135190cca853b44e795e9309207623fa5d0bf760685a94ec",
+      "link.txt": "e30e6728b2219aac5829d25d1d0ff1df21df67394a3a5e2e8482b0c5221ef1d1",
+      "linked.wasm": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
+      "mariamem.wasm": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22"
+    },
+    "evidence": {
+      "assessment.json": "ce0121512e5cc948c9737863536c5079694d967496398297aa65b7482c7e5b78",
+      "bootstrap.txt": "f1172733a24c7d58b8052b448d9ddf01d4e3d4cd983c33ff0eee3f4de6106ab9",
+      "build.txt": "8825e5d07775fac63df0c53a6fa18b7fea23a9e59856554fe3ec163b7fa1f5ee",
+      "builder-dns.txt": "9ffe92759bd032ee576ea17cdf46b3a30a7ed9174eecbc769692b73dce08cee2",
+      "guest-phases.jsonl": "20c51521e8af912dd39bdd12a17430656db64e83061c40e264205e5dcf43f315",
+      "runner-dns.txt": "2fadd25c631d5de20a413748f8538d0d28507969e21a4f7bbe77ea17ce631d58",
+      "source.json": "431dd754dad1438a7f036e1442c04250a2f3d9337e6ed1ca79796dd72fc11189",
+      "ubuntu.sources.after": "a5c1330cb0dae4b62b9bf954fa1507e8c0bd4642dc398c60ac13a7539b4ef0f1",
+      "ubuntu.sources.before": "9fcfc0471807af385108d77aa63d0bdc3cc4f8e276a89f2bd9681f4bf8467a3f"
+    }
+  }
+}

@@ -110,8 +110,9 @@ and asked to complete main integration before further wait diagnosis.
 [canonical candidate stages](reviews/uca-copy-canonical.md).
 The candidate starts from main500020e7 and migrates only the accepted source
 patch. Experimental guest acceptance does not constitute canonical main adoption.
-Stage1 checks byte identity; generated installation, both-platform canonical
-acceptance and protected merge are still pending. #140/#156 retain the residual
+Stage1 CI43185761193 passes exact guest/linked identity at c4c60eda. The normal
+generated runtime and strict worker/CRC bindings are installed; full independent
+reproduction, both-platform acceptance and protected merge remain pending. #140/#156 retain the residual
 PREPARE investigation independently; NOT_REPRODUCED is not a fix. No release is
 authorized and no uniform complete-suite performance improvement is claimed.
 

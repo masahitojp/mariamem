@@ -58,6 +58,7 @@ HANDWRITTEN_FILES = (
     'host_dup_test.go',
     'worker_trap_integration_test.go',
     'uca_prepared_integration_test.go',
+    'uca_copy_integration_test.go',
     'lexer_prepared_integration_test.go',
     'code/base/fd_dup_test.go',
     'code/base/runtime_cleanup.go',
