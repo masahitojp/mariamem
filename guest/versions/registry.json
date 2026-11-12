@@ -4,7 +4,7 @@
     "12.3.3/legacy-full": {
       "descriptor": {
         "file": "guest/versions/12.3.3/legacy-full.json",
-        "sha256": "3b13bf864b0410ddee30c219a90d6fc595cbcc675adc22d8a37cd5b032f3fdb9"
+        "sha256": "be54dd64f06f4889bd4ee4954c45fb0437b9c68d49836acea45c998f80f2d259"
       },
       "input_sha256": "e1a0ecaf8afd248b6506c39ca97aa0e510af94cb734bbf47f7488d914f8dab4b",
       "lock_sha256": "18a5dcc553e7623bd19c48a24994ba3b1b7bd575ed4656dbe95d55871c5b3c31",

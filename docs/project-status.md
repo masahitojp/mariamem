@@ -101,6 +101,20 @@ The earlier historical statement that shutdown-mode changes were unapproved is
 superseded only for this bounded implementation. No broad startup tuning is added.
 
 
+## UCA default private-copy — accepted, canonical integration pending
+
+On2026-11-12 the Human accepted the bounded default contraction/flags/hash
+private-copy optimization, including the measured unfavorable P8 tradeoff,
+and asked to complete main integration before further wait diagnosis.
+[Decision](decisions/uca-default-private-copy.md) and
+[canonical candidate stages](reviews/uca-copy-canonical.md).
+The candidate starts from main500020e7 and migrates only the accepted source
+patch. Experimental guest acceptance does not constitute canonical main adoption.
+Stage1 checks byte identity; generated installation, both-platform canonical
+acceptance and protected merge are still pending. #140/#156 retain the residual
+PREPARE investigation independently; NOT_REPRODUCED is not a fix. No release is
+authorized and no uniform complete-suite performance improvement is claimed.
+
 ## Current published release
 
 **v0.6.2 is published**, 2026-11-05, from:
