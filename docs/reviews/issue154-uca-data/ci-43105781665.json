@@ -1,0 +1,274 @@
+{
+  "source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "run": 43105781665,
+  "attempt": 1,
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 130808606549,
+      "name": "guest",
+      "conclusion": "success",
+      "platform": "ubuntu-24.04-arm"
+    },
+    {
+      "id": 130813047312,
+      "name": "translation",
+      "conclusion": "success",
+      "platform": "ubuntu-24.04"
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "guest",
+      "id": 13895265003,
+      "zip_sha256": "86effbaea48a78e7fabc53ff5003d21cb1510d19343e913386936c74ef80a221",
+      "download_checksum_verified": true,
+      "size_bytes": 11919962
+    },
+    {
+      "kind": "translation",
+      "id": 13895086139,
+      "zip_sha256": "54f16c29db3c581ed7d27398dae48d122fd1ee7aef3d9b29ee0fa0b451028c40",
+      "download_checksum_verified": true,
+      "size_bytes": 58172657
+    },
+    {
+      "kind": "build",
+      "id": 13893274729,
+      "zip_sha256": "4433a85c5b32f0eba534c8722f97b4cd4ae8296b2169dda9ef1ba99b200b70a8",
+      "download_checksum_verified": true,
+      "size_bytes": 345808
+    }
+  ],
+  "assessment": {
+    "result": "UNQUALIFIED_TRANSLATION_COMPLETE_BINDING_REVIEW_REQUIRED",
+    "source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
+    "guest_record_sha256": "5d927f5971ab7e941aea0f84b5cc36d0e15ff86ea47d337bec3375c956d8fb87",
+    "translation_record_sha256": "6c435dd886cf6ba9e96d071d393bedfd11b0185cdf1b2c44eefeb2d3e94a9859",
+    "raw_translation_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "runtime_guest_binding_accepted": false,
+    "canonical_guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+    "binding_anchors": {
+      "Fn153": {
+        "path": "code/p3/p3_pure.go",
+        "expected": "c0ee0ebf54f6d47449613c68411aff49c1529c7684d339b82a1b651a39d6da4e",
+        "observed": "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0",
+        "exact_match": false
+      },
+      "Fn214": {
+        "path": "code/p5/p5_pure.go",
+        "expected": "58d275858c6b01c3b0215602d551abf6eae55ead54a8afb75a6cbfdd91abfd08",
+        "observed": "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8",
+        "exact_match": false
+      },
+      "Fn131": {
+        "path": "code/p8/p8_pure.go",
+        "expected": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+        "observed": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+        "exact_match": true
+      },
+      "crc_validator": {
+        "path": "code/p4/p4_pure.go",
+        "function": "Fn18145",
+        "exact_match": false,
+        "reason": "CRC32C original validator changed; re-review binding"
+      },
+      "crc_table_at_old_offset": {
+        "offset": 7180928,
+        "expected": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+        "observed": "63448556b8db14bf086d7bdc6b8b576a47303b67e79ad51645c4a35f39dd5fd1",
+        "exact_match": false
+      }
+    },
+    "guest_execution": false,
+    "native_sql": false,
+    "performance": false,
+    "qualification": false,
+    "next": "Review complete function/data binding before runtime installation; no guard bypass"
+  },
+  "guest_contract": "development-unqualified-v1",
+  "guest_repetitions": 1,
+  "experimental_patch": {
+    "file": "guest/experimental.patch",
+    "sha256": "be6d8077d9df40b8a79ec6d653a0ec41d0178b9b862a103c850ed8c4ac77b376"
+  },
+  "dns": {
+    "original_resolved_in_successful_run": true,
+    "azure_name_resolved_in_runner_and_builder": true,
+    "apt_change_uri_only_verified": true,
+    "fix_causality_established": false
+  },
+  "local_source_comparison": {
+    "threads": {
+      "Fn153": {
+        "changed_integer_occurrences": 48,
+        "unique_integer_pairs": [
+          [
+            18014860,
+            18764492
+          ],
+          [
+            18014864,
+            18764496
+          ],
+          [
+            18014868,
+            18764500
+          ],
+          [
+            18014872,
+            18764504
+          ],
+          [
+            18014876,
+            18764508
+          ],
+          [
+            18014880,
+            18764512
+          ],
+          [
+            18014884,
+            18764516
+          ],
+          [
+            18014892,
+            18764524
+          ],
+          [
+            18014900,
+            18764532
+          ],
+          [
+            18015164,
+            18764796
+          ],
+          [
+            18015304,
+            18764936
+          ],
+          [
+            18015308,
+            18764940
+          ]
+        ],
+        "deltas": [
+          749632
+        ],
+        "all_noninteger_tokens_identical": true
+      },
+      "Fn214": {
+        "changed_integer_occurrences": 62,
+        "unique_integer_pairs": [
+          [
+            18013441,
+            18763073
+          ],
+          [
+            18013444,
+            18763076
+          ],
+          [
+            18017468,
+            18767100
+          ],
+          [
+            18017984,
+            18767616
+          ],
+          [
+            18018032,
+            18767664
+          ],
+          [
+            18018576,
+            18768208
+          ],
+          [
+            18018580,
+            18768212
+          ],
+          [
+            18018584,
+            18768216
+          ],
+          [
+            18075984,
+            18825616
+          ]
+        ],
+        "deltas": [
+          749632
+        ],
+        "all_noninteger_tokens_identical": true
+      },
+      "Fn131": {
+        "changed_integer_occurrences": 0,
+        "unique_integer_pairs": [],
+        "deltas": [],
+        "all_noninteger_tokens_identical": true
+      }
+    },
+    "crc": {
+      "reference_fixture_sha256": "b0edee4bc17c2caa84b62060be73ad2abdd17b007b0d3a4120c4cd19d9967e39",
+      "reference_raw_body_hash_matches_old_contract": false,
+      "new_body_sha256": "389527bce09718c43abb3d76ac98979ec61c8aa5f9cc35e5ac1b14cfa9fa42d0",
+      "integer_changes": [
+        [
+          8828619,
+          8828653
+        ],
+        [
+          15569536,
+          16319168
+        ],
+        [
+          15570560,
+          16320192
+        ],
+        [
+          15571584,
+          16321216
+        ],
+        [
+          15572608,
+          16322240
+        ],
+        [
+          17997812,
+          18747444
+        ],
+        [
+          26863056,
+          27612688
+        ],
+        [
+          26863360,
+          27612992
+        ],
+        [
+          26865072,
+          27614704
+        ],
+        [
+          26865092,
+          27614724
+        ],
+        [
+          26988744,
+          27738376
+        ]
+      ],
+      "changed_integer_occurrences": 50,
+      "noninteger_tokens_identical_after_whitespace_removal": true,
+      "table_old_offset": 7180928,
+      "table_new_offset": 7930560,
+      "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+      "table_unique": true,
+      "binding_accepted": false
+    }
+  },
+  "selected_source_inventory_verified": true
+}

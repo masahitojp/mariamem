@@ -120,3 +120,45 @@ Local YAML and both shell syntax checks pass. Three controlled runner DNS cases
 verify original-fail/selected-success, both-success and both-fail admission. A
 URI-only rewrite fixture preserves signing keys/suites; build and translation
 bodies are unchanged. Actual runner reachability remains for the submitted CI.
+
+## Successful build/translation receipt — 2026-11-12
+
+[CI43105781665](https://github.com/masahitojp/mariamem/actions/runs/43105781665)
+passed at source `f43257225e1fd65c58ea8f5d7b220c3a509c203b`. The
+[compact receipt](ci-43105781665.json) binds both jobs, all three downloaded ZIP
+checksums, guest/linked bytes and assessment/translation record hashes. One
+Linux arm64 UNQUALIFIED guest build and Ubuntu x86_64 source-only translation
+completed. No actual guest execution, native SQL, performance or Qualification
+was performed. The successful run also resolved the original archive name;
+the failure's DNS root cause and whether the alias change caused success remain
+unproven. Earlier failures retain their source/run identities.
+
+Four of five old binding anchors do not match. Preliminary source comparison:
+
+- After removing only the accepted DeferThreadAllocationFree insertion from
+  the tracked baseline, the old Fn153/Fn214/Fn131 whitespace-normalized hashes
+  match their pinned contracts. Fn153 changes48 integer occurrences and Fn214
+  changes62; every changed value increases by749632 and all other tokens agree.
+  Fn131 is identical. This suggests relocation; it does not prove symbol identity.
+- The original CRC reference fixture (recorded hash) and candidate Fn18145 have
+  identical noninteger tokens after whitespace removal. Fifty integer occurrences
+  change, with11 distinct pairs retained in the receipt. Ten pairs increase by
+  749632, but8828619→8828653 increases by34 and needs explicit referent inspection.
+  The reconstructed fixture's raw body hash does not equal the old adapter's
+  raw-body contract; it is a comparison reference, not an accepted input substitute.
+- Candidate data.bin at7930560 (= old7180928 +749632) contains exactly the4096-byte
+  CRC table with the pinned SHA256. That sequence occurs once in the candidate.
+
+Reproduction inputs are the translation artifact's `source-only.tgz`,
+`candidate/module/generated/{p3,p4,p5,p8}/*_pure.go` and `data.bin`, plus tracked
+baseline functions and `internal/generatedgo/code/p4/crc32c_reference_test.go`
+at the CI source. Compare numeric/non-numeric token streams; verify complete
+CRC table bytes against `scripts/runtime_crc32c.py`'s hash. No approximate match
+is installed into a runtime guard by this analysis.
+
+**Next:** identify the relocated globals/string/data referents, then bind exact
+experimental guest/function/table hashes without changing canonical acceptance.
+Run the fixed actual-guest correctness/native SQL/children/disposal checks before
+observer-off timing. No new runtime execution or heavy CI was submitted while
+collecting this receipt. Raw logs, generated source and REST responses are not
+committed; CI artifacts remain the source of the full temporary outputs.

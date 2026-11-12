@@ -163,3 +163,10 @@ This closes the bounded source/design question with a concrete private-copy
 proposal. It does not mark implementation, native parity or performance PASS.
 The proposed path and open acceptance belong to
 [Issue154](https://github.com/masahitojp/mariamem/issues/154).
+
+## Later execution checkpoint
+
+The [guest-stage record](guest-stage.md#successful-buildtranslation-receipt--2026-11-12)
+now records one successful UNQUALIFIED build/source-only translation atf4325722.
+Four old binding anchors need review; runtime correctness and performance remain
+unverified. This does not revise the historical source-only claims above.
