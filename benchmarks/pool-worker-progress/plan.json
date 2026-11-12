@@ -1,0 +1,35 @@
+{
+  "question": "After Human acceptance of UCA private-copy, identify what existing Issue140 evidence already proves and the next unmeasured progress condition; do not repeat a timing-only campaign.",
+  "scope": "Rebind the existing request/park observer to the accepted UCA guest and record actual worker admission/creation/maintenance progress. Diagnostic only; canonical runtime unchanged.",
+  "inputs": {
+    "uca_attribution": "e556c36570e1be023f8a9c8243381c6605079592",
+    "baseline": "500020e7dc6d702ef059f0e73a4bab738103b774",
+    "upstream": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "prior_global_admission": "bcab9e6e07f9bf237c98a39eeba62cbcfd1e3997",
+    "residual_after_cap_patch": "260633b8c36078d5830983217ec2ed53a2c61920"
+  },
+  "exit": "Bind a >100ms foreground read to outer rejection, actual creation/wake outcome, worker scheduling or downstream wait. If not captured, report NOT_REPRODUCED; if rebind exceeds tooling budget, record exact blocker, no fabricated runtime PASS.",
+  "budget": {
+    "active_minutes_max": 120,
+    "tooling_minutes_max": 30,
+    "heavy_ci_max": 0,
+    "guest_builds_max": 0,
+    "workspace_gib_max": 8,
+    "minimum_free_gib": 6
+  },
+  "issue": 156,
+  "execution": {
+    "guest_origin": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+    "toolchain": "go1.26.10",
+    "harness": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+    "transport": "Pipe",
+    "parallel": 8,
+    "cap": 9,
+    "pool_mib": 16,
+    "read_threads": 1,
+    "control_runs": 1,
+    "natural_runs_max": 8,
+    "diagnostic_workload_builds_max": 1,
+    "retry_runs": 0
+  }
+}
