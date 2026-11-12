@@ -33,3 +33,17 @@ def test_notification_order_and_real_guest_owner():
     assert 'Fn16583(' not in test and 'Fn16584(' not in test
     assert "'dictionary_wait_integration_test.go'" in (ROOT/'scripts/generate_runtime.py').read_text()
     assert 'tests/test_dictionary_wait_runtime.py' in (ROOT/'scripts/verify.py').read_text()
+
+
+def test_normal_integration_selects_actual_dictionary_guest(monkeypatch):
+    import re
+    import verify
+    commands = []
+    monkeypatch.setattr(verify, 'run', lambda command, **kwargs: commands.append(command))
+    verify.integration()
+    selected = [command for command in commands
+                if './internal/generatedgo' in command and '-tags=integration' in command]
+    assert len(selected) == 1
+    pattern = next(arg.removeprefix('-run=') for arg in selected[0] if arg.startswith('-run='))
+    assert re.search(pattern, 'TestDictionaryWaitActualGuest')
+    assert re.search(pattern, 'TestWorkerTrapActualGuest')
