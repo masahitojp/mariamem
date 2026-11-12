@@ -1,0 +1,153 @@
+//go:build integration
+
+package generatedgo
+
+import (
+ "bytes"
+ "encoding/json"
+ "fmt"
+ "io"
+ "os"
+ "sync"
+ "sync/atomic"
+ "testing"
+ "time"
+ "unsafe"
+
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/p3"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/p5"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/p6"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/p7"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
+)
+
+type pendingEvent struct { Name string; MS float64; Pool int32; Worker int32 }
+type pendingRow struct {
+ Arm string
+ Concurrency, Repeat int
+ Result string
+ Events []pendingEvent
+ Occupied, Waiting, Long, Pending int32
+ Created, Retired, RefBalance int32
+ Queued uint64
+ ObservationMS float64
+ MappingsBefore, MappingsAfter uint64
+}
+type pendingWriter struct {
+ base.Wasi_snapshot_preview1Imports
+ once sync.Once
+ run func(*base.Module)
+}
+func (w *pendingWriter) Fd_write(m *base.Module, fd, iov, n, out int32) int32 {
+ if fd==1 { w.once.Do(func(){w.run(m)}) }
+ return w.Wasi_snapshot_preview1Imports.Fd_write(m,fd,iov,n,out)
+}
+func pp32(m *base.Module, addr int32) *int32 {return (*int32)(unsafe.Add(m.M,base.MemoryEA(m,uint64(uint32(addr)),0,4)))}
+func pp64(m *base.Module, addr int32) *uint64 {return (*uint64)(unsafe.Add(m.M,base.MemoryEA(m,uint64(uint32(addr)),0,8)))}
+func ppWait(ch <-chan struct{}, label string) {
+ select { case <-ch: case <-time.After(2*time.Second): panic("control timeout: "+label) }
+}
+func ppAssert(ok bool, label string) { if !ok {panic("control assertion: "+label)} }
+
+func TestPendingControlGuest(t *testing.T) {
+ warmProcessImage(t)
+ rows:=[]pendingRow{}
+ for rep:=1;rep<=3;rep++ {for _,conc:=range []int{1,16} {for _,arm:=range []string{"pending_unreported","pending_reported","late_submit"} {
+  row:=pendingRow{Arm:arm,Concurrency:conc,Repeat:rep,Result:"FAIL"}
+  row.MappingsBefore=base.MemoryMappingStats()["active_mappings"]
+  var mu sync.Mutex
+  start:=time.Now()
+  record:=func(name string,pool,worker int32){mu.Lock(); defer mu.Unlock(); row.Events=append(row.Events,pendingEvent{name,float64(time.Since(start).Nanoseconds())/1e6,pool,worker})}
+  base.PendingProbe=func(_ *base.Module,name string,pool,worker int32){record(name,pool,worker)}
+  ran:=false
+  run:=func(m *base.Module) {
+   ran=true
+   pool:=p3.Fn16610(m)
+   ppAssert(pool!=0 && m.ExcPending==0,"pool constructed")
+   p8.Fn16604(m,pool,int32(conc))
+   ppAssert(*pp32(m,pool+344)==int32(conc),"effective concurrency")
+   // Prime real maintenance's coarse timestamp before the first task.
+   p5.Fn16603(m,pool)
+   initEntered,initRelease,aStarted,bDone:=make(chan struct{}),make(chan struct{}),make(chan struct{}),make(chan struct{})
+   var created,retired,refs atomic.Int32
+   scratch:=p8.Fn157(m,1,64)
+   table:=p8.Fn157(m,1,12)
+   taskA,taskB:=p8.Fn157(m,1,16),p8.Fn157(m,1,16)
+   ppAssert(scratch!=0&&table!=0&&taskA!=0&&taskB!=0,"allocations")
+   add:=func(f any)int32 {i:=int32(len(m.T0)); m.T0=append(m.T0,f);return i}
+   originalInit:=m.T0[*pp32(m,pool+12)].(func(*base.Module))
+   originalDestroy:=m.T0[*pp32(m,pool+16)].(func(*base.Module))
+   *pp32(m,pool+12)=add(func(c *base.Module){originalInit(c);n:=created.Add(1);record("worker_init",pool,n);if n==1 {close(initEntered);ppWait(initRelease,"init release")}})
+   *pp32(m,pool+16)=add(func(c *base.Module){originalDestroy(c);retired.Add(1);record("worker_retire",pool,0)})
+   *pp32(m,table)=add(func(_ *base.Module,_ int32){refs.Add(1)})
+   *pp32(m,table+4)=add(func(_ *base.Module,_ int32){refs.Add(-1)})
+   *pp32(m,table+8)=add(p6.Fn16586)
+   *pp32(m,taskA)=table;*pp32(m,taskB)=table
+   *pp32(m,taskA+4)=add(func(c *base.Module,_ int32){
+    record("a_start",pool,0)
+    if arm=="pending_reported" {record("wait_begin",pool,0);p7.Fn16606(c,pool)}
+    close(aStarted)
+    for atomic.LoadInt32(pp32(c,scratch))==0 {
+     rc:=c.Wasix_32v1.Futex_wait(c,scratch,0,scratch+8,scratch+24)
+     ppAssert(rc==0,"futex wait errno")
+    }
+    if arm=="pending_reported" {p8.Fn16607(c,pool);record("wait_end",pool,0)}
+    record("a_end",pool,0)
+   })
+   *pp32(m,taskB+4)=add(func(_ *base.Module,_ int32){record("b_run",pool,0);close(bDone)})
+   record("submit_a",pool,0);p7.Fn16605(m,pool,taskA)
+   ppWait(initEntered,"first init")
+   if arm!="late_submit" {record("submit_b",pool,0);p7.Fn16605(m,pool,taskB)}
+   close(initRelease)
+   ppWait(aStarted,"a start")
+   if arm=="late_submit" {record("submit_b",pool,0);p7.Fn16605(m,pool,taskB)}
+   if arm=="pending_unreported" {
+    obs:=time.Now()
+    select {case <-bDone:panic("B progressed before maintenance");case <-time.After(50*time.Millisecond):}
+    row.ObservationMS=float64(time.Since(obs).Nanoseconds())/1e6
+    ppAssert(time.Since(obs)<250*time.Millisecond,"observation scheduling budget")
+    p7.Fn16559(m,pool+184)
+    row.Occupied=*pp32(m,pool+180);row.Waiting=*pp32(m,pool+372);row.Long=*pp32(m,pool+368)
+    row.Pending=base.AtomicLoad32_8u(m,pool,408)
+    row.Queued=*pp64(m,pool+320)-*pp64(m,pool+328)
+    p7.Fn16561(m,pool+184)
+    ppAssert(row.Occupied==1&&row.Waiting==0&&row.Long==0&&row.Pending==0&&row.Queued==1,"stalled pool state")
+    record("maintenance",pool,0);p5.Fn16603(m,pool)
+   }
+   ppWait(bDone,"b progress")
+   atomic.StoreInt32(pp32(m,scratch),1)
+   ppAssert(m.Wasix_32v1.Futex_wake_all(m,scratch,scratch+25)==0,"futex wake errno")
+   record("release_a",pool,0)
+   p8.Fn16609(m,pool)
+   row.Created=created.Load();row.Retired=retired.Load();row.RefBalance=refs.Load()
+   ppAssert(row.Created==2&&row.Retired==2&&row.RefBalance==0,"retirement and references")
+   for _,p:=range []int32{taskA,taskB,table,scratch}{p8.Fn153(m,p)}
+   record("pool_disposed",pool,0)
+   mu.Lock(); refusal,clears,timers:=0,0,0
+   for _,e:=range row.Events {switch e.Name {case "pending_refusal":refusal++;case "pending_clear":clears++;case "timer_suppressed":timers++}}
+   mu.Unlock()
+   ppAssert(timers==1&&clears==2,"source hooks exercised")
+   ppAssert((arm=="late_submit"&&refusal==0)||(arm!="late_submit"&&refusal==1),"exact pending refusal")
+  }
+  var stderr bytes.Buffer
+  done:=startInstance(bytes.NewReader([]byte{0,0,0,0}),io.Discard,&stderr,"",nil,false,nil,func(h *host)(*base.Module,func()error,error){
+   m,release,err:=newMemoryModule(h)
+   if err==nil {m.Wasi_snapshot_preview1=&pendingWriter{Wasi_snapshot_preview1Imports:m.Wasi_snapshot_preview1,run:run}}
+   return m,release,err
+  })
+  select {case err:=<-done:
+   base.PendingProbe=nil
+   if err!=nil {t.Fatalf("%s/%d/%d: %v stderr=%s",arm,conc,rep,err,stderr.String())}
+  case <-time.After(10*time.Second): t.Fatalf("%s/%d/%d guest cleanup timeout",arm,conc,rep)}
+  if !ran {t.Fatal("ready interception absent")}
+  row.MappingsAfter=base.MemoryMappingStats()["active_mappings"]
+  if row.MappingsAfter!=row.MappingsBefore {t.Fatal("mapping debt",row)}
+  row.Result="PASS";rows=append(rows,row)
+  t.Logf("%s concurrency=%d repeat=%d PASS",arm,conc,rep)
+ }}}
+ data,err:=json.MarshalIndent(rows,"","  ");if err!=nil {t.Fatal(err)}
+ path:=os.Getenv("PENDING_RESULTS");if path=="" {t.Fatal("PENDING_RESULTS required")}
+ if err=os.WriteFile(path,append(data,'\n'),0600);err!=nil {t.Fatal(err)}
+ fmt.Println("controlled guest cases:",len(rows))
+}

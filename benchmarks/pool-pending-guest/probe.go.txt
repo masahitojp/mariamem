@@ -1,0 +1,3 @@
+package base
+// Diagnostic-only callback, fixed before guest entry and removed after join.
+var PendingProbe func(*Module, string, int32, int32)
