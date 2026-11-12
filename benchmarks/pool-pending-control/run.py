@@ -35,7 +35,8 @@ inline void thr_timer_set_period(thr_timer_t*,unsigned long long){}
 for n,v in headers.items():(a.temp/n).write_text(v)
 (a.temp/'instrumented.cc').write_text(s)
 compiler=subprocess.check_output(['clang++','--version'],text=True)
-command=['clang++','-std=c++17','-O2','-pthread','-I'+str(a.temp.resolve()),'-I'+str(a.upstream.resolve()),str(P/'harness.cc'),*[str(a.upstream/n) for n in ('task.cc','task_group.cc','wait_notification.cc')],'-o',str(a.temp/'control')]
+sdk=subprocess.check_output(['xcrun','--show-sdk-path'],text=True).strip()
+command=['clang++','-isystem',str(pathlib.Path(sdk)/'usr/include/c++/v1'),'-std=c++17','-O2','-pthread','-I'+str(a.temp.resolve()),'-I'+str(a.upstream.resolve()),str(P/'harness.cc'),*[str(a.upstream/n) for n in ('task.cc','task_group.cc','wait_notification.cc')],'-o',str(a.temp/'control')]
 t0=time.monotonic();r=subprocess.run(command,capture_output=True,text=True,timeout=60)
 (a.temp/'build.log').write_text(r.stdout+r.stderr)
 if r.returncode:raise RuntimeError(r.stderr)
@@ -51,4 +52,4 @@ for rep in range(plan['repetitions']):
    print(rep+1,concurrency,arm,'PASS',flush=True)
 (a.output/'results.json').write_text(json.dumps(results,indent=2)+'\n')
 identity=json.loads(subprocess.check_output(['python3',str(P.parents[1]/'scripts/git_identity.py'),'inspect','HEAD'],text=True))
-(a.output/'inputs.json').write_text(json.dumps({'source':identity,'plan_sha256':sha((P/'plan.json').read_bytes()),'harness_sha256':sha((P/'harness.cc').read_bytes()),'runner_sha256':sha(pathlib.Path(__file__).read_bytes()),'upstream_source_commit':plan['upstream_source_commit'],'upstream_files_sha256':plan['upstream_files_sha256'],'instrumented_cpp_sha256':sha(s.encode()),'support_headers_sha256':{n:sha(v.encode()) for n,v in headers.items()},'compiler':compiler,'binary_sha256':sha((a.temp/'control').read_bytes()),'build_seconds':build_seconds,'native_builds':1,'guest_builds':0,'heavy_ci':0,'cases':len(results),'limitations':plan['limitations']},indent=2)+'\n')
+(a.output/'inputs.json').write_text(json.dumps({'source':identity,'plan_sha256':sha((P/'plan.json').read_bytes()),'harness_sha256':sha((P/'harness.cc').read_bytes()),'runner_sha256':sha(pathlib.Path(__file__).read_bytes()),'upstream_source_commit':plan['upstream_source_commit'],'upstream_files_sha256':plan['upstream_files_sha256'],'instrumented_cpp_sha256':sha(s.encode()),'support_headers_sha256':{n:sha(v.encode()) for n,v in headers.items()},'compiler':compiler,'binary_sha256':sha((a.temp/'control').read_bytes()),'build_seconds':build_seconds,'native_builds':1,'sdk':sdk,'prior_invalid_compile_attempts':1,'guest_builds':0,'heavy_ci':0,'cases':len(results),'limitations':plan['limitations']},indent=2)+'\n')

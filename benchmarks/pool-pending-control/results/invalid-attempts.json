@@ -1,0 +1,9 @@
+[
+  {
+    "source_commit": "0f0235c3fb9f71b5c32f990ff50bece1086c5950",
+    "stage": "compile",
+    "reason": "Apple clang default C++ include path lacks atomic/memory; SDK header directory exists and must be explicit.",
+    "cases_run": 0,
+    "log_sha256": "564fd56a8e268d030eddc46abf0a0c4e203415155c159e106132ed931f871ac9"
+  }
+]
