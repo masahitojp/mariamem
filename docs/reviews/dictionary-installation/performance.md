@@ -2,6 +2,8 @@
 
 All30 suites passed correctness and cleanup. No rerolls or excluded tails. The4 warmups are retained but excluded from the primary summary.
 
+The outcome is mixed: P8 wall improved in4/5 pairs (paired median−7.68%), while P4 worsened in4/5 (paired median+2.79%). The separate PREPARE >100ms count was1/189→0/189. Typical sample time and CPU did not improve; candidate P8 cleanup has a27.9ms maximum. Continue the authorized hosted acceptance, retaining the P4 regression as an integration concern. This is no main-integration approval.
+
 Baseline source_commit `8df45792a927e440972266ee799d6f7223713e14`; candidate source_commit `4e2ac423118dac3233f7bd90862d56b936a893a4`. Both use committed installed runtime sources with the same pinned harness. Pipe16MiB/read1, GOMAXPROCS8/GOGC100, cap=P+1; one Mac.
 
 | P | Wall median baseline → candidate (ms) | Paired median change | Faster pairs | CPU median (ms) | RSS median (MiB) |
