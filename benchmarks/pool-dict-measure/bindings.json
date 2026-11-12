@@ -1,0 +1,87 @@
+{
+  "origin_source_commit": "7de45ac19718f37d1552824acfd6477dea6caf17",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "canonical_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "artifact_receipt": {
+    "run_id": 43225605324,
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/43225605324",
+    "source_commit": "7de45ac19718f37d1552824acfd6477dea6caf17",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 131207848723,
+        "name": "guest",
+        "conclusion": "success",
+        "html_url": "https://github.com/masahitojp/mariamem/actions/runs/43225605324/job/131207848723"
+      },
+      {
+        "id": 131212740481,
+        "name": "translation",
+        "conclusion": "success",
+        "html_url": "https://github.com/masahitojp/mariamem/actions/runs/43225605324/job/131212740481"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 13948961126,
+        "name": "dict-wait-translation-evidence-7de45ac19718f37d1552824acfd6477dea6caf17",
+        "digest": "sha256:1048c279f1d7bbfe9669290916cbc2f756bbc9389d716c2a6f4968682d9d90e4",
+        "size_in_bytes": 58180189,
+        "download_checksum_verified": true
+      },
+      {
+        "id": 13947169823,
+        "name": "dict-wait-build-evidence-7de45ac19718f37d1552824acfd6477dea6caf17",
+        "digest": "sha256:d6d391cc6972765a3803aa2352ab5ab8dbd6962a9f917621936b33e8add4789d",
+        "size_in_bytes": 347783,
+        "download_checksum_verified": true
+      },
+      {
+        "id": 13947034918,
+        "name": "dict-wait-unqualified-guest-7de45ac19718f37d1552824acfd6477dea6caf17",
+        "digest": "sha256:daafbf7524df4fadaced4a871efe132ee50dd17b8355acddf4641b556373799a",
+        "size_in_bytes": 11921133,
+        "download_checksum_verified": true
+      }
+    ]
+  },
+  "guest_record_sha256": "46a8d80d9f81e35957ab03a5badb28709bb86cdd5469c52ce613ba6bc54e26f1",
+  "binding_anchors": {
+    "Fn153": {
+      "path": "code/p3/p3_pure.go",
+      "expected": "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0",
+      "observed": "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0",
+      "exact_match": true
+    },
+    "Fn214": {
+      "path": "code/p5/p5_pure.go",
+      "expected": "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8",
+      "observed": "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8",
+      "exact_match": true
+    },
+    "Fn131": {
+      "path": "code/p8/p8_pure.go",
+      "expected": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "observed": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "exact_match": true
+    },
+    "crc_validator": {
+      "path": "code/p4/p4_pure.go",
+      "function": "Fn18145",
+      "exact_match": true,
+      "body_sha256": "2569b9f4e7022921787050ec11e7fae5b14382416adc732fae562c8f6aca236e"
+    },
+    "crc_table_at_old_offset": {
+      "offset": 7930560,
+      "expected": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+      "observed": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+      "exact_match": true
+    }
+  },
+  "adapters_sha256": {
+    "runtime_crc32c": "ce17cd72ceb5fc3f2670d463a3db9cdc76107157396565d04c6fea3c3c1a66eb",
+    "runtime_thread_lifetime": "365605a04714694101e237049636587d250f6f46f10656521895c8e5fce58bf6"
+  },
+  "candidate_inventory_sha256": "fd77bb8d4ac9cc66838074ffbf1e708a7c635c2d4ea2390d9ce6143156429dca",
+  "review": "Exact whole-body/table matches. Select only this guest SHA in isolated installer modules; all body/table validators and transformations remain unchanged. No canonical input or adapter edit. Fn17744 has begin/wait/end on failed try-lock and bypasses on success. Additional generated exception edges reflect noexcept C++ scope; exceptional exits not exercised."
+}
