@@ -95,3 +95,9 @@ checks pass. The initial workflow assertion used a file-path spelling instead
 of unittest's discovery spelling; the profile test also caught the registry's
 stale descriptor hash. Both are corrected before CI submission. No guest/Go
 runtime build or candidate benchmark has run locally at this checkpoint.
+
+The current12.3.3 selected-preparation comparison producer is rebound to
+`0d71a05918f99b90a233acf124c5fb81b23fdff4`, the exact canonical source checkpoint.
+The13.0.2 producer and historical comparison receipts remain unchanged. This
+updates the reproducible comparison target; full selected-tree comparison is
+not newly claimed by the source-unit PASS.
