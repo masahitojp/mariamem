@@ -77,7 +77,9 @@ checks its exact original base and delta; only the exact reviewed dictionary
 suffix is additionally accepted. The dictionary guard also checks the complete
 prior canonical patch, so unrelated engine changes cannot hide in that suffix.
 Normal verify/release-preparation source tests own this guard; the C builder
-checks the actual prepared dictionary file before compilation.
+checks the actual prepared dictionary file before canonical compilation. The
+UNQUALIFIED bootstrap checks the resulting prepared-source record; generic
+development builds keep their existing experimental-input contract.
 
 Generated/runtime/release pins still describe the old product until step2. This
 intermediate branch is not merge-ready, and no new performance result exists.
@@ -101,3 +103,7 @@ The current12.3.3 selected-preparation comparison producer is rebound to
 The13.0.2 producer and historical comparison receipts remain unchanged. This
 updates the reproducible comparison target; full selected-tree comparison is
 not newly claimed by the source-unit PASS.
+The generic development-build boundary was additionally checked:21 dev-guest
+tooling tests pass. The prepared-source precompile assertion applies only to
+canonical builds; the bootstrap validates its exact prepared source in the
+resulting UNQUALIFIED record. Experimental build support is preserved.

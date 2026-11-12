@@ -86,6 +86,7 @@ class DictionarySourceTests(unittest.TestCase):
         self.assertIn('tests/test_dictionary_wait_source.py', (ROOT/'scripts/verify.py').read_text())
         builder = (ROOT/'scripts/build_generated_guest.py').read_text()
         self.assertLess(builder.index("'--prepared-source', ROOT/'build/source'"), builder.index("shutil.move(str(ROOT/'build/source')"))
+        self.assertIn("if not development:\n            observed_run([sys.executable, ROOT/'scripts/check_dictionary_wait_source.py'", builder)
         workflow = (ROOT/'.github/workflows/dict-wait-experiment.yml').read_text()
         for value in ('workflow_dispatch:', 'test ! -e guest/experimental.patch',
                       '--development-output /dict-product/guest',
