@@ -2,7 +2,7 @@
   "schema": 1,
   "engine": "12.3.3",
   "profile": "legacy-full",
-  "origin": "498e186e6f4871b81e3665a76cadd64d58cb422d",
+  "origin": "cb5a2e0ff1b772e6196ea0ae4295392ac361a891",
   "guest_input": {
     "schema": 1,
     "candidate": "MariaDB 12.3.3",
@@ -157,7 +157,7 @@
     },
     "guest/source.patch": {
       "file": "guest/source.patch",
-      "sha256": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee"
+      "sha256": "07188f71ed2fed76083a9eb39313e74cb7b8acca00d2c6fb738f459873a98a9a"
     },
     "guest/prepared_source_patch.json": {
       "file": "guest/prepared_source_patch.json",

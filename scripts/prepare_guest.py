@@ -130,6 +130,10 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
         generated_files += ['strings/ctype-uca.c', 'include/m_ctype.h', uca_prepared['header']]
     if lexer_prepared:
         generated_files += [lexer_prepared['header'], 'mysys/charset.c']
+    # UCA private-copy input is installed by the canonical patch for12.3.3.
+    # Frozen profiles without this header retain their original preparation.
+    if (source / 'strings/mariamem_uca_copy_prepared.h').exists():
+        generated_files.append('strings/mariamem_uca_copy_prepared.h')
     manifest = {"guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
                 "inputs_lock_sha256": digest(root / "release/inputs.lock.json"),
                 "overlays": {p.name: digest(p) for p in sorted((root / "guest").iterdir()) if p.is_file()},

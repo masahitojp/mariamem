@@ -1,0 +1,197 @@
+{
+  "run_id": 43190662084,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43190662084",
+  "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+  "result": "PASS_BOUNDED_CANONICAL_CORRECTNESS",
+  "jobs": [
+    {
+      "id": 131088840778,
+      "name": "reference",
+      "result": "success"
+    },
+    {
+      "id": 131088841202,
+      "name": "guest",
+      "result": "success"
+    },
+    {
+      "id": 131095950914,
+      "name": "native (macos-15)",
+      "result": "success"
+    },
+    {
+      "id": 131095951039,
+      "name": "native (ubuntu-24.04)",
+      "result": "success"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13931759504,
+      "name": "uca-copy-canonical-canonical-native-macos-15-6da771df36fb452b920a3ae42e778ce110e46213",
+      "size_in_bytes": 38414,
+      "digest": "sha256:01a0f57709ee8240d71811bda7bd80958c7043f112991970d159bd05a013cf29"
+    },
+    {
+      "id": 13931474064,
+      "name": "uca-copy-canonical-canonical-native-ubuntu-24.04-6da771df36fb452b920a3ae42e778ce110e46213",
+      "size_in_bytes": 38415,
+      "digest": "sha256:2a728b8306b80da71de2c16eb8304fb87483d16390a1d7b87097131b9fb14dc0"
+    },
+    {
+      "id": 13930998119,
+      "name": "uca-copy-canonical-canonical-build-6da771df36fb452b920a3ae42e778ce110e46213",
+      "size_in_bytes": 92208,
+      "digest": "sha256:48b356f27241720a43584082e37aaf2687a6e090d0224c16ede38a71d92e104b"
+    },
+    {
+      "id": 13930986041,
+      "name": "uca-copy-canonical-native-reference-6da771df36fb452b920a3ae42e778ce110e46213",
+      "size_in_bytes": 21519,
+      "digest": "sha256:e3cfcc0a4f6d2cdfcda5db2dab77f2dad2c59ed3ac3ddac9ec156fac05fe0ce7"
+    },
+    {
+      "id": 13930763422,
+      "name": "uca-copy-canonical-canonical-guest-6da771df36fb452b920a3ae42e778ce110e46213",
+      "size_in_bytes": 5410981,
+      "digest": "sha256:8fce71591432f52c9fa85816aea2dea59cb8426e10639082e7e7a63aa54ce557"
+    }
+  ],
+  "artifact_zip_digests_verified": true,
+  "artifact_file_checksums_verified": true,
+  "canonical_guard_replayed_at_original_test_source": true,
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "independent_c_builds": [
+    {
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
+    },
+    {
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "macOS15 arm64",
+      "job_id": 131095950914,
+      "artifact_id": 13931759504,
+      "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+      "result": "PASS",
+      "host_sha256": "4ccba8c774f1c8a33505ef975610461e7ed90f52ba8073de0d4d82d14c9efb1b",
+      "generated_inventory_files": 119,
+      "guard_mutations_rejected": 20,
+      "worker_controls": [
+        {
+          "name": "heap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "heap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "heap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "mmap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        }
+      ],
+      "uca_native_sql": "PASS",
+      "lexer_native_sql": "PASS",
+      "children": 2,
+      "cleanup": {
+        "refs": 0,
+        "process_exit": 0,
+        "reaped": true,
+        "root_exists": false
+      },
+      "snapshot_resnapshot_tests_passed": 2
+    },
+    {
+      "platform": "Ubuntu24.04 x86_64",
+      "job_id": 131095951039,
+      "artifact_id": 13931474064,
+      "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+      "result": "PASS",
+      "host_sha256": "7408227bec83f11d9cbbd6c9bb0adb4cd5393a86f0eb0e14b11a93decd8761f1",
+      "generated_inventory_files": 119,
+      "guard_mutations_rejected": 20,
+      "worker_controls": [
+        {
+          "name": "heap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "heap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "heap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "mmap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        }
+      ],
+      "uca_native_sql": "PASS",
+      "lexer_native_sql": "PASS",
+      "children": 2,
+      "cleanup": {
+        "refs": 0,
+        "process_exit": 0,
+        "reaped": true,
+        "root_exists": false
+      },
+      "snapshot_resnapshot_tests_passed": 2
+    }
+  ],
+  "limits": [
+    "Not main integration, Qualification, publication or new performance evidence.",
+    "Development CI43190666216 failed its stale-address image test; fixed test requires new Development checks.",
+    "Later image_test.go and records are not an exact-head canonical execution; production runtime bytes remain those of this source."
+  ]
+}

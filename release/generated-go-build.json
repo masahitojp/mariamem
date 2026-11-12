@@ -1,6 +1,6 @@
 {
-  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission",
-  "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback",
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -151,7 +151,8 @@
       "storage/innobase/srv/srv0start.cc": "b80f81e793f9feda8814788041db42fb65d3f2cb9f5464bb9a177f2f0c00e04b",
       "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
       "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281",
-      "strings/ctype-uca.c": "93af2c4177e291a5943aac823747a9576c6c1dc2bb25411d61e3cdedfe758f42",
+      "strings/ctype-uca.c": "7f8708a3f5be2f3b05df572b9f6a2f003b3cf72bd5588e20be72f64f0ccf69c8",
+      "strings/mariamem_uca_copy_prepared.h": "e98564588cdff8076e747b0be6780a6e23c981a7769322db52ba26738cc5f5e7",
       "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
       "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
@@ -178,7 +179,7 @@
       "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
-      "source.patch": "e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee",
+      "source.patch": "07188f71ed2fed76083a9eb39313e74cb7b8acca00d2c6fb738f459873a98a9a",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
       "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
@@ -359,54 +360,55 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
-  "guest_size": 21177619,
-  "linked_guest_sha256": "575000f5990162222db9010c069edbf2beab889de1042d460663db6aee619318",
+  "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+  "guest_size": 21928598,
+  "linked_guest_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
   "repetitions": [
     {
-      "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
-      "linked_sha256": "575000f5990162222db9010c069edbf2beab889de1042d460663db6aee619318"
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
     },
     {
-      "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
-      "linked_sha256": "575000f5990162222db9010c069edbf2beab889de1042d460663db6aee619318"
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
     }
   ],
   "completed": true,
   "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "PASS: bounded canonical correctness; main integration and release remain separate",
-    "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
-    "run_id": 42959675387,
-    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387",
-    "receipt": "docs/reviews/timer-product-ci-42959675387/assessment.json",
-    "independent_generation_files": 118,
+    "status": "PASS: bounded canonical correctness; protected main integration pending",
+    "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+    "run_id": 43190662084,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43190662084",
+    "receipt": "docs/reviews/uca-copy-ci-43190662084/assessment.json",
+    "independent_generation_files": 119,
     "platforms": [
       "darwin-arm64",
       "ubuntu24.04-x86_64"
-    ]
+    ],
+    "followup_scope": "image_test.go fixture relocation and records only; no production runtime change"
   },
   "previous_canonical_evidence": {
-    "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
-    "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
+    "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
     "ci_evidence": {
-      "status": "PASS: bounded canonical correctness; Development repair and main-adoption review remain separate",
-      "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
-      "run_id": 42531554501,
-      "receipt": "docs/reviews/startup-cap-ci-42531554501/assessment.json",
-      "independent_generation_files": 110,
+      "status": "PASS: bounded canonical correctness; main integration and release remain separate",
+      "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
+      "run_id": 42959675387,
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387",
+      "receipt": "docs/reviews/timer-product-ci-42959675387/assessment.json",
+      "independent_generation_files": 118,
       "platforms": [
         "darwin-arm64",
         "ubuntu24.04-x86_64"
-      ],
-      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42531554501"
+      ]
     },
-    "record_sha256": "3b1d9fb6a9c4c3af23e19012bae2bf12cc5b3be389516370fb52efd3460ca276"
+    "record_sha256": "b63e2b7a1b95bedbaaef2ef79ad2300ad4504cea3612d577320e529615331d75"
   },
   "incoming_guest_origin": {
-    "source_commit": "498e186e6f4871b81e3665a76cadd64d58cb422d",
+    "source_commit": "c4c60edaf7c6c9bd51023f352be696033e17438d",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
-    "use": "Historical single-build bootstrap only; independent two-build canonical acceptance is recorded in ci_evidence."
+    "use": "Single-build canonical-source bootstrap; not Qualification."
   }
 }

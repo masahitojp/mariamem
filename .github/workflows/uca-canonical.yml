@@ -1,6 +1,6 @@
-name: Prepared UCA canonical candidate (not Qualification)
-# Bounded candidate accepted on CI41961766293. Keep manual reproduction;
-# integration bookkeeping must not automatically repeat two C builds.
+name: UCA private-copy canonical candidate (not Qualification)
+# Stage1:43185761193 atc4c60eda, single UNQUALIFIED input; never relabel.
+# Explicit manual dispatch; Development owns PR checks.
 on:
   workflow_dispatch:
 permissions:
@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: Source builder dependencies
         run: |
-          apt-get update
+          sed -i 's|http://ports.ubuntu.com/ubuntu-ports|http://azure.ports.ubuntu.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
+          apt-get -o APT::Update::Error-Mode=any -o Acquire::Retries=2 update
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Bind clean exact candidate and build twice
@@ -22,25 +23,26 @@ jobs:
           HOME: /root
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          mkdir -p build/uca-ci
-          python3 scripts/git_identity.py inspect HEAD > build/uca-ci/source.json
-          python3 -c 'import json,os;assert json.load(open("build/uca-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          mkdir -p build/uca-copy-canonical-ci
+          python3 scripts/git_identity.py inspect HEAD > build/uca-copy-canonical-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/uca-copy-canonical-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
           test ! -e guest/experimental.patch
-          python3 scripts/build_generated_guest.py > build/uca-ci/guest-build.txt 2>&1
+          python3 -m unittest discover -s tests -p test_uca_copy_source.py -v
+          python3 scripts/build_generated_guest.py --repetitions 2 > build/uca-copy-canonical-ci/guest-build.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: uca-canonical-guest-${{ github.sha }}
+          name: uca-copy-canonical-canonical-guest-${{ github.sha }}
           path: build/generated-release
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: uca-canonical-build-${{ github.sha }}
-          path: build/uca-ci
+          name: uca-copy-canonical-canonical-build-${{ github.sha }}
+          path: build/uca-copy-canonical-ci
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14
   reference:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -59,18 +61,19 @@ jobs:
           python-version: '3.14'
       - name: Fixed MariaDB native control
         run: |
-          python -m pip install PyMySQL==1.2.3
-          mkdir -p build/uca-reference
-          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/uca-reference/image.json
-          python scripts/git_identity.py inspect HEAD > build/uca-reference/source.json
-          python -c 'import json,os;assert json.load(open("build/uca-reference/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
-          python tests/uca_prepared_acceptance.py --native-port 3307 --output build/uca-reference/native.json
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          mkdir -p build/uca-copy-canonical-reference
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/uca-copy-canonical-reference/image.json
+          python scripts/git_identity.py inspect HEAD > build/uca-copy-canonical-reference/source.json
+          python -c 'import json,os;assert json.load(open("build/uca-copy-canonical-reference/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          python tests/lexer_prepared_acceptance.py --native-port 3307 --output build/uca-copy-canonical-reference/native.json
+          python tests/uca_copy_acceptance.py --native-port 3307 --output build/uca-copy-canonical-reference/uca-native.json
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: uca-native-reference-${{ github.sha }}
-          path: build/uca-reference
+          name: uca-copy-canonical-native-reference-${{ github.sha }}
+          path: build/uca-copy-canonical-reference
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14
   native:
     needs: [guest, reference]
     strategy:
@@ -93,46 +96,60 @@ jobs:
           python-version: '3.14'
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: uca-canonical-guest-${{ github.sha }}
+          name: uca-copy-canonical-canonical-guest-${{ github.sha }}
           path: build/generated-release
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: uca-native-reference-${{ github.sha }}
-          path: build/uca-reference
+          name: uca-copy-canonical-native-reference-${{ github.sha }}
+          path: build/uca-copy-canonical-reference
       - name: Exact clean source and source input controls
         run: |
           go clean -testcache
           python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
-          python -m pip install PyMySQL==1.2.3 pytest==9.1.1
-          mkdir -p build/uca-ci
-          python scripts/git_identity.py inspect HEAD > build/uca-ci/source.json
-          python -c 'import json,os;assert json.load(open("build/uca-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          mkdir -p build/uca-copy-canonical-ci
+          python scripts/git_identity.py inspect HEAD > build/uca-copy-canonical-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/uca-copy-canonical-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
-          python -m unittest discover -s tests -p test_uca_prepared_input.py -v > build/uca-ci/input.txt 2>&1
+          python -m unittest discover -s tests -p test_lexer_prepared_input.py -v > build/uca-copy-canonical-ci/input.txt 2>&1
+          python -m unittest discover -s tests -p test_startup_concurrency.py -v > build/uca-copy-canonical-ci/startup-input.txt 2>&1
+      - name: Canonical timer source regression and mutations
+        run: python -m pytest tests/test_timer_source.py -q > build/uca-copy-canonical-ci/timer-source.txt 2>&1
       - name: Independent Go regeneration and canonical build guard
         run: |
-          python scripts/regenerate_release_guest.py --output "$RUNNER_TEMP/uca-regeneration" > build/uca-ci/regeneration.txt 2>&1
-          cp build/generated-release/guest.json build/uca-ci/guest.json
-          cp build/generated-release/regeneration.json build/uca-ci/regeneration.json
-          python -c 'import os,sys;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/uca-ci/build-guard.txt 2>&1
-      - name: Actual table parity, corrupt input, profiling separation and worker survival
-        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestPreparedUCATablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/uca-ci/actual-tables.txt 2>&1
+          python scripts/regenerate_release_guest.py --output "$RUNNER_TEMP/uca-copy-canonical-regeneration" > build/uca-copy-canonical-ci/regeneration.txt 2>&1
+          cp build/generated-release/guest.json build/uca-copy-canonical-ci/guest.json
+          cp build/generated-release/regeneration.json build/uca-copy-canonical-ci/regeneration.json
+          python -c 'import os,sys;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/uca-copy-canonical-ci/build-guard.txt 2>&1
+      - name: Evidence guard mutation controls
+        run: python scripts/check_prepared_build_guards.py --output build/uca-copy-canonical-ci/build-negative.json > build/uca-copy-canonical-ci/build-negative.txt 2>&1
+      - name: Exact CRC body and validation differential
+        run: go test -trimpath -p 1 -count=1 ./internal/generatedgo/code/p4 -run '^TestCRC32C' -v > build/uca-copy-canonical-ci/crc.txt 2>&1
+      - name: Actual UCA/lexer parity, corruption, profiling separation and worker survival
+        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestUCACopyActualGuest|TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/uca-copy-canonical-ci/actual-tables.txt 2>&1
+      - name: SQL timer Fresh and two pristine children through TCP and Pipe
+        run: go test -trimpath -p 1 -tags integration -count=1 ./tests/gointegration -run '^TestAnalyzeTimerFreshAndFork$' -v > build/uca-copy-canonical-ci/timer-sql.txt 2>&1
       - name: Worker ownership negative and protected controls
         run: |
-          python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/uca-worker" --run > build/uca-ci/worker.txt 2>&1
-          cp "$RUNNER_TEMP/uca-worker/identities.json" build/uca-ci/worker-identities.json
-          cp "$RUNNER_TEMP/uca-worker/results.json" build/uca-ci/worker-results.json
-      - name: Native SQL differential, two children and cleanup
+          python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/uca-copy-canonical-worker" --run > build/uca-copy-canonical-ci/worker.txt 2>&1
+          cp "$RUNNER_TEMP/uca-copy-canonical-worker/identities.json" build/uca-copy-canonical-ci/worker-identities.json
+          cp "$RUNNER_TEMP/uca-copy-canonical-worker/results.json" build/uca-copy-canonical-ci/worker-results.json
+      - name: Normal/binary-prepared native SQL differential, two children and cleanup
         run: |
-          go build -p 1 -trimpath -o build/uca-ci/mariamem-host ./cmd/mariamem-host
-          PYTHONPATH=python python tests/uca_prepared_acceptance.py --host build/uca-ci/mariamem-host --native build/uca-reference/native.json --output build/uca-ci/sql-children.json > build/uca-ci/sql-children.txt 2>&1
-          PYTHONPATH=python MARIAMEM_TEST_HOST="$GITHUB_WORKSPACE/build/uca-ci/mariamem-host" python -m pytest tests/test_dev_guest_smoke.py -q > build/uca-ci/snapshot-smoke.txt 2>&1
+          go build -p 1 -trimpath -o build/uca-copy-canonical-ci/mariamem-host ./cmd/mariamem-host
+          PYTHONPATH=python python tests/lexer_prepared_acceptance.py --host build/uca-copy-canonical-ci/mariamem-host --native build/uca-copy-canonical-reference/native.json --output build/uca-copy-canonical-ci/sql-children.json > build/uca-copy-canonical-ci/sql-children.txt 2>&1
+          PYTHONPATH=python python tests/uca_copy_acceptance.py --host build/uca-copy-canonical-ci/mariamem-host --native build/uca-copy-canonical-reference/uca-native.json --output build/uca-copy-canonical-ci/uca-sql-children.json > build/uca-copy-canonical-ci/uca-sql-children.txt 2>&1
+          PYTHONPATH=python MARIAMEM_TEST_HOST="$GITHUB_WORKSPACE/build/uca-copy-canonical-ci/mariamem-host" python -m pytest tests/test_dev_guest_smoke.py tests/test_uca_copy_resnapshot.py -q > build/uca-copy-canonical-ci/snapshot-smoke.txt 2>&1
+      - name: Bind compact receipt checksums
+        if: success()
+        run: |
+          python -c 'import hashlib,json,pathlib;d=pathlib.Path("build/uca-copy-canonical-ci");(d/"SHA256SUMS.json").write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.suffix in (".txt",".json") and p.name!="SHA256SUMS.json"},indent=2)+"\n")'
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: uca-canonical-native-${{ matrix.runner }}-${{ github.sha }}
+          name: uca-copy-canonical-canonical-native-${{ matrix.runner }}-${{ github.sha }}
           path: |
-            build/uca-ci/*.txt
-            build/uca-ci/*.json
+            build/uca-copy-canonical-ci/*.txt
+            build/uca-copy-canonical-ci/*.json
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14

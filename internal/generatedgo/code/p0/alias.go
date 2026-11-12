@@ -101,7 +101,7 @@ func Fn207(m *base.Module, l0 int32) int32
 //go:linkname Fn209 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn209
 func Fn209(m *base.Module, l0 int32)
 
-//go:linkname Fn210 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn210
+//go:linkname Fn210 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn210
 func Fn210(m *base.Module, l0 int32) int32
 
 //go:linkname Fn211 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn211
@@ -1067,7 +1067,7 @@ func Fn12440(m *base.Module, l0 int32, l1 int32)
 //go:linkname Fn12442 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn12442
 func Fn12442(m *base.Module, l0 int32) int32
 
-//go:linkname Fn12443 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn12443
+//go:linkname Fn12443 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12443
 func Fn12443(m *base.Module, l0 int32) int32
 
 //go:linkname Fn12456 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn12456
@@ -1715,10 +1715,10 @@ func Fn14119(m *base.Module, l0 int32)
 //go:linkname Fn14120 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn14120
 func Fn14120(m *base.Module, l0 int32, l1 int64)
 
-//go:linkname Fn14126 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14126
+//go:linkname Fn14126 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14126
 func Fn14126(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32)
 
-//go:linkname Fn14127 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn14127
+//go:linkname Fn14127 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14127
 func Fn14127(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32)
 
 //go:linkname Fn14128 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14128
@@ -1847,7 +1847,7 @@ func Fn14207(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 //go:linkname Fn14208 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14208
 func Fn14208(m *base.Module, l0 int32)
 
-//go:linkname Fn14209 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn14209
+//go:linkname Fn14209 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14209
 func Fn14209(m *base.Module, l0 int32, l1 int32, l2 int32)
 
 //go:linkname Fn14211 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14211
@@ -4841,7 +4841,7 @@ func Fn19874(m *base.Module, l0 int32, l1 int32, l2 int32)
 //go:linkname Fn19882 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn19882
 func Fn19882(m *base.Module, l0 int32, l1 int32) int32
 
-//go:linkname Fn19883 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn19883
+//go:linkname Fn19883 github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn19883
 func Fn19883(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 
 //go:linkname Fn19970 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn19970
@@ -4982,7 +4982,7 @@ func Fn21032(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn21041 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn21041
 func Fn21041(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
-//go:linkname Fn21123 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn21123
+//go:linkname Fn21123 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21123
 func Fn21123(m *base.Module, l0 int32, l1 int32) int32
 
 //go:linkname Fn21124 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21124
@@ -5429,7 +5429,7 @@ func Fn21684(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 //go:linkname Fn21685 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn21685
 func Fn21685(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
-//go:linkname Fn21686 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn21686
+//go:linkname Fn21686 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21686
 func Fn21686(m *base.Module, l0 int32, l1 int32)
 
 //go:linkname Fn21687 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn21687

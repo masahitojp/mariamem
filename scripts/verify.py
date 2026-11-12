@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_TESTS = ["tests/test_generated_runtime_inventory.py",
                 "tests/test_distribution_licenses.py",
                 "tests/test_packaging_license_mirrors.py",
-                "tests/test_timer_source.py"]
+                "tests/test_timer_source.py",
+                "tests/test_uca_copy_source.py"]
 BENCHMARKS = {
     "envelope": "memory_envelope.py",
     "competitive": "testcontainers_compare.py",

@@ -7,12 +7,12 @@ stored-checksum comparisons, LSN checks and other validation branches survive.
 import hashlib
 import re
 
-GUEST_SHA256 = 'a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18'
+GUEST_SHA256 = '332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22'
 PATH = 'code/p4/p4_pure.go'
 FUNCTION = 'Fn18145'
-BODY_SHA256 = '6f6e3b37817d3a0f876a70d3aaaaf511baeea4294acdebe711291e75f9bb1d37'
+BODY_SHA256 = '2569b9f4e7022921787050ec11e7fae5b14382416adc732fae562c8f6aca236e'
 TABLE_SHA256 = 'aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad'
-TABLE_OFFSET = 7180928
+TABLE_OFFSET = 7930560
 TABLE_SIZE = 4096
 CRC_BLOCKS = {'L23', *(f'L{i}' for i in range(37, 80))}
 
