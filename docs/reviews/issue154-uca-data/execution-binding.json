@@ -1,0 +1,39 @@
+{
+  "origin": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "source_artifact_id": 13895086139,
+  "old_data_sha256": "c72fba3e13f65b1c9be455ee4533a5dc91f2121f0fed600a3c8db6ea8c157faf",
+  "new_data_sha256": "e795f995302114fa292f22bdc4a9bb18d27fedb7cdc109b02d814bf6cf6393a9",
+  "data_growth": 749632,
+  "crc_diagnostic_string": {
+    "old_address": 8828619,
+    "new_address": 8828653,
+    "bytes": 133,
+    "sha256": "c558c010d477c07155833e0b041d02322700fdcc0e378e56a7d4af72f521e01b",
+    "equal": true
+  },
+  "crc_initialized_global": {
+    "old_address": 17997812,
+    "new_address": 18747444,
+    "access_bytes": 4,
+    "initial_hex": "00000000"
+  },
+  "bss_symbol_names_proven": false,
+  "bounded_binding_status": "exact pins for experiment; semantic correctness requires runtime controls",
+  "crc_body_sha256_for_installer": "2569b9f4e7022921787050ec11e7fae5b14382416adc732fae562c8f6aca236e",
+  "crc_previous_receipt_hash_boundary": "included one trailing newline; historical receipt not relabeled",
+  "flags_input": {
+    "address": 10144192,
+    "size": 12288,
+    "sha256": "ef290f39feb57991e9871bbc5d58d78f8e42e6db73c477f25920493cebba6a0f"
+  },
+  "module_global_initializer_comparison": {
+    "total": 707,
+    "unchanged_count": 4,
+    "shifted_count": 703,
+    "distinct_deltas": [
+      0,
+      749632
+    ],
+    "full_delta_map_sha256": "185cd60e01995e6d151fb20fcb58046c0b9a7bca556367136273ab93ab17b8fd"
+  }
+}

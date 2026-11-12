@@ -1,0 +1,95 @@
+name: UCA copy execution (UNQUALIFIED correctness)
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/uca-default-init]
+    paths:
+      - .github/workflows/uca-copy-execution.yml
+      - tests/uca_copy_execution.py
+      - tests/uca_copy_bindings.py
+      - tests/uca_copy_actual_test.go.txt
+      - tests/uca_copy_acceptance.py
+      - tests/test_uca_copy_resnapshot.py
+permissions:
+  contents: read
+jobs:
+  correctness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    services:
+      mariadb:
+        image: mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+          MARIADB_DATABASE: test
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          path: candidate
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: f43257225e1fd65c58ea8f5d7b220c3a509c203b
+          path: guest-origin
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+          cache-dependency-path: guest-origin/go.sum
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Exact source and original artifacts
+        working-directory: candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/uca-inputs" "$RUNNER_TEMP/uca-evidence"
+          python scripts/git_identity.py inspect HEAD > "$RUNNER_TEMP/uca-evidence/source.json"
+          python -c 'import json,os;assert json.load(open(os.environ["RUNNER_TEMP"]+"/uca-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          gh api repos/masahitojp/mariamem/actions/artifacts/13895265003/zip > "$RUNNER_TEMP/uca-inputs/guest.zip"
+          gh api repos/masahitojp/mariamem/actions/artifacts/13895086139/zip > "$RUNNER_TEMP/uca-inputs/translation.zip"
+          python -m pip install pytest==9.1.1 PyMySQL==1.2.3
+          python -m pytest tests/test_uca_copy_bindings.py tests/test_uca_copy_translation.py -q
+      - name: Native MariaDB reference
+        working-directory: candidate
+        run: |
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > "$RUNNER_TEMP/uca-evidence/native-image.json"
+          python tests/uca_copy_acceptance.py --native-port 3307 --output "$RUNNER_TEMP/uca-evidence/native.json"
+      - name: Exact experimental bindings and isolated host
+        working-directory: candidate
+        run: |
+          python tests/uca_copy_execution.py --origin "$GITHUB_WORKSPACE/guest-origin" --artifacts "$RUNNER_TEMP/uca-inputs" --output "$RUNNER_TEMP/uca-execution" > "$RUNNER_TEMP/uca-evidence/installation.txt" 2>&1
+          cp "$RUNNER_TEMP/uca-execution/installation.json" "$RUNNER_TEMP/uca-evidence/installation.json"
+      - name: Full-table oracle, corruption, CRC and worker controls
+        run: |
+          cd "$RUNNER_TEMP/uca-execution/product"
+          go test -trimpath -p 1 -count=1 ./internal/generatedgo/code/p4 -run '^TestCRC32C' -v > "$RUNNER_TEMP/uca-evidence/crc.txt" 2>&1
+          go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestUCACopyActualGuest|TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > "$RUNNER_TEMP/uca-evidence/actual-guest.txt" 2>&1
+      - name: Native SQL, two children, reSnapshot and completed disposal
+        working-directory: candidate
+        run: |
+          export PYTHONPATH="$RUNNER_TEMP/uca-execution/product/python"
+          export MARIAMEM_TEST_HOST="$RUNNER_TEMP/uca-execution/mariamem-uca-copy-host"
+          test -x "$MARIAMEM_TEST_HOST"
+          python tests/uca_copy_acceptance.py --host "$MARIAMEM_TEST_HOST" --native "$RUNNER_TEMP/uca-evidence/native.json" --output "$RUNNER_TEMP/uca-evidence/sql-children.json" > "$RUNNER_TEMP/uca-evidence/sql-children.txt" 2>&1
+          python -m pytest tests/test_dev_guest_smoke.py tests/test_uca_copy_resnapshot.py -q > "$RUNNER_TEMP/uca-evidence/snapshot.txt" 2>&1
+          python -c 'import hashlib,json,os,pathlib; p=pathlib.Path(os.environ["RUNNER_TEMP"])/"uca-evidence"; (p/"SHA256SUMS.json").write_text(json.dumps({f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(p.iterdir()) if f.is_file()},indent=2)+"\n")'
+      - name: Preserve bounded failure context
+        if: failure()
+        run: |
+          if test -f "$RUNNER_TEMP/uca-execution/failure.json"; then
+            cp "$RUNNER_TEMP/uca-execution/failure.json" "$RUNNER_TEMP/uca-evidence/failure.json"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: uca-copy-execution-${{ github.sha }}
+          path: ${{ runner.temp }}/uca-evidence
+          if-no-files-found: error
+          retention-days: 14
