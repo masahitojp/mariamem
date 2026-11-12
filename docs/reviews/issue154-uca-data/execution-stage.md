@@ -217,3 +217,17 @@ post-Fork sample-insertion spans. No new UCA adoption decision follows. The repo
 records RSS/static growth and the path-bound provenance-only build interruption;
 compiled host bytes match Mac correctness CI exactly. Future wait attribution is
 a separate decision, not an unfinished extra campaign hidden in this checkpoint.
+
+## P8 attribution authorized — 2026-11-12
+
+The Human requested isolating the observed P8 tail to inform adoption. The
+[finite plan](../../../benchmarks/uca-p8-attribution/plan.json) fixes ten
+observer-off pairs plus one warmup pair, then four diagnostic pairs and two
+actual-SQL positive controls. Reuse the same guest and product sources. The
+historical caller-side phase/polling collector is applied to the immutable
+harness, extended from PREPARE to all sample operations; no guest/runtime patch.
+A single profile per process is accepted only within the actual caller window,
+untruncated and with matching-DB guest stacks. Old function/page numbers are not
+assumed current. End with operation/path attribution or explicit missing evidence;
+no automatic queue instrumentation, parameter sweep or adoption. Budget2h active,
+tooling30m, heavy CI0; original measurements remain under their original identities.

@@ -1,0 +1,16 @@
+{
+  "question": "Does the adverse P8 sample tail persist without observers, and which SQL call / same-DB execution path is involved?",
+  "decision": "Inform UCA adoption versus hold for a concrete wait issue; do not adopt or fix runtime in this investigation.",
+  "baseline_source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774",
+  "guest_origin_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "harness_source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+  "collector_source_commit": "7e6547f95b84b12c608a88c39221da62da4ce256",
+  "workload": "Same shop70 Go Pipe/P8/cap9/16MiB/read1/GOMAXPROCS8/GOGC100; both arms use the same host sources; no SQL, settings or guest changes.",
+  "sampling": {"observer_off_pairs": 10, "observer_off_warmup_pairs": 1, "diagnostic_pairs": 4, "positive_controls": 2, "order": "alternating arms, fixed counts; no tail deletion or outcome-selected retries"},
+  "diagnostics": "Existing SQL-phase collector and one20ms polling watcher, extended to all sample operations. At100ms capture at most one2MiB goroutine profile/process with actual caller entry/return and same-DB labels. Diagnostic wall/CPU is not a speedup benchmark.",
+  "feasibility_control": "Each arm runs actual SQL SLEEP(0.25); require in-window, untruncated profile with matching-DB guest stacks. Wrong DB/window/truncation negative checks before accepting natural captures.",
+  "observations": "Off: batch wall/CPU, Fork/sample/cleanup per-child spans and >100ms counts, peak process RSS. Diagnostic: PREPARE ordinal, order INSERT, item INSERT, stock UPDATE, COMMIT and cleanup, labeled current-source stacks. A point sample cannot prove full wait duration or lock ownership.",
+  "exit": "Finish fixed runs or report missing input. Separate reproduced performance direction, operation attribution and causality. If no usable natural stack, report NO_USABLE_CAPTURE and specific missing evidence; do not expand into new guest patch or queue tracing automatically.",
+  "budget": {"active_hours":2,"tooling_minutes":30,"heavy_ci":0,"guest_c_builds":0,"disk_gib":8,"min_free_gib":6},
+  "measurement_isolation": "Finish builds first; capacity checks between timed processes and150s per-process watchdog. No recursive build-disk polling concurrent with timing."
+}
