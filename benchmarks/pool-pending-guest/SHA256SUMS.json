@@ -1,0 +1,16 @@
+{
+  "PLAN.md": "35491c9ba4fb0b5c455ffc765703aa3c8eed348899e0110c0c0c3e753cd49c87",
+  "README.md": "2261465738f69b644b22be973ac7049ccf1f2d218f3982488943b129840f15bc",
+  "bindings.json": "4b7fec80b8b79e8887705892e12e9140fa9c402f6343cdd55ff34d2af25137b4",
+  "check_results.py": "c709e80318a2ee49aa383e2a1f9de5754ed865422803e138af13afcc8a2cb43f",
+  "control_test.go.txt": "e7643d2578bc33a5bfca3ea8175b1acb6b79f03e73a5c1d21c97350e14ffb11c",
+  "make_overlay.py": "12ad1dd465bee078c0376a29fd3da2a38145944cc0c9681c1d775b3cbbc02d1d",
+  "probe.go.txt": "42b00d2b601907c1e0707044b1a67bf784b583db364c6585ee294256dd2fd96d",
+  "results/assessment.json": "f9e4e3d0661b394b5c8542bb5aa3ccdd32f24ae1880bdb27ddafc954f3ded6de",
+  "results/attempt1-test.txt": "1d7bf4083754ca02813c6f9ba54a3c00f5e6f2ec893287117d30c842605daa1e",
+  "results/attempt2-test.txt": "35bc671381c875c0e5832bd07030d45f5738c4dc5fc5a9a480d0e8669b460022",
+  "results/cases.json": "ff32b63c3a86c81b9c6a6c5c59688224e523227b29cada3d2f564a4ab7d8e8ae",
+  "results/diagnostic-selected.txt": "e0ba3d60d1e70e574a003319581ed7dcb11c666a42173aea369d4d7d4c420a72",
+  "results/test.txt": "f94c501c42037c60303b597ab7fc825b3ed978c52a3030758223a741807842af",
+  "run.py": "17a225f764f08914e2d7c166a412dbd66c967b17d0b257db319bb547f61e2e63"
+}

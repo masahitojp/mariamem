@@ -1,0 +1,4 @@
+=== RUN   TestPendingControlGuest
+    pending_control_test.go:145: pending_unreported/1/1 guest cleanup timeout
+--- FAIL: TestPendingControlGuest (10.03s)
+FAIL

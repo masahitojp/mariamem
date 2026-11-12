@@ -1,0 +1,5 @@
+=== RUN   TestPendingControlGuest
+    pending_control_test.go:141: pending_unreported/1/1: generated-Go guest failure: control timeout: a start
+        generated-Go guest failure: wasm: unaligned atomic access stderr=
+--- FAIL: TestPendingControlGuest (2.07s)
+FAIL

@@ -39,6 +39,20 @@ Implementation and bounded verification are complete; main integration remains
 subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
 new guest build or release follows from source preparation PASS.
 
+## Issue156 — controlled generated-guest mechanism confirmed
+
+The [bounded generated-guest experiment](../benchmarks/pool-pending-guest/README.md)
+at `43185bc4565089cc4e218da1b3e1ac8e05966c32` passes18/18 cases on macOS arm64:
+pending overlap plus unreported waiting retains one queued task until explicit
+maintenance; reported waiting and late submission progress without that trigger.
+Actual generated pool/task code and Go/WASIX futex/thread execution are used;
+workers join and active mappings return to0. Native and generated controls now
+agree. Two harness INVALIDs and a stack-only diagnosis are preserved separately.
+Original PREPARE-tail attribution is still UNPROVEN. Recommend bounded source-path
+mapping to the real read/task wait before another natural sampling campaign or
+product policy change. #140/#156 stay open; UCA is already adopted through PR157.
+This experiment changes no product runtime or release status.
+
 ## Issue123 — process-lifetime static cache approved for candidate implementation
 
 On 2026-11-10 the Human accepted retaining the immutable initial image for the

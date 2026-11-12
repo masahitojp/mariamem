@@ -1,0 +1,22 @@
+=== RUN   TestPendingControlGuest
+    pending_control_test.go:162: pending_unreported concurrency=1 repeat=1 PASS
+    pending_control_test.go:162: pending_reported concurrency=1 repeat=1 PASS
+    pending_control_test.go:162: late_submit concurrency=1 repeat=1 PASS
+    pending_control_test.go:162: pending_unreported concurrency=16 repeat=1 PASS
+    pending_control_test.go:162: pending_reported concurrency=16 repeat=1 PASS
+    pending_control_test.go:162: late_submit concurrency=16 repeat=1 PASS
+    pending_control_test.go:162: pending_unreported concurrency=1 repeat=2 PASS
+    pending_control_test.go:162: pending_reported concurrency=1 repeat=2 PASS
+    pending_control_test.go:162: late_submit concurrency=1 repeat=2 PASS
+    pending_control_test.go:162: pending_unreported concurrency=16 repeat=2 PASS
+    pending_control_test.go:162: pending_reported concurrency=16 repeat=2 PASS
+    pending_control_test.go:162: late_submit concurrency=16 repeat=2 PASS
+    pending_control_test.go:162: pending_unreported concurrency=1 repeat=3 PASS
+    pending_control_test.go:162: pending_reported concurrency=1 repeat=3 PASS
+    pending_control_test.go:162: late_submit concurrency=1 repeat=3 PASS
+    pending_control_test.go:162: pending_unreported concurrency=16 repeat=3 PASS
+    pending_control_test.go:162: pending_reported concurrency=16 repeat=3 PASS
+    pending_control_test.go:162: late_submit concurrency=16 repeat=3 PASS
+controlled guest cases: 18
+--- PASS: TestPendingControlGuest (0.78s)
+PASS

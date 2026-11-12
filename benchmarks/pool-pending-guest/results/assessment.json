@@ -1,0 +1,52 @@
+{
+  "source": {
+    "object_sha": "43185bc4565089cc4e218da1b3e1ac8e05966c32",
+    "object_type": "commit",
+    "source_commit": "43185bc4565089cc4e218da1b3e1ac8e05966c32"
+  },
+  "baseline": "8df45792a927e440972266ee799d6f7223713e14",
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "go": "go1.26.10",
+  "case_budget": 18,
+  "build_attempt": 3,
+  "host": {
+    "os": "macOS",
+    "version": "27.2",
+    "build": "26B123",
+    "arch": "arm64"
+  },
+  "mechanism": "PASS_CONTROLLED_GENERATED_GUEST",
+  "original_prepare_attribution": "UNPROVEN",
+  "primary_cases": 18,
+  "invalid_harness_attempts": 2,
+  "stack_only_diagnostic_runs": 1,
+  "builds": [
+    {
+      "source_commit": "9ee411ef2366eb2d303c4748391806925e22746f",
+      "seconds": 108.3,
+      "result": "compile PASS / harness INVALID uninitialized task allocation"
+    },
+    {
+      "source_commit": "af308ac6f9a7fb160c21995a360981778a04a32a",
+      "seconds": 8.1,
+      "result": "compile PASS / harness INVALID unscoped hook-count assertion, normal shutdown bypassed"
+    },
+    {
+      "source_commit": "43185bc4565089cc4e218da1b3e1ac8e05966c32",
+      "seconds": 100.1,
+      "result": "compile PASS / 18 cases PASS in 0.78s"
+    }
+  ],
+  "guest_rebuilds": 0,
+  "ci_runs": 0,
+  "natural_sql_sampling": 0,
+  "runtime_product_changes": false,
+  "reduction": {
+    "cases_original_sha256": "4a4772c7e8271a2be351b1db604a73f939861543b184f0bfd0170a68d74e4374",
+    "cases_published_sha256": "ff32b63c3a86c81b9c6a6c5c59688224e523227b29cada3d2f564a4ab7d8e8ae",
+    "cases_policy": "Whitespace compaction only; all fields, cases and events retained.",
+    "stack_original_sha256": "12a6ccc285d96e90aae0f0a54e74099231a523f057ba53a926456445ba29ecac",
+    "stack_published_sha256": "e0ba3d60d1e70e574a003319581ed7dcb11c666a42173aea369d4d7d4c420a72",
+    "stack_policy": "Root assertion/join stack and one unrelated timer waiter selected; source and module-cache path prefixes normalized."
+  }
+}
