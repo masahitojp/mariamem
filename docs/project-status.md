@@ -15,14 +15,13 @@ change to notification around contended dictionary-eviction lock acquisition.
 The controlled mechanism and single-Mac fixed comparison support this direction;
 uniform acceleration and complete natural-tail causal attribution are not claimed.
 Build the minimal candidate from8df45792, retaining unchanged host/API/settings.
-Canonical source migration and source/identity guards are implemented; generated
-runtime installation, actual-C-guest regression, both-platform acceptance and
-candidate measurement remain pending. Bootstrap CI43240513507 built the reviewed
-guest/linked bytes but failed because the preparation receipt omitted the
-dictionary source file. The [receipt repair](decisions/dictionary-wait-notification.md#bootstrap-failure-and-receipt-repair--2026-11-13)
-adds its actual digest and a producer regression; a fresh bootstrap must pass
-before installation. This remains UNQUALIFIED input, not a runtime PASS. Product
-adoption/main integration and release remain separate.
+Canonical source bootstrap43246097319 passed at e3d020e5, including the
+repaired dictionary preparation receipt. The [installed checkpoint](reviews/dictionary-installation/README.md)
+records normal generated installation, unchanged worker/CRC/data bindings and
+the actual-guest regression. Local runtime, clean-source attribution, both-OS
+canonical acceptance and the fixed comparison are pending. The bootstrap remains
+UNQUALIFIED; no old runtime or performance result is relabeled. Product adoption,
+main integration and release remain separate.
 
 ## WASI timer correction and startup reduction — product candidate approved
 

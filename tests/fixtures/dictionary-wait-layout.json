@@ -1,0 +1,56 @@
+{
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "data_sha256": "e795f995302114fa292f22bdc4a9bb18d27fedb7cdc109b02d814bf6cf6393a9",
+  "functions": {
+    "Fn16610": {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "normalized_sha256": "6a27d40284d7f49472dede239467e9edeaf0abf73074c797f33728abe2b31bea"
+    },
+    "Fn16603": {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "normalized_sha256": "f050a4542361448dd9c68445acc8ce9ef90112ba9ec6219413ebe43f5cecd836"
+    },
+    "Fn16605": {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "normalized_sha256": "6a8ec5a668c29aaa3283ccdee4115a61bb753831f95b6fd8c751ccd52c82d71e"
+    },
+    "Fn16609": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "4945b0d7c211e7ab5e132a81066ad08665b49b5ceb072c879dbffde8fa5c4dcd"
+    },
+    "Fn16583": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "818e523776516715b2821b80003428124f5a779a90c369526c6b800546c5e7cd"
+    },
+    "Fn16584": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "5efd1ca733023017ddf340d366aec3533b42b3f25d572215528dcd7fdcbe4dd2"
+    },
+    "Fn16559": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "09d7c878c9bd95978df4b07f11bfb687d4ad3dc45b7ef28e19fddf1ca21e851a"
+    },
+    "Fn16561": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "affdd9cdf2ca4573909859d7a385470e70067c3b925362fdf0337deacfa7278f"
+    },
+    "Fn16604": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "3959598149339805466f389703c909b1f29429aae4b25cf99e493f4d61af157d"
+    },
+    "Fn17733": {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "normalized_sha256": "6a30efa45b7fff376dbd6d2f8eadf89c8df8baa964030f4810b265d26f3d3717"
+    },
+    "Fn16586": {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "normalized_sha256": "95da9ad057e490dd595543a2b16cce16b1ab403f23f37e703b5a0f021528586d"
+    },
+    "Fn17744": {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "normalized_sha256": "513d4c0e65c5f899415f431104aec322c61528d15a6b2a64a0e89a698f7bc124"
+    }
+  },
+  "scope": "Actual guest contention regression; helper bodies and data remain exact. No injected notification.",
+  "caller_precondition": "Master-style pool worker without WAITING/LONG; nonpool TLS control; no nesting/exception claim"
+}

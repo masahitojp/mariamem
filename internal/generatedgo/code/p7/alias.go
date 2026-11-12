@@ -170,6 +170,9 @@ func Fn207(m *base.Module, l0 int32) int32
 //go:linkname Fn209 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn209
 func Fn209(m *base.Module, l0 int32)
 
+//go:linkname Fn210 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn210
+func Fn210(m *base.Module, l0 int32) int32
+
 //go:linkname Fn216 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216
 func Fn216(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 

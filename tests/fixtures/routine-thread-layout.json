@@ -1,5 +1,5 @@
 {
-  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
   "result": "UNQUALIFIED fixed layout; actual J1 controls not yet run",
@@ -510,7 +510,7 @@
       "old_function": 212,
       "new_function": 210,
       "function": "Fn210",
-      "file": "p7/p7_pure.go",
+      "file": "p8/p8_pure.go",
       "normalized_sha256": "20cdf93675f46ea1310839295c3f1a25bb276399dc8af870dcf6e32a98631199",
       "integer_changes": [],
       "direct_calls": []
@@ -619,5 +619,10 @@
         "ubuntu24.04-x86_64"
       ]
     }
+  },
+  "dictionary_wait_binding": {
+    "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+    "previous_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "status": "EXACT_UNCHANGED_BODY_DATA_BINDING; PLATFORM_PENDING"
   }
 }

@@ -7,8 +7,8 @@
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
   "audit_source_commit": "cd33ad5d66b8cd2d8a4538ab12c1c077ae014923",
-  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
-  "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
   "symbol_map_sha256": "f0b1b01377c2af85b5de5c065a93c03ac229026f3e15d7a3a3e2267065c5dfba",
   "symbol_map_entries": 21753,
   "generated_provenance_sha256": "a1e10d0ba1f2e558c2215305c38bb972cd81e688c1b8a77d32812961c5f5c6de",
@@ -354,7 +354,7 @@
     "path": "release/generated-license-evidence.json",
     "sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067"
   },
-  "result": "PASS: positive retained-function evidence for every recorded component family",
+  "result": "PENDING clean-source native host attribution for dictionary candidate",
   "previous_attribution": {
     "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
     "path": "release/generated-license-evidence.json",
@@ -568,10 +568,16 @@
     "run_id": 43185761193,
     "binaryen_archive_sha256": "ad66da82ac13f163e424b1643f16c6dfcccc98b5966296b43e52d3cab04f84a8"
   },
-  "host_check": {
+  "previous_uca_copy_audit": {
     "source_commit": "cd33ad5d66b8cd2d8a4538ab12c1c077ae014923",
-    "sha256": "95790109e8917731bd1e3fbfa0e2e3c743413361bfa3af5937b969e14febd630",
-    "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261112090603-cd33ad5d66b8\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=cd33ad5d66b8cd2d8a4538ab12c1c077ae014923\n\tbuild\tvcs.time=2026-11-12T09:06:03Z\n\tbuild\tvcs.modified=false\n",
-    "note": "Diagnostic attribution, not new release approval."
+    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
+    "record_sha256": "cf0e8a0b7a7dc2d3e9b2e3e8987e5229b4e4833297d57dd9d1ee5828482d7971",
+    "host_check": {
+      "source_commit": "cd33ad5d66b8cd2d8a4538ab12c1c077ae014923",
+      "sha256": "95790109e8917731bd1e3fbfa0e2e3c743413361bfa3af5937b969e14febd630",
+      "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261112090603-cd33ad5d66b8\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=cd33ad5d66b8cd2d8a4538ab12c1c077ae014923\n\tbuild\tvcs.time=2026-11-12T09:06:03Z\n\tbuild\tvcs.modified=false\n",
+      "note": "Diagnostic attribution, not new release approval."
+    }
   }
 }

@@ -1,0 +1,28 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43246097319",
+  "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+  "artifacts": [
+    {
+      "id": 13958376004,
+      "name": "dict-product-build-evidence-e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+      "zip_sha256": "ee757a292203af944f67988a580ed7dc50fc6c6503c548cb636561af01df2d1c"
+    },
+    {
+      "id": 13958046143,
+      "name": "dict-product-unqualified-guest-e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+      "zip_sha256": "d7b0bd1aa77903d7604c8afdc379c4263eedd264585fff621275a471d7408918"
+    }
+  ],
+  "guest_record_sha256": "15fd3a68a57cd815402b5094320a8c4697fcbfd91dc89ff6cbd08f4f25cb8169",
+  "assessment": {
+    "canonical_patch_sha256": "6ef0b863be1c8416cbe071a0d40887094ecd4ca55a052024d77fba08cf451b03",
+    "dictionary_delta_sha256": "8609bef5c2bfb96e14d407bec08ba36c95cd8e7c190dbacd1959773f63f68744",
+    "result": "PASS_CANONICAL_SOURCE_SAME_GUEST_UNQUALIFIED",
+    "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+    "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+    "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
+    "runtime_acceptance": false
+  },
+  "prepared_dictionary_sha256": "a301ec1c4a2853c37d1b5fba14224da8b66a6909adb4ac83ee2c3563caf77df5",
+  "runtime_acceptance": false
+}

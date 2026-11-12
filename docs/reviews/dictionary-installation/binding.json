@@ -1,0 +1,29 @@
+{
+  "Fn153": {
+    "normalized_sha256": "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0",
+    "unchanged": true
+  },
+  "Fn214": {
+    "normalized_sha256": "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8",
+    "unchanged": true
+  },
+  "Fn131": {
+    "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+    "unchanged": true
+  },
+  "crc": {
+    "body_sha256": "2569b9f4e7022921787050ec11e7fae5b14382416adc732fae562c8f6aca236e",
+    "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+    "table_offset": 7930560,
+    "unchanged": true
+  },
+  "data_sha256": "e795f995302114fa292f22bdc4a9bb18d27fedb7cdc109b02d814bf6cf6393a9",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "unchanged_join_body_partition_moves": [
+    {
+      "function": "Fn210",
+      "old_file": "p7/p7_pure.go",
+      "new_file": "p8/p8_pure.go"
+    }
+  ]
+}
