@@ -116,6 +116,10 @@ def main():
         prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
         if not development and prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')
+        observed_run([sys.executable, ROOT/'scripts/check_dictionary_wait_source.py',
+                      '--prepared-source', ROOT/'build/source'],
+                     env=env, check=True, phase=f'guest:dictionary-wait-source:{trial}',
+                     inputs=[ROOT/'guest/source.patch'])
         # Exercise the actual prepared C allocator contract before compilation.
         allocator_check = ROOT/'build'/f'buffer-pool-contract-{trial}.json'
         observed_run([sys.executable, ROOT/'tests/buffer_pool_alignment_check.py',

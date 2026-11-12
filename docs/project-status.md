@@ -6,6 +6,21 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue156 — dictionary-wait product candidate authorized
+
+On2026-11-12 the Human approved proceeding to a product candidate, prioritizing
+an early comparison with the existing main baseline. The
+[decision and fixed exit](decisions/dictionary-wait-notification.md) limits the
+change to notification around contended dictionary-eviction lock acquisition.
+The controlled mechanism and single-Mac fixed comparison support this direction;
+uniform acceleration and complete natural-tail causal attribution are not claimed.
+Build the minimal candidate from8df45792, retaining unchanged host/API/settings.
+Canonical source migration and source/identity guards are implemented; generated
+runtime installation, actual-C-guest regression, both-platform acceptance and
+candidate measurement remain pending. First submit one canonical-source bootstrap
+that must match the reviewed guest/linked hashes. This is UNQUALIFIED input,
+not a runtime PASS. Product adoption/main integration and release remain separate.
+
 ## WASI timer correction and startup reduction — product candidate approved
 
 On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)

@@ -157,7 +157,7 @@
     },
     "guest/source.patch": {
       "file": "guest/source.patch",
-      "sha256": "07188f71ed2fed76083a9eb39313e74cb7b8acca00d2c6fb738f459873a98a9a"
+      "sha256": "6ef0b863be1c8416cbe071a0d40887094ecd4ca55a052024d77fba08cf451b03"
     },
     "guest/prepared_source_patch.json": {
       "file": "guest/prepared_source_patch.json",
