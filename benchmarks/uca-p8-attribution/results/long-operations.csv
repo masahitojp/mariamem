@@ -1,0 +1,6 @@
+name,db_id,lane,phase,order_id,product_id,begin_us,duration_us,error
+diagnostic-0-baseline,uca-db-13,TestCancelOrder/shipped,prepare,0,0,258746,410906,
+diagnostic-1-candidate,uca-db-5,TestCreateOrder/out_of_stock,prepare,0,0,177229,404114,
+diagnostic-2-candidate,uca-db-7,TestCreateOrder/two_lines,prepare,0,0,118493,401031,
+diagnostic-3-baseline,uca-db-7,TestCreateOrder/five_lines,prepare,0,0,186725,400705,
+diagnostic-3-baseline,uca-db-6,TestApplyDiscount/games_0,prepare,0,0,185587,401843,

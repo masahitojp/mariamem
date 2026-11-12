@@ -1,0 +1,194 @@
+# Selected matching-DB blocks; original profile hash retained in captures.json
+
+1 @ 0x104bc29ec 0x104b56db0 0x104b56934 0x107b13fb0 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x107b13faf	github.com/masahitojp/mariamem.(*Database).watch+0x2f	github.com/masahitojp/mariamem@v0.6.2/mariamem.go:152
+
+1 @ 0x104bc29ec 0x104b876c0 0x104bc1c00 0x104bf5b48 0x104bf6924 0x104bf6915 0x104bfad08 0x104bfad01 0x104bf24c8 0x107b00694 0x107b0064d 0x107b02cb4 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104bc1bff	internal/poll.runtime_pollWait+0x9f						runtime/netpoll.go:351
+#	0x104bf5b47	internal/poll.(*pollDesc).wait+0x27						internal/poll/fd_poll_runtime.go:84
+#	0x104bf6923	internal/poll.(*pollDesc).waitRead+0x233					internal/poll/fd_poll_runtime.go:89
+#	0x104bf6914	internal/poll.(*FD).Read+0x224							internal/poll/fd_unix.go:165
+#	0x104bfad07	os.(*File).read+0x67								os/file_posix.go:30
+#	0x104bfad00	os.(*File).Read+0x60								os/file.go:144
+#	0x104bf24c7	io.ReadAtLeast+0x97								io/io.go:335
+#	0x107b00693	io.ReadFull+0xf3								io/io.go:354
+#	0x107b0064c	github.com/masahitojp/mariamem/internal/guest.(*Process).read+0xac		github.com/masahitojp/mariamem@v0.6.2/internal/guest/guest.go:218
+#	0x107b02cb3	github.com/masahitojp/mariamem/internal/guest.connectWithFailure.func1+0x43	github.com/masahitojp/mariamem@v0.6.2/internal/guest/linked.go:70
+
+1 @ 0x104bc29ec 0x104b876c0 0x104bc1c00 0x104bf5b48 0x104bf6924 0x104bf6915 0x104bfad08 0x104bfad01 0x104d36cfc 0x104d3689c 0x10786f350 0x1071a1184 0x1071a2cf0 0x1056fad64 0x107af724c 0x107afd784 0x107afd13c 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104bc1bff	internal/poll.runtime_pollWait+0x9f								runtime/netpoll.go:351
+#	0x104bf5b47	internal/poll.(*pollDesc).wait+0x27								internal/poll/fd_poll_runtime.go:84
+#	0x104bf6923	internal/poll.(*pollDesc).waitRead+0x233							internal/poll/fd_poll_runtime.go:89
+#	0x104bf6914	internal/poll.(*FD).Read+0x224									internal/poll/fd_unix.go:165
+#	0x104bfad07	os.(*File).read+0x67										os/file_posix.go:30
+#	0x104bfad00	os.(*File).Read+0x60										os/file.go:144
+#	0x104d36cfb	github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec+0x8b			github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:12958
+#	0x104d3689b	github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read+0x21b	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:12921
+#	0x10786f34f	github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn74+0x3f				github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:47
+#	0x1071a1183	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn195+0x173				github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:4931
+#	0x1071a2cef	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn205+0x37f				github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:6158
+#	0x1056fad63	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752+0x8bb3			github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:1010429
+#	0x107af724b	github.com/masahitojp/mariamem/internal/generatedgo/code.Start+0x1b				github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/generated.go:15224
+#	0x107afd783	github.com/masahitojp/mariamem/internal/generatedgo.executeGuest+0x53				github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/runtime_instance.go:108
+#	0x107afd13b	github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2+0x43b			github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/runtime_instance.go:78
+
+1 @ 0x104bc29ec 0x104b876c0 0x104bc1c00 0x104bf5b48 0x104bf7554 0x104bf7545 0x104ce31e8 0x104cf2304 0x104cf183c 0x107b0f0d0 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104bc1bff	internal/poll.runtime_pollWait+0x9f					runtime/netpoll.go:351
+#	0x104bf5b47	internal/poll.(*pollDesc).wait+0x27					internal/poll/fd_poll_runtime.go:84
+#	0x104bf7553	internal/poll.(*pollDesc).waitRead+0x213				internal/poll/fd_poll_runtime.go:89
+#	0x104bf7544	internal/poll.(*FD).Accept+0x204					internal/poll/fd_unix.go:613
+#	0x104ce31e7	net.(*netFD).accept+0x27						net/fd_unix.go:150
+#	0x104cf2303	net.(*TCPListener).accept+0x23						net/tcpsock_posix.go:159
+#	0x104cf183b	net.(*TCPListener).Accept+0x2b						net/tcpsock.go:387
+#	0x107b0f0cf	github.com/masahitojp/mariamem/internal/host.(*Server).accept+0x2f	github.com/masahitojp/mariamem@v0.6.2/internal/host/server.go:157
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d013e0 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x106ffbd34 0x107a4e460 0x1064e2a90 0x10644edc4 0x105611f0c 0x106a8962c 0x106ffac70 0x106ffb0fc 0x1075f4338 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d013df	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2ff							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1946
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x106ffbd33	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16624+0x3a3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:896597
+#	0x107a4e45f	github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16787+0x15f							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:359111
+#	0x1064e2a8f	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18162+0x94f							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:1035442
+#	0x10644edc3	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17217+0x573							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:897633
+#	0x105611f0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17221+0x9fb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:789047
+#	0x106a8962b	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18228+0x21b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:1024739
+#	0x106ffac6f	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586+0x59f							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:895645
+#	0x106ffb0fb	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595+0x1cb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:895909
+#	0x1075f4337	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16599+0x337							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:851852
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d013e0 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x106ffbd34 0x107a4e554 0x105fc0d38 0x10568de68 0x10566d1bc 0x106a57a80 0x106497dc4 0x105b39360 0x10677fbbc 0x10507bfd0 0x104f63434 0x104f6fae4 0x10751a564 0x106f72d54 0x1054c3bdc 0x1053abb2c 0x1052d1148 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d013df	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2ff							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1946
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x106ffbd33	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16624+0x3a3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:896597
+#	0x107a4e553	github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16787+0x253							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:359170
+#	0x105fc0d37	github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18164+0x1787							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p3/p3_pure.go:963947
+#	0x10568de67	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn18010+0xa07							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:916188
+#	0x10566d1bb	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17711+0x1bfb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:878503
+#	0x106a57a7f	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17710+0x25f							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:986624
+#	0x106497dc3	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17739+0xe3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:966656
+#	0x105b3935f	github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18458+0x15f							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p2/p2_pure.go:994315
+#	0x10677fbbb	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7142+0x22b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:482027
+#	0x10507bfcf	github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15721+0x646f							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p0/p0_pure.go:528605
+#	0x104f63433	github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13464+0x2f13							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p0/p0_pure.go:295993
+#	0x104f6fae3	github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13492+0x4193							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p0/p0_pure.go:306034
+#	0x10751a563	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13502+0x113							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:704166
+#	0x106f72d53	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14813+0xb3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:782555
+#	0x1054c3bdb	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14811+0x2d2b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:491847
+#	0x1053abb2b	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562+0x477b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:240899
+#	0x1052d1147	github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267+0x2387							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p1/p1_pure.go:18821
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d013e0 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x1070378c8 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d013df	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2ff							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1946
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x1070378c7	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17329+0x747							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:939622
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d013e0 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x107a477e4 0x10766b90c 0x105b0f04c 0x10765e414 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d013df	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2ff							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1946
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x107a477e3	github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16556+0xd3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:350775
+#	0x10766b90b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18273+0x2db							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:949783
+#	0x105b0f04b	github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18070+0x1d5b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p2/p2_pure.go:953565
+#	0x10765e413	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18075+0x263							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:938963
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d013e0 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x107a477e4 0x10766bc54 0x105f6250c 0x1076371cc 0x106ffaa68 0x106ffb0fc 0x1075f4338 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d013df	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2ff							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1946
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x107a477e3	github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16556+0xd3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:350775
+#	0x10766bc53	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18276+0x263							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:950042
+#	0x105f6250b	github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17500+0x12fb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p3/p3_pure.go:876466
+#	0x1076371cb	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17499+0x11b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:903941
+#	0x106ffaa67	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586+0x397							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:895490
+#	0x106ffb0fb	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595+0x1cb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:895909
+#	0x1075f4337	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16599+0x337							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:851852
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d013e0 0x104d01004 0x107afab9c 0x10719cd0c 0x10786fd04 0x107056f8c 0x107059cf8 0x1064f447c 0x1075f467c 0x106ffaa68 0x106ffb0fc 0x1075f4338 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d013df	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2ff							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1946
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10786fd03	github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn92+0xf3								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:328
+#	0x107056f8b	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17733+0x58b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:965763
+#	0x107059cf7	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17744+0x87							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:968942
+#	0x1064f447b	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18236+0x9fb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:1048563
+#	0x1075f467b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16602+0xcb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:851988
+#	0x106ffaa67	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586+0x397							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:895490
+#	0x106ffb0fb	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595+0x1cb							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:895909
+#	0x1075f4337	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16599+0x337							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:851852
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d014b4 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x1067035c8 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d014b3	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x3d3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1968
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x1067035c7	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn5224+0x867							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:404037
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x104d014b4 0x104d01004 0x107afab9c 0x10719cd0c 0x10605c7b8 0x106c777ac 0x10658c8f4 0x107afc5f4 0x104d01d28 0x104d01b44 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x104d014b3	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x3d3							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1968
+#	0x104d01003	github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1895
+#	0x107afab9b	github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:157
+#	0x10719cd0b	github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:362
+#	0x10605c7b7	github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7d7								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p4/p4_pure.go:4734
+#	0x106c777ab	github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5485+0x72b							github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:346357
+#	0x10658c8f3	github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163								github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711
+#	0x107afc5f3	github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.installGuestThreadLifetime.InstallThreadLifetime.func2+0x93	github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58
+#	0x104d01d27	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2030
+#	0x104d01b43	github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3						github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2016
+
+1 @ 0x104bc29ec 0x104ba196c 0x107b02b68 0x104bc9db4
+# labels: {"db_id":"uca-db-13"}
+#	0x107b02b67	github.com/masahitojp/mariamem/internal/guest.connectWithFailure.func2+0x77	github.com/masahitojp/mariamem@v0.6.2/internal/guest/linked.go:73

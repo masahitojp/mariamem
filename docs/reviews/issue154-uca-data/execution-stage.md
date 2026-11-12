@@ -231,3 +231,17 @@ untruncated and with matching-DB guest stacks. Old function/page numbers are not
 assumed current. End with operation/path attribution or explicit missing evidence;
 no automatic queue instrumentation, parameter sweep or adoption. Budget2h active,
 tooling30m, heavy CI0; original measurements remain under their original identities.
+
+## P8 attribution completed — 2026-11-12
+
+[Finite result](../../../benchmarks/uca-p8-attribution/results/README.md):
+32 processes completed, all2240 suite cases and cleanup pass; no retries or extra
+sampling. Observer-off candidate slower in8/10 pairs (median paired +15.70%),
+sample spans >100ms5→8/210 children and affected batches4→7/10. Four natural
+in-window same-DB profiles locate long PREPAREs at the current shared-lock read
+completion path in both guests, ending in host's untimed notification wait.
+This binds the Issue140 path class, not its unobserved page/task owner or the
+reason candidate incidence differs. It does not reproduce Issue143's UPDATE/UNDO
+writer wait. Recommendation is hold adoption with startup benefit preserved;
+Human may instead explicitly accept the observed P8 risk. Further dispatch
+observation or runtime repair is a separate bounded decision and is not started.

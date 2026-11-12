@@ -1,0 +1,202 @@
+{
+  "kind": "structural source correspondence, not a complete C symbol map",
+  "older_mapping_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "arms": {
+    "baseline": {
+      "Fn16624": {
+        "path": "internal/generatedgo/code/p6/p6_pure.go",
+        "line": 896459,
+        "sha256": "6ebbf6fd7dead009bca7b6be4ecf05728beca3cc43aaec3a6dca5a7efd1c6420",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn16787": {
+        "path": "internal/generatedgo/code/p8/p8_pure.go",
+        "line": 359041,
+        "sha256": "b79e696c495ce3c2ab0347f413f20f5939758fb706fa7f5911831a959e646019",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn18164": {
+        "path": "internal/generatedgo/code/p3/p3_pure.go",
+        "line": 962617,
+        "sha256": "f019e263eb536cbc496f600050eb5a30c087fa96dabcc4eaa05fe605ddea1b06",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn216": {
+        "path": "internal/generatedgo/code/p4/p4_pure.go",
+        "line": 4013,
+        "sha256": "c2adc3678aba94a6e55ea18c2a56396bb16dc5603e642dbfc5e89460d9315386",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn88": {
+        "path": "internal/generatedgo/code/p7/p7_pure.go",
+        "line": 314,
+        "sha256": "cc5fa49abdba370698b087a573b9ec5078c5bd5b32c094cbda9c1d028c2239dc",
+        "same_non_numeric_tokens_as_older_mapping": true
+      }
+    },
+    "candidate": {
+      "Fn16624": {
+        "path": "internal/generatedgo/code/p6/p6_pure.go",
+        "line": 896656,
+        "sha256": "ec37161878eac1c181e8e5e8fa83d34e6d493031e9f0c0b4c1559207923a5510",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn16787": {
+        "path": "internal/generatedgo/code/p8/p8_pure.go",
+        "line": 359479,
+        "sha256": "b79e696c495ce3c2ab0347f413f20f5939758fb706fa7f5911831a959e646019",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn18164": {
+        "path": "internal/generatedgo/code/p3/p3_pure.go",
+        "line": 961092,
+        "sha256": "b930ad158a60bda73652e4935a4115cfe4550345e9bb5d2a235a4827f753735f",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn216": {
+        "path": "internal/generatedgo/code/p4/p4_pure.go",
+        "line": 4013,
+        "sha256": "c2adc3678aba94a6e55ea18c2a56396bb16dc5603e642dbfc5e89460d9315386",
+        "same_non_numeric_tokens_as_older_mapping": true
+      },
+      "Fn88": {
+        "path": "internal/generatedgo/code/p7/p7_pure.go",
+        "line": 314,
+        "sha256": "cc5fa49abdba370698b087a573b9ec5078c5bd5b32c094cbda9c1d028c2239dc",
+        "same_non_numeric_tokens_as_older_mapping": true
+      }
+    }
+  },
+  "captures": [
+    {
+      "name": "diagnostic-0-baseline",
+      "db_id": "uca-db-13",
+      "phase": "prepare",
+      "operation_ordinal": 1,
+      "call_ms": 410.906,
+      "snapshot_cost_ms": 2.947,
+      "snapshot_offset_ms": 112.235,
+      "foreground_generated_chain": [
+        "p7.Fn88",
+        "p4.Fn216",
+        "p6.Fn16624",
+        "p8.Fn16787",
+        "p3.Fn18164",
+        "p1.Fn18010",
+        "p1.Fn17711",
+        "p5.Fn17710",
+        "p4.Fn17739",
+        "p2.Fn18458",
+        "p5.Fn7142",
+        "p0.Fn15721",
+        "p0.Fn13464",
+        "p0.Fn13492",
+        "p7.Fn13502",
+        "p6.Fn14813",
+        "p1.Fn14811",
+        "p1.Fn5562",
+        "p1.Fn267",
+        "p5.Fn214"
+      ],
+      "host_wait": "AtomicWait/AtomicWait32At/Futex_wait",
+      "interpretation": "Buffer page get -> read completion wait -> shared-lock slow path; structural correspondence with historical Issue140, not proof of same page, task owner or entire wait history."
+    },
+    {
+      "name": "diagnostic-1-candidate",
+      "db_id": "uca-db-5",
+      "phase": "prepare",
+      "operation_ordinal": 3,
+      "call_ms": 404.114,
+      "snapshot_cost_ms": 3.823,
+      "snapshot_offset_ms": 110.915,
+      "foreground_generated_chain": [
+        "p7.Fn88",
+        "p4.Fn216",
+        "p6.Fn16624",
+        "p8.Fn16787",
+        "p3.Fn18164",
+        "p1.Fn17711",
+        "p5.Fn17710",
+        "p4.Fn17739",
+        "p2.Fn18458",
+        "p5.Fn7142",
+        "p0.Fn15721",
+        "p0.Fn13464",
+        "p0.Fn13492",
+        "p8.Fn13504",
+        "p7.Fn15184",
+        "p1.Fn14811",
+        "p1.Fn5562",
+        "p1.Fn267",
+        "p5.Fn214"
+      ],
+      "host_wait": "AtomicWait/AtomicWait32At/Futex_wait",
+      "interpretation": "Buffer page get -> read completion wait -> shared-lock slow path; structural correspondence with historical Issue140, not proof of same page, task owner or entire wait history."
+    },
+    {
+      "name": "diagnostic-2-candidate",
+      "db_id": "uca-db-7",
+      "phase": "prepare",
+      "operation_ordinal": 1,
+      "call_ms": 401.03,
+      "snapshot_cost_ms": 4.923,
+      "snapshot_offset_ms": 101.388,
+      "foreground_generated_chain": [
+        "p7.Fn88",
+        "p4.Fn216",
+        "p6.Fn16624",
+        "p8.Fn16787",
+        "p3.Fn18164",
+        "p1.Fn17711",
+        "p5.Fn17710",
+        "p4.Fn17739",
+        "p2.Fn18458",
+        "p5.Fn7142",
+        "p0.Fn15721",
+        "p0.Fn13464",
+        "p0.Fn13492",
+        "p7.Fn13502",
+        "p6.Fn14813",
+        "p1.Fn14811",
+        "p1.Fn5562",
+        "p1.Fn267",
+        "p5.Fn214"
+      ],
+      "host_wait": "AtomicWait/AtomicWait32At/Futex_wait",
+      "interpretation": "Buffer page get -> read completion wait -> shared-lock slow path; structural correspondence with historical Issue140, not proof of same page, task owner or entire wait history."
+    },
+    {
+      "name": "diagnostic-3-baseline",
+      "db_id": "uca-db-7",
+      "phase": "prepare",
+      "operation_ordinal": 1,
+      "call_ms": 400.705,
+      "snapshot_cost_ms": 3.416,
+      "snapshot_offset_ms": 105.037,
+      "foreground_generated_chain": [
+        "p7.Fn88",
+        "p4.Fn216",
+        "p6.Fn16624",
+        "p8.Fn16787",
+        "p3.Fn18164",
+        "p1.Fn18010",
+        "p1.Fn17711",
+        "p5.Fn17710",
+        "p4.Fn17739",
+        "p2.Fn18458",
+        "p5.Fn7142",
+        "p0.Fn15721",
+        "p0.Fn13464",
+        "p0.Fn13492",
+        "p7.Fn13502",
+        "p6.Fn14813",
+        "p1.Fn14811",
+        "p1.Fn5562",
+        "p1.Fn267",
+        "p5.Fn214"
+      ],
+      "host_wait": "AtomicWait/AtomicWait32At/Futex_wait",
+      "interpretation": "Buffer page get -> read completion wait -> shared-lock slow path; structural correspondence with historical Issue140, not proof of same page, task owner or entire wait history."
+    }
+  ]
+}

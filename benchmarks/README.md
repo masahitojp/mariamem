@@ -455,3 +455,5 @@ legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
 [Final v0.4.3 baseline and compact evidence](v043-release-baseline.md).
 
 - [Default UCA private-copy comparison](uca-copy-performance/README.md): same-host Go Pipe startup and shop70 P4/P8; Fork improves, P8 sample tails worsen. Bounded experiment, no adoption claim.
+
+- [UCA P8 tail attribution](uca-p8-attribution/results/README.md): fixed10 observer-off pairs and4 diagnostic pairs; repeated total-time disadvantage, current PREPARE/read-completion path identified in both arms.

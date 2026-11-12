@@ -1,0 +1,305 @@
+{
+  "result": "COMPLETE",
+  "observer_off": {
+    "baseline": {
+      "suite_ms": {
+        "n": 10,
+        "p50": 467.528,
+        "p95": 812.238,
+        "max": 812.238
+      },
+      "cpu_ms": {
+        "n": 10,
+        "p50": 2363.025,
+        "p95": 2440.231,
+        "max": 2440.231
+      },
+      "rss_bytes": {
+        "n": 10,
+        "p50": 740958208.0,
+        "p95": 854376448.0,
+        "max": 854376448.0
+      },
+      "fork_ms": {
+        "n": 210,
+        "p50": 26.940500000000014,
+        "p95": 46.869000000000014,
+        "max": 56.09600000000003
+      },
+      "fork_ms_gt100": 0,
+      "sample_ms": {
+        "n": 210,
+        "p50": 66.96100000000001,
+        "p95": 90.489,
+        "max": 490.627
+      },
+      "sample_ms_gt100": 5,
+      "cleanup_ms": {
+        "n": 200,
+        "p50": 2.9564999999999912,
+        "p95": 7.03400000000002,
+        "max": 15.814000000000021
+      },
+      "cleanup_ms_gt100": 0,
+      "batches_with_sample_gt100": 4
+    },
+    "candidate": {
+      "suite_ms": {
+        "n": 10,
+        "p50": 571.206,
+        "p95": 795.24,
+        "max": 795.24
+      },
+      "cpu_ms": {
+        "n": 10,
+        "p50": 2327.3224999999998,
+        "p95": 2402.8959999999997,
+        "max": 2402.8959999999997
+      },
+      "rss_bytes": {
+        "n": 10,
+        "p50": 743407616.0,
+        "p95": 761774080.0,
+        "max": 761774080.0
+      },
+      "fork_ms": {
+        "n": 210,
+        "p50": 25.773500000000013,
+        "p95": 40.137,
+        "max": 46.70400000000001
+      },
+      "fork_ms_gt100": 0,
+      "sample_ms": {
+        "n": 210,
+        "p50": 67.61599999999999,
+        "p95": 89.661,
+        "max": 486.091
+      },
+      "sample_ms_gt100": 8,
+      "cleanup_ms": {
+        "n": 200,
+        "p50": 3.0319999999999823,
+        "p95": 8.518000000000029,
+        "max": 16.345000000000027
+      },
+      "cleanup_ms_gt100": 0,
+      "batches_with_sample_gt100": 7
+    }
+  },
+  "diagnostic": {
+    "baseline": {
+      "begin": {
+        "count": 84,
+        "gt100": 0,
+        "max_ms": 17.539
+      },
+      "commit": {
+        "count": 84,
+        "gt100": 0,
+        "max_ms": 1.612
+      },
+      "item_insert": {
+        "count": 8400,
+        "gt100": 0,
+        "max_ms": 7.874
+      },
+      "order_insert": {
+        "count": 3360,
+        "gt100": 0,
+        "max_ms": 8.272
+      },
+      "prepare": {
+        "count": 252,
+        "gt100": 3,
+        "max_ms": 410.906
+      },
+      "rollback_cleanup": {
+        "count": 84,
+        "gt100": 0,
+        "max_ms": 0.001
+      },
+      "statement_close": {
+        "count": 252,
+        "gt100": 0,
+        "max_ms": 0.002
+      },
+      "stock_update": {
+        "count": 8400,
+        "gt100": 0,
+        "max_ms": 3.28
+      }
+    },
+    "candidate": {
+      "begin": {
+        "count": 84,
+        "gt100": 0,
+        "max_ms": 23.246
+      },
+      "commit": {
+        "count": 84,
+        "gt100": 0,
+        "max_ms": 1.263
+      },
+      "item_insert": {
+        "count": 8400,
+        "gt100": 0,
+        "max_ms": 11.138
+      },
+      "order_insert": {
+        "count": 3360,
+        "gt100": 0,
+        "max_ms": 3.566
+      },
+      "prepare": {
+        "count": 252,
+        "gt100": 2,
+        "max_ms": 404.114
+      },
+      "rollback_cleanup": {
+        "count": 84,
+        "gt100": 0,
+        "max_ms": 0.001
+      },
+      "statement_close": {
+        "count": 252,
+        "gt100": 0,
+        "max_ms": 0.01
+      },
+      "stock_update": {
+        "count": 8400,
+        "gt100": 0,
+        "max_ms": 6.029
+      }
+    }
+  },
+  "paired": [
+    {
+      "repeat": 0,
+      "baseline": 812.238,
+      "candidate": 460.661,
+      "delta_ms": -351.57700000000006,
+      "pct": -43.2849731236411
+    },
+    {
+      "repeat": 1,
+      "baseline": 564.664,
+      "candidate": 572.446,
+      "delta_ms": 7.782000000000039,
+      "pct": 1.3781647138829456
+    },
+    {
+      "repeat": 2,
+      "baseline": 419.556,
+      "candidate": 769.879,
+      "delta_ms": 350.32300000000004,
+      "pct": 83.49850794649582
+    },
+    {
+      "repeat": 3,
+      "baseline": 481.259,
+      "candidate": 786.095,
+      "delta_ms": 304.836,
+      "pct": 63.34136088883533
+    },
+    {
+      "repeat": 4,
+      "baseline": 453.797,
+      "candidate": 458.154,
+      "delta_ms": 4.356999999999971,
+      "pct": 0.9601209351317808
+    },
+    {
+      "repeat": 5,
+      "baseline": 742.604,
+      "candidate": 784.912,
+      "delta_ms": 42.30799999999999,
+      "pct": 5.69724913951446
+    },
+    {
+      "repeat": 6,
+      "baseline": 441.713,
+      "candidate": 555.219,
+      "delta_ms": 113.50600000000003,
+      "pct": 25.696775960861462
+    },
+    {
+      "repeat": 7,
+      "baseline": 428.317,
+      "candidate": 795.24,
+      "delta_ms": 366.923,
+      "pct": 85.66622384822455
+    },
+    {
+      "repeat": 8,
+      "baseline": 404.12,
+      "candidate": 569.966,
+      "delta_ms": 165.846,
+      "pct": 41.03880035632981
+    },
+    {
+      "repeat": 9,
+      "baseline": 659.505,
+      "candidate": 444.171,
+      "delta_ms": -215.334,
+      "pct": -32.65085177519504
+    }
+  ],
+  "paired_median_pct": 15.69701255018796,
+  "candidate_faster_pairs": 2,
+  "captures": [
+    {
+      "name": "control-0-baseline",
+      "mode": "control",
+      "arm": "baseline",
+      "phase": "positive_control",
+      "operation_ordinal": 0,
+      "usable": true,
+      "matching_db_blocks": 11
+    },
+    {
+      "name": "control-0-candidate",
+      "mode": "control",
+      "arm": "candidate",
+      "phase": "positive_control",
+      "operation_ordinal": 0,
+      "usable": true,
+      "matching_db_blocks": 11
+    },
+    {
+      "name": "diagnostic-0-baseline",
+      "mode": "diagnostic",
+      "arm": "baseline",
+      "phase": "prepare",
+      "operation_ordinal": 1,
+      "usable": true,
+      "matching_db_blocks": 13
+    },
+    {
+      "name": "diagnostic-1-candidate",
+      "mode": "diagnostic",
+      "arm": "candidate",
+      "phase": "prepare",
+      "operation_ordinal": 3,
+      "usable": true,
+      "matching_db_blocks": 13
+    },
+    {
+      "name": "diagnostic-2-candidate",
+      "mode": "diagnostic",
+      "arm": "candidate",
+      "phase": "prepare",
+      "operation_ordinal": 1,
+      "usable": true,
+      "matching_db_blocks": 13
+    },
+    {
+      "name": "diagnostic-3-baseline",
+      "mode": "diagnostic",
+      "arm": "baseline",
+      "phase": "prepare",
+      "operation_ordinal": 1,
+      "usable": true,
+      "matching_db_blocks": 13
+    }
+  ]
+}

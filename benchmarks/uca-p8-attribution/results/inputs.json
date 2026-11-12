@@ -1,0 +1,220 @@
+{
+  "measurement_source_commit": "e997bbb8cd329997cefa6bbfa408a2589a027e0f",
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "cpu": "Apple M1",
+    "memory_bytes": 17179869184,
+    "source_commit": "e997bbb8cd329997cefa6bbfa408a2589a027e0f",
+    "plan": {
+      "question": "Does the adverse P8 sample tail persist without observers, and which SQL call / same-DB execution path is involved?",
+      "decision": "Inform UCA adoption versus hold for a concrete wait issue; do not adopt or fix runtime in this investigation.",
+      "baseline_source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774",
+      "guest_origin_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+      "harness_source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+      "collector_source_commit": "7e6547f95b84b12c608a88c39221da62da4ce256",
+      "workload": "Same shop70 Go Pipe/P8/cap9/16MiB/read1/GOMAXPROCS8/GOGC100; both arms use the same host sources; no SQL, settings or guest changes.",
+      "sampling": {
+        "observer_off_pairs": 10,
+        "observer_off_warmup_pairs": 1,
+        "diagnostic_pairs": 4,
+        "positive_controls": 2,
+        "order": "alternating arms, fixed counts; no tail deletion or outcome-selected retries"
+      },
+      "diagnostics": "Existing SQL-phase collector and one20ms polling watcher, extended to all sample operations. At100ms capture at most one2MiB goroutine profile/process with actual caller entry/return and same-DB labels. Diagnostic wall/CPU is not a speedup benchmark.",
+      "feasibility_control": "Each arm runs actual SQL SLEEP(0.25); require in-window, untruncated profile with matching-DB guest stacks. Wrong DB/window/truncation negative checks before accepting natural captures.",
+      "observations": "Off: batch wall/CPU, Fork/sample/cleanup per-child spans and >100ms counts, peak process RSS. Diagnostic: PREPARE ordinal, order INSERT, item INSERT, stock UPDATE, COMMIT and cleanup, labeled current-source stacks. A point sample cannot prove full wait duration or lock ownership.",
+      "exit": "Finish fixed runs or report missing input. Separate reproduced performance direction, operation attribution and causality. If no usable natural stack, report NO_USABLE_CAPTURE and specific missing evidence; do not expand into new guest patch or queue tracing automatically.",
+      "budget": {
+        "active_hours": 2,
+        "tooling_minutes": 30,
+        "heavy_ci": 0,
+        "guest_c_builds": 0,
+        "disk_gib": 8,
+        "min_free_gib": 6
+      },
+      "measurement_isolation": "Finish builds first; capacity checks between timed processes and150s per-process watchdog. No recursive build-disk polling concurrent with timing."
+    }
+  },
+  "builds": {
+    "baseline": {
+      "runner": {
+        "source": {
+          "object_sha": "500020e7dc6d702ef059f0e73a4bab738103b774",
+          "object_type": "commit",
+          "source_commit": "500020e7dc6d702ef059f0e73a4bab738103b774"
+        },
+        "execution_source": {
+          "object_sha": "e997bbb8cd329997cefa6bbfa408a2589a027e0f",
+          "object_type": "commit",
+          "source_commit": "e997bbb8cd329997cefa6bbfa408a2589a027e0f"
+        },
+        "harness_source": {
+          "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+          "object_type": "commit",
+          "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+        },
+        "harness_files_sha256": {
+          "UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+          "go.mod": "1f3ab0b3a2ac401e3f4db6550bb2020e85877b856c1279effea450b334e85d25",
+          "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+          "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+          "maria/store/analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+          "maria/store/backend_test.go": "c555e82521e1e5228f6dd818d7fe910a276aa55ba73aeeabd62017923258475a",
+          "maria/store/fixture_test.go": "56ea11570c076b613c94bbacb28a10255c5090c093061ede8a0d03cf7b3368f3",
+          "maria/store/fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+          "maria/store/lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa",
+          "maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+          "maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4",
+          "maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+          "maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+          "maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+          "maria/store/read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+          "maria/store/seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+          "maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+          "maria/store/write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72"
+        },
+        "generated_inventory_sha256": "574b951158e3a0008cb6a8885fe7c692a61093989a258e3cc662ba3840e3e678",
+        "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+        "binary_sha256": "894da3a803bce7f7d6dd74bd4ca2e8921c1f7f12beb54302a8fc72e4f0ee7ff6",
+        "binary_size_bytes": 107749234,
+        "generated_files_bytes": {},
+        "buildinfo": "<TEMP>/baseline.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+        "compile_wall_seconds": 185.78789566698833,
+        "buildvcs": false,
+        "source_attribution": "Exact source commit; identical injected harness; candidate isolated installation matches Mac CI full generated inventory; all non-guest product Go/SDK sources equal."
+      },
+      "diagnostic": {
+        "binary_sha256": "1c362744cfce34cd82496f4bf81a6df0be37dcb40635e54c61862514313fbb01",
+        "injection": {
+          "collector_source_commit": "7e6547f95b84b12c608a88c39221da62da4ce256",
+          "before": {
+            "write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72",
+            "read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+            "store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+            "fixture_test.go": "56ea11570c076b613c94bbacb28a10255c5090c093061ede8a0d03cf7b3368f3",
+            "fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+            "backend_test.go": "c555e82521e1e5228f6dd818d7fe910a276aa55ba73aeeabd62017923258475a",
+            "seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+            "analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+            "lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa"
+          },
+          "after": {
+            "write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72",
+            "read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+            "prepare_capture.go": "04b9e9a80a104071a64c3bdbde684cf5eef962951a2446bc6b7a2b5066445f27",
+            "store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+            "sample_observe.go": "97392c31ba4b7546d008258f05adf943033509db47c652a2bd29cbe5ba7b4d51",
+            "fixture_test.go": "4967319ac2bd40c26e9cdbc9049afa842568f7bb71f722c93f5cc851a2e37182",
+            "fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+            "backend_test.go": "de6150983279cbe0079064dbfa4fca4203e17f6e7886d8c87b4348ee123ece63",
+            "seed.go": "c4ad8c54e4d469e590a05e0d8033efd9e41b998e210b224fd0cc340ca10a4b4b",
+            "analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+            "lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa"
+          },
+          "product_changed": false
+        }
+      }
+    },
+    "candidate": {
+      "runner": {
+        "source": {
+          "object_sha": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+          "object_type": "commit",
+          "source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b"
+        },
+        "execution_source": {
+          "object_sha": "e997bbb8cd329997cefa6bbfa408a2589a027e0f",
+          "object_type": "commit",
+          "source_commit": "e997bbb8cd329997cefa6bbfa408a2589a027e0f"
+        },
+        "harness_source": {
+          "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+          "object_type": "commit",
+          "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+        },
+        "harness_files_sha256": {
+          "UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+          "go.mod": "1f3ab0b3a2ac401e3f4db6550bb2020e85877b856c1279effea450b334e85d25",
+          "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+          "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+          "maria/store/analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+          "maria/store/backend_test.go": "c555e82521e1e5228f6dd818d7fe910a276aa55ba73aeeabd62017923258475a",
+          "maria/store/fixture_test.go": "56ea11570c076b613c94bbacb28a10255c5090c093061ede8a0d03cf7b3368f3",
+          "maria/store/fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+          "maria/store/lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa",
+          "maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+          "maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4",
+          "maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+          "maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+          "maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+          "maria/store/read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+          "maria/store/seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+          "maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+          "maria/store/write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72"
+        },
+        "generated_inventory_sha256": "647228b4ba79fca88a3b2d12c9f53ef7ffd13970ddd9446b5a60713320cb4304",
+        "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+        "binary_sha256": "b2054e7cc94cf6e29ae5a38e92dae354f1640062ed65e42b48076a04c5f7b845",
+        "binary_size_bytes": 108508786,
+        "generated_files_bytes": {},
+        "buildinfo": "<TEMP>/candidate.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+        "compile_wall_seconds": 179.7943107499741,
+        "buildvcs": false,
+        "source_attribution": "Exact source commit; identical injected harness; candidate isolated installation matches Mac CI full generated inventory; all non-guest product Go/SDK sources equal."
+      },
+      "diagnostic": {
+        "binary_sha256": "ed404b9bfbe41b4dc7f91f26bcb1106f8ce10624399764a39ba59cb5686a8bb8",
+        "injection": {
+          "collector_source_commit": "7e6547f95b84b12c608a88c39221da62da4ce256",
+          "before": {
+            "write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72",
+            "read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+            "store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+            "fixture_test.go": "56ea11570c076b613c94bbacb28a10255c5090c093061ede8a0d03cf7b3368f3",
+            "fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+            "backend_test.go": "c555e82521e1e5228f6dd818d7fe910a276aa55ba73aeeabd62017923258475a",
+            "seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+            "analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+            "lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa"
+          },
+          "after": {
+            "write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72",
+            "read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+            "prepare_capture.go": "04b9e9a80a104071a64c3bdbde684cf5eef962951a2446bc6b7a2b5066445f27",
+            "store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+            "sample_observe.go": "97392c31ba4b7546d008258f05adf943033509db47c652a2bd29cbe5ba7b4d51",
+            "fixture_test.go": "4967319ac2bd40c26e9cdbc9049afa842568f7bb71f722c93f5cc851a2e37182",
+            "fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+            "backend_test.go": "de6150983279cbe0079064dbfa4fca4203e17f6e7886d8c87b4348ee123ece63",
+            "seed.go": "c4ad8c54e4d469e590a05e0d8033efd9e41b998e210b224fd0cc340ca10a4b4b",
+            "analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+            "lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa"
+          },
+          "product_changed": false
+        }
+      }
+    }
+  },
+  "completion": {
+    "result": "COMPLETE",
+    "processes": 32,
+    "measurement_retries": 0,
+    "adoption": false
+  },
+  "same_observer_off_binaries_as_previous_measurement": true,
+  "same_diagnostic_injection_both_arms": true,
+  "positive_controls": {
+    "actual_SQL_sleep": 2,
+    "wrong_db_rejected": true,
+    "outside_call_rejected": true,
+    "truncated_rejected": true,
+    "no_guest_stack_rejected": true
+  },
+  "limitations": [
+    "Single M1/macOS27.2; no new Linux evidence",
+    "Profiles are point observations, not full wait histories or owner/notify attribution",
+    "Observed diagnostic frequency is not observer-off frequency",
+    "No inference of current page IDs or reuse of old page IDs",
+    "No integration/adoption/release"
+  ]
+}

@@ -22,7 +22,16 @@ P4 suite wall improved in4/5 (-5.04%), but P8 slowed in4/5 (+36.90%).
 P8 sample-insertion spans >100ms increased1→5 of105 children; no Fork exceeded
 100ms. Peak process RSS did not improve. This locates a tail outside Fork, not
 its cause. Recommend a separate bounded P8 sample-wait decision before adoption;
-do not claim uniform overall acceleration or automatically expand the campaign. No new UCA product adoption, main integration,
+do not claim uniform overall acceleration or automatically expand the campaign.
+The authorized [P8 attribution](../benchmarks/uca-p8-attribution/results/README.md)
+now completes ten observer-off pairs and four diagnostic pairs: candidate slower
+in8/10 off pairs (median paired +15.70%), sample >100ms5→8/210 children.
+Four natural profiles bind long PREPAREs to the same read-completion/shared-lock
+wait and host untimed notification branch in both guests. This is the Issue140
+path class, not a reproduced UPDATE/UNDO writer wait. Cause of the candidate's
+higher observer-off incidence remains unknown. Recommendation: retain but hold
+adoption pending a Human tradeoff/next-observation decision; no further campaign
+or runtime fix has been started. No new UCA product adoption, main integration,
 Qualification or release is approved.
 
 ## WASI timer correction and startup reduction — adopted on main
