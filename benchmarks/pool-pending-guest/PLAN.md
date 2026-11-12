@@ -35,3 +35,11 @@ allocation (malloc fast path), not calloc. Uninitialized task.group made the
 synthetic task invalid. Explicit zero initialization and alignment assertions
 are required before submission. Preserve attempt1; perform one bounded harness
 repair/relink, not additional natural sampling. Matrix/oracles remain unchanged.
+
+Second harness attempt reached the final hook-count assertion, then root panic
+prevented normal guest shutdown. One 3s stack-only execution (same binary) showed
+that exact assertion plus ordinary guest background workers awaiting shutdown.
+Unlike the native standalone test, normal guest startup also creates another
+pool. Scope timer suppression to the controlled constructor; filter events by
+its exact pool pointer. Keep normal guest timers untouched. Final harness-only
+repair/relink is bounded; preserve both INVALID attempts and the diagnostic.

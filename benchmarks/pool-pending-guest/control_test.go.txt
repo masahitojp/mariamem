@@ -59,11 +59,21 @@ func TestPendingControlGuest(t *testing.T) {
   var mu sync.Mutex
   start:=time.Now()
   record:=func(name string,pool,worker int32){mu.Lock(); defer mu.Unlock(); row.Events=append(row.Events,pendingEvent{name,float64(time.Since(start).Nanoseconds())/1e6,pool,worker})}
-  base.PendingProbe=func(_ *base.Module,name string,pool,worker int32){record(name,pool,worker)}
+  var manualFactory atomic.Bool
+  var controlledPool atomic.Int32
+  base.PendingTimerManual=func(_ *base.Module)bool{return manualFactory.Load()}
+  base.PendingProbe=func(_ *base.Module,name string,pool,worker int32){
+   if name=="timer_suppressed"&&manualFactory.Load(){controlledPool.Store(pool)}
+   if pool==controlledPool.Load(){record(name,pool,worker)}
+  }
   ran:=false
+  var runErr any
   run:=func(m *base.Module) {
    ran=true
+   defer func(){runErr=recover()}()
+   manualFactory.Store(true)
    pool:=p3.Fn16610(m)
+   manualFactory.Store(false)
    ppAssert(pool!=0 && m.ExcPending==0,"pool constructed")
    p8.Fn16604(m,pool,int32(conc))
    ppAssert(*pp32(m,pool+344)==int32(conc),"effective concurrency")
@@ -141,8 +151,10 @@ func TestPendingControlGuest(t *testing.T) {
   })
   select {case err:=<-done:
    base.PendingProbe=nil
+   base.PendingTimerManual=nil
    if err!=nil {partial,_:=json.MarshalIndent(row,"","  ");os.WriteFile(os.Getenv("PENDING_RESULTS")+".failed",partial,0600);t.Fatalf("%s/%d/%d: %v stderr=%s",arm,conc,rep,err,stderr.String())}
   case <-time.After(10*time.Second): t.Fatalf("%s/%d/%d guest cleanup timeout",arm,conc,rep)}
+  if runErr!=nil {partial,_:=json.MarshalIndent(row,"","  ");os.WriteFile(os.Getenv("PENDING_RESULTS")+".failed",partial,0600);t.Fatal(runErr)}
   if !ran {t.Fatal("ready interception absent")}
   row.MappingsAfter=base.MemoryMappingStats()["active_mappings"]
   if row.MappingsAfter!=row.MappingsBefore {t.Fatal("mapping debt",row)}

@@ -7,7 +7,7 @@ OUT = ROOT.parent / 'temp' / 'overlay'
 OUT.mkdir(parents=True, exist_ok=True)
 bindings = json.loads((HERE / 'bindings.json').read_text())
 replacements = {
- 'Fn16610': [('m.T0[v554].(func(*base.Module, int32, int32, int32))(m, v494, int32(0), v552)', 'if base.PendingProbe == nil { m.T0[v554].(func(*base.Module, int32, int32, int32))(m, v494, int32(0), v552) } else { base.PendingProbe(m, "timer_suppressed", v13, 0) }')],
+ 'Fn16610': [('m.T0[v554].(func(*base.Module, int32, int32, int32))(m, v494, int32(0), v552)', 'if base.PendingTimerManual != nil && base.PendingTimerManual(m) { base.PendingProbe(m, "timer_suppressed", v13, 0) } else { m.T0[v554].(func(*base.Module, int32, int32, int32))(m, v494, int32(0), v552) }')],
  'Fn16595': [('base.AtomicStore32_8(m, l0, int32(408), v25)', 'base.AtomicStore32_8(m, l0, int32(408), v25)\n if base.PendingProbe != nil { base.PendingProbe(m, "pending_clear", l0, l1) }')],
  'Fn16597': [('if v83&v81 != 0 {', 'if v83&v81 != 0 {\n if base.PendingProbe != nil { base.PendingProbe(m, "pending_refusal", l0, 0) }')],
 }
