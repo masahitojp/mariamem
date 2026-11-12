@@ -20,8 +20,9 @@ concurrency1/16. Source tests reject removed begin/end/lock calls and bind the
 complete helper bodies/data. Nested/LONG and exceptional termination remain
 outside the agreed contract. No new general observer is added.
 
-Local runtime results, clean-source attribution and fixed performance comparison
-are pending at this checkpoint. The restored manual workflow performs two
+[Local evidence](local.json) records21 actual-guest cases, daily, smoke, six worker
+controls and clean-source attribution PASS. The [installed-candidate fixed30
+comparison](performance.md) is complete; all observations and limits are retained. The restored manual workflow performs two
 independent C builds, complete regeneration on both product OSes, normal daily
 checks/integration, worker ownership controls and native SQL/child comparison.
 CI submission is a handoff. Main integration and release remain separate.

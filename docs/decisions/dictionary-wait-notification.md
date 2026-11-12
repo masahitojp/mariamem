@@ -134,3 +134,13 @@ guards, guest input/resolver/preparation, dev-guest tooling and preparation
 reproduction controls. Touched Python syntax, both source-only guards,
 public-source boundary and clean diff checks pass. No local compiler/runtime
 or performance campaign was run for this manifest-only repair.
+
+## Installed candidate checkpoint — 2026-11-13
+
+Bootstrap43246097319 passed at e3d020e5. The [installation evidence](../reviews/dictionary-installation/README.md)
+records normal generated installation, unchanged full worker/CRC/data guards,
+the21-case actual-guest regression, normal local verification and the completed
+fixed30 performance comparison. These are new receipts for this installed
+candidate; the earlier prototype evidence remains historical. The canonical
+two-build/full-regeneration and both-OS workflow is prepared for handoff.
+Its acceptance and a separate integration judgment remain outstanding.

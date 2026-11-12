@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "object_sha": "8df45792a927e440972266ee799d6f7223713e14",
+    "object_type": "commit",
+    "source_commit": "8df45792a927e440972266ee799d6f7223713e14"
+  },
+  "candidate": {
+    "object_sha": "4e2ac423118dac3233f7bd90862d56b936a893a4",
+    "object_type": "commit",
+    "source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4"
+  },
+  "harness": {
+    "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+    "object_type": "commit",
+    "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+  },
+  "execution": {
+    "object_sha": "4e2ac423118dac3233f7bd90862d56b936a893a4",
+    "object_type": "commit",
+    "source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4"
+  }
+}

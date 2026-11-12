@@ -18,8 +18,9 @@ Build the minimal candidate from8df45792, retaining unchanged host/API/settings.
 Canonical source bootstrap43246097319 passed at e3d020e5, including the
 repaired dictionary preparation receipt. The [installed checkpoint](reviews/dictionary-installation/README.md)
 records normal generated installation, unchanged worker/CRC/data bindings and
-the actual-guest regression. Local runtime, clean-source attribution, both-OS
-canonical acceptance and the fixed comparison are pending. The bootstrap remains
+the actual-guest regression. Local runtime, daily/smoke, worker controls and
+clean-source attribution pass. The installed-candidate fixed30 comparison is
+complete with all observations retained. Both-OS canonical acceptance is pending. The bootstrap remains
 UNQUALIFIED; no old runtime or performance result is relabeled. Product adoption,
 main integration and release remain separate.
 

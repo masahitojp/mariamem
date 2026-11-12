@@ -1,0 +1,9 @@
++ go build -p 1 -o /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-smoke-1k9vbl75/mariamem-host ./cmd/mariamem-host
++ <PYTHON_ENV>/bin/python tests/live_acceptance/smoke.py --host /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-smoke-1k9vbl75/mariamem-host
+{"result": "PASS_SOURCE_PYTHON_LIVE", "module": "<SOURCE>/python/mariamem/__init__.py", "source_consumed": true, "host_reaped": true, "directory_removed": true, "max_forks": 2, "capacity_timeout_preserved": true, "live_capacity_busy_preserved": true}
++ go run ./tests/live_acceptance/go_consumer -source-smoke
+{"busy_refused":true,"closed_parent_refused":true,"result":"PASS_SOURCE_GO_LIVE","source_consumed":true,"sum_after_reset":1}
++ go test -p 1 -vet=off -tags integration ./tests/godefault -run ^TestInProcess -count=1
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.111s
++ go test -p 1 -vet=off -tags integration ./tests/gointegration -run ^(TestShutdownModeSnapshotAndResnapshot|TestAnalyzeTimerFreshAndFork)$ -count=1
+ok  	github.com/masahitojp/mariamem/tests/gointegration	1.637s
