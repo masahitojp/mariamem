@@ -1,0 +1,45 @@
+{
+  "question": "Can a submission refused during worker creation stay queued after pending clear until a new progress trigger, without any WASIX/Go shim?",
+  "scope": "Controlled native C++ source harness using exact pinned MariaDB generic pool, task/group and wait-notification bodies. Not SQL, a guest build or performance campaign.",
+  "source_commit": "8df45792a927e440972266ee799d6f7223713e14",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_files_sha256": {
+    "task.cc": "350435454e5ff80534a06641f387fb09194da203e62c26b46ecb853e46a34d54",
+    "task_group.cc": "efe0e8153e81aaeac6d39755f84114c35bda1ccacc09ed318515cc5407813b8e",
+    "tpool.h": "f987e9a2c9fbbf798f0039385f6adfedad5c477946552e75ad23d23ef71cbb31",
+    "tpool_generic.cc": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+    "tpool_structs.h": "a23e146c15799960082b27953f7813cd63169afd02c5b487e8e4d4a774198d0f",
+    "wait_notification.cc": "94e4d1d51371db78fe424a78d593489b3270cf883f196ec427be207adb6273a4"
+  },
+  "controls": [
+    "pending_unreported_maintenance",
+    "pending_reported",
+    "late_submit_unreported",
+    "fixed_pool",
+    "pending_unreported_release",
+    "pending_unreported_submit"
+  ],
+  "concurrency": [
+    1,
+    16
+  ],
+  "repetitions": 3,
+  "synthetic_hold_ms": 50,
+  "watchdog_seconds": 20,
+  "exit": "Report exact queued/worker states and rescuing trigger for all fixed cases or concrete harness failure. No natural SQL sampling and no product patch.",
+  "limitations": [
+    "Native standard-library threads/mutexes; not Go translated runtime.",
+    "Timer backend replaced by explicit maintenance invocation; no periodic timer accuracy claim.",
+    "Task callback deliberately blocks; real PREPARE reachability remains unproven.",
+    "my_global/my_pthread/debug/alignment support headers are minimal standalone definitions, not full MariaDB startup."
+  ],
+  "budget": {
+    "tooling_minutes": 30,
+    "guest_builds": 0,
+    "heavy_ci": 0,
+    "native_harness_builds": 1,
+    "disk_gib": 4,
+    "free_gib": 6
+  },
+  "plan_time_utc": "2026-11-12T11:09:48.594241+00:00"
+}
