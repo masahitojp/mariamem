@@ -205,3 +205,15 @@ separate; old pending paragraphs describe their original submission contexts.
 The next local measurement follows the fixed comparison above with active2h,
 tooling30m, no heavy CI, owned disk8GiB/free6GiB budgets. The measurement may
 reproduce Go conversion/installation/build only; no guest C rebuild.
+
+## Fixed Mac comparison completed — 2026-11-12
+
+The [compact report](../../../benchmarks/uca-copy-performance/README.md) records
+all38 warmup/measured processes, six lifecycle pairs and five suite pairs each at
+P4/P8, without retries or removed tails. Both actual Go Pipe route controls and
+all SQL/mapping/scratch checks pass. The runner/checkpoint identities remain exact.
+Fork wall improves in6/6 pairs, but P8 total wall worsens in4/5, with longer
+post-Fork sample-insertion spans. No new UCA adoption decision follows. The report
+records RSS/static growth and the path-bound provenance-only build interruption;
+compiled host bytes match Mac correctness CI exactly. Future wait attribution is
+a separate decision, not an unfinished extra campaign hidden in this checkpoint.

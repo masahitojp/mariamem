@@ -1,0 +1,19 @@
+{
+  "canonical_adapters_unchanged": true,
+  "crc_fixture_experimental_sha256": "d0982f928712ec62e41f33a6c29f2fe55eeed574c9b3c213fc8120de1e095dcf",
+  "crc_fixture_origin_sha256": "69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4",
+  "crc_fixture_relocations": {
+    "copy(mem[15569536:], table)": "copy(mem[16319168:], table)",
+    "m.Memory[26865072:]": "m.Memory[27614704:]"
+  },
+  "execution_source_commit": "30faae54dd62399095616e9b6996fb2d8ec86132",
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "guest_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "host_sha256": "05ccab0bf7ad40cb07c685392cbe70ec71550c52e7e486cf8c8243d4c662033e",
+  "reproduced_candidate_inventory_matches_ci": true,
+  "result": "UNQUALIFIED_HOST_BUILT",
+  "runtime_acceptance": false,
+  "generated_inventory_sha256": "5c393b2098407703f69bc08279916369267d25aed5037e64127f14981e380f85",
+  "runtime_files_match_mac_ci": true,
+  "metadata_exception": "provenance.json; local input digest checked separately"
+}

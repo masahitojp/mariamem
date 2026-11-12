@@ -1,0 +1,11 @@
+{
+  "differences": {
+    "provenance.json": {
+      "local": "48f61a39983a07b32a310035617b39bdba368ba2de4b6d7074c9e52f24c14f82",
+      "ci": "fa4f7aefb49cdf30b7ed38409a3846f923446c036e54a0a8a9451e2cd95c3bc5"
+    }
+  },
+  "runtime_files_match_mac_ci": true,
+  "local_provenance_self_consistent": true,
+  "explanation": "Only provenance.json differs: its input digest includes location-bound installation-inputs.json. All other generated files including code, data, layout and tests are exact Mac CI bytes. No runtime byte exception."
+}

@@ -16,9 +16,13 @@ reSnapshot/disposal checks using the original f4325722 experimental guest.
 passes the same bounded checks on macOS15.8.2 arm64, with the authenticated Ubuntu
 native reference reused (no Mac native server rerun). Both receipts retain their
 original execution/guest identities. Real-guest OOM, lazy initialization-order
-and complete BSS-name proofs remain outside these claims. The Human authorized
-continuing to the fixed observer-off Fork/complete-suite comparison; performance
-is not yet established. No new UCA product adoption, main integration,
+and complete BSS-name proofs remain outside these claims. The authorized [fixed Mac comparison](../benchmarks/uca-copy-performance/README.md)
+is complete: lifecycle Fork wall improved in6/6 pairs (median paired -6.76%);
+P4 suite wall improved in4/5 (-5.04%), but P8 slowed in4/5 (+36.90%).
+P8 sample-insertion spans >100ms increased1→5 of105 children; no Fork exceeded
+100ms. Peak process RSS did not improve. This locates a tail outside Fork, not
+its cause. Recommend a separate bounded P8 sample-wait decision before adoption;
+do not claim uniform overall acceleration or automatically expand the campaign. No new UCA product adoption, main integration,
 Qualification or release is approved.
 
 ## WASI timer correction and startup reduction — adopted on main

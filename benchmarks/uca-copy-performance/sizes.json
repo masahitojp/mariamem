@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "runner_bytes": 107749234,
+    "image_memory_bytes": 268435456,
+    "image_begin": 8388608,
+    "image_end": 26996736,
+    "image_envelope_bytes": 18608128,
+    "data_end": 18013433
+  },
+  "candidate": {
+    "runner_bytes": 108508786,
+    "image_memory_bytes": 268435456,
+    "image_begin": 8388608,
+    "image_end": 27746304,
+    "image_envelope_bytes": 19357696,
+    "data_end": 18763065,
+    "guest_wasm_bytes": 21928598,
+    "translation_data_bytes": 10374427
+  }
+}

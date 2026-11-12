@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "result": "PASS",
+    "raw_record_sha256": "0ad04b23e576e933986c5dbdd3007f07992cfe8e8012eccd99aeeb9d18704257",
+    "rows": 6,
+    "subsequent_select": "PASS",
+    "active_mappings_after": 0,
+    "scratch_empty": true,
+    "go_pipe": true
+  },
+  "candidate": {
+    "result": "PASS",
+    "raw_record_sha256": "c5bd3f9d2775a1eab6c9ccf67b52eccc7686fb79ad8e81df6d0f12118a36db09",
+    "rows": 6,
+    "subsequent_select": "PASS",
+    "active_mappings_after": 0,
+    "scratch_empty": true,
+    "go_pipe": true
+  }
+}

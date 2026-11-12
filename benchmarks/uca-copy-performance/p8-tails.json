@@ -1,0 +1,92 @@
+[
+  {
+    "repeat": 0,
+    "arm": "baseline",
+    "suite_ms": 455.789,
+    "sample_p50_ms": 67.88999999999999,
+    "sample_max_ms": 87.43100000000004,
+    "sample_gt100ms": 0,
+    "fork_max_ms": 53.613999999999976
+  },
+  {
+    "repeat": 0,
+    "arm": "candidate",
+    "suite_ms": 455.279,
+    "sample_p50_ms": 73.63099999999997,
+    "sample_max_ms": 97.463,
+    "sample_gt100ms": 0,
+    "fork_max_ms": 35.56400000000002
+  },
+  {
+    "repeat": 1,
+    "arm": "candidate",
+    "suite_ms": 772.851,
+    "sample_p50_ms": 68.27800000000002,
+    "sample_max_ms": 478.659,
+    "sample_gt100ms": 2,
+    "fork_max_ms": 49.39299999999999
+  },
+  {
+    "repeat": 1,
+    "arm": "baseline",
+    "suite_ms": 454.041,
+    "sample_p50_ms": 72.506,
+    "sample_max_ms": 98.292,
+    "sample_gt100ms": 0,
+    "fork_max_ms": 62.33699999999999
+  },
+  {
+    "repeat": 2,
+    "arm": "baseline",
+    "suite_ms": 734.887,
+    "sample_p50_ms": 71.34899999999999,
+    "sample_max_ms": 490.99199999999996,
+    "sample_gt100ms": 1,
+    "fork_max_ms": 48.741
+  },
+  {
+    "repeat": 2,
+    "arm": "candidate",
+    "suite_ms": 829.039,
+    "sample_p50_ms": 63.817999999999984,
+    "sample_max_ms": 482.883,
+    "sample_gt100ms": 1,
+    "fork_max_ms": 48.268
+  },
+  {
+    "repeat": 3,
+    "arm": "candidate",
+    "suite_ms": 673.845,
+    "sample_p50_ms": 68.31700000000001,
+    "sample_max_ms": 474.285,
+    "sample_gt100ms": 1,
+    "fork_max_ms": 31.467000000000013
+  },
+  {
+    "repeat": 3,
+    "arm": "baseline",
+    "suite_ms": 427.22,
+    "sample_p50_ms": 68.923,
+    "sample_max_ms": 94.56,
+    "sample_gt100ms": 0,
+    "fork_max_ms": 40.317999999999984
+  },
+  {
+    "repeat": 4,
+    "arm": "baseline",
+    "suite_ms": 415.445,
+    "sample_p50_ms": 72.55800000000002,
+    "sample_max_ms": 93.31,
+    "sample_gt100ms": 0,
+    "fork_max_ms": 37.129999999999995
+  },
+  {
+    "repeat": 4,
+    "arm": "candidate",
+    "suite_ms": 568.748,
+    "sample_p50_ms": 64.16699999999997,
+    "sample_max_ms": 445.00100000000003,
+    "sample_gt100ms": 1,
+    "fork_max_ms": 40.976
+  }
+]
