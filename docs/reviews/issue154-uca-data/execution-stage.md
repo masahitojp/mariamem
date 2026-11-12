@@ -79,3 +79,36 @@ checks; Python AST, workflow shell syntax, Go fixture gofmt,
 source/ABI difference inspection and diff check. No runtime PASS is claimed.
 Full generated sources/logs remain short-lived CI artifacts. Preserve only compact
 receipt/hash/analysis in the repository. Submit the run URL and stop monitoring.
+
+## First execution failure — CRC test fixture relocation
+
+[CI43132716457](https://github.com/masahitojp/mariamem/actions/runs/43132716457)
+at c83e8c77353649d346ed8153c01873799d855a87, job130900504503, successfully
+collected native12.3.3 SQL reference, reproduced the exact candidate inventory,
+installed the experimental bindings and built host SHA256
+`fe4d0332a57f38457c22fdac42ff8e95b0a420312f1603ffa550860c8f67614d`.
+Artifact13906067943 ZIP SHA256
+`e548f23948d0518bab0597ff7f319399348595102c454d42530cea5e01d38b3f`
+was verified locally. CRC calculation passed832 length/alignment cases plus
+independent bitwise/known-vector checks. Page validation then failed on the first
+payload mutation (size4096, offset0, original=0, fast=0). Actual UCA/worker tests
+and guest native-SQL/children/reSnapshot acceptance did **not** execute.
+
+The experimental runner overlooked two absolute addresses in the inherited
+`crc32c_test.go` setup: the lookup table was copied to15569536 instead of16319168,
+and page size was written to26865072 instead of27614704. These are the same
++749632 relocations already recorded for the validator. The fresh fixture memory
+is zero-filled, so the validator read an unset page size and an uninitialized
+table while the test wrote to the old positions. Agreement between original and
+fast validators alone did not hide this: the independent corruption oracle
+correctly failed. This is an experiment fixture omission, not evidence of a
+product CRC regression or of UCA correctness.
+
+The fix transforms only the isolated test copy after checking the complete
+original fixture SHA256. Its two setup literals change; all remaining bytes,
+including every rejection/LSN/memory-mutation assertion, are preserved. Canonical
+test/adapter/guest/runtime files remain unchanged. Installation records both
+fixture hashes and the explicit replacements. Eleven focused tests pass,
+including changed-oracle and already-rebound fixture rejection; syntax and Go
+format checks pass. The runtime fix is pending one corrected Ubuntu submission
+under the same60-minute ceiling; no C rebuild, broader campaign or release.

@@ -1,4 +1,5 @@
 """Negative guards for the one-guest experimental runtime binding."""
+import json
 from pathlib import Path
 import sys
 import pytest
@@ -41,3 +42,29 @@ def test_changed_function_and_table_fail_closed():
         c.function('func Fn18145() {}\n')
     with pytest.raises(ValueError, match='table binding'):
         c.validate_inputs(b.GUEST, b'')
+
+
+def test_crc_fixture_relocation_preserves_all_oracles():
+    path = ROOT/'internal/generatedgo/code/p4/crc32c_test.go'
+    original = path.read_text()
+    updated = b.crc_test_source(original)
+    # Restore only the two setup literals: every other byte must agree,
+    # including the independent expected rejection of corrupt payloads.
+    restored = updated
+    for before, after in b.CRC_TEST_RELOCATIONS.items():
+        assert updated.count(after) == 1 and before not in updated
+        restored = restored.replace(after, before)
+    assert restored == original
+    assert 'mutation != "valid" && old == 0' in updated
+    assert path.read_text() == original
+    assert 8388608 + b.CRC_OFFSET == 16319168
+    pairs = json.loads((ROOT/'docs/reviews/issue154-uca-data/ci-43105781665.json').read_text())['local_source_comparison']['crc']['integer_changes']
+    assert [26865072, 27614704] in pairs
+
+
+def test_changed_crc_fixture_oracle_rejected():
+    original = (ROOT/'internal/generatedgo/code/p4/crc32c_test.go').read_text()
+    with pytest.raises(ValueError, match='unreviewed original CRC test fixture'):
+        b.crc_test_source(original.replace('mutation != "valid" && old == 0', 'false'))
+    with pytest.raises(ValueError, match='unreviewed original CRC test fixture'):
+        b.crc_test_source(b.crc_test_source(original))

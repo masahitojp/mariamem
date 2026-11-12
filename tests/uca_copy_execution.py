@@ -113,6 +113,10 @@ def main():
             raise ValueError('host guest identity anchor changed')
         kind.write_text(text.replace(old, 'const GuestSHA256 = "'+binding.GUEST+'"'))
         shutil.copy2(HERE/'tests/uca_copy_actual_test.go.txt', product/'internal/generatedgo/uca_copy_actual_test.go')
+        # Canonical page-validation tests contain guest-address fixture setup.
+        # Rebind the isolated test copy too; never weaken the corruption oracle.
+        crc_test = product/'internal/generatedgo/code/p4/crc32c_test.go'
+        crc_test.write_text(binding.crc_test_source(crc_test.read_text()))
         host = out/'mariamem-uca-copy-host'
         run(['go', 'build', '-p', '1', '-trimpath', '-buildvcs=false', '-o', host, './cmd/mariamem-host'], cwd=product)
         info = json.loads(subprocess.check_output([host, '--snapshot-info'], env=env, text=True))
@@ -123,6 +127,9 @@ def main():
         write(out/'installation.json', {'result': 'UNQUALIFIED_HOST_BUILT', 'guest_source_commit': binding.ORIGIN,
               'execution_source_commit': execution_identity['commit'], 'guest_sha256': binding.GUEST,
               'host_sha256': digest(host), 'canonical_adapters_unchanged': True,
+              'crc_fixture_origin_sha256': binding.CRC_TEST_SOURCE_SHA256,
+              'crc_fixture_experimental_sha256': digest(crc_test),
+              'crc_fixture_relocations': binding.CRC_TEST_RELOCATIONS,
               'reproduced_candidate_inventory_matches_ci': True,
               'generated_inventory': inventory(product/'internal/generatedgo'), 'runtime_acceptance': False})
     except BaseException as exc:

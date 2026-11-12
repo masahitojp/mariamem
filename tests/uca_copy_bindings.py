@@ -38,3 +38,21 @@ def load(origin):
     modules['runtime_crc32c'].BODY_SHA256 = CRC_BODY
     modules['runtime_crc32c'].TABLE_OFFSET = CRC_OFFSET
     return modules
+
+
+CRC_TEST_SOURCE_SHA256 = '69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4'
+CRC_TEST_RELOCATIONS = {
+    'copy(mem[15569536:], table)': 'copy(mem[16319168:], table)',
+    'm.Memory[26865072:]': 'm.Memory[27614704:]',
+}
+
+
+def crc_test_source(text):
+    """Rebind only fixture setup addresses; preserve every test oracle byte."""
+    if hashlib.sha256(text.encode()).hexdigest() != CRC_TEST_SOURCE_SHA256:
+        raise ValueError('unreviewed original CRC test fixture')
+    for before, after in CRC_TEST_RELOCATIONS.items():
+        if text.count(before) != 1 or after in text:
+            raise ValueError('CRC test fixture relocation anchor changed')
+        text = text.replace(before, after, 1)
+    return text
