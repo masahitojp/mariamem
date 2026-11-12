@@ -1,0 +1,250 @@
+{
+  "source": {
+    "object_sha": "3069c533ee0c7b4ebb87c32f1d6421ecd875f846",
+    "object_type": "commit",
+    "source_commit": "3069c533ee0c7b4ebb87c32f1d6421ecd875f846"
+  },
+  "plan": {
+    "question": "After Human acceptance of UCA private-copy, identify what existing Issue140 evidence already proves and the next unmeasured progress condition; do not repeat a timing-only campaign.",
+    "scope": "Rebind the existing request/park observer to the accepted UCA guest and record actual worker admission/creation/maintenance progress. Diagnostic only; canonical runtime unchanged.",
+    "inputs": {
+      "uca_attribution": "e556c36570e1be023f8a9c8243381c6605079592",
+      "baseline": "500020e7dc6d702ef059f0e73a4bab738103b774",
+      "upstream": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "prior_global_admission": "bcab9e6e07f9bf237c98a39eeba62cbcfd1e3997",
+      "residual_after_cap_patch": "260633b8c36078d5830983217ec2ed53a2c61920"
+    },
+    "exit": "Bind a >100ms foreground read to outer rejection, actual creation/wake outcome, worker scheduling or downstream wait. If not captured, report NOT_REPRODUCED; if rebind exceeds tooling budget, record exact blocker, no fabricated runtime PASS.",
+    "budget": {
+      "active_minutes_max": 120,
+      "tooling_minutes_max": 30,
+      "heavy_ci_max": 0,
+      "guest_builds_max": 0,
+      "workspace_gib_max": 8,
+      "minimum_free_gib": 6
+    },
+    "issue": 156,
+    "execution": {
+      "guest_origin": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+      "toolchain": "go1.26.10",
+      "harness": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+      "transport": "Pipe",
+      "parallel": 8,
+      "cap": 9,
+      "pool_mib": 16,
+      "read_threads": 1,
+      "control_runs": 1,
+      "natural_runs_max": 8,
+      "diagnostic_workload_builds_max": 1,
+      "retry_runs": 0
+    }
+  },
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "binary_sha256": "1ca2cf8514bb075da430c386502a300541ada08b479bc1ac47d27dc7d23830c1",
+  "installation": {
+    "canonical_adapters_unchanged": true,
+    "crc_fixture_experimental_sha256": "d0982f928712ec62e41f33a6c29f2fe55eeed574c9b3c213fc8120de1e095dcf",
+    "crc_fixture_origin_sha256": "69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4",
+    "crc_fixture_relocations": {
+      "copy(mem[15569536:], table)": "copy(mem[16319168:], table)",
+      "m.Memory[26865072:]": "m.Memory[27614704:]"
+    },
+    "execution_source_commit": "5fb68c2c4eab976d3d8eaaf09d742bca222cef17",
+    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "guest_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+    "host_sha256": "05ccab0bf7ad40cb07c685392cbe70ec71550c52e7e486cf8c8243d4c662033e",
+    "reproduced_candidate_inventory_matches_ci": true,
+    "result": "UNQUALIFIED_HOST_BUILT",
+    "runtime_acceptance": false
+  },
+  "overlay_sha256": "7565d6e8b6a02d2bf90043574ff9647a2d6e01efe3d91124c3f4de87a951b2f2",
+  "retention": "All queue durations as exact microsecond histograms; all spawn intervals; per-run census; selected actual event windows. Full request/worker raw event streams reduced after generation-binding check; not reconstructible from histograms.",
+  "unit": "Focused read/dispatch/progress -race PASS",
+  "binary_build_count": 1,
+  "invalid_startup_attempts": [
+    {
+      "result": "INVALID_INPUT_BEFORE_SUITE",
+      "reason": "SHOP_PARALLEL omitted; Snapshot cap preflight rejected it before test cases. SLEEP was invoked but profile was not serialized before panic; not a PASS.",
+      "natural_suites": 0,
+      "binary_changed": false,
+      "console_sha256": "a901063004de0c46bebc863d3e78cc15ba889bddf919dec8ec66725f12cda09f"
+    },
+    {
+      "result": "INVALID_INPUT_BEFORE_CAPTURE_CONTROL",
+      "reason": "ISSUE88_POOL_MIB omitted; checkSettings rejected empty expected value before SLEEP/control or any test case",
+      "natural_suites": 0,
+      "binary_changed": false,
+      "console_sha256": "2bbf7a535254c01abc9a14e61644c530bceb9c03add08bf7a3e7cebbfb0209e5"
+    }
+  ],
+  "raw_files": {
+    "control/capture-0.json": {
+      "sha256": "2686cfd9daa3a336456e6dbaaf78fa9765dacf400e3c0cce2f7dcca76e81abb7",
+      "bytes": 348
+    },
+    "control/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "control/profile-0.txt": {
+      "sha256": "02190e08b9a608003c8a8e756bd3850c6ff3e61094e492bd5ec389babda9e4b1",
+      "bytes": 29454
+    },
+    "control/read.json": {
+      "sha256": "8b392efae6351d7e27411ae0506723a7c76472a39652889924292aabe12c0046",
+      "bytes": 25357601
+    },
+    "control/sql.json": {
+      "sha256": "28b62ef02d9b07f02ba1d95762a39435548a08eb3209a2a4eb8682ac2c2fda6c",
+      "bytes": 25252
+    },
+    "control/trace.json": {
+      "sha256": "bbed96973756571fbea8b0534b0cedf317f01e72f28a3d7f406dbc4f7aa7e95f",
+      "bytes": 21116
+    },
+    "invalid-parallel-preflight/assessment.json": {
+      "sha256": "63c95ce275cb5e01cc6f21e1f254925c023f81df2d498998cb323e91ed0ec964",
+      "bytes": 350
+    },
+    "invalid-parallel-preflight/console.txt": {
+      "sha256": "a901063004de0c46bebc863d3e78cc15ba889bddf919dec8ec66725f12cda09f",
+      "bytes": 698
+    },
+    "invalid-preflight/assessment.json": {
+      "sha256": "ddabd473db350716c7e0f4e7a579de1f131f0148558cfce5d67aa09ff180d54d",
+      "bytes": 316
+    },
+    "invalid-preflight/console.txt": {
+      "sha256": "2bbf7a535254c01abc9a14e61644c530bceb9c03add08bf7a3e7cebbfb0209e5",
+      "bytes": 721
+    },
+    "natural-1/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-1/read.json": {
+      "sha256": "a315aa5d4a225a070669cd38caf41b04617cb187fdb1c45a274a7f3afadf9767",
+      "bytes": 22772112
+    },
+    "natural-1/sql.json": {
+      "sha256": "41b4a2462d7e5e202cab01db5d80eee193a7c294a6a43f1086e91e1b2449e373",
+      "bytes": 25236
+    },
+    "natural-1/trace.json": {
+      "sha256": "07545bd21a622466dc00919f8e6ef0ab7144fa1b3a69f7f7ccb4462285d51e2e",
+      "bytes": 21136
+    },
+    "natural-2/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-2/read.json": {
+      "sha256": "5faffea2db6965853b76f8232a53955c2740a0ea8f899772082b1c1a9749704c",
+      "bytes": 22780052
+    },
+    "natural-2/sql.json": {
+      "sha256": "77b5caf048b604449550414a862c0d5a48cab64ec20b4d471e260d4e92462e0f",
+      "bytes": 25953
+    },
+    "natural-2/trace.json": {
+      "sha256": "d93a29735bdf6e88eb072515516eb282677a8870c6b6ffb8546a8107d2629a29",
+      "bytes": 21118
+    },
+    "natural-3/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-3/read.json": {
+      "sha256": "55f51dd4c5824752d1d7371b0917ee6dd21f1dc315eb4ed85c3c20efd61cf8e2",
+      "bytes": 22479006
+    },
+    "natural-3/sql.json": {
+      "sha256": "bbbdfed82cf0ae6294881f786fc3cc35623f7424320d2f5480f89c758688d978",
+      "bytes": 25657
+    },
+    "natural-3/trace.json": {
+      "sha256": "9794b10e9148817c949a4d6893a6786b440c65d0af84c7da649a092367729d15",
+      "bytes": 21129
+    },
+    "natural-4/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-4/read.json": {
+      "sha256": "17446359ff8b9fe62a91f0b0b6be620548a5618e39bc2a106b57ab93226b8a10",
+      "bytes": 20367972
+    },
+    "natural-4/sql.json": {
+      "sha256": "b0570142572974689fb6893bdb4b64add2fcf8af7e2824b504d04a600e71986c",
+      "bytes": 25431
+    },
+    "natural-4/trace.json": {
+      "sha256": "e877111a43c582ead205fef986c94ea5c1d95116ae5829995483bc6cc18a1e90",
+      "bytes": 21120
+    },
+    "natural-5/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-5/read.json": {
+      "sha256": "f16358afe8a34d78da9e78ceeab00f3e54c15abd072f0df039aeb55cba39a11a",
+      "bytes": 22580461
+    },
+    "natural-5/sql.json": {
+      "sha256": "f7910ef9462acd0753f7e8728edf5aece85a41e0bc6870d06410697ad1a79630",
+      "bytes": 25337
+    },
+    "natural-5/trace.json": {
+      "sha256": "7188750a9f7dc2116c73e69bdce182cbc2262c902676b06d882a22a6685df5f5",
+      "bytes": 21140
+    },
+    "natural-6/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-6/read.json": {
+      "sha256": "814a825f538520d8be4b2234119c4c1d447e9ec4f9257c8bc77154174f6de4b5",
+      "bytes": 23595596
+    },
+    "natural-6/sql.json": {
+      "sha256": "27391c769c8b28b142819a96b9043da1af285ece81ad051736aeed46102938d9",
+      "bytes": 25441
+    },
+    "natural-6/trace.json": {
+      "sha256": "2b862efe8d4c79001da448b3402d7d97bbb95f05fbca8b9c168d9ab6673ae247",
+      "bytes": 21125
+    },
+    "natural-7/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-7/read.json": {
+      "sha256": "10036d732973e6a50f94601148cf31c1b2f8dfe3f9e98460464ea8d5eec6fedc",
+      "bytes": 23958137
+    },
+    "natural-7/sql.json": {
+      "sha256": "8f82af9be76233819a9adbec0b309140ce5b8346361d75ea5a42eea93393c1d0",
+      "bytes": 25513
+    },
+    "natural-7/trace.json": {
+      "sha256": "a5c3fafd428f4d8fe63ca714c31bbcfe1934f1a56150ccb84096e4500fe0983c",
+      "bytes": 21121
+    },
+    "natural-8/console.txt": {
+      "sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "bytes": 5
+    },
+    "natural-8/read.json": {
+      "sha256": "fed8fd5452163f65b21de5735e0814750a6b578388ebdc25faf3c431a1cef5d4",
+      "bytes": 24158149
+    },
+    "natural-8/sql.json": {
+      "sha256": "522f00b1687a3a82669d3c16e9dbb0499b198bb49a2b181a339a0a9b7f20cbbb",
+      "bytes": 25436
+    },
+    "natural-8/trace.json": {
+      "sha256": "802ea7239d416ca6ef9d80f1f5e218811b756a754969b41335c21ffdb9f61503",
+      "bytes": 21104
+    }
+  }
+}

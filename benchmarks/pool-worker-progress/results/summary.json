@@ -1,0 +1,41 @@
+{
+  "result": "NOT_REPRODUCED_FOREGROUND_TAIL",
+  "valid_processes": 9,
+  "sql_cases": 630,
+  "natural_batches": 8,
+  "natural_prepares": 504,
+  "natural_prepare_ge100ms": 0,
+  "natural_read_requests": 28174,
+  "queue_stage_samples": 56348,
+  "global_us": {
+    "p50": 930,
+    "p95": 6169,
+    "p99": 10354,
+    "max": 22790,
+    "ge100ms": 0
+  },
+  "pending_rejections": 88393,
+  "outer_rejections": 4319,
+  "created_workers": 1927,
+  "spawn_actors": {
+    "submit": 1889,
+    "wait_begin": 37,
+    "maintenance": 1
+  },
+  "spawn_call_to_worker_enter_us": {
+    "p50": 284,
+    "p95": 6445,
+    "max": 21818
+  },
+  "worker_enter_to_init_return_us": {
+    "p50": 1,
+    "p95": 8,
+    "max": 12893
+  },
+  "spawn_call_to_pending_clear_us": {
+    "p50": 292,
+    "p95": 6588,
+    "max": 21822
+  },
+  "limits": "Diagnostic counts are correlated; no incidence/performance comparison or proof that a missing maintenance cycle caused prior tails. Histograms cannot reconstruct the discarded whole request timeline."
+}

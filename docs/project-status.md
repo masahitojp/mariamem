@@ -29,6 +29,18 @@ stays deferred. The source follow-up reuses saved profiles and traces, with no
 new performance result or runtime fix. Resolving that tail is not an added UCA
 adoption prerequisite.
 
+The Human then authorized the worker-progress hypothesis as
+[Issue156](https://github.com/masahitojp/mariamem/issues/156). Its
+[finite diagnostic](../benchmarks/pool-worker-progress/README.md) completes one
+valid control plus eight natural suites on the accepted experimental UCA guest:
+630 cases/cleanup pass, but0/504 natural PREPAREs reach100ms. Creation-pending
+refusals are observed; global read-queue max22.790ms and all observed worker
+lifetimes complete. This is NOT_REPRODUCED for the long foreground tail, not a
+fix or a negation of the earlier observer-off P8 disadvantage. No additional
+sampling or runtime change follows automatically. Issue140 remains the residual
+owner; a controlled pending-clear/task-wait interleaving is the next proposed
+investigation, not a new UCA adoption/release condition.
+
 ## WASI timer correction and startup reduction — adopted on main
 
 On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)

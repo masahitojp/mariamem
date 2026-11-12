@@ -1,0 +1,18 @@
+{
+  "read_before": null,
+  "read_after": null,
+  "db_id": "uca-db-1",
+  "lane": "positive_control",
+  "phase": "positive_control",
+  "operation_ordinal": 0,
+  "call_enter_us": 117903,
+  "call_return_us": 370987,
+  "snapshot_begin_us": 218947,
+  "snapshot_end_us": 220723,
+  "truncated": false,
+  "bytes": 29454,
+  "profile_file": "profile-0.txt",
+  "original_profile_sha256": "02190e08b9a608003c8a8e756bd3850c6ff3e61094e492bd5ec389babda9e4b1",
+  "retained_profile_sha256": "f7e55dbf2879a479a10845ab45033a9702f55cc43c9287ebcdb3be4f8acd742a",
+  "selection": "complete matching-DB blocks only"
+}
