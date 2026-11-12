@@ -50,5 +50,9 @@
   "Fn16610": {
     "path": "internal/generatedgo/code/p3/p3_pure.go",
     "sha256": "f10cd98b2d05c4f94ded72616516a66e89ad0792388d621f06b10f6f113f5448"
+  },
+  "Fn157": {
+    "path": "internal/generatedgo/code/p8/p8_pure.go",
+    "sha256": "19b63b9a0686a1a5ff90b010ea2dae674d3c276f976d4c506f333f392aadb562"
   }
 }

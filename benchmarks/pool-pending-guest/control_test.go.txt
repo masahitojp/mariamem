@@ -71,9 +71,11 @@ func TestPendingControlGuest(t *testing.T) {
    p5.Fn16603(m,pool)
    initEntered,initRelease,aStarted,bDone:=make(chan struct{}),make(chan struct{}),make(chan struct{}),make(chan struct{})
    var created,retired,refs atomic.Int32
-   scratch:=p8.Fn157(m,1,64)
-   table:=p8.Fn157(m,1,12)
-   taskA,taskB:=p8.Fn157(m,1,16),p8.Fn157(m,1,16)
+   // Fn157 is aligned allocation, NOT calloc. Explicitly initialize every byte.
+   allocate:=func(n int32)int32 {p:=p8.Fn157(m,16,n);ppAssert(p!=0&&p%16==0,"aligned allocation");base.MemoryFill(m,p,0,n);return p}
+   scratch:=allocate(64)
+   table:=allocate(12)
+   taskA,taskB:=allocate(16),allocate(16)
    ppAssert(scratch!=0&&table!=0&&taskA!=0&&taskB!=0,"allocations")
    add:=func(f any)int32 {i:=int32(len(m.T0)); m.T0=append(m.T0,f);return i}
    originalInit:=m.T0[*pp32(m,pool+12)].(func(*base.Module))
@@ -89,6 +91,7 @@ func TestPendingControlGuest(t *testing.T) {
     if arm=="pending_reported" {record("wait_begin",pool,0);p7.Fn16606(c,pool)}
     close(aStarted)
     for atomic.LoadInt32(pp32(c,scratch))==0 {
+     record("futex_wait",pool,0)
      rc:=c.Wasix_32v1.Futex_wait(c,scratch,0,scratch+8,scratch+24)
      ppAssert(rc==0,"futex wait errno")
     }
@@ -138,7 +141,7 @@ func TestPendingControlGuest(t *testing.T) {
   })
   select {case err:=<-done:
    base.PendingProbe=nil
-   if err!=nil {t.Fatalf("%s/%d/%d: %v stderr=%s",arm,conc,rep,err,stderr.String())}
+   if err!=nil {partial,_:=json.MarshalIndent(row,"","  ");os.WriteFile(os.Getenv("PENDING_RESULTS")+".failed",partial,0600);t.Fatalf("%s/%d/%d: %v stderr=%s",arm,conc,rep,err,stderr.String())}
   case <-time.After(10*time.Second): t.Fatalf("%s/%d/%d guest cleanup timeout",arm,conc,rep)}
   if !ran {t.Fatal("ready interception absent")}
   row.MappingsAfter=base.MemoryMappingStats()["active_mappings"]

@@ -26,3 +26,12 @@ construction fails, preserve failure and missing step rather than broaden scope.
 macOS arm64 only. End with compact cases/events/source bindings; clean owned
 cache/test binary/overlay. Keep #156 open until original-tail attribution or
 an explicit disposition; a controlled PASS alone cannot close it.
+
+## Harness preflight correction
+
+Initial diagnostic build succeeded; first case was INVALID before A started,
+with an unaligned-atomic trap. Source inspection showed Fn157 is aligned
+allocation (malloc fast path), not calloc. Uninitialized task.group made the
+synthetic task invalid. Explicit zero initialization and alignment assertions
+are required before submission. Preserve attempt1; perform one bounded harness
+repair/relink, not additional natural sampling. Matrix/oracles remain unchanged.
