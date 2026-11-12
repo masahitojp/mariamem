@@ -6,8 +6,8 @@ sys.path.insert(0,str(S/'scripts'))
 from experiment_disk import DiskGuard
 # Guard scans run before/after processes, not concurrently with timed workload.
 g=DiskGuard(W,6,8);g.check()
-env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','ISSUE','TIMER','SAMPLE','MODELCASE','READ_','FORK_STAGE'))}
-env.update(GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOMAXPROCS='8',GOGC='100',ISSUE88_POOL_MIB='16',ISSUE88_SAMPLE_PHASES='1',ISSUE68_CAPTURE='1',TMPDIR=str(T/'run-scratch'))
+env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','ISSUE','TIMER','SAMPLE','MODELCASE','READ_','FORK_STAGE','SHOP_','ANALYZE_'))}
+env.update(GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOMAXPROCS='8',GOGC='100',SHOP_PARALLEL='8',FORK_STAGES='0',ISSUE88_POOL_MIB='16',ISSUE88_SAMPLE_PHASES='1',ISSUE68_CAPTURE='1',TMPDIR=str(T/'run-scratch'))
 (T/'run-scratch').mkdir(exist_ok=True)
 identity=json.loads(subprocess.check_output([sys.executable,S/'scripts/git_identity.py','inspect','HEAD'],cwd=S))
 assert not subprocess.check_output(['git','status','--porcelain'],cwd=S)
@@ -30,6 +30,9 @@ for i in range(9):
  for c in caps:
   assert c['call_enter_us']<=c['snapshot_begin_us']<=c['snapshot_end_us']<=c['call_return_us'] and not c['truncated']
   assert c['bytes']==(d/c['profile_file']).stat().st_size
+  profile=(d/c['profile_file']).read_text()
+  matching=[b for b in profile.split('\n\n') if any(line.startswith('# labels: ') and json.loads(line[10:]).get('db_id')==c['db_id'] for line in b.splitlines())]
+  assert any('/internal/generatedgo/code/p' in b for b in matching) and not c.get('error')
  if control:assert len(caps)==1 and caps[0]['phase']=='positive_control'
  longcalls=[{'db':l['db_id'],'lane':l['lane'],'phase':phase,'ordinal':j+1,'us':n} for l in sql for phase,values in l['durations_us'].items() for j,n in enumerate(values) if n>=100000]
  row={'name':name,'wall_ms':trace['elapsed_ms'],'long_calls':longcalls,'captures':len(caps),'read_requests':sum(len(r['ios'] or []) for r in reads),'progress_events':sum(len(r['progress'] or []) for r in reads)}
