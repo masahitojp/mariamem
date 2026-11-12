@@ -39,6 +39,22 @@ Implementation and bounded verification are complete; main integration remains
 subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
 new guest build or release follows from source preparation PASS.
 
+## Issue156 — actual C candidate completes fixed ordinary-workload comparison
+
+The [fixed comparison](../benchmarks/pool-dict-measure/README.md) at execution
+source8084518e uses the CI43225605324 guest from7de45ac1 and unchanged baseline
+host8df45792. All30 fixed suites pass SQL/lifecycle checks on one Mac; mappings
+return to0 and owned scratch is empty. Primary P4 wall median546.3→552.4ms
+(paired median+1.1%,2/5 pairs faster); P8 506.6→469.0ms (-7.4%,3/5 faster).
+Separate lightweight SQL timing observes PREPARE>100ms4/189→0/189, max397.9→26.9ms.
+This supports a localized tail-reduction candidate, not uniform acceleration or
+proof of the original pending/read-generation/recovery sequence. Recommend
+Human review of the narrow notification correction before a minimal product
+candidate and both-platform acceptance. Purge shared-latch waits, exceptional/
+nested inputs and natural event attribution remain outside this result.
+The fixed experiment is complete; no further sampling, adoption, main merge,
+Qualification or release is authorized by this result. #140/#156 remain open.
+
 ## Issue156 — experimental C candidate prepared for source build
 
 The Human authorized continuation from the27-case control into a narrow

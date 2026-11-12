@@ -1,0 +1,149 @@
+{
+  "installation": {
+    "result": "UNQUALIFIED_INSTALLED_NOT_EXECUTED",
+    "source": {
+      "baseline": {
+        "object_sha": "8df45792a927e440972266ee799d6f7223713e14",
+        "object_type": "commit",
+        "source_commit": "8df45792a927e440972266ee799d6f7223713e14"
+      },
+      "origin": {
+        "object_sha": "7de45ac19718f37d1552824acfd6477dea6caf17",
+        "object_type": "commit",
+        "source_commit": "7de45ac19718f37d1552824acfd6477dea6caf17"
+      },
+      "harness": {
+        "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+        "object_type": "commit",
+        "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+      },
+      "execution": {
+        "object_sha": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd",
+        "object_type": "commit",
+        "source_commit": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd"
+      }
+    },
+    "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+    "reproduced_candidate_inventory_matches_ci": true,
+    "adapter_changes": "only process-local GUEST_SHA256; original validators/transforms unchanged",
+    "generated_inventory_sha256": "0a4629d138bc37a79b2101dfa7814129b15c20e88249457277e6bcb1b0eb0db4"
+  },
+  "execution_source_commit": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd",
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "go": "go1.26.10",
+    "cpu": "Apple M1",
+    "memory_bytes": 17179869184
+  },
+  "completion": {
+    "result": "COMPLETE",
+    "accepted_suites": 30,
+    "measurement_retries": 0,
+    "adoption": false
+  },
+  "builds": {
+    "baseline-off": {
+      "source": {
+        "object_sha": "8df45792a927e440972266ee799d6f7223713e14",
+        "object_type": "commit",
+        "source_commit": "8df45792a927e440972266ee799d6f7223713e14"
+      },
+      "execution_source": {
+        "object_sha": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd",
+        "object_type": "commit",
+        "source_commit": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd"
+      },
+      "harness": {
+        "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+        "object_type": "commit",
+        "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+      },
+      "binary_sha256": "b2054e7cc94cf6e29ae5a38e92dae354f1640062ed65e42b48076a04c5f7b845",
+      "compile_seconds": 182.8901365410129,
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "buildinfo": "<TEMP>/baseline-off.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+      "harness_inventory_sha256": "7c85ec17940e26bd909192af183019e0f6f036bc4db6a2b1984229fef4590d55"
+    },
+    "baseline-phases": {
+      "source": {
+        "object_sha": "8df45792a927e440972266ee799d6f7223713e14",
+        "object_type": "commit",
+        "source_commit": "8df45792a927e440972266ee799d6f7223713e14"
+      },
+      "execution_source": {
+        "object_sha": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd",
+        "object_type": "commit",
+        "source_commit": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd"
+      },
+      "harness": {
+        "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+        "object_type": "commit",
+        "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+      },
+      "binary_sha256": "ed404b9bfbe41b4dc7f91f26bcb1106f8ce10624399764a39ba59cb5686a8bb8",
+      "compile_seconds": 3.972656124999048,
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+      "buildinfo": "<TEMP>/baseline-phases.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+      "harness_inventory_sha256": "9e088347bc3d1f7f8193c6386a8d942725464e2add952681aaed08327c6b299b"
+    },
+    "candidate-off": {
+      "source": {
+        "object_sha": "7de45ac19718f37d1552824acfd6477dea6caf17",
+        "object_type": "commit",
+        "source_commit": "7de45ac19718f37d1552824acfd6477dea6caf17"
+      },
+      "execution_source": {
+        "object_sha": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd",
+        "object_type": "commit",
+        "source_commit": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd"
+      },
+      "harness": {
+        "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+        "object_type": "commit",
+        "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+      },
+      "binary_sha256": "87105108df8ff89c50ca85e8e01311be963766320197f7e06837f8e706b24b91",
+      "compile_seconds": 178.53522991697537,
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+      "buildinfo": "<TEMP>/candidate-off.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+      "harness_inventory_sha256": "7c85ec17940e26bd909192af183019e0f6f036bc4db6a2b1984229fef4590d55"
+    },
+    "candidate-phases": {
+      "source": {
+        "object_sha": "7de45ac19718f37d1552824acfd6477dea6caf17",
+        "object_type": "commit",
+        "source_commit": "7de45ac19718f37d1552824acfd6477dea6caf17"
+      },
+      "execution_source": {
+        "object_sha": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd",
+        "object_type": "commit",
+        "source_commit": "8084518e2e3ed39a97aba6ed05d3b2dc705a99fd"
+      },
+      "harness": {
+        "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+        "object_type": "commit",
+        "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+      },
+      "binary_sha256": "93e60fa4825cde3dfffec555553d1734da35a2c208b67182ef19c42299d59eee",
+      "compile_seconds": 3.9603244999889284,
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+      "buildinfo": "<TEMP>/candidate-phases.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+      "harness_inventory_sha256": "9e088347bc3d1f7f8193c6386a8d942725464e2add952681aaed08327c6b299b"
+    }
+  },
+  "eviction_audit": {
+    "source_commit": "7de45ac19718f37d1552824acfd6477dea6caf17",
+    "function": "Fn17744",
+    "sequence": [
+      "failed try-lock: L9\u2192L12",
+      "L12 Fn16583: wait begin",
+      "L15 Fn17733: original lock wait",
+      "L16 Fn16584: wait end",
+      "L17\u2192L14: ordinary eviction",
+      "successful try-lock: L9\u2192L13\u2192L14"
+    ],
+    "exceptions": "L11 termination path not fault-injection tested; no exceptional equivalence claim",
+    "diff_sha256": "f979b698661631f0d6261e3c8f8c23312f24df535a5a5dd477e5b4ea686036cb"
+  },
+  "scope": "Single Mac runtime comparison; CI is build/translation only. Not platform acceptance or adoption."
+}

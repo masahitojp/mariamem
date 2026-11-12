@@ -2,6 +2,8 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue156 dictionary wait: fixed C-candidate comparison](pool-dict-measure/README.md) — single-Mac P4/P8;30 suites, separate PREPARE timing; no adoption claim.
+
 - [Timer product candidate versus main](timer-product/README.md): single-Mac
   Go Pipe paired Fresh/Fork and P4/P8 shop70 results; startup improves,
   whole-suite benefit remains uncertain. Exact candidate/source identities retained.
