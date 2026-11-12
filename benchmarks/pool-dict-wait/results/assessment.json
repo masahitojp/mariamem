@@ -1,0 +1,64 @@
+{
+  "result": "PASS_CONTROLLED_DICTIONARY_WAIT",
+  "original_prepare_causality": "UNPROVEN",
+  "source": {
+    "source": {
+      "object_sha": "59c5cda12473a34634dfc304525b1c15fad5dabc",
+      "object_type": "commit",
+      "source_commit": "59c5cda12473a34634dfc304525b1c15fad5dabc"
+    },
+    "baseline": "8df45792a927e440972266ee799d6f7223713e14",
+    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "go": "go1.26.10",
+    "case_budget": 27,
+    "build_attempt": "dictionary slow path prototype"
+  },
+  "platform": {
+    "os": "macOS 27.2",
+    "arch": "arm64",
+    "go": "go1.26.10 darwin/arm64"
+  },
+  "cases": 27,
+  "successful_go_builds": 1,
+  "invalid_attempts": 0,
+  "guest_c_builds": 0,
+  "ci_runs": 0,
+  "natural_prepare_samples": 0,
+  "build_seconds": 104.9,
+  "test_seconds_rounded": 1.0,
+  "forced_observation_ms_range": [
+    52.014917,
+    52.062958
+  ],
+  "coverage": {
+    "pending_unreported": 6,
+    "pending_reported": 6,
+    "late_submit": 6,
+    "uncontended": 6,
+    "nonpool": 3
+  },
+  "source_checks": {
+    "runtime_diff_vs_8df45792_empty": true,
+    "caller_scope": "master eviction only; no shared dictionary purge remedy; no nested or LONG input arm",
+    "mutation_controls_rejected": 8
+  },
+  "original_cases_sha256": "57e8dce902adfc1cc4e4170248a4ae4286937fd6e60ebcfbc46929052e9a84c0",
+  "published_cases_sha256": "d7848b5502ec14773c486f578ce16fdf2a0b71c365cc6cacad185384de4f77dd",
+  "cases_transformation": "JSON whitespace only; all rows/events retained; parsed equality verified",
+  "build_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "passed_test_log_sha256": "0785443a567037fe8cca6ec3c78f596a61a5d03dd53c4383be2da90784ce267b",
+  "diagnostic_binary_sha256": "f05492d50ed54b6de46d95ba47f061f94fbe94f5298b73b4c4c04ff833ea8030",
+  "budget": {
+    "min_free_gib": 6.0,
+    "budget_gib": 5.0,
+    "returncode": 0,
+    "peak_owned_bytes": 1755103232,
+    "minimum_free_bytes": 26330402816
+  },
+  "limitations": [
+    "controlled owner and task B, not actual SQL/I/O generation",
+    "normal guest shutdown exercised, no full master callback",
+    "TLS-scoped diagnostic hook, not canonical guest patch",
+    "no Ubuntu, race build, exception injection or throughput claim"
+  ]
+}

@@ -39,6 +39,20 @@ Implementation and bounded verification are complete; main integration remains
 subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
 new guest build or release follows from source preparation PASS.
 
+## Issue156 — localized dictionary-wait prototype passes controlled cases
+
+The [dictionary notification experiment](../benchmarks/pool-dict-wait/README.md)
+at `59c5cda12473a34634dfc304525b1c15fad5dabc` passes all27 fixed cases on one
+Mac: actual eviction/dictionary contention stalls B without notification and
+progresses with TLS-aware notification; late submission, uncontended and
+non-pool controls also pass. Exclusion, waiting balance, task/worker disposal,
+normal shutdown/WaitThreads and mappings0→0 are checked. One104.9s Go overlay
+build, test1.00s; no C build, CI or natural SQL sampling. Canonical runtime and
+API remain unchanged. Recommend a narrow experimental C patch and fixed ordinary
+workload comparison before product review. Purge shared-latch waits, nested/LONG
+inputs and original PREPARE event causality remain outside this result. No
+product adoption, whole-suite speedup or Issue closure is claimed.
+
 ## Issue156 — dictionary-latch wait identified in saved PREPARE profiles
 
 The [source-path reconciliation](reviews/issue156-source-path/README.md) identifies
