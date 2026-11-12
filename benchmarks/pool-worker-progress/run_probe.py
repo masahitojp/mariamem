@@ -7,7 +7,7 @@ from experiment_disk import DiskGuard
 # Guard scans run before/after processes, not concurrently with timed workload.
 g=DiskGuard(W,6,8);g.check()
 env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','ISSUE','TIMER','SAMPLE','MODELCASE','READ_','FORK_STAGE'))}
-env.update(GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOMAXPROCS='8',GOGC='100',ISSUE88_SAMPLE_PHASES='1',ISSUE68_CAPTURE='1',TMPDIR=str(T/'run-scratch'))
+env.update(GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOMAXPROCS='8',GOGC='100',ISSUE88_POOL_MIB='16',ISSUE88_SAMPLE_PHASES='1',ISSUE68_CAPTURE='1',TMPDIR=str(T/'run-scratch'))
 (T/'run-scratch').mkdir(exist_ok=True)
 identity=json.loads(subprocess.check_output([sys.executable,S/'scripts/git_identity.py','inspect','HEAD'],cwd=S))
 assert not subprocess.check_output(['git','status','--porcelain'],cwd=S)
