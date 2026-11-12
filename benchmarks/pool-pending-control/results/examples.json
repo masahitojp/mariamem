@@ -1,0 +1,424 @@
+[
+  {
+    "arm": "pending_unreported_maintenance",
+    "concurrency_requested": 16,
+    "result": "PASS",
+    "pending_refusals": 1,
+    "synthetic_hold_ms": 60.0129,
+    "before_trigger": {
+      "queued": 1,
+      "active": 1,
+      "waiting": 0,
+      "long": 0,
+      "dequeued": 1
+    },
+    "workers_created": 2,
+    "workers_joined": 2,
+    "task_refs_after": 0,
+    "queue_after": 0,
+    "events": [
+      {
+        "kind": "maintenance",
+        "ms": 0.034542
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.035917
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.092833
+      },
+      {
+        "kind": "pending_refusal",
+        "ms": 0.105708
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.119667
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.1225
+      },
+      {
+        "kind": "explicit_trigger",
+        "ms": 60.1505
+      },
+      {
+        "kind": "maintenance",
+        "ms": 60.1508
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 60.1519
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 60.2202
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 60.2207
+      },
+      {
+        "kind": "task_begin",
+        "ms": 60.2215
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.2258
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.2484
+      }
+    ],
+    "repetition": 1
+  },
+  {
+    "arm": "pending_reported",
+    "concurrency_requested": 16,
+    "result": "PASS",
+    "pending_refusals": 1,
+    "synthetic_hold_ms": 0,
+    "before_trigger": {
+      "queued": 0,
+      "active": 1,
+      "waiting": 1,
+      "long": 0,
+      "dequeued": 2
+    },
+    "workers_created": 2,
+    "workers_joined": 2,
+    "task_refs_after": 0,
+    "queue_after": 0,
+    "events": [
+      {
+        "kind": "maintenance",
+        "ms": 0.025375
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.026333
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.06875
+      },
+      {
+        "kind": "pending_refusal",
+        "ms": 0.077041
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.086958
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.088333
+      },
+      {
+        "kind": "wait_begin",
+        "ms": 0.088708
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.089166
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.1225
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.123583
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.123666
+      },
+      {
+        "kind": "task_end",
+        "ms": 0.125541
+      },
+      {
+        "kind": "task_end",
+        "ms": 0.135583
+      }
+    ],
+    "repetition": 1
+  },
+  {
+    "arm": "late_submit_unreported",
+    "concurrency_requested": 16,
+    "result": "PASS",
+    "pending_refusals": 0,
+    "synthetic_hold_ms": 0,
+    "before_trigger": {
+      "queued": 1,
+      "active": 2,
+      "waiting": 0,
+      "long": 0,
+      "dequeued": 1
+    },
+    "workers_created": 2,
+    "workers_joined": 2,
+    "task_refs_after": 0,
+    "queue_after": 0,
+    "events": [
+      {
+        "kind": "maintenance",
+        "ms": 0.01725
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.018209
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.046584
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.056084
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.056292
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.063792
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.084792
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.08525
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.085417
+      },
+      {
+        "kind": "task_end",
+        "ms": 0.089917
+      },
+      {
+        "kind": "task_end",
+        "ms": 0.10725
+      }
+    ],
+    "repetition": 1
+  },
+  {
+    "arm": "fixed_pool",
+    "concurrency_requested": 16,
+    "result": "PASS",
+    "pending_refusals": 0,
+    "synthetic_hold_ms": 0,
+    "before_trigger": {
+      "queued": 0,
+      "active": 1,
+      "waiting": 0,
+      "long": 0,
+      "dequeued": 2
+    },
+    "workers_created": 2,
+    "workers_joined": 2,
+    "task_refs_after": 0,
+    "queue_after": 0,
+    "events": [
+      {
+        "kind": "maintenance",
+        "ms": 0.014875
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.015792
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.041542
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.047292
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.060875
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.061417
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.061584
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.068042
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.06825
+      },
+      {
+        "kind": "task_end",
+        "ms": 0.072542
+      },
+      {
+        "kind": "task_end",
+        "ms": 0.085709
+      }
+    ],
+    "repetition": 1
+  },
+  {
+    "arm": "pending_unreported_release",
+    "concurrency_requested": 16,
+    "result": "PASS",
+    "pending_refusals": 1,
+    "synthetic_hold_ms": 60.007,
+    "before_trigger": {
+      "queued": 1,
+      "active": 1,
+      "waiting": 0,
+      "long": 0,
+      "dequeued": 1
+    },
+    "workers_created": 1,
+    "workers_joined": 1,
+    "task_refs_after": 0,
+    "queue_after": 0,
+    "events": [
+      {
+        "kind": "maintenance",
+        "ms": 0.013875
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.014417
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.039
+      },
+      {
+        "kind": "pending_refusal",
+        "ms": 0.044792
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.048167
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.0485
+      },
+      {
+        "kind": "explicit_trigger",
+        "ms": 60.0625
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.0679
+      },
+      {
+        "kind": "task_begin",
+        "ms": 60.0682
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.0704
+      }
+    ],
+    "repetition": 1
+  },
+  {
+    "arm": "pending_unreported_submit",
+    "concurrency_requested": 16,
+    "result": "PASS",
+    "pending_refusals": 1,
+    "synthetic_hold_ms": 60.026,
+    "before_trigger": {
+      "queued": 1,
+      "active": 1,
+      "waiting": 0,
+      "long": 0,
+      "dequeued": 1
+    },
+    "workers_created": 2,
+    "workers_joined": 2,
+    "task_refs_after": 0,
+    "queue_after": 0,
+    "events": [
+      {
+        "kind": "maintenance",
+        "ms": 0.01125
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 0.01175
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 0.032166
+      },
+      {
+        "kind": "pending_refusal",
+        "ms": 0.036416
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 0.038875
+      },
+      {
+        "kind": "task_begin",
+        "ms": 0.039041
+      },
+      {
+        "kind": "explicit_trigger",
+        "ms": 60.071
+      },
+      {
+        "kind": "spawn_call",
+        "ms": 60.0728
+      },
+      {
+        "kind": "worker_enter",
+        "ms": 60.1388
+      },
+      {
+        "kind": "pending_clear",
+        "ms": 60.1397
+      },
+      {
+        "kind": "task_begin",
+        "ms": 60.1397
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.1419
+      },
+      {
+        "kind": "task_begin",
+        "ms": 60.142
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.1421
+      },
+      {
+        "kind": "task_end",
+        "ms": 60.1538
+      }
+    ],
+    "repetition": 1
+  }
+]

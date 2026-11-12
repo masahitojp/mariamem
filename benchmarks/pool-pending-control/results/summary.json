@@ -1,0 +1,27 @@
+{
+  "result": "PASS_CONTROLLED_NATIVE_MECHANISM",
+  "cases": 36,
+  "controls": {
+    "pending_unreported_maintenance": {
+      "passed": 6
+    },
+    "pending_reported": {
+      "passed": 6
+    },
+    "late_submit_unreported": {
+      "passed": 6
+    },
+    "fixed_pool": {
+      "passed": 6
+    },
+    "pending_unreported_release": {
+      "passed": 6
+    },
+    "pending_unreported_submit": {
+      "passed": 6
+    }
+  },
+  "natural_sql_cases": 0,
+  "guest_runs": 0,
+  "causal_attribution_to_previous_prepare": "UNPROVEN"
+}

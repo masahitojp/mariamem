@@ -1,0 +1,42 @@
+{
+  "source": {
+    "object_sha": "91b18b5b415cfee936df16c4aece050f69180ca6",
+    "object_type": "commit",
+    "source_commit": "91b18b5b415cfee936df16c4aece050f69180ca6"
+  },
+  "plan_sha256": "6186177d833b5a15b50143c27827e90c6cce98e6463d820537ed7cc7213f4312",
+  "harness_sha256": "44352d132c0363d3273e8e4493cce11cc207385f740f78568baa73c6ec373145",
+  "runner_sha256": "a3d21fa14f62f9055f8d82f7f7cf4d6456e2e261d26abc922d6a2d649cd24c32",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_files_sha256": {
+    "task.cc": "350435454e5ff80534a06641f387fb09194da203e62c26b46ecb853e46a34d54",
+    "task_group.cc": "efe0e8153e81aaeac6d39755f84114c35bda1ccacc09ed318515cc5407813b8e",
+    "tpool.h": "f987e9a2c9fbbf798f0039385f6adfedad5c477946552e75ad23d23ef71cbb31",
+    "tpool_generic.cc": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+    "tpool_structs.h": "a23e146c15799960082b27953f7813cd63169afd02c5b487e8e4d4a774198d0f",
+    "wait_notification.cc": "94e4d1d51371db78fe424a78d593489b3270cf883f196ec427be207adb6273a4"
+  },
+  "instrumented_cpp_sha256": "4d25213cb635c064cec4e6a789dcaaef72e76344832b5e4551e5aa9fbbe2ed26",
+  "support_headers_sha256": {
+    "my_global.h": "153f915a6368190cad7637733b560103d4628cfce6718e669690dd3b520b06c7",
+    "my_pthread.h": "b3adf106d95b8934f690943f2921308b90be5b766c4c8ba250c792de56400201",
+    "my_dbug.h": "990221ef34c9f2fd5dd9ec1be5a37a4e304438b9a72e3c40d3bcb1b28c6a2543",
+    "aligned.h": "ad20245426202927a82d57fb0255d3c222e93bd4b292e73c5635632d9aac0309",
+    "thr_timer.h": "a3ccabcf2803d9244f5d3fb37b05ed6ae17240a072a9c98477539bf3ea4a40f8"
+  },
+  "compiler": "Apple clang version 21.0.0 (clang-2100.4.1.1)\nTarget: arm64-apple-darwin27.2.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "binary_sha256": "f8eac66c9a819b1beaf4390a6c08d34fe6bb489f243ae7b20bde30fb48f4d312",
+  "build_seconds": 1.8547697079999999,
+  "native_builds": 1,
+  "sdk": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+  "prior_invalid_compile_attempts": 1,
+  "guest_builds": 0,
+  "heavy_ci": 0,
+  "cases": 36,
+  "limitations": [
+    "Native standard-library threads/mutexes; not Go translated runtime.",
+    "Timer backend replaced by explicit maintenance invocation; no periodic timer accuracy claim.",
+    "Task callback deliberately blocks; real PREPARE reachability remains unproven.",
+    "my_global/my_pthread/debug/alignment support headers are minimal standalone definitions, not full MariaDB startup."
+  ]
+}

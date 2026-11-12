@@ -1,0 +1,8 @@
+{
+  "original_results_sha256": "9590b0cd62f2c667055d2592b2d9854e43d230e108934910fe13d5677611a5bb",
+  "original_results_bytes": 46586,
+  "original_cases": 36,
+  "retained": "all 36 case summaries and the six predefined repetition1/concurrency16 event traces",
+  "normalization": "workers_joined relabeled workers_retired; original field counted destroy callbacks before worker_end, not std::thread::join",
+  "raw_disposition": "discarded after checks; native source/harness regenerates the controlled sequence, not exact timing"
+}

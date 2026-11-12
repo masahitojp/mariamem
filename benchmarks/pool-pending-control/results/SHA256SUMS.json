@@ -1,0 +1,8 @@
+{
+  "cases.csv": "70e5d4314edbae1bc1cbac53dc2abc7132ba2b990314ae062723bffcdae03c38",
+  "examples.json": "c4e3858674202ac6ef581f8c292ea712613c21377c8b42c6abc2387bffe4c9e0",
+  "inputs.json": "c6c13046e07ba3bf8a177a95c2c159ce880cb87783e6cbcc26c026d1390734f4",
+  "invalid-attempts.json": "aa17a77aeb44d372e5728f33af1b22ebcff01c1046e3737200634b03665e9517",
+  "reduction.json": "9f064f104dd559380bf8b4d9eec1c7700d19ccab46d83c68bb5dd02a69dad74f",
+  "summary.json": "51d2b71fd18c66a06a5c0a0f6e8f1bcca4a8ca65a711715eb352fed7312bbf78"
+}
