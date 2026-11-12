@@ -170,3 +170,8 @@ The [guest-stage record](guest-stage.md#successful-buildtranslation-receipt--202
 now records one successful UNQUALIFIED build/source-only translation atf4325722.
 Four old binding anchors need review; runtime correctness and performance remain
 unverified. This does not revise the historical source-only claims above.
+
+The subsequent [Ubuntu correctness checkpoint](execution-stage.md#ubuntu-correctness-completed--2026-11-12)
+at a197034c passes the fixed actual-guest/native/children/disposal checks.
+Mac and speed comparisons remain unperformed. This is prototype evidence,
+not approval to adopt the new UCA implementation.

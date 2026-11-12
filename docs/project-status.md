@@ -6,6 +6,16 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue154 — experimental UCA private-copy Ubuntu correctness complete
+
+The Human authorized continuing the separate UCA experiment after timer adoption.
+[Ubuntu CI43137408120](reviews/issue154-uca-data/execution-stage.md#ubuntu-correctness-completed--2026-11-12)
+at execution sourcea197034c passes the bounded actual-table/CRC/native SQL/two-child/
+reSnapshot/disposal checks using the original f4325722 experimental guest.
+The source-only allocation-failure and operation-order evidence keeps its stated
+limits. Mac verification and observer-off Fork/complete-suite comparisons remain;
+no new UCA product adoption, main integration, Qualification or release is approved.
+
 ## WASI timer correction and startup reduction — adopted on main
 
 On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)

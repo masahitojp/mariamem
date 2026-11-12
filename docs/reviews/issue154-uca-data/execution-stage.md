@@ -112,3 +112,40 @@ fixture hashes and the explicit replacements. Eleven focused tests pass,
 including changed-oracle and already-rebound fixture rejection; syntax and Go
 format checks pass. The runtime fix is pending one corrected Ubuntu submission
 under the same60-minute ceiling; no C rebuild, broader campaign or release.
+
+## Ubuntu correctness completed — 2026-11-12
+
+[CI43137408120](https://github.com/masahitojp/mariamem/actions/runs/43137408120),
+execution source a197034c6dabd663c84262323d6b42c5c20fb2a2, completed the full
+bounded Ubuntu job. [Compact receipt](ci-43137408120.json) and its
+[checksum](ci-43137408120-SHA256SUMS.json) retain exact job/artifact/source/guest/
+host identities and all10 verified artifact-file hashes. No raw logs, REST payloads
+or duplicate generated sources are committed.
+
+| Selected check | Ubuntu result |
+| --- | --- |
+| CRC calculation and page validation | PASS:832 length/alignment cases plus known vector;80 valid/corrupt/LSN cases |
+| New private-copy UCA full-byte oracle | PASS:15 profile/level comparisons |
+| New table corruption and verification separation | PASS:enabled verifier rejects; normal/ambient/profiling controls pass |
+| Existing UCA/lexer/worker protection | PASS:six UCA levels,638 lexer descriptors, corruption and peer survival controls |
+| Native MariaDB12.3.3 SQL/collation | PASS:serialized semantic result equals native reference |
+| Two children and preserved baseline | PASS:independent mutations and baseline observations |
+| Transactions and child reSnapshot | PASS:two real-host pytest cases, no skips |
+| Completed disposal | PASS:refs0/process exit0/reaped/root absent; actual-table mapping assertions pass |
+
+The compiled host SHA256 equals the preceding failed run. Thus the CRC test
+setup correction resolves that failure without changing the executable. The
+installation record still says runtime_acceptance=false because it was written
+before the tests; the separate test results above supply bounded acceptance and
+do not rewrite that historical phase record.
+
+This completes the Ubuntu prototype correctness checkpoint. It does not complete
+Mac platform acceptance, performance evaluation, real-guest OOM injection, all
+BSS-name proof or lazy initialization-order proof. Existing source/stub failure
+coverage and query-order claims retain their stated limits. No new runtime or
+heavy CI was run when collecting this receipt.
+
+Next recommendation: verify this same guest on Mac, then compare baseline and
+candidate with verification/timing diagnostics disabled, fixed Pipe P4/P8 inputs,
+and alternating order. Report Fork and complete-suite time together; retain
+tails. A correctness PASS is not evidence of speedup or product adoption.

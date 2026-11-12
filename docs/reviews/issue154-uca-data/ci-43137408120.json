@@ -1,0 +1,100 @@
+{
+  "result": "PASS_BOUNDED_UBUNTU_CORRECTNESS",
+  "run": 43137408120,
+  "attempt": 1,
+  "job": {
+    "id": 130915950292,
+    "name": "correctness",
+    "conclusion": "success",
+    "runner": "ubuntu-24.04"
+  },
+  "execution_source_commit": "a197034c6dabd663c84262323d6b42c5c20fb2a2",
+  "guest_source_commit": "f43257225e1fd65c58ea8f5d7b220c3a509c203b",
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "host_sha256": "fe4d0332a57f38457c22fdac42ff8e95b0a420312f1603ffa550860c8f67614d",
+  "artifact": {
+    "id": 13908017919,
+    "name": "uca-copy-execution-a197034c6dabd663c84262323d6b42c5c20fb2a2",
+    "zip_sha256": "895a25a0df71274629ebdf3550e6032ce1f8aaa26f622bef909b789d046b27ef",
+    "size_bytes": 40594,
+    "download_verified": true
+  },
+  "artifact_files_sha256": {
+    "actual-guest.txt": "3234185cef0bc1b3cf079f564d548b26f16a40f8fa31d91689793cc2d0ed5a80",
+    "crc.txt": "df7b532a385941074398c9d3d507befd84775a7af37bc24439f53a4e9c8985a3",
+    "installation.json": "b349a3aeaa2862df038d9fa6c3eec06b4d80e4a259fad36837033bece1103939",
+    "installation.txt": "6f3f0d7efd6f6cc33949f1362d021f1774115047d95e63282c4c847c40c98be8",
+    "native-image.json": "ad0bbf5fef81f00cbaec0c1ed720908790222dbb9852401efbcefd8780f95929",
+    "native.json": "1e50fe15df475c29a3d58c9192106b0e890e104c4f2dde8ddc6118caa86e3c81",
+    "snapshot.txt": "56868661e380b254c35462c9e07b896a7dd337b02e5f091b5425a1695723b617",
+    "source.json": "18c588e72743ad0af6a2703eca9c459b7e6b09827befd8127c1e0ad80fb504fa",
+    "sql-children.json": "7f16c649decd55ff0950ec607bcbc1fc3c4d850961652bade9423e9a3beabf3a",
+    "sql-children.txt": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431"
+  },
+  "all_artifact_checksums_verified": true,
+  "installation": {
+    "canonical_adapters_unchanged": true,
+    "crc_fixture_experimental_sha256": "d0982f928712ec62e41f33a6c29f2fe55eeed574c9b3c213fc8120de1e095dcf",
+    "crc_fixture_origin_sha256": "69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4",
+    "crc_fixture_relocations": {
+      "copy(mem[15569536:], table)": "copy(mem[16319168:], table)",
+      "m.Memory[26865072:]": "m.Memory[27614704:]"
+    },
+    "reproduced_candidate_inventory_matches_ci": true,
+    "result": "UNQUALIFIED_HOST_BUILT",
+    "runtime_acceptance": false
+  },
+  "go_test_passes": [
+    "TestCRC32CEquivalence",
+    "TestCRC32CPageValidation",
+    "TestPreparedLexerTablesActualGuest",
+    "TestUCACopyActualGuest",
+    "TestPreparedUCATablesActualGuest",
+    "TestWorkerTrapActualGuestNotifiesAndIsolatesPeer"
+  ],
+  "go_subtest_passes": [
+    "TestPreparedLexerTablesActualGuest/normal_ambient_ignored",
+    "TestPreparedLexerTablesActualGuest/profiling_does_not_verify",
+    "TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors",
+    "TestPreparedLexerTablesActualGuest/corrupt_table_rejected",
+    "TestUCACopyActualGuest/normal_ambient_ignored",
+    "TestUCACopyActualGuest/profiling_does_not_verify",
+    "TestUCACopyActualGuest/fifteen_default_levels",
+    "TestUCACopyActualGuest/corruption_without_verifier",
+    "TestUCACopyActualGuest/corrupt_table_rejected",
+    "TestPreparedUCATablesActualGuest/normal_ambient_ignored",
+    "TestPreparedUCATablesActualGuest/profiling_does_not_verify",
+    "TestPreparedUCATablesActualGuest/six_resolved_tables",
+    "TestPreparedUCATablesActualGuest/corrupt_table_rejected"
+  ],
+  "crc_calculation_cases": 832,
+  "crc_page_validation_cases": 80,
+  "snapshot_pytest_passes": 2,
+  "native_version": "12.3.3-MariaDB-ubu2404",
+  "native_semantic_matches": true,
+  "sql_children": {
+    "result": "PASS",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "native_sha256": "1e50fe15df475c29a3d58c9192106b0e890e104c4f2dde8ddc6118caa86e3c81",
+    "children": 2,
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "cleanup_errors": []
+  },
+  "same_host_binary_as_failed_run": 43132716457,
+  "limitations": {
+    "macOS": "NOT_RUN",
+    "performance": "NOT_MEASURED",
+    "allocation_failure_and_retry": "source/stub evidence only; no real guest OOM injection",
+    "alias_order": "query order exercised; lazy internal initialization order not proven",
+    "bss_symbol_identity": "not all names independently proven",
+    "product_adoption": false,
+    "qualification": false,
+    "release": false
+  }
+}
