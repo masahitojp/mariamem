@@ -22,8 +22,9 @@ for i in range(9):
  g.check();trace=json.loads((d/'trace.json').read_text());reads=json.loads((d/'read.json').read_text());sql=json.loads((d/'sql.json').read_text())
  assert trace['meta']['active_mappings_after']=='0' and trace['meta']['read_cases']=='50' and trace['meta']['write_cases']=='20'
  assert trace['meta']['fork_cap']=='9' and trace['meta']['parallel']=='8' and trace['meta']['route']=='Pipe'
+ assert trace['meta']['innodb_buffer_pool_size']==trace['meta']['innodb_buffer_pool_size_max']==str(16*2**20) and trace['meta']['innodb_read_io_threads']=='1'
  assert len(sql)==21 and reads and all(r['closed'] and not r['truncated'] for r in reads)
- assert sum(len(r['ios']) for r in reads)>0 and sum(len(r['progress']) for r in reads)>0
+ assert sum(len(r['ios'] or []) for r in reads)>0 and sum(len(r['progress'] or []) for r in reads)>0
  assert not list((T/'run-scratch').iterdir()),'owned scratch not empty'
  caps=[json.loads(x.read_text()) for x in d.glob('capture-*.json')];assert len(caps)<=1
  for c in caps:
@@ -31,6 +32,6 @@ for i in range(9):
   assert c['bytes']==(d/c['profile_file']).stat().st_size
  if control:assert len(caps)==1 and caps[0]['phase']=='positive_control'
  longcalls=[{'db':l['db_id'],'lane':l['lane'],'phase':phase,'ordinal':j+1,'us':n} for l in sql for phase,values in l['durations_us'].items() for j,n in enumerate(values) if n>=100000]
- row={'name':name,'wall_ms':trace['elapsed_ms'],'long_calls':longcalls,'captures':len(caps),'read_requests':sum(len(r['ios']) for r in reads),'progress_events':sum(len(r['progress']) for r in reads)}
+ row={'name':name,'wall_ms':trace['elapsed_ms'],'long_calls':longcalls,'captures':len(caps),'read_requests':sum(len(r['ios'] or []) for r in reads),'progress_events':sum(len(r['progress'] or []) for r in reads)}
  rows.append(row);(E/'runs.json').write_text(json.dumps(rows,indent=2)+'\n');print('PASS',name,'longcalls',len(longcalls),'captures',len(caps),flush=True)
 print('FINITE CAMPAIGN COMPLETE',flush=True)
