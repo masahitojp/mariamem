@@ -1,3 +1,19 @@
+# Current acceptance checkpoint — 2026-11-14
+
+Canonical independent source/regeneration43450619130, normal Development
+43460340200, public source integration43460417407 and installed distributions
+43465753261 passed at the exact SHAs recorded in their subdirectories. The
+[installed evidence](ci43465753261/README.md) includes both OS and external/ORM
+consumers. No main integration or release is approved.
+
+[Bounded performance and prepared/frame checks](performance-20261114/README.md)
+found a64KiB regression before a host-only JSON decode repair. Its follow-up real
+guest measurement and same-source CI remain pending.71 current prepared oracle
+scenarios and five frame-limit samples match the fixed main baseline. These do
+not waive unrelated full-native conditions; selected-route applicability and the
+final adoption review remain required. The following records are historical
+installation checkpoints, superseded only by the exact later evidence above.
+
 # Prepared output — canonical installation candidate
 
 The fresh input described below has now been translated and installed with the

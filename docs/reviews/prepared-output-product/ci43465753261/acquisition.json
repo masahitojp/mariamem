@@ -1,0 +1,388 @@
+{
+  "run_id": 43465753261,
+  "candidate": "d0aca17352708c5cb85812e0f4c11b228d3006e7",
+  "archives": [
+    {
+      "platform": "macos",
+      "artifact_id": 14060564197,
+      "archive_sha256": "c81cb28a0dc326eda26c71cc182fe1ee5990f00af4b7050c62461ef782fce655",
+      "files": [
+        {
+          "file": "consumers.txt",
+          "raw_sha256": "615d09e2bc6c67f984bce1cd133b0663468b21f7c1edd63694954f7592703467",
+          "normalized_sha256": "615d09e2bc6c67f984bce1cd133b0663468b21f7c1edd63694954f7592703467",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "file": "source.json",
+          "raw_sha256": "8a5c02ec5a297419ba264d2a270af0514d98c5c03967deb9944eab9e62bbbd34",
+          "normalized_sha256": "8a5c02ec5a297419ba264d2a270af0514d98c5c03967deb9944eab9e62bbbd34",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "file": "wheel-build.txt",
+          "raw_sha256": "d5a69d753256ad3eefa87509699c359c2328dfc863027936bca92df190ec09fa",
+          "normalized_sha256": "d5a69d753256ad3eefa87509699c359c2328dfc863027936bca92df190ec09fa",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "file": "wheel.json",
+          "raw_sha256": "9990f3130e5c1ccca6261959667a2244363f526f1ed9b6245b89a6d7acea78dc",
+          "normalized_sha256": "6883cad9bc9a55656a863eec061b29cf2b9b2d03dbc9d6e6eebf5095ffbf0778",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 1
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platform": "ubuntu",
+      "artifact_id": 14057779604,
+      "archive_sha256": "004f3a3da1be457e56ee347057ba4a952da05a4636703fc174b3e9ee1d294271",
+      "files": [
+        {
+          "file": "consumers.txt",
+          "raw_sha256": "b2ad9f57a378a594543b5a560049e592f09b894494d0ad4000a775eb9c111e2b",
+          "normalized_sha256": "b2ad9f57a378a594543b5a560049e592f09b894494d0ad4000a775eb9c111e2b",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "file": "source.json",
+          "raw_sha256": "8a5c02ec5a297419ba264d2a270af0514d98c5c03967deb9944eab9e62bbbd34",
+          "normalized_sha256": "8a5c02ec5a297419ba264d2a270af0514d98c5c03967deb9944eab9e62bbbd34",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "file": "wheel-build.txt",
+          "raw_sha256": "b03b5df06cdbd7743da93885f241fbd5dd2c30bdb7c764d97201a3a45930418f",
+          "normalized_sha256": "b03b5df06cdbd7743da93885f241fbd5dd2c30bdb7c764d97201a3a45930418f",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "file": "wheel.json",
+          "raw_sha256": "59f412bbbfa5040e9a47f243fb1c16125d82ca259a1f78a14fa858d9ab295005",
+          "normalized_sha256": "31433b502f4844f18f8371a283424a6ec640d55e29f45064bea7c4af1cbe8a1c",
+          "replacements": [
+            {
+              "prefix_codepoints": [
+                47,
+                85,
+                115,
+                101,
+                114,
+                115,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 0
+            },
+            {
+              "prefix_codepoints": [
+                47,
+                104,
+                111,
+                109,
+                101,
+                47,
+                114,
+                117,
+                110,
+                110,
+                101,
+                114,
+                47
+              ],
+              "target": "${RUNNER_HOME}/",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

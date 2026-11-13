@@ -49,12 +49,11 @@ jobs:
           from pathlib import Path
           import os, shutil
           src=Path(os.environ['RUNNER_TEMP'])/'output-installed-consumers'
-          if src.exists():
-              for p in src.rglob('*.json'):
-                  if 'site-packages' not in p.parts and not any(x in p.parts for x in ('gocache','pkg','mod','venv')):
-                      dst=Path('build/output-installed/details')/p.relative_to(src)
-                      dst.parent.mkdir(parents=True,exist_ok=True)
-                      shutil.copy2(p,dst)
+          dst=Path('build/output-installed/details')
+          dst.mkdir(parents=True,exist_ok=True)
+          for p in (src,src.with_suffix('.log')):
+              if p.is_file():
+                  shutil.copy2(p,dst/p.name)
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

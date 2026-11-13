@@ -1,0 +1,88 @@
+Processing ./python
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+  /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/setuptools/dist.py:765: BuildBackendWarning: License classifiers are deprecated.
+  !!
+  
+          ********************************************************************************
+          Please consider removing the following classifiers in favor of a SPDX license expression:
+  
+          License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+  
+          See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+          ********************************************************************************
+  
+  !!
+    self._finalize_license_expression()
+Building wheels for collected packages: mariamem
+  Building wheel for mariamem (pyproject.toml): started
+  Building wheel for mariamem (pyproject.toml): finished with status 'done'
+  /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/setuptools/dist.py:765: BuildBackendWarning: License classifiers are deprecated.
+  !!
+  
+          ********************************************************************************
+          Please consider removing the following classifiers in favor of a SPDX license expression:
+  
+          License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+  
+          See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+          ********************************************************************************
+  
+  !!
+    self._finalize_license_expression()
+  /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/setuptools/command/build_py.py:215: BuildBackendWarning: Package 'mariamem._native' is absent from the `packages` configuration.
+  !!
+  
+          ********************************************************************************
+          ############################
+          # Package would be ignored #
+          ############################
+          Python recognizes 'mariamem._native' as an importable package[^1],
+          but it is absent from setuptools' `packages` configuration.
+  
+          This leads to an ambiguous overall configuration. If you want to distribute this
+          package, please make sure that 'mariamem._native' is explicitly added
+          to the `packages` configuration field.
+  
+          Alternatively, you can also rely on setuptools' discovery methods
+          (for example by using `find_namespace_packages(...)`/`find_namespace:`
+          instead of `find_packages(...)`/`find:`).
+  
+          You can read more about "package discovery" on setuptools documentation page:
+  
+          - https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+  
+          If you don't want 'mariamem._native' to be distributed and are
+          already explicitly excluding 'mariamem._native' via
+          `find_namespace_packages(...)/find_namespace` or `find_packages(...)/find`,
+          you can try to use `exclude_package_data`, or `include-package-data=False` in
+          combination with a more fine grained `package-data` configuration.
+  
+          You can read more about "package data files" on setuptools documentation page:
+  
+          - https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+  
+  
+          [^1]: For Python, any directory (with suitable naming) can be imported,
+                even if it does not contain any `.py` files.
+                On the other hand, currently there is no concept of package data
+                directory, all directories are treated like packages.
+          ********************************************************************************
+  
+  !!
+    check.warn(importable)
+  Created wheel for mariamem: filename=mariamem-0.6.2-py3-none-macosx_15_0_arm64.whl size=49417675 sha256=60c241b05946f0a591bb568f2aa63f1e24ba25de3e15fed43dacdcdde95136d6
+  Stored in directory: /private/var/folders/2s/vty41l455yv698g4xkgfv7z00000gn/T/pip-ephem-wheel-cache-wqthz14n/wheels/9b/9d/45/f2c7506fcdbe73c7d806079caeb94eb94c3711ce1ef00f5e4a
+Successfully built mariamem
+{
+  "version": 1,
+  "package_version": "0.6.2",
+  "platform": "darwin-arm64",
+  "minimum_macos": 15,
+  "runtime_kind": "generated-go",
+  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "public_release_ready": false,
+  "sha256": {
+    "mariamem-host": "cc62f050b17123bf87ba3c3b4ec962af8ffb751820509f6dbcafa47b01ad2a40"
+  }
+}
