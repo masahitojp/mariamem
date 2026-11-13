@@ -1,0 +1,412 @@
+{
+  "success": true,
+  "parallel": 1,
+  "traced": false,
+  "profile": true,
+  "children": [
+    {
+      "index": 0,
+      "fork_ms": 17.298917,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 1,
+      "fork_ms": 17.321459,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 2,
+      "fork_ms": 17.047333,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 3,
+      "fork_ms": 17.278334,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 4,
+      "fork_ms": 17.315417,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 5,
+      "fork_ms": 17.477875,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 6,
+      "fork_ms": 17.460458,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 7,
+      "fork_ms": 17.799208,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 8,
+      "fork_ms": 16.847958,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 9,
+      "fork_ms": 17.039791,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 10,
+      "fork_ms": 17.762292,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 11,
+      "fork_ms": 16.598042,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 12,
+      "fork_ms": 17.863583,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 13,
+      "fork_ms": 17.319458,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 14,
+      "fork_ms": 17.347625,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 15,
+      "fork_ms": 16.900125,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 16,
+      "fork_ms": 17.687917,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 17,
+      "fork_ms": 21.482291,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 18,
+      "fork_ms": 17.632208,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 19,
+      "fork_ms": 17.206916,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 20,
+      "fork_ms": 17.414542,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 21,
+      "fork_ms": 19.658041,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 22,
+      "fork_ms": 29.211083,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 23,
+      "fork_ms": 16.592333,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 24,
+      "fork_ms": 17.098333,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 25,
+      "fork_ms": 17.81275,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 26,
+      "fork_ms": 16.940042,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 27,
+      "fork_ms": 17.117834,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 28,
+      "fork_ms": 17.01875,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 29,
+      "fork_ms": 17.045458,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 30,
+      "fork_ms": 17.136875,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 31,
+      "fork_ms": 16.994833,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 32,
+      "fork_ms": 17.542333,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 33,
+      "fork_ms": 17.394,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 34,
+      "fork_ms": 17.894667,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 35,
+      "fork_ms": 17.39275,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 36,
+      "fork_ms": 18.64575,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 37,
+      "fork_ms": 18.222084,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 38,
+      "fork_ms": 17.507542,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 39,
+      "fork_ms": 16.494333,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 40,
+      "fork_ms": 17.975916,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 41,
+      "fork_ms": 17.109625,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 42,
+      "fork_ms": 16.921125,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 43,
+      "fork_ms": 16.839458,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 44,
+      "fork_ms": 16.848166,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 45,
+      "fork_ms": 17.449125,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 46,
+      "fork_ms": 17.130791,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 47,
+      "fork_ms": 16.470958,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 48,
+      "fork_ms": 17.774833,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 49,
+      "fork_ms": 17.487833,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 50,
+      "fork_ms": 26.685375,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 51,
+      "fork_ms": 18.700709,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 52,
+      "fork_ms": 18.251333,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 53,
+      "fork_ms": 16.813,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 54,
+      "fork_ms": 26.789542,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 55,
+      "fork_ms": 17.69175,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 56,
+      "fork_ms": 20.425625,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 57,
+      "fork_ms": 16.682875,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 58,
+      "fork_ms": 16.98225,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 59,
+      "fork_ms": 17.115667,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 60,
+      "fork_ms": 17.073125,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 61,
+      "fork_ms": 21.628916,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 62,
+      "fork_ms": 23.588583,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 63,
+      "fork_ms": 17.046125,
+      "oracle": true,
+      "closed": true
+    }
+  ],
+  "profiles": [
+    "<workspace>/evidence/runs/profile-p1.json-wave0.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave1.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave2.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave3.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave4.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave5.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave6.pprof",
+    "<workspace>/evidence/runs/profile-p1.json-wave7.pprof"
+  ],
+  "profile_windows_ms": [
+    139.01575,
+    137.692334,
+    156.903292,
+    137.182625,
+    141.109542,
+    136.759625,
+    160.20975,
+    150.562667
+  ]
+}

@@ -1,0 +1,2553 @@
+{
+  "success": false,
+  "error": "pristine oracle users=1000 want1001",
+  "parallel": 1,
+  "traced": true,
+  "profile": false,
+  "children": [
+    {
+      "index": 0,
+      "fork_ms": 17.985166,
+      "oracle": false,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 375
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 3165250
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 3243417
+            },
+            {
+              "name": "end",
+              "offset_ns": 3246333
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 1084
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 1417
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 151917
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 17978084
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 17978667
+            },
+            {
+              "name": "end",
+              "offset_ns": 17980250
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 333
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 1500
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 17982958
+            },
+            {
+              "name": "end",
+              "offset_ns": 17983333
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 18042
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 19375
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 22000
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 157209
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 158584
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 3027584
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 3029625
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 3159417
+            },
+            {
+              "name": "end",
+              "offset_ns": 3159834
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 1166
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 1458
+            },
+            {
+              "name": "end",
+              "offset_ns": 1583
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 375
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 1932917
+            },
+            {
+              "name": "end",
+              "offset_ns": 1933708
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 1417
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 1625
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 2084
+            },
+            {
+              "name": "end",
+              "offset_ns": 3834
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 250
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 28875
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 97375
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 113292
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 123542
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 128083
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 211792
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 212250
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 590000
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 590542
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 17718000
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 17742833
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 17745667
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 17746167
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 17801708
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 17820333
+            },
+            {
+              "name": "end",
+              "offset_ns": 17822583
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 12000
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 12084
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 12292
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 15292
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 14777042
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 15208750
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 15209584
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 16768084
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 16782084
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 1,
+      "fork_ms": 17.004458,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 2972042
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 3051584
+            },
+            {
+              "name": "end",
+              "offset_ns": 3052917
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 167
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 459
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 151584
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 16996917
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 16997459
+            },
+            {
+              "name": "end",
+              "offset_ns": 16999000
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 500
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 1833
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 17002417
+            },
+            {
+              "name": "end",
+              "offset_ns": 17003083
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 21458
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 22708
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 23042
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 137917
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 138167
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 2800083
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 2801250
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 2969250
+            },
+            {
+              "name": "end",
+              "offset_ns": 2969750
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 875
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 1125
+            },
+            {
+              "name": "end",
+              "offset_ns": 1250
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 1744625
+            },
+            {
+              "name": "end",
+              "offset_ns": 1745000
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 208
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 458
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 750
+            },
+            {
+              "name": "end",
+              "offset_ns": 917
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 250
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 21167
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 89583
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 108333
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 120292
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 124292
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 206750
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 207125
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 562375
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 562958
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 16725708
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 16769875
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 16776208
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 16776625
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 16830542
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 16835708
+            },
+            {
+              "name": "end",
+              "offset_ns": 16837625
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 18042
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 18209
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 18417
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 21250
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 14746000
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 14860834
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 14861292
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 15804042
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 15817584
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 2,
+      "fork_ms": 22.765958,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 2010542
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 2085542
+            },
+            {
+              "name": "end",
+              "offset_ns": 2086417
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 209
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 834
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 437125
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 22753125
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 22754375
+            },
+            {
+              "name": "end",
+              "offset_ns": 22755750
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 1000
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 3500
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 22761709
+            },
+            {
+              "name": "end",
+              "offset_ns": 22762042
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 24208
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 26416
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 26625
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 137083
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 137333
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 1859958
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 1861000
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 2004333
+            },
+            {
+              "name": "end",
+              "offset_ns": 2007791
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 750
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 1000
+            },
+            {
+              "name": "end",
+              "offset_ns": 1125
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 333
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 862833
+            },
+            {
+              "name": "end",
+              "offset_ns": 863083
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 334
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 667
+            },
+            {
+              "name": "end",
+              "offset_ns": 834
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 292
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 750
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 78375
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 249125
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 299209
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 340292
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 352042
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 549375
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 550500
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 1381417
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 1383334
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 22226459
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 22248667
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 22251500
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 22251917
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 22304167
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 22309167
+            },
+            {
+              "name": "end",
+              "offset_ns": 22310750
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 36958
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 37041
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 37208
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 41083
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 15165291
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 15262208
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 15262958
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 16217000
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 16230875
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 3,
+      "fork_ms": 17.853625,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 292
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 1991000
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 2073500
+            },
+            {
+              "name": "end",
+              "offset_ns": 2074625
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 417
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 150417
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 17846167
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 17846792
+            },
+            {
+              "name": "end",
+              "offset_ns": 17848292
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 375
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 1708
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 17851333
+            },
+            {
+              "name": "end",
+              "offset_ns": 17851792
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 24208
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 25166
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 25375
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 138041
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 138291
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 1824875
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 1829333
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 1985500
+            },
+            {
+              "name": "end",
+              "offset_ns": 1986708
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 583
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 833
+            },
+            {
+              "name": "end",
+              "offset_ns": 958
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 84
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 334
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 838167
+            },
+            {
+              "name": "end",
+              "offset_ns": 838459
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 167
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 375
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 583
+            },
+            {
+              "name": "end",
+              "offset_ns": 750
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 250
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 28958
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 97333
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 114166
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 121333
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 144083
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 319708
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 320500
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 670666
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 671208
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 17602083
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 17627666
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 17630500
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 17630875
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 17684208
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 17689916
+            },
+            {
+              "name": "end",
+              "offset_ns": 17691000
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 16542
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 16708
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 16792
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 19917
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 15568750
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 15682500
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 15683083
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 16568000
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 16581292
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 4,
+      "fork_ms": 17.458625,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 1708
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 2040833
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 2132083
+            },
+            {
+              "name": "end",
+              "offset_ns": 2133292
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 167
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 459
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 162792
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 17449000
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 17449834
+            },
+            {
+              "name": "end",
+              "offset_ns": 17451667
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 459
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 1792
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 17455084
+            },
+            {
+              "name": "end",
+              "offset_ns": 17455417
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 26000
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 27375
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 27666
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 144166
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 144416
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 1851791
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 1852916
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 2036708
+            },
+            {
+              "name": "end",
+              "offset_ns": 2037208
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 7417
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 8167
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 8500
+            },
+            {
+              "name": "end",
+              "offset_ns": 8625
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 292
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 823500
+            },
+            {
+              "name": "end",
+              "offset_ns": 823667
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 209
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 375
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 709
+            },
+            {
+              "name": "end",
+              "offset_ns": 917
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 250
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 33000
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 100209
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 117417
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 131625
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 166417
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 274292
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 274875
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 652250
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 652792
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 17114542
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 17162250
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 17184834
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 17185375
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 17238459
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 17276667
+            },
+            {
+              "name": "end",
+              "offset_ns": 17281709
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 17208
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 17458
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 17667
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 20583
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 14870583
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 14997417
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 14997875
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 15975875
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 15992417
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 5,
+      "fork_ms": 16.798958,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 1976333
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 2050667
+            },
+            {
+              "name": "end",
+              "offset_ns": 2051917
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 458
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 157166
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 16784958
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 16785916
+            },
+            {
+              "name": "end",
+              "offset_ns": 16788041
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 459
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 1625
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 16795875
+            },
+            {
+              "name": "end",
+              "offset_ns": 16797334
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 84
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 20625
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 21792
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 22125
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 119209
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 119417
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 1832584
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 1833375
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 1974042
+            },
+            {
+              "name": "end",
+              "offset_ns": 1974542
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 500
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 708
+            },
+            {
+              "name": "end",
+              "offset_ns": 792
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 292
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 838583
+            },
+            {
+              "name": "end",
+              "offset_ns": 838833
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 291
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 458
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 750
+            },
+            {
+              "name": "end",
+              "offset_ns": 1083
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 167
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 375
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 29292
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 97625
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 118459
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 127750
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 133167
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 223042
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 223542
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 565334
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 565750
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 16406167
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 16465250
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 16476584
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 16477292
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 16584792
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 16620750
+            },
+            {
+              "name": "end",
+              "offset_ns": 16622709
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 13334
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 13500
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 13584
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 16375
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 14452875
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 14567667
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 14568292
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 15456000
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 15468875
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 6,
+      "fork_ms": 17.067167,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 209
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 2290667
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 2365667
+            },
+            {
+              "name": "end",
+              "offset_ns": 2368167
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 375
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 175750
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 17053708
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 17054417
+            },
+            {
+              "name": "end",
+              "offset_ns": 17056000
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 458
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 1791
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 17065000
+            },
+            {
+              "name": "end",
+              "offset_ns": 17065333
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 23375
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 33875
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 34208
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 147167
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 147375
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 2123917
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 2125417
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 2288292
+            },
+            {
+              "name": "end",
+              "offset_ns": 2288708
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 750
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 1542
+            },
+            {
+              "name": "end",
+              "offset_ns": 1667
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 83
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 291
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 1050708
+            },
+            {
+              "name": "end",
+              "offset_ns": 1050916
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 292
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 458
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 750
+            },
+            {
+              "name": "end",
+              "offset_ns": 1000
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 167
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 292
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 28292
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 98625
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 114667
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 130917
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 136625
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 220625
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 221125
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 579083
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 579625
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 16773000
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 16814917
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 16819500
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 16819875
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 16867167
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 16871458
+            },
+            {
+              "name": "end",
+              "offset_ns": 16873167
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 13375
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 13458
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 13625
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 16708
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 14776375
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 14902917
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 14903292
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 15807875
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 15820625
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "index": 7,
+      "fork_ms": 32.475958,
+      "oracle": true,
+      "closed": true,
+      "traces": {
+        "api_close": {
+          "operation": "api_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 209
+            },
+            {
+              "name": "server_closed",
+              "offset_ns": 1800209
+            },
+            {
+              "name": "temporary_removed",
+              "offset_ns": 1875459
+            },
+            {
+              "name": "end",
+              "offset_ns": 1876417
+            }
+          ]
+        },
+        "api_startup": {
+          "operation": "api_startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 167
+            },
+            {
+              "name": "options_ready",
+              "offset_ns": 375
+            },
+            {
+              "name": "runtime_directory_ready",
+              "offset_ns": 97042
+            },
+            {
+              "name": "host_returned",
+              "offset_ns": 32454792
+            },
+            {
+              "name": "database_ready",
+              "offset_ns": 32457000
+            },
+            {
+              "name": "end",
+              "offset_ns": 32461417
+            }
+          ]
+        },
+        "fork": {
+          "operation": "fork",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 2917
+            },
+            {
+              "name": "snapshot_handle_ready",
+              "offset_ns": 10000
+            },
+            {
+              "name": "startup_returned",
+              "offset_ns": 32473292
+            },
+            {
+              "name": "end",
+              "offset_ns": 32474709
+            }
+          ]
+        },
+        "host_close": {
+          "operation": "host_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 84
+            },
+            {
+              "name": "admission_stopped",
+              "offset_ns": 24417
+            },
+            {
+              "name": "sessions_joined",
+              "offset_ns": 25834
+            },
+            {
+              "name": "shutdown_mode_begin",
+              "offset_ns": 26125
+            },
+            {
+              "name": "shutdown_mode_end",
+              "offset_ns": 132500
+            },
+            {
+              "name": "shutdown_begin",
+              "offset_ns": 132709
+            },
+            {
+              "name": "shutdown_returned",
+              "offset_ns": 1667417
+            },
+            {
+              "name": "dispose_begin",
+              "offset_ns": 1668250
+            },
+            {
+              "name": "dispose_end",
+              "offset_ns": 1797750
+            },
+            {
+              "name": "end",
+              "offset_ns": 1798209
+            }
+          ]
+        },
+        "runtime_files_close": {
+          "operation": "runtime_files_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 84
+            },
+            {
+              "name": "descriptors_closed",
+              "offset_ns": 709
+            },
+            {
+              "name": "prepared_maps_closed",
+              "offset_ns": 917
+            },
+            {
+              "name": "end",
+              "offset_ns": 1000
+            }
+          ]
+        },
+        "runtime_memory_close": {
+          "operation": "runtime_memory_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 84
+            },
+            {
+              "name": "release_begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "release_end",
+              "offset_ns": 728459
+            },
+            {
+              "name": "end",
+              "offset_ns": 728667
+            }
+          ]
+        },
+        "runtime_threads_close": {
+          "operation": "runtime_threads_close",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 250
+            },
+            {
+              "name": "root_returned",
+              "offset_ns": 417
+            },
+            {
+              "name": "workers_joined",
+              "offset_ns": 709
+            },
+            {
+              "name": "end",
+              "offset_ns": 917
+            }
+          ]
+        },
+        "startup": {
+          "operation": "startup",
+          "pid": 5416,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 125
+            },
+            {
+              "name": "native_identity_checked",
+              "offset_ns": 250
+            },
+            {
+              "name": "metadata_snapshot_validated",
+              "offset_ns": 16250
+            },
+            {
+              "name": "transfer_prepared",
+              "offset_ns": 86208
+            },
+            {
+              "name": "linked_execution_begin",
+              "offset_ns": 103583
+            },
+            {
+              "name": "runtime/instance_begin",
+              "offset_ns": 116583
+            },
+            {
+              "name": "runtime/prepared_handles_begin",
+              "offset_ns": 126292
+            },
+            {
+              "name": "runtime/prepared_handles_ready",
+              "offset_ns": 211833
+            },
+            {
+              "name": "runtime/memory_begin",
+              "offset_ns": 212250
+            },
+            {
+              "name": "runtime/memory_ready",
+              "offset_ns": 627667
+            },
+            {
+              "name": "runtime/guest_execute_begin",
+              "offset_ns": 628083
+            },
+            {
+              "name": "ready_header_received",
+              "offset_ns": 20948750
+            },
+            {
+              "name": "ready_frame_decoded",
+              "offset_ns": 21025292
+            },
+            {
+              "name": "ready_response_observed",
+              "offset_ns": 21034042
+            },
+            {
+              "name": "guest_ready",
+              "offset_ns": 21034750
+            },
+            {
+              "name": "wire_listener_ready",
+              "offset_ns": 21222000
+            },
+            {
+              "name": "guest_timing_read",
+              "offset_ns": 32342833
+            },
+            {
+              "name": "end",
+              "offset_ns": 32349083
+            }
+          ],
+          "guest": {
+            "version": 1,
+            "clock": "guest_monotonic",
+            "events": [
+              {
+                "name": "guest_main",
+                "offset_ns": 0
+              },
+              {
+                "name": "restore_begin",
+                "offset_ns": 17042
+              },
+              {
+                "name": "restore_complete",
+                "offset_ns": 17125
+              },
+              {
+                "name": "open_begin",
+                "offset_ns": 17333
+              },
+              {
+                "name": "server_init_begin",
+                "offset_ns": 20542
+              },
+              {
+                "name": "server_init_complete",
+                "offset_ns": 14365417
+              },
+              {
+                "name": "bootstrap_complete",
+                "offset_ns": 14487875
+              },
+              {
+                "name": "routine_schema_begin",
+                "offset_ns": 14488542
+              },
+              {
+                "name": "routine_schema_complete",
+                "offset_ns": 15473917
+              },
+              {
+                "name": "ready_prepared",
+                "offset_ns": 15488917
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

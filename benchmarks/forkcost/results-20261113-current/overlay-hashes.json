@@ -1,0 +1,32 @@
+[
+  {
+    "product": "maria",
+    "path": "internal/timing/timing.go",
+    "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+    "after_sha256": "a33c4ef2fed591ad1bc0beb11f6a7dc64bce58cdf4ccd336e01e873491b2b6cc"
+  },
+  {
+    "product": "maria",
+    "path": "internal/guest/linked.go",
+    "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+    "after_sha256": "dd67786f27b1c0c2b588fc755a6d0689c61842a834bcda216cd0f2e5c41f2bef"
+  },
+  {
+    "product": "maria",
+    "path": "internal/generatedgo/runtime_instance.go",
+    "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "after_sha256": "0a97fa40e732e7511df98682519a5b2a22a0203191cd02dee3ae22c18ac1aa16"
+  },
+  {
+    "product": "maria",
+    "path": "mariamem.go",
+    "before_sha256": "f4f985ee11a1f6756832c3d97fe933a23095af3ad3a09982a20f2a3909bbb9df",
+    "after_sha256": "da4a44c0deb6d434f91acc1fe7d977f2c1933ea21236ee4af29754227ab92704"
+  },
+  {
+    "product": "maria",
+    "path": "internal/host/server.go",
+    "before_sha256": "ec0ad44279cb41c978a88c9314642cbab8ebadd4bfd51495484f8af5ff033b72",
+    "after_sha256": "8f832f9bf6ea797d037f4001f379a1042b8499976cedc0fcfad08394a96161fa"
+  }
+]

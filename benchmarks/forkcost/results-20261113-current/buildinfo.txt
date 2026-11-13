@@ -1,0 +1,18 @@
+<workspace>/temp/canonical: go1.27.4
+	path	github.com/masahitojp/mariamem/benchmarks/forkcurrentprobe
+	mod	github.com/masahitojp/mariamem/benchmarks/forkcurrentprobe	(devel)	
+	dep	filippo.io/edwards25519	v1.1.0	h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
+	dep	github.com/go-sql-driver/mysql	v1.9.3	h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=
+	dep	github.com/masahitojp/mariamem	v0.0.0
+	=>	../../worktree	(devel)	
+	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	CGO_ENABLED=0
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=4cf4393d1a9193b5b3a2d074e51f792164ecf7bd
+	build	vcs.time=2026-10-28T23:01:59Z
+	build	vcs.modified=true
