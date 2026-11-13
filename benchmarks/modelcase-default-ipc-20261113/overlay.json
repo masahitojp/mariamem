@@ -1,0 +1,5 @@
+{
+  "Replace": {
+    "<WORKSPACE>/worktree/internal/guest/linked.go": "<WORKSPACE>/temp/linked_overlay.go"
+  }
+}

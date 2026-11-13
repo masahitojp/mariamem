@@ -1,0 +1,156 @@
+{
+  "comparison": {
+    "pgmem": {
+      "wall_ms": 392.983333,
+      "elapsed": 346.873,
+      "boot": 50.921,
+      "import": 65.50399999999999,
+      "snapshot": 16.554000000000002,
+      "fork": 25.845000000000013,
+      "sample": 34.55000000000001,
+      "test": 0.7115000000000009
+    },
+    "maria": {
+      "wall_ms": 477.627875,
+      "elapsed": 468.709,
+      "boot": 44.484,
+      "import": 27.756,
+      "snapshot": 4.6499999999999915,
+      "fork": 25.5565,
+      "sample": 80.70599999999999,
+      "test": 2.3199999999999648
+    }
+  },
+  "ipc": [
+    {
+      "host_write": {
+        "calls": 5816,
+        "bytes": 442067,
+        "frames": 5794,
+        "zero_frames": 22,
+        "call_elapsed_ns": 8754530,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 0,
+        "four_byte_calls": 22
+      },
+      "guest_read": {
+        "calls": 11508,
+        "bytes": 442067,
+        "frames": 5794,
+        "zero_frames": 22,
+        "call_elapsed_ns": 2090982812,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 5753,
+        "four_byte_calls": 0
+      },
+      "guest_write": {
+        "calls": 11632,
+        "bytes": 1590988,
+        "frames": 5816,
+        "zero_frames": 0,
+        "call_elapsed_ns": 16421792,
+        "zero_byte_calls": 5787,
+        "three_byte_calls": 0,
+        "four_byte_calls": 29
+      },
+      "host_read": {
+        "calls": 11632,
+        "bytes": 1590988,
+        "frames": 5816,
+        "zero_frames": 0,
+        "call_elapsed_ns": 2660549193,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 0,
+        "four_byte_calls": 5816
+      }
+    },
+    {
+      "host_write": {
+        "calls": 5788,
+        "bytes": 441519,
+        "frames": 5766,
+        "zero_frames": 22,
+        "call_elapsed_ns": 8011160,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 0,
+        "four_byte_calls": 22
+      },
+      "guest_read": {
+        "calls": 11500,
+        "bytes": 441519,
+        "frames": 5766,
+        "zero_frames": 22,
+        "call_elapsed_ns": 2162276697,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 5749,
+        "four_byte_calls": 0
+      },
+      "guest_write": {
+        "calls": 11576,
+        "bytes": 1585856,
+        "frames": 5788,
+        "zero_frames": 0,
+        "call_elapsed_ns": 16128541,
+        "zero_byte_calls": 5759,
+        "three_byte_calls": 0,
+        "four_byte_calls": 29
+      },
+      "host_read": {
+        "calls": 11576,
+        "bytes": 1585856,
+        "frames": 5788,
+        "zero_frames": 0,
+        "call_elapsed_ns": 2753928377,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 0,
+        "four_byte_calls": 5788
+      }
+    },
+    {
+      "host_write": {
+        "calls": 5781,
+        "bytes": 441382,
+        "frames": 5759,
+        "zero_frames": 22,
+        "call_elapsed_ns": 14348203,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 0,
+        "four_byte_calls": 22
+      },
+      "guest_read": {
+        "calls": 11524,
+        "bytes": 441382,
+        "frames": 5759,
+        "zero_frames": 22,
+        "call_elapsed_ns": 2219666324,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 5761,
+        "four_byte_calls": 0
+      },
+      "guest_write": {
+        "calls": 11562,
+        "bytes": 1584579,
+        "frames": 5781,
+        "zero_frames": 0,
+        "call_elapsed_ns": 17362096,
+        "zero_byte_calls": 5752,
+        "three_byte_calls": 0,
+        "four_byte_calls": 29
+      },
+      "host_read": {
+        "calls": 11562,
+        "bytes": 1584579,
+        "frames": 5781,
+        "zero_frames": 0,
+        "call_elapsed_ns": 2775680382,
+        "zero_byte_calls": 0,
+        "three_byte_calls": 0,
+        "four_byte_calls": 5781
+      }
+    }
+  ],
+  "observer_wall_medians": {
+    "0": 499.379833,
+    "1": 502.630834
+  }
+}

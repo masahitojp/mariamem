@@ -1,0 +1,11 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "pgmem_tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "host": "M1/16GiB/macOS27.2.1/Go1.27.4",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "CGO_ENABLED": 0,
+  "interpolation": "inherited from Database.DSN(), asserted true",
+  "observer_sha256": "c748a19c7f4f52f18733c8ae07d831e23082742e0ac3009abf38b4f99a102891"
+}

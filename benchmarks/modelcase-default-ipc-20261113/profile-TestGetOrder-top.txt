@@ -1,0 +1,32 @@
+File: maria-ipc.test
+Type: cpu
+Time: 2026-11-13 15:54:37 JST
+Duration: 302.38ms, Total samples = 500ms (165.35%)
+Showing nodes accounting for 500ms, 100% of 500ms total
+Showing top 25 nodes out of 120
+      flat  flat%   sum%        cum   cum%
+     330ms 66.00% 66.00%      330ms 66.00%  syscall.rawsyscalln
+      30ms  6.00% 72.00%       30ms  6.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+      20ms  4.00% 76.00%       50ms 10.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+      20ms  4.00% 80.00%       30ms  6.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14963
+      20ms  4.00% 84.00%       20ms  4.00%  runtime.kevent
+      20ms  4.00% 88.00%       20ms  4.00%  runtime.usleep
+      10ms  2.00% 90.00%       10ms  2.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill
+      10ms  2.00% 92.00%       20ms  4.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14230
+      10ms  2.00% 94.00%       30ms  6.00%  os.(*File).Read
+      10ms  2.00% 96.00%       10ms  2.00%  runtime.madvise
+      10ms  2.00% 98.00%       10ms  2.00%  runtime.pthread_cond_signal
+      10ms  2.00%   100%       10ms  2.00%  runtime.pthread_cond_wait
+         0     0%   100%       10ms  2.00%  _.goready.func1
+         0     0%   100%       10ms  2.00%  fmt.Fprintf
+         0     0%   100%       20ms  4.00%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%       20ms  4.00%  github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+         0     0%   100%       20ms  4.00%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%       20ms  4.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+         0     0%   100%      220ms 44.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0%   100%      310ms 62.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+         0     0%   100%      310ms 62.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0%   100%      310ms 62.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0%   100%       20ms  4.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+         0     0%   100%      220ms 44.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+         0     0%   100%       60ms 12.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581

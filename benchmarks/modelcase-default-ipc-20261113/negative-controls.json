@@ -1,0 +1,14 @@
+[
+  {
+    "control": "wrong_bytes",
+    "rejected": true
+  },
+  {
+    "control": "missing_db",
+    "rejected": true
+  },
+  {
+    "control": "exit_error",
+    "rejected": true
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "name": "ipc-warmup-0",
+    "on": false,
+    "scenario": null,
+    "wall_ms": 1509.40025,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-warmup-1",
+    "on": true,
+    "scenario": null,
+    "wall_ms": 494.035958,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-0-0",
+    "on": false,
+    "scenario": null,
+    "wall_ms": 518.535375,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-1-0",
+    "on": true,
+    "scenario": null,
+    "wall_ms": 502.630834,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-1-1",
+    "on": true,
+    "scenario": null,
+    "wall_ms": 511.122292,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-0-1",
+    "on": false,
+    "scenario": null,
+    "wall_ms": 499.379833,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-0-2",
+    "on": false,
+    "scenario": null,
+    "wall_ms": 468.23925,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-1-2",
+    "on": true,
+    "scenario": null,
+    "wall_ms": 482.131541,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "ipc-profile-TestRevenueByCategory",
+    "on": false,
+    "scenario": "TestRevenueByCategory",
+    "wall_ms": 826.065875,
+    "returncode": 0,
+    "leaf_pass": 200
+  },
+  {
+    "name": "ipc-profile-TestGetOrder",
+    "on": false,
+    "scenario": "TestGetOrder",
+    "wall_ms": 427.274625,
+    "returncode": 0,
+    "leaf_pass": 200
+  },
+  {
+    "name": "ipc-profile-TestCreateOrder",
+    "on": false,
+    "scenario": "TestCreateOrder",
+    "wall_ms": 1922.544625,
+    "returncode": 0,
+    "leaf_pass": 80
+  }
+]
