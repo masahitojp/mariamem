@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "workspace_before_bytes": 1813487616,
+  "workspace_after_bytes": 13471744,
+  "reclaimed_bytes": 1800015872,
+  "temporary_tree_removed": true,
+  "owned_benchmark_processes_remaining": 0,
+  "remaining_paths_over_1GiB": [],
+  "cleanup_debt": [],
+  "preserved_report_commit": "6b9f3d7220e23abf2c37a97d7a0625c78c7492ec",
+  "pgmem_clean_source_and_public_remote_rechecked": true,
+  "preexisting_user_changes": "Preserved; measurement makes no edits in primary checkout."
+}
