@@ -1,0 +1,22 @@
+{
+  "question": "align low-risk harness SQL and reader lifecycle using existing APIs",
+  "arms": [
+    "pg-official",
+    "pg-matched",
+    "maria-of",
+    "maria-matched"
+  ],
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "changes": [
+    "PG reader from new Fork, close restarted original before reader Fork; time recorded",
+    "PG application timestamps now -> statement_timestamp",
+    "Maria audit status varchar -> enum same labels",
+    "Maria audit condition INSERT SELECT -> IF then INSERT VALUES",
+    "Maria lower(name) generated virtual column index and query uses indexed column"
+  ],
+  "primary": "1 warmup/arm +5 rotated groups of4;70 tests each;P8;observer off",
+  "limits": "not pure engine comparison; text/collation/default resources/transport/Snapshot internals remain; known UPDATE OF bug not investigated",
+  "budget_gib": 10,
+  "min_free_gib": 12
+}

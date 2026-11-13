@@ -1,0 +1,19 @@
+--- pg-seed-original
++++ pg-seed-matched-switch
+@@ -6,6 +6,8 @@
+ 	"embed"
+ 	"fmt"
+ 	"sort"
++"os"
++"strings"
+ )
+ 
+ //go:embed migrations/*.sql
+@@ -31,6 +33,7 @@
+ 			continue
+ 		}
+ 		body, err := migrations.ReadFile("migrations/" + e.Name())
++ if err==nil && os.Getenv("MODELCASE_MATCHED")=="1"{body=[]byte(strings.ReplaceAll(string(body),"now()","statement_timestamp()"))}
+ 		if err != nil {
+ 			return err
+ 		}

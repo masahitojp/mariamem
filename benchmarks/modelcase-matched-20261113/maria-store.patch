@@ -1,0 +1,23 @@
+--- maria-store-original
++++ maria-store-matched-switch
+@@ -8,6 +8,7 @@
+ 	"database/sql"
+ 	"errors"
+ 	"fmt"
++"os"
+ )
+ 
+ // DB is what every query needs: *sql.DB and *sql.Tx both satisfy it.
+@@ -137,10 +138,11 @@
+ 
+ // SearchProducts is a prefix search on the lower-cased name.
+ func SearchProducts(ctx context.Context, db DB, prefix string) ([]Product, error) {
++ field:="lower(name)";if os.Getenv("MODELCASE_MATCHED")=="1"{field="name_lower"}
+ 	rows, err := db.QueryContext(ctx, `
+ 		SELECT id, sku, name, price_cents, stock
+ 		  FROM products
+-		 WHERE lower(name) LIKE CONCAT(lower(?), '%')
++		 WHERE `+field+` LIKE CONCAT(lower(?), '%')
+ 		 ORDER BY name, id
+ 		 LIMIT 50`, prefix)
+ 	if err != nil {

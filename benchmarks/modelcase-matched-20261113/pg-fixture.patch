@@ -1,0 +1,17 @@
+--- pg-fixture-original
++++ pg-fixture-matched-switch
+@@ -102,8 +102,12 @@
+ 		return err
+ 	}
+ 	done()
+-
+-	f.isolated = func(t *testing.T) *sql.DB {
++ if os.Getenv("MODELCASE_MATCHED")=="1"{
++  done=f.rec.Start("snapshot_source_close","close","setup");if err:=srv.Close();err!=nil{return err};done()
++  done=f.rec.Start("reader_fork","fork","setup");srv,err=snap.Fork(ctx);if err!=nil{return err};done()
++ }
++
++ f.isolated = func(t *testing.T) *sql.DB {
+ 		t.Helper()
+ 		done := f.rec.Start("fork", "fork", t.Name())
+ 		s, err := snap.Fork(ctx)

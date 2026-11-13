@@ -1,0 +1,22 @@
+=== RUN   TestMatchedWitness
+    matched_witness_test.go:18: CREATE OR REPLACE FUNCTION public.refresh_order_total()
+         RETURNS trigger
+         LANGUAGE plpgsql
+        AS $function$
+        DECLARE
+            oid bigint := COALESCE(NEW.order_id, OLD.order_id);
+        BEGIN
+            UPDATE orders
+               SET total_cents = COALESCE((SELECT sum(quantity * unit_price_cents) FROM order_items WHERE order_id = oid), 0),
+                   updated_at = statement_timestamp()
+             WHERE id = oid;
+            RETURN NULL;
+        END
+        $function$
+        
+    matched_witness_test.go:19: Index Scan using products_name_lower on products  (cost=0.28..8.30 rows=1 width=8)
+    matched_witness_test.go:19:   Index Cond: ((lower(name) ~>=~ 'product 499'::text) AND (lower(name) ~<~ 'product 49:'::text))
+    matched_witness_test.go:19:   Filter: (lower(name) ~~ 'product 499%'::text)
+    matched_witness_test.go:21: PASS sample counts/totals and matched config engine=pg matched=true
+--- PASS: TestMatchedWitness (0.02s)
+PASS

@@ -1,0 +1,13 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "harness_origin": "79c092c60bdfba4861627c37d08a0a04f810892e benchmarks/maria-audit-of-20261113/harness",
+  "go": "go version go1.27.4 darwin/arm64",
+  "host": "M1/16GiB/macOS27.2.1",
+  "CGO_ENABLED": 0,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "observer": "off; normal16MiB; interpolationtrue; canonical writeVec"
+}

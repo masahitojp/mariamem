@@ -1,0 +1,16 @@
+=== RUN   TestMatchedWitness
+    matched_witness_test.go:10: audit_log | CREATE TABLE `audit_log` (
+          `id` bigint(20) NOT NULL AUTO_INCREMENT,
+          `order_id` bigint(20) NOT NULL,
+          `old_status` enum('pending','paid','shipped','cancelled') DEFAULT NULL,
+          `new_status` enum('pending','paid','shipped','cancelled') NOT NULL,
+          `at` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
+          PRIMARY KEY (`id`),
+          KEY `audit_log_order_id` (`order_id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci
+    matched_witness_test.go:10: BEGIN IF NOT(NEW.status <=> OLD.status) THEN INSERT INTO audit_log(order_id,old_status,new_status) VALUES(NEW.id,OLD.status,NEW.status); END IF; END
+    matched_witness_test.go:14: enum('pending','paid','shipped','cancelled')
+    matched_witness_test.go:15: 1 | SIMPLE | products | range | products_name_lower | products_name_lower | 1023 | <nil> | 1 | Using where; Using index
+    matched_witness_test.go:21: PASS sample counts/totals and matched config engine=maria matched=true
+--- PASS: TestMatchedWitness (0.04s)
+PASS

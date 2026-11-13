@@ -1,0 +1,18 @@
+--- maria-seed-original
++++ maria-seed-matched-switch
+@@ -38,6 +38,15 @@
+           if strings.Count(string(body),old)!=1 { return fmt.Errorf("expected one audit UPDATE trigger") }
+           body=[]byte(strings.Replace(string(body),old,"CREATE TRIGGER orders_audit_update AFTER UPDATE OF status ON orders",1))
+         }
++        if err==nil && os.Getenv("MODELCASE_MATCHED")=="1" {
++         edits:=[][2]string{
++          {"old_status VARCHAR(20),new_status VARCHAR(20) NOT NULL", "old_status ENUM('pending','paid','shipped','cancelled'),new_status ENUM('pending','paid','shipped','cancelled') NOT NULL"},
++          {"CREATE INDEX products_name_lower ON products(name);", "ALTER TABLE products ADD COLUMN name_lower VARCHAR(255) AS (lower(name)) VIRTUAL; CREATE INDEX products_name_lower ON products(name_lower);"},
++          {"FOR EACH ROW INSERT INTO audit_log(order_id,old_status,new_status) SELECT NEW.id,OLD.status,NEW.status WHERE NOT(NEW.status <=> OLD.status);", "FOR EACH ROW BEGIN IF NOT(NEW.status <=> OLD.status) THEN INSERT INTO audit_log(order_id,old_status,new_status) VALUES(NEW.id,OLD.status,NEW.status); END IF; END;"},
++         }
++         for _,edit:=range edits{if strings.Count(string(body),edit[0])!=1{return fmt.Errorf("missing matched schema anchor %s",edit[0])};body=[]byte(strings.Replace(string(body),edit[0],edit[1],1))}
++        }
++
+ 		if err != nil {
+ 			return err
+ 		}

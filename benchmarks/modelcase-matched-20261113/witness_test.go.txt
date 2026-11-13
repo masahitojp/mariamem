@@ -1,0 +1,22 @@
+package store_test
+import("testing";"os";"fmt";"strings")
+func TestMatchedWitness(t *testing.T){
+ db:=fx.shared();if fx.sharedErr!=nil{t.Fatal(fx.sharedErr)};ctx:=t.Context();engine:=os.Getenv("WITNESS_ENGINE");matched:=os.Getenv("MODELCASE_MATCHED")=="1"
+ show:=func(q string)[]string{t.Helper();rows,e:=db.QueryContext(ctx,q);if e!=nil{t.Fatal(e)};defer rows.Close();cols,e:=rows.Columns();if e!=nil{t.Fatal(e)};var out []string;for rows.Next(){v:=make([]any,len(cols));ptr:=make([]any,len(cols));for i:=range v{ptr[i]=&v[i]};if e=rows.Scan(ptr...);e!=nil{t.Fatal(e)};parts:=make([]string,len(cols));for i,a:=range v{if b,ok:=a.([]byte);ok{parts[i]=string(b)}else{parts[i]=fmt.Sprint(a)}};line:=strings.Join(parts," | ");out=append(out,line);t.Log(line)};if e=rows.Err();e!=nil{t.Fatal(e)};return out}
+ count:=func(q string)int{t.Helper();var n int;if e:=db.QueryRowContext(ctx,q).Scan(&n);e!=nil{t.Fatal(e)};return n}
+ if count(`SELECT count(*) FROM orders`)!=40||count(`SELECT count(*) FROM order_items`)!=100||count(`SELECT count(*) FROM audit_log`)!=40{t.Fatal("sample counts")}
+ if count(`SELECT count(*) FROM orders o WHERE o.total_cents<>(SELECT COALESCE(SUM(i.quantity*i.unit_price_cents),0) FROM order_items i WHERE i.order_id=o.id)`)!=0{t.Fatal("totals")}
+ if engine=="maria"{
+  show(`SHOW CREATE TABLE audit_log`);body:=strings.Join(show(`SELECT ACTION_STATEMENT FROM information_schema.TRIGGERS WHERE TRIGGER_NAME='orders_audit_update'`),"\n")
+  if matched{
+   if !strings.Contains(strings.ToUpper(body),"IF NOT"){t.Fatal("IF body missing")}
+   if count(`SELECT count(*) FROM products WHERE name_lower<>lower(name)`)!=0{t.Fatal("lower column")}
+   typ:=strings.Join(show(`SELECT COLUMN_TYPE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='audit_log' AND COLUMN_NAME='new_status'`),"");if !strings.HasPrefix(typ,"enum("){t.Fatal("audit enum missing")}
+   plan:=strings.Join(show(`EXPLAIN SELECT id FROM products WHERE name_lower LIKE 'product 499%'`),"\n");if !strings.Contains(plan,"products_name_lower")||!strings.Contains(plan," | range | "){t.Fatal("indexed path absent")}
+  }
+ }else{
+  body:=strings.Join(show(`SELECT pg_get_functiondef('refresh_order_total'::regproc)`),"\n");if strings.Contains(body,"statement_timestamp()")!=matched{t.Fatal("clock mismatch")}
+  show(`EXPLAIN SELECT id FROM products WHERE lower(name) LIKE 'product 499%'`)
+ }
+ t.Logf("PASS sample counts/totals and matched config engine=%s matched=%v",engine,matched)
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "engine": "pg",
+    "matched": "0",
+    "returncode": 0
+  },
+  {
+    "engine": "pg",
+    "matched": "1",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "matched": "0",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "matched": "1",
+    "returncode": 0
+  }
+]
