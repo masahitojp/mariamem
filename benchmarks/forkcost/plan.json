@@ -1,0 +1,54 @@
+{
+  "question": "Locate Fork and cleanup difference between fixed mariamem candidate and pgmem, including asynchronous pgmem cleanup",
+  "product_source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  },
+  "harness_parent": "3be0dd9ef3d9740bbd59fe32e03225f7cc717120",
+  "rows": 1000,
+  "children_per_process": 48,
+  "parallel": [
+    1,
+    4,
+    8
+  ],
+  "repeats": 3,
+  "variants": [
+    "maria",
+    "pgmem"
+  ],
+  "modes": [
+    "plain",
+    "traced"
+  ],
+  "ordinary_processes": 36,
+  "warmup_processes": 12,
+  "pilots": 4,
+  "profiles": 4,
+  "profile_parallel": [
+    1,
+    8
+  ],
+  "profile_children": 96,
+  "route": "pipe",
+  "cap": "P",
+  "toolchain": "go1.27.4",
+  "CGO_ENABLED": 0,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "no_sample_removed": true,
+  "observer": "Go build overlays only; context-owned in-memory records; dump after batch and final cleanup. No guest/runtime policy change. Plain/traced same binary and same workload.",
+  "scope": "Fork startup and cleanup; no Issue143 causal investigation, no architecture adoption or release",
+  "budget": {
+    "workspace_gib": 12,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "measurement_timeout_seconds": 900,
+    "heavy_ci_submissions": 0
+  },
+  "completion": "Complete fixed matrix and structural/cleanup/trace completeness checks, report additive stages and observer calibration; missing or ambiguous evidence reported without automatic follow-on experiments."
+}

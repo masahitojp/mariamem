@@ -1,0 +1,67 @@
+{
+  "question": "Whole48-child pgmem comparison after adopted UCA candidate, using public Go Pipe; separate transport and UCA effects",
+  "original_harness_source_commit": "d10cfa8fb810b512333bcfa8b9d661493325478e",
+  "products": {
+    "candidate": {
+      "source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe"
+    },
+    "release": {
+      "release_tag": "v0.6.2",
+      "tag_object_sha": "cebdb4114187171bd418b0a1b419e1c27368808d",
+      "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f"
+    },
+    "pgmem": {
+      "release_tag": "v1.18.2",
+      "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+    }
+  },
+  "variants": [
+    "release-pipe",
+    "candidate-tcp",
+    "pgmem-pipe",
+    "candidate-pipe"
+  ],
+  "rows": 1000,
+  "children_per_process": 48,
+  "parallel": [
+    4,
+    8
+  ],
+  "repeats": 3,
+  "warmup_per_cell": 1,
+  "positive_pilots_per_variant": 1,
+  "negative_seed_pilots_per_variant": 1,
+  "toolchain": "go1.27.3",
+  "CGO_ENABLED": 0,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "pool_max_forks": "explicit parallel worker count for both products",
+  "primary": "batch elapsed and process CPU; excludes root prep/capture/final snapshot close, includes every child close",
+  "secondary": [
+    "external whole-process elapsed including shared observer handshakes and process startup",
+    "Fork/connect/first SELECT/remaining SQL/cleanup per-child distributions",
+    "20ms sampled batch peak RSS, distinct from retained-child memory"
+  ],
+  "timer_and_oracle_changes": "same legacy probe except CLI help text; Maria adds public DialContext for Pipe and explicit cap",
+  "slow_tail": "report >100ms SQL count; no sample removal or remeasurement until faster",
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 30,
+    "workspace_gib": 8,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "heavy_ci_submissions": 0
+  },
+  "out_of_scope": [
+    "product changes",
+    "no-listener startup claim",
+    "new native reference",
+    "CI or release",
+    "automatic main merge",
+    "other workload/parameter campaigns"
+  ]
+}
