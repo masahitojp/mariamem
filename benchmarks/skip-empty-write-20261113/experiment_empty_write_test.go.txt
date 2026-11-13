@@ -1,0 +1,19 @@
+package base
+import("bytes";"encoding/binary";"errors";"io";"os";"sync";"sync/atomic";"syscall";"testing";"unsafe")
+type spikeWriter struct{b bytes.Buffer;calls,empty int;failAfter int;short bool;emptyErr error}
+func(w *spikeWriter)Write(p []byte)(int,error){w.calls++;if len(p)==0{w.empty++;return 0,w.emptyErr};if w.failAfter>=0&&w.b.Len()>=w.failAfter{return 0,syscall.EPIPE};if w.short{w.b.Write(p[:1]);return 1,nil};return w.b.Write(p)}
+func TestExperimentEmptyWriteMixedVectors(t *testing.T){
+ for _,x:=range []struct{name string;fail int;short bool;want string;n uint64;err error}{
+ {"complete",-1,false,"abcd",4,nil},{"first-error",0,false,"",0,syscall.EPIPE},{"later-error",2,false,"ab",2,syscall.EPIPE},{"short",-1,true,"a",1,io.ErrShortWrite},
+ }{t.Run(x.name,func(t *testing.T){w:=&spikeWriter{failAfter:x.fail,short:x.short};n,e:=writeVec(w,[][]byte{nil,[]byte("ab"),{},[]byte("cd"),nil});if n!=x.n||!errors.Is(e,x.err)||w.b.String()!=x.want{t.Fatalf("n=%d err=%v data=%q",n,e,w.b.String())};if experimentSkipEmptyWrite&&w.empty!=0{t.Fatalf("empty writes=%d",w.empty)};if !experimentSkipEmptyWrite&&w.empty==0{t.Fatal("baseline failed to exercise empty writer")}})}
+}
+func TestExperimentEmptyWriteAllEmptyCompatibility(t *testing.T){sentinel:=errors.New("empty destination error");for _,e:=range []error{nil,sentinel}{w:=&spikeWriter{failAfter:-1,emptyErr:e};n,got:=writeVec(w,[][]byte{nil,{},nil});wantCalls:=3;if e!=nil{wantCalls=1};if n!=0||!errors.Is(got,e)||w.calls!=wantCalls{t.Fatalf("n=%d err=%v calls=%d",n,got,w.calls)}}}
+func spikeImport(t *testing.T,wide bool,fd int32,allEmpty,badMemory bool,dst io.Writer)(int32,uint64){t.Helper();mem:=make([]byte,65536);size:=new(atomic.Uint64);size.Store(uint64(len(mem)));m:=&Module{Memory:mem,M:unsafe.Pointer(&mem[0]),MemSize:size,MemShared:true,MemMu:new(sync.Mutex),MaxMem:uint64(len(mem))};w:=DefaultWASI();w.SetStdout(dst);copy(mem[256:],"abcd");lengths:=[]uint64{0,2,0,2,0};if allEmpty{lengths=[]uint64{0,0,0,0,0}};if badMemory{if wide{return w.Fd_write64(m,int64(fd),65535,5,128),0};return w.Fd_write(m,fd,65535,5,128),0};off:=uint64(256)
+ for i,n:=range lengths{if wide{binary.LittleEndian.PutUint64(mem[64+i*16:],off);binary.LittleEndian.PutUint64(mem[72+i*16:],n)}else{binary.LittleEndian.PutUint32(mem[64+i*8:],uint32(off));binary.LittleEndian.PutUint32(mem[68+i*8:],uint32(n))};off+=n}
+ if wide{rc:=w.Fd_write64(m,int64(fd),64,5,128);return rc,binary.LittleEndian.Uint64(mem[128:])};rc:=w.Fd_write(m,fd,64,5,128);return rc,uint64(binary.LittleEndian.Uint32(mem[128:]))}
+func TestExperimentFDWriteEmptyVectorValidation(t *testing.T){for _,wide:=range []bool{false,true}{
+ w:=&spikeWriter{failAfter:-1};rc,n:=spikeImport(t,wide,1,false,false,w);if rc!=0||n!=4||w.b.String()!="abcd"{t.Fatalf("wide=%v rc=%d bytes=%d data=%q",wide,rc,n,w.b.String())};if experimentSkipEmptyWrite&&w.calls!=2{t.Fatalf("mixed calls=%d",w.calls)}
+ rc,n=spikeImport(t,wide,999,true,false,w);if rc!=_wasiEBADF||n!=0{t.Fatalf("bad fd rc=%d n=%d",rc,n)}
+ rc,_=spikeImport(t,wide,1,false,true,w);if rc!=_wasiEFAULT{t.Fatalf("bad memory rc=%d",rc)}
+ f,e:=os.CreateTemp(t.TempDir(),"closed");if e!=nil{t.Fatal(e)};f.Close();rc,n=spikeImport(t,wide,1,true,false,f);if rc==0||n!=0{t.Fatalf("closed all-empty wide=%v rc=%d n=%d",wide,rc,n)}
+ }}

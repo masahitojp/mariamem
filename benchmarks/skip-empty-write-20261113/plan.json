@@ -1,0 +1,27 @@
+{
+  "question": "skip empty iovecs in mixed vectors; preserve all-empty, FD and memory validation, errors/progress",
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "harness_commit": "d6ddbc7b0ddb0c2dc31ec4b8c8ed8478e0b4b694",
+  "interpolation": "inherit true",
+  "same_binary": "runtime switch read once, baseline false/candidate true",
+  "unit_boundaries": [
+    "wasm32/64 fd_write",
+    "invalid fd/memory",
+    "all-empty closed writer",
+    "mixed prefix/middle/suffix empties",
+    "short write/errors",
+    "framed transport/cancellation package tests"
+  ],
+  "primary": "1 warmup each +5 alternating pairs; wall,user/system CPU,70 tests each",
+  "counter": "3 alternating observer-on pairs; bytes/frame equality,22 joined DBs each,baseline/candidate empty write counts",
+  "budgets": {
+    "gib": 10,
+    "min_free_gib": 12,
+    "build_s": 1800,
+    "process_s": 130,
+    "measure_s": 900
+  },
+  "exit": "mechanical suppression + correctness + measured speed/CPU, or preserve negative result; no extra repeats",
+  "adoption": "experiment only, no main/guest regeneration/release",
+  "guard": "full workspace/free-space checks before/after each process; no hot full-tree scanner; process timeout130s; expected timed output sub-MiB"
+}

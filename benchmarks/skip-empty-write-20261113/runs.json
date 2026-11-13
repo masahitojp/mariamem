@@ -1,0 +1,200 @@
+[
+  {
+    "name": "warmup-baseline",
+    "arm": "baseline",
+    "observe": false,
+    "wall_ms": 1563.5935,
+    "user_ms": 2045.392,
+    "system_ms": 413.852,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2459.244
+  },
+  {
+    "name": "warmup-candidate",
+    "arm": "candidate",
+    "observe": false,
+    "wall_ms": 476.399541,
+    "user_ms": 2063.631,
+    "system_ms": 341.267,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2404.8979999999997
+  },
+  {
+    "name": "primary-baseline-0",
+    "arm": "baseline",
+    "observe": false,
+    "wall_ms": 457.72825,
+    "user_ms": 2021.5379999999996,
+    "system_ms": 331.61300000000017,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2353.151
+  },
+  {
+    "name": "primary-candidate-0",
+    "arm": "candidate",
+    "observe": false,
+    "wall_ms": 455.7405,
+    "user_ms": 2127.1749999999993,
+    "system_ms": 332.13899999999995,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2459.3139999999994
+  },
+  {
+    "name": "primary-candidate-1",
+    "arm": "candidate",
+    "observe": false,
+    "wall_ms": 450.229583,
+    "user_ms": 2110.923,
+    "system_ms": 313.1980000000001,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2424.121
+  },
+  {
+    "name": "primary-baseline-1",
+    "arm": "baseline",
+    "observe": false,
+    "wall_ms": 459.8595,
+    "user_ms": 2036.1639999999993,
+    "system_ms": 347.84300000000013,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2384.0069999999996
+  },
+  {
+    "name": "primary-baseline-2",
+    "arm": "baseline",
+    "observe": false,
+    "wall_ms": 475.342959,
+    "user_ms": 2011.4180000000008,
+    "system_ms": 343.7360000000003,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2355.154000000001
+  },
+  {
+    "name": "primary-candidate-2",
+    "arm": "candidate",
+    "observe": false,
+    "wall_ms": 467.573166,
+    "user_ms": 2089.5650000000005,
+    "system_ms": 346.8499999999999,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2436.4150000000004
+  },
+  {
+    "name": "primary-candidate-3",
+    "arm": "candidate",
+    "observe": false,
+    "wall_ms": 489.489584,
+    "user_ms": 2007.4840000000015,
+    "system_ms": 333.45000000000005,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2340.9340000000016
+  },
+  {
+    "name": "primary-baseline-3",
+    "arm": "baseline",
+    "observe": false,
+    "wall_ms": 495.08525,
+    "user_ms": 2031.7800000000013,
+    "system_ms": 345.5849999999998,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2377.365000000001
+  },
+  {
+    "name": "primary-baseline-4",
+    "arm": "baseline",
+    "observe": false,
+    "wall_ms": 489.611167,
+    "user_ms": 2035.5950000000007,
+    "system_ms": 350.00199999999995,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2385.5970000000007
+  },
+  {
+    "name": "primary-candidate-4",
+    "arm": "candidate",
+    "observe": false,
+    "wall_ms": 456.479417,
+    "user_ms": 2099.048,
+    "system_ms": 325.5720000000002,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2424.62
+  },
+  {
+    "name": "count-baseline-0",
+    "arm": "baseline",
+    "observe": true,
+    "wall_ms": 491.758083,
+    "user_ms": 2039.786000000003,
+    "system_ms": 345.8359999999994,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2385.6220000000026
+  },
+  {
+    "name": "count-candidate-0",
+    "arm": "candidate",
+    "observe": true,
+    "wall_ms": 471.252333,
+    "user_ms": 2032.9939999999986,
+    "system_ms": 329.4069999999998,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2362.4009999999985
+  },
+  {
+    "name": "count-candidate-1",
+    "arm": "candidate",
+    "observe": true,
+    "wall_ms": 506.573167,
+    "user_ms": 2058.432,
+    "system_ms": 337.72299999999956,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2396.1549999999993
+  },
+  {
+    "name": "count-baseline-1",
+    "arm": "baseline",
+    "observe": true,
+    "wall_ms": 465.205375,
+    "user_ms": 2027.321999999998,
+    "system_ms": 346.1160000000003,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2373.4379999999983
+  },
+  {
+    "name": "count-baseline-2",
+    "arm": "baseline",
+    "observe": true,
+    "wall_ms": 459.410583,
+    "user_ms": 2106.892000000002,
+    "system_ms": 354.38999999999953,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2461.2820000000015
+  },
+  {
+    "name": "count-candidate-2",
+    "arm": "candidate",
+    "observe": true,
+    "wall_ms": 464.712917,
+    "user_ms": 1998.297000000001,
+    "system_ms": 348.75799999999924,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2347.0550000000003
+  }
+]

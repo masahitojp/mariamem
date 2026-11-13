@@ -1,0 +1,14 @@
+[
+  {
+    "control": "nonzero_empty_writes",
+    "rejected": true
+  },
+  {
+    "control": "missing_joined_db",
+    "rejected": true
+  },
+  {
+    "control": "wrong_bytes",
+    "rejected": true
+  }
+]

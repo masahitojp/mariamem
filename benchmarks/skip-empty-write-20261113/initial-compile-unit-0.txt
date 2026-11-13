@@ -1,0 +1,6 @@
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base [build failed]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.852s
+FAIL
+# github.com/masahitojp/mariamem/internal/generatedgo/code/base [github.com/masahitojp/mariamem/internal/generatedgo/code/base.test]
+../temp/experiment_empty_write_test.go:11: cannot use fd (variable of type int32) as int64 value in argument to w.Fd_write64
+../temp/experiment_empty_write_test.go:13:29: cannot use fd (variable of type int32) as int64 value in argument to w.Fd_write64

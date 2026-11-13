@@ -1,0 +1,12 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "harness_commit": "d6ddbc7b0ddb0c2dc31ec4b8c8ed8478e0b4b694",
+  "go": "go version go1.27.4 darwin/arm64",
+  "host": "M1 16GiB macOS27.2.1",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "CGO_ENABLED": 0,
+  "binary_sha256": "988a512f83c450e4e6cf2a52e0eb09b67512b3cf2e306daa8a038c27bac48f44",
+  "base_overlay_sha256": "28f0c0e134b4038cbec884e3b9a424e5a5019db79ea6e4e912f35e01502827e6",
+  "guest_engine_bytes": "unchanged, runtime helper modified only by experimental Go overlay"
+}

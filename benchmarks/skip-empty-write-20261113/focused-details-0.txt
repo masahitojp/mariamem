@@ -1,0 +1,52 @@
+=== RUN   TestExperimentEmptyWriteMixedVectors
+=== RUN   TestExperimentEmptyWriteMixedVectors/complete
+=== RUN   TestExperimentEmptyWriteMixedVectors/first-error
+=== RUN   TestExperimentEmptyWriteMixedVectors/later-error
+=== RUN   TestExperimentEmptyWriteMixedVectors/short
+--- PASS: TestExperimentEmptyWriteMixedVectors (0.00s)
+    --- PASS: TestExperimentEmptyWriteMixedVectors/complete (0.00s)
+    --- PASS: TestExperimentEmptyWriteMixedVectors/first-error (0.00s)
+    --- PASS: TestExperimentEmptyWriteMixedVectors/later-error (0.00s)
+    --- PASS: TestExperimentEmptyWriteMixedVectors/short (0.00s)
+=== RUN   TestExperimentEmptyWriteAllEmptyCompatibility
+--- PASS: TestExperimentEmptyWriteAllEmptyCompatibility (0.00s)
+=== RUN   TestExperimentFDWriteEmptyVectorValidation
+--- PASS: TestExperimentFDWriteEmptyVectorValidation (0.00s)
+=== RUN   TestFDWriteReportsErrorsAndProgress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/broken-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/wrapped-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/other-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/no-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/short-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/partial-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/later-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/complete
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/broken-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/wrapped-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/other-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/no-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/short-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/partial-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/later-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/complete
+--- PASS: TestFDWriteReportsErrorsAndProgress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/broken-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/wrapped-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/other-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/no-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/short-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/partial-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/later-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/complete (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/broken-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/wrapped-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/other-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/no-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/short-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/partial-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/later-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/complete (0.00s)
+=== RUN   TestFDWriteClosedPipeIsNotSuccessfulZeroProgress
+--- PASS: TestFDWriteClosedPipeIsNotSuccessfulZeroProgress (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.329s

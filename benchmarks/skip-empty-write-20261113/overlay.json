@@ -1,0 +1,7 @@
+{
+  "Replace": {
+    "<WORKSPACE>/worktree/internal/guest/linked.go": "<WORKSPACE>/temp/linked_overlay.go",
+    "<WORKSPACE>/worktree/internal/generatedgo/code/base/base.go": "<WORKSPACE>/temp/base_overlay.go",
+    "<WORKSPACE>/worktree/internal/generatedgo/code/base/experiment_empty_write_test.go": "<WORKSPACE>/temp/experiment_empty_write_test.go"
+  }
+}
