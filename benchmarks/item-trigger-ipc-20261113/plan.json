@@ -1,0 +1,28 @@
+{
+  "question": "attribute sample detail INSERT total-recalc trigger versus request/response transfer and remaining driver/protocol costs",
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "harness_commit": "d73acc145acfdd8a0f1303d82cc03e78bfffb0f1",
+  "baseline": "normal DSN interpolation true, original 16MiB, original writeVec, no empty-write optimization",
+  "arms": [
+    "full SUM trigger",
+    "incremental total trigger",
+    "no INSERT total trigger, repair after timed load"
+  ],
+  "primary": "P1/P8 x3 arms x3 rotating rounds, each 2 waves of8 prepared independent child DBs; all Forks complete before loads; repairs/restores/oracles only after all loads in wave finish",
+  "observer_controls": "original full-trigger 70-test suite P8 off/on3 pairs, no extra post-load oracle SQL",
+  "pilots": "original70 tests each arm P1 with per-insert prefix and final oracles, restoration of full trigger before test bodies",
+  "budgets": {
+    "gib": 10,
+    "min_free_gib": 12,
+    "build_s": 1800,
+    "process_s": 130,
+    "total_measure_s": 1200
+  },
+  "boundaries": "same monotonic clock, actual DB/request ID, host write start, guest frame received, first nonempty reply write, host frame read, client Exec interval",
+  "decomposition": "client=before host write + inbound + guest service/response construction + outbound + after host read; not pure OS CPU",
+  "trigger_contrast": "identical 100 item INSERT calls and parameters; incremental isolates SUM-subquery removal; no-trigger isolates whole total-update body",
+  "integrity": "repair/restore outside timed LoadSample then totals, stock, audit and all70 tests; no repair speedup claim",
+  "profiling": "SQL profiling disabled in canonical WASIX; no C build or guessed C function index",
+  "stop": "fixed counts; preserve failures and explicit missing evidence; no adoption",
+  "reason": "avoid repair/DDL/validation of one control child overlapping timed load of another; retain original suite as anchor"
+}

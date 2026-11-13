@@ -1,0 +1,14 @@
+[
+  {
+    "control": "missing_response_boundary",
+    "rejected": true
+  },
+  {
+    "control": "noncausal_clock",
+    "rejected": true
+  },
+  {
+    "control": "wrong_label",
+    "rejected": true
+  }
+]

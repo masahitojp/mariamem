@@ -1,0 +1,12 @@
+package guest
+import("encoding/binary";"testing")
+func framed(p []byte)[]byte{b:=make([]byte,4+len(p));binary.LittleEndian.PutUint32(b,uint32(len(p)));copy(b[4:],p);return b}
+func TestExperimentFrameFragmentsAndIDs(t *testing.T){
+ q:=make([]byte,13);q[0]=5;binary.LittleEndian.PutUint32(q[1:],123);q[12]=23
+ for _,request:=range []bool{true,false}{p:=framed(q);if !request{p=framed([]byte(`{"request_id":123,"result":{"ok":true}}`))};for _,chunk:=range []int{1,2,3,5,128}{f:=experimentFrame{request:request};calls:=0;cb:=func(id uint32,op,cmd byte,n uint32,a,z int64){calls++;if id!=123||a>z{t.Fatalf("id=%d start/end%d/%d",id,a,z)};if request&&(op!=5||cmd!=23){t.Fatalf("op=%d cmd=%d",op,cmd)}};for i:=0;i<len(p);i+=chunk{end:=i+chunk;if end>len(p){end=len(p)};if e:=f.feed(nil,10,11,cb);e!=nil{t.Fatal(e)};if e:=f.feed(p[i:end],int64(100+i),int64(101+end),cb);e!=nil{t.Fatal(e)}};if calls!=1||f.remaining!=0||f.hn!=0{t.Fatalf("calls=%d rem=%d header=%d",calls,f.remaining,f.hn)}}}
+}
+func TestExperimentFrameControlsAndMalformed(t *testing.T){
+ p:=make([]byte,8);binary.LittleEndian.PutUint32(p[4:],0xfffffffe);f:=experimentFrame{request:true};calls:=0;if e:=f.feed(p,1,2,func(uint32,byte,byte,uint32,int64,int64){calls++});e!=nil||calls!=0{t.Fatal(e,calls)}
+ huge:=make([]byte,4);binary.LittleEndian.PutUint32(huge,(32<<20)+10);f=experimentFrame{request:true};if e:=f.feed(huge,1,2,func(uint32,byte,byte,uint32,int64,int64){});e==nil{t.Fatal("oversize accepted")}
+ f=experimentFrame{request:false};if e:=f.feed(framed([]byte(`{"missing":1}`)),1,2,func(uint32,byte,byte,uint32,int64,int64){});e==nil{t.Fatal("missing response ID accepted")}
+}

@@ -1,0 +1,6 @@
+=== RUN   TestExperimentFrameFragmentsAndIDs
+--- PASS: TestExperimentFrameFragmentsAndIDs (0.00s)
+=== RUN   TestExperimentFrameControlsAndMalformed
+--- PASS: TestExperimentFrameControlsAndMalformed (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/guest	0.855s

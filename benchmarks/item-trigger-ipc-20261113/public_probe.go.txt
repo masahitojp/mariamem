@@ -1,0 +1,5 @@
+package mariamem
+import "github.com/masahitojp/mariamem/internal/guest"
+func ExperimentNowNS()int64{return guest.ExperimentNowNS()}
+func ExperimentRecordClient(label,stage string,index int,start,end int64){guest.ExperimentRecordClient(label,stage,index,start,end)}
+func ExperimentDump(path string)error{return guest.ExperimentDump(path)}

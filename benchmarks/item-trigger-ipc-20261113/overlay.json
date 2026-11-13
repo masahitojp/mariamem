@@ -1,0 +1,8 @@
+{
+  "Replace": {
+    "<WORKSPACE>/worktree/internal/guest/linked.go": "<WORKSPACE>/temp/linked_overlay.go",
+    "<WORKSPACE>/worktree/internal/guest/experiment_probe.go": "<WORKSPACE>/temp/experiment_probe.go",
+    "<WORKSPACE>/worktree/experiment_probe.go": "<WORKSPACE>/temp/public_probe.go",
+    "<WORKSPACE>/worktree/internal/guest/experiment_probe_test.go": "<WORKSPACE>/evidence/probe_test.go.txt"
+  }
+}

@@ -1,0 +1,3 @@
+=== RUN   TestAttribution
+--- PASS: TestAttribution (0.87s)
+PASS

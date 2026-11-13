@@ -1,0 +1,48 @@
+package guest
+import("bytes";"encoding/binary";"encoding/json";"fmt";"io";"os";"strconv";"sync";"time")
+var experimentOrigin=time.Now()
+var experimentEnabled=os.Getenv("ITEM_ATTRIBUTION")=="1"
+var experimentMu sync.Mutex
+var experimentLedgers []*experimentLedger
+var experimentClients []experimentClient
+func ExperimentNowNS()int64{if !experimentEnabled{return 0};return time.Since(experimentOrigin).Nanoseconds()}
+func experimentAt(t time.Time)int64{return t.Sub(experimentOrigin).Nanoseconds()}
+type experimentClient struct{Label,Stage string;Index int;Start,End int64}
+func ExperimentRecordClient(label,stage string,index int,start,end int64){if !experimentEnabled{return};experimentMu.Lock();experimentClients=append(experimentClients,experimentClient{label,stage,index,start,end});experimentMu.Unlock()}
+type experimentRequest struct{ID uint32;Op,Command byte;HostWriteStart,HostWriteEnd,GuestReadEnd,GuestWriteStart,GuestWriteEnd,HostReadEnd int64;RequestBytes,ResponseBytes uint32}
+type experimentLedger struct{mu sync.Mutex;Label string;Joined bool;ExitError string;ParseError string;Requests map[uint32]*experimentRequest}
+type experimentFrame struct{h [4]byte;hn int;remaining,total uint32;prefix []byte;start int64;request bool}
+func(f *experimentFrame)feed(b []byte,start,end int64,cb func(uint32,byte,byte,uint32,int64,int64))error{
+ for len(b)>0{
+  if f.remaining==0{
+   if f.hn==0{f.start=start;f.prefix=f.prefix[:0]}
+   n:=copy(f.h[f.hn:],b);f.hn+=n;b=b[n:];if f.hn<4{break};f.hn=0;f.total=binary.LittleEndian.Uint32(f.h[:]);f.remaining=f.total
+   if f.remaining==0||(f.request&&f.remaining==0xfffffffe){f.remaining=0;continue}
+   if f.remaining>32<<20+9{return fmt.Errorf("oversize observed frame %d",f.remaining)}
+  }
+  n:=len(b);if uint32(n)>f.remaining{n=int(f.remaining)}
+  if len(f.prefix)<128{take:=n;if take>128-len(f.prefix){take=128-len(f.prefix)};f.prefix=append(f.prefix,b[:take]...)}
+  b=b[n:];f.remaining-=uint32(n)
+  if f.remaining==0{
+   var id uint32;var op,command byte
+   if f.request{if len(f.prefix)<9{return fmt.Errorf("short request prefix")};id=binary.LittleEndian.Uint32(f.prefix[1:5]);op=f.prefix[0];if op==5&&len(f.prefix)>=13{command=f.prefix[12]}}
+   if !f.request{k:=[]byte(`"request_id":`);i:=bytes.Index(f.prefix,k);if i<0{return fmt.Errorf("response ID absent")};p:=f.prefix[i+len(k):];n:=0;for n<len(p)&&p[n]>='0'&&p[n]<='9'{n++};v,e:=strconv.ParseUint(string(p[:n]),10,32);if e!=nil{return e};id=uint32(v)}
+   cb(id,op,command,f.total,f.start,end)
+  }
+ }
+ return nil
+}
+func(l *experimentLedger)point(direction string,id uint32,op,command byte,n uint32,start,end int64){if id==0{return};l.mu.Lock();defer l.mu.Unlock();r:=l.Requests[id];if r==nil{r=&experimentRequest{ID:id};l.Requests[id]=r};switch direction{case "host_write":r.Op=op;r.Command=command;r.HostWriteStart=start;r.HostWriteEnd=end;r.RequestBytes=n;case "guest_read":r.GuestReadEnd=end;case "guest_write":r.GuestWriteStart=start;r.GuestWriteEnd=end;r.ResponseBytes=n;case "host_read":r.HostReadEnd=end}}
+type experimentStream struct{mu sync.Mutex;f experimentFrame;l *experimentLedger;direction string}
+func(s *experimentStream)record(b []byte,start,end int64){s.mu.Lock();defer s.mu.Unlock();e:=s.f.feed(b,start,end,func(id uint32,op,command byte,n uint32,a,z int64){s.l.point(s.direction,id,op,command,n,a,z)});if e!=nil{s.l.mu.Lock();s.l.ParseError=e.Error();s.l.mu.Unlock()}}
+type experimentReader struct{io.Reader;s *experimentStream}
+func(r *experimentReader)Read(b []byte)(int,error){a:=ExperimentNowNS();n,e:=r.Reader.Read(b);z:=ExperimentNowNS();r.s.record(b[:n],a,z);return n,e}
+type experimentWriter struct{io.Writer;s *experimentStream}
+func(w *experimentWriter)Write(b []byte)(int,error){a:=ExperimentNowNS();n,e:=w.Writer.Write(b);z:=ExperimentNowNS();if n>0{w.s.record(b[:n],a,z)};return n,e}
+type experimentReadCloser struct{io.ReadCloser;s *experimentStream}
+func(r *experimentReadCloser)Read(b []byte)(int,error){a:=ExperimentNowNS();n,e:=r.ReadCloser.Read(b);z:=ExperimentNowNS();r.s.record(b[:n],a,z);return n,e}
+type experimentWriteCloser struct{io.WriteCloser;s *experimentStream}
+func(w *experimentWriteCloser)Write(b []byte)(int,error){a:=ExperimentNowNS();n,e:=w.WriteCloser.Write(b);z:=ExperimentNowNS();w.s.record(b[:n],a,z);return n,e}
+func newExperimentLedger(label string)*experimentLedger{l:=&experimentLedger{Label:label,Requests:map[uint32]*experimentRequest{}};experimentMu.Lock();experimentLedgers=append(experimentLedgers,l);experimentMu.Unlock();return l}
+func(l *experimentLedger)stream(direction string,request bool)*experimentStream{return &experimentStream{l:l,direction:direction,f:experimentFrame{request:request}}}
+func ExperimentDump(path string)error{if !experimentEnabled||path==""{return nil};experimentMu.Lock();defer experimentMu.Unlock();ledgers:=make([]map[string]any,0,len(experimentLedgers));for _,l:=range experimentLedgers{l.mu.Lock();copyReq:=map[uint32]experimentRequest{};for k,v:=range l.Requests{copyReq[k]=*v};ledgers=append(ledgers,map[string]any{"label":l.Label,"joined":l.Joined,"exit_error":l.ExitError,"parse_error":l.ParseError,"requests":copyReq});l.mu.Unlock()};b,e:=json.Marshal(map[string]any{"clients":experimentClients,"ledgers":ledgers});if e!=nil{return e};return os.WriteFile(path,b,0644)}
