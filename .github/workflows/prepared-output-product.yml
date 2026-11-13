@@ -1,5 +1,10 @@
 name: Prepared output product input (UNQUALIFIED)
 on:
+  push:
+    branches: [experiment/prepared-output-product]
+    paths:
+      - guest/**
+      - .github/workflows/prepared-output-product.yml
   workflow_dispatch:
 permissions:
   contents: read
