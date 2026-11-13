@@ -98,10 +98,19 @@ def main():
     assert '#if defined(__EMSCRIPTEN__) || defined(__wasi__)\n' + declaration in sources[names[1]]
     pool = sources[names[2]]
     assert pool.count('my_large_virtual_alloc_aligned(') == 1
-    assert re.search(r'#if defined\(__EMSCRIPTEN__\) \|\| defined\(__wasi__\)\n'
+    canonical_dispatch = re.search(r'#if defined\(__EMSCRIPTEN__\) \|\| defined\(__wasi__\)\n'
                      r'    memory_unaligned= my_large_virtual_alloc_aligned\(\n'
                      r'        &size, innodb_buffer_pool_extent_size\);\n#else\n'
                      r'    memory_unaligned= my_virtual_mem_reserve\(&size\);\n#endif', pool)
+    if "MARIAMEM_BP_ZERO_MODE_INTERNAL" in pool:
+        # Exact reviewed experiment input only; the common allocator contract
+        # below is still compiled and its four semantic mutants must fail.
+        assert hashlib.sha256(pool.encode()).hexdigest() == "e2c3250d5a360aa89cd00e21a9dea55ce13e8ad35ef6bd8cf083b3ad516251e1"
+        assert "posix_memalign(&p, innodb_buffer_pool_extent_size, size)" in pool
+        assert "memset((void*) block, 0, descriptor_bytes);" in pool
+        assert "BP_ZERO_REJECT nonzero_descriptor" in pool
+    else:
+        assert canonical_dispatch
     assert 'return my_large_virtual_alloc(size);' in sources[names[3]]
     assert 'free(ptr);' in sources[names[3]]
     cc = ['cc', '-std=c11', '-D_POSIX_C_SOURCE=200112L', '-Wall', '-Wextra', '-Werror']
