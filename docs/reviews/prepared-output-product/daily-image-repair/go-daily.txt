@@ -1,0 +1,33 @@
+ok  	github.com/masahitojp/mariamem	0.924s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.315s
+ok  	github.com/masahitojp/mariamem/internal/control	0.813s
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	0.287s
+ok  	github.com/masahitojp/mariamem/internal/disposal	0.279s
+ok  	github.com/masahitojp/mariamem/internal/forklimit	0.293s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.903s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.566s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	0.478s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	1.715s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	0.278s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/layoutgen	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.764s
+ok  	github.com/masahitojp/mariamem/internal/host	0.310s
+ok  	github.com/masahitojp/mariamem/internal/live	0.324s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	(cached)
+ok  	github.com/masahitojp/mariamem/internal/prepared	0.318s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	(cached)
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.522s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.285s
+ok  	github.com/masahitojp/mariamem/mariamemtest	0.994s
