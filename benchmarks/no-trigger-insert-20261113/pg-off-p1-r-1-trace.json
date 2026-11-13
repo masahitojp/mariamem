@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "model": "pgmem",
+    "server_version": "18.3"
+  },
+  "elapsed_ms": 523.251,
+  "spans": [
+    {
+      "name": "boot",
+      "kind": "boot",
+      "lane": "setup",
+      "start_ms": 0.001,
+      "end_ms": 53.283
+    },
+    {
+      "name": "import",
+      "kind": "import",
+      "lane": "setup",
+      "start_ms": 53.286,
+      "end_ms": 121.342
+    },
+    {
+      "name": "snapshot",
+      "kind": "snapshot",
+      "lane": "setup",
+      "start_ms": 121.343,
+      "end_ms": 136.825
+    },
+    {
+      "name": "snapshot_source_close",
+      "kind": "close",
+      "lane": "setup",
+      "start_ms": 136.826,
+      "end_ms": 136.933
+    },
+    {
+      "name": "reader_fork",
+      "kind": "fork",
+      "lane": "setup",
+      "start_ms": 136.933,
+      "end_ms": 145.644
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child7",
+      "start_ms": 260.469,
+      "end_ms": 264.655
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child2",
+      "start_ms": 264.656,
+      "end_ms": 268.463
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child0",
+      "start_ms": 268.464,
+      "end_ms": 272.279
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child1",
+      "start_ms": 272.279,
+      "end_ms": 276.066
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child4",
+      "start_ms": 276.068,
+      "end_ms": 280.026
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child3",
+      "start_ms": 280.027,
+      "end_ms": 283.758
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child5",
+      "start_ms": 283.759,
+      "end_ms": 287.558
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child6",
+      "start_ms": 287.559,
+      "end_ms": 291.298
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child7",
+      "start_ms": 372.305,
+      "end_ms": 387.346
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child2",
+      "start_ms": 387.349,
+      "end_ms": 402.614
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child0",
+      "start_ms": 402.637,
+      "end_ms": 417.838
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child1",
+      "start_ms": 417.841,
+      "end_ms": 432.519
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child4",
+      "start_ms": 432.522,
+      "end_ms": 447.101
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child3",
+      "start_ms": 447.104,
+      "end_ms": 461.82
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child5",
+      "start_ms": 461.824,
+      "end_ms": 476.608
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child6",
+      "start_ms": 476.612,
+      "end_ms": 491.634
+    }
+  ]
+}

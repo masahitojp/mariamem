@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "model": "mariamem",
+    "server_version": "12.3.3-MariaDB-embedded"
+  },
+  "elapsed_ms": 425.162,
+  "spans": [
+    {
+      "name": "boot",
+      "kind": "boot",
+      "lane": "setup",
+      "start_ms": 0.001,
+      "end_ms": 44.916
+    },
+    {
+      "name": "import",
+      "kind": "import",
+      "lane": "setup",
+      "start_ms": 44.917,
+      "end_ms": 73.255
+    },
+    {
+      "name": "snapshot",
+      "kind": "snapshot",
+      "lane": "setup",
+      "start_ms": 73.255,
+      "end_ms": 78.502
+    },
+    {
+      "name": "reader_fork",
+      "kind": "fork",
+      "lane": "setup",
+      "start_ms": 78.503,
+      "end_ms": 94.632
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child1",
+      "start_ms": 153.26,
+      "end_ms": 181.627
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child4",
+      "start_ms": 153.261,
+      "end_ms": 181.725
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child5",
+      "start_ms": 153.272,
+      "end_ms": 184.187
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child2",
+      "start_ms": 153.235,
+      "end_ms": 184.941
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child7",
+      "start_ms": 153.234,
+      "end_ms": 185.066
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child3",
+      "start_ms": 153.252,
+      "end_ms": 185.271
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child0",
+      "start_ms": 153.251,
+      "end_ms": 185.732
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child6",
+      "start_ms": 153.286,
+      "end_ms": 186
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child7",
+      "start_ms": 286.264,
+      "end_ms": 353.038
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child0",
+      "start_ms": 286.279,
+      "end_ms": 356.839
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child5",
+      "start_ms": 286.304,
+      "end_ms": 357.941
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child3",
+      "start_ms": 286.295,
+      "end_ms": 358.35
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child6",
+      "start_ms": 286.307,
+      "end_ms": 358.413
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child4",
+      "start_ms": 286.299,
+      "end_ms": 358.465
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child2",
+      "start_ms": 286.291,
+      "end_ms": 360.23
+    },
+    {
+      "name": "sample_probe",
+      "kind": "sample",
+      "lane": "sample/child1",
+      "start_ms": 286.282,
+      "end_ms": 362.395
+    }
+  ]
+}

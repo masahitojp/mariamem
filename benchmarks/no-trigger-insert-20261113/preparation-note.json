@@ -1,0 +1,6 @@
+{
+  "initial_setup": "anchor assertion found two isolated callbacks; corrected to select Snapshot callback only before measurement",
+  "final_build": "recompiled both binaries from final fixed source with before/after source hash equality; initial cache build not measured",
+  "benchmark_failures": 0,
+  "extra_performance_repeats": 0
+}

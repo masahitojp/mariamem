@@ -1,0 +1,29 @@
+--- pg-original
++++ pg-fixture
+@@ -36,6 +36,7 @@
+ var fx *fixture
+ 
+ type fixture struct {
++ probeSnap *pgmem.Snapshot
+ 	rec            *trace.Recorder
+ 	parallelWrites bool
+ 	// isolated gives a writing test a database in the sample state that
+@@ -107,6 +108,7 @@
+   done=f.rec.Start("reader_fork","fork","setup");srv,err=snap.Fork(ctx);if err!=nil{return err};done()
+  }
+ 
++ f.probeSnap=snap
+  f.isolated = func(t *testing.T) *sql.DB {
+ 		t.Helper()
+ 		done := f.rec.Start("fork", "fork", t.Name())
+@@ -200,6 +202,10 @@
+ 	if err := store.SeedMaster(ctx, db); err != nil {
+ 		return fmt.Errorf("seed: %w", err)
+ 	}
++	if os.Getenv("TRIGGERS_OFF")=="1"{
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER orders_audit ON orders`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER order_items_total ON order_items`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++}
+ 	return nil
+ }
+ 

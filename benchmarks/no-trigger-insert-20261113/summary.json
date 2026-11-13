@@ -1,0 +1,1070 @@
+{
+  "groups": {
+    "p1-pg-on": {
+      "raw_insert_ms": 6.923000000000002,
+      "sample_probe_ms": 19.164500000000004,
+      "raw_insert_ms_range": [
+        6.822000000000003,
+        7.091499999999996
+      ],
+      "sample_probe_ms_range": [
+        19.016999999999967,
+        19.85050000000001
+      ]
+    },
+    "p1-pg-off": {
+      "raw_insert_ms": 3.8100000000000023,
+      "sample_probe_ms": 14.840499999999992,
+      "raw_insert_ms_range": [
+        3.778500000000008,
+        3.9070000000000107
+      ],
+      "sample_probe_ms_range": [
+        14.801999999999992,
+        14.915999999999997
+      ]
+    },
+    "p1-maria-on": {
+      "raw_insert_ms": 18.025000000000006,
+      "sample_probe_ms": 34.38900000000001,
+      "raw_insert_ms_range": [
+        17.76800000000003,
+        18.45399999999998
+      ],
+      "sample_probe_ms_range": [
+        34.15499999999997,
+        35.628499999999974
+      ]
+    },
+    "p1-maria-off": {
+      "raw_insert_ms": 7.182999999999993,
+      "sample_probe_ms": 21.809500000000014,
+      "raw_insert_ms_range": [
+        7.006499999999988,
+        7.776000000000039
+      ],
+      "sample_probe_ms_range": [
+        21.083499999999958,
+        22.511000000000024
+      ]
+    },
+    "p8-pg-on": {
+      "raw_insert_ms": 10.75800000000001,
+      "sample_probe_ms": 33.63149999999999,
+      "raw_insert_ms_range": [
+        10.650999999999996,
+        11.277500000000003
+      ],
+      "sample_probe_ms_range": [
+        31.12299999999999,
+        36.559500000000014
+      ]
+    },
+    "p8-pg-off": {
+      "raw_insert_ms": 5.923500000000018,
+      "sample_probe_ms": 25.83,
+      "raw_insert_ms_range": [
+        5.560000000000002,
+        6.9894999999999925
+      ],
+      "sample_probe_ms_range": [
+        24.254499999999993,
+        28.4435
+      ]
+    },
+    "p8-maria-on": {
+      "raw_insert_ms": 31.76899999999999,
+      "sample_probe_ms": 61.668000000000006,
+      "raw_insert_ms_range": [
+        30.0685,
+        32.53450000000001
+      ],
+      "sample_probe_ms_range": [
+        60.66950000000003,
+        72.0805
+      ]
+    },
+    "p8-maria-off": {
+      "raw_insert_ms": 13.285499999999999,
+      "sample_probe_ms": 39.70799999999997,
+      "raw_insert_ms_range": [
+        12.67049999999999,
+        13.975500000000011
+      ],
+      "sample_probe_ms_range": [
+        37.3535,
+        43.58949999999999
+      ]
+    }
+  },
+  "contrasts": {
+    "p1 pg-off minus pg-on": {
+      "rounds": [
+        {
+          "round": 0,
+          "raw_insert_ms": -3.0149999999999864,
+          "sample_probe_ms": -5.04849999999999
+        },
+        {
+          "round": 1,
+          "raw_insert_ms": -3.07650000000001,
+          "sample_probe_ms": -4.282500000000056
+        },
+        {
+          "round": 2,
+          "raw_insert_ms": -3.1844999999999857,
+          "sample_probe_ms": -4.385999999999967
+        },
+        {
+          "round": 3,
+          "raw_insert_ms": -3.1444999999999936,
+          "sample_probe_ms": -4.3089999999999975
+        },
+        {
+          "round": 4,
+          "raw_insert_ms": -3.1330000000000098,
+          "sample_probe_ms": -4.100999999999971
+        }
+      ],
+      "paired_median_ms": {
+        "raw_insert_ms": -3.1330000000000098,
+        "sample_probe_ms": -4.3089999999999975
+      }
+    },
+    "p1 maria-off minus maria-on": {
+      "rounds": [
+        {
+          "round": 0,
+          "raw_insert_ms": -10.76150000000004,
+          "sample_probe_ms": -13.071500000000015
+        },
+        {
+          "round": 1,
+          "raw_insert_ms": -10.42949999999999,
+          "sample_probe_ms": -13.234500000000025
+        },
+        {
+          "round": 2,
+          "raw_insert_ms": -10.875499999999988,
+          "sample_probe_ms": -12.298000000000002
+        },
+        {
+          "round": 3,
+          "raw_insert_ms": -10.67799999999994,
+          "sample_probe_ms": -13.715999999999951
+        },
+        {
+          "round": 4,
+          "raw_insert_ms": -11.193999999999988,
+          "sample_probe_ms": -13.11749999999995
+        }
+      ],
+      "paired_median_ms": {
+        "raw_insert_ms": -10.76150000000004,
+        "sample_probe_ms": -13.11749999999995
+      }
+    },
+    "p1 maria-off minus pg-off": {
+      "rounds": [
+        {
+          "round": 0,
+          "raw_insert_ms": 3.199499999999972,
+          "sample_probe_ms": 6.281499999999937
+        },
+        {
+          "round": 1,
+          "raw_insert_ms": 3.765999999999991,
+          "sample_probe_ms": 6.352499999999992
+        },
+        {
+          "round": 2,
+          "raw_insert_ms": 3.242500000000007,
+          "sample_probe_ms": 7.242999999999967
+        },
+        {
+          "round": 3,
+          "raw_insert_ms": 3.9975000000000307,
+          "sample_probe_ms": 6.954000000000008
+        },
+        {
+          "round": 4,
+          "raw_insert_ms": 3.359000000000009,
+          "sample_probe_ms": 7.595000000000027
+        }
+      ],
+      "paired_median_ms": {
+        "raw_insert_ms": 3.359000000000009,
+        "sample_probe_ms": 6.954000000000008
+      }
+    },
+    "p8 pg-off minus pg-on": {
+      "rounds": [
+        {
+          "round": 0,
+          "raw_insert_ms": -4.6815,
+          "sample_probe_ms": -8.107499999999987
+        },
+        {
+          "round": 1,
+          "raw_insert_ms": -4.86699999999999,
+          "sample_probe_ms": -7.495500000000007
+        },
+        {
+          "round": 2,
+          "raw_insert_ms": -4.834499999999991,
+          "sample_probe_ms": -8.116000000000014
+        },
+        {
+          "round": 3,
+          "raw_insert_ms": -3.6615000000000038,
+          "sample_probe_ms": -5.292999999999992
+        },
+        {
+          "round": 4,
+          "raw_insert_ms": -5.717500000000001,
+          "sample_probe_ms": -9.036500000000004
+        }
+      ],
+      "paired_median_ms": {
+        "raw_insert_ms": -4.834499999999991,
+        "sample_probe_ms": -8.107499999999987
+      }
+    },
+    "p8 maria-off minus maria-on": {
+      "rounds": [
+        {
+          "round": 0,
+          "raw_insert_ms": -16.694000000000017,
+          "sample_probe_ms": -20.945500000000024
+        },
+        {
+          "round": 1,
+          "raw_insert_ms": -19.0985,
+          "sample_probe_ms": -34.727000000000004
+        },
+        {
+          "round": 2,
+          "raw_insert_ms": -18.606499999999997,
+          "sample_probe_ms": -20.961500000000058
+        },
+        {
+          "round": 3,
+          "raw_insert_ms": -17.508499999999998,
+          "sample_probe_ms": -17.895500000000027
+        },
+        {
+          "round": 4,
+          "raw_insert_ms": -18.558999999999997,
+          "sample_probe_ms": -23.996499999999997
+        }
+      ],
+      "paired_median_ms": {
+        "raw_insert_ms": -18.558999999999997,
+        "sample_probe_ms": -20.961500000000058
+      }
+    },
+    "p8 maria-off minus pg-off": {
+      "rounds": [
+        {
+          "round": 0,
+          "raw_insert_ms": 7.136999999999972,
+          "sample_probe_ms": 15.198499999999981
+        },
+        {
+          "round": 1,
+          "raw_insert_ms": 6.872999999999976,
+          "sample_probe_ms": 11.004999999999981
+        },
+        {
+          "round": 2,
+          "raw_insert_ms": 7.361999999999981,
+          "sample_probe_ms": 11.26449999999997
+        },
+        {
+          "round": 3,
+          "raw_insert_ms": 5.851000000000013,
+          "sample_probe_ms": 17.75949999999999
+        },
+        {
+          "round": 4,
+          "raw_insert_ms": 8.415500000000009,
+          "sample_probe_ms": 15.351500000000001
+        }
+      ],
+      "paired_median_ms": {
+        "raw_insert_ms": 7.136999999999972,
+        "sample_probe_ms": 15.198499999999981
+      }
+    }
+  },
+  "processes": [
+    {
+      "name": "pg-on-p1-r-1",
+      "arm": "pg-on",
+      "parallel": 1,
+      "repeat": -1,
+      "wall_ms": 1511.390459,
+      "user_ms": 588.915,
+      "system_ms": 288.635,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 877.55,
+      "raw_insert_ms": 6.974999999999994,
+      "raw_insert_mean_ms": 7.07,
+      "sample_probe_ms": 19.569000000000045,
+      "sample_probe_mean_ms": 19.635000000000034
+    },
+    {
+      "name": "pg-off-p1-r-1",
+      "arm": "pg-off",
+      "parallel": 1,
+      "repeat": -1,
+      "wall_ms": 575.416959,
+      "user_ms": 482.621,
+      "system_ms": 238.48999999999998,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 721.111,
+      "raw_insert_ms": 3.8029999999999973,
+      "raw_insert_mean_ms": 3.8527499999999932,
+      "sample_probe_ms": 14.902999999999992,
+      "sample_probe_mean_ms": 14.91075
+    },
+    {
+      "name": "maria-on-p1-r-1",
+      "arm": "maria-on",
+      "parallel": 1,
+      "repeat": -1,
+      "wall_ms": 1972.003583,
+      "user_ms": 1077.604,
+      "system_ms": 325.4410000000001,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1403.045,
+      "raw_insert_ms": 17.962000000000018,
+      "raw_insert_mean_ms": 18.288000000000004,
+      "sample_probe_ms": 34.12700000000001,
+      "sample_probe_mean_ms": 34.55575
+    },
+    {
+      "name": "maria-off-p1-r-1",
+      "arm": "maria-off",
+      "parallel": 1,
+      "repeat": -1,
+      "wall_ms": 733.484917,
+      "user_ms": 841.6409999999996,
+      "system_ms": 268.0990000000001,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1109.7399999999998,
+      "raw_insert_ms": 7.200500000000005,
+      "raw_insert_mean_ms": 7.5871250000000074,
+      "sample_probe_ms": 21.310000000000002,
+      "sample_probe_mean_ms": 21.77325000000002
+    },
+    {
+      "name": "pg-on-p8-r-1",
+      "arm": "pg-on",
+      "parallel": 8,
+      "repeat": -1,
+      "wall_ms": 389.685917,
+      "user_ms": 700.9499999999997,
+      "system_ms": 341.275,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1042.2249999999997,
+      "raw_insert_ms": 10.942000000000007,
+      "raw_insert_mean_ms": 11.169249999999998,
+      "sample_probe_ms": 36.397999999999996,
+      "sample_probe_mean_ms": 36.13824999999999
+    },
+    {
+      "name": "pg-off-p8-r-1",
+      "arm": "pg-off",
+      "parallel": 8,
+      "repeat": -1,
+      "wall_ms": 780.107375,
+      "user_ms": 601.7159999999997,
+      "system_ms": 398.9020000000001,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1000.6179999999997,
+      "raw_insert_ms": 6.006,
+      "raw_insert_mean_ms": 5.951999999999995,
+      "sample_probe_ms": 28.170500000000004,
+      "sample_probe_mean_ms": 27.805
+    },
+    {
+      "name": "maria-on-p8-r-1",
+      "arm": "maria-on",
+      "parallel": 8,
+      "repeat": -1,
+      "wall_ms": 498.369042,
+      "user_ms": 1346.2440000000004,
+      "system_ms": 283.77799999999985,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1630.0220000000002,
+      "raw_insert_ms": 29.632999999999996,
+      "raw_insert_mean_ms": 30.555750000000003,
+      "sample_probe_ms": 62.81350000000003,
+      "sample_probe_mean_ms": 62.476
+    },
+    {
+      "name": "maria-off-p8-r-1",
+      "arm": "maria-off",
+      "parallel": 8,
+      "repeat": -1,
+      "wall_ms": 356.075917,
+      "user_ms": 1012.6759999999999,
+      "system_ms": 267.18099999999987,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1279.8569999999997,
+      "raw_insert_ms": 13.326999999999998,
+      "raw_insert_mean_ms": 13.302125,
+      "sample_probe_ms": 40.559500000000014,
+      "sample_probe_mean_ms": 40.658625
+    },
+    {
+      "name": "pg-on-p1-r0",
+      "arm": "pg-on",
+      "parallel": 1,
+      "repeat": 0,
+      "wall_ms": 659.061625,
+      "user_ms": 550.3409999999996,
+      "system_ms": 231.15899999999988,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 781.4999999999994,
+      "raw_insert_ms": 6.822000000000003,
+      "raw_insert_mean_ms": 6.88562499999999,
+      "sample_probe_ms": 19.85050000000001,
+      "sample_probe_mean_ms": 20.002499999999998
+    },
+    {
+      "name": "pg-off-p1-r0",
+      "arm": "pg-off",
+      "parallel": 1,
+      "repeat": 0,
+      "wall_ms": 574.968,
+      "user_ms": 476.8530000000002,
+      "system_ms": 230.65300000000022,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 707.5060000000004,
+      "raw_insert_ms": 3.8070000000000164,
+      "raw_insert_mean_ms": 3.8425000000000082,
+      "sample_probe_ms": 14.802000000000021,
+      "sample_probe_mean_ms": 14.78775000000001
+    },
+    {
+      "name": "maria-on-p1-r0",
+      "arm": "maria-on",
+      "parallel": 1,
+      "repeat": 0,
+      "wall_ms": 947.101625,
+      "user_ms": 1066.0119999999988,
+      "system_ms": 271.68999999999954,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1337.7019999999984,
+      "raw_insert_ms": 17.76800000000003,
+      "raw_insert_mean_ms": 17.91687500000001,
+      "sample_probe_ms": 34.15499999999997,
+      "sample_probe_mean_ms": 34.407375000000016
+    },
+    {
+      "name": "maria-off-p1-r0",
+      "arm": "maria-off",
+      "parallel": 1,
+      "repeat": 0,
+      "wall_ms": 720.028709,
+      "user_ms": 845.1570000000004,
+      "system_ms": 267.3809999999994,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1112.5379999999998,
+      "raw_insert_ms": 7.006499999999988,
+      "raw_insert_mean_ms": 7.098749999999988,
+      "sample_probe_ms": 21.083499999999958,
+      "sample_probe_mean_ms": 21.18812499999997
+    },
+    {
+      "name": "pg-on-p8-r0",
+      "arm": "pg-on",
+      "parallel": 8,
+      "repeat": 0,
+      "wall_ms": 367.921917,
+      "user_ms": 720.9590000000005,
+      "system_ms": 338.7040000000008,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1059.6630000000014,
+      "raw_insert_ms": 10.919000000000011,
+      "raw_insert_mean_ms": 10.928625000000004,
+      "sample_probe_ms": 33.63149999999999,
+      "sample_probe_mean_ms": 31.288375000000006
+    },
+    {
+      "name": "pg-off-p8-r0",
+      "arm": "pg-off",
+      "parallel": 8,
+      "repeat": 0,
+      "wall_ms": 361.368792,
+      "user_ms": 621.435,
+      "system_ms": 315.6749999999997,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 937.1099999999997,
+      "raw_insert_ms": 6.237500000000011,
+      "raw_insert_mean_ms": 6.153625000000012,
+      "sample_probe_ms": 25.524,
+      "sample_probe_mean_ms": 26.009375
+    },
+    {
+      "name": "maria-on-p8-r0",
+      "arm": "maria-on",
+      "parallel": 8,
+      "repeat": 0,
+      "wall_ms": 418.729125,
+      "user_ms": 1358.5210000000013,
+      "system_ms": 280.59000000000015,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1639.1110000000015,
+      "raw_insert_ms": 30.0685,
+      "raw_insert_mean_ms": 30.14625,
+      "sample_probe_ms": 61.668000000000006,
+      "sample_probe_mean_ms": 60.98075
+    },
+    {
+      "name": "maria-off-p8-r0",
+      "arm": "maria-off",
+      "parallel": 8,
+      "repeat": 0,
+      "wall_ms": 352.556792,
+      "user_ms": 1003.705,
+      "system_ms": 262.72800000000007,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1266.433,
+      "raw_insert_ms": 13.374499999999983,
+      "raw_insert_mean_ms": 13.065249999999988,
+      "sample_probe_ms": 40.72249999999998,
+      "sample_probe_mean_ms": 40.642374999999994
+    },
+    {
+      "name": "pg-off-p8-r1",
+      "arm": "pg-off",
+      "parallel": 8,
+      "repeat": 1,
+      "wall_ms": 423.004125,
+      "user_ms": 607.5250000000026,
+      "system_ms": 315.9830000000001,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 923.5080000000028,
+      "raw_insert_ms": 5.797500000000014,
+      "raw_insert_mean_ms": 5.941749999999999,
+      "sample_probe_ms": 26.348500000000016,
+      "sample_probe_mean_ms": 26.076500000000006
+    },
+    {
+      "name": "maria-on-p8-r1",
+      "arm": "maria-on",
+      "parallel": 8,
+      "repeat": 1,
+      "wall_ms": 435.363333,
+      "user_ms": 1376.154999999997,
+      "system_ms": 269.50700000000086,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1645.661999999998,
+      "raw_insert_ms": 31.76899999999999,
+      "raw_insert_mean_ms": 31.06225,
+      "sample_probe_ms": 72.0805,
+      "sample_probe_mean_ms": 71.91875
+    },
+    {
+      "name": "maria-off-p8-r1",
+      "arm": "maria-off",
+      "parallel": 8,
+      "repeat": 1,
+      "wall_ms": 358.094667,
+      "user_ms": 999.4169999999975,
+      "system_ms": 258.26299999999947,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1257.679999999997,
+      "raw_insert_ms": 12.67049999999999,
+      "raw_insert_mean_ms": 12.783375,
+      "sample_probe_ms": 37.3535,
+      "sample_probe_mean_ms": 37.4345
+    },
+    {
+      "name": "pg-on-p8-r1",
+      "arm": "pg-on",
+      "parallel": 8,
+      "repeat": 1,
+      "wall_ms": 379.886416,
+      "user_ms": 717.0839999999998,
+      "system_ms": 324.2600000000007,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1041.3440000000005,
+      "raw_insert_ms": 10.664500000000004,
+      "raw_insert_mean_ms": 10.986249999999998,
+      "sample_probe_ms": 33.84400000000002,
+      "sample_probe_mean_ms": 34.50475000000001
+    },
+    {
+      "name": "pg-off-p1-r1",
+      "arm": "pg-off",
+      "parallel": 1,
+      "repeat": 1,
+      "wall_ms": 587.283667,
+      "user_ms": 474.0330000000022,
+      "system_ms": 222.50799999999947,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 696.5410000000016,
+      "raw_insert_ms": 3.8100000000000023,
+      "raw_insert_mean_ms": 3.8431249999999935,
+      "sample_probe_ms": 14.801999999999992,
+      "sample_probe_mean_ms": 14.806750000000001
+    },
+    {
+      "name": "maria-on-p1-r1",
+      "arm": "maria-on",
+      "parallel": 1,
+      "repeat": 1,
+      "wall_ms": 950.379625,
+      "user_ms": 1066.6159999999998,
+      "system_ms": 271.14300000000037,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1337.759,
+      "raw_insert_ms": 18.005499999999984,
+      "raw_insert_mean_ms": 18.615375,
+      "sample_probe_ms": 34.38900000000001,
+      "sample_probe_mean_ms": 34.59174999999999
+    },
+    {
+      "name": "maria-off-p1-r1",
+      "arm": "maria-off",
+      "parallel": 1,
+      "repeat": 1,
+      "wall_ms": 731.181583,
+      "user_ms": 841.3560000000011,
+      "system_ms": 262.27700000000095,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1103.633000000002,
+      "raw_insert_ms": 7.575999999999993,
+      "raw_insert_mean_ms": 7.846125000000001,
+      "sample_probe_ms": 21.154499999999985,
+      "sample_probe_mean_ms": 21.426125
+    },
+    {
+      "name": "pg-on-p1-r1",
+      "arm": "pg-on",
+      "parallel": 1,
+      "repeat": 1,
+      "wall_ms": 649.5695,
+      "user_ms": 554.112,
+      "system_ms": 234.38600000000065,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 788.4980000000006,
+      "raw_insert_ms": 6.886500000000012,
+      "raw_insert_mean_ms": 6.936250000000008,
+      "sample_probe_ms": 19.084500000000048,
+      "sample_probe_mean_ms": 19.089500000000008
+    },
+    {
+      "name": "maria-on-p1-r2",
+      "arm": "maria-on",
+      "parallel": 1,
+      "repeat": 2,
+      "wall_ms": 944.904041,
+      "user_ms": 1061.5050000000003,
+      "system_ms": 267.69700000000006,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1329.2020000000005,
+      "raw_insert_ms": 18.025000000000006,
+      "raw_insert_mean_ms": 18.119249999999994,
+      "sample_probe_ms": 34.38149999999996,
+      "sample_probe_mean_ms": 34.848624999999956
+    },
+    {
+      "name": "maria-off-p1-r2",
+      "arm": "maria-off",
+      "parallel": 1,
+      "repeat": 2,
+      "wall_ms": 739.941875,
+      "user_ms": 861.9229999999973,
+      "system_ms": 282.5729999999993,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1144.4959999999965,
+      "raw_insert_ms": 7.1495000000000175,
+      "raw_insert_mean_ms": 7.467250000000007,
+      "sample_probe_ms": 22.083499999999958,
+      "sample_probe_mean_ms": 22.346499999999992
+    },
+    {
+      "name": "pg-on-p1-r2",
+      "arm": "pg-on",
+      "parallel": 1,
+      "repeat": 2,
+      "wall_ms": 690.639542,
+      "user_ms": 550.9459999999997,
+      "system_ms": 242.9079999999999,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 793.8539999999996,
+      "raw_insert_ms": 7.091499999999996,
+      "raw_insert_mean_ms": 7.4807500000000005,
+      "sample_probe_ms": 19.22649999999996,
+      "sample_probe_mean_ms": 19.356375
+    },
+    {
+      "name": "pg-off-p1-r2",
+      "arm": "pg-off",
+      "parallel": 1,
+      "repeat": 2,
+      "wall_ms": 580.356,
+      "user_ms": 477.78499999999724,
+      "system_ms": 223.99199999999908,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 701.7769999999963,
+      "raw_insert_ms": 3.9070000000000107,
+      "raw_insert_mean_ms": 3.9099999999999966,
+      "sample_probe_ms": 14.840499999999992,
+      "sample_probe_mean_ms": 14.853749999999998
+    },
+    {
+      "name": "maria-on-p8-r2",
+      "arm": "maria-on",
+      "parallel": 8,
+      "repeat": 2,
+      "wall_ms": 432.834375,
+      "user_ms": 1372.7339999999976,
+      "system_ms": 266.10099999999903,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1638.8349999999966,
+      "raw_insert_ms": 31.891999999999996,
+      "raw_insert_mean_ms": 31.951000000000004,
+      "sample_probe_ms": 60.66950000000003,
+      "sample_probe_mean_ms": 61.190000000000005
+    },
+    {
+      "name": "maria-off-p8-r2",
+      "arm": "maria-off",
+      "parallel": 8,
+      "repeat": 2,
+      "wall_ms": 353.111708,
+      "user_ms": 1032.775000000001,
+      "system_ms": 274.07200000000034,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1306.8470000000013,
+      "raw_insert_ms": 13.285499999999999,
+      "raw_insert_mean_ms": 13.129750000000001,
+      "sample_probe_ms": 39.70799999999997,
+      "sample_probe_mean_ms": 39.426124999999985
+    },
+    {
+      "name": "pg-on-p8-r2",
+      "arm": "pg-on",
+      "parallel": 8,
+      "repeat": 2,
+      "wall_ms": 379.052208,
+      "user_ms": 717.9800000000043,
+      "system_ms": 337.16300000000035,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1055.1430000000046,
+      "raw_insert_ms": 10.75800000000001,
+      "raw_insert_mean_ms": 11.110125000000007,
+      "sample_probe_ms": 36.559500000000014,
+      "sample_probe_mean_ms": 34.638625
+    },
+    {
+      "name": "pg-off-p8-r2",
+      "arm": "pg-off",
+      "parallel": 8,
+      "repeat": 2,
+      "wall_ms": 533.702291,
+      "user_ms": 618.0319999999995,
+      "system_ms": 329.3140000000001,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 947.3459999999995,
+      "raw_insert_ms": 5.923500000000018,
+      "raw_insert_mean_ms": 6.035000000000004,
+      "sample_probe_ms": 28.4435,
+      "sample_probe_mean_ms": 27.978375000000003
+    },
+    {
+      "name": "maria-off-p8-r3",
+      "arm": "maria-off",
+      "parallel": 8,
+      "repeat": 3,
+      "wall_ms": 349.294,
+      "user_ms": 1024.6849999999981,
+      "system_ms": 259.47099999999955,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1284.1559999999977,
+      "raw_insert_ms": 12.840500000000006,
+      "raw_insert_mean_ms": 12.924375000000005,
+      "sample_probe_ms": 43.58949999999999,
+      "sample_probe_mean_ms": 43.468374999999995
+    },
+    {
+      "name": "pg-on-p8-r3",
+      "arm": "pg-on",
+      "parallel": 8,
+      "repeat": 3,
+      "wall_ms": 390.29525,
+      "user_ms": 704.074999999996,
+      "system_ms": 315.66399999999993,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1019.7389999999959,
+      "raw_insert_ms": 10.650999999999996,
+      "raw_insert_mean_ms": 10.562625,
+      "sample_probe_ms": 31.12299999999999,
+      "sample_probe_mean_ms": 31.290124999999982
+    },
+    {
+      "name": "pg-off-p8-r3",
+      "arm": "pg-off",
+      "parallel": 8,
+      "repeat": 3,
+      "wall_ms": 350.465375,
+      "user_ms": 623.5010000000045,
+      "system_ms": 319.9489999999994,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 943.4500000000039,
+      "raw_insert_ms": 6.9894999999999925,
+      "raw_insert_mean_ms": 6.848625000000002,
+      "sample_probe_ms": 25.83,
+      "sample_probe_mean_ms": 25.72525
+    },
+    {
+      "name": "maria-on-p8-r3",
+      "arm": "maria-on",
+      "parallel": 8,
+      "repeat": 3,
+      "wall_ms": 423.871209,
+      "user_ms": 1353.0719999999974,
+      "system_ms": 267.52899999999966,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1620.600999999997,
+      "raw_insert_ms": 30.349000000000004,
+      "raw_insert_mean_ms": 30.368375000000007,
+      "sample_probe_ms": 61.485000000000014,
+      "sample_probe_mean_ms": 61.059625000000004
+    },
+    {
+      "name": "maria-off-p1-r3",
+      "arm": "maria-off",
+      "parallel": 1,
+      "repeat": 3,
+      "wall_ms": 753.321042,
+      "user_ms": 862.5770000000017,
+      "system_ms": 283.9729999999996,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1146.5500000000013,
+      "raw_insert_ms": 7.776000000000039,
+      "raw_insert_mean_ms": 8.690750000000001,
+      "sample_probe_ms": 21.809500000000014,
+      "sample_probe_mean_ms": 22.313250000000025
+    },
+    {
+      "name": "pg-on-p1-r3",
+      "arm": "pg-on",
+      "parallel": 1,
+      "repeat": 3,
+      "wall_ms": 662.0575,
+      "user_ms": 549.427999999999,
+      "system_ms": 231.42899999999855,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 780.8569999999975,
+      "raw_insert_ms": 6.923000000000002,
+      "raw_insert_mean_ms": 6.981625000000001,
+      "sample_probe_ms": 19.164500000000004,
+      "sample_probe_mean_ms": 19.330999999999996
+    },
+    {
+      "name": "pg-off-p1-r3",
+      "arm": "pg-off",
+      "parallel": 1,
+      "repeat": 3,
+      "wall_ms": 581.011,
+      "user_ms": 477.5499999999937,
+      "system_ms": 227.72099999999895,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 705.2709999999927,
+      "raw_insert_ms": 3.778500000000008,
+      "raw_insert_mean_ms": 3.8344999999999914,
+      "sample_probe_ms": 14.855500000000006,
+      "sample_probe_mean_ms": 14.857625000000006
+    },
+    {
+      "name": "maria-on-p1-r3",
+      "arm": "maria-on",
+      "parallel": 1,
+      "repeat": 3,
+      "wall_ms": 971.622333,
+      "user_ms": 1087.4640000000043,
+      "system_ms": 287.6070000000013,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1375.0710000000056,
+      "raw_insert_ms": 18.45399999999998,
+      "raw_insert_mean_ms": 18.69487499999999,
+      "sample_probe_ms": 35.525499999999965,
+      "sample_probe_mean_ms": 36.44512499999999
+    },
+    {
+      "name": "pg-on-p1-r4",
+      "arm": "pg-on",
+      "parallel": 1,
+      "repeat": 4,
+      "wall_ms": 652.935208,
+      "user_ms": 556.2910000000016,
+      "system_ms": 232.0360000000008,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 788.3270000000025,
+      "raw_insert_ms": 6.956999999999994,
+      "raw_insert_mean_ms": 7.014874999999989,
+      "sample_probe_ms": 19.016999999999967,
+      "sample_probe_mean_ms": 19.048874999999995
+    },
+    {
+      "name": "pg-off-p1-r4",
+      "arm": "pg-off",
+      "parallel": 1,
+      "repeat": 4,
+      "wall_ms": 594.499709,
+      "user_ms": 478.0980000000028,
+      "system_ms": 233.53799999999936,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 711.6360000000021,
+      "raw_insert_ms": 3.823999999999984,
+      "raw_insert_mean_ms": 3.8442500000000024,
+      "sample_probe_ms": 14.915999999999997,
+      "sample_probe_mean_ms": 14.97637499999999
+    },
+    {
+      "name": "maria-on-p1-r4",
+      "arm": "maria-on",
+      "parallel": 1,
+      "repeat": 4,
+      "wall_ms": 976.980209,
+      "user_ms": 1082.2549999999965,
+      "system_ms": 286.678000000002,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1368.9329999999984,
+      "raw_insert_ms": 18.37699999999998,
+      "raw_insert_mean_ms": 18.49412499999999,
+      "sample_probe_ms": 35.628499999999974,
+      "sample_probe_mean_ms": 35.66749999999999
+    },
+    {
+      "name": "maria-off-p1-r4",
+      "arm": "maria-off",
+      "parallel": 1,
+      "repeat": 4,
+      "wall_ms": 739.140458,
+      "user_ms": 859.5880000000022,
+      "system_ms": 282.3349999999998,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1141.923000000002,
+      "raw_insert_ms": 7.182999999999993,
+      "raw_insert_mean_ms": 7.189999999999998,
+      "sample_probe_ms": 22.511000000000024,
+      "sample_probe_mean_ms": 22.571999999999996
+    },
+    {
+      "name": "pg-on-p8-r4",
+      "arm": "pg-on",
+      "parallel": 8,
+      "repeat": 4,
+      "wall_ms": 394.710792,
+      "user_ms": 719.6619999999996,
+      "system_ms": 325.6720000000008,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1045.3340000000003,
+      "raw_insert_ms": 11.277500000000003,
+      "raw_insert_mean_ms": 11.059124999999998,
+      "sample_probe_ms": 33.291,
+      "sample_probe_mean_ms": 33.984875
+    },
+    {
+      "name": "pg-off-p8-r4",
+      "arm": "pg-off",
+      "parallel": 8,
+      "repeat": 4,
+      "wall_ms": 368.708667,
+      "user_ms": 591.8350000000032,
+      "system_ms": 310.5060000000002,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 902.3410000000034,
+      "raw_insert_ms": 5.560000000000002,
+      "raw_insert_mean_ms": 5.7776250000000005,
+      "sample_probe_ms": 24.254499999999993,
+      "sample_probe_mean_ms": 23.318250000000003
+    },
+    {
+      "name": "maria-on-p8-r4",
+      "arm": "maria-on",
+      "parallel": 8,
+      "repeat": 4,
+      "wall_ms": 412.727542,
+      "user_ms": 1321.1489999999983,
+      "system_ms": 273.59099999999967,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1594.739999999998,
+      "raw_insert_ms": 32.53450000000001,
+      "raw_insert_mean_ms": 32.380375,
+      "sample_probe_ms": 63.60249999999999,
+      "sample_probe_mean_ms": 63.03674999999999
+    },
+    {
+      "name": "maria-off-p8-r4",
+      "arm": "maria-off",
+      "parallel": 8,
+      "repeat": 4,
+      "wall_ms": 358.388,
+      "user_ms": 1003.073999999998,
+      "system_ms": 263.85800000000256,
+      "returncode": 0,
+      "leaf_pass": 16,
+      "cpu_ms": 1266.9320000000007,
+      "raw_insert_ms": 13.975500000000011,
+      "raw_insert_mean_ms": 14.076250000000002,
+      "sample_probe_ms": 39.605999999999995,
+      "sample_probe_mean_ms": 39.951874999999994
+    }
+  ]
+}

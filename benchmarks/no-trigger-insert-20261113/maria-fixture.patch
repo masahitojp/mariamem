@@ -1,0 +1,34 @@
+--- maria-original
++++ maria-fixture
+@@ -35,6 +35,7 @@
+ var fx *fixture
+ 
+ type fixture struct {
++ probeSnap *pgmem.Snapshot
+ 	rec            *trace.Recorder
+ 	parallelWrites bool
+ 	// isolated gives a writing test a database in the sample state that
+@@ -104,7 +105,8 @@
+ 	done()
+  done=f.rec.Start("reader_fork","fork","setup");srv,err=snap.Fork(context.WithValue(ctx,"mariamem_benchmark_label","reader"));if err!=nil{return err};done()
+ 
+-	f.isolated = func(t *testing.T) *sql.DB {
++	f.probeSnap=snap
++ f.isolated = func(t *testing.T) *sql.DB {
+ 		t.Helper()
+ 		done := f.rec.Start("fork", "fork", t.Name())
+ 		s, err := snap.Fork(context.WithValue(ctx,"mariamem_benchmark_label",t.Name()))
+@@ -197,6 +199,13 @@
+ 	if err := store.SeedMaster(ctx, db); err != nil {
+ 		return fmt.Errorf("seed: %w", err)
+ 	}
++	if os.Getenv("TRIGGERS_OFF")=="1"{
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER orders_audit_insert`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER orders_audit_update`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER order_items_total_insert`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER order_items_total_update`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++if _,err:=db.ExecContext(ctx,`DROP TRIGGER order_items_total_delete`);err!=nil{return fmt.Errorf("drop trigger: %w",err)}
++}
+ 	return nil
+ }
+ 
