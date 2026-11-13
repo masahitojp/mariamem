@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "workspace_before_bytes": 3085119488,
+  "workspace_after_bytes": 1114112,
+  "reclaimed_bytes": 3084005376,
+  "temporary_tree_removed": true,
+  "owned_benchmark_processes_remaining": 0,
+  "remaining_paths_over_1GiB": [],
+  "cleanup_debt": [],
+  "preserved_report_commit": "3f7865dd5907f7c9364fdd81c04e88e251f672d7",
+  "upstream_pgmem_remote_and_clean_tree_rechecked": true,
+  "root_user_changes": "Pre-existing edits and untracked documents preserved; no product-source edits by measurement task."
+}
