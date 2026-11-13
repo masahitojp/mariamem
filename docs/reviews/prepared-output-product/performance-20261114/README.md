@@ -72,3 +72,31 @@ entrypoints, Python3.11 preflight and standalone .git directories resolved setup
 no source-identity assertion or client contract was weakened. Compiler cache and
 clones are active temporary inputs until final comparison, then must be removed.
 Raw evidence hashes and path substitutions are recorded in normalization.json.
+
+## Host-only repair follow-up
+
+Candidate ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e was rebuilt from a clean
+standalone clone with exact VCS metadata. The same101-iteration/five-pair runner,
+main baseline, clients and workloads observed median candidate/main ratios:
+one row0.987;1,000 rows0.827;64KiB0.998. All five bulk pairs improve;64KiB pairs
+range0.950–1.140, so the earlier all-pairs regression does not repeat, but there
+is no universal improvement or tight no-regression bound. All values/metadata
+still match. Retained RSS remains noisy; no peak or resource-saving claim.
+
+The isolated JSON decoder benchmark median changed from2.103ms/280KiB/~35
+allocations to1.523ms/140KiB/18 allocations. This isolates removal of a redundant
+whole-message parse, not attribution of all end-to-end effects. No guest rebuild,
+upstream patch, generated-code edit or new engine hook was needed.
+
+The71 unchanged native-reference scenarios pass again on this exact fixed host.
+The same five frame cases match main. An initial saved-reference comparison
+reported false differences because live Python column tuples were compared with
+JSON-loaded arrays. Both original FAIL assessment and corrected saved-JSON
+assessment are retained; values were not changed. Changed-hash/error-code negative
+controls still differ. The revised comparator normalizes only JSON container
+representation before comparison. The oversize fatal Proc_exit2/ERR2013 remains
+identical to main and is not a new output-route change.
+
+Same-source follow-up submissions: Development43530112119, public43530115529,
+installed43530119031. Their results are pending at this checkpoint; no prior run
+is relabeled to the fixed host. Main adoption and release remain unapproved.
