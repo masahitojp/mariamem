@@ -1,0 +1,91 @@
+--- a/storage/innobase/buf/buf0buf.cc
++++ b/storage/innobase/buf/buf0buf.cc
+@@ -1335,6 +1335,16 @@
+ @return whether the creation failed */
+ bool buf_pool_t::create() noexcept
+ {
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  /* Disposable experiment only: baseline, metadata, poison, bad-descriptors. */
++  const char *bp_mode_env= getenv("MARIAMEM_BP_ZERO_MODE_INTERNAL");
++  const int bp_mode= !bp_mode_env || !strcmp(bp_mode_env, "baseline") ? 0 :
++    !strcmp(bp_mode_env, "metadata") ? 1 :
++    !strcmp(bp_mode_env, "poison") ? 2 :
++    !strcmp(bp_mode_env, "bad-descriptors") ? 3 : -1;
++  size_t bp_descriptor_bytes= 0, bp_frames= 0;
++  if (bp_mode < 0) abort();
++#endif
+   ut_ad(this == &buf_pool);
+   ut_ad(!is_initialised());
+   ut_ad(size_in_bytes_requested > 0);
+@@ -1375,8 +1385,17 @@
+   {
+     NUMA_MEMPOLICY_INTERLEAVE_IN_SCOPE;
+ #if defined(__EMSCRIPTEN__) || defined(__wasi__)
+-    memory_unaligned= my_large_virtual_alloc_aligned(
+-        &size, innodb_buffer_pool_extent_size);
++    if (!bp_mode)
++      memory_unaligned= my_large_virtual_alloc_aligned(
++          &size, innodb_buffer_pool_extent_size);
++    else
++    {
++      void *p= nullptr;
++      memory_unaligned= posix_memalign(&p, innodb_buffer_pool_extent_size, size)
++        ? nullptr : static_cast<char*>(p);
++      if (memory_unaligned && bp_mode >= 2)
++        memset(memory_unaligned, 0xa5, size);
++    }
+ #else
+     memory_unaligned= my_virtual_mem_reserve(&size);
+ #endif
+@@ -1482,11 +1501,37 @@
+     const buf_block_t *extent_end= block + pages_in_extent[ssize];
+     if (reinterpret_cast<const char*>(extent_end) > end)
+       extent_end= reinterpret_cast<buf_block_t*>(end);
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++    if (bp_mode)
++    {
++      const size_t descriptor_bytes= (extent_end - block) * sizeof *block;
++      if (bp_mode != 3)
++        memset((void*) block, 0, descriptor_bytes);
++      if (bp_mode >= 2)
++      {
++        for (size_t i= 0; i < descriptor_bytes; ++i)
++          if (reinterpret_cast<const byte*>(block)[i] != 0)
++          {
++            fprintf(stderr, "BP_ZERO_REJECT nonzero_descriptor\n");
++            abort();
++          }
++        bp_descriptor_bytes+= descriptor_bytes;
++      }
++    }
++#endif
+     MEM_MAKE_DEFINED(block, (extent_end - block) * sizeof *block);
+     for (byte *frame= reinterpret_cast<byte*>(extent) +
+            first_frame_in_extent[ssize];
+          block < extent_end; block++, frame+= srv_page_size)
+     {
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++      if (bp_mode == 2)
++      {
++        for (size_t i= 0; i < srv_page_size; ++i)
++          if (frame[i] != 0xa5) abort();
++        ++bp_frames;
++      }
++#endif
+       ut_ad(!memcmp(block, field_ref_zero, sizeof *block));
+       block->page.frame= frame;
+       block->page.lock.init();
+@@ -1494,6 +1539,13 @@
+       ut_d(block->page.in_free_list= true);
+     }
+   }
++
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  if (bp_mode == 2)
++    fprintf(stderr, "BP_ZERO_WITNESS pool=%zu descriptor=%zu frames=%zu page=%zu aligned=%u\n",
++            actual_size, bp_descriptor_bytes, bp_frames, size_t(srv_page_size),
++            unsigned(!(size_t(memory) & (innodb_buffer_pool_extent_size - 1))));
++#endif
+ 
+   UT_LIST_INIT(withdrawn, &buf_page_t::list);
+   UT_LIST_INIT(LRU, &buf_page_t::LRU);

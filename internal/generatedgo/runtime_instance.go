@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
@@ -124,6 +125,9 @@ func guestEnvironment(restore, guestTiming bool) []string {
 		mode = "restore"
 	}
 	values := []string{"MARIAMEM_BOOT_MODE=" + mode}
+	if v, ok := os.LookupEnv("MARIAMEM_BP_ZERO_MODE_INTERNAL"); ok {
+		values = append(values, "MARIAMEM_BP_ZERO_MODE_INTERNAL="+v)
+	}
 	if guestTiming {
 		values = append(values, "MARIAMEM_GUEST_TIMING=1")
 	}
