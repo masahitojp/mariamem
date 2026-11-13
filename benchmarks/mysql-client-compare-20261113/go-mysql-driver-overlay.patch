@@ -1,0 +1,18 @@
+--- go-mysql-v1.16.0/driver.go
++++ dial-overlay
+@@ -230,7 +230,7 @@
+ 	if timeout <= 0 {
+ 		timeout = 10 * time.Second
+ 	}
+-	c, err = client.ConnectWithContext(ctx, ci.Addr, ci.User, ci.Password, ci.DB, timeout, configuredOptions...)
++	c, err = client.ConnectWithDialer(ctx, "tcp", ci.Addr, ci.User, ci.Password, ci.DB, ExperimentDialer, configuredOptions...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -648,3 +648,6 @@
+ func AddNamedValueChecker(nvCheckFunc ...CheckNamedValueFunc) {
+ 	namedValueCheckers = append(namedValueCheckers, nvCheckFunc...)
+ }
++
++// Disposable benchmark dial bridge; SQL/protocol execution is unchanged.
++var ExperimentDialer client.Dialer

@@ -1,0 +1,11 @@
+=== RUN   TestInsertOnly
+    insert_probe_test.go:12: mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58942
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58946
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58944
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58945
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58947
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58943
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58949
+        mariamem DialContext requires tcp/tcp4 endpoint 127.0.0.1:58948
+--- FAIL: TestInsertOnly (0.18s)
+FAIL

@@ -1,0 +1,18 @@
+building pg
+go: downloading github.com/jackc/pgx/v5 v5.11.0
+go: downloading github.com/klauspost/compress v1.20.0
+go: downloading golang.org/x/sys v0.47.0
+go: downloading golang.org/x/crypto v0.54.0
+go: downloading github.com/jackc/puddle/v2 v2.2.2
+go: downloading github.com/jackc/pgpassfile v1.0.0
+go: downloading github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+go: downloading golang.org/x/text v0.40.0
+go: downloading golang.org/x/sync v0.22.0
+building maria
+go: overlay contains a replacement for <WORKSPACE>/temp/modcache/github.com/go-mysql-org/go-mysql@v1.16.0/driver/driver.go. Files beneath GOMODCACHE (<WORKSPACE>/temp/modcache) must not be replaced.
+Traceback (most recent call last):
+  File "<WORKSPACE>/evidence/build.py", line 5, in <module>
+    print('building '+n,flush=True);cmd=['go','test'];cmd+=['-overlay',str(r/'evidence/overlay.json')] if n=='maria' else [];cmd+=['-c','-o',str(r/'temp'/f'{n}.test'),'./store'];subprocess.run(cmd,cwd=d,env=env,check=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['go', 'test', '-overlay', '<WORKSPACE>/evidence/overlay.json', '-c', '-o', '<WORKSPACE>/temp/maria.test', './store']' returned non-zero exit status 1.

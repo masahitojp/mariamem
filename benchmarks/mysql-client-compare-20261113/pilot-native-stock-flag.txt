@@ -1,0 +1,11 @@
+=== RUN   TestInsertOnly
+    insert_probe_test.go:14: ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+        ERROR 1235 (42000): prepared server-side cursors are not supported
+--- FAIL: TestInsertOnly (0.20s)
+FAIL

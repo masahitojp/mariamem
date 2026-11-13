@@ -1,0 +1,27 @@
+=== RUN   TestInsertOnly
+=== RUN   TestInsertOnly/child0
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child1
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child2
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child3
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child4
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child5
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child6
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child7
+    insert_probe_test.go:19: PASS raw=true off=true user_triggers=0 orders40/items100/audits0/totals/500stocks/FK/CHECK
+--- PASS: TestInsertOnly (0.20s)
+    --- PASS: TestInsertOnly/child0 (0.00s)
+    --- PASS: TestInsertOnly/child1 (0.00s)
+    --- PASS: TestInsertOnly/child2 (0.00s)
+    --- PASS: TestInsertOnly/child3 (0.00s)
+    --- PASS: TestInsertOnly/child4 (0.00s)
+    --- PASS: TestInsertOnly/child5 (0.00s)
+    --- PASS: TestInsertOnly/child6 (0.00s)
+    --- PASS: TestInsertOnly/child7 (0.00s)
+PASS

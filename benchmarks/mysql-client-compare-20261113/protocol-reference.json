@@ -1,0 +1,4 @@
+{
+  "url": "https://dev.mysql.com/doc/dev/mysql-server/latest/page_protocol_com_stmt_execute.html",
+  "observation": "go-mysql adds0x08 PARAMETER_COUNT_AVAILABLE; Maria host rejects nonzero execute flags; diagnostic client overlay suppresses unused bit without QUERY_ATTRIBUTES; no product change; no blame adjudication"
+}

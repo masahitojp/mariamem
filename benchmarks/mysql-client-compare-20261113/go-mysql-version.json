@@ -1,0 +1,8 @@
+{
+	"Path": "github.com/go-mysql-org/go-mysql",
+	"Version": "v1.16.0",
+	"Query": "latest",
+	"Time": "2026-07-15T05:26:48Z",
+	"GoMod": "<WORKSPACE>/temp/modcache/cache/download/github.com/go-mysql-org/go-mysql/@v/v1.16.0.mod",
+	"GoVersion": "1.25.0"
+}

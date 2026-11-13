@@ -1,0 +1,20 @@
+{
+  "question": "trigger-free100 prepared INSERTs with go-sql-driver/mysql vs go-mysql stdlib vs direct API; PG reference",
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "go_mysql": "v1.16.0",
+  "baseline": "f697c1aace4429163d76d27abd49953416856ab6 raw probe; all USER triggers OFF; FK/CHECK/indexes retained",
+  "arms": [
+    "pg",
+    "standard",
+    "stdlib",
+    "native"
+  ],
+  "primary": "P1/P8 x1 warmup+5 rotated repeats;8 DB batches/process; raw only",
+  "connection": "all paths net.Pipe; go-mysql driver dial overlay only outside timed interval; parent prep and oracles use standard driver; all3 Maria measurement connections fresh",
+  "timing": "100 Exec including affected-row check; begin/prepare/commit/connection/session query/Close excluded; all raw batches finish before any commit",
+  "limits": "direct API lacks same context watcher semantics; not full app/driver conformance; no production adoption",
+  "budget_gib": 10,
+  "min_free_gib": 12,
+  "compatibility": "stock go-mysql stdlib/native rejected flag0x08; diagnostic stmt overlay sets it only when server advertises QUERY_ATTRIBUTES; no product change; not stock library performance",
+  "linker": "rename go-mysql SQL registration to benchmark-go-mysql to coexist with go-sql-driver"
+}

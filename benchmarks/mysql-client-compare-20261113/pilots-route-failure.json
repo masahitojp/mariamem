@@ -1,0 +1,22 @@
+[
+  {
+    "arm": "pg",
+    "returncode": 0,
+    "leaf_pass": 8,
+    "sessions": []
+  },
+  {
+    "arm": "standard",
+    "returncode": 0,
+    "leaf_pass": 8,
+    "sessions": [
+      "[utf8mb4 utf8mb4_uca1400_ai_ci 1]"
+    ]
+  },
+  {
+    "arm": "stdlib",
+    "returncode": 1,
+    "leaf_pass": 0,
+    "sessions": []
+  }
+]

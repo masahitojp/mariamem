@@ -1,0 +1,11 @@
+--- go-mysql-v1.16.0/client/stmt.go
++++ diagnostic-flags
+@@ -236,7 +236,7 @@
+ 	data.Write([]byte{byte(s.ID), byte(s.ID >> 8), byte(s.ID >> 16), byte(s.ID >> 24)})
+ 
+ 	flags := mysql.CURSOR_TYPE_NO_CURSOR
+-	if paramsNum > 0 {
++	if paramsNum > 0 && s.conn.capability&mysql.CLIENT_QUERY_ATTRIBUTES > 0 {
+ 		flags |= mysql.PARAMETER_COUNT_AVAILABLE
+ 	}
+ 	data.WriteByte(flags)

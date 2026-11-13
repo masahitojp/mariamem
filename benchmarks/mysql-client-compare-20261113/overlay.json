@@ -1,0 +1,6 @@
+{
+  "Replace": {
+    "<WORKSPACE>/temp/go-mysql/driver/driver.go": "<WORKSPACE>/temp/go_mysql_driver_overlay.go",
+    "<WORKSPACE>/temp/go-mysql/client/stmt.go": "<WORKSPACE>/temp/go_mysql_stmt_overlay.go"
+  }
+}

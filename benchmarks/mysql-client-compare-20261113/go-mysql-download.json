@@ -1,0 +1,16 @@
+{
+	"Path": "github.com/go-mysql-org/go-mysql",
+	"Version": "v1.16.0",
+	"Info": "<WORKSPACE>/temp/modcache/cache/download/github.com/go-mysql-org/go-mysql/@v/v1.16.0.info",
+	"GoMod": "<WORKSPACE>/temp/modcache/cache/download/github.com/go-mysql-org/go-mysql/@v/v1.16.0.mod",
+	"Zip": "<WORKSPACE>/temp/modcache/cache/download/github.com/go-mysql-org/go-mysql/@v/v1.16.0.zip",
+	"Dir": "<WORKSPACE>/temp/modcache/github.com/go-mysql-org/go-mysql@v1.16.0",
+	"Sum": "h1:odv4Ygtc1WHJv3uUF2aoJdE1RS7tA0sD3ET91ZAWQIg=",
+	"GoModSum": "h1:VjBTZTTDKL8OMXUAhNbg3VHaVVq9HOXJEBLpAKBFIfE=",
+	"Origin": {
+		"VCS": "git",
+		"URL": "https://github.com/go-mysql-org/go-mysql",
+		"Hash": "ad661cb5b84f508aa57e25ef78821c89c891e38c",
+		"Ref": "refs/tags/v1.16.0"
+	}
+}

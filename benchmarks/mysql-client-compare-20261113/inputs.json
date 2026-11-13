@@ -1,0 +1,15 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "go": "go version go1.27.4 darwin/arm64",
+  "CGO_ENABLED": 0,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "host": "M1/16GiB/macOS27.2.1",
+  "go_sql_driver": "v1.9.3",
+  "go_mysql": "v1.16.0 plus dial/legacy-flag diagnostic overlays",
+  "edwards25519": "v1.2.0 shared by all Maria paths",
+  "baseline": "f697c1aace4429163d76d27abd49953416856ab6",
+  "schema": "all user triggers off, FK/CHECK/indexes kept; matched modelcase"
+}

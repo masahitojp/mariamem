@@ -1,0 +1,4 @@
+{
+  "correction": "dependency acquisition initially targeted root; both files restored byte-for-byte from unchanged initial HEAD before any build; acquisition repeated in disposable module",
+  "root_user_changes_preserved": true
+}
