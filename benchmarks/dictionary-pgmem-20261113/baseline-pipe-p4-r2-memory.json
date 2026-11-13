@@ -1,0 +1,68 @@
+{
+  "baseline_rss_bytes": 56147968,
+  "sampled_peak_rss_bytes": 355926016,
+  "samples": [
+    {
+      "offset_ms": 0.20829099958064035,
+      "rss_bytes": 56147968
+    },
+    {
+      "offset_ms": 20.375665997562464,
+      "rss_bytes": 332562432
+    },
+    {
+      "offset_ms": 41.05433299992001,
+      "rss_bytes": 273907712
+    },
+    {
+      "offset_ms": 63.42600000061793,
+      "rss_bytes": 149471232
+    },
+    {
+      "offset_ms": 87.3139999966952,
+      "rss_bytes": 87556096
+    },
+    {
+      "offset_ms": 111.2753330016858,
+      "rss_bytes": 215121920
+    },
+    {
+      "offset_ms": 132.47974999831058,
+      "rss_bytes": 351764480
+    },
+    {
+      "offset_ms": 156.7728329973761,
+      "rss_bytes": 344195072
+    },
+    {
+      "offset_ms": 185.8025830006227,
+      "rss_bytes": 328843264
+    },
+    {
+      "offset_ms": 208.4895410007448,
+      "rss_bytes": 285360128
+    },
+    {
+      "offset_ms": 233.69804099638714,
+      "rss_bytes": 281083904
+    },
+    {
+      "offset_ms": 261.31758299743524,
+      "rss_bytes": 285360128
+    },
+    {
+      "offset_ms": 284.23833299893886,
+      "rss_bytes": 184188928
+    },
+    {
+      "offset_ms": 306.4818330021808,
+      "rss_bytes": 84017152
+    },
+    {
+      "offset_ms": 326.88554099877365,
+      "rss_bytes": 355926016
+    }
+  ],
+  "interval_ms": 20,
+  "peak_active_children": 4
+}

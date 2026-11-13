@@ -1,0 +1,35 @@
+Cloning into '<WORKSPACE>/temp/harness'...
+done.
+HEAD is now at e0cbbb08 Define bounded48-child Pipe comparison for adopted UCA candidate
+Cloning into '<WORKSPACE>/temp/candidate'...
+done.
+HEAD is now at 0f5b26f3 docs: record approved dictionary main integration and issue disposition
+Cloning into '<WORKSPACE>/temp/baseline'...
+done.
+HEAD is now at 8df45792 perf: reuse prepared UCA default contraction data (#157)
+Cloning into '<WORKSPACE>/temp/pgmem'...
+warning: refs/tags/v1.18.2 145e5d2fc70983b89a4bdd8438e547fcd60244ed is not a commit!
+Note: switching to 'a61005d37d01e6671f814fe8ca828222e8147df4'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+START build.py
+candidate BUILD PASS
+baseline BUILD PASS
+pgmem BUILD PASS
+START run.py
+BUILD READY: separate measurement avoids disk-scanner CPU interference
+CAMPAIGN COMPLETE

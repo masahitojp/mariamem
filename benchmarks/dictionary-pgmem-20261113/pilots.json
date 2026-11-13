@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "positive": 3,
+  "negative": 3,
+  "phase_and_cleanup_oracles": "PASS"
+}

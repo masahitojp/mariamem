@@ -1,0 +1,20 @@
+{
+  "baseline_rss_bytes": 56344576,
+  "sampled_peak_rss_bytes": 546373632,
+  "samples": [
+    {
+      "offset_ms": 0.21241699869278818,
+      "rss_bytes": 56344576
+    },
+    {
+      "offset_ms": 25.070291994779836,
+      "rss_bytes": 546373632
+    },
+    {
+      "offset_ms": 47.085749996767845,
+      "rss_bytes": 354140160
+    }
+  ],
+  "interval_ms": 20,
+  "peak_active_children": 8
+}

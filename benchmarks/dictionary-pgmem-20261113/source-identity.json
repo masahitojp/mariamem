@@ -1,0 +1,22 @@
+{
+  "harness": {
+    "object_sha": "e0cbbb08829612d5567221a1e31c9c8386577dfe",
+    "object_type": "commit",
+    "source_commit": "e0cbbb08829612d5567221a1e31c9c8386577dfe"
+  },
+  "candidate": {
+    "object_sha": "0f5b26f370875d26bd337031f48856d8f57c10db",
+    "object_type": "commit",
+    "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db"
+  },
+  "baseline": {
+    "object_sha": "8df45792a927e440972266ee799d6f7223713e14",
+    "object_type": "commit",
+    "source_commit": "8df45792a927e440972266ee799d6f7223713e14"
+  },
+  "pgmem": {
+    "object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "object_type": "tag",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  }
+}

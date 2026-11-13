@@ -1,0 +1,9 @@
+{
+  "remote": "https://github.com/shibukawa/pgmem.git",
+  "release_tag": "v1.18.2",
+  "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "verified_remote_tag_and_peeled_commit": true,
+  "clean_checkout": true,
+  "unique_edits": false
+}

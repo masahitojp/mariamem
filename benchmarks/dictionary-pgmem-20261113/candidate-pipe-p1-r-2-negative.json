@@ -1,0 +1,40 @@
+{
+  "cpu_user_ms": 25.971,
+  "cpu_system_ms": 9.574,
+  "minor_faults": 4423,
+  "major_faults": 0,
+  "voluntary_switches": 2,
+  "involuntary_switches": 910,
+  "lifetime_max_rss_bytes": 129105920,
+  "backend": "mariamem",
+  "route": "pipe",
+  "parallel": 1,
+  "count": 1,
+  "go": "go1.27.4",
+  "gomaxprocs": 8,
+  "server_version": "12.3.3-MariaDB-embedded",
+  "root_start_ms": 44.409708,
+  "snapshot_ms": 2.835834,
+  "batch_ms": 20.302917,
+  "samples": [
+    {
+      "offset_ms": 0.004083,
+      "total_ms": 20.297292,
+      "sql_ms": 1.532458,
+      "cleanup_complete": true,
+      "index": 0,
+      "fork_ms": 16.354292,
+      "connect_ms": 0.3125,
+      "select_ms": 0.100208,
+      "ready_ms": 16.767292,
+      "cleanup_ms": 1.997333,
+      "oracle": false,
+      "error": "pristine oracle: count=1000 sum=500498"
+    }
+  ],
+  "root_closed_before_forks": true,
+  "cleanup_complete": true,
+  "corrupt_seed": true,
+  "success": false,
+  "error": "pristine oracle: count=1000 sum=500498"
+}

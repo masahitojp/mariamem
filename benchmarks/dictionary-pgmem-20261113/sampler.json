@@ -1,0 +1,9 @@
+{
+  "libproc_rss": 238845952,
+  "ps_rss": 238845952,
+  "sample_interval_ms": 20,
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M1",
+  "memory_bytes": 17179869184,
+  "logical_cpus": 8
+}

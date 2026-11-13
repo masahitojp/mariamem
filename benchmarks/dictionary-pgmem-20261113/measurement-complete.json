@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "measured_processes": 30,
+  "warmup_processes": 6,
+  "children_per_process": 48,
+  "pilots": 6,
+  "no_sample_removed": true,
+  "controller_sha256": "683ae00efdcff35e4f55e208c2b4c4b93af89f4a6a22b8760259aece8f4ed51b",
+  "harness_source_commit": "e0cbbb08829612d5567221a1e31c9c8386577dfe",
+  "peak_workspace_bytes": 3085025280,
+  "min_free_bytes": 42656059392
+}

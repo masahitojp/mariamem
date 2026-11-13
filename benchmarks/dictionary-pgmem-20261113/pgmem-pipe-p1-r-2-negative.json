@@ -1,0 +1,40 @@
+{
+  "cpu_user_ms": 6.956,
+  "cpu_system_ms": 3.492,
+  "minor_faults": 1068,
+  "major_faults": 445,
+  "voluntary_switches": 0,
+  "involuntary_switches": 107,
+  "lifetime_max_rss_bytes": 168181760,
+  "backend": "pgmem",
+  "route": "pipe",
+  "parallel": 1,
+  "count": 1,
+  "go": "go1.27.4",
+  "gomaxprocs": 8,
+  "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+  "root_start_ms": 49.264667,
+  "snapshot_ms": 14.616792,
+  "batch_ms": 8.765084,
+  "samples": [
+    {
+      "offset_ms": 0.006584,
+      "total_ms": 8.756416,
+      "sql_ms": 0.52525,
+      "cleanup_complete": true,
+      "index": 0,
+      "fork_ms": 5.328791,
+      "connect_ms": 2.657458,
+      "select_ms": 0.193625,
+      "ready_ms": 8.180166,
+      "cleanup_ms": 0.050792,
+      "oracle": false,
+      "error": "pristine oracle: count=1000 sum=500498"
+    }
+  ],
+  "root_closed_before_forks": true,
+  "cleanup_complete": true,
+  "corrupt_seed": true,
+  "success": false,
+  "error": "pristine oracle: count=1000 sum=500498"
+}

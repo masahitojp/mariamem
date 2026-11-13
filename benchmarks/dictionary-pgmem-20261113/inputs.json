@@ -1,0 +1,45 @@
+{
+  "products": {
+    "candidate": {
+      "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20"
+    },
+    "baseline": {
+      "source_commit": "8df45792a927e440972266ee799d6f7223713e14",
+      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22"
+    },
+    "pgmem": {
+      "release_tag": "v1.18.2",
+      "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+    }
+  },
+  "binaries": {
+    "candidate": {
+      "sha256": "74a2940d531f9c38b93c357e810101e296fb81926a6e43c462e3addd7fbeffcd",
+      "bytes": 109774610,
+      "original_buildinfo_sha256": "3f47b80b2da5260deb71496457b239f2f72f27fed9e278bc1cb569967cad7283",
+      "published_buildinfo_sha256": "966d5bf1637e368b57f3594f05e68f8ae8b3d0e47721f74b4718d2e43e4ab741",
+      "buildinfo": "<WORKSPACE>/temp/bin/candidate: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261105045334-e0cbbb088296\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/temp/candidate\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=e0cbbb08829612d5567221a1e31c9c8386577dfe\n\tbuild\tvcs.time=2026-11-05T04:53:34Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 115.87597175000701
+    },
+    "baseline": {
+      "sha256": "aa57e797e3e9836034deb24ba455119e016c62da0197f474b0059d82aba7270c",
+      "bytes": 109791122,
+      "original_buildinfo_sha256": "270edfcbb5daba5d5355ba6e9b2adad7d1a6794331d223f3e15021b2f8c2e52f",
+      "published_buildinfo_sha256": "62a1db91d0a74457775a223bd8346ef552642f256c0fba15b81ee056e2b8642a",
+      "buildinfo": "<WORKSPACE>/temp/bin/baseline: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261105045334-e0cbbb088296\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/temp/baseline\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=e0cbbb08829612d5567221a1e31c9c8386577dfe\n\tbuild\tvcs.time=2026-11-05T04:53:34Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 110.64989991699986
+    },
+    "pgmem": {
+      "sha256": "d05423cf38d7f14b395b928a98007252d4a9fc7f6180e3c3ef410f59f84403ec",
+      "bytes": 67172770,
+      "original_buildinfo_sha256": "989a380bc1b389269822cb10a8fceab16edbbd30c10b3c4dd567591f3c665d1c",
+      "published_buildinfo_sha256": "09c6d6fde0cac445357603f9813a3f8c7a7a1fa408ca0d81a1f2279897797f6e",
+      "buildinfo": "<WORKSPACE>/temp/bin/pgmem: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/postgres\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261105045334-e0cbbb088296\t\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.11.0\th1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.2\th1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=\n\tdep\tgithub.com/klauspost/compress\tv1.20.0\th1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=\n\tdep\tgithub.com/shibukawa/pgmem\tv1.18.2\n\t=>\t<WORKSPACE>/temp/pgmem\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.42.0\th1:chiH31gIWm57EkTXpwnqf8qeuMUi0yekh6mT2AvFlqI=\n\tdep\tgolang.org/x/sync\tv0.17.0\th1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug=\n\tdep\tgolang.org/x/sys\tv0.44.0\th1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=\n\tdep\tgolang.org/x/text\tv0.29.0\th1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=e0cbbb08829612d5567221a1e31c9c8386577dfe\n\tbuild\tvcs.time=2026-11-05T04:53:34Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 75.32995591700455
+    }
+  },
+  "harness_source_commit": "e0cbbb08829612d5567221a1e31c9c8386577dfe",
+  "toolchain": "go version go1.27.4 darwin/arm64"
+}

@@ -1,0 +1,26 @@
+{
+	"Path": "github.com/masahitojp/mariamem",
+	"Version": "v0.6.2",
+	"Replace": {
+		"Path": "<WORKSPACE>/temp/candidate",
+		"Dir": "<WORKSPACE>/temp/candidate",
+		"GoMod": "<WORKSPACE>/temp/candidate/go.mod",
+		"GoVersion": "1.26.0"
+	},
+	"Dir": "<WORKSPACE>/temp/candidate",
+	"GoMod": "<WORKSPACE>/temp/candidate/go.mod",
+	"GoVersion": "1.26.0"
+}
+{
+	"Path": "github.com/shibukawa/pgmem",
+	"Version": "v1.18.2",
+	"Replace": {
+		"Path": "<WORKSPACE>/temp/pgmem",
+		"Dir": "<WORKSPACE>/temp/pgmem",
+		"GoMod": "<WORKSPACE>/temp/pgmem/go.mod",
+		"GoVersion": "1.25.0"
+	},
+	"Dir": "<WORKSPACE>/temp/pgmem",
+	"GoMod": "<WORKSPACE>/temp/pgmem/go.mod",
+	"GoVersion": "1.25.0"
+}

@@ -1,0 +1,1 @@
+{"result": "BUILD_READY", "next": "Run measure.py separately after build guards exit; per-process disk checks and timeouts remain."}
