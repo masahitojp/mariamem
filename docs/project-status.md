@@ -6,7 +6,7 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## Issue156 — dictionary-wait product candidate authorized
+## Issue156 — dictionary-wait main integration approved
 
 On2026-11-12 the Human approved proceeding to a product candidate, prioritizing
 an early comparison with the existing main baseline. The
@@ -27,11 +27,12 @@ passed fresh-environment Python checks. CI43330322013 now passes at a8389b6d:
 two identical guest builds, full120-file regeneration on both OSes, daily/integration,
 actual dictionary/worker regressions, SQL/children and cleanup. The [integration
 review](reviews/dictionary-installation/integration-review.md) recommends the narrow
-correction with the measured P4 regression retained; the Human integration decision
-is still pending. No main merge or release has been performed.
-The bootstrap remains
-UNQUALIFIED; no old runtime or performance result is relabeled. Product adoption,
-main integration and release remain separate.
+correction with the measured P4 regression retained. The Human approved main
+integration and then related-Issue cleanup on 2026-11-13. The [approval record](reviews/dictionary-installation/integration-approval.json)
+binds the reviewed source and accepted limits. Protected PR checks own the merge
+transaction. Close #156 on merge for the completed finite work; #140 retains the
+unproven natural PREPARE sequence. No new experiment or release is authorized.
+The bootstrap remains UNQUALIFIED; no historical result is relabeled.
 
 ## WASI timer correction and startup reduction — product candidate approved
 

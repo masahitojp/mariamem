@@ -1,4 +1,21 @@
-# Dictionary eviction wait notification — candidate implementation approved
+# Dictionary eviction wait notification — main integration approved
+
+## Main integration decision — 2026-11-13
+
+After [CI43330322013](https://github.com/masahitojp/mariamem/actions/runs/43330322013)
+and the [integration review](../reviews/dictionary-installation/integration-review.md),
+the Human explicitly requested integration followed by related-Issue cleanup.
+This adopts the narrow correction, including the measured P4 tradeoff. The
+tested runtime source is a8389b6d543e449906e8064b8f37200c74c2c394; the preserved
+review/evidence source is 21eec59b3af14243c1ce33243db45e818797bd1e. Later approval
+bookkeeping does not change the runtime. Use the normal protected PR gates and
+squash only this production candidate, not the exploratory prototype history.
+
+After merge, close #156 as finite investigation and product adoption complete and
+retain the unresolved natural PREPARE sequence under #140. Keep #68, #88 and #154
+closed and #143 deferred/separate. No new experiment, mandatory performance gate,
+Qualification or release follows from this approval. The original checkpoints
+below retain their then-current source and authorization context.
 
 On2026-11-12 the Human approved proceeding to the product candidate and requested
 early performance comparison. This approves implementation and verification,

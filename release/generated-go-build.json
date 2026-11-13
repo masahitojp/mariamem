@@ -377,7 +377,7 @@
   "completed": true,
   "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "PASS: bounded canonical correctness; Human integration decision pending",
+    "status": "PASS: bounded canonical correctness; Human approved narrow main integration through protected PR gates",
     "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
     "run_id": 43330322013,
     "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43330322013",
@@ -388,7 +388,8 @@
       "ubuntu24.04-x86_64"
     ],
     "qualification": "NOT_RUN",
-    "release": "NOT_REQUESTED"
+    "release": "NOT_REQUESTED",
+    "human_integration_approval": "docs/reviews/dictionary-installation/integration-approval.json"
   },
   "previous_canonical_evidence": {
     "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
