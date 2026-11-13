@@ -1,0 +1,45 @@
+{
+  "source": {
+    "object_sha": "8df45792a927e440972266ee799d6f7223713e14",
+    "object_type": "commit",
+    "source_commit": "8df45792a927e440972266ee799d6f7223713e14"
+  },
+  "execution_source": {
+    "object_sha": "4e2ac423118dac3233f7bd90862d56b936a893a4",
+    "object_type": "commit",
+    "source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4"
+  },
+  "harness": {
+    "object_sha": "d24087eedd21c6384c231fb119c8e98da7b370aa",
+    "object_type": "commit",
+    "source_commit": "d24087eedd21c6384c231fb119c8e98da7b370aa"
+  },
+  "harness_files_sha256": {
+    "UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "diagnostic-injection.json": "acfbdf9ff504d14d1981b887f841d9f5e1a9686487a97617b585d0dd6ba3e11e",
+    "go.mod": "1f3ab0b3a2ac401e3f4db6550bb2020e85877b856c1279effea450b334e85d25",
+    "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "internal/trace/trace.go": "72407711a3c07835bc5a466eaca2629cb88bff0a49bf208de4d2c0ef318c6eb1",
+    "maria/store/analyze_probe_test.go": "169e67a12dbbacdb24c0f0dca8cf6593d48197e268314be25b417dfdcad98efd",
+    "maria/store/backend_test.go": "de6150983279cbe0079064dbfa4fca4203e17f6e7886d8c87b4348ee123ece63",
+    "maria/store/fixture_test.go": "4967319ac2bd40c26e9cdbc9049afa842568f7bb71f722c93f5cc851a2e37182",
+    "maria/store/fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+    "maria/store/lifecycle_test.go": "1c031a6db5ea68b8841444a9400813e4cf6669d7af466d06b3b2913ffacbfffa",
+    "maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+    "maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4",
+    "maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+    "maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+    "maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+    "maria/store/prepare_capture.go": "04b9e9a80a104071a64c3bdbde684cf5eef962951a2446bc6b7a2b5066445f27",
+    "maria/store/read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+    "maria/store/sample_observe.go": "97392c31ba4b7546d008258f05adf943033509db47c652a2bd29cbe5ba7b4d51",
+    "maria/store/seed.go": "c4ad8c54e4d469e590a05e0d8033efd9e41b998e210b224fd0cc340ca10a4b4b",
+    "maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+    "maria/store/write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72"
+  },
+  "runtime_inventory_sha256": "b747b3470aa89123f11ecf0a7c0481ffdc33f1ded36e31bb404ed61c0246bff8",
+  "binary_sha256": "ed404b9bfbe41b4dc7f91f26bcb1106f8ce10624399764a39ba59cb5686a8bb8",
+  "compile_seconds": 4.068362750000233,
+  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "buildinfo": "<WORK>/temp/baseline-phases.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}

@@ -142,6 +142,7 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
                                     "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
                                     "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", "wasm/prepared_api.inc", routine_schema["header"], auth_header, *auth_files,
                                     "include/mariamem_init_diagnostics.h", *generated_files, *diagnostic_files,
+                                    "storage/innobase/dict/dict0dict.cc",
                                     "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
     if selected is None or 'lexer' in features:
         manifest.update(startup_concurrency=startup_concurrency, lexer_prepared=lexer_prepared,

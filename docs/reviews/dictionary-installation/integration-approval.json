@@ -1,0 +1,19 @@
+{
+  "decision": "APPROVED_MAIN_INTEGRATION",
+  "human_instruction": "\u7d71\u5408\u3057\u3066\u3001\u305d\u306e\u5f8c\u95a2\u9023issue\u306e\u6574\u7406\u3057\u3066",
+  "reviewed_runtime_source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+  "review_and_evidence_source_commit": "21eec59b3af14243c1ce33243db45e818797bd1e",
+  "base_source_commit": "8df45792a927e440972266ee799d6f7223713e14",
+  "accepted_tradeoff": "Fixed Mac P4 paired median +2.79%; P8 -7.68%. No uniform-speedup claim.",
+  "integration_method": "Protected PR squash merge after required checks; no bypass.",
+  "issue_disposition": {
+    "156": "Close only after protected merge; finite investigation and narrow product adoption complete. Unproven natural sequence retained under140.",
+    "140": "Keep open for residual natural PREPARE owner/pending/read-generation/recovery attribution. No new experiment starts.",
+    "68": "Keep closed",
+    "88": "Keep closed;16MiB retained",
+    "154": "Keep closed; UCA already integrated",
+    "143": "Keep deferred and separate"
+  },
+  "qualification": "NOT_REQUESTED",
+  "release": "NOT_REQUESTED"
+}

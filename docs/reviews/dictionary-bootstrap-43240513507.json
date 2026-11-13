@@ -1,0 +1,16 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43240513507",
+  "source_commit": "ef956a759ed446fbd21db5c7a46a69101aaa961d",
+  "result": "FAIL_MISSING_PREPARED_DICTIONARY_RECORD",
+  "artifact_id": 13955201288,
+  "build_log_sha256": "7a1f9e63acfb8124634961c505398d5fb70e24dfaa3fc7da675f2f6194508a21",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "repetitions": [
+    {
+      "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20"
+    }
+  ],
+  "missing_modified_file": "storage/innobase/dict/dict0dict.cc",
+  "runtime_acceptance": false
+}

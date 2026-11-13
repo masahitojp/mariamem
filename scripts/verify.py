@@ -17,7 +17,7 @@ SOURCE_TESTS = ["tests/test_generated_runtime_inventory.py",
                 "tests/test_distribution_licenses.py",
                 "tests/test_packaging_license_mirrors.py",
                 "tests/test_timer_source.py",
-                "tests/test_uca_copy_source.py"]
+                "tests/test_uca_copy_source.py", "tests/test_dictionary_wait_source.py", "tests/test_dictionary_wait_runtime.py"]
 BENCHMARKS = {
     "envelope": "memory_envelope.py",
     "competitive": "testcontainers_compare.py",
@@ -121,7 +121,7 @@ def integration(host=None):
     run(["go", "test", "-p", "1", "-tags=integration", "./tests/generatedmemory",
          "-count=1", "-timeout=3m"], env=env)
     run(["go", "test", "-p", "1", "-tags=integration", "./internal/generatedgo",
-         "-run=TestWorkerTrapActualGuest", "-count=1", "-timeout=3m"], env=env)
+         "-run=^Test(WorkerTrap|DictionaryWait)ActualGuest$", "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
         host = shared_host or Path(temporary) / "mariamem-host"
         if shared_host is None:

@@ -1,0 +1,52 @@
+{
+  "source_commit": "5fe162de99710928bc4c96ab90ccffe732137d65",
+  "actual_dictionary_guest": {
+    "result": "PASS",
+    "cases": 21,
+    "log_sha256": "67d352a78fb7acc6c0fccb0d246b230bbf0ac125f47e7e6a4c5ca16debda6d88"
+  },
+  "attribution": {
+    "result": "PASS",
+    "host_sha256": "454c013ed31e733f1b5f005a72e94278f20e65c205b96963da2cd1cb94b6bb19",
+    "evidence_sha256": "038321c0bc21293734472cc5f460e731a6824ca6e504409e8b906f988c6c29f3",
+    "note": "Pinned Go detects a .git directory but omits worktree .git files. Built unchanged source5fe162de from a disposable standalone clone; actual clean VCS stamp verified, no supplied revision."
+  },
+  "normal_local_checks": {
+    "result": "PASS",
+    "source_commit": "f230ea2a48928a8724b4c75d5e5c116e5b2b606d",
+    "daily": {
+      "python_tests": 1910,
+      "subtests": 119,
+      "skipped": 99,
+      "source_tests": 86,
+      "source_subtests": 23,
+      "go_test_and_vet": "PASS",
+      "public_source": "PASS"
+    },
+    "smoke": "PASS: Python/Go Live, same-process and shutdown/timer Fresh/Fork",
+    "worker": "PASS: six controls, including two expected failures and two race runs",
+    "raw_log_sha256": {
+      "daily": "ee2d11d65a887fb6fa7422cd17b3c590ee2fba60e1c6bc20602bab5b7bdf498d",
+      "smoke": "67f67b94b57c440bb24bc5becfa6e50c9aa3b1b1038b7dc4a315c445a165115d",
+      "worker": "00cf57a1e48c2bbeb32eb5fc823af78b39ccbb020cd3bf2200fca6639fe8a7e2"
+    },
+    "integration_selector": {
+      "source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4",
+      "focused_tests": 6,
+      "result": "PASS"
+    }
+  },
+  "platform_acceptance": {
+    "result": "PASS",
+    "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+    "run_id": 43330322013,
+    "receipt": "ci-43330322013/assessment.json"
+  },
+  "performance": {
+    "result": "COMPLETE",
+    "source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4",
+    "suites": 30,
+    "retries": 0,
+    "report": "performance.md"
+  }
+}

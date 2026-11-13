@@ -1,6 +1,6 @@
 {
-  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback",
-  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback; balanced pool notification around contended dictionary eviction lock",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -144,6 +144,7 @@
       "sql/sql_plugin.cc": "a8811caebf288bf5257e7ffe5669c44ae27e607af5cf31adbb7e8631b7d85443",
       "sql/sql_prepare.cc": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5",
       "storage/innobase/buf/buf0buf.cc": "319dc4ff0763fcf33d71c741047b7629330bb9785733feaaaf992ee1deefe8c8",
+      "storage/innobase/dict/dict0dict.cc": "a301ec1c4a2853c37d1b5fba14224da8b66a6909adb4ac83ee2c3563caf77df5",
       "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
       "storage/innobase/handler/ha_innodb.cc": "7f5498c5e856fc0fa6e9dd3d95674ea64c884b0d246b8755329a99d17b87173c",
       "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c",
@@ -179,7 +180,7 @@
       "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
-      "source.patch": "07188f71ed2fed76083a9eb39313e74cb7b8acca00d2c6fb738f459873a98a9a",
+      "source.patch": "6ef0b863be1c8416cbe071a0d40887094ecd4ca55a052024d77fba08cf451b03",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
       "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
@@ -360,53 +361,56 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
-  "guest_size": 21928598,
-  "linked_guest_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c",
+  "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+  "guest_size": 21928597,
+  "linked_guest_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
   "repetitions": [
     {
-      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
-      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+      "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
     },
     {
-      "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
-      "linked_sha256": "432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c"
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+      "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
     }
   ],
   "completed": true,
   "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "PASS: bounded canonical correctness; protected main integration pending",
-    "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
-    "run_id": 43190662084,
-    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43190662084",
-    "receipt": "docs/reviews/uca-copy-ci-43190662084/assessment.json",
-    "independent_generation_files": 119,
+    "status": "PASS: bounded canonical correctness; Human approved narrow main integration through protected PR gates",
+    "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+    "run_id": 43330322013,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43330322013",
+    "receipt": "docs/reviews/dictionary-installation/ci-43330322013/assessment.json",
+    "independent_generation_files": 120,
     "platforms": [
       "darwin-arm64",
       "ubuntu24.04-x86_64"
     ],
-    "followup_scope": "image_test.go fixture relocation and records only; no production runtime change"
+    "qualification": "NOT_RUN",
+    "release": "NOT_REQUESTED",
+    "human_integration_approval": "docs/reviews/dictionary-installation/integration-approval.json"
   },
   "previous_canonical_evidence": {
-    "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
-    "guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
+    "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
     "ci_evidence": {
-      "status": "PASS: bounded canonical correctness; main integration and release remain separate",
-      "source_commit": "370231520c373fae05378bddb791c9b6d7fdf84f",
-      "run_id": 42959675387,
-      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42959675387",
-      "receipt": "docs/reviews/timer-product-ci-42959675387/assessment.json",
-      "independent_generation_files": 118,
+      "status": "PASS: bounded canonical correctness; protected main integration pending",
+      "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
+      "run_id": 43190662084,
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43190662084",
+      "receipt": "docs/reviews/uca-copy-ci-43190662084/assessment.json",
+      "independent_generation_files": 119,
       "platforms": [
         "darwin-arm64",
         "ubuntu24.04-x86_64"
-      ]
+      ],
+      "followup_scope": "image_test.go fixture relocation and records only; no production runtime change"
     },
-    "record_sha256": "b63e2b7a1b95bedbaaef2ef79ad2300ad4504cea3612d577320e529615331d75"
+    "record_sha256": "8baaf19e3ce3861b68993cdf11950001ff972efab27d967d8300fcd9a9a4918c"
   },
   "incoming_guest_origin": {
-    "source_commit": "c4c60edaf7c6c9bd51023f352be696033e17438d",
+    "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
     "use": "Single-build canonical-source bootstrap; not Qualification."

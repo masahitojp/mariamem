@@ -6,6 +6,34 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue156 — dictionary-wait main integration approved
+
+On2026-11-12 the Human approved proceeding to a product candidate, prioritizing
+an early comparison with the existing main baseline. The
+[decision and fixed exit](decisions/dictionary-wait-notification.md) limits the
+change to notification around contended dictionary-eviction lock acquisition.
+The controlled mechanism and single-Mac fixed comparison support this direction;
+uniform acceleration and complete natural-tail causal attribution are not claimed.
+Build the minimal candidate from8df45792, retaining unchanged host/API/settings.
+Canonical source bootstrap43246097319 passed at e3d020e5, including the
+repaired dictionary preparation receipt. The [installed checkpoint](reviews/dictionary-installation/README.md)
+records normal generated installation, unchanged worker/CRC/data bindings and
+the actual-guest regression. Local runtime, daily/smoke, worker controls and
+clean-source attribution pass. The installed-candidate fixed30 comparison is
+complete with all observations retained. CI43318436823 passed two-build and
+both-OS full regeneration, then failed daily Python checks before integration.
+The [CI setup/selection repair](reviews/dictionary-installation/ci-43318436823/README.md)
+passed fresh-environment Python checks. CI43330322013 now passes at a8389b6d:
+two identical guest builds, full120-file regeneration on both OSes, daily/integration,
+actual dictionary/worker regressions, SQL/children and cleanup. The [integration
+review](reviews/dictionary-installation/integration-review.md) recommends the narrow
+correction with the measured P4 regression retained. The Human approved main
+integration and then related-Issue cleanup on 2026-11-13. The [approval record](reviews/dictionary-installation/integration-approval.json)
+binds the reviewed source and accepted limits. Protected PR checks own the merge
+transaction. Close #156 on merge for the completed finite work; #140 retains the
+unproven natural PREPARE sequence. No new experiment or release is authorized.
+The bootstrap remains UNQUALIFIED; no historical result is relabeled.
+
 ## WASI timer correction and startup reduction — product candidate approved
 
 On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)

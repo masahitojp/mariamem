@@ -1,0 +1,122 @@
+{
+  "result": "PASS_CANONICAL_CANDIDATE",
+  "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+  "base_source_commit": "8df45792a927e440972266ee799d6f7223713e14",
+  "run_id": 43330322013,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43330322013",
+  "jobs": {
+    "guest": 131573098107,
+    "reference": 131573098365,
+    "ubuntu-24.04": 131580121471,
+    "macos-15": 131580121566
+  },
+  "artifacts": {
+    "macos-15": {
+      "id": 13997424283,
+      "sha256": "476cd2ba892ea2b853a50dd9df7ad09484a9cd70bbbc82ebc3afc150dbd78164"
+    },
+    "ubuntu-24.04": {
+      "id": 13996148848,
+      "sha256": "690949dda35e72164dd8e2d9fbe194c92e9e11c2d2f41bad17e46523c75b85cc"
+    },
+    "reference": {
+      "id": 13995150917,
+      "sha256": "5eee6b9eb4cbdf231de33150b40cfba60873a407b0c42612d6aba699280145b1"
+    }
+  },
+  "platforms": {
+    "macos-15": {
+      "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+      "result": "PASS",
+      "generated_files": 120,
+      "actual_guest_selector": "^Test(WorkerTrap|DictionaryWait)ActualGuest$",
+      "daily": {
+        "source_tests": 87,
+        "source_subtests": 23,
+        "python_tests": 1910,
+        "python_subtests": 119,
+        "go_test": "PASS",
+        "go_vet": "PASS"
+      },
+      "integration": {
+        "race_and_runtime": "PASS",
+        "python_cases": 54,
+        "prepared_consumers": "PASS_WITH_EXISTING_ACCEPTED_EXCEPTIONS"
+      },
+      "snapshot_smoke_cases": 2,
+      "worker_controls": 6,
+      "evidence_mutations_rejected": 20,
+      "sql": {
+        "native_equal": true,
+        "prepared_equal": true,
+        "uca_native_equal": true,
+        "children": 2,
+        "cleanup": {
+          "refs": 0,
+          "process_exit": 0,
+          "reaped": true,
+          "root_exists": false
+        },
+        "source_log_sha256": "2944ed90e67c34dabdb76f570fffc1888cbc6b807805d7d3e1e869680f771be1",
+        "uca_log_sha256": "eac61939b6ccfd4c671b9b13ea3392cb61f05a560c1fb377be94f92fe03a5b37"
+      }
+    },
+    "ubuntu-24.04": {
+      "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+      "result": "PASS",
+      "generated_files": 120,
+      "actual_guest_selector": "^Test(WorkerTrap|DictionaryWait)ActualGuest$",
+      "daily": {
+        "source_tests": 87,
+        "source_subtests": 23,
+        "python_tests": 1910,
+        "python_subtests": 119,
+        "go_test": "PASS",
+        "go_vet": "PASS"
+      },
+      "integration": {
+        "race_and_runtime": "PASS",
+        "python_cases": 54,
+        "prepared_consumers": "PASS_WITH_EXISTING_ACCEPTED_EXCEPTIONS"
+      },
+      "snapshot_smoke_cases": 2,
+      "worker_controls": 6,
+      "evidence_mutations_rejected": 20,
+      "sql": {
+        "native_equal": true,
+        "prepared_equal": true,
+        "uca_native_equal": true,
+        "children": 2,
+        "cleanup": {
+          "refs": 0,
+          "process_exit": 0,
+          "reaped": true,
+          "root_exists": false
+        },
+        "source_log_sha256": "439d6d3fe1b236008324cd5fa6d76298e4a5f9fcffe00d37d6d5310f34abad3e",
+        "uca_log_sha256": "02c00e0b7bfbb726eb77abc80c3a9fd973330c271bec37d77731c977c15ba619"
+      }
+    }
+  },
+  "qualification": "NOT_RUN",
+  "integration_approval": "PENDING",
+  "release": "NOT_REQUESTED",
+  "reference": {
+    "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+    "version": "12.3.3-MariaDB-ubu2404",
+    "image_digests": [
+      "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1"
+    ],
+    "native_sha256": "fd33c6ff2ca2c1873f1d090a0e8955c5a5deea62ba7c02585bd6b93890b4b40f",
+    "uca_native_sha256": "1e50fe15df475c29a3d58c9192106b0e890e104c4f2dde8ddc6118caa86e3c81"
+  },
+  "measurement_source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4",
+  "measured_runtime_unchanged_at_ci_source": true,
+  "master_caller": {
+    "function": "Fn18236",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "unchanged_from_baseline": true,
+    "normalized_sha256": "1dafbe423636bade4fb956d07202703a13f9306e43b4c7e5eb3f776dbcf6d58c",
+    "direct_eviction_calls": 2
+  }
+}

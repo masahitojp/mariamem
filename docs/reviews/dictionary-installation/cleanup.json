@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "preserved_source_commit": "78e1f88a7cfd6ba952494348c82b69aefac535bf",
+  "preserved_remote": "refs/heads/experiment/dictionary-product",
+  "deleted": "task-owned dictionary-product-install scratch (sources, downloaded artifacts, binaries, caches, raw rows reduced to compact)",
+  "owned_bytes_before": 5360619520,
+  "owned_bytes_after": 0,
+  "free_bytes_before": 40820285440,
+  "free_bytes_after": 46196899840,
+  "cleanup_resume": "First cleanup stopped at read-only Go module-cache directories. Counts above describe the final resumed pass; task-owned directory owner-write permission restored before removal.",
+  "measurement_peak_owned_bytes": 7018258432,
+  "inactive_before_delete": true,
+  "remaining_task_owned_paths_over_1gib": [],
+  "ignored_recreatable_files_removed": 44,
+  "yaml_and_shell_syntax": {
+    "result": "PASS",
+    "shell_steps": 11
+  },
+  "retained": {
+    "candidate_worktree": "under1GiB; ongoing candidate and pending CI handoff, exact source retained in Git",
+    "compact_evidence": "docs/reviews/dictionary-installation"
+  },
+  "scope": "Only task-owned scratch and ignored task output. Original main worktree and existing user changes untouched."
+}

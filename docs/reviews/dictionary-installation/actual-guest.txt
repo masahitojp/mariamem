@@ -1,0 +1,46 @@
+=== RUN   TestDictionaryWaitActualGuest
+=== RUN   TestDictionaryWaitActualGuest/pending/P1/0
+=== RUN   TestDictionaryWaitActualGuest/pending/P1/1
+=== RUN   TestDictionaryWaitActualGuest/pending/P1/2
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P1/0
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P1/1
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P1/2
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P1/0
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P1/1
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P1/2
+=== RUN   TestDictionaryWaitActualGuest/nonpool/P1/0
+=== RUN   TestDictionaryWaitActualGuest/nonpool/P1/1
+=== RUN   TestDictionaryWaitActualGuest/nonpool/P1/2
+=== RUN   TestDictionaryWaitActualGuest/pending/P16/0
+=== RUN   TestDictionaryWaitActualGuest/pending/P16/1
+=== RUN   TestDictionaryWaitActualGuest/pending/P16/2
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P16/0
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P16/1
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P16/2
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P16/0
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P16/1
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P16/2
+--- PASS: TestDictionaryWaitActualGuest (0.52s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P1/0 (0.03s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P1/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P1/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/nonpool/P1/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/nonpool/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/nonpool/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P16/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P16/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P16/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P16/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P16/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P16/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P16/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P16/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P16/2 (0.02s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.456s

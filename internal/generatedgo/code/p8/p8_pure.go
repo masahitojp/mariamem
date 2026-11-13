@@ -3756,6 +3756,50 @@ func Fn209(m *base.Module, l0 int32) {
 	}
 	return
 }
+func Fn210(m *base.Module, l0 int32) int32 {
+	mBase := m.M
+	_ = mBase
+	var v8 int32
+	_ = v8
+	var v16 int32
+	_ = v16
+	var v21 int32
+	_ = v21
+	goto L3
+L1:
+	;
+	return v21
+L2:
+	;
+	v21 = int32(10)
+	goto L1
+L3:
+	;
+	v8 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))
+	switch v8&int32(2147483647) - int32(2147483646) {
+	case 0:
+		v21 = int32(6)
+		goto L1
+	case 1:
+		goto L2
+	default:
+		goto L5
+	}
+L4:
+	;
+	return int32(0)
+L5:
+	;
+	v16 = base.AtomicRmwCmpxchg32(m, l0, int32(0), v8, v8+int32(1))
+	if v16 != v8 {
+		goto L3
+	} else {
+		goto L6
+	}
+L6:
+	;
+	goto L4
+}
 func Fn213(m *base.Module, l0 int32) {
 	var v3 int32
 	_ = v3
@@ -127025,41 +127069,6 @@ func Fn4796(m *base.Module, l0 int32, l1 int32) {
 		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4))) = l1
 		return
 	}
-}
-func Fn4797(m *base.Module, l0 int32, l1 int32) {
-	mBase := m.M
-	_ = mBase
-	var v4 int32
-	_ = v4
-	var v7 int32
-	_ = v7
-	var v9 int32
-	_ = v9
-	var v11 int32
-	_ = v11
-	var v13 int32
-	_ = v13
-	var v17 int32
-	_ = v17
-	v4 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 84, 4)))
-	if l1 == v4 {
-		v17 = int32(0)
-		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4))) = v17
-	} else {
-		v7 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 88, 4)))
-		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v4)), 88, 4))) = v7
-		v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 84, 4)))
-		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 0, 4))) = v9
-		v11 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))
-		if v11 != l1 {
-		} else {
-			v13 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 88, 4)))
-			v17 = v13 - int32(84)
-			*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4))) = v17
-		}
-	}
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 84, 4))) = int32(0)
-	return
 }
 func Fn4798(m *base.Module, l0 int32) {
 	mBase := m.M

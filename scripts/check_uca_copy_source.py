@@ -10,6 +10,9 @@ ORIGIN = 'f43257225e1fd65c58ea8f5d7b220c3a509c203b'
 BASE_PATCH = 'e51d1f3119f6f079810bdec6be2c5924d91d23f066811506c6e1bdb5d32429ee'
 DELTA_PATCH = 'be6d8077d9df40b8a79ec6d653a0ec41d0178b9b862a103c850ed8c4ac77b376'
 DELTA_BYTES = 216045
+# UCA bytes remain exact; the separately reviewed dictionary suffix follows.
+UCA_END = 225571
+DICTIONARY_SUFFIX_SHA256 = '8609bef5c2bfb96e14d407bec08ba36c95cd8e7c190dbacd1959773f63f68744'
 GUEST = '332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22'
 LINKED = '432200d991a53f56dcbb3ddd5e2ef49a8d3099b9702dc48d3c9ddd26bfc43b6c'
 PREPARED = {
@@ -28,8 +31,10 @@ def source(root):
     require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
     patch = (root/'guest/source.patch').read_bytes()
     sha = lambda b: hashlib.sha256(b).hexdigest()
-    require(sha(patch[:-DELTA_BYTES]) == BASE_PATCH, 'canonical base patch changed')
-    require(sha(patch[-DELTA_BYTES:]) == DELTA_PATCH, 'accepted private-copy delta changed')
+    require(sha(patch[UCA_END:]) == DICTIONARY_SUFFIX_SHA256, 'dictionary suffix changed')
+    uca = patch[:UCA_END]
+    require(sha(uca[:-DELTA_BYTES]) == BASE_PATCH, 'canonical base patch changed')
+    require(sha(uca[-DELTA_BYTES:]) == DELTA_PATCH, 'accepted private-copy delta changed')
     profile = json.loads((root/'guest/versions/12.3.3/legacy-full.json').read_text())
     require(profile['files']['guest/source.patch']['sha256'] == sha(patch),
             'selected12.3.3 source pin differs')

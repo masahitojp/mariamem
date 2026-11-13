@@ -1,6 +1,6 @@
 {
   "source_commit": "ab8c3503f35e6ded515e2e0c58efc508099f6baf",
-  "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
   "baseline_guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
   "previous_guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
   "functions": {
@@ -121,5 +121,11 @@
     "source_commit": "c4c60edaf7c6c9bd51023f352be696033e17438d",
     "previous_guest_sha256": "a64b581154d7d1ca2ca8aae9a552c9433f7f1354b7c7f5a36d600b62a32d2c18",
     "status": "EXACT_SOURCE_BINDING; CANONICAL_PLATFORM_PENDING"
-  }
+  },
+  "dictionary_wait_binding": {
+    "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+    "previous_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "status": "EXACT_UNCHANGED_BODY_DATA_BINDING; PLATFORM_PENDING"
+  },
+  "prior_uca_copy_guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22"
 }
