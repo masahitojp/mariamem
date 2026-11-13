@@ -1,0 +1,321 @@
+=== RUN   TestListOrders
+=== PAUSE TestListOrders
+=== RUN   TestGetOrder
+=== PAUSE TestGetOrder
+=== RUN   TestTopProducts
+=== PAUSE TestTopProducts
+=== RUN   TestSearchProducts
+=== PAUSE TestSearchProducts
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== RUN   TestCreateOrder
+=== PAUSE TestCreateOrder
+=== RUN   TestCancelOrder
+=== PAUSE TestCancelOrder
+=== RUN   TestShipOrder
+=== PAUSE TestShipOrder
+=== RUN   TestDeleteUser
+=== PAUSE TestDeleteUser
+=== RUN   TestApplyDiscount
+=== PAUSE TestApplyDiscount
+=== CONT  TestListOrders
+=== CONT  TestCreateOrder
+=== CONT  TestApplyDiscount
+=== RUN   TestListOrders/user_8
+=== PAUSE TestListOrders/user_8
+=== RUN   TestApplyDiscount/books_10
+=== RUN   TestListOrders/user_15
+=== PAUSE TestListOrders/user_15
+=== PAUSE TestApplyDiscount/books_10
+=== CONT  TestTopProducts
+=== RUN   TestTopProducts/top_1
+=== RUN   TestListOrders/user_22
+=== PAUSE TestTopProducts/top_1
+=== PAUSE TestListOrders/user_22
+=== RUN   TestTopProducts/top_2
+=== RUN   TestListOrders/user_29
+=== PAUSE TestTopProducts/top_2
+=== RUN   TestTopProducts/top_3
+=== PAUSE TestTopProducts/top_3
+=== RUN   TestTopProducts/top_5
+=== CONT  TestGetOrder
+=== PAUSE TestTopProducts/top_5
+=== RUN   TestTopProducts/top_8
+=== PAUSE TestTopProducts/top_8
+=== RUN   TestTopProducts/top_10
+=== PAUSE TestListOrders/user_29
+=== PAUSE TestTopProducts/top_10
+=== RUN   TestApplyDiscount/music_25
+=== RUN   TestListOrders/user_36
+=== PAUSE TestApplyDiscount/music_25
+=== CONT  TestShipOrder
+=== RUN   TestApplyDiscount/movies_50
+=== PAUSE TestApplyDiscount/movies_50
+=== RUN   TestApplyDiscount/games_0
+=== PAUSE TestApplyDiscount/games_0
+=== PAUSE TestListOrders/user_36
+=== RUN   TestShipOrder/one_paid
+=== RUN   TestListOrders/user_43
+=== CONT  TestCancelOrder
+=== PAUSE TestListOrders/user_43
+=== RUN   TestListOrders/user_50
+=== PAUSE TestListOrders/user_50
+=== CONT  TestRevenueByCategory
+=== RUN   TestCreateOrder/two_lines
+=== PAUSE TestCreateOrder/two_lines
+=== RUN   TestCreateOrder/one_line
+=== PAUSE TestCreateOrder/one_line
+=== RUN   TestCreateOrder/five_lines
+=== RUN   TestCancelOrder/paid
+=== PAUSE TestCreateOrder/five_lines
+=== RUN   TestCreateOrder/out_of_stock
+=== PAUSE TestCancelOrder/paid
+=== PAUSE TestCreateOrder/out_of_stock
+=== RUN   TestCancelOrder/pending
+=== CONT  TestSearchProducts
+=== PAUSE TestCancelOrder/pending
+=== RUN   TestSearchProducts/product_0
+=== RUN   TestListOrders/user_57
+=== PAUSE TestSearchProducts/product_0
+=== RUN   TestSearchProducts/product_1
+=== PAUSE TestSearchProducts/product_1
+=== PAUSE TestListOrders/user_57
+=== RUN   TestSearchProducts/product_2
+=== PAUSE TestShipOrder/one_paid
+=== RUN   TestShipOrder/pending_rejected
+=== PAUSE TestShipOrder/pending_rejected
+=== RUN   TestShipOrder/all_paid
+=== PAUSE TestShipOrder/all_paid
+=== RUN   TestCancelOrder/another_paid
+=== PAUSE TestCancelOrder/another_paid
+=== RUN   TestCancelOrder/shipped
+=== RUN   TestListOrders/user_64
+=== PAUSE TestCancelOrder/shipped
+=== PAUSE TestListOrders/user_64
+=== CONT  TestApplyDiscount/books_10
+=== RUN   TestListOrders/user_71
+=== PAUSE TestListOrders/user_71
+=== RUN   TestGetOrder/orders_1_11_21_31
+=== RUN   TestTopProducts/top_15
+=== PAUSE TestTopProducts/top_15
+=== PAUSE TestGetOrder/orders_1_11_21_31
+=== RUN   TestGetOrder/orders_2_12_22_32
+=== RUN   TestTopProducts/top_20
+=== PAUSE TestTopProducts/top_20
+=== RUN   TestTopProducts/top_30
+=== CONT  TestDeleteUser
+=== RUN   TestDeleteUser/user_15
+=== PAUSE TestDeleteUser/user_15
+=== RUN   TestDeleteUser/user_22
+=== PAUSE TestDeleteUser/user_22
+=== RUN   TestShipOrder/twice
+=== PAUSE TestShipOrder/twice
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== CONT  TestApplyDiscount/games_0
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestSearchProducts/product_2
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestSearchProducts/product_3
+=== CONT  TestApplyDiscount/movies_50
+=== PAUSE TestGetOrder/orders_2_12_22_32
+=== RUN   TestGetOrder/orders_3_13_23_33
+=== PAUSE TestGetOrder/orders_3_13_23_33
+=== RUN   TestGetOrder/orders_4_14_24_34
+=== PAUSE TestGetOrder/orders_4_14_24_34
+=== RUN   TestGetOrder/orders_5_15_25_35
+=== PAUSE TestGetOrder/orders_5_15_25_35
+=== RUN   TestGetOrder/orders_6_16_26_36
+=== PAUSE TestTopProducts/top_30
+=== RUN   TestTopProducts/top_50
+=== PAUSE TestTopProducts/top_50
+=== CONT  TestApplyDiscount/music_25
+=== RUN   TestDeleteUser/user_29
+=== PAUSE TestDeleteUser/user_29
+=== PAUSE TestSearchProducts/product_3
+=== RUN   TestDeleteUser/user_36
+=== PAUSE TestDeleteUser/user_36
+=== PAUSE TestGetOrder/orders_6_16_26_36
+=== RUN   TestRevenueByCategory/Sports
+=== RUN   TestSearchProducts/product_4
+=== PAUSE TestSearchProducts/product_4
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestSearchProducts/product_5
+=== RUN   TestRevenueByCategory/Outdoors
+=== RUN   TestGetOrder/orders_7_17_27_37
+=== PAUSE TestGetOrder/orders_7_17_27_37
+=== CONT  TestCreateOrder/two_lines
+=== RUN   TestGetOrder/orders_8_18_28_38
+=== PAUSE TestRevenueByCategory/Outdoors
+=== PAUSE TestSearchProducts/product_5
+=== RUN   TestSearchProducts/product_6
+=== PAUSE TestGetOrder/orders_8_18_28_38
+=== RUN   TestGetOrder/orders_9_19_29_39
+=== PAUSE TestGetOrder/orders_9_19_29_39
+=== RUN   TestGetOrder/orders_10_20_30_40
+=== PAUSE TestGetOrder/orders_10_20_30_40
+=== CONT  TestCreateOrder/five_lines
+=== CONT  TestCreateOrder/out_of_stock
+=== PAUSE TestSearchProducts/product_6
+=== RUN   TestSearchProducts/product_7
+=== PAUSE TestSearchProducts/product_7
+=== RUN   TestSearchProducts/product_8
+=== PAUSE TestSearchProducts/product_8
+=== RUN   TestSearchProducts/product_9
+=== PAUSE TestSearchProducts/product_9
+=== CONT  TestCreateOrder/one_line
+=== CONT  TestCancelOrder/paid
+=== CONT  TestListOrders/user_8
+=== CONT  TestListOrders/user_71
+=== CONT  TestListOrders/user_64
+=== CONT  TestListOrders/user_57
+=== CONT  TestListOrders/user_50
+=== CONT  TestListOrders/user_43
+--- PASS: TestApplyDiscount (0.00s)
+    --- PASS: TestApplyDiscount/books_10 (0.11s)
+    --- PASS: TestApplyDiscount/games_0 (0.12s)
+    --- PASS: TestApplyDiscount/movies_50 (0.12s)
+    --- PASS: TestApplyDiscount/music_25 (0.13s)
+--- PASS: TestCreateOrder (0.00s)
+    --- PASS: TestCreateOrder/one_line (0.10s)
+    --- PASS: TestCreateOrder/two_lines (0.11s)
+    --- PASS: TestCreateOrder/out_of_stock (0.12s)
+    --- PASS: TestCreateOrder/five_lines (0.13s)
+=== CONT  TestListOrders/user_36
+=== CONT  TestListOrders/user_29
+=== CONT  TestListOrders/user_22
+=== CONT  TestListOrders/user_15
+=== CONT  TestCancelOrder/another_paid
+=== CONT  TestCancelOrder/shipped
+=== CONT  TestCancelOrder/pending
+=== CONT  TestShipOrder/one_paid
+=== CONT  TestShipOrder/all_paid
+=== CONT  TestShipOrder/twice
+--- PASS: TestListOrders (0.00s)
+    --- PASS: TestListOrders/user_8 (0.05s)
+    --- PASS: TestListOrders/user_57 (0.04s)
+    --- PASS: TestListOrders/user_50 (0.04s)
+    --- PASS: TestListOrders/user_71 (0.04s)
+    --- PASS: TestListOrders/user_36 (0.03s)
+    --- PASS: TestListOrders/user_22 (0.00s)
+    --- PASS: TestListOrders/user_29 (0.00s)
+    --- PASS: TestListOrders/user_15 (0.00s)
+    --- PASS: TestListOrders/user_64 (0.04s)
+    --- PASS: TestListOrders/user_43 (0.03s)
+=== CONT  TestShipOrder/pending_rejected
+=== CONT  TestTopProducts/top_1
+=== CONT  TestTopProducts/top_10
+=== CONT  TestTopProducts/top_50
+=== CONT  TestTopProducts/top_30
+=== CONT  TestTopProducts/top_20
+=== CONT  TestTopProducts/top_15
+=== CONT  TestTopProducts/top_5
+=== CONT  TestTopProducts/top_8
+=== CONT  TestTopProducts/top_3
+=== CONT  TestTopProducts/top_2
+--- PASS: TestTopProducts (0.00s)
+    --- PASS: TestTopProducts/top_1 (0.00s)
+    --- PASS: TestTopProducts/top_10 (0.00s)
+    --- PASS: TestTopProducts/top_50 (0.00s)
+    --- PASS: TestTopProducts/top_30 (0.00s)
+    --- PASS: TestTopProducts/top_20 (0.00s)
+    --- PASS: TestTopProducts/top_15 (0.00s)
+    --- PASS: TestTopProducts/top_5 (0.00s)
+    --- PASS: TestTopProducts/top_8 (0.00s)
+    --- PASS: TestTopProducts/top_3 (0.00s)
+    --- PASS: TestTopProducts/top_2 (0.00s)
+=== CONT  TestDeleteUser/user_15
+=== CONT  TestDeleteUser/user_36
+=== CONT  TestDeleteUser/user_29
+=== CONT  TestDeleteUser/user_22
+--- PASS: TestCancelOrder (0.00s)
+    --- PASS: TestCancelOrder/paid (0.10s)
+    --- PASS: TestCancelOrder/shipped (0.10s)
+    --- PASS: TestCancelOrder/another_paid (0.11s)
+    --- PASS: TestCancelOrder/pending (0.12s)
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Garden
+--- PASS: TestShipOrder (0.00s)
+    --- PASS: TestShipOrder/one_paid (0.11s)
+    --- PASS: TestShipOrder/pending_rejected (0.12s)
+    --- PASS: TestShipOrder/twice (0.13s)
+    --- PASS: TestShipOrder/all_paid (0.13s)
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestGetOrder/orders_1_11_21_31
+=== CONT  TestGetOrder/orders_6_16_26_36
+=== CONT  TestGetOrder/orders_10_20_30_40
+=== CONT  TestGetOrder/orders_9_19_29_39
+=== CONT  TestGetOrder/orders_8_18_28_38
+=== CONT  TestGetOrder/orders_7_17_27_37
+=== CONT  TestGetOrder/orders_4_14_24_34
+=== CONT  TestGetOrder/orders_5_15_25_35
+=== CONT  TestGetOrder/orders_3_13_23_33
+=== CONT  TestGetOrder/orders_2_12_22_32
+=== CONT  TestSearchProducts/product_0
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Tools (0.02s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+=== CONT  TestSearchProducts/product_5
+=== CONT  TestSearchProducts/product_9
+--- PASS: TestGetOrder (0.00s)
+    --- PASS: TestGetOrder/orders_1_11_21_31 (0.00s)
+    --- PASS: TestGetOrder/orders_10_20_30_40 (0.00s)
+    --- PASS: TestGetOrder/orders_6_16_26_36 (0.00s)
+    --- PASS: TestGetOrder/orders_8_18_28_38 (0.00s)
+    --- PASS: TestGetOrder/orders_9_19_29_39 (0.00s)
+    --- PASS: TestGetOrder/orders_4_14_24_34 (0.00s)
+    --- PASS: TestGetOrder/orders_7_17_27_37 (0.00s)
+    --- PASS: TestGetOrder/orders_5_15_25_35 (0.00s)
+    --- PASS: TestGetOrder/orders_2_12_22_32 (0.00s)
+    --- PASS: TestGetOrder/orders_3_13_23_33 (0.00s)
+=== CONT  TestSearchProducts/product_8
+=== CONT  TestSearchProducts/product_7
+=== CONT  TestSearchProducts/product_6
+=== CONT  TestSearchProducts/product_3
+=== CONT  TestSearchProducts/product_4
+=== CONT  TestSearchProducts/product_2
+=== CONT  TestSearchProducts/product_1
+--- PASS: TestSearchProducts (0.00s)
+    --- PASS: TestSearchProducts/product_5 (0.00s)
+    --- PASS: TestSearchProducts/product_0 (0.00s)
+    --- PASS: TestSearchProducts/product_7 (0.00s)
+    --- PASS: TestSearchProducts/product_6 (0.00s)
+    --- PASS: TestSearchProducts/product_3 (0.00s)
+    --- PASS: TestSearchProducts/product_2 (0.00s)
+    --- PASS: TestSearchProducts/product_4 (0.00s)
+    --- PASS: TestSearchProducts/product_8 (0.01s)
+    --- PASS: TestSearchProducts/product_1 (0.00s)
+    --- PASS: TestSearchProducts/product_9 (0.01s)
+--- PASS: TestDeleteUser (0.00s)
+    --- PASS: TestDeleteUser/user_15 (0.11s)
+    --- PASS: TestDeleteUser/user_36 (0.09s)
+    --- PASS: TestDeleteUser/user_29 (0.09s)
+    --- PASS: TestDeleteUser/user_22 (0.09s)
+PASS

@@ -1,0 +1,6 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "prior_evidence": "c2cadc50d10b3d885d665437c9d3be4ea7ee3e0b",
+  "base_overlay_sha256": "28f0c0e134b4038cbec884e3b9a424e5a5019db79ea6e4e912f35e01502827e6",
+  "focused_boundary_tests": "reuse exact previous overlay/source/toolchain; rerun unchanged 70 application assertions for every new process"
+}

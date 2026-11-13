@@ -1,0 +1,24 @@
+--- a/base.go
++++ b/base.go
+@@ -12966,9 +12966,19 @@
+ 
+ // writeVec drains bufs into dst in order, stopping at the first failed
+ // write; returns the bytes written. Shared like readVec.
++// Disposable spike, selected once per process; canonical generator is unchanged.
++var experimentSkipEmptyWrite = os.Getenv("MARIAMEM_EXPERIMENT_SKIP_EMPTY_WRITE") == "1"
++
+ func writeVec(dst io.Writer, bufs [][]byte) (uint64, error) {
+-	var total uint64
+-	for _, buf := range bufs {
++ hasData := false
++ if experimentSkipEmptyWrite {
++  for _, b := range bufs {if len(b)>0 {hasData=true;break}}
++ }
++ var total uint64
++ for _, buf := range bufs {
++  // Preserve all-empty writes, including errors from closed destinations.
++  if hasData && len(buf)==0 {continue}
++
+ 		n, err := dst.Write(buf)
+ 		total += uint64(n)
+ 		if err != nil {

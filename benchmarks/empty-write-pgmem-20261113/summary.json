@@ -1,0 +1,98 @@
+{
+  "groups": {
+    "pgmem": {
+      "wall_ms": 388.716,
+      "cpu_ms": 1381.4119999999957,
+      "user_ms": 975.3679999999961,
+      "system_ms": 396.212,
+      "wall_range_ms": [
+        376.658541,
+        407.03425
+      ],
+      "elapsed_ms": 337.342,
+      "boot_ms": 50.905,
+      "import_ms": 64.329,
+      "snapshot_ms": 16.26599999999999,
+      "fork_ms": 22.56700000000002,
+      "sample_ms": 33.241000000000014,
+      "test_ms": 0.7019999999999982
+    },
+    "baseline": {
+      "wall_ms": 471.460667,
+      "cpu_ms": 2425.7000000000003,
+      "user_ms": 2081.325,
+      "system_ms": 339.35,
+      "wall_range_ms": [
+        460.603292,
+        482.255458
+      ],
+      "elapsed_ms": 462.367,
+      "boot_ms": 43.859,
+      "import_ms": 26.975,
+      "snapshot_ms": 5.010999999999996,
+      "fork_ms": 25.596499999999963,
+      "sample_ms": 75.733,
+      "test_ms": 1.9735000000000014
+    },
+    "candidate": {
+      "wall_ms": 453.305292,
+      "cpu_ms": 2455.4829999999984,
+      "user_ms": 2111.025999999999,
+      "system_ms": 336.0619999999996,
+      "wall_range_ms": [
+        445.698791,
+        480.132125
+      ],
+      "elapsed_ms": 444.594,
+      "boot_ms": 44.257000000000005,
+      "import_ms": 27.27499999999999,
+      "snapshot_ms": 4.879000000000005,
+      "fork_ms": 27.77900000000001,
+      "sample_ms": 79.29599999999999,
+      "test_ms": 1.9885000000000161
+    }
+  },
+  "pairs": [
+    {
+      "round": 0,
+      "candidate_vs_pgmem_wall_pct": 10.350049380109837,
+      "candidate_vs_baseline_wall_pct": -3.235865061945753,
+      "candidate_vs_pgmem_cpu_pct": 87.6105689193202,
+      "candidate_vs_baseline_cpu_pct": 3.4457207601091833
+    },
+    {
+      "round": 1,
+      "candidate_vs_pgmem_wall_pct": 9.52834435922776,
+      "candidate_vs_baseline_wall_pct": -7.555660054344049,
+      "candidate_vs_pgmem_cpu_pct": 88.35996395123638,
+      "candidate_vs_baseline_cpu_pct": 1.9713300049284177
+    },
+    {
+      "round": 2,
+      "candidate_vs_pgmem_wall_pct": 20.55448735083749,
+      "candidate_vs_baseline_wall_pct": -2.580276881087007,
+      "candidate_vs_pgmem_cpu_pct": 77.4191637144768,
+      "candidate_vs_baseline_cpu_pct": 0.15156415760542163
+    },
+    {
+      "round": 3,
+      "candidate_vs_pgmem_wall_pct": 16.616062112184736,
+      "candidate_vs_baseline_wall_pct": -2.3955130003524783,
+      "candidate_vs_pgmem_cpu_pct": 75.47931754019852,
+      "candidate_vs_baseline_cpu_pct": 0.19256297151333257
+    },
+    {
+      "round": 4,
+      "candidate_vs_pgmem_wall_pct": 27.471455638649633,
+      "candidate_vs_baseline_wall_pct": 1.8392749611920278,
+      "candidate_vs_pgmem_cpu_pct": 72.64697280753384,
+      "candidate_vs_baseline_cpu_pct": 0.17557226899029832
+    }
+  ],
+  "paired_medians_pct": {
+    "candidate_vs_pgmem_wall_pct": 16.616062112184736,
+    "candidate_vs_baseline_wall_pct": -2.580276881087007,
+    "candidate_vs_pgmem_cpu_pct": 77.4191637144768,
+    "candidate_vs_baseline_cpu_pct": 0.19256297151333257
+  }
+}

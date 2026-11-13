@@ -1,0 +1,30 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "candidate_evidence": "c2cadc50d10b3d885d665437c9d3be4ea7ee3e0b",
+  "arms": [
+    "pgmem",
+    "baseline",
+    "candidate"
+  ],
+  "warmup_each": 1,
+  "rounds": 5,
+  "order": "rotating and reversing per round",
+  "parallel": 8,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "metrics": [
+    "wall",
+    "user/system CPU",
+    "official spans",
+    "70 assertions"
+  ],
+  "budgets": {
+    "gib": 10,
+    "free_gib": 12,
+    "build_s": 1800,
+    "process_s": 130
+  },
+  "guard": "full scans before/after each process only",
+  "no_new_runtime_changes": true
+}
