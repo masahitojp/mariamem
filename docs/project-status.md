@@ -23,7 +23,12 @@ clean-source attribution pass. The installed-candidate fixed30 comparison is
 complete with all observations retained. CI43318436823 passed two-build and
 both-OS full regeneration, then failed daily Python checks before integration.
 The [CI setup/selection repair](reviews/dictionary-installation/ci-43318436823/README.md)
-passes fresh-environment Python checks; both-OS runtime acceptance remains pending.
+passed fresh-environment Python checks. CI43330322013 now passes at a8389b6d:
+two identical guest builds, full120-file regeneration on both OSes, daily/integration,
+actual dictionary/worker regressions, SQL/children and cleanup. The [integration
+review](reviews/dictionary-installation/integration-review.md) recommends the narrow
+correction with the measured P4 regression retained; the Human integration decision
+is still pending. No main merge or release has been performed.
 The bootstrap remains
 UNQUALIFIED; no old runtime or performance result is relabeled. Product adoption,
 main integration and release remain separate.

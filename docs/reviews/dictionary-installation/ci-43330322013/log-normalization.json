@@ -1,0 +1,25 @@
+{
+  "purpose": "Public copies replace runner home prefixes; original archive digests and SHA256SUMS remain the authentication record for the raw CI files. evidence-sha256.json hashes the public copies.",
+  "files": [
+    {
+      "file": "ubuntu-24.04/check.txt",
+      "original_sha256": "2a137c98bb3da0d11cffcdbb4d96a2cf2c3441545a3593bb25ee743fd65bc3b2",
+      "public_sha256": "09544fb4e7ea73d664f9fed3ca8cc0238a07ff121a551314c3b7bea72f8c3844"
+    },
+    {
+      "file": "ubuntu-24.04/integration.txt",
+      "original_sha256": "87375615034efc11c9686e687d623dc7bc01c9e497f2b2da88892bb266c27ea0",
+      "public_sha256": "048adee9c9bee550f99c60ce1f4b3a94b2d4d7528ff1405bd4af08173940349d"
+    },
+    {
+      "file": "macos-15/check.txt",
+      "original_sha256": "2c27e230ff23c13c0100ff1b6b908ff20a135f55291c25fe40d6872e1febdaed",
+      "public_sha256": "fe04b5ab531b04b86abeca7f302b580bb514afa42805112a5f869fb00c69d60f"
+    },
+    {
+      "file": "macos-15/integration.txt",
+      "original_sha256": "09dc4b643bb36bfa64a69d163e54d86af222da21a2f7a752fb1fe4de2ea4b870",
+      "public_sha256": "c52bc05cbbb9a5482dd2befc7b1d02e38fce46140ac774dc897e79052e79e56d"
+    }
+  ]
+}

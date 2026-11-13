@@ -361,21 +361,34 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
+  "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
   "guest_size": 21928597,
   "linked_guest_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
   "repetitions": [
     {
       "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
       "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
+    },
+    {
+      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+      "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
     }
   ],
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "PENDING independent two-build and both-platform canonical acceptance",
-    "bootstrap_run": 43246097319,
-    "receipt": "docs/reviews/dictionary-installation/bootstrap.json"
+    "status": "PASS: bounded canonical correctness; Human integration decision pending",
+    "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+    "run_id": 43330322013,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43330322013",
+    "receipt": "docs/reviews/dictionary-installation/ci-43330322013/assessment.json",
+    "independent_generation_files": 120,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ],
+    "qualification": "NOT_RUN",
+    "release": "NOT_REQUESTED"
   },
   "previous_canonical_evidence": {
     "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",

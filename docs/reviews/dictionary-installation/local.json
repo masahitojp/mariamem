@@ -36,7 +36,12 @@
       "result": "PASS"
     }
   },
-  "platform_acceptance": "PENDING",
+  "platform_acceptance": {
+    "result": "PASS",
+    "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+    "run_id": 43330322013,
+    "receipt": "ci-43330322013/assessment.json"
+  },
   "performance": {
     "result": "COMPLETE",
     "source_commit": "4e2ac423118dac3233f7bd90862d56b936a893a4",

@@ -31,4 +31,9 @@ CI submission is a handoff. Main integration and release remain separate.
 and both-OS full regeneration, followed by nine Python-check failures on each
 OS before integration. CI prerequisites and the old selector assertion are
 corrected; fresh-environment Python checks pass. Both-OS runtime acceptance
-remains pending a new submission.
+was pending at that repair checkpoint.
+
+[CI43330322013](ci-43330322013/assessment.json) now passes every canonical
+job at a8389b6d, including both-OS runtime acceptance. The [integration
+review](integration-review.md) records the five completed implementation/verification
+conditions, mixed performance and the separate Human decision still needed.

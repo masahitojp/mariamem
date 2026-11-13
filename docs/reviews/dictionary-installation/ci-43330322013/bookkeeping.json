@@ -1,0 +1,10 @@
+{
+  "ci_source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
+  "followup_scope": "Successful CI receipt/provenance bookkeeping and integration recommendation only; runtime and guest unchanged.",
+  "metadata_checks": "80 passed, 13 subtests passed",
+  "generated_inventory": "PASS",
+  "fixed30_compact_reanalysis": "PASS; no new measurements",
+  "main_integration": "NOT_PERFORMED",
+  "qualification": "NOT_RUN",
+  "release": "NOT_REQUESTED"
+}
