@@ -1,0 +1,5 @@
+{
+  "Replace": {
+    "<WORKSPACE>/temp/pgmem/bench/modelcase/store/seed.go": "<WORKSPACE>/temp/pg_seed_overlay.go"
+  }
+}

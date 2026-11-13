@@ -1,0 +1,12 @@
+[
+  {
+    "arm": "pg-official",
+    "repeat": -1,
+    "wall_ms": 918.211167,
+    "user_ms": 108.498,
+    "system_ms": 50.466999999999985,
+    "returncode": 1,
+    "leaf_pass": 0,
+    "cpu_ms": 158.96499999999997
+  }
+]

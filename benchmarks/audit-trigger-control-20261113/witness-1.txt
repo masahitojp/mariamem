@@ -1,0 +1,5 @@
+=== RUN   TestAuditWitness
+    audit_witness_test.go:14: CREATE TRIGGER orders_audit AFTER INSERT OR UPDATE ON public.orders FOR EACH ROW EXECUTE FUNCTION log_order_status()
+    audit_witness_test.go:20: PASS total-update entries=1; status update entries=1; audit rows +1
+--- PASS: TestAuditWitness (0.03s)
+PASS

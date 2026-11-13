@@ -1,0 +1,14 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "go": "go version go1.27.4 darwin/arm64",
+  "host": "M1/16GiB/macOS27.2.1",
+  "CGO_ENABLED": 0,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "maria_harness_commit": "d73acc145acfdd8a0f1303d82cc03e78bfffb0f1",
+  "maria_harness_path": "benchmarks/empty-write-pgmem-20261113/harness",
+  "observer": "off",
+  "candidate_optimizations": "none"
+}

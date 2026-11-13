@@ -1,0 +1,6 @@
+{
+  "verified_refs": 17,
+  "unique_changes": false,
+  "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "reason": "all clone refs exactly match upstream; pinned annotated tag/peeled commit recorded; no local changes or commits"
+}

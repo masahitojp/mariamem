@@ -1,0 +1,21 @@
+package store_test
+import("testing";"os")
+func TestAuditWitness(t *testing.T){
+ db:=fx.shared();if fx.sharedErr!=nil{t.Fatal(fx.sharedErr)};ctx:=t.Context()
+ exec:=func(q string){t.Helper();if _,e:=db.ExecContext(ctx,q);e!=nil{t.Fatal(e)}}
+ // Function entry witness, outside the performance cohort only.
+ exec(`CREATE TABLE audit_witness(n int NOT NULL); INSERT INTO audit_witness VALUES(0)`)
+ exec(`CREATE OR REPLACE FUNCTION log_order_status() RETURNS trigger LANGUAGE plpgsql AS $$
+ BEGIN
+ UPDATE audit_witness SET n=n+1;
+ IF TG_OP='INSERT' OR NEW.status IS DISTINCT FROM OLD.status THEN
+ INSERT INTO audit_log(order_id,old_status,new_status) VALUES(NEW.id,CASE WHEN TG_OP='UPDATE' THEN OLD.status END,NEW.status);
+ END IF; RETURN NEW; END $$`)
+ var definition string;if e:=db.QueryRowContext(ctx,`SELECT pg_get_triggerdef(oid) FROM pg_trigger WHERE tgname='orders_audit'`).Scan(&definition);e!=nil{t.Fatal(e)};t.Log(definition)
+ exec(`UPDATE orders SET total_cents=total_cents,updated_at=now() WHERE id=1`)
+ var n int;if e:=db.QueryRowContext(ctx,`SELECT n FROM audit_witness`).Scan(&n);e!=nil{t.Fatal(e)};want:=0;if os.Getenv("AUDIT_ALL_UPDATES")=="1"{want=1};if n!=want{t.Fatalf("total update entry=%d want%d",n,want)}
+ var before,after int;if e:=db.QueryRowContext(ctx,`SELECT count(*) FROM audit_log`).Scan(&before);e!=nil{t.Fatal(e)}
+ exec(`UPDATE orders SET status=CASE WHEN status='pending' THEN 'paid'::order_status ELSE 'pending'::order_status END WHERE id=1`)
+ if e:=db.QueryRowContext(ctx,`SELECT n FROM audit_witness`).Scan(&n);e!=nil{t.Fatal(e)};if n!=want+1{t.Fatalf("status update entry=%d",n)}
+ if e:=db.QueryRowContext(ctx,`SELECT count(*) FROM audit_log`).Scan(&after);e!=nil{t.Fatal(e)};if after!=before+1{t.Fatalf("audit rows %d->%d",before,after)};t.Logf("PASS total-update entries=%d; status update entries=1; audit rows +1",want)
+}
