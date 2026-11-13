@@ -364,12 +364,18 @@
   "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
   "guest_size": 21925350,
   "linked_guest_sha256": "d42f681a86614f7bd0dd20527667859ba04740fadca7813ae1ab387f1f911979",
-  "repetitions": 1,
-  "completed": false,
-  "full_guest_regeneration": "PENDING",
+  "repetitions": 2,
+  "completed": true,
+  "full_guest_regeneration": "PASS: two C builds and both-OS full120-file regeneration",
   "ci_evidence": {
-    "status": "PENDING_INDEPENDENT_CANONICAL_REGENERATION",
-    "bootstrap_run_id": 43436504181
+    "run_id": 43450619130,
+    "source_commit": "d8f66d9a5605b3b738b2175268a3734ee1c89a4a",
+    "platforms": [
+      "darwin-arm64",
+      "linux-amd64"
+    ],
+    "status": "PASS: canonical checkpoint; broader acceptance pending",
+    "receipt": "docs/reviews/prepared-output-product/ci43450619130/README.md"
   },
   "previous_canonical_evidence": {
     "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",

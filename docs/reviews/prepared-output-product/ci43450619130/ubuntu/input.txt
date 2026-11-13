@@ -1,0 +1,8 @@
+test_header_exact_and_readonly (test_lexer_prepared_input.LexerInputTests.test_header_exact_and_readonly) ... ok
+test_input_wrapper_and_source_mutations_rejected (test_lexer_prepared_input.LexerInputTests.test_input_wrapper_and_source_mutations_rejected) ... ok
+test_pristine_guard_and_no_overwrite (test_lexer_prepared_input.LexerInputTests.test_pristine_guard_and_no_overwrite) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.011s
+
+OK

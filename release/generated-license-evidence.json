@@ -7,10 +7,10 @@
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
   "audit_source_commit": "5fe162de99710928bc4c96ab90ccffe732137d65",
-  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
-  "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
-  "symbol_map_sha256": "f0b1b01377c2af85b5de5c065a93c03ac229026f3e15d7a3a3e2267065c5dfba",
-  "symbol_map_entries": 21753,
+  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "linked_sha256": "d42f681a86614f7bd0dd20527667859ba04740fadca7813ae1ab387f1f911979",
+  "symbol_map_sha256": "c44275c51b8312ec76d3b9a4edc8904882c7a583b1ad4907430db31c195eb2c4",
+  "symbol_map_entries": 21750,
   "generated_provenance_sha256": "e6b47976592b6996267763d5566ec1dd7e43b2ba8f4738a4efde2100da0c853a",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
