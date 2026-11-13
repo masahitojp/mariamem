@@ -38,6 +38,9 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
+	RawRows            []string  `json:"raw_rows,omitempty"`
+	RowsPresent        bool      `json:"-"`
+	RawRowsPresent     bool      `json:"-"`
 	BinaryRows         bool      `json:"binary_rows"`
 	PreparedOperations []uint8   `json:"prepared_operations"`
 	PreparedVersion    int       `json:"prepared_version"`
@@ -87,6 +90,16 @@ func (r *Result) UnmarshalJSON(data []byte) error {
 	}
 	decoded.fields.Status = uint16(status)
 	*r = Result(decoded.fields)
+	var presence map[string]json.RawMessage
+	if err := json.Unmarshal(data, &presence); err != nil {
+		return err
+	}
+	_, r.RowsPresent = presence["rows"]
+	raw, exists := presence["raw_rows"]
+	r.RawRowsPresent = exists
+	if exists && string(raw) == "null" {
+		return errors.New("null raw_rows")
+	}
 	return nil
 }
 

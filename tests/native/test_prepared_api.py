@@ -31,11 +31,11 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     assert failures['live_handles']==failures['live_metadata']==failures['live_owner_allocations']==0
     cases=failures['cases']
     assert [c['name'] for c in cases]==[
-        'prepare','execute-bytes','truncated-blob-refetch','multiple-results','long-data','reset','close','prepare-error','execute-error']
+        'prepare','execute-bytes','raw-blob-copy','multiple-results','long-data','reset','close','prepare-error','execute-error']
     assert all(c['result']=='PASS' and c['serialization_points']>0 for c in cases)
     assert all(c['allocation_points']>0 for c in cases[:5])
     assert failures['injected_points']==sum(c['allocation_points']+c['serialization_points'] for c in cases)
-    assert failures['API_and_refetch_failures']==7
+    assert failures['API_and_raw_failures']==10
 
     stream=json.loads(subprocess.run([str(target),'long-data'],check=True,capture_output=True,text=True).stdout)
     assert stream==dict(result='PASS',scope='mock public API stream ownership only',live_handles=0)
@@ -43,10 +43,10 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     metadata=json.loads(subprocess.run([str(target),'parameter-metadata'],check=True,capture_output=True,text=True).stdout)
     assert metadata=={'metadata_ownership':'PASS'}
 
-    vector=json.loads((ROOT/'tests/fixtures/prepared-envelope-v1.json').read_text())
+    vector=json.loads((ROOT/'tests/fixtures/prepared-envelope-v2.json').read_text())
     golden=subprocess.run([str(target),vector['hex']],check=True,capture_output=True,text=True)
     reply=json.loads(golden.stdout)
-    assert reply['ok'] and reply['prepared_version']==1 and reply['session_generation']==vector['generation']
+    assert reply['ok'] and reply['prepared_version']==2 and reply['session_generation']==vector['generation']
     assert reply['statement_id']==1 and reply['param_count']==1
 
     # Mock proves owned metadata/buffers advance through two ordinary results,

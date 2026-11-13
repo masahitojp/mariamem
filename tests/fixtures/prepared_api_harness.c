@@ -77,7 +77,9 @@ typedef struct {
  unsigned type,charsetnr,flags;unsigned long length;unsigned decimals;
 } MYSQL_FIELD;
 typedef struct {unsigned count;MYSQL_FIELD *fields;} MYSQL_RES;
-typedef struct {unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL *db;unsigned chain_index,chain_mode;MYSQL_BIND *param_bind,*result_bind;unsigned char *long_bytes;size_t long_length;int long_active;} MYSQL_STMT;
+typedef struct st_mysql_rows {struct st_mysql_rows *next;char **data;unsigned long length;} MYSQL_ROWS;
+typedef struct {MYSQL_ROWS *data;unsigned long long rows;} MYSQL_DATA;
+typedef struct {MYSQL_DATA result;unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL *db;unsigned chain_index,chain_mode;MYSQL_BIND *param_bind,*result_bind;unsigned char *long_bytes;size_t long_length;int long_active;} MYSQL_STMT;
 static int fail_bind_param,fail_bind_result,fail_fetch_column,fail_execute_sql,execute_calls;
 static int fail_next,fail_long_send,fail_reset;
 static unsigned char consumed_long[32];static size_t consumed_long_length;static int consumed_long_active;
@@ -128,7 +130,7 @@ static int mysql_stmt_bind_param(MYSQL_STMT *s,MYSQL_BIND *b){
  }
  return fail_bind_param;
 }
-static int mysql_stmt_bind_result(MYSQL_STMT *s,MYSQL_BIND *b){s->result_bind=b;return fail_bind_result;}
+
 static int mysql_stmt_send_long_data(MYSQL_STMT *s,unsigned index,const char *data,unsigned long n){
  assert(index<s->params&&index==0&&s->param_bind&&s->param_bind[index].buffer_type==252);
  if(fail_long_send)return 1;
@@ -150,23 +152,28 @@ static int mysql_stmt_next_result(MYSQL_STMT *s){
  s->db->server_status=s->chain_index==3?2:s->chain_index==2?4106:10;
  return 0;
 }
-static int mysql_stmt_store_result(MYSQL_STMT *s){if(fail_store){s->errno_=2008;return 1;}return 0;}
+static int mysql_stmt_store_result(MYSQL_STMT *s){
+ if(fail_store||fail_fetch){s->errno_=2008;return 1;}
+ unsigned n=s->type==252?8194:4*s->columns;
+ unsigned mask=(s->columns+9)/8;
+ MYSQL_ROWS *row=calloc(1,sizeof(*row));assert(row);
+ unsigned char *data=calloc(1,mask+n+3);assert(data);
+ if(s->type==252){data[mask]=252;data[mask+1]=2;data[mask+2]=32;for(unsigned i=0;i<n;i++)data[mask+3+i]=(i%2)?255:0;n+=3;}
+ else for(unsigned i=0;i<s->columns;i++)data[mask+4*i]=42;
+ row->data=(char **)data;row->length=1+mask+n;
+ if(fail_bind_result||fail_fetch_column||fetch_column_mismatch==1)row->length=0;
+ if(fetch_column_mismatch==2)row->next=row;
+ if(fetch_column_mismatch==4)row->length=~0UL;
+ if(fetch_column_mismatch==6)row->length=mask;
+ s->result.data=row;s->result.rows=fetch_column_mismatch==5?UINT64_MAX:fetch_column_mismatch==3?2:1;
+ return 0;
+}
 static int mysql_stmt_free_result(MYSQL_STMT *s){
+ if(s->result.data){free(s->result.data->data);free(s->result.data);s->result.data=NULL;s->result.rows=0;}
  free_result_calls++;pending_result=0;s->errno_=0;return fail_free_result;
 }
 static unsigned long long mysql_stmt_affected_rows(MYSQL_STMT *s){(void)s;return 0;}
 static unsigned long long mysql_stmt_insert_id(MYSQL_STMT *s){(void)s;return 0;}
-static int mysql_stmt_fetch(MYSQL_STMT *s){
- if(fail_fetch){s->errno_=2008;return 1;}
- if(s->fetched++)return MYSQL_NO_DATA;
- assert(s->result_bind);
- for(unsigned i=0;i<s->columns;i++){
-  MYSQL_BIND *b=s->result_bind+i;*b->is_null=0;*b->error=0;
-  if(s->type==252){assert(b->buffer&&b->buffer_length==1);*b->length=8194;*b->error=1;}
-  else {assert(b->buffer_length==4);uint32_t v=42;memcpy(b->buffer,&v,4);*b->length=4;}
- }
- return s->type==252?MYSQL_DATA_TRUNCATED:0;
-}
 static int mysql_stmt_fetch_column(MYSQL_STMT *s,MYSQL_BIND *b,unsigned i,unsigned long offset){
  (void)s;assert(i==0&&!offset&&b->buffer_length==8194);
  if(fail_fetch_column)return 1;
@@ -181,18 +188,19 @@ static void *entry_malloc(size_t n){return fault(&owner_step,owner_fail_at)?NULL
 #include "prepared_api.inc"
 #undef calloc
 #undef malloc
+#include "prepared_output_oracle.inc"
 /* Keep free interception for harness consumers of returned reply buffers. */
 
 static void put32(unsigned char *p,uint32_t v){for(unsigned i=0;i<4;i++)p[i]=(unsigned char)(v>>(8*i));}
 static MYSQL session_db={2};
 static char *call_binary(unsigned op,uint32_t generation,uint32_t id,const unsigned char *body,size_t n){
  unsigned char *b=malloc(16+n);assert(b);
- b[0]='P';b[1]='S';b[2]=1;b[3]=(unsigned char)op;put32(b+4,generation);put32(b+8,id);put32(b+12,(uint32_t)n);
+ b[0]='P';b[1]='S';b[2]=PS_VERSION;b[3]=(unsigned char)op;put32(b+4,generation);put32(b+8,id);put32(b+12,(uint32_t)n);
  if(n)memcpy(b+16,body,n);active_db=&session_db;char *reply=ps_call(&session_db,b,16+n);free(b);return reply;
 }
 static char *call(unsigned op,uint32_t generation,uint32_t id,const char *body){
  size_t n=body?strlen(body):0;unsigned char *b=malloc(16+n);assert(b);
- b[0]='P';b[1]='S';b[2]=1;b[3]=(unsigned char)op;put32(b+4,generation);put32(b+8,id);put32(b+12,(uint32_t)n);
+ b[0]='P';b[1]='S';b[2]=PS_VERSION;b[3]=(unsigned char)op;put32(b+4,generation);put32(b+8,id);put32(b+12,(uint32_t)n);
  if(n)memcpy(b+16,body,n);active_db=&session_db;char *reply=ps_call(&session_db,b,16+n);free(b);return reply;
 }
 static void expect(char *reply,const char *fragment){assert(reply);if(!strstr(reply,fragment)){fputs(reply,stderr);abort();}free(reply);}
@@ -221,7 +229,7 @@ static void failure_teardown(void) {
  session_db.server_status=2;
 }
 static int failure_matrix(void) {
- const char *names[]={"prepare","execute-bytes","truncated-blob-refetch","multiple-results","long-data","reset","close","prepare-error","execute-error"};
+ const char *names[]={"prepare","execute-bytes","raw-blob-copy","multiple-results","long-data","reset","close","prepare-error","execute-error"};
  unsigned total=0;
  printf("{\"scope\":\"mock API owner failures only\",\"cases\":[");
  for(unsigned a=0;a<9;a++) {
@@ -239,7 +247,7 @@ static int failure_matrix(void) {
   }
   printf("%s{\"name\":\"%s\",\"allocation_points\":%u,\"serialization_points\":%u,\"result\":\"PASS\"}",a?",":"",names[a],allocations,appends);
  }
- /* Native API error returns and inconsistent full-column refetch. Distinct
+ /* Native API error returns and malformed cached-row length/list/count. Distinct
   * controls from the nth allocation/append sweep above. */
  int *flags[]={&fail_init,&fail_store,&fail_fetch,&fail_fetch_column,&fetch_column_mismatch};
  for(unsigned k=0;k<5;k++) {
@@ -248,8 +256,8 @@ static int failure_matrix(void) {
   if(k==1 || k==2){assert(r && strstr(r,"\"errno\":2008"));free(r);}else assert(!r);
   *flags[k]=0;failure_teardown();
  }
- for(int mode=2;mode<=3;mode++) {failure_setup(2);fetch_column_mismatch=mode;assert(!failure_action(2));fetch_column_mismatch=0;failure_teardown();}
- printf("],\"injected_points\":%u,\"API_and_refetch_failures\":7,\"live_handles\":0,\"live_metadata\":0,\"live_owner_allocations\":0,\"result\":\"PASS\"}\n",total);
+ for(int mode=2;mode<=6;mode++) {failure_setup(2);fetch_column_mismatch=mode;assert(!failure_action(2));fetch_column_mismatch=0;failure_teardown();}
+ printf("],\"injected_points\":%u,\"API_and_raw_failures\":10,\"live_handles\":0,\"live_metadata\":0,\"live_owner_allocations\":0,\"result\":\"PASS\"}\n",total);
  return 0;
 }
 int main(int argc,char **argv){
@@ -336,8 +344,8 @@ int main(int argc,char **argv){
  fail_entry=1;assert(call(22,1,0,"SELECT ?")==NULL);fail_entry=0;assert(live==131);
  fail_buffer=1;assert(call(22,1,0,"SELECT ?")==NULL);fail_buffer=0;assert(live==131);
  fail_wrapper=1;assert(call(22,1,0,"SELECT ?")==NULL);fail_wrapper=0;assert(live==131);
- unsigned char corrupt[16]={'P','S',2,22,1};MYSQL db={0};
- int before=prepared_calls;expect(ps_call(&db,corrupt,16),"\"errno\":1235");corrupt[2]=1;put32(corrupt+12,UINT32_MAX);
+ unsigned char corrupt[16]={'P','S',1,22,1};MYSQL db={0};
+ int before=prepared_calls;expect(ps_call(&db,corrupt,16),"\"errno\":1235");corrupt[2]=PS_VERSION;put32(corrupt+12,UINT32_MAX);
  expect(ps_call(&db,corrupt,16),"\"errno\":1235");assert(prepared_calls==before);
  assert(!ps_clear()&&!live);assert(!ps_begin_session()&&ps_generation==2);
  expect(call(22,2,0,"SELECT ?"),"\"statement_id\":1");
@@ -346,12 +354,12 @@ int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==3);
  expect(call(22,3,0,"one-result"),"\"statement_id\":1");
  unsigned char integer[20]={1,0,0,0,8,1,0,0,8,0,0,0,255,255,255,255,255,255,255,255};
- expect(call_binary(23,3,1,integer,sizeof(integer)),"\"$h\":\"2a000000\"");
+ expect(call_binary(23,3,1,integer,sizeof(integer)),"\"raw_rows\":[\"00002a000000\"");
  assert(ps_entries->parameters->slots[0].value.u64==UINT64_MAX);
  assert(ps_entries->parameters->bind[0].is_unsigned);
  assert(((uintptr_t)ps_entries->parameters->bind[0].buffer)%_Alignof(uint64_t)==0);
  unsigned char bound_time[24]={1,0,0,0,11,0,0,0,12,0,0,0,1,2,0,0,0,3,4,5,241,251,9,0};
- expect(call_binary(23,3,1,bound_time,sizeof(bound_time)),"\"$h\":\"2a000000\"");
+ expect(call_binary(23,3,1,bound_time,sizeof(bound_time)),"\"raw_rows\":[\"00002a000000\"");
  assert(ps_entries->parameters->slots[0].value.time.day==2);
  assert(ps_entries->parameters->slots[0].value.time.second_part==654321);
  unsigned char blob[15]={1,0,0,0,252,0,0,0,3,0,0,0,'A',0,'B'};
@@ -377,7 +385,7 @@ int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==4);
  expect(call(22,4,0,"one-result"),"\"statement_id\":1");
  fail_bind_result=1;assert(!call_binary(23,4,1,integer,sizeof(integer)));fail_bind_result=0;
- assert(!live&&!ps_entries->stmt);assert(!ps_clear());
+ assert(live==1&&ps_entries->stmt);assert(!ps_clear());
  assert(!ps_begin_session()&&ps_generation==5);
  expect(call(22,5,0,"blob-result"),"\"statement_id\":1");
  unsigned char zero[4]={0};

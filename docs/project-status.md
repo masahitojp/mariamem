@@ -6,6 +6,24 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Output-only productization authorized (2026-11-13)
+
+The Human approved proceeding with the output-only candidate after the LTS
+maintenance comparison. This authorizes formalization and acceptance; main
+integration and release remain separate decisions. Retain embedded, existing
+input/session and host state. Additional engine hooks, per-series conversion
+implementations or weakened contracts return to the value decision.
+
+The product branch starts from main eb175ae23292c1c40cfbeb4b9b73132873c4cc6f,
+preserving recent performance changes, and ports the bounded source/test delta
+from73d1dca153348feab07a7638172782056af7897d. First build a fresh UNQUALIFIED
+guest using the existing producer. Review its translation and worker/CRC binding
+before updating canonical pins. Then independently regenerate and execute the
+same-candidate #132 acceptance. The intermediate host v2 with canonical guest v1
+is deliberately not a usable release. Old trial artifacts/bindings are not current
+inputs. The earlier recommendation-wait text is historical after this approval.
+
+
 ## Issue156 — dictionary-wait main integration approved
 
 On2026-11-12 the Human approved proceeding to a product candidate, prioritizing

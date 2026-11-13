@@ -99,7 +99,7 @@ func preparedClientPackets(r guest.Result, psMulti bool) ([][]byte, error) {
 // Validate the entire chain before returning any packet to the connection.
 func preparedResultPackets(r guest.Result) ([][]byte, error) {
 	if r.Results != nil {
-		if !r.OK || !r.BinaryRows || len(r.Results) == 0 || r.Status&8 != 0 || r.Columns != nil || r.Rows != nil {
+		if !r.OK || !r.BinaryRows || len(r.Results) == 0 || r.Status&8 != 0 || r.Columns != nil || (r.RowsPresent || r.Rows != nil || r.RawRowsPresent || r.RawRows != nil) {
 			return nil, errors.New("invalid prepared result chain")
 		}
 		var replies [][]byte
@@ -111,7 +111,7 @@ func preparedResultPackets(r guest.Result) ([][]byte, error) {
 			var next [][]byte
 			var err error
 			if !part.OK {
-				if part.Errno == 0 || len(part.SQLState) != 5 || part.Columns != nil || part.Rows != nil {
+				if part.Errno == 0 || len(part.SQLState) != 5 || part.Columns != nil || (part.RowsPresent || part.Rows != nil || part.RawRowsPresent || part.RawRows != nil) {
 					return nil, errors.New("invalid prepared terminal error")
 				}
 				next, err = packets(part)
@@ -136,7 +136,7 @@ func preparedSingleResultPackets(r guest.Result, allowMore bool) ([][]byte, erro
 		return nil, errors.New("invalid prepared binary result envelope")
 	}
 	if r.Columns == nil {
-		if r.Rows != nil {
+		if r.RowsPresent || r.Rows != nil || r.RawRowsPresent || r.RawRows != nil {
 			return nil, errors.New("prepared DML unexpectedly contains rows")
 		}
 		return packets(r)
@@ -153,31 +153,26 @@ func preparedSingleResultPackets(r guest.Result, allowMore bool) ([][]byte, erro
 		out = append(out, b)
 	}
 	out = append(out, eofPacket(r.Status, 0))
-	for _, row := range r.Rows {
-		if len(row) != len(r.Columns) {
-			return nil, errors.New("prepared result row width mismatch")
+	if r.RowsPresent || r.Rows != nil || (!r.RawRowsPresent && r.RawRows == nil) {
+		return nil, errors.New("invalid prepared row representation")
+	}
+	types := make([]preparedproto.ParameterType, len(r.Columns))
+	for i, c := range r.Columns {
+		types[i] = preparedproto.ParameterType{Type: c.Type, Unsigned: c.Flags&32 != 0}
+	}
+	for _, row := range r.RawRows {
+		if len(row) > 2*maxPacket {
+			return nil, errors.New("prepared row exceeds packet limit")
 		}
-		values := make([]preparedproto.Value, len(row))
-		for i, cell := range row {
-			c := r.Columns[i]
-			values[i] = preparedproto.Value{ParameterType: preparedproto.ParameterType{Type: c.Type, Unsigned: c.Flags&32 != 0}, Null: cell == nil}
-			if cell != nil {
-				// Reject an excessive hex field before allocating its byte copy.
-				if len(cell.Hex) > 2*maxPacket {
-					return nil, errors.New("prepared cell exceeds packet limit")
-				}
-				var err error
-				values[i].Bytes, err = hex.DecodeString(cell.Hex)
-				if err != nil {
-					return nil, err
-				}
-			}
-		}
-		b, err := preparedproto.EncodeBinaryRow(values, maxPacket)
+		b, err := hex.DecodeString(row)
 		if err != nil {
+			return nil, err
+		}
+		if err := preparedproto.ValidateBinaryRow(b, types, maxPacket); err != nil {
 			return nil, err
 		}
 		out = append(out, b)
 	}
+
 	return append(out, eofPacket(r.Status, r.Warnings)), nil
 }

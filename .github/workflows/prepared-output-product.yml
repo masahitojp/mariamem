@@ -1,0 +1,42 @@
+name: Prepared output product input (UNQUALIFIED)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 100
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    steps:
+      - name: Install source builder dependencies
+        run: |
+          sed -i 's|http://ports.ubuntu.com/ubuntu-ports|http://azure.ports.ubuntu.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
+          apt-get -o APT::Update::Error-Mode=any -o Acquire::Retries=2 update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Build new guest from this exact source
+        env:
+          HOME: /root
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p build/output-product-ci
+          python3 scripts/git_identity.py inspect HEAD > build/output-product-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/output-product-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          test ! -e guest/experimental.patch
+          python3 scripts/build_generated_guest.py --development-output /tmp/prepared-output-guest > build/output-product-ci/build.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: prepared-output-input-${{ github.sha }}
+          path: /tmp/prepared-output-guest
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: prepared-output-build-${{ github.sha }}
+          path: build/output-product-ci
+          if-no-files-found: error
+          retention-days: 14

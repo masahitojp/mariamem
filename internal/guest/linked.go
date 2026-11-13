@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/preparedproto"
 	"io"
 	"os"
 	"time"
@@ -96,6 +97,9 @@ func connectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadClose
 		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 && r.result.MaxSessions <= 65536 {
 			p.SnapshotVersion = r.result.SnapshotVersion
 			p.MaxSessions = r.result.MaxSessions
+			if r.result.PreparedVersion != 0 && r.result.PreparedVersion != preparedproto.Version {
+				return nil, startupError(p.abortAndWait(errors.New("unsupported prepared protocol"), grace), tail)
+			}
 			p.PreparedVersion = r.result.PreparedVersion
 			p.PreparedOperations = append([]uint8(nil), r.result.PreparedOperations...)
 			return p, nil

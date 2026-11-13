@@ -15,7 +15,7 @@ import (
 func TestPreparedEveryTruncatedExecuteRetainsOwnedState(t *testing.T) {
 	open := preparedOpen(7)
 	open.PreparedOperations = []byte{22, 23, 24, 25, 26}
-	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	s, err := newPreparedSession(open, 2, open.PreparedOperations)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -32,7 +32,7 @@ func TestPreparedEveryTruncatedExecuteRetainsOwnedState(t *testing.T) {
 		if e != nil || req.Operation != 23 || req.Handle != 91 || !monitor {
 			t.Fatal(req, e)
 		}
-		return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2, Affected: "0", InsertID: "0"}, nil
+		return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2, Affected: "0", InsertID: "0"}, nil
 	}
 	if _, err = s.handle(23, payload, call); err != nil {
 		t.Fatal(err)
@@ -64,7 +64,7 @@ func TestPreparedDispatcherRejectsLateResultBeforeReturningAnyPackets(t *testing
 			t.Run(failure+map[bool]string{false: "/without-PS_MULTI", true: "/with-PS_MULTI"}[multi], func(t *testing.T) {
 				open := preparedOpen(7)
 				open.PreparedOperations = []byte{22, 23, 25, 26}
-				s, err := newPreparedSession(open, 1, open.PreparedOperations)
+				s, err := newPreparedSession(open, 2, open.PreparedOperations)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -80,7 +80,7 @@ func TestPreparedDispatcherRejectsLateResultBeforeReturningAnyPackets(t *testing
 				r.SessionGeneration = 7
 				switch failure {
 				case "late-cell":
-					r.Results[2].Rows[0][0].Hex = "zz"
+					r.Results[2].RawRows[0] = "zz"
 				case "late-owner":
 					r.Results[2].StatementID++
 				case "late-more":
