@@ -1,0 +1,27 @@
+package store_test
+import("testing";"os";"fmt";"strings";"github.com/shibukawa/pgmem/bench/modelcase/store")
+func TestSumWitness(t *testing.T){
+ db:=fx.shared();if fx.sharedErr!=nil{t.Fatal(fx.sharedErr)};ctx:=t.Context();engine:=os.Getenv("WITNESS_ENGINE");mode:=os.Getenv("SUM_EXPERIMENT")
+ count:=func(q string)int{t.Helper();var n int;if e:=db.QueryRowContext(ctx,q).Scan(&n);e!=nil{t.Fatal(e)};return n}
+ exec:=func(q string){t.Helper();if _,e:=db.ExecContext(ctx,q);e!=nil{t.Fatal(e)}}
+ show:=func(q string)string{t.Helper();rows,e:=db.QueryContext(ctx,q);if e!=nil{t.Fatal(e)};defer rows.Close();cols,e:=rows.Columns();if e!=nil{t.Fatal(e)};var lines []string;for rows.Next(){v:=make([]any,len(cols));args:=make([]any,len(cols));for i:=range v{args[i]=&v[i]};if e=rows.Scan(args...);e!=nil{t.Fatal(e)};parts:=make([]string,len(v));for i,a:=range v{if b,ok:=a.([]byte);ok{parts[i]=string(b)}else{parts[i]=fmt.Sprint(a)}};s:=strings.Join(parts," | ");lines=append(lines,s);t.Log(s)};if e=rows.Err();e!=nil{t.Fatal(e)};return strings.Join(lines,"\n")}
+ if count(`SELECT count(*) FROM orders`)!=40||count(`SELECT count(*) FROM order_items`)!=100||count(`SELECT count(*) FROM audit_log`)!=40{t.Fatal("sample/audit counts")}
+ if count(`SELECT count(*) FROM orders o WHERE o.total_cents<>(SELECT COALESCE(SUM(i.quantity*i.unit_price_cents),0) FROM order_items i WHERE i.order_id=o.id)`)!=0{t.Fatal("totals mismatch")}
+ stock:=map[int64]int{};for _,o:=range store.SampleOrders(){for _,it:=range o.Items{stock[it.ProductID]+=it.Quantity}}
+ rows,e:=db.QueryContext(ctx,`SELECT id,stock FROM products`);if e!=nil{t.Fatal(e)};n:=0;for rows.Next(){var id int64;var got int;if e=rows.Scan(&id,&got);e!=nil{t.Fatal(e)};if got!=100-stock[id]{t.Fatal("stock mismatch",id)};n++};if e=rows.Err();e!=nil{t.Fatal(e)};rows.Close();if n!=500{t.Fatal("products")}
+ if engine=="pg"{
+  if count(`SELECT count(*) FROM pg_trigger WHERE tgname='orders_audit'`)!=1{t.Fatal("audit missing")};body:=show(`SELECT pg_get_functiondef('refresh_order_total'::regproc)`);if strings.Contains(body,"IF TG_OP = 'INSERT'")!=(mode=="incremental"){t.Fatal("wrong PG trigger")}
+ }else{
+  if count(`SELECT count(*) FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA=DATABASE() AND TRIGGER_NAME IN ('orders_audit_insert','orders_audit_update')`)!=2{t.Fatal("audit missing")};body:=show(`SELECT ACTION_STATEMENT FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA=DATABASE() AND TRIGGER_NAME='order_items_total_insert'`);if strings.Contains(strings.ToUpper(body),"SUM(")!=(mode!="incremental"){t.Fatal("wrong Maria INSERT trigger")}
+  q:=`SELECT count(*) FROM information_schema.STATISTICS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='order_items' AND INDEX_NAME='idx_order_items_covering'`;want:=0;if mode=="cover"{want=3};if count(q)!=want{t.Fatal("cover index columns")}
+  if count(`SELECT count(DISTINCT INDEX_NAME) FROM information_schema.STATISTICS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='order_items' AND INDEX_NAME IN ('order_items_order_id','order_items_product_id')`)!=2{t.Fatal("original indexes missing")}
+  show(`SHOW INDEX FROM order_items`);plan:=show(`EXPLAIN SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=1`);t.Logf("cover_selected=%v",strings.Contains(plan,"idx_order_items_covering")&&strings.Contains(plan,"Using index"))
+ }
+ // Prefix and UPDATE/DELETE semantics are checked only in this separate witness.
+ var id int64;if e=db.QueryRowContext(ctx,`INSERT INTO orders(user_id,status) VALUES(1,'pending') RETURNING id`).Scan(&id);e!=nil{t.Fatal(e)}
+ total:=0;for q:=1;q<=3;q++{exec(fmt.Sprintf(`INSERT INTO order_items(order_id,product_id,quantity,unit_price_cents) VALUES(%d,1,%d,100)`,id,q));total+=q*100;if count(fmt.Sprintf(`SELECT total_cents FROM orders WHERE id=%d`,id))!=total{t.Fatal("INSERT prefix total")}}
+ exec(fmt.Sprintf(`UPDATE order_items SET quantity=4 WHERE order_id=%d AND quantity=1`,id));if count(fmt.Sprintf(`SELECT total_cents FROM orders WHERE id=%d`,id))!=900{t.Fatal("UPDATE total")}
+ exec(fmt.Sprintf(`DELETE FROM order_items WHERE order_id=%d AND quantity=2`,id));if count(fmt.Sprintf(`SELECT total_cents FROM orders WHERE id=%d`,id))!=700{t.Fatal("DELETE total")}
+ if count(`SELECT count(*) FROM audit_log`)!=41{t.Fatal("insert audit")};exec(fmt.Sprintf(`UPDATE orders SET status='paid' WHERE id=%d`,id));if count(`SELECT count(*) FROM audit_log`)!=42{t.Fatal("status audit")}
+ t.Logf("PASS engine=%s mode=%s audits ON; sample40/100/totals/500stocks; prefix totals100/300/600; UPDATE900/DELETE700; audit40/41/42",engine,mode)
+}

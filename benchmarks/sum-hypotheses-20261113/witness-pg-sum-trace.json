@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "model": "pgmem",
+    "server_version": "18.3"
+  },
+  "elapsed_ms": 180.485,
+  "spans": [
+    {
+      "name": "boot",
+      "kind": "boot",
+      "lane": "setup",
+      "start_ms": 0.001,
+      "end_ms": 63.227
+    },
+    {
+      "name": "import",
+      "kind": "import",
+      "lane": "setup",
+      "start_ms": 63.23,
+      "end_ms": 131.982
+    },
+    {
+      "name": "snapshot",
+      "kind": "snapshot",
+      "lane": "setup",
+      "start_ms": 131.982,
+      "end_ms": 148.747
+    },
+    {
+      "name": "snapshot_source_close",
+      "kind": "close",
+      "lane": "setup",
+      "start_ms": 148.749,
+      "end_ms": 148.92
+    },
+    {
+      "name": "reader_fork",
+      "kind": "fork",
+      "lane": "setup",
+      "start_ms": 148.92,
+      "end_ms": 157.475
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "shared",
+      "start_ms": 157.722,
+      "end_ms": 177.774
+    }
+  ]
+}

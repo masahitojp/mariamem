@@ -1,0 +1,18 @@
+--- maria-seed-original
++++ maria-seed-switch
+@@ -47,6 +47,15 @@
+          for _,edit:=range edits{if strings.Count(string(body),edit[0])!=1{return fmt.Errorf("missing matched schema anchor %s",edit[0])};body=[]byte(strings.Replace(string(body),edit[0],edit[1],1))}
+         }
+ 
++        if err==nil {
++         mode:=os.Getenv("SUM_EXPERIMENT")
++         if mode=="incremental"{
++          const old="CREATE TRIGGER order_items_total_insert AFTER INSERT ON order_items FOR EACH ROW UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=NEW.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id;"
++          const next="CREATE TRIGGER order_items_total_insert AFTER INSERT ON order_items FOR EACH ROW UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id;"
++          if strings.Count(string(body),old)!=1{return fmt.Errorf("incremental anchor missing")};body=[]byte(strings.Replace(string(body),old,next,1))
++         }else if mode=="cover"{body=append(body,[]byte("\nCREATE INDEX idx_order_items_covering ON order_items(order_id,quantity,unit_price_cents);")...)}
++        }
++
+ 		if err != nil {
+ 			return err
+ 		}

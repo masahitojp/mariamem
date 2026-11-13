@@ -1,0 +1,12 @@
+{
+  "read_test.go": {
+    "maria_sha256": "4a26ec4a913b1d1b1e47f2d3e57b0d953f971ba4dc8843bb851297657777b2e9",
+    "pg_sha256": "4a26ec4a913b1d1b1e47f2d3e57b0d953f971ba4dc8843bb851297657777b2e9",
+    "unchanged": true
+  },
+  "write_test.go": {
+    "maria_sha256": "dd210ad26b5b091d54a869235aa49bf1836a1d8094984eb697fd496beb0ac307",
+    "pg_sha256": "2ed5f6b38e728ae6cd22daff5714186f98119638666cdcdc2d75d740f5dd1cb1",
+    "unchanged": true
+  }
+}

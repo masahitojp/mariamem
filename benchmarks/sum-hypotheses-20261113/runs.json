@@ -1,0 +1,302 @@
+[
+  {
+    "arm": "pg-sum",
+    "repeat": -1,
+    "wall_ms": 1445.003417,
+    "user_ms": 1021.1619999999999,
+    "system_ms": 457.112,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1478.274
+  },
+  {
+    "arm": "pg-incremental",
+    "repeat": -1,
+    "wall_ms": 405.972625,
+    "user_ms": 948.7840000000001,
+    "system_ms": 404.9189999999999,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1353.703
+  },
+  {
+    "arm": "maria-sum",
+    "repeat": -1,
+    "wall_ms": 1840.006334,
+    "user_ms": 1948.099,
+    "system_ms": 382.652,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2330.7509999999997
+  },
+  {
+    "arm": "maria-incremental",
+    "repeat": -1,
+    "wall_ms": 430.68775,
+    "user_ms": 1831.9999999999998,
+    "system_ms": 334.9479999999998,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2166.9479999999994
+  },
+  {
+    "arm": "maria-cover",
+    "repeat": -1,
+    "wall_ms": 470.096917,
+    "user_ms": 1989.3910000000003,
+    "system_ms": 333.4609999999998,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2322.852
+  },
+  {
+    "arm": "pg-sum",
+    "repeat": 0,
+    "wall_ms": 1007.241541,
+    "user_ms": 946.3050000000006,
+    "system_ms": 506.8140000000003,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1453.119000000001
+  },
+  {
+    "arm": "pg-incremental",
+    "repeat": 0,
+    "wall_ms": 388.698375,
+    "user_ms": 949.4910000000001,
+    "system_ms": 390.97300000000024,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1340.4640000000004
+  },
+  {
+    "arm": "maria-sum",
+    "repeat": 0,
+    "wall_ms": 439.808041,
+    "user_ms": 1976.184,
+    "system_ms": 324.55699999999956,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2300.7409999999995
+  },
+  {
+    "arm": "maria-incremental",
+    "repeat": 0,
+    "wall_ms": 410.677583,
+    "user_ms": 1753.2250000000004,
+    "system_ms": 327.4100000000004,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2080.6350000000007
+  },
+  {
+    "arm": "maria-cover",
+    "repeat": 0,
+    "wall_ms": 452.65725,
+    "user_ms": 1963.9270000000017,
+    "system_ms": 315.8380000000003,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2279.765000000002
+  },
+  {
+    "arm": "pg-incremental",
+    "repeat": 1,
+    "wall_ms": 403.485667,
+    "user_ms": 972.2429999999988,
+    "system_ms": 417.66399999999936,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1389.906999999998
+  },
+  {
+    "arm": "maria-sum",
+    "repeat": 1,
+    "wall_ms": 422.874792,
+    "user_ms": 1920.0069999999982,
+    "system_ms": 335.49899999999957,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2255.5059999999976
+  },
+  {
+    "arm": "maria-incremental",
+    "repeat": 1,
+    "wall_ms": 406.741542,
+    "user_ms": 1846.2539999999983,
+    "system_ms": 338.7560000000001,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2185.0099999999984
+  },
+  {
+    "arm": "maria-cover",
+    "repeat": 1,
+    "wall_ms": 485.522459,
+    "user_ms": 2110.904999999999,
+    "system_ms": 328.42400000000004,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2439.328999999999
+  },
+  {
+    "arm": "pg-sum",
+    "repeat": 1,
+    "wall_ms": 415.829167,
+    "user_ms": 968.3339999999987,
+    "system_ms": 393.6099999999989,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1361.9439999999977
+  },
+  {
+    "arm": "maria-sum",
+    "repeat": 2,
+    "wall_ms": 431.73375,
+    "user_ms": 2009.4899999999996,
+    "system_ms": 349.42799999999966,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2358.917999999999
+  },
+  {
+    "arm": "maria-incremental",
+    "repeat": 2,
+    "wall_ms": 439.144458,
+    "user_ms": 1796.8230000000035,
+    "system_ms": 326.1660000000006,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2122.989000000004
+  },
+  {
+    "arm": "maria-cover",
+    "repeat": 2,
+    "wall_ms": 449.332292,
+    "user_ms": 1981.0090000000002,
+    "system_ms": 332.62700000000046,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2313.636000000001
+  },
+  {
+    "arm": "pg-sum",
+    "repeat": 2,
+    "wall_ms": 381.571583,
+    "user_ms": 968.7940000000026,
+    "system_ms": 385.6609999999989,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1354.4550000000015
+  },
+  {
+    "arm": "pg-incremental",
+    "repeat": 2,
+    "wall_ms": 384.505791,
+    "user_ms": 931.4129999999991,
+    "system_ms": 388.6430000000001,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1320.0559999999991
+  },
+  {
+    "arm": "maria-incremental",
+    "repeat": 3,
+    "wall_ms": 428.722209,
+    "user_ms": 1804.0299999999975,
+    "system_ms": 339.00799999999975,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2143.0379999999973
+  },
+  {
+    "arm": "maria-cover",
+    "repeat": 3,
+    "wall_ms": 460.069291,
+    "user_ms": 1988.7639999999963,
+    "system_ms": 340.69799999999975,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2329.461999999996
+  },
+  {
+    "arm": "pg-sum",
+    "repeat": 3,
+    "wall_ms": 403.449125,
+    "user_ms": 970.9409999999963,
+    "system_ms": 404.01800000000065,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1374.9589999999969
+  },
+  {
+    "arm": "pg-incremental",
+    "repeat": 3,
+    "wall_ms": 397.586167,
+    "user_ms": 942.9939999999988,
+    "system_ms": 399.3760000000002,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1342.369999999999
+  },
+  {
+    "arm": "maria-sum",
+    "repeat": 3,
+    "wall_ms": 448.169583,
+    "user_ms": 1955.615999999999,
+    "system_ms": 337.75200000000007,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2293.367999999999
+  },
+  {
+    "arm": "maria-cover",
+    "repeat": 4,
+    "wall_ms": 435.651709,
+    "user_ms": 2060.521999999999,
+    "system_ms": 332.9470000000008,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2393.469
+  },
+  {
+    "arm": "pg-sum",
+    "repeat": 4,
+    "wall_ms": 396.330208,
+    "user_ms": 972.6819999999989,
+    "system_ms": 397.09200000000067,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1369.7739999999994
+  },
+  {
+    "arm": "pg-incremental",
+    "repeat": 4,
+    "wall_ms": 387.434875,
+    "user_ms": 952.3500000000026,
+    "system_ms": 399.2489999999993,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 1351.599000000002
+  },
+  {
+    "arm": "maria-sum",
+    "repeat": 4,
+    "wall_ms": 437.662084,
+    "user_ms": 1984.0710000000001,
+    "system_ms": 337.1519999999997,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2321.223
+  },
+  {
+    "arm": "maria-incremental",
+    "repeat": 4,
+    "wall_ms": 437.712542,
+    "user_ms": 1677.3000000000025,
+    "system_ms": 325.7180000000002,
+    "returncode": 0,
+    "leaf_pass": 70,
+    "cpu_ms": 2003.0180000000028
+  }
+]

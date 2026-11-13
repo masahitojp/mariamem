@@ -1,0 +1,10 @@
+=== RUN   TestSumWitness
+    sum_witness_test.go:15: UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    sum_witness_test.go:18: order_items | 0 | PRIMARY | 1 | id | A | 1 | <nil> | <nil> |  | BTREE |  |  | NO
+    sum_witness_test.go:18: order_items | 1 | order_items_order_id | 1 | order_id | A | 1 | <nil> | <nil> |  | BTREE |  |  | NO
+    sum_witness_test.go:18: order_items | 1 | order_items_product_id | 1 | product_id | A | 1 | <nil> | <nil> |  | BTREE |  |  | NO
+    sum_witness_test.go:18: 1 | SIMPLE | order_items | ref | order_items_order_id | order_items_order_id | 8 | const | 2 | 
+    sum_witness_test.go:18: cover_selected=false
+    sum_witness_test.go:26: PASS engine=maria mode=incremental audits ON; sample40/100/totals/500stocks; prefix totals100/300/600; UPDATE900/DELETE700; audit40/41/42
+--- PASS: TestSumWitness (0.04s)
+PASS

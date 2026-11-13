@@ -1,0 +1,15 @@
+--- pg-seed-original
++++ pg-seed-switch
+@@ -34,6 +34,12 @@
+ 		}
+ 		body, err := migrations.ReadFile("migrations/" + e.Name())
+  if err==nil && os.Getenv("MODELCASE_MATCHED")=="1"{body=[]byte(strings.ReplaceAll(string(body),"now()","statement_timestamp()"))}
++        if err==nil && os.Getenv("SUM_EXPERIMENT")=="incremental" && e.Name()=="0004_totals.sql"{
++         const old="BEGIN\n    UPDATE orders"
++         const next="BEGIN\n    IF TG_OP = 'INSERT' THEN\n        UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=statement_timestamp() WHERE id=NEW.order_id;\n        RETURN NULL;\n    END IF;\n    UPDATE orders"
++         if strings.Count(string(body),old)!=1{return fmt.Errorf("incremental anchor missing")};body=[]byte(strings.Replace(string(body),old,next,1))
++        }
++
+ 		if err != nil {
+ 			return err
+ 		}

@@ -1,0 +1,23 @@
+=== RUN   TestSumWitness
+    sum_witness_test.go:13: CREATE OR REPLACE FUNCTION public.refresh_order_total()
+         RETURNS trigger
+         LANGUAGE plpgsql
+        AS $function$
+        DECLARE
+            oid bigint := COALESCE(NEW.order_id, OLD.order_id);
+        BEGIN
+            IF TG_OP = 'INSERT' THEN
+                UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=statement_timestamp() WHERE id=NEW.order_id;
+                RETURN NULL;
+            END IF;
+            UPDATE orders
+               SET total_cents = COALESCE((SELECT sum(quantity * unit_price_cents) FROM order_items WHERE order_id = oid), 0),
+                   updated_at = statement_timestamp()
+             WHERE id = oid;
+            RETURN NULL;
+        END
+        $function$
+        
+    sum_witness_test.go:26: PASS engine=pg mode=incremental audits ON; sample40/100/totals/500stocks; prefix totals100/300/600; UPDATE900/DELETE700; audit40/41/42
+--- PASS: TestSumWitness (0.02s)
+PASS

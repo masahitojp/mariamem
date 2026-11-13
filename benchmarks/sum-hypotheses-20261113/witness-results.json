@@ -1,0 +1,27 @@
+[
+  {
+    "engine": "pg",
+    "mode": "sum",
+    "returncode": 0
+  },
+  {
+    "engine": "pg",
+    "mode": "incremental",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "mode": "sum",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "mode": "incremental",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "mode": "cover",
+    "returncode": 0
+  }
+]

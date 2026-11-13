@@ -1,0 +1,19 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "baseline": "be114ac4e07b3195d6b5ed0243adb341e220c8b8 normalized modelcase; audit triggers ON; unmodified70 tests",
+  "A": "INSERT total trigger incremental on both; UPDATE/DELETE remain SUM; same statement clock conventions",
+  "B": "Maria SUM plus additional (order_id,quantity,unit_price_cents) index, existing indexes retained, no FORCE",
+  "arms": [
+    "pg-sum",
+    "pg-incremental",
+    "maria-sum",
+    "maria-incremental",
+    "maria-cover"
+  ],
+  "primary": "1 warmup each +5 cyclically rotated groups of5;70 tests each;P8;no observer",
+  "witness": "audits restored; totals/stocks; INSERT prefix + UPDATE/DELETE consistency; actual trigger definitions; covering index and chosen plan",
+  "limits": "diagnostic only, no generic SQL rewrite adoption; known MDEV-42129 not investigated",
+  "budget_gib": 10,
+  "min_free_gib": 12
+}
