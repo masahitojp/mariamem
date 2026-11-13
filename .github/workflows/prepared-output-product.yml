@@ -7,13 +7,13 @@ on:
       operation:
         description: Canonical generation or public integration of installed source
         type: choice
-        options: [canonical, public]
+        options: [canonical, public, installed]
         default: canonical
 permissions:
   contents: read
 jobs:
   guest:
-    if: inputs.operation != 'public'
+    if: inputs.operation == 'canonical'
     runs-on: ubuntu-24.04-arm
     container:
       image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
@@ -51,7 +51,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   reference:
-    if: inputs.operation != 'public'
+    if: inputs.operation == 'canonical'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
@@ -83,7 +83,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   native:
-    if: inputs.operation != 'public'
+    if: inputs.operation == 'canonical'
     needs: [guest, reference]
     strategy:
       fail-fast: false
@@ -173,3 +173,7 @@ jobs:
   public-integration:
     if: inputs.operation == 'public'
     uses: ./.github/workflows/prepared-output-acceptance.yml
+
+  installed-distributions:
+    if: inputs.operation == 'installed'
+    uses: ./.github/workflows/prepared-output-installed.yml
