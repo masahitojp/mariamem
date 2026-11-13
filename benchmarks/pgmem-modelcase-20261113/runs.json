@@ -1,0 +1,86 @@
+[
+  {
+    "target": "pgmem",
+    "repeat": -1,
+    "wall_ms": 404.739,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": -1,
+    "wall_ms": 1476.443041,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": 0,
+    "wall_ms": 531.624916,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "pgmem",
+    "repeat": 0,
+    "wall_ms": 379.651291,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "pgmem",
+    "repeat": 1,
+    "wall_ms": 405.878875,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": 1,
+    "wall_ms": 575.093167,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": 2,
+    "wall_ms": 523.895,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "pgmem",
+    "repeat": 2,
+    "wall_ms": 423.358208,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "pgmem",
+    "repeat": 3,
+    "wall_ms": 377.673083,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": 3,
+    "wall_ms": 515.732083,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": 4,
+    "wall_ms": 462.646375,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "pgmem",
+    "repeat": 4,
+    "wall_ms": 410.594,
+    "returncode": 0,
+    "leaf_pass": 70
+  }
+]

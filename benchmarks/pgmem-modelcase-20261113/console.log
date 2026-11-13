@@ -1,0 +1,76 @@
+go: downloading github.com/jackc/pgx/v5 v5.11.0
+go: downloading github.com/testcontainers/testcontainers-go v0.44.0
+go: downloading github.com/testcontainers/testcontainers-go/modules/postgres v0.44.0
+go: downloading github.com/klauspost/compress v1.20.0
+go: downloading golang.org/x/sys v0.47.0
+go: downloading golang.org/x/crypto v0.54.0
+go: github.com/shibukawa/pgmem/bench/modelcase/cmd/driver imports
+	github.com/jackc/pgx/v5: github.com/jackc/pgx/v5@v5.11.0: Get "https://proxy.golang.org/github.com/jackc/pgx/v5/@v/v5.11.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/cmd/driver imports
+	github.com/jackc/pgx/v5/stdlib: github.com/jackc/pgx/v5@v5.11.0: Get "https://proxy.golang.org/github.com/jackc/pgx/v5/@v/v5.11.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/cmd/driver imports
+	github.com/testcontainers/testcontainers-go: github.com/testcontainers/testcontainers-go@v0.44.0: Get "https://proxy.golang.org/github.com/testcontainers/testcontainers-go/@v/v0.44.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/cmd/driver imports
+	github.com/testcontainers/testcontainers-go/modules/postgres: github.com/testcontainers/testcontainers-go/modules/postgres@v0.44.0: Get "https://proxy.golang.org/github.com/testcontainers/testcontainers-go/modules/postgres/@v/v0.44.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/cmd/driver imports
+	github.com/testcontainers/testcontainers-go/wait: github.com/testcontainers/testcontainers-go@v0.44.0: Get "https://proxy.golang.org/github.com/testcontainers/testcontainers-go/@v/v0.44.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/klauspost/compress/zstd: github.com/klauspost/compress@v1.20.0: Get "https://proxy.golang.org/github.com/klauspost/compress/@v/v1.20.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	golang.org/x/sys/unix: golang.org/x/sys@v0.47.0: Get "https://proxy.golang.org/golang.org/x/sys/@v/v0.47.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/shibukawa/pgmem/internal/aot imports
+	golang.org/x/sys/windows: golang.org/x/sys@v0.47.0: Get "https://proxy.golang.org/golang.org/x/sys/@v/v0.47.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/shibukawa/pgmem/internal/host imports
+	golang.org/x/crypto/blowfish: golang.org/x/crypto@v0.54.0: Get "https://proxy.golang.org/golang.org/x/crypto/@v/v0.54.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/shibukawa/pgmem/internal/host imports
+	golang.org/x/crypto/ripemd160: golang.org/x/crypto@v0.54.0: Get "https://proxy.golang.org/golang.org/x/crypto/@v/v0.54.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem tested by
+	github.com/shibukawa/pgmem.test imports
+	github.com/jackc/pgx/v5/pgconn: github.com/jackc/pgx/v5@v5.11.0: Get "https://proxy.golang.org/github.com/jackc/pgx/v5/@v/v5.11.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem tested by
+	github.com/shibukawa/pgmem.test imports
+	github.com/jackc/pgx/v5/pgxpool: github.com/jackc/pgx/v5@v5.11.0: Get "https://proxy.golang.org/github.com/jackc/pgx/v5/@v/v5.11.0.zip": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/shibukawa/pgmem/internal/engine tested by
+	github.com/shibukawa/pgmem/internal/engine.test imports
+	github.com/shibukawa/pgmem/internal/wzr imports
+	github.com/tetratelabs/wazero: dario.cat/mergo@v1.0.2: Get "https://proxy.golang.org/dario.cat/mergo/@v/v1.0.2.mod": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/shibukawa/pgmem/internal/engine tested by
+	github.com/shibukawa/pgmem/internal/engine.test imports
+	github.com/shibukawa/pgmem/internal/wzr imports
+	github.com/tetratelabs/wazero/api: dario.cat/mergo@v1.0.2: Get "https://proxy.golang.org/dario.cat/mergo/@v/v1.0.2.mod": dial tcp: lookup proxy.golang.org: no such host
+go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
+	github.com/shibukawa/pgmem/bench/modelcase/store.test imports
+	github.com/shibukawa/pgmem imports
+	github.com/shibukawa/pgmem/internal/engine tested by
+	github.com/shibukawa/pgmem/internal/engine.test imports
+	github.com/shibukawa/pgmem/internal/wzr imports
+	github.com/tetratelabs/wazero/experimental: dario.cat/mergo@v1.0.2: Get "https://proxy.golang.org/dario.cat/mergo/@v/v1.0.2.mod": dial tcp: lookup proxy.golang.org: no such host
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-modelcase/worktree/../evidence/build.py", line 6, in <module>
+    subprocess.run(['go','mod','tidy'],cwd=d,env=e,check=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['go', 'mod', 'tidy']' returned non-zero exit status 1.

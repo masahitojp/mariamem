@@ -1,0 +1,11 @@
+{
+  "mariamem_source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "host": "Apple M1 / MacBookAir10,1 / 16GiB / 8 logical CPUs / macOS27.2.1 26B131",
+  "go": "go1.27.4 darwin/arm64",
+  "binary_sha256": {
+    "maria": "cad3c5ce241d6bee5eaa91ec66a4938ce2c33f1582ad42748d4c6bf760eb15d4",
+    "pgmem": "d1c49e79342d364dd4e86a17e93d6dd1a37deab25f4ce353533ffe0e3339a4fb"
+  }
+}

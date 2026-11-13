@@ -1,0 +1,16 @@
+[
+  {
+    "target": "pgmem",
+    "repeat": -1,
+    "wall_ms": 1371.088333,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "target": "maria",
+    "repeat": -1,
+    "wall_ms": 1074.135708,
+    "returncode": 1,
+    "leaf_pass": 0
+  }
+]
