@@ -1,0 +1,16 @@
+{
+  "fetch.py": "15560f139c61ab4729340acf7693f02f2f2896f2ff48b417dd00df674040f4b3",
+  "snippets.md": "2dee7e243f75e8d7888376dfda44637afc3cf9e138ba2ef44fc9b2cb7261273c",
+  "source-identity.json": "d1dabebdad5e1d190d1571e092024881a1e9092e9c5da2b2f3d614e68bf6c5f3",
+  "libc-identity.json": "23b560c495d5afdb564de3d97da7d2774143fb093b893a7bcd7a3d943ab2a6fa",
+  "generated-identity.json": "34349185762bd7c7d4aa278e1ba04ed4fd57d1121a5e59bf3f923b188a60aef4",
+  "fetch-more.py": "c8a93bee41fd0709db38a2e7addb6c369b871456fcd8595b0a86f545cbda06e9",
+  "README.md": "c3b001c02952824ad16485da5c2d02d539a95da96881047ff2629b8f68c3f646",
+  "patch-application.json": "e6d307150e3f1a38c873e0dfbdeac8ee3f7c746649f06c4ca91fde04ee08c31b",
+  "inspect.py": "429b16600c4d2016145246c0ce769c0ebd756bae3a89307f8ea3f156288b4a09",
+  "fetch-libc.py": "01998557b25c9532632d51d7b545ff560fa07d852307be92de172166522aedf4",
+  "layout.json": "96cc14f2fff91187a48f464133514564fcc5ed8ed471130a3641c621fc52d01f",
+  "source-files.json": "e9ff2209efd6051bce4a712afb707e2ca63d59b1c94321982fab03a4b6b7fa16",
+  "pin-libc.py": "5b5363b73b5ce39d8c893c835685ec81247e420af4c34a3a25b9f1b80a711fc2",
+  "publish.py": "002e5feb71f04f5aa5e7c56900dc53b928f74a5da0b2fd7b29737eefcafa7546"
+}

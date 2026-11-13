@@ -1,0 +1,16 @@
+{
+  "pool_bytes": 16777216,
+  "extent_bytes": 2097152,
+  "page_bytes": 16384,
+  "compiled_descriptor_bytes": 232,
+  "extents": 8,
+  "frames_per_extent": 126,
+  "first_frame_offset": 32768,
+  "descriptors": 1008,
+  "descriptor_zero_bytes": 233856,
+  "page_frame_bytes": 16515072,
+  "padding_bytes": 28288,
+  "avoided_clear_bytes_if_validated": 16543360,
+  "avoided_clear_fraction": 0.9860610961914062,
+  "scope": "static layout arithmetic for canonical Wasm32 16MiB pool, 16KiB pages; not observed runtime byte counters or speedup"
+}

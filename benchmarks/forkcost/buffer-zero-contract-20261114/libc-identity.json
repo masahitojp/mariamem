@@ -1,0 +1,6 @@
+{
+  "tag": "v2026-07-03.1",
+  "source_commit": "09503b230e8acc721c1e013ca28a41bf149e4ee2",
+  "object_type": "commit",
+  "method": "GitHub git/ref plus byte-identical refetch of selected source files at commit"
+}

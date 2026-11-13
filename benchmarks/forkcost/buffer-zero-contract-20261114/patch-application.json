@@ -1,0 +1,12 @@
+[
+  {
+    "file": "guest/patches/common-portability.patch",
+    "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+    "output": "patching file 'mysys/my_largepage.c'\npatching file 'mysys/my_virtual_mem.c'\n"
+  },
+  {
+    "file": "guest/patches/12.3.3-buffer-alignment.patch",
+    "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622",
+    "output": "patching file 'mysys/my_largepage.c'\npatching file 'storage/innobase/buf/buf0buf.cc'\n"
+  }
+]
