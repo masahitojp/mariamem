@@ -69,7 +69,7 @@ go: github.com/shibukawa/pgmem/bench/modelcase/store tested by
 	github.com/shibukawa/pgmem/internal/wzr imports
 	github.com/tetratelabs/wazero/experimental: dario.cat/mergo@v1.0.2: Get "https://proxy.golang.org/dario.cat/mergo/@v/v1.0.2.mod": dial tcp: lookup proxy.golang.org: no such host
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-modelcase/worktree/../evidence/build.py", line 6, in <module>
+  File "<WORKSPACE>/worktree/../evidence/build.py", line 6, in <module>
     subprocess.run(['go','mod','tidy'],cwd=d,env=e,check=True)
   File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
     raise CalledProcessError(retcode, process.args,
