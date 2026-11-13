@@ -6,6 +6,16 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Prepared output — formal installation candidate (2026-11-13)
+
+The authorized output candidate now has fresh source-bound guest, raw translation,
+reviewed exact worker/CRC rebinding and normal canonical generated installation.
+[Checkpoint](reviews/prepared-output-product/README.md) records scope and evidence.
+Independent reproduction, both-platform public runtime gates and remaining#132
+acceptance are pending. The single bootstrap remains UNQUALIFIED. Human approval
+of productization is not main integration or release approval.
+
+
 ## Output-only productization authorized (2026-11-13)
 
 The Human approved proceeding with the output-only candidate after the LTS

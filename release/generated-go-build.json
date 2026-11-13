@@ -1,6 +1,6 @@
 {
-  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback; balanced pool notification around contended dictionary eviction lock",
-  "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback; balanced pool notification around contended dictionary eviction lock; prepared output raw-row reuse with unchanged input/session route",
+  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -159,9 +159,9 @@
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
       "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
-      "wasm/prepared_api.inc": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334",
+      "wasm/prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
-      "wasm/resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c",
+      "wasm/resident.inc": "f26c16193e6ac48a17d0a5ccebbd78dc889118f34e6056c1348f9b6a1c142643",
       "wasm/routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "wasm/routine_schema_sql.inc": "3c94977cfe21c57815ad5c73288eaa73cc5a4744a457b11e46756480a3ca3e68",
       "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
@@ -173,10 +173,10 @@
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
       "input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
-      "prepared_api.inc": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334",
+      "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "81ed80aa085cfced8f3446af3fda6a3b7dfe6f02553d3fbbce2146a3467ccb26",
-      "resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c",
+      "resident.inc": "f26c16193e6ac48a17d0a5ccebbd78dc889118f34e6056c1348f9b6a1c142643",
       "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
@@ -361,35 +361,15 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
-  "guest_size": 21928597,
-  "linked_guest_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12",
-  "repetitions": [
-    {
-      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
-      "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
-    },
-    {
-      "guest_sha256": "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20",
-      "linked_sha256": "7f34f46793406df2e7fbfec293ffbba3bb1491d07a714439d963dc1c49d06e12"
-    }
-  ],
-  "completed": true,
-  "full_guest_regeneration": true,
+  "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
+  "guest_size": 21925350,
+  "linked_guest_sha256": "d42f681a86614f7bd0dd20527667859ba04740fadca7813ae1ab387f1f911979",
+  "repetitions": 1,
+  "completed": false,
+  "full_guest_regeneration": "PENDING",
   "ci_evidence": {
-    "status": "PASS: bounded canonical correctness; Human approved narrow main integration through protected PR gates",
-    "source_commit": "a8389b6d543e449906e8064b8f37200c74c2c394",
-    "run_id": 43330322013,
-    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43330322013",
-    "receipt": "docs/reviews/dictionary-installation/ci-43330322013/assessment.json",
-    "independent_generation_files": 120,
-    "platforms": [
-      "darwin-arm64",
-      "ubuntu24.04-x86_64"
-    ],
-    "qualification": "NOT_RUN",
-    "release": "NOT_REQUESTED",
-    "human_integration_approval": "docs/reviews/dictionary-installation/integration-approval.json"
+    "status": "PENDING_INDEPENDENT_CANONICAL_REGENERATION",
+    "bootstrap_run_id": 43436504181
   },
   "previous_canonical_evidence": {
     "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
@@ -410,9 +390,8 @@
     "record_sha256": "8baaf19e3ce3861b68993cdf11950001ff972efab27d967d8300fcd9a9a4918c"
   },
   "incoming_guest_origin": {
-    "source_commit": "e3d020e5c44b9e35c40902d5673b6d6b70eda7af",
-    "contract": "development-unqualified-v1",
-    "independent_source_builds": 1,
-    "use": "Single-build canonical-source bootstrap; not Qualification."
+    "run_id": 43436504181,
+    "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
+    "contract": "development-unqualified-v1"
   }
 }

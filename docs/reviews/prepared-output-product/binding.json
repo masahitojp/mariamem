@@ -25,10 +25,12 @@
     "unchanged": false,
     "table_offset": 7929536,
     "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
-    "old_table_offset": 7930560
+    "old_table_offset": 7930560,
+    "adapted_body_sha256": "f33a2a01ff508682deb1ca024b873452340e847cafcd887472654b0d1bc6da7c",
+    "source_adapter_only_whitespace": true
   },
   "data_sha256": "2cc750c09f00f657bf59021a22e1e91c54ce74e46bf7a72b34642de63db06e67",
-  "review_status": "SOURCE_RELOCATION_REVIEW_PENDING_CANONICAL_INSTALL",
+  "review_status": "EXACT_BINDINGS_INSTALLED_PENDING_RUNTIME_ACCEPTANCE",
   "symbol_map": {
     "sha256": "c44275c51b8312ec76d3b9a4edc8904882c7a583b1ad4907430db31c195eb2c4",
     "postopt_exact_guest": true,

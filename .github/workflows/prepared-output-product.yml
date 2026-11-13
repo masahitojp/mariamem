@@ -1,47 +1,166 @@
-name: Prepared output product input (UNQUALIFIED)
+name: Prepared output canonical candidate (not Qualification)
+# Input:43436504181 at90a505cb, single UNQUALIFIED build; retained as historical evidence.
+# Explicit manual dispatch; Development owns PR checks.
 on:
+  workflow_dispatch:
   push:
     branches: [experiment/prepared-output-product]
     paths:
-      - guest/**
       - .github/workflows/prepared-output-product.yml
-  workflow_dispatch:
 permissions:
   contents: read
 jobs:
   guest:
     runs-on: ubuntu-24.04-arm
-    timeout-minutes: 100
     container:
       image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 100
     steps:
-      - name: Install source builder dependencies
+      - name: Source builder dependencies
         run: |
           sed -i 's|http://ports.ubuntu.com/ubuntu-ports|http://azure.ports.ubuntu.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
           apt-get -o APT::Update::Error-Mode=any -o Acquire::Retries=2 update
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - name: Build new guest from this exact source
+      - name: Bind clean exact candidate and build twice
         env:
           HOME: /root
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          mkdir -p build/output-product-ci
-          python3 scripts/git_identity.py inspect HEAD > build/output-product-ci/source.json
-          python3 -c 'import json,os;assert json.load(open("build/output-product-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          mkdir -p build/prepared-output-ci
+          python3 scripts/git_identity.py inspect HEAD > build/prepared-output-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/prepared-output-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
           test ! -e guest/experimental.patch
-          python3 scripts/build_generated_guest.py --development-output /tmp/prepared-output-guest > build/output-product-ci/build.txt 2>&1
+          python3 -m unittest discover -s tests -p test_uca_copy_source.py -v
+          python3 scripts/build_generated_guest.py --repetitions 2 > build/prepared-output-ci/guest-build.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: prepared-output-input-${{ github.sha }}
-          path: /tmp/prepared-output-guest
+          name: prepared-output-canonical-guest-${{ github.sha }}
+          path: build/generated-release
           if-no-files-found: error
           retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: prepared-output-build-${{ github.sha }}
-          path: build/output-product-ci
+          name: prepared-output-canonical-build-${{ github.sha }}
+          path: build/prepared-output-ci
+          if-no-files-found: error
+          retention-days: 14
+  reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      mariadb:
+        image: mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+          MARIADB_DATABASE: test
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed MariaDB native control
+        run: |
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          mkdir -p build/prepared-output-reference
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/prepared-output-reference/image.json
+          python scripts/git_identity.py inspect HEAD > build/prepared-output-reference/source.json
+          python -c 'import json,os;assert json.load(open("build/prepared-output-reference/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          python tests/lexer_prepared_acceptance.py --native-port 3307 --output build/prepared-output-reference/native.json
+          python tests/uca_copy_acceptance.py --native-port 3307 --output build/prepared-output-reference/uca-native.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: prepared-output-native-reference-${{ github.sha }}
+          path: build/prepared-output-reference
+          if-no-files-found: error
+          retention-days: 14
+  native:
+    needs: [guest, reference]
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: prepared-output-canonical-guest-${{ github.sha }}
+          path: build/generated-release
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: prepared-output-native-reference-${{ github.sha }}
+          path: build/prepared-output-reference
+      - name: Exact clean source and source input controls
+        run: |
+          go clean -testcache
+          python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          mkdir -p build/prepared-output-ci
+          python scripts/git_identity.py inspect HEAD > build/prepared-output-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/prepared-output-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python -m unittest discover -s tests -p test_lexer_prepared_input.py -v > build/prepared-output-ci/input.txt 2>&1
+          python -m unittest discover -s tests -p test_startup_concurrency.py -v > build/prepared-output-ci/startup-input.txt 2>&1
+      - name: Output ownership, raw rows and fail-closed bindings
+        env:
+          MARIAMEM_REQUIRE_PREPARED_C: '1'
+        run: |
+          command -v clang
+          python -m pytest tests/native/test_prepared_api.py tests/test_thread_lifetime_binding.py tests/test_crc32c_adapter.py tests/test_generated_runtime_inventory.py -q > build/prepared-output-ci/output-boundary.txt 2>&1
+          go test -p 1 -count=1 ./internal/preparedproto ./internal/mysqlwire ./internal/guest > build/prepared-output-ci/output-host.txt 2>&1
+      - name: Canonical timer source regression and mutations
+        run: python -m pytest tests/test_timer_source.py -q > build/prepared-output-ci/timer-source.txt 2>&1
+      - name: Independent Go regeneration and canonical build guard
+        run: |
+          python scripts/regenerate_release_guest.py --output "$RUNNER_TEMP/prepared-output-regeneration" > build/prepared-output-ci/regeneration.txt 2>&1
+          cp build/generated-release/guest.json build/prepared-output-ci/guest.json
+          cp build/generated-release/regeneration.json build/prepared-output-ci/regeneration.json
+          python -c 'import os,sys;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/prepared-output-ci/build-guard.txt 2>&1
+      - name: Evidence guard mutation controls
+        run: python scripts/check_prepared_build_guards.py --output build/prepared-output-ci/build-negative.json > build/prepared-output-ci/build-negative.txt 2>&1
+      - name: Exact CRC body and validation differential
+        run: go test -trimpath -p 1 -count=1 ./internal/generatedgo/code/p4 -run '^TestCRC32C' -v > build/prepared-output-ci/crc.txt 2>&1
+      - name: Actual UCA/lexer parity, corruption, profiling separation and worker survival
+        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestUCACopyActualGuest|TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/prepared-output-ci/actual-tables.txt 2>&1
+      - name: SQL timer Fresh and two pristine children through TCP and Pipe
+        run: go test -trimpath -p 1 -tags integration -count=1 ./tests/gointegration -run '^TestAnalyzeTimerFreshAndFork$' -v > build/prepared-output-ci/timer-sql.txt 2>&1
+      - name: Worker ownership negative and protected controls
+        run: |
+          python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/prepared-output-worker" --run > build/prepared-output-ci/worker.txt 2>&1
+          cp "$RUNNER_TEMP/prepared-output-worker/identities.json" build/prepared-output-ci/worker-identities.json
+          cp "$RUNNER_TEMP/prepared-output-worker/results.json" build/prepared-output-ci/worker-results.json
+      - name: Normal/binary-prepared native SQL differential, two children and cleanup
+        run: |
+          go build -p 1 -trimpath -o build/prepared-output-ci/mariamem-host ./cmd/mariamem-host
+          PYTHONPATH=python python tests/lexer_prepared_acceptance.py --host build/prepared-output-ci/mariamem-host --native build/prepared-output-reference/native.json --output build/prepared-output-ci/sql-children.json > build/prepared-output-ci/sql-children.txt 2>&1
+          PYTHONPATH=python python tests/uca_copy_acceptance.py --host build/prepared-output-ci/mariamem-host --native build/prepared-output-reference/uca-native.json --output build/prepared-output-ci/uca-sql-children.json > build/prepared-output-ci/uca-sql-children.txt 2>&1
+          PYTHONPATH=python MARIAMEM_TEST_HOST="$GITHUB_WORKSPACE/build/prepared-output-ci/mariamem-host" python -m pytest tests/test_dev_guest_smoke.py tests/test_uca_copy_resnapshot.py -q > build/prepared-output-ci/snapshot-smoke.txt 2>&1
+      - name: Bind compact receipt checksums
+        if: success()
+        run: |
+          python -c 'import hashlib,json,pathlib;d=pathlib.Path("build/prepared-output-ci");(d/"SHA256SUMS.json").write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.suffix in (".txt",".json") and p.name!="SHA256SUMS.json"},indent=2)+"\n")'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: prepared-output-canonical-native-${{ matrix.runner }}-${{ github.sha }}
+          path: |
+            build/prepared-output-ci/*.txt
+            build/prepared-output-ci/*.json
           if-no-files-found: error
           retention-days: 14

@@ -30,7 +30,7 @@ def test_binding_matches_installed_source_and_preserves_other_checks():
     assert hashlib.sha256(source.encode()).hexdigest() == crc.BODY_SHA256
     crc.validate_inputs(crc.GUEST_SHA256, data())
     installed = (ROOT / 'internal/generatedgo' / crc.PATH).read_text()
-    start = installed.index('func Fn18145(')
+    start = installed.index('func '+crc.FUNCTION+'(')
     end = installed.index('\nfunc ', start + 1)
     adapted = crc.apply(crc.PATH, source)
     assert compact(adapted) == compact(installed[start:end])
@@ -54,7 +54,7 @@ def test_binding_matches_installed_source_and_preserves_other_checks():
 def test_unreviewed_binding_rejected(mutation):
     text, memory, guest = raw(), data(), crc.GUEST_SHA256
     if mutation == 'missing':
-        text = text.replace('Fn18145(', 'Fn99999(')
+        text = text.replace(crc.FUNCTION+'(', 'Fn99999(')
     elif mutation == 'duplicate':
         text += '\n' + text
     elif mutation == 'crc':
