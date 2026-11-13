@@ -1,0 +1,6 @@
+{
+  "url": "https://jira.mariadb.org/browse/MDEV-42129",
+  "local_result": "TestStatusSecond-1.txt",
+  "scope": "known upstream issue; Human requested reading only, no additional investigation, issue creation or fix",
+  "adoption": "general-use adoption not claimed; measured modelcase uses single-column status updates"
+}

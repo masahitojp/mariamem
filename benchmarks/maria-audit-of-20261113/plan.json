@@ -1,0 +1,16 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "question": "MariaDB AFTER UPDATE OF status versus original AFTER UPDATE; compare with unchanged pgmem official",
+  "arms": [
+    "pg-official",
+    "maria-old",
+    "maria-of"
+  ],
+  "primary": "1 warmup per arm +5 rotated triplets; same Maria binary;70 tests; observer off",
+  "only_delta": "Maria orders_audit_update: AFTER UPDATE ON orders -> AFTER UPDATE OF status ON orders; body unchanged",
+  "witness": "independent binary; actual SHOW CREATE; function-entry counter; totals-only/status-first/status-noop; also diagnose status-second separately",
+  "limits": "matched firing condition, not pure engine isolation",
+  "budget_gib": 10,
+  "min_free_gib": 12
+}

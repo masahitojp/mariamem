@@ -1,0 +1,22 @@
+[
+  {
+    "test": "TestAuditWitness",
+    "arm": "0",
+    "returncode": 0
+  },
+  {
+    "test": "TestAuditWitness",
+    "arm": "1",
+    "returncode": 0
+  },
+  {
+    "test": "TestStatusSecond",
+    "arm": "0",
+    "returncode": 0
+  },
+  {
+    "test": "TestStatusSecond",
+    "arm": "1",
+    "returncode": 1
+  }
+]

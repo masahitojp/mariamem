@@ -1,0 +1,23 @@
+--- original/store/seed.go
++++ candidate/store/seed.go
+@@ -6,6 +6,8 @@
+ 	"embed"
+ 	"fmt"
+ 	"sort"
++"os"
++"strings"
+ )
+ 
+ //go:embed migrations/*.sql
+@@ -31,6 +33,11 @@
+ 			continue
+ 		}
+ 		body, err := migrations.ReadFile("migrations/" + e.Name())
++        if err == nil && os.Getenv("MARIA_AUDIT_OF")=="1" {
++          const old = "CREATE TRIGGER orders_audit_update AFTER UPDATE ON orders"
++          if strings.Count(string(body),old)!=1 { return fmt.Errorf("expected one audit UPDATE trigger") }
++          body=[]byte(strings.Replace(string(body),old,"CREATE TRIGGER orders_audit_update AFTER UPDATE OF status ON orders",1))
++        }
+ 		if err != nil {
+ 			return err
+ 		}

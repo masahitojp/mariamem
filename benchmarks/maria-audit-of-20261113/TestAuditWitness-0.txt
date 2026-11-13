@@ -1,0 +1,6 @@
+=== RUN   TestAuditWitness
+    audit_witness_test.go:14: server 12.3.3-MariaDB-embedded
+    audit_witness_test.go:14: CREATE DEFINER=`root`@`localhost` TRIGGER orders_audit_update AFTER UPDATE ON orders FOR EACH ROW INSERT INTO audit_log(order_id,old_status,new_status) SELECT NEW.id,OLD.status,NEW.status WHERE NOT(NEW.status <=> OLD.status)
+    audit_witness_test.go:16: PASS total-only entries=1; status change +1 entry/+1 audit; status no-op +1 entry/+0 audit
+--- PASS: TestAuditWitness (0.04s)
+PASS

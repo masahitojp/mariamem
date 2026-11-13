@@ -1,0 +1,5 @@
+{
+  "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "git_archive_sha256": "80fa3d9517d9c450e197f6630f47c3b6a57e1cdc0070a46a3aafd9fd369ff41d",
+  "method": "git archive from locally retained immutable upstream objects; no nested clone"
+}

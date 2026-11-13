@@ -1,0 +1,20 @@
+package store_test
+import("testing";"os";"strings";"fmt")
+func auditWitnessDB(t *testing.T)(func(string),func()int,func()int){
+ t.Helper();db:=fx.shared();if fx.sharedErr!=nil{t.Fatal(fx.sharedErr)};ctx:=t.Context();t.Log("server",version(ctx,db))
+ exec:=func(q string){t.Helper();if _,e:=db.ExecContext(ctx,q);e!=nil{t.Fatal(e)}}
+ if rows,e:=db.QueryContext(ctx,"SHOW CREATE TRIGGER orders_audit_update");e!=nil{t.Fatal(e)}else{defer rows.Close();cols,e:=rows.Columns();if e!=nil{t.Fatal(e)};values:=make([]any,len(cols));args:=make([]any,len(cols));for i:=range values{args[i]=&values[i]};if !rows.Next(){t.Fatal("missing trigger")};if e=rows.Scan(args...);e!=nil{t.Fatal(e)};found:=false;for _,v:=range values{s:=fmt.Sprint(v);if b,ok:=v.([]byte);ok{s=string(b)};if strings.Contains(strings.ToUpper(s),"CREATE ")&&strings.Contains(strings.ToUpper(s),"TRIGGER"){t.Log(s);has:=strings.Contains(strings.ToUpper(s),"UPDATE OF");if has!=(os.Getenv("MARIA_AUDIT_OF")=="1"){t.Fatal("wrong trigger condition")};found=true}};if !found{t.Fatal("DDL missing")};if e=rows.Err();e!=nil{t.Fatal(e)};rows.Close()}
+ exec(`CREATE TABLE audit_witness(n INT NOT NULL)`);exec(`INSERT INTO audit_witness VALUES(0)`)
+ exec(`DROP TRIGGER orders_audit_update`);event:="UPDATE";if os.Getenv("MARIA_AUDIT_OF")=="1"{event="UPDATE OF status"}
+ exec(`CREATE TRIGGER orders_audit_update AFTER `+event+` ON orders FOR EACH ROW BEGIN UPDATE audit_witness SET n=n+1; INSERT INTO audit_log(order_id,old_status,new_status) SELECT NEW.id,OLD.status,NEW.status WHERE NOT(NEW.status <=> OLD.status); END`)
+ count:=func(q string)int{t.Helper();var n int;if e:=db.QueryRowContext(ctx,q).Scan(&n);e!=nil{t.Fatal(e)};return n}
+ return exec,func()int{return count(`SELECT n FROM audit_witness`)},func()int{return count(`SELECT count(*) FROM audit_log`)}
+}
+func TestAuditWitness(t *testing.T){
+ exec,n,audits:=auditWitnessDB(t);before:=audits();exec(`UPDATE orders SET total_cents=total_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=1`);want:=1;if os.Getenv("MARIA_AUDIT_OF")=="1"{want=0};if n()!=want||audits()!=before{t.Fatalf("total-only count%d audit%d",n(),audits())}
+ exec(`UPDATE orders SET status=IF(status='pending','paid','pending') WHERE id=1`);if n()!=want+1||audits()!=before+1{t.Fatal("status change not logged")}
+ exec(`UPDATE orders SET status=status WHERE id=1`);if n()!=want+2||audits()!=before+1{t.Fatal("status no-op semantics differ")};t.Logf("PASS total-only entries=%d; status change +1 entry/+1 audit; status no-op +1 entry/+0 audit",want)
+}
+func TestStatusSecond(t *testing.T){
+ exec,n,audits:=auditWitnessDB(t);before:=audits();exec(`UPDATE orders SET total_cents=total_cents,status=IF(status='pending','paid','pending') WHERE id=1`);if n()!=1||audits()!=before+1{t.Fatalf("status second: entries=%d audit delta=%d, want1/1",n(),audits()-before)};t.Log("PASS status as second SET target")
+}

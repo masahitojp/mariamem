@@ -1,0 +1,289 @@
+{
+  "groups": {
+    "pg-official": {
+      "wall_ms": 458.355541,
+      "cpu_ms": 1430.9630000000006,
+      "sample_ms": 40.76500000000004,
+      "elapsed_ms": 400.01,
+      "sample_range_ms": [
+        35.85700000000003,
+        45.986999999999995
+      ]
+    },
+    "maria-of": {
+      "wall_ms": 572.795416,
+      "cpu_ms": 2692.518000000002,
+      "sample_ms": 87.82900000000001,
+      "elapsed_ms": 563.17,
+      "sample_range_ms": [
+        83.66400000000002,
+        103.584
+      ]
+    },
+    "maria-old": {
+      "wall_ms": 611.245333,
+      "cpu_ms": 2858.1230000000005,
+      "sample_ms": 105.68700000000001,
+      "elapsed_ms": 601.849,
+      "sample_range_ms": [
+        93.88499999999999,
+        121.18099999999998
+      ]
+    }
+  },
+  "maria_of_minus_old": [
+    {
+      "round": 0,
+      "wall_ms": -144.58937500000002,
+      "cpu_ms": -440.42699999999877,
+      "sample_ms": -37.51699999999997
+    },
+    {
+      "round": 1,
+      "wall_ms": -36.669750999999906,
+      "cpu_ms": 104.94100000000117,
+      "sample_ms": -18.676999999999992
+    },
+    {
+      "round": 2,
+      "wall_ms": -45.67158299999994,
+      "cpu_ms": -157.862000000001,
+      "sample_ms": -5.083000000000027
+    },
+    {
+      "round": 3,
+      "wall_ms": -234.87908300000004,
+      "cpu_ms": 26.19899999999825,
+      "sample_ms": -14.588999999999999
+    },
+    {
+      "round": 4,
+      "wall_ms": 0.39441599999997834,
+      "cpu_ms": -343.39599999999837,
+      "sample_ms": -6.055999999999983
+    }
+  ],
+  "paired_median_ms": {
+    "wall_ms": -45.67158299999994,
+    "cpu_ms": -157.862000000001,
+    "sample_ms": -14.588999999999999
+  },
+  "processes": [
+    {
+      "arm": "pg-official",
+      "repeat": -1,
+      "wall_ms": 1313.557125,
+      "user_ms": 970.6069999999999,
+      "system_ms": 538.1709999999999,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 1508.7779999999998,
+      "sample_ms": 59.45700000000002,
+      "elapsed_ms": 506.93
+    },
+    {
+      "arm": "maria-of",
+      "repeat": -1,
+      "wall_ms": 1618.260042,
+      "user_ms": 2064.622,
+      "system_ms": 429.07700000000006,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2493.699,
+      "sample_ms": 85.84400000000002,
+      "elapsed_ms": 575.004
+    },
+    {
+      "arm": "maria-old",
+      "repeat": -1,
+      "wall_ms": 572.426625,
+      "user_ms": 2206.41,
+      "system_ms": 373.17599999999993,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2579.586,
+      "sample_ms": 87.41899999999998,
+      "elapsed_ms": 562.498
+    },
+    {
+      "arm": "pg-official",
+      "repeat": 0,
+      "wall_ms": 460.386,
+      "user_ms": 961.6700000000006,
+      "system_ms": 469.29299999999995,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 1430.9630000000006,
+      "sample_ms": 42.28899999999999,
+      "elapsed_ms": 394.846
+    },
+    {
+      "arm": "maria-of",
+      "repeat": 0,
+      "wall_ms": 546.117666,
+      "user_ms": 2125.5190000000007,
+      "system_ms": 355.97900000000004,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2481.4980000000005,
+      "sample_ms": 83.66400000000002,
+      "elapsed_ms": 536.237
+    },
+    {
+      "arm": "maria-old",
+      "repeat": 0,
+      "wall_ms": 690.707041,
+      "user_ms": 2520.7879999999996,
+      "system_ms": 401.13699999999983,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2921.9249999999993,
+      "sample_ms": 121.18099999999998,
+      "elapsed_ms": 681.154
+    },
+    {
+      "arm": "maria-old",
+      "repeat": 1,
+      "wall_ms": 609.465167,
+      "user_ms": 2221.85,
+      "system_ms": 365.7270000000006,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2587.5770000000007,
+      "sample_ms": 105.68700000000001,
+      "elapsed_ms": 599.649
+    },
+    {
+      "arm": "maria-of",
+      "repeat": 1,
+      "wall_ms": 572.795416,
+      "user_ms": 2276.764000000002,
+      "system_ms": 415.75399999999973,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2692.518000000002,
+      "sample_ms": 87.01000000000002,
+      "elapsed_ms": 563.17
+    },
+    {
+      "arm": "pg-official",
+      "repeat": 1,
+      "wall_ms": 427.543875,
+      "user_ms": 994.5869999999992,
+      "system_ms": 427.4829999999996,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 1422.0699999999988,
+      "sample_ms": 35.85700000000003,
+      "elapsed_ms": 372.156
+    },
+    {
+      "arm": "maria-of",
+      "repeat": 2,
+      "wall_ms": 565.57375,
+      "user_ms": 2308.064999999999,
+      "system_ms": 392.1960000000002,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2700.2609999999995,
+      "sample_ms": 89.96499999999997,
+      "elapsed_ms": 555.814
+    },
+    {
+      "arm": "maria-old",
+      "repeat": 2,
+      "wall_ms": 611.245333,
+      "user_ms": 2448.3570000000013,
+      "system_ms": 409.7659999999994,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2858.1230000000005,
+      "sample_ms": 95.048,
+      "elapsed_ms": 601.849
+    },
+    {
+      "arm": "pg-official",
+      "repeat": 2,
+      "wall_ms": 458.355541,
+      "user_ms": 1024.9810000000004,
+      "system_ms": 425.72600000000006,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 1450.7070000000006,
+      "sample_ms": 40.76500000000004,
+      "elapsed_ms": 403.495
+    },
+    {
+      "arm": "pg-official",
+      "repeat": 3,
+      "wall_ms": 455.112958,
+      "user_ms": 1002.0439999999979,
+      "system_ms": 429.0249999999993,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 1431.0689999999972,
+      "sample_ms": 37.97500000000002,
+      "elapsed_ms": 403.143
+    },
+    {
+      "arm": "maria-old",
+      "repeat": 3,
+      "wall_ms": 823.346166,
+      "user_ms": 2394.985000000002,
+      "system_ms": 414.42799999999914,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2809.413000000001,
+      "sample_ms": 118.173,
+      "elapsed_ms": 814.055
+    },
+    {
+      "arm": "maria-of",
+      "repeat": 3,
+      "wall_ms": 588.467083,
+      "user_ms": 2444.1769999999997,
+      "system_ms": 391.43499999999955,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2835.611999999999,
+      "sample_ms": 103.584,
+      "elapsed_ms": 578.343
+    },
+    {
+      "arm": "maria-of",
+      "repeat": 4,
+      "wall_ms": 583.779958,
+      "user_ms": 2182.2620000000015,
+      "system_ms": 388.11200000000133,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2570.374000000003,
+      "sample_ms": 87.82900000000001,
+      "elapsed_ms": 573.198
+    },
+    {
+      "arm": "pg-official",
+      "repeat": 4,
+      "wall_ms": 459.852166,
+      "user_ms": 994.8300000000004,
+      "system_ms": 421.8440000000001,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 1416.6740000000004,
+      "sample_ms": 45.986999999999995,
+      "elapsed_ms": 400.01
+    },
+    {
+      "arm": "maria-old",
+      "repeat": 4,
+      "wall_ms": 583.385542,
+      "user_ms": 2484.732000000001,
+      "system_ms": 429.03800000000024,
+      "returncode": 0,
+      "leaf_pass": 70,
+      "cpu_ms": 2913.7700000000013,
+      "sample_ms": 93.88499999999999,
+      "elapsed_ms": 573.153
+    }
+  ]
+}
