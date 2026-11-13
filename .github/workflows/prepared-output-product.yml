@@ -3,14 +3,17 @@ name: Prepared output canonical candidate (not Qualification)
 # Explicit manual dispatch; Development owns PR checks.
 on:
   workflow_dispatch:
-  push:
-    branches: [experiment/prepared-output-product]
-    paths:
-      - .github/workflows/prepared-output-product.yml
+    inputs:
+      operation:
+        description: Canonical generation or public integration of installed source
+        type: choice
+        options: [canonical, public]
+        default: canonical
 permissions:
   contents: read
 jobs:
   guest:
+    if: inputs.operation != 'public'
     runs-on: ubuntu-24.04-arm
     container:
       image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
@@ -48,6 +51,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   reference:
+    if: inputs.operation != 'public'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
@@ -79,6 +83,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   native:
+    if: inputs.operation != 'public'
     needs: [guest, reference]
     strategy:
       fail-fast: false
@@ -164,3 +169,7 @@ jobs:
             build/prepared-output-ci/*.json
           if-no-files-found: error
           retention-days: 14
+
+  public-integration:
+    if: inputs.operation == 'public'
+    uses: ./.github/workflows/prepared-output-acceptance.yml
