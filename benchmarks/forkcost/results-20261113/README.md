@@ -87,7 +87,7 @@ pgmemはServer.Close→Cluster.Kill→KillAll(SIGKILL)を使う。各guest proce
 | pgmem | 8 | plain | 15.457 | 0.272 | 225.28 |
 | pgmem | 8 | traced | 16.143 | 0.857 | 233.22 |
 
-pgmem P8のcleanup p50はplain0.272→traced0.857ms、P4 batch中央値は234.98→282.27ms。forkの中央値は比較的近くても、並列cleanupの観測影響は無視できない。非同期解放の機構・API終了後にも続く事実はsourceと全traceで確認できるが、観測値をそのまま無計測製品の追加時間と断定しない。mariamem P8 plainにも長いSQL区間が残り、今回の辞書修正で自然tailが全滅したとは主張しない。#143は保留継続。
+pgmem P8のcleanup p50はplain0.272→traced0.857ms、P4 batch中央値は234.98→282.27ms。forkの中央値は比較的近くても、並列cleanupの観測影響は無視できない。非同期解放の機構・API終了後にも続く事実はsourceと全traceで確認できるが、観測値をそのまま無計測製品の追加時間と断定しない。今回の通常計測では両製品とも集計SQL区間>100msは0件。一方mariamem P8 plainのround0・child38ではcleanup409.704ms、そのうちDatabase.Close409.598ms、WaitDisconnected0.101msだった。この子のFork19.258ms、集計SQL1.869msで、長い区間はSQLではない。tracedでは同様のClose tailが再現しておらず、内部の停止・解放・スケジューリングのどこかは未特定。典型的なtraced内訳からこの約410msの原因を推測しない。全観測を保持し、自然tailの全滅は主張しない。#143は保留継続。
 
 ## 別枠CPUプロファイル
 
@@ -109,4 +109,4 @@ pgmem P8（総sample2.25 CPU秒）にはmemmove0.68秒（30.2%）があり、FS�
 
 再計測は新しいmanaged workspaceへmeasured harnessとpgmem pinをclean cloneし、temp/source・temp/pgmem、evidenceへ保存したbuild/overlay/measure/planを配置。build.pyはexact Go1.27.4を要求。helperのrunでbuildし、監視プロセス終了後にmeasure.pyを手動のexclusive lock下で実行する。12GiB上限・空き12GiB、各build1200秒、各process120秒、計測全体900秒。フルディスク走査は試行前後のみ。結果は新しいcohortとして保存する。
 
-この調査から追加実験・性能修正・main統合・Qualification・releaseは開始しない。次に進む条件はserver_init内の候補処理と有限の対照を定義し、正しさと終了保証を維持できること。改善効果はまだ未測定。後片付けはcleanup.jsonに記録する。
+この調査から追加実験・性能修正・main統合・Qualification・releaseは開始しない。次に進む条件はserver_init内の候補処理と有限の対照を定義し、正しさと終了保証を維持できること。改善効果はまだ未測定。約410msのCloseを判別するなら、終了段階だけの低負荷記録とP8の固定3対照（各48子）を別計画にする。既存コードからの準備・検証は概算20〜30分、実行は数分で、再現は保証しない。今回は追加実行しない。後片付けはcleanup.jsonに記録する。
