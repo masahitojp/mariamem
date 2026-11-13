@@ -1,0 +1,86 @@
+File: pgmem
+Type: cpu
+Time: 2026-11-13 12:03:35 JST
+Duration: 1.41s, Total samples = 1.46s (103.84%)
+Active filters:
+   focus=Mmap|Munmap|Mprotect|mmap|munmap|mprotect
+Showing nodes accounting for 0.10s, 6.85% of 1.46s total
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   syscall.syscalln
+     0.09s  6.16%  6.16%      0.09s  6.16%                | syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.sysReserveOS
+     0.01s  0.68%  6.85%      0.01s  0.68%                | runtime.mmap
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Close
+         0     0%  6.85%      0.09s  6.16%                | github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate.func1
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.UnmapMemory (inline)
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1.1
+         0     0%  6.85%      0.09s  6.16%                | github.com/shibukawa/pgmem/internal/aot.(*instance).Close
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate.func1
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate.func1 (inline)
+         0     0%  6.85%      0.09s  6.16%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.UnmapMemory
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.unmapMemory (inline)
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.UnmapMemory (inline)
+         0     0%  6.85%      0.09s  6.16%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.unmapMemory
+                                             0.09s   100% |   syscall.Munmap (inline)
+----------------------------------------------------------+-------------
+         0     0%  6.85%      0.09s  6.16%                | github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1.1
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+         0     0%  6.85%      0.09s  6.16%                | github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1.1
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Close
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.systemstack
+         0     0%  6.85%      0.01s  0.68%                | runtime.(*mheap).alloc.func1
+                                             0.01s   100% |   runtime.(*mheap).allocSpan
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.(*mheap).alloc.func1
+         0     0%  6.85%      0.01s  0.68%                | runtime.(*mheap).allocSpan
+                                             0.01s   100% |   runtime.(*mheap).grow
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.(*mheap).allocSpan
+         0     0%  6.85%      0.01s  0.68%                | runtime.(*mheap).grow
+                                             0.01s   100% |   runtime.(*mheap).sysAlloc
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.(*mheap).grow
+         0     0%  6.85%      0.01s  0.68%                | runtime.(*mheap).sysAlloc
+                                             0.01s   100% |   runtime.sysReserve
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.(*mheap).sysAlloc
+         0     0%  6.85%      0.01s  0.68%                | runtime.sysReserve
+                                             0.01s   100% |   runtime.sysReserveOS (inline)
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   runtime.sysReserve (inline)
+         0     0%  6.85%      0.01s  0.68%                | runtime.sysReserveOS
+                                             0.01s   100% |   runtime.mmap
+----------------------------------------------------------+-------------
+         0     0%  6.85%      0.01s  0.68%                | runtime.systemstack
+                                             0.01s   100% |   runtime.(*mheap).alloc.func1
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   syscall.Munmap
+         0     0%  6.85%      0.09s  6.16%                | syscall.(*mmapper).Munmap
+                                             0.09s   100% |   syscall.munmap
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.unmapMemory (inline)
+         0     0%  6.85%      0.09s  6.16%                | syscall.Munmap
+                                             0.09s   100% |   syscall.(*mmapper).Munmap
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   syscall.(*mmapper).Munmap
+         0     0%  6.85%      0.09s  6.16%                | syscall.munmap
+                                             0.09s   100% |   syscall.syscall
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   syscall.munmap
+         0     0%  6.85%      0.09s  6.16%                | syscall.syscall
+                                             0.09s   100% |   syscall.syscalln
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   syscall.syscall
+         0     0%  6.85%      0.09s  6.16%                | syscall.syscalln
+                                             0.09s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------

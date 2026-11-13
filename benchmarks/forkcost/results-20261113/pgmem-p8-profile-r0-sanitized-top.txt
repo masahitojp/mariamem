@@ -1,0 +1,13 @@
+File: pgmem
+Type: cpu
+Time: 2026-11-13 12:03:39 JST
+Duration: 706.65ms, Total samples = 2250ms (318.40%)
+Showing nodes accounting for 1410ms, 62.67% of 2250ms total
+Dropped 133 nodes (cum <= 11.25ms)
+Showing top 5 nodes out of 311
+      flat  flat%   sum%        cum   cum%
+     680ms 30.22% 30.22%      680ms 30.22%  runtime.memmove
+     320ms 14.22% 44.44%      320ms 14.22%  syscall.rawsyscalln
+     170ms  7.56% 52.00%      170ms  7.56%  runtime.memclrNoHeapPointers
+     150ms  6.67% 58.67%      150ms  6.67%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_emscripten_builtin_malloc
+      90ms  4.00% 62.67%       90ms  4.00%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_GUC_yylex

@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "ordinary_processes": 36,
+  "warmup_processes": 12,
+  "pilots": 4,
+  "profiles": 4,
+  "no_samples_removed": true,
+  "peak_workspace_bytes": 1801670656,
+  "minimum_free_bytes": 43501510656,
+  "controller_sha256": "221728fe5d2e0b14c276c27726913ff84341de752b3a845e4a1ad1d1bac80ac4"
+}

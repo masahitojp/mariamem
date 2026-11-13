@@ -1,0 +1,47 @@
+File: pgmem
+Type: cpu
+Time: 2026-11-13 12:03:35 JST
+Duration: 1.41s, Total samples = 1.46s (103.84%)
+Showing nodes accounting for 1.46s, 100% of 1.46s total
+Showing top 40 nodes out of 374
+      flat  flat%   sum%        cum   cum%
+     0.34s 23.29% 23.29%      0.34s 23.29%  syscall.rawsyscalln
+     0.25s 17.12% 40.41%      0.25s 17.12%  runtime.memmove
+     0.17s 11.64% 52.05%      0.17s 11.64%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_emscripten_builtin_malloc
+     0.10s  6.85% 58.90%      0.10s  6.85%  runtime.memclrNoHeapPointers
+     0.09s  6.16% 65.07%      0.10s  6.85%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_create
+     0.05s  3.42% 68.49%      0.05s  3.42%  runtime.pthread_cond_signal
+     0.05s  3.42% 71.92%      0.05s  3.42%  runtime.usleep
+     0.04s  2.74% 74.66%      0.04s  2.74%  runtime.pthread_cond_wait
+     0.03s  2.05% 76.71%      0.03s  2.05%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_dopr
+     0.02s  1.37% 78.08%      0.14s  9.59%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_CreateOrAttachShmemStructs
+     0.02s  1.37% 79.45%      0.11s  7.53%  github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_AsyncReadBuffers
+     0.02s  1.37% 80.82%      0.02s  1.37%  github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_XLogRegisterBuffer
+     0.02s  1.37% 82.19%      0.02s  1.37%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_FreePageManagerGetInternal
+     0.02s  1.37% 83.56%      0.02s  1.37%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_GUC_yylex
+     0.02s  1.37% 84.93%      0.14s  9.59%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_parse_and_validate_value
+     0.02s  1.37% 86.30%      0.02s  1.37%  runtime.tryDeferToSpanScan
+     0.02s  1.37% 87.67%      0.02s  1.37%  syscall.Syscall6
+     0.01s  0.68% 88.36%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/base.AtomicRmwXchg32At
+     0.01s  0.68% 89.04%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_check_locale_messages
+     0.01s  0.68% 89.73%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.InitElemSeg_0_1
+     0.01s  0.68% 90.41%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_RegisterPostmasterChildActive
+     0.01s  0.68% 91.10%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_hash_search
+     0.01s  0.68% 91.78%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_fmgr_info_cxt_security
+     0.01s  0.68% 92.47%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_pg_any_to_server
+     0.01s  0.68% 93.15%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_raw_parser
+     0.01s  0.68% 93.84%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_tzparse
+     0.01s  0.68% 94.52%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_assign_io_method
+     0.01s  0.68% 95.21%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_strlen
+     0.01s  0.68% 95.89%      0.04s  2.74%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_AllocSetContextCreateInternal
+     0.01s  0.68% 96.58%      0.01s  0.68%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_search_with_hash_value
+     0.01s  0.68% 97.26%      0.01s  0.68%  runtime.(*mspan).typePointersOfUnchecked
+     0.01s  0.68% 97.95%      0.01s  0.68%  runtime.kevent
+     0.01s  0.68% 98.63%      0.01s  0.68%  runtime.madvise
+     0.01s  0.68% 99.32%      0.01s  0.68%  runtime.mallocgcTinySC2
+     0.01s  0.68%   100%      0.01s  0.68%  runtime.mmap
+         0     0%   100%      0.03s  2.05%  _.goready.func1
+         0     0%   100%      0.09s  6.16%  bytes.Clone
+         0     0%   100%      0.04s  2.74%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one
+         0     0%   100%      0.04s  2.74%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2
+         0     0%   100%      0.02s  1.37%  github.com/shibukawa/pgmem.(*Server).acceptLoop

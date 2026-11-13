@@ -1,0 +1,108 @@
+File: pgmem
+Type: cpu
+Time: 2026-11-13 12:03:39 JST
+Duration: 706.65ms, Total samples = 2.25s (318.40%)
+Active filters:
+   focus=Mmap|Munmap|Mprotect|mmap|munmap|mprotect
+Showing nodes accounting for 0.15s, 6.67% of 2.25s total
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             0.15s   100% |   syscall.syscalln
+     0.15s  6.67%  6.67%      0.15s  6.67%                | syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+         0     0%  6.67%      0.05s  2.22%                | github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate
+                                             0.05s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.(*SharedImage).Memory
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Close
+         0     0%  6.67%      0.10s  4.44%                | github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate.func1
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.UnmapMemory (inline)
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1.1
+         0     0%  6.67%      0.10s  4.44%                | github.com/shibukawa/pgmem/internal/aot.(*instance).Close
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate.func1
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate
+         0     0%  6.67%      0.05s  2.22%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.(*SharedImage).Memory
+                                             0.05s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.mmapImage
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate.func1 (inline)
+         0     0%  6.67%      0.10s  4.44%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.UnmapMemory
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.unmapMemory (inline)
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.(*SharedImage).Memory
+         0     0%  6.67%      0.05s  2.22%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.mmapImage
+                                             0.03s 60.00% |   os.(*File).Stat
+                                             0.02s 40.00% |   syscall.Mmap (inline)
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.UnmapMemory (inline)
+         0     0%  6.67%      0.10s  4.44%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.unmapMemory
+                                             0.10s   100% |   syscall.Munmap (inline)
+----------------------------------------------------------+-------------
+         0     0%  6.67%      0.15s  6.67%                | github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+                                             0.10s 66.67% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1.1
+                                             0.05s 33.33% |   github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+         0     0%  6.67%      0.10s  4.44%                | github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1.1
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Close
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   os.(*File).Stat
+         0     0%  6.67%      0.03s  1.33%                | internal/poll.(*FD).Fstat
+                                             0.03s   100% |   internal/poll.ignoringEINTR (inline)
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   internal/poll.ignoringEINTR (inline)
+         0     0%  6.67%      0.03s  1.33%                | internal/poll.(*FD).Fstat.func1
+                                             0.03s   100% |   syscall.Fstat
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   internal/poll.(*FD).Fstat (inline)
+         0     0%  6.67%      0.03s  1.33%                | internal/poll.ignoringEINTR
+                                             0.03s   100% |   internal/poll.(*FD).Fstat.func1 (inline)
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.mmapImage
+         0     0%  6.67%      0.03s  1.33%                | os.(*File).Stat
+                                             0.03s   100% |   internal/poll.(*FD).Fstat
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   syscall.Mmap
+         0     0%  6.67%      0.02s  0.89%                | syscall.(*mmapper).Mmap
+                                             0.02s   100% |   syscall.mmap
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   syscall.Munmap
+         0     0%  6.67%      0.10s  4.44%                | syscall.(*mmapper).Munmap
+                                             0.10s   100% |   syscall.munmap
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   internal/poll.(*FD).Fstat.func1
+         0     0%  6.67%      0.03s  1.33%                | syscall.Fstat
+                                             0.03s   100% |   syscall.syscall
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.mmapImage (inline)
+         0     0%  6.67%      0.02s  0.89%                | syscall.Mmap
+                                             0.02s   100% |   syscall.(*mmapper).Mmap
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.unmapMemory (inline)
+         0     0%  6.67%      0.10s  4.44%                | syscall.Munmap
+                                             0.10s   100% |   syscall.(*mmapper).Munmap
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   syscall.(*mmapper).Mmap
+         0     0%  6.67%      0.02s  0.89%                | syscall.mmap
+                                             0.02s   100% |   syscall.syscall6X
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   syscall.(*mmapper).Munmap
+         0     0%  6.67%      0.10s  4.44%                | syscall.munmap
+                                             0.10s   100% |   syscall.syscall
+----------------------------------------------------------+-------------
+                                             0.10s 76.92% |   syscall.munmap
+                                             0.03s 23.08% |   syscall.Fstat
+         0     0%  6.67%      0.13s  5.78%                | syscall.syscall
+                                             0.13s   100% |   syscall.syscalln
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   syscall.mmap
+         0     0%  6.67%      0.02s  0.89%                | syscall.syscall6X
+                                             0.02s   100% |   syscall.syscalln
+----------------------------------------------------------+-------------
+                                             0.13s 86.67% |   syscall.syscall
+                                             0.02s 13.33% |   syscall.syscall6X
+         0     0%  6.67%      0.15s  6.67%                | syscall.syscalln
+                                             0.15s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------

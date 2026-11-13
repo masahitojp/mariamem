@@ -1,0 +1,48 @@
+File: pgmem
+Type: cpu
+Time: 2026-11-13 12:03:39 JST
+Duration: 706.65ms, Total samples = 2.25s (318.40%)
+Showing nodes accounting for 2.02s, 89.78% of 2.25s total
+Dropped 133 nodes (cum <= 0.01s)
+Showing top 40 nodes out of 311
+      flat  flat%   sum%        cum   cum%
+     0.68s 30.22% 30.22%      0.68s 30.22%  runtime.memmove
+     0.32s 14.22% 44.44%      0.32s 14.22%  syscall.rawsyscalln
+     0.17s  7.56% 52.00%      0.17s  7.56%  runtime.memclrNoHeapPointers
+     0.15s  6.67% 58.67%      0.15s  6.67%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_emscripten_builtin_malloc
+     0.09s  4.00% 62.67%      0.09s  4.00%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_GUC_yylex
+     0.09s  4.00% 66.67%      0.09s  4.00%  runtime.madvise
+     0.05s  2.22% 68.89%      0.06s  2.67%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_search_with_hash_value
+     0.04s  1.78% 70.67%      0.05s  2.22%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_FreePageManagerGetInternal
+     0.03s  1.33% 72.00%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_tzparse
+     0.03s  1.33% 73.33%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_guc_name_hash
+     0.03s  1.33% 74.67%      0.14s  6.22%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_parse_and_validate_value
+     0.03s  1.33% 76.00%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_strlen
+     0.02s  0.89% 76.89%      0.13s  5.78%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_AllocSetAlloc
+     0.02s  0.89% 77.78%      0.09s  4.00%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_CreateOrAttachShmemStructs
+     0.02s  0.89% 78.67%      0.23s 10.22%  github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_AsyncReadBuffers
+     0.02s  0.89% 79.56%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_CatalogCacheCreateEntry
+     0.02s  0.89% 80.44%      0.02s  0.89%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_TransactionIdGetStatus
+     0.02s  0.89% 81.33%      0.07s  3.11%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_LockAcquireExtended
+     0.02s  0.89% 82.22%      0.05s  2.22%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_create
+     0.02s  0.89% 83.11%      0.02s  0.89%  runtime.pthread_cond_wait
+     0.02s  0.89% 84.00%      0.02s  0.89%  runtime.spanOf (inline)
+     0.01s  0.44% 84.44%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_InitializeOneGUCOption
+     0.01s  0.44% 84.89%      1.68s 74.67%  github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_pgmem_main
+     0.01s  0.44% 85.33%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F___fwritex
+     0.01s  0.44% 85.78%      0.04s  1.78%  github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_index_fetch_heap
+     0.01s  0.44% 86.22%      0.02s  0.89%  github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_raw_parser
+     0.01s  0.44% 86.67%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ParseTzFile
+     0.01s  0.44% 87.11%      0.02s  0.89%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_dshash_find
+     0.01s  0.44% 87.56%      0.04s  1.78%  github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_palloc
+     0.01s  0.44% 88.00%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_btbeginscan
+     0.01s  0.44% 88.44%      0.06s  2.67%  github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_build_guc_variables
+     0.01s  0.44% 88.89%      0.03s  1.33%  github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_MemoryContextAllocZero
+     0.01s  0.44% 89.33%      0.02s  0.89%  runtime.scanObject
+     0.01s  0.44% 89.78%      0.03s  1.33%  runtime.scanObjectsSmall
+         0     0% 89.78%      0.35s 15.56%  bytes.Clone (inline)
+         0     0% 89.78%      0.05s  2.22%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one
+         0     0% 89.78%      0.05s  2.22%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2
+         0     0% 89.78%      0.04s  1.78%  github.com/shibukawa/pgmem.(*Snapshot).Fork
+         0     0% 89.78%      0.03s  1.33%  github.com/shibukawa/pgmem.bootObserved
+         0     0% 89.78%      0.18s  8.00%  github.com/shibukawa/pgmem/internal/aot.(*Factory).Instantiate

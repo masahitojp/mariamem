@@ -1,0 +1,48 @@
+File: maria
+Type: cpu
+Time: 2026-11-13 12:03:23 JST
+Duration: 2.01s, Total samples = 3.06s (152.31%)
+Showing nodes accounting for 2.91s, 95.10% of 3.06s total
+Dropped 143 nodes (cum <= 0.02s)
+Showing top 40 nodes out of 284
+      flat  flat%   sum%        cum   cum%
+     0.64s 20.92% 20.92%      0.64s 20.92%  syscall.rawsyscalln
+     0.45s 14.71% 35.62%      0.45s 14.71%  runtime.pthread_cond_signal
+     0.41s 13.40% 49.02%      0.41s 13.40%  runtime.usleep
+     0.29s  9.48% 58.50%      0.29s  9.48%  runtime.memclrNoHeapPointers
+     0.23s  7.52% 66.01%      0.53s 17.32%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+     0.23s  7.52% 73.53%      0.23s  7.52%  runtime.pthread_cond_wait
+     0.09s  2.94% 76.47%      0.09s  2.94%  runtime.memmove
+     0.05s  1.63% 78.10%      0.05s  1.63%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+     0.05s  1.63% 79.74%      0.06s  1.96%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn21541
+     0.04s  1.31% 81.05%      0.09s  2.94%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+     0.03s  0.98% 82.03%      0.03s  0.98%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn13510
+     0.03s  0.98% 83.01%      0.12s  3.92%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18059
+     0.03s  0.98% 83.99%      0.03s  0.98%  hash/crc32.castagnoliUpdate
+     0.03s  0.98% 84.97%      0.03s  0.98%  runtime.madvise
+     0.02s  0.65% 85.62%      1.11s 36.27%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+     0.02s  0.65% 86.27%      0.04s  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn65
+     0.02s  0.65% 86.93%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15703
+     0.02s  0.65% 87.58%      0.16s  5.23%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5424
+     0.02s  0.65% 88.24%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn15220
+     0.02s  0.65% 88.89%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn4170
+     0.02s  0.65% 89.54%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn543
+     0.02s  0.65% 90.20%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn10180
+     0.02s  0.65% 90.85%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn70
+     0.02s  0.65% 91.50%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn4441
+     0.01s  0.33% 91.83%      0.38s 12.42%  _.goready.func1
+     0.01s  0.33% 92.16%      0.20s  6.54%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn961
+     0.01s  0.33% 92.48%      0.62s 20.26%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14747
+     0.01s  0.33% 92.81%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18193
+     0.01s  0.33% 93.14%      0.11s  3.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn967
+     0.01s  0.33% 93.46%      0.04s  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17710
+     0.01s  0.33% 93.79%      0.02s  0.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn20720
+     0.01s  0.33% 94.12%      0.13s  4.25%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn958
+     0.01s  0.33% 94.44%      0.13s  4.25%  runtime.lock2
+     0.01s  0.33% 94.77%      0.08s  2.61%  runtime.selectgo
+     0.01s  0.33% 95.10%      0.24s  7.84%  runtime.semasleep
+         0     0% 95.10%      0.03s  0.98%  github.com/masahitojp/mariamem.(*Database).Close
+         0     0% 95.10%      0.03s  0.98%  github.com/masahitojp/mariamem.(*Database).closeLocked
+         0     0% 95.10%      0.03s  0.98%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one
+         0     0% 95.10%      0.03s  0.98%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one.func2
+         0     0% 95.10%      0.03s  0.98%  github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2

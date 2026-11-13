@@ -1,0 +1,13 @@
+File: maria
+Type: cpu
+Time: 2026-11-13 12:03:23 JST
+Duration: 2.01s, Total samples = 3060ms (152.31%)
+Showing nodes accounting for 2020ms, 66.01% of 3060ms total
+Dropped 143 nodes (cum <= 15.30ms)
+Showing top 5 nodes out of 284
+      flat  flat%   sum%        cum   cum%
+     640ms 20.92% 20.92%      640ms 20.92%  syscall.rawsyscalln
+     450ms 14.71% 35.62%      450ms 14.71%  runtime.pthread_cond_signal
+     410ms 13.40% 49.02%      410ms 13.40%  runtime.usleep
+     290ms  9.48% 58.50%      290ms  9.48%  runtime.memclrNoHeapPointers
+     230ms  7.52% 66.01%      530ms 17.32%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152

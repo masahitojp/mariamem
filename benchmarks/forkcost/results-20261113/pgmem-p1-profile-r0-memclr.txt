@@ -1,0 +1,219 @@
+File: pgmem
+Type: cpu
+Time: 2026-11-13 12:03:35 JST
+Duration: 1.41s, Total samples = 1.46s (103.84%)
+Active filters:
+   focus=memclr
+Showing nodes accounting for 0.10s, 6.85% of 1.46s total
+Showing top 50 nodes out of 70
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             0.04s 40.00% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.MemoryFill
+                                             0.03s 30.00% |   github.com/shibukawa/pgmem/internal/vfs.(*FS).Clone
+                                             0.02s 20.00% |   github.com/shibukawa/pgmem/internal/host.init.func88
+                                             0.01s 10.00% |   github.com/shibukawa/pgmem/internal/host.(*Host).writev
+     0.10s  6.85%  6.85%      0.10s  6.85%                | runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2
+         0     0%  6.85%      0.03s  2.05%                | github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one
+                                             0.03s   100% |   github.com/shibukawa/pgmem.(*Snapshot).Fork
+----------------------------------------------------------+-------------
+         0     0%  6.85%      0.03s  2.05%                | github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2
+                                             0.03s   100% |   github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one
+         0     0%  6.85%      0.03s  2.05%                | github.com/shibukawa/pgmem.(*Snapshot).Fork
+                                             0.03s   100% |   github.com/shibukawa/pgmem/internal/vfs.(*FS).Clone
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F___stdio_write
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot.(*imports).Fd_write
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/host.init.2.func1
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_set_max_safe_fds
+         0     0%  6.85%      0.02s  1.37%                | github.com/shibukawa/pgmem/internal/aot.(*imports).X__syscall_dup
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/host.init.2.func1
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/engine.callMain
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/aot.(*instance).Call
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).callVoid
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).callVoid
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/aot.(*instance).Call.func1
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.callExport
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Call
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/aot.(*instance).callVoid
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Call.func1
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Call.func1
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/aot.callExport
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot.PgmemMain (inline)
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.callExport (inline)
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/aot/pgaot.PgmemMain
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_pgmem_main
+----------------------------------------------------------+-------------
+                                             0.02s 50.00% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_CreateOrAttachShmemStructs
+                                             0.01s 25.00% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_AdvanceXLInsertBuffer
+                                             0.01s 25.00% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_create
+         0     0%  6.85%      0.04s  2.74%                | github.com/shibukawa/pgmem/internal/aot/pgaot/base.MemoryFill
+                                             0.04s   100% |   runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_CreateSharedMemoryAndSemaphores
+         0     0%  6.85%      0.03s  2.05%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_CreateOrAttachShmemStructs
+                                             0.02s 66.67% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.MemoryFill
+                                             0.01s 33.33% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_ShmemInitHash
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_ProcessQuery
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_ExecutorRun
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_standard_ExecutorRun
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_InitPostgres
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_RelationCacheInitializePhase3
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_write_relcache_init_file
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_CreateOrAttachShmemStructs
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_ShmemInitHash
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_create
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ExecInsertIndexTuples
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_index_insert
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_btinsert
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot.PgmemMain
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_pgmem_main
+                                             0.03s 42.86% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_CreateSharedMemoryAndSemaphores
+                                             0.02s 28.57% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_BackendMain
+                                             0.02s 28.57% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_set_max_safe_fds
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_PostgresMain
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_PortalRun
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_PortalRunMulti
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_fwrite
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F___fwritex
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F___stdio_write
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_write_relcache_init_file
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_write_item
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_fwrite
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_ExecUpdate
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_ExecUpdateEpilogue
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ExecInsertIndexTuples
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_XLogInsert
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_GetXLogBuffer
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_AdvanceXLInsertBuffer
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_BackendMain
+         0     0%  6.85%      0.02s  1.37%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_PostgresMain
+                                             0.01s 50.00% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_PortalRun
+                                             0.01s 50.00% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_InitPostgres
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_pgmem_main
+         0     0%  6.85%      0.02s  1.37%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_BackendMain
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_PostgresMain
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_ExecUpdateEpilogue
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ExecInsertIndexTuples
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_index_insert
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_standard_ExecutorRun
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ExecProcNodeFirst
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_ExecModifyTable
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F__bt_insertonpg
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_XLogInsert
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_GetXLogBuffer
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F___fwritex
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F___stdio_write
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot.(*imports).Fd_write
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_write_item
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_fwrite
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F___fwritex
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_RelationCacheInitializePhase3
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_write_relcache_init_file
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_write_item
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_pgmem_main
+         0     0%  6.85%      0.03s  2.05%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_CreateSharedMemoryAndSemaphores
+                                             0.03s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_CreateOrAttachShmemStructs
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_ExecModifyTable
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_ExecUpdate
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_ExecUpdateEpilogue
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p1.F_PortalRun
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_PortalRunMulti
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_ProcessQuery
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_ExecutorRun
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_standard_ExecutorRun
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ExecProcNodeFirst
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_GetXLogBuffer
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_AdvanceXLInsertBuffer
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.MemoryFill
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_ExecProcNodeFirst
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_ExecModifyTable
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_ExecUpdate
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p2.F_PostgresMain
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_InitPostgres
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_RelationCacheInitializePhase3
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p4.F_PortalRunMulti
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_ProcessQuery
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_ExecutorRun
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_btinsert
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F__bt_insertonpg
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p3.F_XLogInsert
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_index_insert
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_btinsert
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F__bt_insertonpg
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_ShmemInitHash
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_hash_create
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/base.MemoryFill
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot/pgaot/p0.F_pgmem_main
+         0     0%  6.85%      0.02s  1.37%                | github.com/shibukawa/pgmem/internal/aot/pgaot/p5.F_set_max_safe_fds
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/aot.(*imports).X__syscall_dup
+----------------------------------------------------------+-------------
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/engine.callMain
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/engine.(*Cluster).exec.func1
+         0     0%  6.85%      0.07s  4.79%                | github.com/shibukawa/pgmem/internal/engine.callMain
+                                             0.07s   100% |   github.com/shibukawa/pgmem/internal/aot.(*instance).Call
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/host.init.func60
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/host.(*Host).writev
+                                             0.01s   100% |   runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.02s 66.67% |   github.com/shibukawa/pgmem/internal/aot.(*imports).X__syscall_dup
+                                             0.01s 33.33% |   github.com/shibukawa/pgmem/internal/aot.(*imports).Fd_write
+         0     0%  6.85%      0.03s  2.05%                | github.com/shibukawa/pgmem/internal/host.init.2.func1
+                                             0.02s 66.67% |   github.com/shibukawa/pgmem/internal/host.init.func88
+                                             0.01s 33.33% |   github.com/shibukawa/pgmem/internal/host.init.func60
+----------------------------------------------------------+-------------
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/host.init.2.func1
+         0     0%  6.85%      0.01s  0.68%                | github.com/shibukawa/pgmem/internal/host.init.func60
+                                             0.01s   100% |   github.com/shibukawa/pgmem/internal/host.(*Host).writev
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/shibukawa/pgmem/internal/host.init.2.func1
+         0     0%  6.85%      0.02s  1.37%                | github.com/shibukawa/pgmem/internal/host.init.func88
+                                             0.02s   100% |   runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/shibukawa/pgmem.(*Snapshot).Fork
+         0     0%  6.85%      0.03s  2.05%                | github.com/shibukawa/pgmem/internal/vfs.(*FS).Clone
+                                             0.03s   100% |   runtime.memclrNoHeapPointers
+----------------------------------------------------------+-------------
