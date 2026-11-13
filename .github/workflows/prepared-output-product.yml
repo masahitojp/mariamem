@@ -122,7 +122,7 @@ jobs:
           MARIAMEM_REQUIRE_PREPARED_C: '1'
         run: |
           command -v clang
-          python -m pytest tests/native/test_prepared_api.py tests/test_thread_lifetime_binding.py tests/test_crc32c_adapter.py tests/test_generated_runtime_inventory.py -q > build/prepared-output-ci/output-boundary.txt 2>&1
+          python -m pytest tests/native/test_prepared_api.py tests/test_thread_lifetime_binding.py tests/test_crc32c_adapter.py tests/test_generated_runtime_inventory.py tests/test_dictionary_wait_runtime.py -q > build/prepared-output-ci/output-boundary.txt 2>&1
           go test -p 1 -count=1 ./internal/preparedproto ./internal/mysqlwire ./internal/guest > build/prepared-output-ci/output-host.txt 2>&1
       - name: Canonical timer source regression and mutations
         run: python -m pytest tests/test_timer_source.py -q > build/prepared-output-ci/timer-source.txt 2>&1
@@ -137,7 +137,7 @@ jobs:
       - name: Exact CRC body and validation differential
         run: go test -trimpath -p 1 -count=1 ./internal/generatedgo/code/p4 -run '^TestCRC32C' -v > build/prepared-output-ci/crc.txt 2>&1
       - name: Actual UCA/lexer parity, corruption, profiling separation and worker survival
-        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestUCACopyActualGuest|TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/prepared-output-ci/actual-tables.txt 2>&1
+        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestDictionaryWaitActualGuest|TestUCACopyActualGuest|TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/prepared-output-ci/actual-tables.txt 2>&1
       - name: SQL timer Fresh and two pristine children through TCP and Pipe
         run: go test -trimpath -p 1 -tags integration -count=1 ./tests/gointegration -run '^TestAnalyzeTimerFreshAndFork$' -v > build/prepared-output-ci/timer-sql.txt 2>&1
       - name: Worker ownership negative and protected controls

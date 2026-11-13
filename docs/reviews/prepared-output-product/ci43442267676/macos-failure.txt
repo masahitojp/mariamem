@@ -1,0 +1,18 @@
+# github.com/masahitojp/mariamem/internal/generatedgo [github.com/masahitojp/mariamem/internal/generatedgo.test]
+internal/generatedgo/dictionary_wait_integration_test.go:72:14: not enough arguments in call to p6.Fn17733
+	have (*base.Module)
+	want (*base.Module, int64, int32, int32, int32, int32)
+internal/generatedgo/dictionary_wait_integration_test.go:123:18: undefined: p3.Fn16610
+internal/generatedgo/dictionary_wait_integration_test.go:126:27: too many arguments in call to p8.Fn16604
+	have (*base.Module, unknown type, int32)
+	want (*base.Module, int32)
+internal/generatedgo/dictionary_wait_integration_test.go:128:10: undefined: p5.Fn16603
+internal/generatedgo/dictionary_wait_integration_test.go:168:44: undefined: p6.Fn16586
+internal/generatedgo/dictionary_wait_integration_test.go:174:11: undefined: p7.Fn16561
+internal/generatedgo/dictionary_wait_integration_test.go:181:16: undefined: p6.Fn17744
+internal/generatedgo/dictionary_wait_integration_test.go:194:11: undefined: p7.Fn16605
+internal/generatedgo/dictionary_wait_integration_test.go:214:11: undefined: p7.Fn16605
+internal/generatedgo/dictionary_wait_integration_test.go:217:12: undefined: p7.Fn16605
+internal/generatedgo/dictionary_wait_integration_test.go:217:12: too many errors
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo [build failed]
+FAIL
