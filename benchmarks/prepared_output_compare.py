@@ -23,7 +23,7 @@ def main():
         assert 'vcs.revision='+origins[k] in b and 'vcs.modified=false' in b
         assert 'go1.26.10' in b and 'CGO_ENABLED=0' in b
         info[k]={'sha256':hashlib.sha256(h.read_bytes()).hexdigest(),'source_commit':origins[k],'buildinfo':b.replace(str(h),'mariamem-host')}
-    report={'scope':'single-machine prepared output query time + retained RSS; no threshold or total upgrade-cost claim','platform':platform.platform(),'client':mysql.connector.__version__,'pairs':a.pairs,'iterations':a.iterations,'hosts':info,'runs':[]}
+    report={'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'runner_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=Path(__file__).resolve().parents[1],text=True).strip(),'python':sys.version.split()[0],'scope':'single-machine prepared output query time + retained RSS; no threshold or total upgrade-cost claim','platform':platform.platform(),'client':mysql.connector.__version__,'pairs':a.pairs,'iterations':a.iterations,'hosts':info,'runs':[]}
     fingerprints={};stamp=datetime.datetime(2020,1,2,3,4,5,6007)
     expected=[(i,-i,i+0.5,decimal.Decimal(f'{i}.25'),stamp,bytes([i%251])*64) for i in range(1000)]
     sql='SELECT id,n,f,amount,created,payload FROM output_perf WHERE id < ? ORDER BY id'
