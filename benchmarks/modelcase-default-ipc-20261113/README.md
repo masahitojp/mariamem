@@ -86,3 +86,5 @@ prepared API opcode5は全3回で5,166 frame、約89%。21回のLoadSampleがそ
 比較12＋IPC off/on8（warmup2含む）＋profile3、計23process、成功1,880 leaf tests。IPC on4回は全88DBのguest joined完了を確認（primaryは66DB）。独立性・trigger等の元の70 assertionsを維持し、counterのbyte/frame両端一致を検査。analyze.pyで保存データだけから再計算できる。trace/log、IPC原記録、top/caller tree、harnessとoverlayを保存。完全pprofはローカルevidenceにも保持。
 
 新しいmanaged workspaceでtemp/pgmemへ公式tagをclone、worktreeを製品pinへ合わせ、temp/mariaへmaria-harnessを配置する。go.modのreplaceは../../worktree、build.pyで比較binaryをbuildし、measure.pyで1warmup＋交互5pair。ipc_overlay.pyは新worktreeからlinked overlayと絶対パスmapを生成、build_ipc.pyで観測binaryをbuild、measure_ipc.pyでoff/on各3回と別profileを実行する。prepare.pyは前回artifactから元ハーネスを復元する参考スクリプトで、最終label付きsourceはmaria-harnessが正本。10GiB/空き12GiB、build1800秒、各process130秒、計測900秒のguard。再計測は別cohortとして保存する。
+
+公開ソース境界に合わせ、捕捉したtest出力は*.output.txtとして保存する。元のローカル*.logと同内容で、検査を弱めず拡張子/保存形式を整理した。3つの破損証拠対照（bytes不一致/DB欠落/guest失敗）をすべて拒否した。
