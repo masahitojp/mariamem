@@ -1,0 +1,37 @@
+[
+  {
+    "file": "storage/innobase/log/log0log.cc",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/log/log0log.cc",
+    "sha256": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07"
+  },
+  {
+    "file": "storage/innobase/buf/buf0buf.cc",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0buf.cc",
+    "sha256": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1"
+  },
+  {
+    "file": "storage/innobase/handler/ha_innodb.cc",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/handler/ha_innodb.cc",
+    "sha256": "0669de8bbf41e4898e99ae9b02f3346a76437e83f6a8d4e0565a2fb3efd7fd4a"
+  },
+  {
+    "file": "mysys/my_malloc.c",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_malloc.c",
+    "sha256": "6ba4bc449f7a3f34be9af5bb7d90caabd494ca80dee58b788514159ae06ae172"
+  },
+  {
+    "file": "mysys/mf_keycache.c",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/mf_keycache.c",
+    "sha256": "e32329f1a4bf2d711bead182372f87bbf372d6230e761178d654fc2f8e7fd671"
+  },
+  {
+    "file": "mysys/ma_dyncol.c",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/ma_dyncol.c",
+    "sha256": "401a0179a38b0030e95aec5f8f719f925fca56bbf0f23ab8c99c5c366695ff3e"
+  },
+  {
+    "file": "storage/maria/ma_pagecache.c",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/maria/ma_pagecache.c",
+    "sha256": "0cc160ea07c809bcf30c0ffe8fbcf91886d6bf5d7f4e7c413d44bcebe8bd2017"
+  }
+]

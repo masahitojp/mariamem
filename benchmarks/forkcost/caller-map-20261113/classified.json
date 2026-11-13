@@ -1,0 +1,23 @@
+{
+  "1": {
+    "total_cpu_ns": 2470000000,
+    "sites_cpu_ns": {
+      "keycache_management_allocation": 60000000,
+      "other_memclr_paths": 100000000,
+      "other_my_malloc_callers": 50000000,
+      "other_innodb_fill": 30000000,
+      "buffer_pool_allocation": 20000000
+    }
+  },
+  "8": {
+    "total_cpu_ns": 2220000000,
+    "sites_cpu_ns": {
+      "buffer_pool_allocation": 140000000,
+      "keycache_management_allocation": 70000000,
+      "other_memclr_paths": 80000000,
+      "other_innodb_fill": 20000000,
+      "charset_initialization": 20000000,
+      "other_my_malloc_callers": 20000000
+    }
+  }
+}

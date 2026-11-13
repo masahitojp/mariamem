@@ -1,0 +1,8 @@
+{
+  "url": "https://raw.githubusercontent.com/shyim/lite4mariadb/24be9371a2f6c71250a2356631ad6feab2280b02/wasm/lite4mariadb.c",
+  "sha256": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+  "settings": [
+    "    (char *)\"--innodb-buffer-pool-size=16M\",",
+    "    (char *)\"--loose-innodb-buffer-pool-size-max=16M\","
+  ]
+}

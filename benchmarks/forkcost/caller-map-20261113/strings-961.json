@@ -1,0 +1,14 @@
+{
+  "8505792": "%.*s_uca1400%s%s%s%s%s",
+  "8573881": "/usr/local/mysql",
+  "8574985": "Index.xml",
+  "8630613": "/usr/local/mysql/share",
+  "8693282": "_nopad",
+  "8714431": "0900_",
+  "8762860": "MARIAMEM_LEXER_VERIFY_INTERNAL",
+  "8762920": "MARIAMEM_LEXER_ORIGINAL_INTERNAL",
+  "8812181": "utf8mb4",
+  "8824545": "charsets/",
+  "8919001": "Alias for ",
+  "8937883": "LEXER_PREPARED_VERIFY id=%u bytes=512 match=%d\n"
+}
