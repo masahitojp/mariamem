@@ -1,0 +1,65 @@
+{
+  "operations": null,
+  "settings": [
+    {
+      "name": "innodb_buffer_pool_size",
+      "value": "16777216"
+    },
+    {
+      "name": "innodb_buffer_pool_size_max",
+      "value": "16777216"
+    },
+    {
+      "name": "innodb_log_buffer_size",
+      "value": "2097152"
+    },
+    {
+      "name": "innodb_purge_threads",
+      "value": "1"
+    },
+    {
+      "name": "innodb_read_io_threads",
+      "value": "1"
+    },
+    {
+      "name": "innodb_write_io_threads",
+      "value": "2"
+    },
+    {
+      "name": "join_buffer_size",
+      "value": "262144"
+    },
+    {
+      "name": "max_connections",
+      "value": "10"
+    },
+    {
+      "name": "max_heap_table_size",
+      "value": "16777216"
+    },
+    {
+      "name": "max_statement_time",
+      "value": "0.000000"
+    },
+    {
+      "name": "optimizer_switch",
+      "value": "index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,index_merge_sort_intersection=off,index_condition_pushdown=on,derived_merge=on,derived_with_keys=on,firstmatch=on,loosescan=on,duplicateweedout=on,materialization=on,in_to_exists=on,semijoin=on,partial_match_rowid_merge=on,partial_match_table_scan=on,subquery_cache=on,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=on,semijoin_with_cache=on,join_cache_incremental=on,join_cache_hashed=on,join_cache_bka=on,optimize_join_buffer_size=on,table_elimination=on,extended_keys=on,exists_to_in=on,orderby_uses_equalities=on,condition_pushdown_for_derived=on,split_materialized=on,condition_pushdown_for_subquery=on,rowid_filter=on,condition_pushdown_from_having=on,not_null_range_scan=off,hash_join_cardinality=on,cset_narrowing=on,sargable_casefold=on,reorder_outer_joins=off"
+    },
+    {
+      "name": "sort_buffer_size",
+      "value": "2097152"
+    },
+    {
+      "name": "table_open_cache",
+      "value": "32"
+    },
+    {
+      "name": "thread_cache_size",
+      "value": "0"
+    },
+    {
+      "name": "tmp_table_size",
+      "value": "16777216"
+    }
+  ]
+}

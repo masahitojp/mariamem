@@ -1,0 +1,34 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "baseline_harness": "894253bcf671ef11f8d555f5b58f67819b812733",
+  "question": "sample SQL costs, revenue/get-order execution/results and restrictive l4m settings",
+  "primary_arms": [
+    "baseline",
+    "io4",
+    "cache256",
+    "querymem",
+    "textparams",
+    "pool64"
+  ],
+  "repeats": 3,
+  "warmup_each": 1,
+  "parallel": 8,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "observation_off_on_pairs": 3,
+  "diagnostics_per_available_arm": 1,
+  "profiles": [
+    "TestRevenueByCategory",
+    "TestGetOrder",
+    "TestCreateOrder"
+  ],
+  "primary_timeout_s": 120,
+  "build_timeout_s": 1800,
+  "measurement_timeout_s": 900,
+  "budget_gib": 10,
+  "min_free_gib": 12,
+  "no_product_changes": true,
+  "unavailable_setting": "retain failure and omit that resource arm; do not silently fallback",
+  "failure": "stop for product correctness failure; preserve complete cohort and no outcome exclusions",
+  "pool64": "Go observation overlay changes two NUL-terminated startup literals 16M->64M before image build, equal length, exactly one occurrence each; verify actual variables and 70 test assertions; no canonical change"
+}

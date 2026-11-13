@@ -1,0 +1,100 @@
+{
+  "runs.json:baseline": {
+    "wall_samples_ms": [
+      508.676708,
+      477.691792,
+      496.755792
+    ],
+    "wall_median_ms": 496.755792,
+    "boot_median_ms": 43.913,
+    "import_median_ms": 30.915000000000006,
+    "snapshot_median_ms": 5.967999999999989,
+    "fork_median_ms": 34.49300000000001,
+    "sample_median_ms": 73.57499999999999,
+    "test_median_ms": 2.910500000000013
+  },
+  "runs.json:io4": {
+    "wall_samples_ms": [
+      588.966834,
+      849.715958,
+      770.909958
+    ],
+    "wall_median_ms": 770.909958,
+    "boot_median_ms": 45.322,
+    "import_median_ms": 30.577999999999996,
+    "snapshot_median_ms": 5.847999999999999,
+    "fork_median_ms": 26.49849999999998,
+    "sample_median_ms": 70.463,
+    "test_median_ms": 2.669499999999985
+  },
+  "runs.json:cache256": {
+    "wall_samples_ms": [
+      482.566666,
+      448.294917,
+      505.445875
+    ],
+    "wall_median_ms": 482.566666,
+    "boot_median_ms": 45.234,
+    "import_median_ms": 30.741,
+    "snapshot_median_ms": 5.8019999999999925,
+    "fork_median_ms": 30.686500000000024,
+    "sample_median_ms": 75.64100000000002,
+    "test_median_ms": 2.9339999999999975
+  },
+  "runs.json:querymem": {
+    "wall_samples_ms": [
+      488.474458,
+      506.541833,
+      485.298708
+    ],
+    "wall_median_ms": 488.474458,
+    "boot_median_ms": 44.812,
+    "import_median_ms": 30.967,
+    "snapshot_median_ms": 6.007999999999996,
+    "fork_median_ms": 30.634,
+    "sample_median_ms": 74.57900000000001,
+    "test_median_ms": 3.4384999999999906
+  },
+  "runs.json:textparams": {
+    "wall_samples_ms": [
+      442.993792,
+      458.170916,
+      486.012584
+    ],
+    "wall_median_ms": 458.170916,
+    "boot_median_ms": 43.438,
+    "import_median_ms": 28.242000000000004,
+    "snapshot_median_ms": 5.754000000000005,
+    "fork_median_ms": 28.524500000000018,
+    "sample_median_ms": 71.82999999999998,
+    "test_median_ms": 1.9099999999999966
+  },
+  "poolequal-runs.json:baseline": {
+    "wall_samples_ms": [
+      510.104416,
+      488.604291,
+      501.7755
+    ],
+    "wall_median_ms": 501.7755,
+    "boot_median_ms": 68.77,
+    "import_median_ms": 31.622,
+    "snapshot_median_ms": 5.583999999999989,
+    "fork_median_ms": 29.522000000000006,
+    "sample_median_ms": 75.22300000000001,
+    "test_median_ms": 2.9765000000000157
+  },
+  "poolequal-runs.json:pool64": {
+    "wall_samples_ms": [
+      544.782417,
+      543.395917,
+      519.078416
+    ],
+    "wall_median_ms": 543.395917,
+    "boot_median_ms": 70.21,
+    "import_median_ms": 29.367000000000004,
+    "snapshot_median_ms": 11.010999999999996,
+    "fork_median_ms": 36.91700000000003,
+    "sample_median_ms": 72.44,
+    "test_median_ms": 3.8000000000000114
+  }
+}

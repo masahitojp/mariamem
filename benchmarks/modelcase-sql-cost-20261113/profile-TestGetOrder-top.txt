@@ -1,0 +1,37 @@
+File: maria.test
+Type: cpu
+Time: 2026-11-13 14:51:18 JST
+Duration: 403.30ms, Total samples = 830ms (205.80%)
+Showing nodes accounting for 830ms, 100% of 830ms total
+Showing top 30 nodes out of 151
+      flat  flat%   sum%        cum   cum%
+     490ms 59.04% 59.04%      490ms 59.04%  syscall.rawsyscalln
+      70ms  8.43% 67.47%       70ms  8.43%  runtime.usleep
+      50ms  6.02% 73.49%       50ms  6.02%  runtime.kevent
+      50ms  6.02% 79.52%       50ms  6.02%  runtime.pthread_cond_signal
+      30ms  3.61% 83.13%       30ms  3.61%  runtime.pthread_cond_wait
+      10ms  1.20% 84.34%       10ms  1.20%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.DeferThreadAllocationFree
+      10ms  1.20% 85.54%       20ms  2.41%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+      10ms  1.20% 86.75%       10ms  1.20%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+      10ms  1.20% 87.95%       10ms  1.20%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14987
+      10ms  1.20% 89.16%       10ms  1.20%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14988
+      10ms  1.20% 90.36%       10ms  1.20%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+      10ms  1.20% 91.57%       10ms  1.20%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn253
+      10ms  1.20% 92.77%       20ms  2.41%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn127
+      10ms  1.20% 93.98%       10ms  1.20%  internal/sync.(*Mutex).Unlock (inline)
+      10ms  1.20% 95.18%       10ms  1.20%  runtime.(*waitq).dequeue
+      10ms  1.20% 96.39%       10ms  1.20%  runtime.findmoduledatap
+      10ms  1.20% 97.59%       10ms  1.20%  runtime.madvise
+      10ms  1.20% 98.80%       10ms  1.20%  runtime.netpollinited
+      10ms  1.20%   100%       20ms  2.41%  runtime.unlock2
+         0     0%   100%       10ms  1.20%  _.goready.func1
+         0     0%   100%       10ms  1.20%  context.(*timerCtx).cancel
+         0     0%   100%       10ms  1.20%  context.WithDeadlineCause.func3
+         0     0%   100%       10ms  1.20%  fmt.Fprintf
+         0     0%   100%       70ms  8.43%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%       70ms  8.43%  github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+         0     0%   100%       70ms  8.43%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%       70ms  8.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+         0     0%   100%      300ms 36.14%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0%   100%      380ms 45.78%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+         0     0%   100%      380ms 45.78%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1

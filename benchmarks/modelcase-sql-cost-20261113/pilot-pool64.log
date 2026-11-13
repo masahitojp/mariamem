@@ -1,0 +1,189 @@
+unexpected fault address 0x7010000000
+fatal error: fault
+[signal SIGBUS: bus error code=0x1 addr=0x7010000000 pc=0x104292014]
+
+goroutine 22 gp=0x17ca9be04d20 m=2 mp=0x17ca9bd7c808 [running]:
+runtime.throw({0x1072ebdf2?, 0xb?})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/panic.go:1245 +0x38 fp=0x17ca9bd515e0 sp=0x17ca9bd515b0 pc=0x104311a28
+runtime.sigpanic()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/signal_unix.go:928 +0x158 fp=0x17ca9bd51640 sp=0x17ca9bd515e0 pc=0x104313998
+internal/bytealg.IndexByteString()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/internal/bytealg/indexbyte_arm64.s:101 +0x64 fp=0x17ca9bd51650 sp=0x17ca9bd51650 pc=0x104292014
+bytes.IndexByte(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/bytes/bytes.go:99
+bytes.Index({0x700085a396, 0x7f7a5c6a, 0x7f7a5c6a}, {0x17ca9bd51856, 0x1e, 0x20})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/bytes/bytes.go:1316 +0x35c fp=0x17ca9bd516f0 sp=0x17ca9bd51650 pc=0x104388e9c
+bytes.Count({0x7000000000?, 0x1072f76df?, 0x108cb1220?}, {0x17ca9bd51856, 0x1e, 0x20})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/bytes/bytes.go:67 +0xa0 fp=0x17ca9bd51790 sp=0x17ca9bd516f0 pc=0x104386d40
+github.com/masahitojp/mariamem/internal/generatedgo/image.(*factory).build(0x17ca9be344e0)
+	<WORKSPACE>/worktree/internal/generatedgo/image/image.go:102 +0xa00 fp=0x17ca9bd51a60 sp=0x17ca9bd51790 pc=0x107278050
+github.com/masahitojp/mariamem/internal/generatedgo/image.(*factory).buildSafely(0x0?)
+	<WORKSPACE>/worktree/internal/generatedgo/image/image.go:335 +0x4c fp=0x17ca9bd51ab0 sp=0x17ca9bd51a60 pc=0x10727932c
+github.com/masahitojp/mariamem/internal/generatedgo/image.(*factory).acquire(0x17ca9be344e0)
+	<WORKSPACE>/worktree/internal/generatedgo/image/image.go:183 +0xdc fp=0x17ca9bd51cc0 sp=0x17ca9bd51ab0 pc=0x10727824c
+github.com/masahitojp/mariamem/internal/generatedgo/image.(*factory).acquireForHost(0x17ca9bd92d38?, {0x10826f948, 0x17ca9bdaa120}, {0x10826f850, 0x17ca9bdaa120})
+	<WORKSPACE>/worktree/internal/generatedgo/image/image.go:241 +0x2c fp=0x17ca9bd51d10 sp=0x17ca9bd51cc0 pc=0x107278a3c
+github.com/masahitojp/mariamem/internal/generatedgo/image.Acquire(...)
+	<WORKSPACE>/worktree/internal/generatedgo/image/image.go:234
+github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule(0x1081f3130?)
+	<WORKSPACE>/worktree/internal/generatedgo/memory_backing_unix.go:14 +0x58 fp=0x17ca9bd51db0 sp=0x17ca9bd51d10 pc=0x10727b9c8
+github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2()
+	<WORKSPACE>/worktree/internal/generatedgo/runtime_instance.go:67 +0x3b8 fp=0x17ca9bd51fd0 sp=0x17ca9bd51db0 pc=0x10727cd88
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd51fd0 sp=0x17ca9bd51fd0 pc=0x104318c84
+created by github.com/masahitojp/mariamem/internal/generatedgo.startInstance in goroutine 1
+	<WORKSPACE>/worktree/internal/generatedgo/runtime_instance.go:31 +0x168
+
+goroutine 1 gp=0x17ca9bd1c1e0 m=nil [select]:
+runtime.gopark(0x17ca9be6f628?, 0x2?, 0xa0?, 0x22?, 0x17ca9be6f48c?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9be6f300 sp=0x17ca9be6f2e0 pc=0x104311b38
+runtime.selectgo(0x17ca9be6f628, 0x17ca9be6f488, 0x100000000?, 0x0, 0x17ca9be6f4e8?, 0x1)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/select.go:351 +0x838 fp=0x17ca9be6f440 sp=0x17ca9be6f300 pc=0x1042ecb38
+github.com/masahitojp/mariamem/internal/guest.connectWithFailure({0x10826e4d0, 0x17ca9be5e150}, {0x10826d560, 0x17ca9be020e8}, {0x10826d538, 0x17ca9be020f0}, 0x17ca9be5e2a0, 0x17ca9be2c270, {0x10826cfb8?, 0x17ca9be32440?}, ...)
+	<WORKSPACE>/worktree/internal/guest/linked.go:91 +0x304 fp=0x17ca9be6f790 sp=0x17ca9be6f440 pc=0x107282034
+github.com/masahitojp/mariamem/internal/guest.ConnectWithFailure(...)
+	<WORKSPACE>/worktree/internal/guest/linked.go:59
+github.com/masahitojp/mariamem/internal/guest.startLinked({0x10826e4d0, 0x17ca9be5e150}, {0x107305aaf?, 0x11?}, {0x17ca9be561e0, 0x4c}, {0x0, 0x0, 0x0}, {0x10b331200, ...})
+	<WORKSPACE>/worktree/internal/guest/linked.go:39 +0x3b8 fp=0x17ca9be6f910 sp=0x17ca9be6f790 pc=0x107281ae8
+github.com/masahitojp/mariamem/internal/guest.StartGenerated(...)
+	<WORKSPACE>/worktree/internal/guest/guest.go:120
+github.com/masahitojp/mariamem/internal/host.start({0x10826e4d0?, 0x17ca9be5e150?}, 0x0, 0x6fc23ac00, {0x10826c658, 0x17ca9be681f0})
+	<WORKSPACE>/worktree/internal/host/server.go:98 +0x214 fp=0x17ca9be6fad0 sp=0x17ca9be6f910 pc=0x10728de04
+github.com/masahitojp/mariamem/internal/host.StartGenerated({0x10826e4d0, 0x17ca9be5e150}, 0x0, 0x6fc23ac00, {0x10826c658, 0x17ca9be681f0})
+	<WORKSPACE>/worktree/internal/host/server.go:59 +0x7c fp=0x17ca9be6fb10 sp=0x17ca9be6fad0 pc=0x10728dbbc
+github.com/masahitojp/mariamem.startLeased({0x10826e380, 0x108cd8de0}, {{0x0, 0x0}, 0x1bf08eb000, 0x6fc23ac00, 0x6fc23ac00}, 0x0, 0x0)
+	<WORKSPACE>/worktree/mariamem.go:128 +0x244 fp=0x17ca9be6fcd0 sp=0x17ca9be6fb10 pc=0x107293644
+github.com/masahitojp/mariamem.start(...)
+	<WORKSPACE>/worktree/mariamem.go:94
+github.com/masahitojp/mariamem.Start({0x10826e380?, 0x108cd8de0?}, {{0x0, 0x0}, 0x0, 0x0, 0x0})
+	<WORKSPACE>/worktree/mariamem.go:92 +0x44 fp=0x17ca9be6fd30 sp=0x17ca9be6fcd0 pc=0x1072933c4
+github.com/shibukawa/pgmem/bench/modelcase/store_test.(*fixture).usePgmem(0x17ca9be400a0, {0x10826e380, 0x108cd8de0})
+	<WORKSPACE>/temp/maria/store/fixture_test.go:83 +0x78 fp=0x17ca9be6fda0 sp=0x17ca9be6fd30 pc=0x1072977e8
+github.com/shibukawa/pgmem/bench/modelcase/store_test.TestMain(0x17ca9be16280)
+	<WORKSPACE>/temp/maria/store/fixture_test.go:59 +0x148 fp=0x17ca9be6fe10 sp=0x17ca9be6fda0 pc=0x107297658
+main.main()
+	_testmain.go:70 +0x88 fp=0x17ca9be6fea0 sp=0x17ca9be6fe10 pc=0x10729efa8
+runtime.main()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:302 +0x380 fp=0x17ca9be6ffd0 sp=0x17ca9be6fea0 pc=0x1042da0e0
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9be6ffd0 sp=0x17ca9be6ffd0 pc=0x104318c84
+
+goroutine 2 gp=0x17ca9bd1c780 m=nil [force gc (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd78f90 sp=0x17ca9bd78f70 pc=0x104311b38
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:480
+runtime.forcegchelper()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:387 +0xb4 fp=0x17ca9bd78fd0 sp=0x17ca9bd78f90 pc=0x1042da3c4
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd78fd0 sp=0x17ca9bd78fd0 pc=0x104318c84
+created by runtime.init.7 in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:375 +0x24
+
+goroutine 3 gp=0x17ca9bd1cd20 m=nil [GC sweep wait]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd79770 sp=0x17ca9bd79750 pc=0x104311b38
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:480
+runtime.bgsweep(0x17ca9bd32180)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgcsweep.go:279 +0x9c fp=0x17ca9bd797b0 sp=0x17ca9bd79770 pc=0x1042c420c
+runtime.gcenable.gowrap1()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgc.go:214 +0x20 fp=0x17ca9bd797d0 sp=0x17ca9bd797b0 pc=0x104307b60
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd797d0 sp=0x17ca9bd797d0 pc=0x104318c84
+created by runtime.gcenable in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgc.go:214 +0x6c
+
+goroutine 4 gp=0x17ca9bd1cf00 m=nil [GC scavenge wait]:
+runtime.gopark(0x17ca9bd32180?, 0x10730b960?, 0x1?, 0x0?, 0x17ca9bd1cf00?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd79f60 sp=0x17ca9bd79f40 pc=0x104311b38
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:480
+runtime.(*scavengerState).park(0x108cb12a0)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgcscavenge.go:425 +0x5c fp=0x17ca9bd79f90 sp=0x17ca9bd79f60 pc=0x1042c1e5c
+runtime.bgscavenge(0x17ca9bd32180)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgcscavenge.go:653 +0x44 fp=0x17ca9bd79fb0 sp=0x17ca9bd79f90 pc=0x1042c2384
+runtime.gcenable.gowrap2()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgc.go:215 +0x20 fp=0x17ca9bd79fd0 sp=0x17ca9bd79fb0 pc=0x104307b20
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd79fd0 sp=0x17ca9bd79fd0 pc=0x104318c84
+created by runtime.gcenable in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mgc.go:215 +0xac
+
+goroutine 17 gp=0x17ca9be043c0 m=nil [GOMAXPROCS updater (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd74770 sp=0x17ca9bd74750 pc=0x104311b38
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:480
+runtime.updateMaxProcsGoroutine()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:7146 +0xf4 fp=0x17ca9bd747d0 sp=0x17ca9bd74770 pc=0x1042e7c34
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd747d0 sp=0x17ca9bd747d0 pc=0x104318c84
+created by runtime.defaultGOMAXPROCSUpdateEnable in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:7134 +0x48
+
+goroutine 18 gp=0x17ca9be045a0 m=nil [finalizer wait]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd74d80 sp=0x17ca9bd74d60 pc=0x104311b38
+runtime.runFinalizers()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mfinal.go:210 +0x100 fp=0x17ca9bd74fd0 sp=0x17ca9bd74d80 pc=0x1042b53f0
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd74fd0 sp=0x17ca9bd74fd0 pc=0x104318c84
+created by runtime.createfing in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mfinal.go:172 +0x78
+
+goroutine 19 gp=0x17ca9be04780 m=nil [cleanup wait]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd75750 sp=0x17ca9bd75730 pc=0x104311b38
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:480
+runtime.(*cleanupQueue).dequeue(0x108cb14c0)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mcleanup.go:522 +0x160 fp=0x17ca9bd75790 sp=0x17ca9bd75750 pc=0x1042b23d0
+runtime.runCleanups()
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mcleanup.go:718 +0x40 fp=0x17ca9bd757d0 sp=0x17ca9bd75790 pc=0x1042b2b20
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd757d0 sp=0x17ca9bd757d0 pc=0x104318c84
+created by runtime.(*cleanupQueue).createGs in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/mcleanup.go:672 +0x108
+
+goroutine 23 gp=0x17ca9be04f00 m=nil [IO wait]:
+runtime.gopark(0x108270300?, 0x10b330a20?, 0x2?, 0x2?, 0x5?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd96ba0 sp=0x17ca9bd96b80 pc=0x104311b38
+runtime.netpollblock(0x0?, 0x6?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/netpoll.go:575 +0x150 fp=0x17ca9bd96be0 sp=0x17ca9bd96ba0 pc=0x1042d3df0
+internal/poll.runtime_pollWait(0x10b330a00, 0x72)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/netpoll.go:351 +0xa0 fp=0x17ca9bd96c10 sp=0x17ca9bd96be0 pc=0x104310d70
+internal/poll.(*pollDesc).wait(0x17ca9be30420?, 0x17ca9be14180?, 0x1)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/internal/poll/fd_poll_runtime.go:84 +0x28 fp=0x17ca9bd96c50 sp=0x17ca9bd96c10 pc=0x104342978
+internal/poll.(*pollDesc).waitRead(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/internal/poll/fd_poll_runtime.go:89
+internal/poll.(*FD).Read(0x17ca9be30420, {0x17ca9be14180, 0x4, 0x4})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/internal/poll/fd_unix.go:170 +0x22c fp=0x17ca9bd96cf0 sp=0x17ca9bd96c50 pc=0x10434363c
+os.(*File).read(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/os/file_posix.go:30
+os.(*File).Read(0x17ca9be020f0, {0x17ca9be14180?, 0x108222130?, 0x1081cd638?})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/os/file.go:144 +0x68 fp=0x17ca9bd96d30 sp=0x17ca9bd96cf0 pc=0x104347c78
+io.ReadAtLeast({0x10826bf58, 0x17ca9be020f0}, {0x17ca9be14180, 0x4, 0x4}, 0x4)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/io/io.go:335 +0x90 fp=0x17ca9bd96d80 sp=0x17ca9bd96d30 pc=0x10433db00
+io.ReadFull(...)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/io/io.go:354
+github.com/masahitojp/mariamem/internal/guest.(*Process).read(0x17ca9be500c0)
+	<WORKSPACE>/worktree/internal/guest/guest.go:218 +0xf4 fp=0x17ca9bd96f90 sp=0x17ca9bd96d80 pc=0x10727ffc4
+github.com/masahitojp/mariamem/internal/guest.connectWithFailure.func1()
+	<WORKSPACE>/worktree/internal/guest/linked.go:70 +0x44 fp=0x17ca9bd96fd0 sp=0x17ca9bd96f90 pc=0x107282884
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd96fd0 sp=0x17ca9bd96fd0 pc=0x104318c84
+created by github.com/masahitojp/mariamem/internal/guest.connectWithFailure in goroutine 1
+	<WORKSPACE>/worktree/internal/guest/linked.go:70 +0x214
+
+goroutine 24 gp=0x17ca9be050e0 m=nil [select]:
+runtime.gopark(0x17ca9bd77f78?, 0x2?, 0x0?, 0x0?, 0x17ca9bd77f34?)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/proc.go:474 +0xb8 fp=0x17ca9bd77db0 sp=0x17ca9bd77d90 pc=0x104311b38
+runtime.selectgo(0x17ca9bd77f78, 0x17ca9bd77f30, 0x0?, 0x0, 0x0?, 0x1)
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/select.go:351 +0x838 fp=0x17ca9bd77ef0 sp=0x17ca9bd77db0 pc=0x1042ecb38
+github.com/masahitojp/mariamem/internal/guest.connectWithFailure.func2()
+	<WORKSPACE>/worktree/internal/guest/linked.go:73 +0x78 fp=0x17ca9bd77fd0 sp=0x17ca9bd77ef0 pc=0x107282738
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.4/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x17ca9bd77fd0 sp=0x17ca9bd77fd0 pc=0x104318c84
+created by github.com/masahitojp/mariamem/internal/guest.connectWithFailure in goroutine 1
+	<WORKSPACE>/worktree/internal/guest/linked.go:71 +0x29c

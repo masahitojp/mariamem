@@ -1,0 +1,2327 @@
+{
+  "operations": [
+    {
+      "kind": "query_return",
+      "sql": "SHOW VARIABLES WHERE Variable_name IN ('innodb_buffer_pool_size','innodb_buffer_pool_size_max','innodb_log_buffer_size','innodb_read_io_threads','innodb_write_io_threads','innodb_purge_threads','table_open_cache','max_connections','thread_cache_size','join_buffer_size','sort_buffer_size','tmp_table_size','max_heap_table_size','thread_pool_size','thread_pool_max_threads','innodb_thread_concurrency','optimizer_switch','max_statement_time')",
+      "ms": 1.270709,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "SHOW VARIABLES WHERE Variable_name IN ('innodb_buffer_pool_size','innodb_buffer_pool_size_max','innodb_log_buffer_size','innodb_read_io_threads','innodb_write_io_threads','innodb_purge_threads','table_open_cache','max_connections','thread_cache_size','join_buffer_size','sort_buffer_size','tmp_table_size','max_heap_table_size','thread_pool_size','thread_pool_max_threads','innodb_thread_concurrency','optimizer_switch','max_statement_time')",
+      "ms": 1.318375,
+      "rows": 15
+    },
+    {
+      "kind": "exec",
+      "sql": "CREATE TABLE IF NOT EXISTS schema_migrations (version VARCHAR(255) PRIMARY KEY, applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+      "ms": 0.606625,
+      "rows": 0
+    },
+    {
+      "kind": "query_return",
+      "sql": "SELECT EXISTS (SELECT 1 FROM schema_migrations WHERE version = ?)",
+      "ms": 0.000875,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "SELECT EXISTS (SELECT 1 FROM schema_migrations WHERE version = ?)",
+      "ms": 0.540541,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "SELECT EXISTS (SELECT 1 FROM schema_migrations WHERE version = ?)",
+      "ms": 0.527542,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "SELECT EXISTS (SELECT 1 FROM schema_migrations WHERE version = ?)",
+      "ms": 0.547,
+      "rows": 1
+    },
+    {
+      "kind": "exec",
+      "sql": "CREATE TABLE users(id BIGINT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL UNIQUE,created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)); CREATE TABLE categories(id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(255) NOT NULL UNIQUE); CREATE TABLE products(id BIGINT AUTO_INCREMENT PRIMARY KEY,category_id INT NOT NULL,sku VARCHAR(255) NOT NULL UNIQUE,name VARCHAR(255) NOT NULL,price_cents BIGINT NOT NULL CHECK(price_cents\u003e=0),stock INT NOT NULL DEFAULT 0 CHECK(stock\u003e=0),FOREIGN KEY(category_id) REFERENCES categories(id)); CREATE INDEX products_category_id ON products(category_id); CREATE INDEX products_name_lower ON products(name); CREATE TABLE orders(id BIGINT AUTO_INCREMENT PRIMARY KEY,user_id BIGINT NOT NULL,status ENUM('pending','paid','shipped','cancelled') NOT NULL DEFAULT 'pending',total_cents BIGINT NOT NULL DEFAULT 0,created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),updated_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE); CREATE INDEX orders_user_id ON orders(user_id); CREATE INDEX orders_status ON orders(status); CREATE TABLE order_items(id BIGINT AUTO_INCREMENT PRIMARY KEY,order_id BIGINT NOT NULL,product_id BIGINT NOT NULL,quantity INT NOT NULL CHECK(quantity\u003e0),unit_price_cents BIGINT NOT NULL,FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE,FOREIGN KEY(product_id) REFERENCES products(id)); CREATE INDEX order_items_order_id ON order_items(order_id); CREATE INDEX order_items_product_id ON order_items(product_id); CREATE TABLE audit_log(id BIGINT AUTO_INCREMENT PRIMARY KEY,order_id BIGINT NOT NULL,old_status VARCHAR(20),new_status VARCHAR(20) NOT NULL,at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)); CREATE INDEX audit_log_order_id ON audit_log(order_id); CREATE TRIGGER order_items_total_insert AFTER INSERT ON order_items FOR EACH ROW UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=NEW.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id; CREATE TRIGGER order_items_total_update AFTER UPDATE ON order_items FOR EACH ROW UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=NEW.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id; CREATE TRIGGER order_items_total_delete AFTER DELETE ON order_items FOR EACH ROW UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=OLD.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=OLD.order_id; CREATE TRIGGER orders_audit_insert AFTER INSERT ON orders FOR EACH ROW INSERT INTO audit_log(order_id,old_status,new_status) VALUES(NEW.id,NULL,NEW.status); CREATE TRIGGER orders_audit_update AFTER UPDATE ON orders FOR EACH ROW INSERT INTO audit_log(order_id,old_status,new_status) SELECT NEW.id,OLD.status,NEW.status WHERE NOT(NEW.status \u003c=\u003e OLD.status); CREATE VIEW user_order_totals AS SELECT u.id AS user_id,u.name,count(o.id) AS orders,COALESCE(sum(o.total_cents),0) AS total_cents FROM users u LEFT JOIN orders o ON o.user_id=u.id AND o.status\u003c\u003e'cancelled' GROUP BY u.id,u.name;",
+      "ms": 6.556875,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO schema_migrations(version) VALUES (?)",
+      "ms": 0.015542,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO schema_migrations(version) VALUES (?)",
+      "ms": 0.124667,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO schema_migrations(version) VALUES (?)",
+      "ms": 0.232083,
+      "rows": 0
+    },
+    {
+      "kind": "begin",
+      "sql": "BEGIN",
+      "ms": 0.107666,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000666,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.10375,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.131209,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000459,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.119292,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.101375,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000333,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.157042,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.084666,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.113084,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.093209,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000292,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.104708,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.070875,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.100042,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.087625,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.117583,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.070708,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.096042,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.086709,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000333,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.094334,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.069417,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.095125,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.079,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.120834,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.097167,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.100542,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.073625,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.097041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.081167,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000292,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.098292,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.092958,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.110041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.070042,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.099459,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.075166,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000292,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.094,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.090458,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000583,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.086584,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.073833,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.00025,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.090625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.069792,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.000292,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.086625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO categories(name) VALUES (?)",
+      "ms": 0.069541,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO products(category_id,sku,name,price_cents,stock) SELECT 1+(seq % ?),CONCAT('SKU-',LPAD(seq,5,'0')),CONCAT('Product ',seq),500+(seq*37)%20000,? FROM seq_1_to_500",
+      "ms": 0.003458,
+      "rows": 0,
+      "error": "driver: skip fast-path; continue as if unimplemented"
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO products(category_id,sku,name,price_cents,stock) SELECT 1+(seq % ?),CONCAT('SKU-',LPAD(seq,5,'0')),CONCAT('Product ',seq),500+(seq*37)%20000,? FROM seq_1_to_500",
+      "ms": 0.352,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO products(category_id,sku,name,price_cents,stock) SELECT 1+(seq % ?),CONCAT('SKU-',LPAD(seq,5,'0')),CONCAT('Product ',seq),500+(seq*37)%20000,? FROM seq_1_to_500",
+      "ms": 6.869459,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "INSERT INTO users(name,email) SELECT CONCAT('user',seq),CONCAT('user',seq,'@example.com') FROM seq_1_to_1000",
+      "ms": 8.804583,
+      "rows": 0
+    },
+    {
+      "kind": "commit",
+      "sql": "COMMIT",
+      "ms": 0.110542,
+      "rows": 0
+    },
+    {
+      "kind": "exec",
+      "sql": "ANALYZE TABLE users,categories,products,orders,order_items,audit_log",
+      "ms": 1.4335,
+      "rows": 0
+    },
+    {
+      "kind": "query_return",
+      "sql": "SELECT VERSION()",
+      "ms": 0.070125,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "SELECT VERSION()",
+      "ms": 0.07675,
+      "rows": 1
+    },
+    {
+      "kind": "begin",
+      "sql": "BEGIN",
+      "ms": 0.055334,
+      "rows": 0
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.802958,
+      "rows": 0
+    },
+    {
+      "kind": "prepare",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.807833,
+      "rows": 0
+    },
+    {
+      "kind": "prepare",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 1.141417,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.452709,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.460834,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 1.029083,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.130833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.255208,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.093459,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.14375,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.155584,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.243333,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.093416,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.232959,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.08925,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.225458,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.090708,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.132292,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.137,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.30925,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.102708,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.219625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086083,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.222833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086125,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.221625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.091334,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.142209,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.147,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.265583,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.099667,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.131333,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.139333,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.228917,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.093209,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.21425,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086833,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.118459,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.122625,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.226166,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088458,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.221208,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086542,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214958,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088084,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.12125,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.125209,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.255666,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.125791,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.252334,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.09825,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.231125,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.108459,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.241125,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.091,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.1345,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.139041,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.217875,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.089833,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121667,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.125917,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.225416,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088916,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.216542,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086125,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.118583,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.12275,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.219333,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087417,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.21675,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.236875,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.08875,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121458,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.125417,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085958,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214375,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085209,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.21625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085417,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.221667,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.096542,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121333,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.125417,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.222583,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088458,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.118625,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.123375,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.204459,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.206833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086042,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.116791,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.120708,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.223792,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.211416,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.216917,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087125,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121166,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.125666,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.212083,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086209,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.2085,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084459,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.210916,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084292,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.22625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085125,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119542,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.123625,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.221,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087375,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.1245,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.12875,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.212541,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.090042,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.206834,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086291,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.127125,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.131,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.212375,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.08375,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.207667,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.210833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084584,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.115708,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.120166,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.216083,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088167,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.209708,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.08575,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.215,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084875,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.215542,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088833,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.117417,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121375,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.2195,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085166,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.117083,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214042,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087708,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.207,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.090708,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119584,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.123834,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.215667,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.205208,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086541,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.211291,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085584,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.115708,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119833,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.201542,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.204792,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.210417,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.083791,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214541,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.083459,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.115625,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119292,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.20025,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087166,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.1195,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.123375,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.223834,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.092541,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.217584,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.089416,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.11525,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119208,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.218334,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.083833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.206,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085416,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.21025,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.083917,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.1155,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119417,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.225583,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.211041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085208,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.211667,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.216375,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084083,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.116834,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.120709,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.212875,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084291,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.116125,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.12,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087708,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.208416,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.083916,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.116333,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.120166,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.211125,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.08625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.20775,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.092791,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.2175,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084958,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.114667,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.118584,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.213209,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.089458,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.2065,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084416,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214208,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085208,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.216708,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084416,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.116792,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.12075,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.212041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.103083,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.126708,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.130417,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.218125,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084791,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.208625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.083875,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.125417,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.22775,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.091042,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.212375,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.108041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.224875,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086833,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.116083,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.120667,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.215041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.104583,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.207958,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.0865,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.209584,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085541,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.213583,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.082417,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.117292,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121459,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.213667,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.084791,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.115375,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119083,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.222083,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.086542,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.205333,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085208,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.12075,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.1245,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.307459,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.115791,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.247417,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.095041,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.235459,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.093584,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.121,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.124708,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.2095,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.08625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.208709,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.088834,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.209833,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.087083,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.214625,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085166,
+      "rows": 0
+    },
+    {
+      "kind": "stmt_query_return",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.115292,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "ms": 0.119,
+      "rows": 1
+    },
+    {
+      "kind": "execute",
+      "sql": "INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)",
+      "ms": 0.218334,
+      "rows": 0
+    },
+    {
+      "kind": "execute",
+      "sql": "UPDATE products SET stock = stock - ? WHERE id = ?",
+      "ms": 0.085875,
+      "rows": 0
+    },
+    {
+      "kind": "commit",
+      "sql": "COMMIT",
+      "ms": 0.06775,
+      "rows": 0
+    },
+    {
+      "kind": "query_return",
+      "sql": "ANALYZE FORMAT=JSON SELECT c.name, COALESCE(sum(s.cents), 0) FROM categories c LEFT JOIN ( SELECT p.category_id, i.quantity * i.unit_price_cents AS cents FROM order_items i JOIN orders o ON o.id = i.order_id AND o.status IN ('paid', 'shipped') JOIN products p ON p.id = i.product_id ) s ON s.category_id = c.id GROUP BY c.id, c.name ORDER BY 2 DESC, c.name",
+      "ms": 3.183375,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "ANALYZE FORMAT=JSON SELECT c.name, COALESCE(sum(s.cents), 0) FROM categories c LEFT JOIN ( SELECT p.category_id, i.quantity * i.unit_price_cents AS cents FROM order_items i JOIN orders o ON o.id = i.order_id AND o.status IN ('paid', 'shipped') JOIN products p ON p.id = i.product_id ) s ON s.category_id = c.id GROUP BY c.id, c.name ORDER BY 2 DESC, c.name",
+      "ms": 3.190875,
+      "rows": 1
+    },
+    {
+      "kind": "query_return",
+      "sql": "ANALYZE FORMAT=JSON SELECT user_id, status, total_cents FROM orders WHERE id = 1",
+      "ms": 0.192791,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "ANALYZE FORMAT=JSON SELECT user_id, status, total_cents FROM orders WHERE id = 1",
+      "ms": 0.197583,
+      "rows": 1
+    },
+    {
+      "kind": "query_return",
+      "sql": "ANALYZE FORMAT=JSON SELECT product_id, quantity, unit_price_cents FROM order_items WHERE order_id = 1 ORDER BY id",
+      "ms": 0.218792,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "ANALYZE FORMAT=JSON SELECT product_id, quantity, unit_price_cents FROM order_items WHERE order_id = 1 ORDER BY id",
+      "ms": 0.22325,
+      "rows": 1
+    },
+    {
+      "kind": "query_return",
+      "sql": "SHOW GLOBAL STATUS WHERE Variable_name IN ('Innodb_buffer_pool_reads','Innodb_buffer_pool_read_requests','Innodb_buffer_pool_pages_free','Innodb_buffer_pool_wait_free','Innodb_log_waits','Created_tmp_disk_tables','Created_tmp_tables','Opened_tables','Table_open_cache_hits','Table_open_cache_misses','Threads_connected','Max_used_connections')",
+      "ms": 0.663708,
+      "rows": 0
+    },
+    {
+      "kind": "rows_complete",
+      "sql": "SHOW GLOBAL STATUS WHERE Variable_name IN ('Innodb_buffer_pool_reads','Innodb_buffer_pool_read_requests','Innodb_buffer_pool_pages_free','Innodb_buffer_pool_wait_free','Innodb_log_waits','Created_tmp_disk_tables','Created_tmp_tables','Opened_tables','Table_open_cache_hits','Table_open_cache_misses','Threads_connected','Max_used_connections')",
+      "ms": 0.683083,
+      "rows": 12
+    }
+  ],
+  "settings": [
+    {
+      "name": "innodb_buffer_pool_size",
+      "value": "16777216"
+    },
+    {
+      "name": "innodb_buffer_pool_size_max",
+      "value": "16777216"
+    },
+    {
+      "name": "innodb_log_buffer_size",
+      "value": "2097152"
+    },
+    {
+      "name": "innodb_purge_threads",
+      "value": "1"
+    },
+    {
+      "name": "innodb_read_io_threads",
+      "value": "1"
+    },
+    {
+      "name": "innodb_write_io_threads",
+      "value": "2"
+    },
+    {
+      "name": "join_buffer_size",
+      "value": "262144"
+    },
+    {
+      "name": "max_connections",
+      "value": "10"
+    },
+    {
+      "name": "max_heap_table_size",
+      "value": "16777216"
+    },
+    {
+      "name": "max_statement_time",
+      "value": "0.000000"
+    },
+    {
+      "name": "optimizer_switch",
+      "value": "index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,index_merge_sort_intersection=off,index_condition_pushdown=on,derived_merge=on,derived_with_keys=on,firstmatch=on,loosescan=on,duplicateweedout=on,materialization=on,in_to_exists=on,semijoin=on,partial_match_rowid_merge=on,partial_match_table_scan=on,subquery_cache=on,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=on,semijoin_with_cache=on,join_cache_incremental=on,join_cache_hashed=on,join_cache_bka=on,optimize_join_buffer_size=on,table_elimination=on,extended_keys=on,exists_to_in=on,orderby_uses_equalities=on,condition_pushdown_for_derived=on,split_materialized=on,condition_pushdown_for_subquery=on,rowid_filter=on,condition_pushdown_from_having=on,not_null_range_scan=off,hash_join_cardinality=on,cset_narrowing=on,sargable_casefold=on,reorder_outer_joins=off"
+    },
+    {
+      "name": "sort_buffer_size",
+      "value": "2097152"
+    },
+    {
+      "name": "table_open_cache",
+      "value": "32"
+    },
+    {
+      "name": "thread_cache_size",
+      "value": "0"
+    },
+    {
+      "name": "tmp_table_size",
+      "value": "16777216"
+    }
+  ]
+}

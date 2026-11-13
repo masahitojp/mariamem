@@ -1,0 +1,382 @@
+File: maria.test
+Type: cpu
+Time: 2026-11-13 14:51:19 JST
+Duration: 1.81s, Total samples = 7.14s (394.80%)
+Active filters:
+   focus=rawsyscalln
+Showing nodes accounting for 3.31s, 46.36% of 7.14s total
+Dropped 101 nodes (cum <= 0.04s)
+Showing top 80 nodes out of 133
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             2.31s 69.79% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+                                             0.37s 11.18% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow
+                                             0.12s  3.63% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+                                             0.10s  3.02% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Close
+                                             0.02s   0.6% |   github.com/masahitojp/mariamem.startLeased
+                                             0.01s   0.3% |   github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+                                             0.01s   0.3% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14748
+     3.31s 46.36% 46.36%      3.31s 46.36%                | syscall.rawsyscalln
+----------------------------------------------------------+-------------
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem.(*Snapshot).Fork
+                                             0.02s   100% |   github.com/masahitojp/mariamem.(*Snapshot).forkReserved
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem.(*Snapshot).Fork
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem.(*Snapshot).forkReserved
+                                             0.02s   100% |   github.com/masahitojp/mariamem.startLeased
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem.(*Snapshot).forkReserved
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem.startLeased
+                                             0.02s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.32s   100% |   github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+         0     0% 46.36%      0.32s  4.48%                | github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+                                             0.32s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+         0     0% 46.36%      0.10s  1.40%                | github.com/masahitojp/mariamem/internal/generatedgo.releaseMemoryModule
+                                             0.10s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Close
+----------------------------------------------------------+-------------
+         0     0% 46.36%      0.43s  6.02%                | github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+                                             0.32s 74.42% |   github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+                                             0.10s 23.26% |   github.com/masahitojp/mariamem/internal/generatedgo.releaseMemoryModule
+                                             0.01s  2.33% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.32s   100% |   github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0% 46.36%      0.32s  4.48%                | github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+                                             0.32s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752
+----------------------------------------------------------+-------------
+                                             0.10s   100% |   github.com/masahitojp/mariamem/internal/generatedgo.releaseMemoryModule
+         0     0% 46.36%      0.10s  1.40%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Close
+                                             0.10s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.37s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+         0     0% 46.36%      0.37s  5.18%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow
+                                             0.37s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752
+         0     0% 46.36%      0.12s  1.68%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+                                             0.12s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+----------------------------------------------------------+-------------
+                                             2.30s 99.57% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+                                             0.01s  0.43% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+         0     0% 46.36%      2.31s 32.35%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+                                             2.31s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+----------------------------------------------------------+-------------
+                                             2.49s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0% 46.36%      2.49s 34.87%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+                                             2.49s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+----------------------------------------------------------+-------------
+                                             0.34s 91.89% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+                                             0.03s  8.11% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn240
+         0     0% 46.36%      0.37s  5.18%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+                                             0.37s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow
+----------------------------------------------------------+-------------
+         0     0% 46.36%      2.49s 34.87%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+                                             2.49s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+----------------------------------------------------------+-------------
+                                             2.49s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0% 46.36%      2.49s 34.87%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+                                             2.49s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+----------------------------------------------------------+-------------
+                                             0.12s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+         0     0% 46.36%      0.12s  1.68%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+                                             0.12s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             2.31s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0% 46.36%      2.31s 32.35%                | github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+                                             2.31s   100% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13492
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13464
+                                             0.03s 60.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20946
+                                             0.02s 40.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.03s 60.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13501
+                                             0.02s 40.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14813
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13492
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13464
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13528
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13501
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13492
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15347
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15345
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13528
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13501
+----------------------------------------------------------+-------------
+                                             0.03s 75.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14827
+                                             0.03s 75.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21288
+                                             0.01s 25.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562
+         0     0% 46.36%      0.04s  0.56%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+                                             0.03s 75.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13501
+                                             0.03s 75.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14149
+                                             0.03s 75.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15185
+                                             0.01s 25.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14826
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14827
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15348
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15345
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13528
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13501
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15347
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15348
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15347
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15348
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15345
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7109
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18569
+                                             0.01s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+                                             0.01s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+----------------------------------------------------------+-------------
+                                             0.18s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5739
+         0     0% 46.36%      0.18s  2.52%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+                                             0.09s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14747
+                                             0.07s 38.89% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20111
+                                             0.01s  5.56% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+                                             0.01s  5.56% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn774
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14811
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14813
+----------------------------------------------------------+-------------
+                                             0.18s 52.94% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+                                             0.05s 14.71% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn766
+                                             0.03s  8.82% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn780
+                                             0.02s  5.88% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13464
+                                             0.02s  5.88% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn242
+                                             0.01s  2.94% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+                                             0.01s  2.94% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18569
+                                             0.01s  2.94% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+                                             0.01s  2.94% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5424
+         0     0% 46.36%      0.34s  4.76%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+                                             0.34s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15616
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15597
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15543
+----------------------------------------------------------+-------------
+                                             0.32s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0% 46.36%      0.32s  4.48%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752
+                                             0.18s 56.25% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244
+                                             0.12s 37.50% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+                                             0.01s  3.12% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562
+                                             0.01s  3.12% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+----------------------------------------------------------+-------------
+                                             2.35s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0% 46.36%      2.35s 32.91%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+                                             2.30s 97.87% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+                                             0.05s  2.13% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn766
+----------------------------------------------------------+-------------
+                                             0.06s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7109
+         0     0% 46.36%      0.06s  0.84%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5424
+                                             0.03s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+                                             0.02s 33.33% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn4800
+                                             0.01s 16.67% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.05s 83.33% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+                                             0.01s 16.67% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752
+         0     0% 46.36%      0.06s  0.84%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562
+                                             0.03s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14826
+                                             0.02s 33.33% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14811
+                                             0.01s 16.67% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn970
+         0     0% 46.36%      0.04s  0.56%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn961
+                                             0.02s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn814
+                                             0.02s 50.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn1023
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15543
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13341
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21293
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14149
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15543
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+         0     0% 46.36%      0.09s  1.26%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14747
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14748
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18070
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18073
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn967
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18070
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18073
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18059
+----------------------------------------------------------+-------------
+                                             0.07s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+         0     0% 46.36%      0.07s  0.98%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20111
+                                             0.04s 57.14% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn970
+                                             0.03s 42.86% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn20096
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13464
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20946
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn780
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21293
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21289
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21288
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13341
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21293
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21289
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5424
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn4800
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn774
+----------------------------------------------------------+-------------
+                                             0.18s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244
+         0     0% 46.36%      0.18s  2.52%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5739
+                                             0.18s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+----------------------------------------------------------+-------------
+                                             0.08s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14748
+         0     0% 46.36%      0.08s  1.12%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7109
+                                             0.06s 75.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5424
+                                             0.02s 25.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18569
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5562
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14826
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14827
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15597
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14149
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15543
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13341
+----------------------------------------------------------+-------------
+                                             0.09s 64.29% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586
+                                             0.05s 35.71% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18279
+         0     0% 46.36%      0.14s  1.96%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16597
+                                             0.14s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18073
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18059
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17564
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21289
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21288
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn774
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn240
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn814
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn242
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.14s 77.78% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16597
+                                             0.03s 16.67% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5424
+                                             0.01s  5.56% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18569
+         0     0% 46.36%      0.18s  2.52%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+                                             0.18s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn961
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn814
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn242
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn20096
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn967
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18059
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17564
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18279
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20111
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn20096
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn967
+----------------------------------------------------------+-------------
+                                             2.49s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+         0     0% 46.36%      2.49s 34.87%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+                                             2.35s 94.38% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+                                             0.09s  3.61% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595
+                                             0.05s  2.01% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18070
+----------------------------------------------------------+-------------
+                                             0.18s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752
+         0     0% 46.36%      0.18s  2.52%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244
+                                             0.18s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5739
+----------------------------------------------------------+-------------
+                                             0.02s 66.67% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn4800
+                                             0.01s 33.33% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5573
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn774
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn240
+----------------------------------------------------------+-------------
+                                             2.30s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+         0     0% 46.36%      2.30s 32.21%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+                                             2.30s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14747
+         0     0% 46.36%      0.09s  1.26%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14748
+                                             0.08s 88.89% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7109
+                                             0.01s 11.11% |   syscall.rawsyscalln
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14811
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14813
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13492
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14581
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15185
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15616
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15185
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15616
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15597
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595
+         0     0% 46.36%      0.09s  1.26%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16597
+----------------------------------------------------------+-------------
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0% 46.36%      0.09s  1.26%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595
+                                             0.09s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586
+----------------------------------------------------------+-------------
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17564
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18279
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16597
+----------------------------------------------------------+-------------
+                                             2.31s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+         0     0% 46.36%      2.31s 32.35%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+                                             2.30s 99.57% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+                                             0.01s  0.43% |   github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+----------------------------------------------------------+-------------
+                                             2.30s 99.57% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+                                             0.01s  0.43% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21752
+         0     0% 46.36%      2.31s 32.35%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+                                             2.31s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+----------------------------------------------------------+-------------
+                                             0.03s 60.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468
+                                             0.02s 40.00% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn1023
+         0     0% 46.36%      0.05s   0.7%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn766
+                                             0.05s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20946
+         0     0% 46.36%      0.03s  0.42%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn780
+                                             0.03s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+----------------------------------------------------------+-------------
+                                             0.04s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20111
+         0     0% 46.36%      0.04s  0.56%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn970
+                                             0.04s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn961
+----------------------------------------------------------+-------------
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn961
+         0     0% 46.36%      0.02s  0.28%                | github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn1023
+                                             0.02s   100% |   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn766
+----------------------------------------------------------+-------------

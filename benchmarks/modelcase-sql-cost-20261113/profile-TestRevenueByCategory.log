@@ -1,0 +1,881 @@
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Music
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.04s)
+    --- PASS: TestRevenueByCategory/Movies (0.05s)
+    --- PASS: TestRevenueByCategory/Tools (0.05s)
+    --- PASS: TestRevenueByCategory/Sports (0.05s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.06s)
+    --- PASS: TestRevenueByCategory/Toys (0.06s)
+    --- PASS: TestRevenueByCategory/Garden (0.06s)
+    --- PASS: TestRevenueByCategory/Games (0.06s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Tools
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.03s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Outdoors
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.03s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Tools
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Garden
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Tools
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.02s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Movies
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Sports (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.02s)
+    --- PASS: TestRevenueByCategory/Tools (0.02s)
+    --- PASS: TestRevenueByCategory/Garden (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.01s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.02s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+=== RUN   TestRevenueByCategory
+=== PAUSE TestRevenueByCategory
+=== CONT  TestRevenueByCategory
+=== RUN   TestRevenueByCategory/Books
+=== PAUSE TestRevenueByCategory/Books
+=== RUN   TestRevenueByCategory/Music
+=== PAUSE TestRevenueByCategory/Music
+=== RUN   TestRevenueByCategory/Movies
+=== PAUSE TestRevenueByCategory/Movies
+=== RUN   TestRevenueByCategory/Games
+=== PAUSE TestRevenueByCategory/Games
+=== RUN   TestRevenueByCategory/Toys
+=== PAUSE TestRevenueByCategory/Toys
+=== RUN   TestRevenueByCategory/Garden
+=== PAUSE TestRevenueByCategory/Garden
+=== RUN   TestRevenueByCategory/Kitchen
+=== PAUSE TestRevenueByCategory/Kitchen
+=== RUN   TestRevenueByCategory/Tools
+=== PAUSE TestRevenueByCategory/Tools
+=== RUN   TestRevenueByCategory/Sports
+=== PAUSE TestRevenueByCategory/Sports
+=== RUN   TestRevenueByCategory/Outdoors
+=== PAUSE TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Books
+=== CONT  TestRevenueByCategory/Outdoors
+=== CONT  TestRevenueByCategory/Games
+=== CONT  TestRevenueByCategory/Sports
+=== CONT  TestRevenueByCategory/Movies
+=== CONT  TestRevenueByCategory/Music
+=== CONT  TestRevenueByCategory/Tools
+=== CONT  TestRevenueByCategory/Kitchen
+=== CONT  TestRevenueByCategory/Garden
+=== CONT  TestRevenueByCategory/Toys
+--- PASS: TestRevenueByCategory (0.00s)
+    --- PASS: TestRevenueByCategory/Outdoors (0.01s)
+    --- PASS: TestRevenueByCategory/Books (0.01s)
+    --- PASS: TestRevenueByCategory/Movies (0.01s)
+    --- PASS: TestRevenueByCategory/Games (0.01s)
+    --- PASS: TestRevenueByCategory/Tools (0.02s)
+    --- PASS: TestRevenueByCategory/Music (0.02s)
+    --- PASS: TestRevenueByCategory/Garden (0.01s)
+    --- PASS: TestRevenueByCategory/Toys (0.01s)
+    --- PASS: TestRevenueByCategory/Sports (0.02s)
+    --- PASS: TestRevenueByCategory/Kitchen (0.02s)
+PASS

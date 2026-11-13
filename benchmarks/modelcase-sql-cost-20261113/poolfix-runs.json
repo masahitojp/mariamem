@@ -1,0 +1,102 @@
+[
+  {
+    "name": "poolfix-pilot-baseline",
+    "arm": "baseline",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 1248.397541,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "poolfix-warmup-baseline",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 508.096875,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-pilot-pool64",
+    "arm": "pool64",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 521.20475,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "poolfix-warmup-pool64",
+    "arm": "pool64",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 883.823667,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-primary-baseline-0",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 500.0175,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-primary-pool64-0",
+    "arm": "pool64",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 829.009833,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-primary-pool64-1",
+    "arm": "pool64",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 865.536,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-primary-baseline-1",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 453.102791,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-primary-baseline-2",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 483.529833,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "poolfix-primary-pool64-2",
+    "arm": "pool64",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 856.638625,
+    "returncode": 0,
+    "leaf_pass": 70
+  }
+]

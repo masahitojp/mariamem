@@ -1,0 +1,8 @@
+{
+  "source_commit": "0f5b26f370875d26bd337031f48856d8f57c10db",
+  "baseline_harness_commit": "894253bcf671ef11f8d555f5b58f67819b812733",
+  "initial_binary_sha256": "3b49506ea0c54730b1bbf58a3dde077900c0f8fffbe1d7475aefc49fa7925571",
+  "final_binary_sha256": "c5852bb1435317875b128d444fb5f2976353ea87a0720faeeeeb5af870f264ff",
+  "pool64": "experiment-only initial argv bytes changed; canonical guest unchanged",
+  "host": "M1 16GiB macOS27.2.1 Go1.27.4 CGO0 GOMAXPROCS8 GOGC100"
+}

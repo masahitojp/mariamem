@@ -1,0 +1,352 @@
+[
+  {
+    "name": "pilot-baseline",
+    "arm": "baseline",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 1334.208791,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "pilot-io4",
+    "arm": "io4",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 153.948916,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "pilot-cache256",
+    "arm": "cache256",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 155.776667,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "pilot-querymem",
+    "arm": "querymem",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 154.719084,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "pilot-textparams",
+    "arm": "textparams",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 152.130042,
+    "returncode": 0,
+    "leaf_pass": 0
+  },
+  {
+    "name": "pilot-pool64",
+    "arm": "pool64",
+    "observe": true,
+    "diagnostic": true,
+    "profile": null,
+    "wall_ms": 54.075167,
+    "returncode": 2,
+    "leaf_pass": 0
+  },
+  {
+    "name": "warmup-baseline",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 503.668625,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "warmup-io4",
+    "arm": "io4",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 592.091083,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "warmup-cache256",
+    "arm": "cache256",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 503.302375,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "warmup-querymem",
+    "arm": "querymem",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 476.828708,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "warmup-textparams",
+    "arm": "textparams",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 474.984625,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-baseline-0",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 508.676708,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-io4-0",
+    "arm": "io4",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 588.966834,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-cache256-0",
+    "arm": "cache256",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 482.566666,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-querymem-0",
+    "arm": "querymem",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 488.474458,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-textparams-0",
+    "arm": "textparams",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 442.993792,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-textparams-1",
+    "arm": "textparams",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 458.170916,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-querymem-1",
+    "arm": "querymem",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 506.541833,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-cache256-1",
+    "arm": "cache256",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 448.294917,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-io4-1",
+    "arm": "io4",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 849.715958,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-baseline-1",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 477.691792,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-baseline-2",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 496.755792,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-io4-2",
+    "arm": "io4",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 770.909958,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-cache256-2",
+    "arm": "cache256",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 505.445875,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-querymem-2",
+    "arm": "querymem",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 485.298708,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "primary-textparams-2",
+    "arm": "textparams",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 486.012584,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "obs-0-0",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 483.168125,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "obs-1-0",
+    "arm": "baseline",
+    "observe": true,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 507.62475,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "obs-1-1",
+    "arm": "baseline",
+    "observe": true,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 467.565541,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "obs-0-1",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 700.403667,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "obs-0-2",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 454.43325,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "obs-1-2",
+    "arm": "baseline",
+    "observe": true,
+    "diagnostic": false,
+    "profile": null,
+    "wall_ms": 486.358542,
+    "returncode": 0,
+    "leaf_pass": 70
+  },
+  {
+    "name": "profile-TestRevenueByCategory",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": "TestRevenueByCategory",
+    "wall_ms": 734.870666,
+    "returncode": 0,
+    "leaf_pass": 200
+  },
+  {
+    "name": "profile-TestGetOrder",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": "TestGetOrder",
+    "wall_ms": 540.6345,
+    "returncode": 0,
+    "leaf_pass": 200
+  },
+  {
+    "name": "profile-TestCreateOrder",
+    "arm": "baseline",
+    "observe": false,
+    "diagnostic": false,
+    "profile": "TestCreateOrder",
+    "wall_ms": 1962.393125,
+    "returncode": 0,
+    "leaf_pass": 80
+  }
+]

@@ -1,0 +1,245 @@
+{
+  "GetOrder0": {
+    "query_optimization": {
+      "r_total_time_ms": 0.031
+    },
+    "query_block": {
+      "select_id": 1,
+      "r_loops": 1,
+      "r_total_time_ms": 0.002,
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "orders",
+            "access_type": "const",
+            "possible_keys": [
+              "PRIMARY"
+            ],
+            "key": "PRIMARY",
+            "key_length": "8",
+            "used_key_parts": [
+              "id"
+            ],
+            "ref": [
+              "const"
+            ],
+            "r_loops": 0,
+            "rows": 1,
+            "r_rows": null,
+            "r_engine_stats": {
+              "pages_accessed": 1
+            },
+            "filtered": 100,
+            "r_total_filtered": null,
+            "r_filtered": null
+          }
+        }
+      ]
+    }
+  },
+  "GetOrder1": {
+    "query_optimization": {
+      "r_total_time_ms": 0.045
+    },
+    "query_block": {
+      "select_id": 1,
+      "cost": 0.004452,
+      "r_loops": 1,
+      "r_total_time_ms": 0.015,
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "order_items",
+            "access_type": "ref",
+            "possible_keys": [
+              "order_items_order_id"
+            ],
+            "key": "order_items_order_id",
+            "key_length": "8",
+            "used_key_parts": [
+              "order_id"
+            ],
+            "ref": [
+              "const"
+            ],
+            "loops": 1,
+            "r_loops": 1,
+            "rows": 2,
+            "r_rows": 2,
+            "cost": 0.004452,
+            "r_table_time_ms": 0.009,
+            "r_other_time_ms": 0.004,
+            "r_engine_stats": {
+              "pages_accessed": 4
+            },
+            "filtered": 100,
+            "r_total_filtered": 100,
+            "attached_condition": "order_items.order_id \u003c=\u003e 1",
+            "r_filtered": 100
+          }
+        }
+      ]
+    }
+  },
+  "RevenueByCategory0": {
+    "query_optimization": {
+      "r_total_time_ms": 0.263
+    },
+    "query_block": {
+      "select_id": 1,
+      "cost": 1.00308252,
+      "r_loops": 1,
+      "r_total_time_ms": 1.888,
+      "const_condition": "1",
+      "filesort": {
+        "sort_key": "coalesce(sum(i.quantity * i.unit_price_cents),0) desc, c.`name`",
+        "r_loops": 1,
+        "r_total_time_ms": 0.039,
+        "r_used_priority_queue": false,
+        "r_output_rows": 20,
+        "r_buffer_size": "31KiB",
+        "r_sort_mode": "packed_sort_key,rowid",
+        "temporary_table": {
+          "nested_loop": [
+            {
+              "table": {
+                "table_name": "c",
+                "access_type": "index",
+                "key": "name",
+                "key_length": "1022",
+                "used_key_parts": [
+                  "name"
+                ],
+                "loops": 1,
+                "r_loops": 1,
+                "rows": 20,
+                "r_rows": 20,
+                "cost": 0.01043442,
+                "r_table_time_ms": 0.017,
+                "r_other_time_ms": 0.014,
+                "r_engine_stats": {
+                  "pages_accessed": 1
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "r_filtered": 100,
+                "using_index": true
+              }
+            },
+            {
+              "table": {
+                "table_name": "p",
+                "access_type": "ref",
+                "possible_keys": [
+                  "PRIMARY",
+                  "products_category_id"
+                ],
+                "key": "products_category_id",
+                "key_length": "4",
+                "used_key_parts": [
+                  "category_id"
+                ],
+                "ref": [
+                  "test.c.id"
+                ],
+                "loops": 20,
+                "r_loops": 20,
+                "rows": 17,
+                "r_rows": 25,
+                "cost": 0.0672265,
+                "r_table_time_ms": 0.272,
+                "r_other_time_ms": 0.187,
+                "r_engine_stats": {
+                  "pages_accessed": 20
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "attached_condition": "trigcond(p.`id` is not null)",
+                "r_filtered": 100,
+                "using_index": true
+              }
+            },
+            {
+              "table": {
+                "table_name": "i",
+                "access_type": "ref",
+                "possible_keys": [
+                  "order_items_order_id",
+                  "order_items_product_id"
+                ],
+                "key": "order_items_product_id",
+                "key_length": "8",
+                "used_key_parts": [
+                  "product_id"
+                ],
+                "ref": [
+                  "test.p.id"
+                ],
+                "loops": 340,
+                "r_loops": 500,
+                "rows": 1,
+                "r_rows": 0.2,
+                "cost": 0.6204928,
+                "r_table_time_ms": 0.81,
+                "r_other_time_ms": 0.125,
+                "r_engine_stats": {
+                  "pages_accessed": 600
+                },
+                "filtered": 100,
+                "r_total_filtered": 100,
+                "attached_condition": "trigcond(i.order_id is not null)",
+                "r_filtered": 100
+              }
+            },
+            {
+              "table": {
+                "table_name": "o",
+                "access_type": "eq_ref",
+                "possible_keys": [
+                  "PRIMARY",
+                  "orders_status"
+                ],
+                "key": "PRIMARY",
+                "key_length": "8",
+                "used_key_parts": [
+                  "id"
+                ],
+                "ref": [
+                  "test.i.order_id"
+                ],
+                "loops": 340,
+                "r_loops": 100,
+                "rows": 1,
+                "r_rows": 1,
+                "cost": 0.3049288,
+                "r_table_time_ms": 0.16,
+                "r_other_time_ms": 0.241,
+                "r_engine_stats": {
+                  "pages_accessed": 102
+                },
+                "filtered": 75,
+                "r_total_filtered": 90,
+                "attached_condition": "trigcond(o.`status` in ('paid','shipped'))",
+                "r_filtered": 90
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "status": {
+    "Created_tmp_disk_tables": "1",
+    "Created_tmp_tables": "5",
+    "Innodb_buffer_pool_pages_free": "943",
+    "Innodb_buffer_pool_read_requests": "3425",
+    "Innodb_buffer_pool_reads": "418",
+    "Innodb_buffer_pool_wait_free": "0",
+    "Innodb_log_waits": "0",
+    "Max_used_connections": "0",
+    "Opened_tables": "6",
+    "Table_open_cache_hits": "587",
+    "Table_open_cache_misses": "6",
+    "Threads_connected": "0"
+  }
+}

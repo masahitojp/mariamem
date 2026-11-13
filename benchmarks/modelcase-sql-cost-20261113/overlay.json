@@ -1,0 +1,5 @@
+{
+  "Replace": {
+    "<WORKSPACE>/worktree/internal/generatedgo/image/image.go": "<WORKSPACE>/temp/image_overlay.go"
+  }
+}
