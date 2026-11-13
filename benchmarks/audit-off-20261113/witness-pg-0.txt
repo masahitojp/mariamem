@@ -1,0 +1,4 @@
+=== RUN   TestAuditOffWitness
+    audit_off_witness_test.go:14: PASS engine=pg audit_off=false triggers=1 sample40orders/100items/totals/500stocks; status-update audit rows=41
+--- PASS: TestAuditOffWitness (0.04s)
+PASS

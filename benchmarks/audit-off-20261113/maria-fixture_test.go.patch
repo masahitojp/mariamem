@@ -1,0 +1,19 @@
+--- maria/fixture_test.go-original
++++ maria/fixture_test.go
+@@ -197,6 +197,10 @@
+ 	if err := store.SeedMaster(ctx, db); err != nil {
+ 		return fmt.Errorf("seed: %w", err)
+ 	}
++	if os.Getenv("AUDIT_OFF")=="1"{
++ if _,err:=db.ExecContext(ctx,`DROP TRIGGER orders_audit_insert`);err!=nil{return fmt.Errorf("drop audit: %w",err)}
++ if _,err:=db.ExecContext(ctx,`DROP TRIGGER orders_audit_update`);err!=nil{return fmt.Errorf("drop audit: %w",err)}
++ }
+ 	return nil
+ }
+ 
+@@ -247,3 +251,5 @@
+ 	t.Cleanup(f.rec.Start("test", "write", t.Name()))
+ 	return db
+ }
++
++func wantAudit(n int)int{if os.Getenv("AUDIT_OFF")=="1"{return 0};return n}

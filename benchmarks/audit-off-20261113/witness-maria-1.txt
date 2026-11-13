@@ -1,0 +1,4 @@
+=== RUN   TestAuditOffWitness
+    audit_off_witness_test.go:14: PASS engine=maria audit_off=true triggers=0 sample40orders/100items/totals/500stocks; status-update audit rows=0
+--- PASS: TestAuditOffWitness (0.05s)
+PASS

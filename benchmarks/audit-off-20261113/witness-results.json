@@ -1,0 +1,22 @@
+[
+  {
+    "engine": "pg",
+    "audit_off": "0",
+    "returncode": 0
+  },
+  {
+    "engine": "pg",
+    "audit_off": "1",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "audit_off": "0",
+    "returncode": 0
+  },
+  {
+    "engine": "maria",
+    "audit_off": "1",
+    "returncode": 0
+  }
+]

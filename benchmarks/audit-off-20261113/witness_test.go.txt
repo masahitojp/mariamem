@@ -1,0 +1,15 @@
+package store_test
+import("testing";"os";"github.com/shibukawa/pgmem/bench/modelcase/store")
+func TestAuditOffWitness(t *testing.T){
+ db:=fx.shared();if fx.sharedErr!=nil{t.Fatal(fx.sharedErr)};ctx:=t.Context();engine:=os.Getenv("WITNESS_ENGINE");off:=os.Getenv("AUDIT_OFF")=="1"
+ count:=func(q string)int{t.Helper();var n int;if e:=db.QueryRowContext(ctx,q).Scan(&n);e!=nil{t.Fatal(e)};return n}
+ var auditTriggers int
+ if engine=="pg"{auditTriggers=count(`SELECT count(*) FROM pg_trigger WHERE tgname='orders_audit'`);want:=1;if off{want=0};if auditTriggers!=want{t.Fatal("wrong PG audit trigger count",auditTriggers)}}else{auditTriggers=count(`SELECT count(*) FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA=DATABASE() AND TRIGGER_NAME IN ('orders_audit_insert','orders_audit_update')`);want:=2;if off{want=0};if auditTriggers!=want{t.Fatal("wrong Maria audit trigger count",auditTriggers)}}
+ want:=40;if off{want=0};if count(`SELECT count(*) FROM audit_log`)!=want{t.Fatal("audit row count")}
+ if count(`SELECT count(*) FROM orders`)!=40||count(`SELECT count(*) FROM order_items`)!=100{t.Fatal("sample counts")}
+ if count(`SELECT count(*) FROM orders o WHERE o.total_cents<>(SELECT COALESCE(SUM(i.quantity*i.unit_price_cents),0) FROM order_items i WHERE i.order_id=o.id)`)!=0{t.Fatal("totals mismatch")}
+ stock:=map[int64]int{};for _,o:=range store.SampleOrders(){for _,it:=range o.Items{stock[it.ProductID]+=it.Quantity}}
+ rows,e:=db.QueryContext(ctx,`SELECT id,stock FROM products`);if e!=nil{t.Fatal(e)};n:=0;for rows.Next(){var id int64;var got int;if e=rows.Scan(&id,&got);e!=nil{t.Fatal(e)};if got!=100-stock[id]{t.Fatalf("stock %d=%d",id,got)};n++};if e=rows.Err();e!=nil{t.Fatal(e)};rows.Close();if n!=500{t.Fatal("product count")}
+ if _,e=db.ExecContext(ctx,`UPDATE orders SET status='cancelled' WHERE id=1`);e!=nil{t.Fatal(e)};if !off{want++};if count(`SELECT count(*) FROM audit_log`)!=want{t.Fatal("status audit mismatch")}
+ t.Logf("PASS engine=%s audit_off=%v triggers=%d sample40orders/100items/totals/500stocks; status-update audit rows=%d",engine,off,auditTriggers,want)
+}

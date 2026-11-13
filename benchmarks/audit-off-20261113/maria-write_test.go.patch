@@ -1,0 +1,20 @@
+--- maria/write_test.go-original
++++ maria/write_test.go
+@@ -120,7 +120,7 @@
+ 			if err := db.QueryRowContext(ctx, `SELECT count(*) FROM audit_log WHERE order_id = ? AND new_status = 'cancelled'`, o.ID).Scan(&audits); err != nil {
+ 				t.Fatal(err)
+ 			}
+-			if audits != 1 {
++			if audits != wantAudit(1) {
+ 				t.Errorf("%d audit rows", audits)
+ 			}
+ 			if err := store.CancelOrder(ctx, db, o.ID); err != store.ErrNotFound {
+@@ -190,7 +190,7 @@
+ 		if err := db.QueryRowContext(t.Context(), `SELECT count(*) FROM audit_log WHERE order_id = ?`, paid[1]).Scan(&audits); err != nil {
+ 			t.Fatal(err)
+ 		}
+-		if audits != 2 { // insert + one status change
++		if audits != wantAudit(2) { // insert + one status change
+ 			t.Errorf("%d audit rows", audits)
+ 		}
+ 	})
