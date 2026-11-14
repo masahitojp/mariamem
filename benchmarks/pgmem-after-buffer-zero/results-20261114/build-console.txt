@@ -1,0 +1,8 @@
+BUILD pgmem-suite
+PASS pgmem-suite
+BUILD pgmem-lifecycle
+PASS pgmem-lifecycle
+BUILD mariamem-suite
+PASS mariamem-suite
+BUILD mariamem-lifecycle
+PASS mariamem-lifecycle

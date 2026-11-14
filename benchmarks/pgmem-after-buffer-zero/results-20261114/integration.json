@@ -1,0 +1,17 @@
+{
+  "pr": 176,
+  "approved": "Human explicitly authorized main integration, then pgmem comparison",
+  "tested_candidate_source_commit": "0dea912d774201903530e83e01a657189fc8bc97",
+  "main_merge_source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "method": "squash",
+  "required_check_run": 43576087727,
+  "required_contexts": {
+    "check": "success",
+    "integration": "success",
+    "Live required gate": "success"
+  },
+  "canonical_candidate_run": 43569024494,
+  "canonical_candidate_source_commit": "2e1ecd315e4f85d5a7112112ad0858e8dc6765de",
+  "runtime_diff_between_tested_candidate_and_merge": "empty",
+  "initial_merge_refusal": "First normal merge attempt was refused while required contexts had not all appeared as successful; retried only after run job metadata reported all three success. No branch protection bypass."
+}

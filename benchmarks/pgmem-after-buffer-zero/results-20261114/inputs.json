@@ -1,0 +1,49 @@
+{
+  "mariamem_source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "mariamem_runtime_matches_reviewed_candidate": true,
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "go": "go version go1.27.4 darwin/arm64",
+  "platform": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "macos": "27.2.1"
+  },
+  "harnesses": {
+    "maria-suite": {
+      "go.mod": "bd456986c4beaed98664b4d260939637fc19857c5e92941fc16792fe4c377bdf",
+      "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+      "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+      "store/write_test.go": "dd210ad26b5b091d54a869235aa49bf1836a1d8094984eb697fd496beb0ac307",
+      "store/read_test.go": "4a26ec4a913b1d1b1e47f2d3e57b0d953f971ba4dc8843bb851297657777b2e9",
+      "store/store.go": "09c6205205cf010fc2a798017ca77e81373412a873a7b0f6021842c9a37dd6e1",
+      "store/fixture_test.go": "ffb14af2752d294294f8c4e7838e70422771fbd99e87a1c3c81b283c943a9d03",
+      "store/seed.go": "11b9bfe345d83ab68cb46b15f5d3bc3a71420e184643965d3aa53c38df9e38cf",
+      "store/migrations/0001_all.sql": "886a29ff569962ab2e89377422d4d427ce36fb44c4620705b949c14d16d0283b"
+    },
+    "pg-suite": {
+      "go.mod": "70144248e96bcc44f490abf6f167b79f0bdc0f0b57b3b949d03c59c8eb5b5d70",
+      "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+      "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+      "store/write_test.go": "2ed5f6b38e728ae6cd22daff5714186f98119638666cdcdc2d75d740f5dd1cb1",
+      "store/read_test.go": "4a26ec4a913b1d1b1e47f2d3e57b0d953f971ba4dc8843bb851297657777b2e9",
+      "store/store.go": "60bceafadd8d19aedae743749b6a66cf2ae33a8ba22b854f08717a43e4abd67f",
+      "store/fixture_test.go": "360d1f22d5425d2215111b359b97dd47563d93c7d21b942c616d99bd6cadcf23",
+      "store/seed.go": "5155c796231fc0d1690fd3dc656954a79150bc596e05d183c77b415c9ace4e51",
+      "store/migrations/0002_catalog.sql": "d2409eadc9aac413f3a5cd2fef5643dabcbf39ad23827950c69d749185ab8ed6",
+      "store/migrations/0003_orders.sql": "995edb8856e2724309b29587ba9665691edecd76e0a9f8dd3cf629cf92192637",
+      "store/migrations/0001_users.sql": "c2f4df2e743cf9e398ef28c8c710b0a3885b303cdffa3d21a34f895f07785507",
+      "store/migrations/0004_totals.sql": "dfeb710cdf618c3eb6238edb55583c12b099942b1f28f886c5627f3725957af6",
+      "store/migrations/0005_audit.sql": "32d5bea73f7447d8508a409a48e8be0d73d1d0afffd02035325dd3c731faf4d1"
+    },
+    "lifecycle": {
+      "go.mod": "6ab157c2e29e3bc5eabb7c878b301694be9d08416e5d20c1d269f7ee1d0fbf12",
+      "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+      "observe/observe.go": "f68ded748839064eb0f7b511442d159fdd7f01291e5ec8b2dcba4d1eaf6d13b6",
+      "postgres/main.go": "7e380f664029844aeb9adaba5d7f4ddfd1fef9a850ac5caa3f0daae776f24ec4",
+      "maria/main.go": "86b18da6d6107b9f4f403c3bb9785ff6900203e8421f415181569c7ef86ffe7d",
+      "probe/probe.go": "7ac863652194cb04cb95b38436bdf15591f6136d94c1ebb83ad9c1b8eb7c5da4"
+    }
+  },
+  "normalization": "Actual harness input bytes hashed here; publication records portable replace paths separately.",
+  "preflight_disposition": "Initial pg suite build used upstream benchmark-only transitive requirements; before measurement it was rebuilt with the prior matched dependency set. Missing sum was filled from the same lifecycle dependency lock; no runtime or measurement retry."
+}

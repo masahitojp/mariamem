@@ -1,0 +1,45 @@
+{
+  "purpose": "After approved PR176 integration, compare current mariamem against the same shibukawa/pgmem official-modelcase adaptation used previously.",
+  "decision": "Quantify remaining end-to-end and phase differences; no new engine optimization or release.",
+  "mariamem_source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "pgmem_tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+  "pgmem_version": "v1.18.2",
+  "harnesses": [
+    "official adapted modelcase suite",
+    "public Fork->connect->SELECT->cleanup lifecycle probe"
+  ],
+  "parallel": [
+    1,
+    4,
+    8
+  ],
+  "measured_processes_per_cell": 3,
+  "warmup_processes_per_cell": 1,
+  "lifecycle_children_per_process": 48,
+  "go": "go1.27.4",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "CGO_ENABLED": 0,
+  "matched": [
+    "master/sample SQL and existing trigger/index adaptation",
+    "both shared readers use a new Fork after Snapshot",
+    "MariaDB DSN interpolateParams=true; pgx default",
+    "same process interleaving and machine"
+  ],
+  "limits": [
+    "different engines/drivers/plans, not identical SQL syntax",
+    "pgmem API Close returns before all background release; no additive cleanup equivalence claim",
+    "no pgmem engine modification or internal observers",
+    "P1/P4/P8 fixed one matrix only; preserve outliers and failures"
+  ],
+  "stop": "One complete fixed matrix after correctness/oracle preflight; abort on oracle/close failure,150s per process,900s runtime matrix,8GiB free; no favorable-result retries.",
+  "budget_gib": 16,
+  "min_free_gib": 8,
+  "table_metrics": [
+    "suite elapsed,boot,import,snapshot,reader_fork,fork,sample,read/write body",
+    "lifecycle Fork,first SELECT,cleanup,batch,process CPU"
+  ],
+  "lifecycle_fixture": "1000 integer rows, public uninstrumented Fork->SELECT1->aggregate oracle->cleanup; separate from modelcase workload",
+  "pgmem_driver_dependencies": "pgx5.11.0 and transitive versions from prior matched forkcompare module; exclude Testcontainers-only upstream benchmark dependencies"
+}

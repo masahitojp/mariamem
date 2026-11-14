@@ -1,0 +1,17 @@
+{
+  "before_bytes": 2150764544,
+  "after_bytes": 2150764544,
+  "applied": false,
+  "decisions": [
+    {
+      "path": "<WORKSPACE>",
+      "classification": "KEEP",
+      "code": "active_task",
+      "reason": "recorded prepared/running experiment: pgmem-after-buffer",
+      "automatic": false,
+      "bytes": 90112
+    }
+  ],
+  "retained_large_paths": [],
+  "cleanup_debt": []
+}

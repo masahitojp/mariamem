@@ -1,0 +1,19 @@
+{
+  "before": {
+    "owned_bytes": 2854621184,
+    "free_bytes": 27664859136,
+    "peak_owned_bytes": 2854621184,
+    "minimum_free_bytes": 27664859136
+  },
+  "after": {
+    "owned_bytes": 2855849984,
+    "free_bytes": 27636338688,
+    "peak_owned_bytes": 2855849984,
+    "minimum_free_bytes": 27636338688
+  },
+  "recursive_scans_during_runtime": 0,
+  "processes": 50,
+  "measured": 36,
+  "warmups": 12,
+  "negative_controls": 2
+}

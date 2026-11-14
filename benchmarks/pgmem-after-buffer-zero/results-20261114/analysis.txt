@@ -1,0 +1,7 @@
+PASS complete fixed matrix, identical scenario/span counts,864 child oracles and cleanup
+{'backend': 'mariamem', 'parallel': 1, 'suite_ms': 1371.455, 'fork_ms': 15.8603335, 'ready_ms': 16.4288125, 'cleanup_ms': 1.9845415, 'batch_ms': 950.602917}
+{'backend': 'pgmem', 'parallel': 1, 'suite_ms': 826.168, 'fork_ms': 6.0197705, 'ready_ms': 9.4390415, 'cleanup_ms': 0.1079795, 'batch_ms': 644.47475}
+{'backend': 'mariamem', 'parallel': 4, 'suite_ms': 682.648, 'fork_ms': 26.444833000000003, 'ready_ms': 27.854583499999997, 'cleanup_ms': 4.0388535, 'batch_ms': 432.0315}
+{'backend': 'pgmem', 'parallel': 4, 'suite_ms': 472.994, 'fork_ms': 12.726708, 'ready_ms': 20.5601665, 'cleanup_ms': 0.198458, 'batch_ms': 384.652125}
+{'backend': 'mariamem', 'parallel': 8, 'suite_ms': 579.429, 'fork_ms': 42.387146, 'ready_ms': 51.444146, 'cleanup_ms': 6.649354499999999, 'batch_ms': 511.962917}
+{'backend': 'pgmem', 'parallel': 8, 'suite_ms': 486.644, 'fork_ms': 25.7333955, 'ready_ms': 44.098541499999996, 'cleanup_ms': 0.6184375, 'batch_ms': 387.495375}

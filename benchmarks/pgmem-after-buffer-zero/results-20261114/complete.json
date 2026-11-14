@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "processes": 50,
+  "measured": 36,
+  "warmups": 12,
+  "negative_controls": 2
+}

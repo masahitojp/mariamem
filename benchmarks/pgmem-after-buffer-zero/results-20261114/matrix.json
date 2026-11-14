@@ -1,0 +1,290 @@
+[
+  {
+    "parallel": 1,
+    "repetition": -1,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": -1,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": -1,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": -1,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": 0,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": 0,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": 0,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": 0,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": 1,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": 1,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": 1,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": 1,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": 2,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": 2,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 1,
+    "repetition": 2,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 1,
+    "repetition": 2,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": -1,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": -1,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": -1,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": -1,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": 0,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": 0,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": 0,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": 0,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": 1,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": 1,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": 1,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": 1,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": 2,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": 2,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 4,
+    "repetition": 2,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 4,
+    "repetition": 2,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": -1,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": -1,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": -1,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": -1,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": 0,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": 0,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": 0,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": 0,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": 1,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": 1,
+    "backend": "pgmem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": 1,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": 1,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": 2,
+    "backend": "mariamem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": 2,
+    "backend": "mariamem",
+    "harness": "suite"
+  },
+  {
+    "parallel": 8,
+    "repetition": 2,
+    "backend": "pgmem",
+    "harness": "lifecycle"
+  },
+  {
+    "parallel": 8,
+    "repetition": 2,
+    "backend": "pgmem",
+    "harness": "suite"
+  }
+]

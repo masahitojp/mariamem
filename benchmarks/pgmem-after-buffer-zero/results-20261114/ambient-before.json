@@ -1,0 +1,71 @@
+{
+  "cpu_process_snapshot": [
+    {
+      "pid": 624,
+      "cpu_percent_snapshot": 13.4,
+      "process": "corebrightnessd"
+    },
+    {
+      "pid": 628,
+      "cpu_percent_snapshot": 29.3,
+      "process": "WindowServer"
+    },
+    {
+      "pid": 1113,
+      "cpu_percent_snapshot": 6.9,
+      "process": "ControlCenter"
+    },
+    {
+      "pid": 1444,
+      "cpu_percent_snapshot": 6.4,
+      "process": "Google Chrome Helper (Aperitif)"
+    },
+    {
+      "pid": 1675,
+      "cpu_percent_snapshot": 5.9,
+      "process": "orca-terminal-host"
+    },
+    {
+      "pid": 2185,
+      "cpu_percent_snapshot": 34.6,
+      "process": "com.apple.Virtualization.VirtualMachine"
+    },
+    {
+      "pid": 40511,
+      "cpu_percent_snapshot": 12.8,
+      "process": "Orca"
+    },
+    {
+      "pid": 40652,
+      "cpu_percent_snapshot": 17.5,
+      "process": "Orca Helper (Renderer)"
+    },
+    {
+      "pid": 72151,
+      "cpu_percent_snapshot": 8.5,
+      "process": "PerfPowerServices"
+    },
+    {
+      "pid": 85050,
+      "cpu_percent_snapshot": 11.0,
+      "process": "Google Chrome Helper (Aperitif Renderer)"
+    },
+    {
+      "pid": 92888,
+      "cpu_percent_snapshot": 8.8,
+      "process": "codex"
+    },
+    {
+      "pid": 2565,
+      "cpu_percent_snapshot": 8.3,
+      "process": "codex"
+    },
+    {
+      "pid": 3129,
+      "cpu_percent_snapshot": 28.2,
+      "process": "pi"
+    }
+  ],
+  "free_bytes": 27664863232,
+  "scope": "Single pre-matrix snapshot; not proof of no background load."
+}

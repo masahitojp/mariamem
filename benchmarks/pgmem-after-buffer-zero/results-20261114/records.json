@@ -1,0 +1,502 @@
+[
+  {
+    "name": "mariamem-negative",
+    "returncode": 1,
+    "negative_control": true,
+    "process_wall_ms": 1426.892042,
+    "cpu_user_ms": 81.588,
+    "cpu_system_ms": 84.84899999999999,
+    "minor_faults": 12626,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "pgmem-negative",
+    "returncode": 1,
+    "negative_control": true,
+    "process_wall_ms": 1142.2651250000001,
+    "cpu_user_ms": 117.477,
+    "cpu_system_ms": 73.793,
+    "minor_faults": 11847,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "mariamem-lifecycle-p1-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 993.8543750000002,
+    "cpu_user_ms": 1221.326,
+    "cpu_system_ms": 408.395,
+    "minor_faults": 178186,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p1-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 2872.5285000000003,
+    "cpu_user_ms": 1633.581,
+    "cpu_system_ms": 432.68699999999995,
+    "minor_faults": 86824,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p1-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 922.920875,
+    "cpu_user_ms": 589.6970000000001,
+    "cpu_system_ms": 520.889,
+    "minor_faults": 113759,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p1-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1936.8535410000013,
+    "cpu_user_ms": 784.033,
+    "cpu_system_ms": 344.46500000000003,
+    "minor_faults": 87428,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p1-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1000.6127090000003,
+    "cpu_user_ms": 1264.7880000000002,
+    "cpu_system_ms": 428.5809999999999,
+    "minor_faults": 178051,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p1-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1380.845292,
+    "cpu_user_ms": 1502.7949999999998,
+    "cpu_system_ms": 320.414,
+    "minor_faults": 86823,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p1-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 771.73625,
+    "cpu_user_ms": 557.7679999999993,
+    "cpu_system_ms": 450.3630000000003,
+    "minor_faults": 113398,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p1-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 873.5363750000005,
+    "cpu_user_ms": 757.7049999999996,
+    "cpu_system_ms": 298.7709999999999,
+    "minor_faults": 87162,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "pgmem-lifecycle-p1-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 704.9812089999996,
+    "cpu_user_ms": 559.5300000000005,
+    "cpu_system_ms": 426.3779999999997,
+    "minor_faults": 114208,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p1-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 848.9661660000003,
+    "cpu_user_ms": 741.6499999999999,
+    "cpu_system_ms": 293.4480000000006,
+    "minor_faults": 87529,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p1-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1015.5823330000011,
+    "cpu_user_ms": 1267.8399999999997,
+    "cpu_system_ms": 450.50799999999924,
+    "minor_faults": 177794,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p1-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1408.752249999999,
+    "cpu_user_ms": 1554.3600000000008,
+    "cpu_system_ms": 340.395,
+    "minor_faults": 86710,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "mariamem-lifecycle-p1-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1160.9965419999994,
+    "cpu_user_ms": 1532.4019999999994,
+    "cpu_system_ms": 558.4100000000003,
+    "minor_faults": 177517,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p1-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 1369.5642079999998,
+    "cpu_user_ms": 1515.886,
+    "cpu_system_ms": 318.6920000000004,
+    "minor_faults": 86831,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p1-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 820.4822080000014,
+    "cpu_user_ms": 571.0319999999989,
+    "cpu_system_ms": 498.51699999999965,
+    "minor_faults": 114043,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p1-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 914.8583330000015,
+    "cpu_user_ms": 763.5640000000024,
+    "cpu_system_ms": 328.19800000000043,
+    "minor_faults": 87327,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p4-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 462.96245899999985,
+    "cpu_user_ms": 1618.6380000000006,
+    "cpu_system_ms": 474.7299999999992,
+    "minor_faults": 178500,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p4-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 695.1590000000003,
+    "cpu_user_ms": 2146.2419999999975,
+    "cpu_system_ms": 452.18900000000065,
+    "minor_faults": 87829,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p4-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 632.2221250000019,
+    "cpu_user_ms": 812.2970000000009,
+    "cpu_system_ms": 742.3759999999993,
+    "minor_faults": 114944,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p4-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 534.8148750000021,
+    "cpu_user_ms": 972.5549999999998,
+    "cpu_system_ms": 440.2620000000006,
+    "minor_faults": 89651,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p4-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 477.0477919999969,
+    "cpu_user_ms": 1594.0639999999994,
+    "cpu_system_ms": 465.32400000000075,
+    "minor_faults": 178604,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p4-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 659.2190420000002,
+    "cpu_user_ms": 2118.112,
+    "cpu_system_ms": 429.29899999999856,
+    "minor_faults": 88060,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p4-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 444.99687500000107,
+    "cpu_user_ms": 748.7060000000021,
+    "cpu_system_ms": 640.9700000000012,
+    "minor_faults": 114450,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p4-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 525.3768749999992,
+    "cpu_user_ms": 961.2999999999978,
+    "cpu_system_ms": 452.65500000000003,
+    "minor_faults": 91102,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "pgmem-lifecycle-p4-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 507.4357500000026,
+    "cpu_user_ms": 773.7650000000009,
+    "cpu_system_ms": 636.2279999999992,
+    "minor_faults": 114383,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p4-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 531.3289589999997,
+    "cpu_user_ms": 1026.0269999999991,
+    "cpu_system_ms": 465.68100000000004,
+    "minor_faults": 88340,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p4-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 601.6335830000016,
+    "cpu_user_ms": 1729.7220000000025,
+    "cpu_system_ms": 505.11700000000025,
+    "minor_faults": 178646,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p4-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 693.7012500000002,
+    "cpu_user_ms": 2077.438000000001,
+    "cpu_system_ms": 447.29000000000065,
+    "minor_faults": 87555,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "mariamem-lifecycle-p4-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 503.99279199999825,
+    "cpu_user_ms": 1641.2639999999997,
+    "cpu_system_ms": 480.1649999999995,
+    "minor_faults": 178287,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p4-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 774.9432089999999,
+    "cpu_user_ms": 2304.1860000000015,
+    "cpu_system_ms": 483.2509999999992,
+    "minor_faults": 88167,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p4-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 596.4478329999992,
+    "cpu_user_ms": 782.195999999999,
+    "cpu_system_ms": 730.8979999999998,
+    "minor_faults": 114517,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p4-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 658.6742920000006,
+    "cpu_user_ms": 1019.0599999999961,
+    "cpu_system_ms": 477.5380000000009,
+    "minor_faults": 87042,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p8-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 496.7297080000037,
+    "cpu_user_ms": 1816.3759999999982,
+    "cpu_system_ms": 527.7309999999993,
+    "minor_faults": 179905,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p8-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 628.3873329999992,
+    "cpu_user_ms": 2452.8960000000025,
+    "cpu_system_ms": 370.1650000000001,
+    "minor_faults": 89367,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p8-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 579.0149159999985,
+    "cpu_user_ms": 797.2730000000041,
+    "cpu_system_ms": 690.0310000000012,
+    "minor_faults": 113939,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p8-r-1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 524.4433330000006,
+    "cpu_user_ms": 1076.8799999999956,
+    "cpu_system_ms": 450.45999999999964,
+    "minor_faults": 90519,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p8-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 583.3167920000051,
+    "cpu_user_ms": 1854.3950000000038,
+    "cpu_system_ms": 531.4370000000004,
+    "minor_faults": 179571,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p8-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 589.7372499999989,
+    "cpu_user_ms": 2437.6899999999964,
+    "cpu_system_ms": 357.5569999999999,
+    "minor_faults": 88839,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p8-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 516.2651659999966,
+    "cpu_user_ms": 822.7990000000034,
+    "cpu_system_ms": 718.284999999998,
+    "minor_faults": 114431,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p8-r0",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 544.3968339999969,
+    "cpu_user_ms": 1126.815999999998,
+    "cpu_system_ms": 416.44600000000054,
+    "minor_faults": 89187,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "pgmem-lifecycle-p8-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 468.3405829999998,
+    "cpu_user_ms": 804.9940000000006,
+    "cpu_system_ms": 695.1999999999998,
+    "minor_faults": 114961,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p8-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 567.2438330000062,
+    "cpu_user_ms": 1077.1560000000022,
+    "cpu_system_ms": 459.1610000000017,
+    "minor_faults": 90208,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  },
+  {
+    "name": "mariamem-lifecycle-p8-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 582.2321250000044,
+    "cpu_user_ms": 1795.2269999999971,
+    "cpu_system_ms": 511.9089999999993,
+    "minor_faults": 179302,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p8-r1",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 573.6308749999992,
+    "cpu_user_ms": 2405.3949999999986,
+    "cpu_system_ms": 360.64899999999864,
+    "minor_faults": 89668,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "mariamem-lifecycle-p8-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 856.9129579999952,
+    "cpu_user_ms": 1827.1500000000033,
+    "cpu_system_ms": 528.964000000002,
+    "minor_faults": 179448,
+    "binary_sha256": "4485e95a63a071aa1e62ff33047893f86b0667457daee1a1ae3f72824e70dbc8"
+  },
+  {
+    "name": "mariamem-suite-p8-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 787.248499999997,
+    "cpu_user_ms": 2546.4359999999997,
+    "cpu_system_ms": 384.8149999999997,
+    "minor_faults": 90532,
+    "binary_sha256": "a54bd8c2ae5e3145de843c193f9af489bb8bca803e3a2f52fae62c33e6892f5b"
+  },
+  {
+    "name": "pgmem-lifecycle-p8-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 714.5006659999992,
+    "cpu_user_ms": 871.0299999999975,
+    "cpu_system_ms": 782.5549999999986,
+    "minor_faults": 115772,
+    "binary_sha256": "7478cb0459502219c8b5f807a30dadc9dd067ad8db6ad3630bf16961d88543f0"
+  },
+  {
+    "name": "pgmem-suite-p8-r2",
+    "returncode": 0,
+    "negative_control": false,
+    "process_wall_ms": 484.6802500000038,
+    "cpu_user_ms": 1093.7589999999987,
+    "cpu_system_ms": 422.66500000000207,
+    "minor_faults": 89771,
+    "binary_sha256": "c2566aa62f4f50e2da7c9277d7206b9124da33c61f1b7b2c1c44aeb7b7243a33"
+  }
+]

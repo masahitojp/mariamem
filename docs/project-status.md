@@ -7,31 +7,35 @@ continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
 
-## Buffer-pool descriptor zeroing — CI complete, adoption pending (2026-11-14)
+## Buffer-pool descriptor zeroing — adopted on main (2026-11-14)
 
-The minimal product candidate is source_commit
-`2e1ecd315e4f85d5a7112112ad0858e8dc6765de`, against measured main baseline
-`eeef899a296be8aa38cc9e3de0a550c428d4dca9`.
-[CI43569024494](https://github.com/masahitojp/mariamem/actions/runs/43569024494)
-passed two independent C builds, both-OS full120-file regeneration, normal
-check/integration and focused buffer controls. The
-[saved evidence](reviews/buffer-zero-ci-43569024494/README.md) binds those original
-receipts; later integration bookkeeping is not a new CI result.
+The Human approved main adoption after the
+[review](reviews/buffer-zero-main-review.md), accepting its measured whole-suite
+limitation. PR176 merged as source_commit
+`bb1e937ae75b5788c8548a52987d9d42f78292d5`; the required check/integration/Live gate
+passed at candidate `0dea912d774201903530e83e01a657189fc8bc97` in
+[CI43576087727](https://github.com/masahitojp/mariamem/actions/runs/43576087727).
+The runtime is unchanged from canonical-tested source
+`2e1ecd315e4f85d5a7112112ad0858e8dc6765de`; its
+[saved CI evidence](reviews/buffer-zero-ci-43569024494/README.md) remains bound to
+that original source, not relabeled to the merge.
 
-The change is confined to WASIX/Emscripten `buf_pool_t::create()` allocation
-and descriptor initialization. Common allocator zeros, 2MiB extent alignment,
+Only WASIX/Emscripten `buf_pool_t::create()` allocation and descriptor
+initialization change. Common allocator zeros, 2MiB extent alignment,
 original-pointer free, default16MiB, grow and non-WASM behavior are retained.
-No experiment mode/env/poison/abort enters product behavior.
+The earlier two fixed A/B series remain separate: P1 Fork5.3/8.7% faster,
+P8 Fork unstable, P8 suite4.6/7.1% faster and P1 suite2.5% faster/12.6% slower.
+Adoption is not a promise of universal whole-suite improvement.
 
-The [two fixed comparisons](../benchmarks/forkcost/buffer-zero-candidate/README.md)
-show P1 Fork5.3/8.7% faster. P8 Fork improvement is not stable; P8 suite improves
-4.6/7.1%, while P1 suite changes from2.5% faster to12.6% slower. Preserve both
-series and all outliers; do not promise a universal speedup. The
-[integration review](reviews/buffer-zero-main-review.md) recommends adoption for
-bounded Fork initialization savings, with this whole-suite limitation explicit.
-Main integration and release remain separate Human decisions. Existing
-Connector/Python/OpenSSL4 acceptance is retained; no new engine/driver inquiry
-or pgmem measurement is requested here.
+The requested [post-adoption pgmem comparison](../benchmarks/pgmem-after-buffer-zero/results-20261114/README.md)
+is complete. Main bb1e937a versus pgmem v1.18.2, same Go1.27.4/macOS arm64,
+matched modelcase P1/P4/P8: suite medians1371.46/682.65/579.43ms versus
+826.17/472.99/486.64ms. P8 difference92.78ms; sample insertion and selected
+application SQL remain slower. One fixed matrix retained all50 processes,
+including warmups and negative controls, without outlier removal. These are new
+cross-engine observations, not the causal before/after effect of this patch.
+Release, Issue closure and further engine tuning remain separate work.
+Existing Connector/Python/OpenSSL4 acceptance and deferred#143 are unchanged.
 
 ## PyPI distribution direction (2026-11-14)
 
