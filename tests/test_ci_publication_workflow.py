@@ -103,7 +103,7 @@ def test_publication_job_gate_and_handoff():
     assert 'build_generated_guest.py --repetitions 2' in all_commands
     assert 'regenerate_release_guest.py' in all_commands
     assert 'compile_guest_aot.py' not in all_commands and 'package_native.py' not in all_commands
-    assert 'build_alpha.py --ci-candidate\n' in all_commands
+    assert 'build_alpha.py --ci-candidate --release-wheel\n' in all_commands
     assert 'build_alpha.py --ci-candidate \\' not in all_commands
     assert 'generated_release_acceptance.py' in all_commands
     assert 'ubuntu-24.04-arm' in str(model)

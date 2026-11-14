@@ -21,7 +21,7 @@ def shared(host_wheel, monkeypatch):
     root = root.resolve()
     record = root/'tests/evidence/alpha-wheel.json'
     data = read(record)
-    data['host_buildinfo'] = 'original-host: go1.26.10\n'+data['host_buildinfo']
+    data['host_buildinfo'] = 'original-host: go1.26.10\n\tbuild\t-ldflags="-s -w"\n'+data['host_buildinfo']
     write(record, data)
     monkeypatch.setattr(runtime, 'require_commit', lambda *args: None)
     monkeypatch.setattr(runtime, 'current_target', lambda root: {'platform': 'darwin-arm64'})
@@ -59,7 +59,7 @@ def test_shared_runtime_rejects_wrong_or_ambiguous_inputs(shared, monkeypatch, f
 def test_release_builds_one_wheel_and_every_feature_uses_it():
     from workflow_model import load, commands
     text = commands(load(ROOT/'.github/workflows/release-candidate-ready.yml'))
-    assert text.count('python scripts/build_alpha.py --ci-candidate') == 1
+    assert text.count('python scripts/build_alpha.py --ci-candidate --release-wheel') == 1
     from workflow_model import load, needs, steps
     model = load(ROOT/'.github/workflows/release-candidate-ready.yml')
     for suffix in ('darwin', 'ubuntu'):
@@ -211,3 +211,31 @@ def test_final_join_rejects_unknown_modes_and_extra_dependencies():
     assert run_qualification_gate(needs).returncode != 0
     needs = qualification_needs('full'); needs['unexpected'] = {'result': 'success'}
     assert run_qualification_gate(needs).returncode != 0
+
+
+def test_release_rejects_unstripped_host_even_with_matching_receipt(shared, monkeypatch):
+    root, _, receipt = shared
+    record = read(receipt)
+    record['host_buildinfo'] = record['host_buildinfo'].replace('\tbuild\t-ldflags="-s -w"\n', '')
+    write(receipt, record)
+    monkeypatch.setattr(runtime, 'verify_go_binary', lambda *args: record['host_buildinfo'])
+    with pytest.raises(ValueError, match='release host must omit'):
+        runtime.stage(root, 'a'*40)
+
+
+@pytest.mark.parametrize('release', [False, True])
+def test_only_explicit_release_wheel_strips_host(monkeypatch, release):
+    import runpy
+    import build_feedback
+    class BuildCaptured(Exception):
+        pass
+    captured = []
+    def capture(argv, **kwargs):
+        captured.extend(argv)
+        raise BuildCaptured
+    monkeypatch.setattr(build_feedback, 'run', capture)
+    monkeypatch.setattr(sys, 'argv', ['build_alpha.py'] + (['--release-wheel'] if release else []))
+    with pytest.raises(BuildCaptured):
+        runpy.run_path(str(ROOT/'scripts/build_alpha.py'), run_name='__main__')
+    assert ('-ldflags=-s -w' in captured) is release
+    assert captured[-1] == './cmd/mariamem-host'
