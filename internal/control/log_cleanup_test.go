@@ -17,7 +17,7 @@ func TestOwnedLogCleanupClosesBeforeRemoval(t *testing.T) {
 		if err := cleanupOwnedLog(f, name, owned); err != nil {
 			t.Fatal(err)
 		}
-		if _, err := f.Stat(); !errors.Is(err, os.ErrClosed) {
+		if _, err := f.Write([]byte("unexpected")); !errors.Is(err, os.ErrClosed) {
 			t.Fatal("writer remains open", err)
 		}
 		_, err = os.Stat(name)
