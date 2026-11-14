@@ -1,0 +1,1 @@
+git status --porcelain: empty before and after measurement

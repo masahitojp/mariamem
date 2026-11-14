@@ -1,0 +1,14 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/shibukawa/pgmem
+cpu: Apple M1
+BenchmarkSimpleQueries-8            	   15132	     79895 ns/op
+BenchmarkSimpleQueries-8            	   12847	     82187 ns/op
+BenchmarkSimpleQueries-8            	   13208	     80145 ns/op
+BenchmarkSimpleQueriesInProcess-8   	   47625	     21625 ns/op
+BenchmarkSimpleQueriesInProcess-8   	   57242	     23054 ns/op
+BenchmarkSimpleQueriesInProcess-8   	   62888	     22954 ns/op
+BenchmarkCPUHeavyQuery-8            	       5	 229163333 ns/op
+BenchmarkCPUHeavyQuery-8            	       4	 250561219 ns/op
+BenchmarkCPUHeavyQuery-8            	       5	 235524217 ns/op
+PASS

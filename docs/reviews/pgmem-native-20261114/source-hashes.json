@@ -1,0 +1,11 @@
+{
+  "go.mod": "d7b0776579e9107e7044095ae30d9e20e3554860031e41ec4ee180b41d109b23",
+  "go.sum": "eab7d91df97583f7a42a2aef74b65818242a263e4b3e684bc6876eb6f4faf2d0",
+  "pgmem_test.go": "c49b404847cef5b95b197ab2607d1603afe7127da0bcb5701fcfd24158d79d0d",
+  "bench/alternatives/go.mod": "5bb18395d241eddba77c99c350d68a2b66f430124ad24421a271fe60e0ced202",
+  "bench/alternatives/go.sum": "9841b1a3ecd1b9458393396f43358fd6cab1f5e44cb992e862fa5b3e65bf9baa",
+  "bench/alternatives/main.go": "3b5493161c7e38018b0a9ef5e60e16545b7f000f8370ff923ea70910492a7195",
+  "bench/alternatives/pgmem.go": "746189291d5c8c9a6e8d233d9796fd786ee38ab97f89018380ddd90a306fb09c",
+  "bench/alternatives/memory.go": "0bbb2a1ff38bf68284d62899b212353bc62731b0ea7c7785db0e128d136d12c4",
+  "bench/alternatives/run.sh": "02f2759b640cef3ab1a94b290088c86289f3dad70e6238f3e11d2baa668907d0"
+}

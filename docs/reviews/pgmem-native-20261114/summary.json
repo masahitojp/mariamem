@@ -1,0 +1,76 @@
+{
+  "samples": 5,
+  "alternatives": {
+    "startup_ms": {
+      "median": 125.202,
+      "min": 121.997,
+      "max": 171.939
+    },
+    "setup_ms": {
+      "median": 134.363,
+      "min": 127.66,
+      "max": 144.841
+    },
+    "simple_query_us": {
+      "median": 107.901,
+      "min": 74.45066666666666,
+      "max": 112.89733333333334
+    },
+    "dial_query_us": {
+      "median": 24.136,
+      "min": 23.63533333333333,
+      "max": 26.160666666666668
+    },
+    "heavy_query_ms": {
+      "median": 211.673,
+      "min": 203.214,
+      "max": 225.513
+    },
+    "isolate_ms": {
+      "median": 23.239,
+      "min": 21.817,
+      "max": 24.711
+    },
+    "mem_idle_mb": {
+      "median": 60.50048065185547,
+      "min": 60.20362854003906,
+      "max": 60.90675354003906
+    },
+    "mem_after_mb": {
+      "median": 545.1726989746094,
+      "min": 493.8758239746094,
+      "max": 579.0633697509766
+    },
+    "rss_idle_mb": {
+      "median": 125.59375,
+      "min": 125.546875,
+      "max": 152
+    }
+  },
+  "microbench_ns_per_op": {
+    "BenchmarkSimpleQueries": {
+      "samples": [
+        79895,
+        82187,
+        80145
+      ],
+      "median": 80145
+    },
+    "BenchmarkSimpleQueriesInProcess": {
+      "samples": [
+        21625,
+        23054,
+        22954
+      ],
+      "median": 22954
+    },
+    "BenchmarkCPUHeavyQuery": {
+      "samples": [
+        229163333,
+        250561219,
+        235524217
+      ],
+      "median": 235524217
+    }
+  }
+}

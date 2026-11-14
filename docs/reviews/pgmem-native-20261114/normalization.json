@@ -1,0 +1,12 @@
+{
+  "alternatives-build-info.txt": {
+    "original_sha256": "5e24796a815be39c7021acd0f5b84d61919cc1918e78a0415db92d7d5e1000c9",
+    "normalization": "workspace path replaced with ${WORKSPACE}; trailing whitespace stripped",
+    "normalized_sha256": "8797e102ca7a92b78cb5005536529d1cf9670932660e3892528f4161ac59870e"
+  },
+  "test-build-info.txt": {
+    "original_sha256": "22dd944ce619dda4a0d66ac573304c007aeb6a9916754ab2c342d0dbad0314b0",
+    "normalization": "workspace path replaced with ${WORKSPACE}; trailing whitespace stripped",
+    "normalized_sha256": "7ba44c814f4477231b4263353873ea4ebcf58681e462e6f519172f68882ae07b"
+  }
+}

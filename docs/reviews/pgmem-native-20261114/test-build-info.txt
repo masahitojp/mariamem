@@ -1,0 +1,23 @@
+${WORKSPACE}/temp/pgmem.test: go1.27.4
+	path	github.com/shibukawa/pgmem.test
+	mod	github.com/shibukawa/pgmem	(devel)
+	dep	github.com/jackc/pgpassfile	v1.0.0	h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=
+	dep	github.com/jackc/pgservicefile	v0.0.0-20240606120523-5a60cdf6a761	h1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=
+	dep	github.com/jackc/pgx/v5	v5.11.0	h1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg=
+	dep	github.com/jackc/puddle/v2	v2.2.2	h1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=
+	dep	github.com/klauspost/compress	v1.20.0	h1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=
+	dep	golang.org/x/crypto	v0.42.0	h1:chiH31gIWm57EkTXpwnqf8qeuMUi0yekh6mT2AvFlqI=
+	dep	golang.org/x/sync	v0.17.0	h1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug=
+	dep	golang.org/x/sys	v0.44.0	h1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=
+	dep	golang.org/x/text	v0.29.0	h1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	DefaultGODEBUG=cryptocustomrand=1,httpservecontentmaxranges=1,tlssecpmlkem=0,tracebacklabels=0,urlstrictcolons=0,x509sslcertoverrideplatform=0
+	build	CGO_ENABLED=1
+	build	CGO_CFLAGS=
+	build	CGO_CPPFLAGS=
+	build	CGO_CXXFLAGS=
+	build	CGO_LDFLAGS=
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
