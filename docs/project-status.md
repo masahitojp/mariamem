@@ -6,6 +6,27 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## PyPI distribution direction (2026-11-14)
+
+The Human approved #159 implementation: begin with the existing 0.6.2 macOS
+arm64 wheel, then reuse the same publication/recovery path for normal stable
+releases. The PyPI Trusted Publisher is registered for `masahitojp/mariamem`,
+`release-candidate-ready.yml`, environment `pypi` (Human confirmation).
+Authentication, actual upload and public smoke remain unobserved; this entry
+is not publication approval. Stable versions only; no alpha/beta/rc on PyPI.
+Transport failure reuses the same version/source/bytes instead of forcing a
+version bump. Hash conflicts stop, and successful smoke reuse binds exact
+artifacts and check conditions.
+
+0.7.0's later work is split: #170 Linux x86_64/arm64 manylinux and musllinux;
+#171 Windows x86_64/arm64 and limited initial acceptance; #172 ordinary CI
+selection and duplicate-build cleanup; #169 all-target public smoke and guide
+consistency. macOS-first sequencing does not reduce that scope. #158 remains
+the independent required distribution/evidence-size cleanup. New platforms need
+initial boundary acceptance; public smoke stays install/hash/start/SELECT 1/Close,
+not a repeated ORM/Snapshot campaign. Windows ordinary releases use short smoke,
+with focused additional checks when relevant OS boundaries change.
+
 ## Prepared output — integrated on main (2026-11-14)
 
 PR163 merged as `c129ab0e2d0d286da57b3be87d7d5e9cc2d3239c`. Normal PR CI
