@@ -1,0 +1,7 @@
+{
+  "contract": "development-unqualified-v1",
+  "exception": "URLError",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "message": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+  "result": "FAILED"
+}

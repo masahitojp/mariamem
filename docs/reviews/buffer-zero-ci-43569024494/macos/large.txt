@@ -1,0 +1,29 @@
+PASS seed_bigpayload_32MiB
+PASS seed_zip_payload_32MiB
+PASS large_dynamic_and_compressed_data_exact_with_read_misses
+PASS resize_9MiB_pages_566
+PASS resize_11MiB_pages_692
+PASS resize_16MiB_pages_1008
+PASS large_snapshot_restore_fork_0_exact_and_isolated
+PASS large_snapshot_restore_fork_1_exact_and_isolated
+{
+  "success": true,
+  "mode": "",
+  "case": "large",
+  "witnesses": null,
+  "checks": [
+    "seed_bigpayload_32MiB",
+    "seed_zip_payload_32MiB",
+    "large_dynamic_and_compressed_data_exact_with_read_misses",
+    "resize_9MiB_pages_566",
+    "resize_11MiB_pages_692",
+    "resize_16MiB_pages_1008",
+    "large_snapshot_restore_fork_0_exact_and_isolated",
+    "large_snapshot_restore_fork_1_exact_and_isolated"
+  ],
+  "ReadMissesBefore": 509,
+  "ReadMissesAfter": 35043,
+  "Started": 3,
+  "Closed": 3,
+  "ElapsedSeconds": 66.659574583
+}

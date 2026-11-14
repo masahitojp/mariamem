@@ -1,0 +1,15 @@
+{
+  "result": "ACCEPTED_KNOWN_EXTERNAL_CONNECTOR_DEFECT",
+  "source": {
+    "object_sha": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0",
+    "object_type": "commit",
+    "source_commit": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0"
+  },
+  "passed_before_consumer_environment": "15 race packages, Go integration/default/generatedmemory/actual worker+dictionary, source Python/Go Live, Python53 tests and33 snapshot checks",
+  "original_full_run_failure": "Fixed Connector was initially absent; no later steps executed.",
+  "after_dependency_install": "Original fixed connector environment capture still fails before host connection: ssl.PROTOCOL_TLSv1 absent on OpenSSL4. Original stack preserved.",
+  "not_executed": "Raw standard command stopped at fixed-Connector import. This external defect is accepted for the local candidate task; no PASS is fabricated for unexecuted steps. Ordinary both-platform CI remains unchanged.",
+  "scope_of_next_work": "Complete buffer-specific CI-wrapper verification, light-monitor supplementary matrix, evidence/cleanup and CI handoff. No additional Connector investigation or issue creation.",
+  "raw_command_result": "FULL_INTEGRATION_FAIL_ENVIRONMENT",
+  "human_decision": "2026-11-14: Human explicitly classifies OpenSSL4/ConnectorPython26.7.0 import failure as an existing Connector/Python defect, not unfinished candidate implementation. Stop investigation and consult existing issues first for future problems."
+}

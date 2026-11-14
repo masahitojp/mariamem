@@ -1,0 +1,8 @@
+{
+  "sha256": "b14cbe6e426561ddf448e71d87bc199a21954c1c26276230b8c4eaec75d883db",
+  "overlays": {
+    "/private/tmp/mariamem-buffer-zero-audit-clone/internal/generatedgo/code/p3/p3_pure.go": "9185b249e3efb65ea22244c69237d82802b4f7212378af1ac7465c484f88717d",
+    "/private/tmp/mariamem-buffer-zero-audit-clone/internal/generatedgo/code/base/buffer_recovery_witness.go": "52b0fa4b999da85cadd65e5e956da39a6356387b26c122262e580da6dd7fe5ff",
+    "/private/tmp/mariamem-buffer-zero-audit-clone/internal/host/server.go": "f77985540cbfcf1ce1e9ca9414f9e84b9223e43a1044adba31f06199c74daae9"
+  }
+}

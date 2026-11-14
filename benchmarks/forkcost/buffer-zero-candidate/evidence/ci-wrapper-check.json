@@ -1,0 +1,11 @@
+{
+  "source": {
+    "object_sha": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0",
+    "object_type": "commit",
+    "source_commit": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0"
+  },
+  "returncode": 0,
+  "seconds": 255.62143808299152,
+  "go": "go1.26.10",
+  "scope": "Actual CI wrapper, unchanged data oracles; only module language directive lowered in scratch copy"
+}

@@ -1,0 +1,7 @@
+{
+  "sha256": "19bf4bd95502919f92b978559fc722b10bde7c64266cdea46faefade92773f34",
+  "overlays": {
+    "${CI_HOME}/work/mariamem/mariamem/internal/generatedgo/runtime_instance.go": "636c0ac3e8336677cb077b2e0bdadd72ae3d026559bcb556ad9ef281a63a16a9",
+    "${CI_HOME}/work/mariamem/mariamem/internal/generatedgo/buffer_fault_experiment.go": "d7f36c6b1d61017378a7c1a52feabe271427b65c999a77dee76c9a8e1164e733"
+  }
+}

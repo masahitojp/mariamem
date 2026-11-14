@@ -24,11 +24,20 @@ def source(root=ROOT):
     root = Path(root)
     require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
     patch = (root/'guest/source.patch').read_bytes()
+    # Preserve the historical UCA/dictionary sections byte-for-byte while
+    # separately pinning the buffer-pool-only candidate suffix.
+    boundary = b'--- a/storage/innobase/buf/buf0buf.cc\n'
+    require(patch.count(boundary) == 1, 'missing or duplicate buffer-zero boundary')
+    prefix, suffix = patch.split(boundary)
+    require(hashlib.sha256(boundary + suffix).hexdigest() == '47f74fd234252c657b119a3f34a30a9c001552cd59b9f2080da39cfcd9cc2354',
+            'buffer-zero candidate delta changed')
+    complete_patch = patch
+    patch = prefix
     require(patch.count(DELTA_START) == 1, 'missing or duplicate dictionary boundary')
     offset = patch.index(DELTA_START)
     require(hashlib.sha256(patch[:offset]).hexdigest() == BASE_SHA, 'canonical base changed')
     require(hashlib.sha256(patch[offset:]).hexdigest() == DELTA_SHA, 'dictionary delta changed')
-    digest = hashlib.sha256(patch).hexdigest()
+    digest = hashlib.sha256(complete_patch).hexdigest()
     profile = json.loads((root/'guest/versions/12.3.3/legacy-full.json').read_text())
     require(profile['files']['guest/source.patch']['sha256'] == digest, 'selected source pin differs')
     return {'canonical_patch_sha256': digest, 'dictionary_delta_sha256': DELTA_SHA}

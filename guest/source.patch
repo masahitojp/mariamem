@@ -3249,3 +3249,32 @@
  	ut_ad(dict_lru_validate());
  
  	const ulint len = UT_LIST_GET_LEN(table_LRU);
+--- a/storage/innobase/buf/buf0buf.cc
++++ b/storage/innobase/buf/buf0buf.cc
+@@ -1375,8 +1375,12 @@
+   {
+     NUMA_MEMPOLICY_INTERLEAVE_IN_SCOPE;
+ #if defined(__EMSCRIPTEN__) || defined(__wasi__)
+-    memory_unaligned= my_large_virtual_alloc_aligned(
+-        &size, innodb_buffer_pool_extent_size);
++    /* Page frames are initialized by their read/create owners. Only the
++    descriptors need initial zeros; retain the extent alignment and original
++    pointer so the existing failure and free paths remain valid. */
++    void *p= nullptr;
++    memory_unaligned= posix_memalign(&p, innodb_buffer_pool_extent_size, size)
++      ? nullptr : static_cast<char*>(p);
+ #else
+     memory_unaligned= my_virtual_mem_reserve(&size);
+ #endif
+@@ -1482,6 +1486,11 @@
+     const buf_block_t *extent_end= block + pages_in_extent[ssize];
+     if (reinterpret_cast<const char*>(extent_end) > end)
+       extent_end= reinterpret_cast<buf_block_t*>(end);
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++    /* Clear exactly the valid descriptors, including a partial last extent.
++    Do this before any field or list initialization below. */
++    memset(block, 0, (extent_end - block) * sizeof *block);
++#endif
+     MEM_MAKE_DEFINED(block, (extent_end - block) * sizeof *block);
+     for (byte *frame= reinterpret_cast<byte*>(extent) +
+            first_frame_in_extent[ssize];

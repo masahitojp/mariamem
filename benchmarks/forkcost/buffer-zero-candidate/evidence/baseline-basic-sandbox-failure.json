@@ -1,0 +1,13 @@
+{
+  "success": false,
+  "error": "mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted\nlisten tcp4 127.0.0.1:0: bind: operation not permitted",
+  "mode": "",
+  "case": "basic",
+  "witnesses": null,
+  "checks": null,
+  "ReadMissesBefore": 0,
+  "ReadMissesAfter": 0,
+  "Started": 0,
+  "Closed": 0,
+  "ElapsedSeconds": 0.110560084
+}

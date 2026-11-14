@@ -1,0 +1,18 @@
+{
+  "before": {
+    "owned_bytes": 16467128320,
+    "free_bytes": 18434818048,
+    "peak_owned_bytes": 16467128320,
+    "minimum_free_bytes": 18434818048
+  },
+  "after": {
+    "owned_bytes": 16467775488,
+    "free_bytes": 18423611392,
+    "peak_owned_bytes": 16467775488,
+    "minimum_free_bytes": 18423611392
+  },
+  "minimum_free_bytes": 18395664384,
+  "interval_seconds": 0.5,
+  "recursive_scans_during_matrix": 0,
+  "scope": "Immutable existing binaries only; full budget scans are outside measured matrix"
+}

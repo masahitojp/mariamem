@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<workspace>/worktree/scripts/audit_generated_licenses.py", line 54, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "<workspace>/worktree/scripts/audit_generated_licenses.py", line 41, in main
+    raise ValueError('host lacks clean source identity')
+ValueError: host lacks clean source identity

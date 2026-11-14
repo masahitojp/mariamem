@@ -1,0 +1,1586 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+........................................................................ [ 82%]
+...............                                   [100%]
+87 passed, 23 subtests passed in 17.60s
++ go test -p 1 -vet=off ./...
+ok  	github.com/masahitojp/mariamem	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/platform-cache	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/ubuntu-startup	(cached)
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	(cached)
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	(cached)
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+ok  	github.com/masahitojp/mariamem/internal/control	(cached)
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	(cached)
+ok  	github.com/masahitojp/mariamem/internal/disposal	(cached)
+ok  	github.com/masahitojp/mariamem/internal/forklimit	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/layoutgen	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)
+ok  	github.com/masahitojp/mariamem/internal/host	(cached)
+ok  	github.com/masahitojp/mariamem/internal/live	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	(cached)
+ok  	github.com/masahitojp/mariamem/internal/prepared	(cached)
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	(cached)
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+ok  	github.com/masahitojp/mariamem/mariamemtest	(cached)
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
++ go vet -p 1 -vettool=/private/tmp/mariamem-buffer-zero-audit-clone/scripts/vet_generated.py ./...
++ <workspace>/temp/venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py --ignore=tests/test_timer_source.py --ignore=tests/test_uca_copy_source.py --ignore=tests/test_dictionary_wait_source.py --ignore=tests/test_dictionary_wait_runtime.py -q
+.........................ssss.................. [  2%]
+........................................................................ [  5%]
+..................................................s..................... [  9%]
+........................................................................ [ 13%]
+....................................ssssssssssssssssssss................ [ 16%]
+........................................................................ [ 20%]
+........................................................................ [ 23%]
+........................................................ [ 26%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+................................................................ [ 36%]
+.................................................................... [ 40%]
+............................................sss.................... [ 43%]
+................................................................... [ 46%]
+........................................................................ [ 50%]
+..................................................ssssssss [ 53%]
+sssssss................................................................. [ 57%]
+........F............................................................... [ 60%]
+..........................................sssssssss..................... [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+...............................ssssssssssssssssssssssssss............... [ 78%]
+........................................................................ [ 82%]
+........................................................................ [ 85%]
+..........sssssss..................F.EEEEEFEEEEEEEFEEEE.FFFF...FFFFFFFFF [ 89%]
+FFF.F...FFFFFFFFFF............................. [ 91%]
+.....................................................................................sssssss..........................ss....... [ 97%]
+.....sss...................................                              [100%]
+==================================== ERRORS ====================================
+________ ERROR at setup of test_hook_conflict_is_reported_and_can_retry ________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a2c1480>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+________ ERROR at setup of test_schema_mismatch_is_before_dial[other0] _________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a2c10f0>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_________ ERROR at setup of test_schema_mismatch_is_before_dial[None] __________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x109ec20f0>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+___________ ERROR at setup of test_schema_mismatch_is_before_dial[] ____________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a557f00>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+________ ERROR at setup of test_schema_mismatch_is_before_dial[other1] _________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a557790>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_______ ERROR at setup of test_missing_expired_closed_and_nested_targets _______
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a62c850>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+__ ERROR at setup of test_connect_failure_keeps_provenance_and_original_error __
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a37e6c0>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_____ ERROR at setup of test_slow_connection_is_closed_if_retirement_wins ______
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a37d310>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_ ERROR at setup of test_drain_timeout_preserves_original_error_and_close_retry _
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a3cef90>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_________ ERROR at setup of test_active_scope_prevents_registry_close __________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a3cc590>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_____ ERROR at setup of test_pool_disposal_authority_and_sibling_survival ______
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10aec6b60>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_________ ERROR at setup of test_pool_active_and_custom_creator_refuse _________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a695550>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_ ERROR at setup of test_unused_binding_warns_after_draining_and_resets_target _
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a695550>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+______________ ERROR at setup of test_used_binding_does_not_warn _______________
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10ae2cb50>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_____ ERROR at setup of test_unused_warning_as_error_still_retires_binding _____
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10ae2d0d0>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_ ERROR at setup of test_unused_warning_never_masks_primary_or_cleanup_failure _
+
+    @pytest.fixture
+    def routes():
+>       registry = routing.install(profiles={"app": PROFILE}, cleanup_timeout=.05)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a827a70>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+=================================== FAILURES ===================================
+_______ test_xdist_reports_final_cleanup_and_keeps_other_worker_running ________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_xdist_reports_final_clean0')
+
+    def test_xdist_reports_final_cleanup_and_keeps_other_worker_running(tmp_path):
+        pytest.importorskip('xdist')
+        (tmp_path/'test_other.py').write_text('''
+    from pathlib import Path
+    def test_other_one(mariamem_fork):
+        assert mariamem_fork.data == {}
+        Path('other-one').touch()
+    def test_other_two(mariamem_fork):
+        assert mariamem_fork.data == {}
+        Path('other-two').touch()
+    ''')
+        result, events = helper.fake_suite(tmp_path, '''
+    from contextlib import contextmanager
+    original = Baseline.fork
+    @contextmanager
+    def replacement(self, **options):
+        with original(self, **options) as child:
+            yield child
+            if child.data.get('fail_cleanup'):
+                raise OSError('WORKER_CLEANUP_DEBT')
+    Baseline.fork = replacement
+    ''', '''
+    def test_first(mariamem_fork):
+        mariamem_fork.data['fail_cleanup'] = True
+    def test_second(mariamem_fork):
+        from pathlib import Path
+        Path('blocked-body').touch()
+    ''', False, '-p', 'xdist.plugin', '-n', '2', '--dist=loadfile')
+>       assert result.returncode == 1, result.stdout + result.stderr
+E       AssertionError: ERROR: Error importing plugin "xdist.plugin": No module named 'xdist'
+E
+E
+E       assert 4 == 1
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...dfile'], returncode=4, stdout='', stderr='ERROR: Error importing plugin "xdist.plugin": No module named \'xdist\'\n\n').returncode
+
+tests/test_p1_pytest_entry.py:204: AssertionError
+__________________ test_install_failure_restores_prior_hooks ___________________
+
+    def test_install_failure_restores_prior_hooks():
+        original = pymysql.connections.Connection.connect
+        with pytest.raises(routing.RoutingError, match="unsupported_driver"):
+            routing.install(profiles={"app": PROFILE}, drivers=("pymysql", "unknown"))
+        assert pymysql.connections.Connection.connect is original
+>       with routing.install(profiles={"app": PROFILE}):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:69:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x109cac550>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+___________________ test_preinstall_deferred_tls_and_schema ____________________
+
+    def test_preinstall_deferred_tls_and_schema():
+        required = pymysql.connect(**OPTIONS, defer_connect=True, ssl={"check_hostname": False})
+        wrong = pymysql.connect(**dict(OPTIONS, database="other"), defer_connect=True)
+>       with routing.install(profiles={"app": PROFILE}):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_routing.py:107:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/routing.py:337: in install
+    install_driver(registry, driver)
+python/mariamem/_routing_drivers.py:29: in install_driver
+    _pymysql(registry)
+python/mariamem/_routing_drivers.py:37: in _pymysql
+    driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+registry = <mariamem.routing.Router object at 0x10a62e750>, package = 'PyMySQL'
+module = 'pymysql', version = '1.2.3'
+
+    def _load(registry, package, module, version):
+        try:
+            actual = importlib.metadata.version(package)
+            if actual != version:
+>               raise registry._error("unsupported_driver_version",
+                                      "Use the tested driver version or explicit child configuration.", driver=module)
+E                                     mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+
+python/mariamem/_routing_drivers.py:10: RoutingError
+_________ test_unrequested_framework_is_not_imported_by_driver_install _________
+
+    def test_unrequested_framework_is_not_imported_by_driver_install():
+        code = "from mariamem import routing; import sys; r=routing.install(profiles={'app':routing.Profile('127.0.0.1',3307,'app')}); assert 'sqlalchemy' not in sys.modules; r.close()"
+        result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 1, in <module>
+E             from mariamem import routing; import sys; r=routing.install(profiles={'app':routing.Profile('127.0.0.1',3307,'app')}); assert 'sqlalchemy' not in sys.modules; r.close()
+E                                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/private/tmp/mariamem-buffer-zero-audit-clone/python/mariamem/routing.py", line 337, in install
+E             install_driver(registry, driver)
+E             ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+E           File "/private/tmp/mariamem-buffer-zero-audit-clone/python/mariamem/_routing_drivers.py", line 29, in install_driver
+E             _pymysql(registry)
+E             ~~~~~~~~^^^^^^^^^^
+E           File "/private/tmp/mariamem-buffer-zero-audit-clone/python/mariamem/_routing_drivers.py", line 37, in _pymysql
+E             driver = _load(registry, "PyMySQL", "pymysql", "1.2.3")
+E           File "/private/tmp/mariamem-buffer-zero-audit-clone/python/mariamem/_routing_drivers.py", line 10, in _load
+E             raise registry._error("unsupported_driver_version",
+E                                   "Use the tested driver version or explicit child configuration.", driver=module)
+E         mariamem.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['<workspace>/temp...em.routing.RoutingError: unsupported_driver_version: Use the tested driver version or explicit child configuration.\n').returncode
+
+tests/test_routing.py:254: AssertionError
+________ test_guard_is_active_before_application_imports[ini-conftest] _________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_guard_is_active_before_ap0')
+location = 'conftest', configuration = 'ini'
+
+    @pytest.mark.parametrize("location", ["conftest", "module"])
+    @pytest.mark.parametrize("configuration", ["ini", "cli"])
+    def test_guard_is_active_before_application_imports(tmp_path, location, configuration):
+        if configuration == "ini":
+            (tmp_path / "pytest.ini").write_text(CONFIG)
+        probe = '''
+    import pymysql
+    from mariamem.routing import RoutingError
+    try:
+        pymysql.connect(host='127.0.0.1',port=3307,database='app',user='u',password='do-not-print')
+    except RoutingError as error:
+        assert error.code == 'missing_target'
+    else:
+        raise AssertionError('original endpoint attempted')
+    '''
+        (tmp_path / "conftest.py").write_text(probe if location == "conftest" else "")
+        (tmp_path / "test_app.py").write_text((probe if location == "module" else "") + "\ndef test_application(): pass\n")
+        args = ("--mariamem-route", "app=127.0.0.1:3307/app") if configuration == "cli" else ()
+        result = run(tmp_path, *args)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:40: AssertionError
+_________ test_guard_is_active_before_application_imports[ini-module] __________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_guard_is_active_before_ap1')
+location = 'module', configuration = 'ini'
+
+    @pytest.mark.parametrize("location", ["conftest", "module"])
+    @pytest.mark.parametrize("configuration", ["ini", "cli"])
+    def test_guard_is_active_before_application_imports(tmp_path, location, configuration):
+        if configuration == "ini":
+            (tmp_path / "pytest.ini").write_text(CONFIG)
+        probe = '''
+    import pymysql
+    from mariamem.routing import RoutingError
+    try:
+        pymysql.connect(host='127.0.0.1',port=3307,database='app',user='u',password='do-not-print')
+    except RoutingError as error:
+        assert error.code == 'missing_target'
+    else:
+        raise AssertionError('original endpoint attempted')
+    '''
+        (tmp_path / "conftest.py").write_text(probe if location == "conftest" else "")
+        (tmp_path / "test_app.py").write_text((probe if location == "module" else "") + "\ndef test_application(): pass\n")
+        args = ("--mariamem-route", "app=127.0.0.1:3307/app") if configuration == "cli" else ()
+        result = run(tmp_path, *args)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:40: AssertionError
+________ test_guard_is_active_before_application_imports[cli-conftest] _________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_guard_is_active_before_ap2')
+location = 'conftest', configuration = 'cli'
+
+    @pytest.mark.parametrize("location", ["conftest", "module"])
+    @pytest.mark.parametrize("configuration", ["ini", "cli"])
+    def test_guard_is_active_before_application_imports(tmp_path, location, configuration):
+        if configuration == "ini":
+            (tmp_path / "pytest.ini").write_text(CONFIG)
+        probe = '''
+    import pymysql
+    from mariamem.routing import RoutingError
+    try:
+        pymysql.connect(host='127.0.0.1',port=3307,database='app',user='u',password='do-not-print')
+    except RoutingError as error:
+        assert error.code == 'missing_target'
+    else:
+        raise AssertionError('original endpoint attempted')
+    '''
+        (tmp_path / "conftest.py").write_text(probe if location == "conftest" else "")
+        (tmp_path / "test_app.py").write_text((probe if location == "module" else "") + "\ndef test_application(): pass\n")
+        args = ("--mariamem-route", "app=127.0.0.1:3307/app") if configuration == "cli" else ()
+        result = run(tmp_path, *args)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:40: AssertionError
+_________ test_guard_is_active_before_application_imports[cli-module] __________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_guard_is_active_before_ap3')
+location = 'module', configuration = 'cli'
+
+    @pytest.mark.parametrize("location", ["conftest", "module"])
+    @pytest.mark.parametrize("configuration", ["ini", "cli"])
+    def test_guard_is_active_before_application_imports(tmp_path, location, configuration):
+        if configuration == "ini":
+            (tmp_path / "pytest.ini").write_text(CONFIG)
+        probe = '''
+    import pymysql
+    from mariamem.routing import RoutingError
+    try:
+        pymysql.connect(host='127.0.0.1',port=3307,database='app',user='u',password='do-not-print')
+    except RoutingError as error:
+        assert error.code == 'missing_target'
+    else:
+        raise AssertionError('original endpoint attempted')
+    '''
+        (tmp_path / "conftest.py").write_text(probe if location == "conftest" else "")
+        (tmp_path / "test_app.py").write_text((probe if location == "module" else "") + "\ndef test_application(): pass\n")
+        args = ("--mariamem-route", "app=127.0.0.1:3307/app") if configuration == "cli" else ()
+        result = run(tmp_path, *args)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:40: AssertionError
+_________ test_routed_fixture_owns_only_binding_and_separate_children __________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_routed_fixture_owns_only_0')
+
+    def test_routed_fixture_owns_only_binding_and_separate_children(tmp_path):
+        (tmp_path / "pytest.ini").write_text(CONFIG)
+        (tmp_path / "conftest.py").write_text(textwrap.dedent('''
+            import pytest
+            from sqlalchemy import create_engine
+            class Child:
+                closed=False
+                def __init__(self,id): self.id=id
+                def wait_disconnected(self): pass
+            @pytest.fixture
+            def mariamem_fork(request):
+                child=Child(request.node.name)
+                yield child
+                child.closed=True
+            @pytest.fixture(scope='session')
+            def mariamem_sqlalchemy_engines():
+                return (create_engine('mysql+pymysql://u@127.0.0.1:3307/app'),)
+        '''))
+        (tmp_path / "test_app.py").write_text(textwrap.dedent('''
+            import pytest
+            pytestmark=pytest.mark.usefixtures('mariamem_app_db')
+            def test_first(mariamem_router):
+                assert mariamem_router._target().child_id=='test_first'
+            def test_second(mariamem_router):
+                assert mariamem_router._target().child_id=='test_second'
+        '''))
+        result = run(tmp_path)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:100: AssertionError
+__________________________ test_worker_local_registry __________________________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_worker_local_registry0')
+
+    def test_worker_local_registry(tmp_path):
+        (tmp_path / "pytest.ini").write_text(CONFIG)
+        (tmp_path / "test_worker.py").write_text(textwrap.dedent('''
+            import os,pytest
+            from mariamem import routing
+            @pytest.mark.parametrize('n',range(4))
+            def test_worker(n,pytestconfig):
+                r=pytestconfig._mariamem_router
+                class Child:
+                    closed=False
+                    id=os.environ['PYTEST_XDIST_WORKER']
+                with r.bind('app',Child()):
+                    assert r._target().child_id==os.environ['PYTEST_XDIST_WORKER']
+        '''))
+        result = run(tmp_path, "-p", "xdist.plugin", "-n", "2")
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: Error importing plugin "xdist.plugin": No module named 'xdist'
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...', '2'], returncode=4, stdout='', stderr='ERROR: Error importing plugin "xdist.plugin": No module named \'xdist\'\n\n').returncode
+
+tests/test_routing_pytest.py:118: AssertionError
+_______ test_marker_and_fixture_share_child_binding_and_order[function] ________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_and_fixture_share_0')
+scope = 'function'
+
+    @pytest.mark.parametrize('scope', ['function', 'class', 'module', 'fixture_only'])
+    def test_marker_and_fixture_share_child_binding_and_order(tmp_path, scope):
+        body = '''
+            import pytest
+            @pytest.fixture
+            def application(mariamem_router):
+                target = mariamem_router._target()
+                assert target.database.data == {'seed': 1}
+                yield target
+                assert target.live
+            def test_first(application, mariamem_app_db, mariamem_fork, mariamem_router):
+                assert mariamem_app_db is mariamem_fork
+                assert application is mariamem_router._target()
+                assert application.database is mariamem_app_db
+                mariamem_app_db.data['change'] = 2
+            def test_second(mariamem_app_db):
+                assert mariamem_app_db.data == {'seed': 1}
+        '''
+        body = textwrap.dedent(body)
+        if scope == 'function':
+            body = body.replace('def test_', '@pytest.mark.shadow_maria\ndef test_')
+        elif scope == 'module':
+            body = 'import pytest\npytestmark = pytest.mark.shadow_maria\n' + body
+        elif scope == 'class':
+            body = 'import pytest\n@pytest.mark.shadow_maria\nclass TestApplication:\n' + textwrap.indent(body.replace('def test_first(', 'def test_first(self, ').replace('def test_second(', 'def test_second(self, ').replace('def application(', 'def application(self, '), '    ')
+        else:
+            body = body.replace('def application(mariamem_router)', 'def application(mariamem_app_db, mariamem_router)')
+        result, events = fake_suite(tmp_path, '''
+            @pytest.fixture(scope='session')
+            def mariamem_prepare():
+                def prepare(db):
+                    record('prepare')
+                    db.data['seed'] = 1
+                return prepare
+        ''', body)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:222: AssertionError
+_________ test_marker_and_fixture_share_child_binding_and_order[class] _________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_and_fixture_share_1')
+scope = 'class'
+
+    @pytest.mark.parametrize('scope', ['function', 'class', 'module', 'fixture_only'])
+    def test_marker_and_fixture_share_child_binding_and_order(tmp_path, scope):
+        body = '''
+            import pytest
+            @pytest.fixture
+            def application(mariamem_router):
+                target = mariamem_router._target()
+                assert target.database.data == {'seed': 1}
+                yield target
+                assert target.live
+            def test_first(application, mariamem_app_db, mariamem_fork, mariamem_router):
+                assert mariamem_app_db is mariamem_fork
+                assert application is mariamem_router._target()
+                assert application.database is mariamem_app_db
+                mariamem_app_db.data['change'] = 2
+            def test_second(mariamem_app_db):
+                assert mariamem_app_db.data == {'seed': 1}
+        '''
+        body = textwrap.dedent(body)
+        if scope == 'function':
+            body = body.replace('def test_', '@pytest.mark.shadow_maria\ndef test_')
+        elif scope == 'module':
+            body = 'import pytest\npytestmark = pytest.mark.shadow_maria\n' + body
+        elif scope == 'class':
+            body = 'import pytest\n@pytest.mark.shadow_maria\nclass TestApplication:\n' + textwrap.indent(body.replace('def test_first(', 'def test_first(self, ').replace('def test_second(', 'def test_second(self, ').replace('def application(', 'def application(self, '), '    ')
+        else:
+            body = body.replace('def application(mariamem_router)', 'def application(mariamem_app_db, mariamem_router)')
+        result, events = fake_suite(tmp_path, '''
+            @pytest.fixture(scope='session')
+            def mariamem_prepare():
+                def prepare(db):
+                    record('prepare')
+                    db.data['seed'] = 1
+                return prepare
+        ''', body)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:222: AssertionError
+________ test_marker_and_fixture_share_child_binding_and_order[module] _________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_and_fixture_share_2')
+scope = 'module'
+
+    @pytest.mark.parametrize('scope', ['function', 'class', 'module', 'fixture_only'])
+    def test_marker_and_fixture_share_child_binding_and_order(tmp_path, scope):
+        body = '''
+            import pytest
+            @pytest.fixture
+            def application(mariamem_router):
+                target = mariamem_router._target()
+                assert target.database.data == {'seed': 1}
+                yield target
+                assert target.live
+            def test_first(application, mariamem_app_db, mariamem_fork, mariamem_router):
+                assert mariamem_app_db is mariamem_fork
+                assert application is mariamem_router._target()
+                assert application.database is mariamem_app_db
+                mariamem_app_db.data['change'] = 2
+            def test_second(mariamem_app_db):
+                assert mariamem_app_db.data == {'seed': 1}
+        '''
+        body = textwrap.dedent(body)
+        if scope == 'function':
+            body = body.replace('def test_', '@pytest.mark.shadow_maria\ndef test_')
+        elif scope == 'module':
+            body = 'import pytest\npytestmark = pytest.mark.shadow_maria\n' + body
+        elif scope == 'class':
+            body = 'import pytest\n@pytest.mark.shadow_maria\nclass TestApplication:\n' + textwrap.indent(body.replace('def test_first(', 'def test_first(self, ').replace('def test_second(', 'def test_second(self, ').replace('def application(', 'def application(self, '), '    ')
+        else:
+            body = body.replace('def application(mariamem_router)', 'def application(mariamem_app_db, mariamem_router)')
+        result, events = fake_suite(tmp_path, '''
+            @pytest.fixture(scope='session')
+            def mariamem_prepare():
+                def prepare(db):
+                    record('prepare')
+                    db.data['seed'] = 1
+                return prepare
+        ''', body)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:222: AssertionError
+_____ test_marker_and_fixture_share_child_binding_and_order[fixture_only] ______
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_and_fixture_share_3')
+scope = 'fixture_only'
+
+    @pytest.mark.parametrize('scope', ['function', 'class', 'module', 'fixture_only'])
+    def test_marker_and_fixture_share_child_binding_and_order(tmp_path, scope):
+        body = '''
+            import pytest
+            @pytest.fixture
+            def application(mariamem_router):
+                target = mariamem_router._target()
+                assert target.database.data == {'seed': 1}
+                yield target
+                assert target.live
+            def test_first(application, mariamem_app_db, mariamem_fork, mariamem_router):
+                assert mariamem_app_db is mariamem_fork
+                assert application is mariamem_router._target()
+                assert application.database is mariamem_app_db
+                mariamem_app_db.data['change'] = 2
+            def test_second(mariamem_app_db):
+                assert mariamem_app_db.data == {'seed': 1}
+        '''
+        body = textwrap.dedent(body)
+        if scope == 'function':
+            body = body.replace('def test_', '@pytest.mark.shadow_maria\ndef test_')
+        elif scope == 'module':
+            body = 'import pytest\npytestmark = pytest.mark.shadow_maria\n' + body
+        elif scope == 'class':
+            body = 'import pytest\n@pytest.mark.shadow_maria\nclass TestApplication:\n' + textwrap.indent(body.replace('def test_first(', 'def test_first(self, ').replace('def test_second(', 'def test_second(self, ').replace('def application(', 'def application(self, '), '    ')
+        else:
+            body = body.replace('def application(mariamem_router)', 'def application(mariamem_app_db, mariamem_router)')
+        result, events = fake_suite(tmp_path, '''
+            @pytest.fixture(scope='session')
+            def mariamem_prepare():
+                def prepare(db):
+                    record('prepare')
+                    db.data['seed'] = 1
+                return prepare
+        ''', body)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:222: AssertionError
+______________ test_marker_arguments_rejected_before_start[True] _______________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_arguments_rejected0')
+argument = 'True'
+
+    @pytest.mark.parametrize('argument', ['True', 'fork=True', 'fork=False', 'live=True', 'prepare=True', "profile='app'"])
+    def test_marker_arguments_rejected_before_start(tmp_path, argument):
+        result, events = fake_suite(tmp_path, tests=f'''
+            import pytest
+            @pytest.mark.shadow_maria({argument})
+            def test_app(): pass
+        ''')
+        assert result.returncode == 4, result.stdout + result.stderr
+>       assert 'shadow_maria accepts no arguments' in result.stderr
+E       AssertionError: assert 'shadow_maria accepts no arguments' in 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n'
+E        +  where 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n' = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').stderr
+
+tests/test_routing_pytest.py:237: AssertionError
+____________ test_marker_arguments_rejected_before_start[fork=True] ____________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_arguments_rejected1')
+argument = 'fork=True'
+
+    @pytest.mark.parametrize('argument', ['True', 'fork=True', 'fork=False', 'live=True', 'prepare=True', "profile='app'"])
+    def test_marker_arguments_rejected_before_start(tmp_path, argument):
+        result, events = fake_suite(tmp_path, tests=f'''
+            import pytest
+            @pytest.mark.shadow_maria({argument})
+            def test_app(): pass
+        ''')
+        assert result.returncode == 4, result.stdout + result.stderr
+>       assert 'shadow_maria accepts no arguments' in result.stderr
+E       AssertionError: assert 'shadow_maria accepts no arguments' in 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n'
+E        +  where 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n' = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').stderr
+
+tests/test_routing_pytest.py:237: AssertionError
+___________ test_marker_arguments_rejected_before_start[fork=False] ____________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_arguments_rejected2')
+argument = 'fork=False'
+
+    @pytest.mark.parametrize('argument', ['True', 'fork=True', 'fork=False', 'live=True', 'prepare=True', "profile='app'"])
+    def test_marker_arguments_rejected_before_start(tmp_path, argument):
+        result, events = fake_suite(tmp_path, tests=f'''
+            import pytest
+            @pytest.mark.shadow_maria({argument})
+            def test_app(): pass
+        ''')
+        assert result.returncode == 4, result.stdout + result.stderr
+>       assert 'shadow_maria accepts no arguments' in result.stderr
+E       AssertionError: assert 'shadow_maria accepts no arguments' in 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n'
+E        +  where 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n' = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').stderr
+
+tests/test_routing_pytest.py:237: AssertionError
+____________ test_marker_arguments_rejected_before_start[live=True] ____________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_arguments_rejected3')
+argument = 'live=True'
+
+    @pytest.mark.parametrize('argument', ['True', 'fork=True', 'fork=False', 'live=True', 'prepare=True', "profile='app'"])
+    def test_marker_arguments_rejected_before_start(tmp_path, argument):
+        result, events = fake_suite(tmp_path, tests=f'''
+            import pytest
+            @pytest.mark.shadow_maria({argument})
+            def test_app(): pass
+        ''')
+        assert result.returncode == 4, result.stdout + result.stderr
+>       assert 'shadow_maria accepts no arguments' in result.stderr
+E       AssertionError: assert 'shadow_maria accepts no arguments' in 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n'
+E        +  where 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n' = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').stderr
+
+tests/test_routing_pytest.py:237: AssertionError
+__________ test_marker_arguments_rejected_before_start[prepare=True] ___________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_arguments_rejected4')
+argument = 'prepare=True'
+
+    @pytest.mark.parametrize('argument', ['True', 'fork=True', 'fork=False', 'live=True', 'prepare=True', "profile='app'"])
+    def test_marker_arguments_rejected_before_start(tmp_path, argument):
+        result, events = fake_suite(tmp_path, tests=f'''
+            import pytest
+            @pytest.mark.shadow_maria({argument})
+            def test_app(): pass
+        ''')
+        assert result.returncode == 4, result.stdout + result.stderr
+>       assert 'shadow_maria accepts no arguments' in result.stderr
+E       AssertionError: assert 'shadow_maria accepts no arguments' in 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n'
+E        +  where 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n' = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').stderr
+
+tests/test_routing_pytest.py:237: AssertionError
+__________ test_marker_arguments_rejected_before_start[profile='app'] __________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_arguments_rejected5')
+argument = "profile='app'"
+
+    @pytest.mark.parametrize('argument', ['True', 'fork=True', 'fork=False', 'live=True', 'prepare=True', "profile='app'"])
+    def test_marker_arguments_rejected_before_start(tmp_path, argument):
+        result, events = fake_suite(tmp_path, tests=f'''
+            import pytest
+            @pytest.mark.shadow_maria({argument})
+            def test_app(): pass
+        ''')
+        assert result.returncode == 4, result.stdout + result.stderr
+>       assert 'shadow_maria accepts no arguments' in result.stderr
+E       AssertionError: assert 'shadow_maria accepts no arguments' in 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n'
+E        +  where 'ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n' = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').stderr
+
+tests/test_routing_pytest.py:237: AssertionError
+_______________ test_unmarked_tests_do_not_start_database[True] ________________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_unmarked_tests_do_not_sta1')
+configured = True
+
+    @pytest.mark.parametrize('configured', [False, True])
+    def test_unmarked_tests_do_not_start_database(tmp_path, configured):
+        result, events = fake_suite(tmp_path, tests='def test_app(): pass', configured=configured)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:244: AssertionError
+____ test_preparation_failure_prevents_snapshot_and_closes_source[invalid] _____
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_preparation_failure_preve0')
+failure = 'invalid'
+
+    @pytest.mark.parametrize('failure', ['invalid', 'callback', 'setup', 'wait'])
+    def test_preparation_failure_prevents_snapshot_and_closes_source(tmp_path, failure):
+        override = {
+            'invalid': "return 42",
+            'callback': "def prepare(db):\n    raise ValueError('original preparation failure')\nreturn prepare",
+            'setup': "raise LookupError('original fixture failure')",
+            'wait': "return lambda db: db.data.update(fail_wait=True)",
+        }[failure]
+        conf = "\n@pytest.fixture(scope='session')\ndef mariamem_prepare():\n" + textwrap.indent(override, '    ') + '\n'
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 1, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 1
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:287: AssertionError
+____ test_preparation_failure_prevents_snapshot_and_closes_source[callback] ____
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_preparation_failure_preve1')
+failure = 'callback'
+
+    @pytest.mark.parametrize('failure', ['invalid', 'callback', 'setup', 'wait'])
+    def test_preparation_failure_prevents_snapshot_and_closes_source(tmp_path, failure):
+        override = {
+            'invalid': "return 42",
+            'callback': "def prepare(db):\n    raise ValueError('original preparation failure')\nreturn prepare",
+            'setup': "raise LookupError('original fixture failure')",
+            'wait': "return lambda db: db.data.update(fail_wait=True)",
+        }[failure]
+        conf = "\n@pytest.fixture(scope='session')\ndef mariamem_prepare():\n" + textwrap.indent(override, '    ') + '\n'
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 1, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 1
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:287: AssertionError
+_____ test_preparation_failure_prevents_snapshot_and_closes_source[setup] ______
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_preparation_failure_preve2')
+failure = 'setup'
+
+    @pytest.mark.parametrize('failure', ['invalid', 'callback', 'setup', 'wait'])
+    def test_preparation_failure_prevents_snapshot_and_closes_source(tmp_path, failure):
+        override = {
+            'invalid': "return 42",
+            'callback': "def prepare(db):\n    raise ValueError('original preparation failure')\nreturn prepare",
+            'setup': "raise LookupError('original fixture failure')",
+            'wait': "return lambda db: db.data.update(fail_wait=True)",
+        }[failure]
+        conf = "\n@pytest.fixture(scope='session')\ndef mariamem_prepare():\n" + textwrap.indent(override, '    ') + '\n'
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 1, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 1
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:287: AssertionError
+______ test_preparation_failure_prevents_snapshot_and_closes_source[wait] ______
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_preparation_failure_preve3')
+failure = 'wait'
+
+    @pytest.mark.parametrize('failure', ['invalid', 'callback', 'setup', 'wait'])
+    def test_preparation_failure_prevents_snapshot_and_closes_source(tmp_path, failure):
+        override = {
+            'invalid': "return 42",
+            'callback': "def prepare(db):\n    raise ValueError('original preparation failure')\nreturn prepare",
+            'setup': "raise LookupError('original fixture failure')",
+            'wait': "return lambda db: db.data.update(fail_wait=True)",
+        }[failure]
+        conf = "\n@pytest.fixture(scope='session')\ndef mariamem_prepare():\n" + textwrap.indent(override, '    ') + '\n'
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 1, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 1
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:287: AssertionError
+__________ test_existing_fixture_overrides_own_their_boundary[server] __________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_existing_fixture_override0')
+boundary = 'server'
+
+    @pytest.mark.parametrize('boundary', ['server', 'snapshot', 'fork'])
+    def test_existing_fixture_overrides_own_their_boundary(tmp_path, boundary):
+        conf = '''
+    @pytest.fixture(scope='session')
+    def mariamem_prepare():
+        def prepare(db):
+            record('prepare:' + db.id)
+        return prepare
+    '''
+        if boundary == 'server':
+            conf += '''
+    @pytest.fixture(scope='session')
+    def mariamem_server():
+        yield DB('custom-source')
+    '''
+        elif boundary == 'snapshot':
+            conf += '''
+    @pytest.fixture(scope='session')
+    def mariamem_snapshot():
+        yield Baseline({})
+    '''
+        else:
+            conf += '''
+    @pytest.fixture
+    def mariamem_fork():
+        yield DB('custom-child')
+    '''
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:322: AssertionError
+_________ test_existing_fixture_overrides_own_their_boundary[snapshot] _________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_existing_fixture_override1')
+boundary = 'snapshot'
+
+    @pytest.mark.parametrize('boundary', ['server', 'snapshot', 'fork'])
+    def test_existing_fixture_overrides_own_their_boundary(tmp_path, boundary):
+        conf = '''
+    @pytest.fixture(scope='session')
+    def mariamem_prepare():
+        def prepare(db):
+            record('prepare:' + db.id)
+        return prepare
+    '''
+        if boundary == 'server':
+            conf += '''
+    @pytest.fixture(scope='session')
+    def mariamem_server():
+        yield DB('custom-source')
+    '''
+        elif boundary == 'snapshot':
+            conf += '''
+    @pytest.fixture(scope='session')
+    def mariamem_snapshot():
+        yield Baseline({})
+    '''
+        else:
+            conf += '''
+    @pytest.fixture
+    def mariamem_fork():
+        yield DB('custom-child')
+    '''
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:322: AssertionError
+___________ test_existing_fixture_overrides_own_their_boundary[fork] ___________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_existing_fixture_override2')
+boundary = 'fork'
+
+    @pytest.mark.parametrize('boundary', ['server', 'snapshot', 'fork'])
+    def test_existing_fixture_overrides_own_their_boundary(tmp_path, boundary):
+        conf = '''
+    @pytest.fixture(scope='session')
+    def mariamem_prepare():
+        def prepare(db):
+            record('prepare:' + db.id)
+        return prepare
+    '''
+        if boundary == 'server':
+            conf += '''
+    @pytest.fixture(scope='session')
+    def mariamem_server():
+        yield DB('custom-source')
+    '''
+        elif boundary == 'snapshot':
+            conf += '''
+    @pytest.fixture(scope='session')
+    def mariamem_snapshot():
+        yield Baseline({})
+    '''
+        else:
+            conf += '''
+    @pytest.fixture
+    def mariamem_fork():
+        yield DB('custom-child')
+    '''
+        result, events = fake_suite(tmp_path, conf, 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:322: AssertionError
+_______ test_prepare_does_not_redirect_original_application_connections ________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_prepare_does_not_redirect0')
+
+    def test_prepare_does_not_redirect_original_application_connections(tmp_path):
+        result, events = fake_suite(tmp_path, '''
+            @pytest.fixture(scope='session')
+            def mariamem_prepare():
+                def prepare(db):
+                    import pymysql
+                    from mariamem.routing import RoutingError
+                    with pytest.raises(RoutingError, match='missing_target'):
+                        pymysql.connect(host='127.0.0.1', port=3307, database='app')
+                return prepare
+        ''', 'def test_app(mariamem_app_db): pass')
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:340: AssertionError
+_________ test_marker_alone_activates_binding_for_application_fixture __________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_marker_alone_activates_bi0')
+
+    def test_marker_alone_activates_binding_for_application_fixture(tmp_path):
+        result, events = fake_suite(tmp_path, tests='''
+            import pytest
+            @pytest.fixture
+            def application(mariamem_router):
+                assert mariamem_router._target().database.id == 'child'
+                yield
+                assert mariamem_router._target().live
+            @pytest.mark.shadow_maria
+            def test_app(application): pass
+        ''')
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...RROR: mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.\n\n').returncode
+
+tests/test_routing_pytest.py:355: AssertionError
+______________________ test_prepare_runs_once_per_worker _______________________
+
+tmp_path = PosixPath('<workspace>/temp/tmp/pytest-of-masahito/pytest-3/test_prepare_runs_once_per_wor0')
+
+    def test_prepare_runs_once_per_worker(tmp_path):
+        result, events = fake_suite(tmp_path, '''
+            @pytest.fixture(scope='session')
+            def mariamem_prepare():
+                def prepare(db):
+                    record('prepare')
+                    db.data['seed'] = 1
+                return prepare
+        ''', '''
+            import pytest
+            pytestmark = pytest.mark.shadow_maria
+            @pytest.mark.parametrize('number', range(4))
+            def test_app(number, mariamem_app_db):
+                assert mariamem_app_db.data == {'seed': 1}
+                mariamem_app_db.data['changed'] = True
+        ''', True, '-p', 'xdist.plugin', '-n', '2')
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: ERROR: Error importing plugin "xdist.plugin": No module named 'xdist'
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['<workspace>/temp...', '2'], returncode=4, stdout='', stderr='ERROR: Error importing plugin "xdist.plugin": No module named \'xdist\'\n\n').returncode
+
+tests/test_routing_pytest.py:375: AssertionError
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_p1_pytest_entry.py::test_xdist_reports_final_cleanup_and_keeps_other_worker_running
+FAILED tests/test_routing.py::test_install_failure_restores_prior_hooks - mar...
+FAILED tests/test_routing.py::test_preinstall_deferred_tls_and_schema - maria...
+FAILED tests/test_routing.py::test_unrequested_framework_is_not_imported_by_driver_install
+FAILED tests/test_routing_pytest.py::test_guard_is_active_before_application_imports[ini-conftest]
+FAILED tests/test_routing_pytest.py::test_guard_is_active_before_application_imports[ini-module]
+FAILED tests/test_routing_pytest.py::test_guard_is_active_before_application_imports[cli-conftest]
+FAILED tests/test_routing_pytest.py::test_guard_is_active_before_application_imports[cli-module]
+FAILED tests/test_routing_pytest.py::test_routed_fixture_owns_only_binding_and_separate_children
+FAILED tests/test_routing_pytest.py::test_worker_local_registry - AssertionEr...
+FAILED tests/test_routing_pytest.py::test_marker_and_fixture_share_child_binding_and_order[function]
+FAILED tests/test_routing_pytest.py::test_marker_and_fixture_share_child_binding_and_order[class]
+FAILED tests/test_routing_pytest.py::test_marker_and_fixture_share_child_binding_and_order[module]
+FAILED tests/test_routing_pytest.py::test_marker_and_fixture_share_child_binding_and_order[fixture_only]
+FAILED tests/test_routing_pytest.py::test_marker_arguments_rejected_before_start[True]
+FAILED tests/test_routing_pytest.py::test_marker_arguments_rejected_before_start[fork=True]
+FAILED tests/test_routing_pytest.py::test_marker_arguments_rejected_before_start[fork=False]
+FAILED tests/test_routing_pytest.py::test_marker_arguments_rejected_before_start[live=True]
+FAILED tests/test_routing_pytest.py::test_marker_arguments_rejected_before_start[prepare=True]
+FAILED tests/test_routing_pytest.py::test_marker_arguments_rejected_before_start[profile='app']
+FAILED tests/test_routing_pytest.py::test_unmarked_tests_do_not_start_database[True]
+FAILED tests/test_routing_pytest.py::test_preparation_failure_prevents_snapshot_and_closes_source[invalid]
+FAILED tests/test_routing_pytest.py::test_preparation_failure_prevents_snapshot_and_closes_source[callback]
+FAILED tests/test_routing_pytest.py::test_preparation_failure_prevents_snapshot_and_closes_source[setup]
+FAILED tests/test_routing_pytest.py::test_preparation_failure_prevents_snapshot_and_closes_source[wait]
+FAILED tests/test_routing_pytest.py::test_existing_fixture_overrides_own_their_boundary[server]
+FAILED tests/test_routing_pytest.py::test_existing_fixture_overrides_own_their_boundary[snapshot]
+FAILED tests/test_routing_pytest.py::test_existing_fixture_overrides_own_their_boundary[fork]
+FAILED tests/test_routing_pytest.py::test_prepare_does_not_redirect_original_application_connections
+FAILED tests/test_routing_pytest.py::test_marker_alone_activates_binding_for_application_fixture
+FAILED tests/test_routing_pytest.py::test_prepare_runs_once_per_worker - Asse...
+ERROR tests/test_routing.py::test_hook_conflict_is_reported_and_can_retry - m...
+ERROR tests/test_routing.py::test_schema_mismatch_is_before_dial[other0] - ma...
+ERROR tests/test_routing.py::test_schema_mismatch_is_before_dial[None] - mari...
+ERROR tests/test_routing.py::test_schema_mismatch_is_before_dial[] - mariamem...
+ERROR tests/test_routing.py::test_schema_mismatch_is_before_dial[other1] - ma...
+ERROR tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+ERROR tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+ERROR tests/test_routing.py::test_slow_connection_is_closed_if_retirement_wins
+ERROR tests/test_routing.py::test_drain_timeout_preserves_original_error_and_close_retry
+ERROR tests/test_routing.py::test_active_scope_prevents_registry_close - mari...
+ERROR tests/test_routing.py::test_pool_disposal_authority_and_sibling_survival
+ERROR tests/test_routing.py::test_pool_active_and_custom_creator_refuse - mar...
+ERROR tests/test_routing.py::test_unused_binding_warns_after_draining_and_resets_target
+ERROR tests/test_routing.py::test_used_binding_does_not_warn - mariamem.routi...
+ERROR tests/test_routing.py::test_unused_warning_as_error_still_retires_binding
+ERROR tests/test_routing.py::test_unused_warning_never_masks_primary_or_cleanup_failure
+31 failed, 1868 passed, 99 skipped, 1 warning, 16 errors, 119 subtests passed in 122.73s (0:02:02)
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 210, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 187, in main
+    check(args.scope, profile=args.profile)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 87, in check
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         *("--ignore=" + path for path in SOURCE_TESTS), "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 36, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests', '--ignore=tests/consumer', '--ignore=tests/historical', '--ignore=tests/test_generated_runtime_inventory.py', '--ignore=tests/test_distribution_licenses.py', '--ignore=tests/test_packaging_license_mirrors.py', '--ignore=tests/test_timer_source.py', '--ignore=tests/test_uca_copy_source.py', '--ignore=tests/test_dictionary_wait_source.py', '--ignore=tests/test_dictionary_wait_runtime.py', '-q']' returned non-zero exit status 1.

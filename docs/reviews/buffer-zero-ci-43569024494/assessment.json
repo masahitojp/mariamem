@@ -1,0 +1,23 @@
+{
+  "run_id": 43569024494,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43569024494",
+  "source_commit": "2e1ecd315e4f85d5a7112112ad0858e8dc6765de",
+  "result": "PASS",
+  "artifacts": {
+    "macos": {
+      "zip_sha256": "dd306f4d88f8d05de8ecc77cac1b1edbefdfd1f2b5fadb658bd3f2fb6e5025a5",
+      "result": "PASS",
+      "regenerated_files": 120
+    },
+    "ubuntu": {
+      "zip_sha256": "e6693da2391c0b888f0741679b7cccde36ec07dacb81a889db31ee20deaf9fe6",
+      "result": "PASS",
+      "regenerated_files": 120
+    },
+    "producer": {
+      "zip_sha256": "f4821e36864c34c7655fa4c20ae252153bda9b00939aed8eb55200c9ffb2f949",
+      "result": "PASS",
+      "independent_builds": 2
+    }
+  }
+}

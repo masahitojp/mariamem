@@ -30,16 +30,25 @@ def source(root):
     root = Path(root)
     require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
     patch = (root/'guest/source.patch').read_bytes()
+    # Preserve the historical UCA/dictionary sections byte-for-byte while
+    # separately pinning the buffer-pool-only candidate suffix.
+    boundary = b'--- a/storage/innobase/buf/buf0buf.cc\n'
+    require(patch.count(boundary) == 1, 'missing or duplicate buffer-zero boundary')
+    prefix, suffix = patch.split(boundary)
+    require(hashlib.sha256(boundary + suffix).hexdigest() == '47f74fd234252c657b119a3f34a30a9c001552cd59b9f2080da39cfcd9cc2354',
+            'buffer-zero candidate delta changed')
+    complete_patch = patch
+    patch = prefix
     sha = lambda b: hashlib.sha256(b).hexdigest()
     require(sha(patch[UCA_END:]) == DICTIONARY_SUFFIX_SHA256, 'dictionary suffix changed')
     uca = patch[:UCA_END]
     require(sha(uca[:-DELTA_BYTES]) == BASE_PATCH, 'canonical base patch changed')
     require(sha(uca[-DELTA_BYTES:]) == DELTA_PATCH, 'accepted private-copy delta changed')
     profile = json.loads((root/'guest/versions/12.3.3/legacy-full.json').read_text())
-    require(profile['files']['guest/source.patch']['sha256'] == sha(patch),
+    require(profile['files']['guest/source.patch']['sha256'] == sha(complete_patch),
             'selected12.3.3 source pin differs')
     return {'base_patch_sha256': BASE_PATCH, 'accepted_delta_sha256': DELTA_PATCH,
-            'canonical_patch_sha256': sha(patch), 'experimental_origin': ORIGIN}
+            'canonical_patch_sha256': sha(complete_patch), 'experimental_origin': ORIGIN}
 
 
 def validate_record(record, commit):

@@ -1,0 +1,22 @@
+[
+  {
+    "stage": "pytest prerequisite",
+    "error": "pytest absent from system and Homebrew Python",
+    "correction": "task venv with installed dependencies"
+  },
+  {
+    "stage": "Go/Python/Docker/network/local listen",
+    "error": "sandbox denied Docker socket, DNS and loopback bind",
+    "correction": "requested explicit escalation for required operations"
+  },
+  {
+    "stage": "preflight translation",
+    "error": "Apple Python3.9 lacks tarfile extract filter",
+    "correction": "Python3.14 task venv, fresh incomplete output"
+  },
+  {
+    "stage": "baseline large first attempt",
+    "error": "loopback bind operation not permitted before any database started",
+    "correction": "same unchanged binary retried with local network permission; successful JSON retained"
+  }
+]

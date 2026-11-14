@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "candidate_product": "<workspace>/temp/native/product",
+  "scope": "actual candidate large/compressed/resize/Fork/fault/recovery/CRC/owner; not both-platform adoption"
+}

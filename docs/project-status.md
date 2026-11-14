@@ -6,6 +6,33 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+
+## Buffer-pool descriptor zeroing — CI complete, adoption pending (2026-11-14)
+
+The minimal product candidate is source_commit
+`2e1ecd315e4f85d5a7112112ad0858e8dc6765de`, against measured main baseline
+`eeef899a296be8aa38cc9e3de0a550c428d4dca9`.
+[CI43569024494](https://github.com/masahitojp/mariamem/actions/runs/43569024494)
+passed two independent C builds, both-OS full120-file regeneration, normal
+check/integration and focused buffer controls. The
+[saved evidence](reviews/buffer-zero-ci-43569024494/README.md) binds those original
+receipts; later integration bookkeeping is not a new CI result.
+
+The change is confined to WASIX/Emscripten `buf_pool_t::create()` allocation
+and descriptor initialization. Common allocator zeros, 2MiB extent alignment,
+original-pointer free, default16MiB, grow and non-WASM behavior are retained.
+No experiment mode/env/poison/abort enters product behavior.
+
+The [two fixed comparisons](../benchmarks/forkcost/buffer-zero-candidate/README.md)
+show P1 Fork5.3/8.7% faster. P8 Fork improvement is not stable; P8 suite improves
+4.6/7.1%, while P1 suite changes from2.5% faster to12.6% slower. Preserve both
+series and all outliers; do not promise a universal speedup. The
+[integration review](reviews/buffer-zero-main-review.md) recommends adoption for
+bounded Fork initialization savings, with this whole-suite limitation explicit.
+Main integration and release remain separate Human decisions. Existing
+Connector/Python/OpenSSL4 acceptance is retained; no new engine/driver inquiry
+or pgmem measurement is requested here.
+
 ## PyPI distribution direction (2026-11-14)
 
 The Human approved #159 implementation: begin with the existing 0.6.2 macOS
@@ -51,8 +78,15 @@ The change extends the existing host mmap/static-image and ARM64 atomic paths
 without a guest patch. #158's minimum module boundaries and Python description
 accompany it; full evidence cleanup remains required. #172 owns later CI selection/
 duplicate-build consolidation; #169 connects the accepted portable inventory to
-publication. Final guide/diagnostic wording reflects this CI checkpoint. Main
-integration and a versioned public release remain separate Human decisions.
+publication. Final guide/diagnostic wording reflects this CI checkpoint.
+
+The Human approved main integration on2026-11-14. Main's subsequent #176
+buffer-pool improvement (`bb1e937ae75b5788c8548a52987d9d42f78292d5`) is incorporated
+into the candidate, preserving its new guest/generated code and fresh symbol audit.
+The derived layout retains the same constructor values and binds the combined
+handwritten sources. Required CI must accept this combined candidate before the
+authorized automatic merge; the earlier CI is not reused as its PASS. A versioned
+public release remains a separate Human decision.
 
 ## Prepared output — integrated on main (2026-11-14)
 

@@ -1,0 +1,37 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.239s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.456s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.431s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	5.621s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	1.063s
+ok  	github.com/masahitojp/mariamem/internal/guest	1.174s
+ok  	github.com/masahitojp/mariamem/internal/host	1.119s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.810s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.400s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.293s
+ok  	github.com/masahitojp/mariamem/internal/live	1.065s
+ok  	github.com/masahitojp/mariamem/internal/control	1.050s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.323s
+ok  	github.com/masahitojp/mariamem/mariamemtest	1.235s
+ok  	github.com/masahitojp/mariamem	1.219s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	8.496s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.964s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	0.511s
++ go test -p 1 -tags=integration ./internal/generatedgo -run=^Test(WorkerTrap|DictionaryWait)ActualGuest$ -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.964s
++ go build -p 1 -o /var/folders/2s/vty41l455yv698g4xkgfv7z00000gn/T/mariamem-integration-s29t5uyu/mariamem-host ./cmd/mariamem-host
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python tests/live_acceptance/smoke.py --host /var/folders/2s/vty41l455yv698g4xkgfv7z00000gn/T/mariamem-integration-s29t5uyu/mariamem-host
+{"result": "PASS_SOURCE_PYTHON_LIVE", "module": "${CI_HOME}/work/mariamem/mariamem/python/mariamem/__init__.py", "source_consumed": true, "host_reaped": true, "directory_removed": true, "max_forks": 2, "capacity_timeout_preserved": true, "live_capacity_busy_preserved": true}
++ go run ./tests/live_acceptance/go_consumer -source-smoke
+{"busy_refused":true,"closed_parent_refused":true,"result":"PASS_SOURCE_GO_LIVE","source_consumed":true,"sum_after_reset":1}
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+......................................................                   [100%]
+54 passed in 29.44s
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "${CI_HOME}/work/mariamem/mariamem/tests/evidence/snapshots.json"}
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_prepared_consumers.py --host /var/folders/2s/vty41l455yv698g4xkgfv7z00000gn/T/mariamem-integration-s29t5uyu/mariamem-host --output /var/folders/2s/vty41l455yv698g4xkgfv7z00000gn/T/mariamem-integration-s29t5uyu/prepared-consumers
+PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained
