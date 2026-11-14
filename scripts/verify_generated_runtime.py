@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Verify canonical generated source, pinned inputs and guest identity."""
+from layout import GENERATED
 import hashlib
 import json
 from pathlib import Path
@@ -19,7 +20,7 @@ def require(value, message):
 
 
 def main():
-    source = ROOT/'internal/generatedgo'
+    source = ROOT/GENERATED
     record = json.loads((source/'provenance.json').read_text())
     pins = ROOT/'release/generated-go-inputs.json'
     require(record['input_manifest_sha256'] == digest(pins), 'input manifest changed')

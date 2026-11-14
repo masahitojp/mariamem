@@ -4,6 +4,7 @@
 No Wasmer, AOT, local Docker image, or guest execution is used. Fixed build paths
 preserve the accepted recipe; this command intentionally requires an empty /work.
 """
+from layout import BENCHMARKS
 import argparse
 import json
 import os
@@ -81,7 +82,7 @@ def main():
     extract(archives['binaryen'], sdk/'binaryen-unpack')
     binaryen = next((sdk/'binaryen-unpack').iterdir())
     binaryen.rename(sdk/'binaryen')
-    recipe = ROOT/'benchmarks/spikes/generated-go-integration/prepare_llvm23.py'
+    recipe = ROOT/(BENCHMARKS / 'spikes/generated-go-integration/prepare_llvm23.py')
     # The checksum-verified official LLVM23 and ICU archives are prepared by
     # the same accepted header profile, including the native-only NEON exclusion.
     observed_run([sys.executable, recipe, '--llvm-archive', archives['llvm'],
@@ -107,7 +108,7 @@ def main():
     if not development:
         out = ROOT/'build/generated-release'
     out.mkdir(parents=True)
-    shell = ROOT/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
+    shell = ROOT/(BENCHMARKS / 'spikes/wasm2go/legacy_eh_toolchain.sh')
     for trial in range(1 if development else args.repetitions):
         observed_run([sys.executable, ROOT/'scripts/prepare_guest.py'], env=env, check=True,
                      phase=f'guest:prepare:{trial}', inputs=[ROOT/'release/inputs.lock.json',

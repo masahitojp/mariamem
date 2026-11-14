@@ -1,4 +1,8 @@
 """The manifest is source-bound and the generator consumes the selected output."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import GENERATED
 import json
 from pathlib import Path
 import sys
@@ -37,7 +41,7 @@ def test_generation_stages_selected_tree_and_cleans_scratch(tmp_path, monkeypatc
     (runtime/'code/selected.go').write_text('selected guest, not checkout guest')
     calls = []
     def run(command, *, cwd, env, check):
-        staged = cwd/'internal/generatedgo'
+        staged = cwd/GENERATED
         assert (staged/'code/selected.go').read_text() == 'selected guest, not checkout guest'
         assert command[-1] == str(runtime/image.LAYOUT)
         assert env['GOWORK'] == 'off' and env['GOTOOLCHAIN'] == 'local'

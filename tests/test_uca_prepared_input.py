@@ -1,4 +1,8 @@
 """Input packaging checks; never builds or starts a guest."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import copy
 import base64
 import gzip
@@ -12,7 +16,7 @@ import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE = ROOT/'benchmarks/ucapreparedinput'
+BUNDLE = ROOT/(BENCHMARKS / 'ucapreparedinput')
 spec = importlib.util.spec_from_file_location('uca_input', BUNDLE/'check.py')
 uca = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(uca)

@@ -1,4 +1,8 @@
 """Dev-only identity and failure gates; no compiler/guest download required."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS, GENERATED
 import copy
 import json
 from pathlib import Path
@@ -90,7 +94,7 @@ def test_stale_generated_candidate_cannot_be_installed(tmp_path):
 
 def test_translation_binds_guest_converter_patches_and_complete_inventory(tmp_path):
     root=tmp_path/'source';(root/'release').mkdir(parents=True)
-    patches=root/'benchmarks/spikes/wasm2go';patches.mkdir(parents=True)
+    patches=root/(BENCHMARKS / 'spikes/wasm2go');patches.mkdir(parents=True)
     (patches/'p.patch').write_bytes(b'patch')
     dev.write(root/'release/generated-go-toolchain.json',{'archives':{'converter':{'sha256':'a'*64}}})
     dev.write(root/'release/generated-go-translation.json',{'patches_sha256':{'p.patch':'ignored'},'converter_commit':'c'*40})
@@ -118,7 +122,7 @@ def test_partial_generation_never_emits_success_or_canonical_output(guest,tmp_pa
     with pytest.raises(subprocess.CalledProcessError):dev.regenerate_development(root,directory,out)
     assert json.loads((out/'failure.json').read_text())['result']=='FAILED'
     assert not (out/'development.json').exists()
-    assert not (root/'internal/generatedgo').exists()
+    assert not (root/GENERATED).exists()
 
 
 def test_existing_release_guard_rejects_dev_receipts(guest):

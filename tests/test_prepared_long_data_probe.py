@@ -1,4 +1,8 @@
 """Keep the fixed native LONG_DATA controls and error timing explicit."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import copy
 import hashlib
 import json
@@ -10,7 +14,7 @@ from v06_prepared_long_data_probe import CASES,comparable,streamed
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def fixture():return json.loads((ROOT/'tests/fixtures/prepared-long-data-native.json').read_text())
+def fixture():return json.loads((ROOT/(FIXTURES / 'prepared-long-data-native.json')).read_text())
 
 
 def test_complete_native_inventory_and_healthy_following_queries():

@@ -1,4 +1,8 @@
 """Pin the first P4 native boundary and reject comparison omissions."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import copy
 import json
 from pathlib import Path
@@ -9,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_native_lifetime_inventory_and_boundaries():
-    r=json.loads((ROOT/'tests/fixtures/prepared-p4-lifetime-native.json').read_text())
+    r=json.loads((ROOT/(FIXTURES / 'prepared-p4-lifetime-native.json')).read_text())
     assert r['result']=='PASS' and not r['failures']
     assert set(r['cases'])=={*CASES,'go-DB-Tx-Conn-pool'}
     for name,case in r['cases'].items():
@@ -27,7 +31,7 @@ def test_native_lifetime_inventory_and_boundaries():
 
 
 def test_comparison_preserves_native_packets_counters_and_consumer_failures():
-    r=json.loads((ROOT/'tests/fixtures/prepared-p4-lifetime-native.json').read_text())
+    r=json.loads((ROOT/(FIXTURES / 'prepared-p4-lifetime-native.json')).read_text())
     for name,case in r['cases'].items():
         original=comparable(case)
         if 'trace' in case:

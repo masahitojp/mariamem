@@ -1,4 +1,8 @@
 """Missing measurements, stale receipts and guard breaches cannot become G1 PASS."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import copy
 import json
 import subprocess
@@ -13,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import go_fixture_campaign as campaign
 
-RESOURCES = json.loads((ROOT / 'tests/fixtures/fixture-entry/acceptance.json').read_text())['resources']
+RESOURCES = json.loads((ROOT / (FIXTURES / 'fixture-entry/acceptance.json')).read_text())['resources']
 
 
 @pytest.mark.parametrize('rss', [0, 4096])

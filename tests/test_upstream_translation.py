@@ -1,4 +1,8 @@
 """Upstream migration pins and fail-closed translation inputs (no compilation)."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import hashlib
 import importlib.util
 import json
@@ -7,7 +11,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-RECIPE = ROOT / 'benchmarks/spikes/generated-go-integration/translate_guest.py'
+RECIPE = ROOT / (BENCHMARKS / 'spikes/generated-go-integration/translate_guest.py')
 spec = importlib.util.spec_from_file_location('upstream_translation', RECIPE)
 recipe = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(recipe)
@@ -29,7 +33,7 @@ def test_ordered_upstream_identity():
         'fd-allocate-preservation.patch', 'zero-bulk-bounds.patch', 'wait-timeout-range.patch', 'thread-id-range.patch',
     ]
     for name, digest in translation['patches_sha256'].items():
-        assert hashlib.sha256((ROOT/'benchmarks/spikes/wasm2go'/name).read_bytes()).hexdigest() == digest
+        assert hashlib.sha256((ROOT/(BENCHMARKS / 'spikes/wasm2go')/name).read_bytes()).hexdigest() == digest
     assert pins['guest_sha256'] == translation['guest_sha256']
 
 

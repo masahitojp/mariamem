@@ -1,4 +1,8 @@
 """Exact patch boundaries and source-function proofs, not actual guest parity."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import hashlib
 import json
 from pathlib import Path
@@ -20,7 +24,7 @@ def sha(data):
 def tree(tmp_path):
     root, source = tmp_path / 'root', tmp_path / 'source'
     (root / 'guest').mkdir(parents=True)
-    (root / 'tests/fixtures').mkdir(parents=True)
+    (root / FIXTURES).mkdir(parents=True)
     files, delta = [], ''
     for name in ['sql/sql_prepare.cc', 'libmysqld/libmysql.c', 'libmysqld/lib_sql.cc']:
         p = source / name
@@ -34,14 +38,14 @@ def tree(tmp_path):
     (root / 'guest/experimental.patch').write_text(delta)
     (root / 'guest/prepared_source_patch.json').write_text(json.dumps(dict(
         source_commit='fixed', patch_sha256=sha(delta.encode()), files=files)))
-    (root / 'tests/fixtures/prepared-p2-source-functions.json').write_text(json.dumps(dict(
+    (root / (FIXTURES / 'prepared-p2-source-functions.json')).write_text(json.dumps(dict(
         file='libmysqld/libmysql.c', before={}, after={})))
     p = root / 'guest/prepared_source_patch.json'
     pin = json.loads(p.read_text())
-    pin['component_fixture_sha256'] = sha((root / 'tests/fixtures/prepared-p2-source-functions.json').read_bytes())
-    (root/'tests/fixtures/prepared-param-order-functions.json').write_text(json.dumps(dict(
+    pin['component_fixture_sha256'] = sha((root / (FIXTURES / 'prepared-p2-source-functions.json')).read_bytes())
+    (root/(FIXTURES / 'prepared-param-order-functions.json')).write_text(json.dumps(dict(
         file='sql/sql_prepare.cc',before={},after={})))
-    pin['parameter_fixture_sha256']=sha((root/'tests/fixtures/prepared-param-order-functions.json').read_bytes())
+    pin['parameter_fixture_sha256']=sha((root/(FIXTURES / 'prepared-param-order-functions.json')).read_bytes())
     p.write_text(json.dumps(pin))
     return root, source
 
@@ -89,7 +93,7 @@ def test_command_failure_not_hidden(tree, monkeypatch):
 
 def test_repository_binding_and_time_repair_preserved():
     pin = patch.inputs(ROOT)
-    old = json.loads((ROOT / 'tests/fixtures/prepared-time-source-history.json').read_text())
+    old = json.loads((ROOT / (FIXTURES / 'prepared-time-source-history.json')).read_text())
     assert pin['files'][0]['file']==old['file']
     assert pin['files'][0]['before_sha256']==old['before_sha256']
     assert pin['time_only_intermediate_sha256']==old['after_sha256']

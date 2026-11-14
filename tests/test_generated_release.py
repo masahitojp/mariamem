@@ -1,4 +1,8 @@
 """Current release contract: fail closed on wrong bytes, sources and boundaries."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import GENERATED
 import io
 import json
 from pathlib import Path
@@ -292,8 +296,8 @@ def test_aggregate_common_source_and_provenance_must_match(tmp_path,monkeypatch)
     monkeypatch.setattr(release,'checkout',lambda *a:None)
     monkeypatch.setattr(release,'source_inventory',lambda *a:{'same':'source'})
     monkeypatch.setattr(release,'guard',lambda root,commit,platform:records[platform])
-    (tmp_path/'internal/generatedgo').mkdir(parents=True)
-    (tmp_path/'internal/generatedgo/provenance.json').write_text('{}')
+    (tmp_path/GENERATED).mkdir(parents=True)
+    (tmp_path/(GENERATED / 'provenance.json')).write_text('{}')
     (tmp_path/'release').mkdir()
     for name in ('generated-go-inputs.json','generated-go-toolchain.json'):(tmp_path/'release'/name).write_text('{}')
     monkeypatch.setattr(release,'notices',lambda *a:{})

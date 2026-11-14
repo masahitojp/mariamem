@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Repeat retained-function attribution; diagnostic only, never rewrite guest."""
+from layout import GENERATED, GENERATED_CODE
 import argparse
 import json
 from pathlib import Path
@@ -20,7 +21,7 @@ def main():
         raise ValueError('not the recorded canonical Binaryen function map')
     names={int(i):name for i,name in (line.split(':',1) for line in args.function_map.read_text().splitlines())}
     generated={}
-    for path in (ROOT/'internal/generatedgo/code').rglob('*.go'):
+    for path in (ROOT/GENERATED_CODE).rglob('*.go'):
         for m in re.finditer(r'^func Fn(\d+)\([^\n]+\{',path.read_text(),re.M):
             generated[int(m[1])]=path.relative_to(ROOT).as_posix()
     nm=subprocess.check_output(['go','tool','nm',str(args.host)],text=True)
@@ -40,7 +41,7 @@ def main():
     if not revision or 'vcs.modified=false' not in buildinfo:
         raise ValueError('host lacks clean source identity')
     original['audit_source_commit']=revision[1]
-    original['generated_provenance_sha256']=digest(ROOT/'internal/generatedgo/provenance.json')
+    original['generated_provenance_sha256']=digest(ROOT/(GENERATED / 'provenance.json'))
     original['result']='PASS: positive retained-function evidence for every recorded component family'
     original['method']='Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.'
     original['host_check']={'source_commit':revision[1],'sha256':digest(args.host),

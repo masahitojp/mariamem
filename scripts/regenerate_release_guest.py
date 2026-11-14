@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Regenerate canonical generated Go in a disposable tree and compare every byte."""
+from layout import BENCHMARKS, GENERATED
 import argparse
 import json
 import os
@@ -33,11 +34,11 @@ def main():
     converter=download(tools['archives']['converter'],ROOT/'build/downloads')
     env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT=''))
     out.mkdir(parents=True,exist_ok=False)
-    spike=ROOT/'benchmarks/spikes/generated-go-integration'
+    spike=ROOT/(BENCHMARKS / 'spikes/generated-go-integration')
     commands=[
       [spike/'translate_guest.py','--guest',guest/'mariamem.wasm','--guest-sha256',pins['guest_sha256'],
        '--converter-archive',converter,'--output',out/'translation'],
-      [ROOT/'benchmarks/spikes/memory-candidate/check_fixture.py','--converter',out/'translation/wasm2go',
+      [ROOT/(BENCHMARKS / 'spikes/memory-candidate/check_fixture.py'),'--converter',out/'translation/wasm2go',
        '--output',out/'memory32-regression'],
       [spike/'setup_candidate.py','--source-only','--source-module',out/'translation/module',
        '--guest',guest/'mariamem.wasm','--input-manifest',ROOT/'release/generated-go-translation.json','--output',out/'candidate'],
@@ -49,14 +50,14 @@ def main():
         observed_run([sys.executable,*map(str,command)],cwd=ROOT,env=env,check=True,
                      phase=phase, inputs=[guest/'mariamem.wasm', ROOT/'release/generated-go-inputs.json'],
                      outputs=outputs)
-    if inventory(out/'generatedgo') != inventory(ROOT/'internal/generatedgo'):
+    if inventory(out/'generatedgo') != inventory(ROOT/GENERATED):
         raise ValueError('regenerated output differs from committed source (including ownership glue)')
     proof={'contract':'generated-go-v1','source_commit':record['source_commit'],
            'guest_sha256':pins['guest_sha256'],'generated_inventory':inventory(out/'generatedgo'),
            'raw_translation':json.loads((out/'translation/input-manifest.json').read_text()),
            'input_manifest_sha256':digest(ROOT/'release/generated-go-inputs.json'),
            'toolchain_pins_sha256':digest(ROOT/'release/generated-go-toolchain.json'),
-           'provenance_sha256':digest(ROOT/'internal/generatedgo/provenance.json'),'result':'PASS'}
+           'provenance_sha256':digest(ROOT/(GENERATED / 'provenance.json')),'result':'PASS'}
     (guest/'regeneration.json').write_text(json.dumps(proof,indent=2,sort_keys=True)+'\n')
     print('PASS: independently regenerated source equals canonical checked-in source')
 

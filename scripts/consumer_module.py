@@ -1,4 +1,5 @@
 """Private exact-tag Go module fixtures; never create a remote tag or release."""
+from layout import GENERATED
 import hashlib
 import json
 from pathlib import Path
@@ -14,7 +15,7 @@ def source_files(root):
                    if not p.name.endswith('_test.go'))
     # go:embed inputs are runtime source too: include them in the proxy,
     # source identity and installed-module byte comparison.
-    paths += sorted((root / 'internal/generatedgo/image').glob('layout.json'))
+    paths += sorted((root / (GENERATED / 'image')).glob('layout.json'))
     return paths + [root / name for name in ('go.mod', 'go.sum', 'LICENSE', 'release/inputs.lock.json')]
 
 

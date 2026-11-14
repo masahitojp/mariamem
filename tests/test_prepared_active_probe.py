@@ -1,4 +1,8 @@
 """Pin active-query witnesses and distinguish native/product failure contracts."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import copy
 import json
 from pathlib import Path
@@ -8,7 +12,7 @@ from v06_prepared_active_probe import COMMON,PRODUCT_ONLY,validate_reference
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def native():return json.loads((ROOT/'tests/fixtures/prepared-active-native.json').read_text())
+def native():return json.loads((ROOT/(FIXTURES / 'prepared-active-native.json')).read_text())
 
 
 def product_control():

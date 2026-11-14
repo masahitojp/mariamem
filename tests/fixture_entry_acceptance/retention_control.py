@@ -1,4 +1,8 @@
 """Real P1 retained-snapshot feasibility; not full resource acceptance."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[2] / 'scripts'))
+from layout import FIXTURES
 import hashlib
 import importlib.util
 import json
@@ -80,7 +84,7 @@ def run(root,output,host,source,installed):
     snapshots, not continuous guards; no full FD/temp/connection acceptance is
     implied. Callers must use source-stamped host and installed-wheel preflight.
     """
-    output.mkdir();resources=json.loads((root/'tests/fixtures/fixture-entry/acceptance.json').read_text())['resources']
+    output.mkdir();resources=json.loads((root/(FIXTURES / 'fixture-entry/acceptance.json')).read_text())['resources']
     sql=root/resources['retention_input']['path']
     assert hashlib.sha256(sql.read_bytes()).hexdigest()==resources['retention_input']['sha256']
     barrier=load(root/'tests/fixture_entry_acceptance/observation_barrier.py','p1_barrier')

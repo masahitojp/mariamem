@@ -1,4 +1,8 @@
 """Generate actual Wasm wait/spawn helpers and run owned boundary oracles."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0,str(_LayoutPath(__file__).resolve().parents[2]/"scripts"))
+from layout import BENCHMARKS
 import argparse,hashlib,json,os,shutil,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -31,7 +35,7 @@ def main():
  if a.scope in ('wait','all'):
   (base/'generated_wait64_test.go').write_text('package base\nimport "testing"\nfunc TestGeneratedWait64PositiveRange(t *testing.T) { checkWaitTimeoutPositiveRange(t, map[string]func(*Module,uint64,int64)int32{"wait64":func(m *Module,ea uint64,timeout int64)int32{return AtomicWait64At(m,ea,0,timeout)}}) }\n')
  for name,target in [('timeout_test.go.txt','audit_timeout_test.go'),('thread_boundary_test.go.txt','audit_thread_boundary_test.go')]:
-  if a.scope=='all' or (name.startswith('timeout') and a.scope=='wait') or (name.startswith('thread_') and a.scope=='thread'):shutil.copyfile(ROOT/'benchmarks/spikes/v050-semantic-audit'/name,base/target)
+  if a.scope=='all' or (name.startswith('timeout') and a.scope=='wait') or (name.startswith('thread_') and a.scope=='thread'):shutil.copyfile(ROOT/(BENCHMARKS / 'spikes/v050-semantic-audit')/name,base/target)
  (base/'audit_support_test.go').write_text('package base\nfunc AuditParked(m *Module,ea uint64) int {m.Threads.parkMu.Lock();defer m.Threads.parkMu.Unlock();return len(m.Threads.parked[ea])}\n')
  checks=[]
  for race in [False,True]:

@@ -1,4 +1,5 @@
 """Bindings for the explicit UNQUALIFIED guest route; not release evidence."""
+from layout import BENCHMARKS, GENERATED
 import hashlib
 import json
 from pathlib import Path
@@ -108,7 +109,7 @@ def verify_guest(root, directory):
 def verify_translation(root, out, guest_sha):
     raw = json.loads((out/'input-manifest.json').read_text())
     tools = json.loads((root/'release/generated-go-toolchain.json').read_text())
-    patches = root/'benchmarks/spikes/wasm2go'
+    patches = root/(BENCHMARKS / 'spikes/wasm2go')
     require(raw['guest_sha256'] == guest_sha and digest(out/'guest.wasm') == guest_sha,
             'translation guest identity mismatch')
     require(raw['converter_commit'] == json.loads((root/'release/generated-go-translation.json').read_text())['converter_commit'] and
@@ -154,7 +155,7 @@ def regenerate_development(root, guest, output):
     try:
         tools = json.loads((root/'release/generated-go-toolchain.json').read_text())
         converter = download(tools['archives']['converter'], out/'downloads')
-        spike = root/'benchmarks/spikes/generated-go-integration'
+        spike = root/(BENCHMARKS / 'spikes/generated-go-integration')
         translation = out/'translation'
         run([sys.executable, str(spike/'translate_guest.py'), '--guest', str(guest/'mariamem.wasm'),
              '--guest-sha256', record['guest_sha256'], '--converter-archive', str(converter),
@@ -183,7 +184,7 @@ def regenerate_development(root, guest, output):
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root/name, target)
         staged_runtime = out/'generatedgo'
-        runtime = product/'internal/generatedgo'
+        runtime = product/GENERATED
         run([sys.executable, str(root/'scripts/generate_runtime.py'), '--source-module', str(module),
              '--development-input', str(out/'installation-inputs.json'), '--output', str(staged_runtime)],
             env=env, check=True, phase='dev:installation', outputs=[staged_runtime/'provenance.json'])

@@ -1,4 +1,5 @@
 """Generated-Go notices plus immutable historical/reference attribution."""
+from layout import GENERATED
 import json
 from pathlib import Path
 import hashlib
@@ -139,7 +140,7 @@ def verify_generated_attribution(root, evidence):
         field = row.get('audit_field')
         if field in evidence and evidence[field] != row['before']:
             raise ValueError('generated attribution source changed beyond image metadata: audit binding differs')
-    path = root/'internal/generatedgo/provenance.json'
+    path = root/(GENERATED / 'provenance.json')
     expected = evidence['generated_provenance_sha256']
     if digest(path) == expected:
         return 'exact'
@@ -160,7 +161,7 @@ def verify_generated_attribution(root, evidence):
                 source_changed = True
             elif current is None:
                 raise ValueError('generated attribution metadata missing: '+name)
-            target = root/'internal/generatedgo'/name
+            target = root/GENERATED/name
             if current is not None and digest(target) != current:
                 raise ValueError('generated attribution metadata mismatch: '+name)
             if current is None and target.exists():
