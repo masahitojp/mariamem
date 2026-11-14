@@ -12,8 +12,8 @@ Current release: Python `0.6.2` / Go `v0.6.2` ([release notes](release/NOTES-v0.
 
 Supported hosts: **macOS 15+ arm64** and **Ubuntu 24.04 x86_64**.
 Python requires **3.11+**; Go requires **1.26.0+**.
-Use a GitHub Release wheel for Python. PyPI account setup is complete; the first
-macOS upload is pending. Until its public smoke succeeds, use the URLs below.
+Use a GitHub Release wheel for Python. The macOS wheel has been uploaded to
+PyPI; its public smoke is pending. Until that smoke succeeds, use the URLs below.
 Linux continues to use the GitHub wheel; broader Linux/Windows distribution is
 planned for 0.7.0.
 

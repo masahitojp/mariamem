@@ -44,6 +44,7 @@ def origin(tmp_path, monkeypatch):
     gh = {'tag_name': TAG, 'draft': False, 'prerelease': False, 'html_url': 'https://github.com/example',
           'assets': [{'name': name} for name in {*sums, 'SHA256SUMS'}]}
     calls = []
+    monkeypatch.setattr(release.time, 'sleep', lambda delay: None)
 
     def command(args, root):
         args = list(map(str, args)); calls.append(args)
@@ -305,3 +306,52 @@ def test_reuse_fetches_authenticated_attempt_receipt_and_skips_failed_one(origin
     found=release.find_smoke(ROOT,current,conditions)
     assert found['result']=='PASS' and found['reused_from']['run_id']==10
     assert calls==[(10,prefix+'2',SOURCE),(10,prefix+'1',SOURCE)]
+
+
+def test_uploaded_file_becomes_visible_after_initial_missing_response(origin, monkeypatch):
+    prepare(origin, 'release')
+    replies = iter([{}, {}, {WHEEL: {'sha256': origin.sums[WHEEL], 'yanked': False}}])
+    monkeypatch.setattr(release, 'pypi_files', lambda v: next(replies))
+    waits = []
+    monkeypatch.setattr(release.time, 'sleep', waits.append)
+    result = release.verify_uploaded(origin.directory/'ci-pypi-publication.json')
+    assert result['status'] == 'SMOKE_PENDING' and result['visibility_checks'] == 3
+    assert result['missing'] == [] and waits == [2, 4]
+
+
+def test_upload_visibility_wait_is_bounded(origin, monkeypatch):
+    prepare(origin, 'release')
+    reads = []
+    def absent(version):
+        reads.append(version)
+        return {}
+    waits = []
+    monkeypatch.setattr(release, 'pypi_files', absent)
+    monkeypatch.setattr(release.time, 'sleep', waits.append)
+    path = origin.directory/'ci-pypi-publication.json'
+    with pytest.raises(ValueError, match='still missing'):
+        release.verify_uploaded(path)
+    assert len(reads) == 6 and waits == [2, 4, 8, 16, 30] and sum(waits) == 60
+    assert json.loads(path.read_text())['status'] == 'FAILED'
+
+
+@pytest.mark.parametrize('failure', ['hash', 'yanked', 'http'])
+def test_visibility_retry_never_hides_integrity_or_network_errors(origin, monkeypatch, failure):
+    prepare(origin, 'release')
+    reads = []
+    def response(version):
+        reads.append(version)
+        if len(reads) == 1:
+            return {}
+        if failure == 'http':
+            raise urllib.error.HTTPError('https://pypi.org', 503, 'unavailable', {}, None)
+        return {WHEEL: {'sha256': '0'*64 if failure == 'hash' else origin.sums[WHEEL],
+                         'yanked': failure == 'yanked'}}
+    waits = []
+    monkeypatch.setattr(release, 'pypi_files', response)
+    monkeypatch.setattr(release.time, 'sleep', waits.append)
+    path = origin.directory/'ci-pypi-publication.json'
+    with pytest.raises((ValueError, urllib.error.HTTPError)):
+        release.verify_uploaded(path)
+    assert len(reads) == 2 and waits == [2]
+    assert json.loads(path.read_text())['status'] == 'FAILED'

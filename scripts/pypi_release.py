@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
 import tempfile
 import urllib.error
 import urllib.request
@@ -20,6 +21,8 @@ from git_identity import inspect_ref, require_commit, read_release_pin, verify_r
 from published_assets import require, verify_publication
 
 SCHEMA = 'pypi-publication-v1'
+# Upload acceptance can precede visibility through PyPI's public JSON cache.
+VISIBILITY_DELAYS = (2, 4, 8, 16, 30)  # At most 60 seconds of waiting, six reads.
 SMOKE_ENV = {'runner': 'macos-15', 'python': '3.14', 'driver': 'PyMySQL==1.1.1',
              'pip': 'pip==25.3', 'platform': 'darwin-arm64'}
 
@@ -192,7 +195,15 @@ def verify_uploaded(path):
         require(record['schema'] == SCHEMA and record['operation'] == 'release'
                 and record['status'] == 'UPLOAD_PENDING', 'invalid upload receipt state')
         record['stage'] = 'pypi-hashes'
-        missing = missing_files(record['assets'], pypi_files(record['python_version']))
+        for attempt in range(len(VISIBILITY_DELAYS) + 1):
+            # Only absence is retryable. Conflicting hashes, yanks, malformed
+            # responses and HTTP errors still fail closed immediately.
+            missing = missing_files(record['assets'], pypi_files(record['python_version']))
+            record.update(visibility_checks=attempt + 1, missing=missing)
+            if not missing or attempt == len(VISIBILITY_DELAYS):
+                break
+            write(path, record)
+            time.sleep(VISIBILITY_DELAYS[attempt])
         require(not missing, 'PyPI files still missing: ' + ', '.join(missing))
         record.update(pypi_status='HASH_VERIFIED', status='SMOKE_PENDING', missing=[])
     except Exception as error:

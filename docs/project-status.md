@@ -12,8 +12,12 @@ The Human approved #159 implementation: begin with the existing 0.6.2 macOS
 arm64 wheel, then reuse the same publication/recovery path for normal stable
 releases. The PyPI Trusted Publisher is registered for `masahitojp/mariamem`,
 `release-candidate-ready.yml`, environment `pypi` (Human confirmation).
-Authentication, actual upload and public smoke remain unobserved; this entry
-is not publication approval. Stable versions only; no alpha/beta/rc on PyPI.
+The Human subsequently approved the initial 0.6.2 macOS upload.
+[Run 43567522416](https://github.com/masahitojp/mariamem/actions/runs/43567522416)
+authenticated and uploaded successfully (HTTP 200), but the immediate public JSON
+lookup reported the wheel absent and stopped before smoke. A later JSON read
+confirmed the original wheel hash. Public smoke remains unobserved; the release
+transaction is incomplete. Stable versions only; no alpha/beta/rc on PyPI.
 Transport failure reuses the same version/source/bytes instead of forcing a
 version bump. Hash conflicts stop, and successful smoke reuse binds exact
 artifacts and check conditions.
