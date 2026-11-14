@@ -1,0 +1,9 @@
+{
+  "result": "REJECTED",
+  "explicit_check_marker": true,
+  "exitcode": null,
+  "timed_out": true,
+  "elapsed_seconds": 20.008559942245483,
+  "binary_sha256": "f3f70d9e9622700c85366d5095d2437e23d34da9138091213d7a1e8b790fd21b",
+  "scope": "intentionally invalid descriptor initialization, stderr tee in this binary only; timeout does not prove graceful cleanup"
+}

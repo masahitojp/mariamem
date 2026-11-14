@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "files": 62,
+  "scope": "Go/assembly/data source byte-identical between independently invoked preflight and development translation; same one C guest"
+}

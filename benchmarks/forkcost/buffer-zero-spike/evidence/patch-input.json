@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0buf.cc",
+  "before_sha256": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+  "experimental_patch_sha256": "6b7d6571e526907df4b370341c6ac0e6efdc040770d1b516a1707986ea79600e",
+  "scope": "buffer pool create only; common zero-filled allocator unchanged"
+}

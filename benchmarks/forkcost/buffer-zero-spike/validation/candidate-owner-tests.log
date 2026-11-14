@@ -1,0 +1,6 @@
+=== RUN   TestControlledGuestFirstWorkerTrap
+--- PASS: TestControlledGuestFirstWorkerTrap (0.00s)
+=== RUN   TestGuestEnvironmentIsPerInstance
+--- PASS: TestGuestEnvironmentIsPerInstance (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.900s

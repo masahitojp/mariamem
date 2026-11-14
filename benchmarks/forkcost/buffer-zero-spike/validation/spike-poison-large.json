@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "mode": "poison",
+  "case": "large",
+  "witnesses": [
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1",
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1",
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1"
+  ],
+  "checks": [
+    "seed_bigpayload_32MiB",
+    "seed_zip_payload_32MiB",
+    "large_dynamic_and_compressed_data_exact_with_read_misses",
+    "resize_9MiB_pages_566",
+    "resize_11MiB_pages_692",
+    "resize_16MiB_pages_1008",
+    "large_snapshot_restore_fork_0_exact_and_isolated",
+    "large_snapshot_restore_fork_1_exact_and_isolated"
+  ],
+  "ReadMissesBefore": 567,
+  "ReadMissesAfter": 35330,
+  "Started": 3,
+  "Closed": 3,
+  "ElapsedSeconds": 51.181163791
+}

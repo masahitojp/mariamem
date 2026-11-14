@@ -1,0 +1,146 @@
+[
+  {
+    "p": 1,
+    "variant": "canonical",
+    "repetition": -1,
+    "name": "life-p1-canonical-r-1"
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "repetition": -1,
+    "name": "life-p1-baseline-r-1"
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "repetition": -1,
+    "name": "life-p1-metadata-r-1"
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "repetition": 0,
+    "name": "life-p1-canonical-r0"
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "repetition": 0,
+    "name": "life-p1-baseline-r0"
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "repetition": 0,
+    "name": "life-p1-metadata-r0"
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "repetition": 1,
+    "name": "life-p1-metadata-r1"
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "repetition": 1,
+    "name": "life-p1-canonical-r1"
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "repetition": 1,
+    "name": "life-p1-baseline-r1"
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "repetition": 2,
+    "name": "life-p1-baseline-r2"
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "repetition": 2,
+    "name": "life-p1-metadata-r2"
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "repetition": 2,
+    "name": "life-p1-canonical-r2"
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "repetition": -1,
+    "name": "life-p8-canonical-r-1"
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "repetition": -1,
+    "name": "life-p8-baseline-r-1"
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "repetition": -1,
+    "name": "life-p8-metadata-r-1"
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "repetition": 0,
+    "name": "life-p8-canonical-r0"
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "repetition": 0,
+    "name": "life-p8-baseline-r0"
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "repetition": 0,
+    "name": "life-p8-metadata-r0"
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "repetition": 1,
+    "name": "life-p8-metadata-r1"
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "repetition": 1,
+    "name": "life-p8-canonical-r1"
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "repetition": 1,
+    "name": "life-p8-baseline-r1"
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "repetition": 2,
+    "name": "life-p8-baseline-r2"
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "repetition": 2,
+    "name": "life-p8-metadata-r2"
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "repetition": 2,
+    "name": "life-p8-canonical-r2"
+  }
+]

@@ -1,0 +1,84 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+.......................................................................F [ 82%]
+...F...........                                   [100%]
+=================================== FAILURES ===================================
+__________ UCACopySourceTests.test_accepted_exact_source_and_profile ___________
+
+self = <test_uca_copy_source.UCACopySourceTests testMethod=test_accepted_exact_source_and_profile>
+
+    def test_accepted_exact_source_and_profile(self):
+>       self.assertEqual(guard.source(ROOT)['accepted_delta_sha256'], guard.DELTA_PATCH)
+                         ^^^^^^^^^^^^^^^^^^
+
+tests/test_uca_copy_source.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/check_uca_copy_source.py:31: in source
+    require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'experimental patch remains'
+
+    def require(condition, message):
+        if not condition:
+>           raise ValueError(message)
+E           ValueError: experimental patch remains
+
+scripts/check_uca_copy_source.py:26: ValueError
+_______________ DictionarySourceTests.test_accepted_exact_delta ________________
+
+self = <test_dictionary_wait_source.DictionarySourceTests testMethod=test_accepted_exact_delta>
+
+    def test_accepted_exact_delta(self):
+>       self.assertEqual(guard.source(ROOT)['dictionary_delta_sha256'], guard.DELTA_SHA)
+                         ^^^^^^^^^^^^^^^^^^
+
+tests/test_dictionary_wait_source.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/check_dictionary_wait_source.py:25: in source
+    require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+ok = False, message = 'experimental patch remains'
+
+    def require(ok, message):
+        if not ok:
+>           raise ValueError(message)
+E           ValueError: experimental patch remains
+
+scripts/check_dictionary_wait_source.py:20: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_uca_copy_source.py::UCACopySourceTests::test_accepted_exact_source_and_profile
+FAILED tests/test_dictionary_wait_source.py::DictionarySourceTests::test_accepted_exact_delta
+2 failed, 85 passed, 23 subtests passed in 24.12s
+Traceback (most recent call last):
+  File "<workspace>/worktree/scripts/verify.py", line 210, in <module>
+    main()
+    ~~~~^^
+  File "<workspace>/worktree/scripts/verify.py", line 187, in main
+    check(args.scope, profile=args.profile)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<workspace>/worktree/scripts/verify.py", line 70, in check
+    run([sys.executable, "-m", "pytest", *SOURCE_TESTS, "-q"], env=env)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<workspace>/worktree/scripts/verify.py", line 36, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<workspace>/worktree/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests/test_generated_runtime_inventory.py', 'tests/test_distribution_licenses.py', 'tests/test_packaging_license_mirrors.py', 'tests/test_timer_source.py', 'tests/test_uca_copy_source.py', 'tests/test_dictionary_wait_source.py', 'tests/test_dictionary_wait_runtime.py', '-q']' returned non-zero exit status 1.

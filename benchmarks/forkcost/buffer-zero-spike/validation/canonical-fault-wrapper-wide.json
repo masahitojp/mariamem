@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "error": "mariamem guest_connection: guest_ready: generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: generated-Go guest failure: unimplemented WASIX: Proc_exit2\ngenerated-Go guest failure: unimplemented WASIX: Proc_exit2\nguest process: generated-Go guest failure: unimplemented WASIX: Proc_exit2; stderr tail: mariamem: prepared test authentication keys could not be created in guest memory filesystem; use the complete matching native bundle and inspect guest startup stderr (errno=8)",
+  "cases": null
+}

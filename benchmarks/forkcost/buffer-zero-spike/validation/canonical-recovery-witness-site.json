@@ -1,0 +1,26 @@
+{
+  "source": "<workspace>/worktree/internal/generatedgo/code/p3/p3_pure.go",
+  "line": 863713,
+  "address": 8425446,
+  "message": "InnoDB: Starting crash recovery from checkpoint LSN=",
+  "surrounding": [
+    "\t\tgoto L66",
+    "\t}",
+    "L40:",
+    "\t;",
+    "\tv289 = int64(atomic.LoadUint64((*uint64)(unsafe.Add(mBase, base.AtomicEA(m, int32(27612840), int32(0), 8)))))",
+    "\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v22)), 32, 8))) = v289",
+    "\tFn12434(m, int32(8425446), v22+int32(32))",
+    "\tmBase = m.M",
+    "\tv295 = m.ExcPending",
+    "\tif v295 != 0 {",
+    "\t\tgoto L4",
+    "\t} else {",
+    "\t\tgoto L65",
+    "\t}",
+    "L41:",
+    "\t;",
+    "\tif v90&int32(1) == int32(0) {",
+    "\t\tgoto L44"
+  ]
+}

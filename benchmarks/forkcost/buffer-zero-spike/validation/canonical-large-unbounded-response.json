@@ -1,0 +1,16 @@
+{
+  "success": false,
+  "error": "Error 2013 (HY000): mariamem database instance terminated: invalid guest frame\nbad connection",
+  "mode": "baseline",
+  "case": "large",
+  "witnesses": null,
+  "checks": [
+    "seed_bigpayload_32MiB",
+    "seed_zip_payload_32MiB"
+  ],
+  "ReadMissesBefore": 518,
+  "ReadMissesAfter": 0,
+  "Started": 1,
+  "Closed": 1,
+  "ElapsedSeconds": 41.159750375
+}

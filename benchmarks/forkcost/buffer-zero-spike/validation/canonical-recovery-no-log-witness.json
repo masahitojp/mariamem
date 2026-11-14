@@ -1,0 +1,9 @@
+{
+  "success": false,
+  "error": "fixture did not cause actual crash recovery: ",
+  "mode": "baseline",
+  "fixture": "test-only host overlay captures fast_shutdown=2 filesystem; normal Snapshot remains fast_shutdown=1",
+  "recovery_logs": null,
+  "poison_witnesses": 0,
+  "verified_forks": 0
+}

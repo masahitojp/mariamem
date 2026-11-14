@@ -1,0 +1,479 @@
+{
+  "result": "PASS_BINDING_ADDRESS_RELOCATIONS_ONLY",
+  "guest_sha256": "5da1c72aceb2c5db760e1dfb17bda0352ffad02b5f9b51a200da5d6ec0b2fd3c",
+  "guest_record_sha256": "607c47a1595e7f7976ca9d69873c5f51975b4a8f27f5072dfaea8e14ee85e873",
+  "function_map_sha256": "f0b1b01377c2af85b5de5c065a93c03ac229026f3e15d7a3a3e2267065c5dfba",
+  "workers": {
+    "code/p3/p3_pure.go": [
+      "Fn153",
+      "2f5e21267ce8c714bd90c0ff315c5a21c0f19755e0eba31b10a617c05f081b77"
+    ],
+    "code/p5/p5_pure.go": [
+      "Fn214",
+      "28dfec46468b4f5d46d0a24790efce333fc537bee3ba11ea6e3d6d319e7df6ba"
+    ],
+    "code/p8/p8_pure.go": [
+      "Fn131",
+      "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"
+    ]
+  },
+  "worker_symbols": {
+    "dlfree": {
+      "function": "Fn153",
+      "path": "generated/p3/p3_pure.go"
+    },
+    "wasi_thread_start": {
+      "function": "Fn214",
+      "path": "generated/p5/p5_pure.go"
+    },
+    "sched_yield": {
+      "function": "Fn131",
+      "path": "generated/p8/p8_pure.go"
+    }
+  },
+  "worker_relocations": {
+    "Fn153": {
+      "canonical_normalized_sha256": "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0",
+      "normalized_sha256": "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0",
+      "zero_initialized_bss_range": [
+        18763065,
+        27746304
+      ],
+      "delta": 128,
+      "addresses": [
+        [
+          18764492,
+          18764620
+        ],
+        [
+          18764496,
+          18764624
+        ],
+        [
+          18764500,
+          18764628
+        ],
+        [
+          18764504,
+          18764632
+        ],
+        [
+          18764508,
+          18764636
+        ],
+        [
+          18764512,
+          18764640
+        ],
+        [
+          18764516,
+          18764644
+        ],
+        [
+          18764524,
+          18764652
+        ],
+        [
+          18764532,
+          18764660
+        ],
+        [
+          18764796,
+          18764924
+        ],
+        [
+          18764936,
+          18765064
+        ],
+        [
+          18764940,
+          18765068
+        ]
+      ]
+    },
+    "Fn214": {
+      "canonical_normalized_sha256": "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8",
+      "normalized_sha256": "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8",
+      "zero_initialized_bss_range": [
+        18763065,
+        27746304
+      ],
+      "delta": 128,
+      "addresses": [
+        [
+          18763073,
+          18763201
+        ],
+        [
+          18763076,
+          18763204
+        ],
+        [
+          18767100,
+          18767228
+        ],
+        [
+          18767616,
+          18767744
+        ],
+        [
+          18767664,
+          18767792
+        ],
+        [
+          18768208,
+          18768336
+        ],
+        [
+          18768212,
+          18768340
+        ],
+        [
+          18768216,
+          18768344
+        ],
+        [
+          18825616,
+          18825744
+        ]
+      ]
+    },
+    "Fn131": {
+      "canonical_normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "zero_initialized_bss_range": [
+        18763065,
+        27746304
+      ],
+      "delta": 128,
+      "addresses": []
+    }
+  },
+  "crc": {
+    "symbol": "_Z21buf_page_is_corruptedbPKhj",
+    "path": "code/p4/p4_pure.go",
+    "function": "Fn18145",
+    "body_sha256": "dba6fd80925519f38667c967c7306e86188deb905854db8bd55ce747c4359ae9",
+    "canonical_body_sha256": "2569b9f4e7022921787050ec11e7fae5b14382416adc732fae562c8f6aca236e",
+    "normalized_body_sha256": "2569b9f4e7022921787050ec11e7fae5b14382416adc732fae562c8f6aca236e",
+    "table_offset": 7930688,
+    "canonical_table_offset": 7930560,
+    "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+    "table_size": 4096,
+    "delta": 128,
+    "relocations": [
+      {
+        "old": 27612688,
+        "new": 27612816,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27614724,
+        "new": 27614852,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27614704,
+        "new": 27614832,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27612992,
+        "new": 27613120,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16321216,
+        "new": 16321344,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16320192,
+        "new": 16320320,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16322240,
+        "new": 16322368,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16321216,
+        "new": 16321344,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16320192,
+        "new": 16320320,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16322240,
+        "new": 16322368,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16321216,
+        "new": 16321344,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16320192,
+        "new": 16320320,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16322240,
+        "new": 16322368,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16321216,
+        "new": 16321344,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16320192,
+        "new": 16320320,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16322240,
+        "new": 16322368,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16321216,
+        "new": 16321344,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16320192,
+        "new": 16320320,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16322240,
+        "new": 16322368,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16321216,
+        "new": 16321344,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16320192,
+        "new": 16320320,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16322240,
+        "new": 16322368,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 16319168,
+        "new": 16319296,
+        "kind": "exact CRC table bytes",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27612688,
+        "new": 27612816,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27738376,
+        "new": 27738504,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 8828653,
+        "new": 8828716,
+        "kind": "identical logging format string",
+        "bytes_sha256": "3b5f823c7af3077b1a2f64864caf74204246e72cf3795b5ec14b95cbc24bce9f"
+      },
+      {
+        "old": 27738376,
+        "new": 27738504,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 18747444,
+        "new": 18747572,
+        "kind": "initialized data, identical words or identical string pointees",
+        "bytes_sha256": "972d2d0245c77723278be4576c4d8a21bf52362f5870d7b3232b58bdf759087d"
+      },
+      {
+        "old": 8518296,
+        "new": 8518312,
+        "kind": "identical logging format string",
+        "bytes_sha256": "d0d7af95aaccaca58a4dab901c7d761460f80fec1c515260a653c029a0b5b9ac"
+      },
+      {
+        "old": 27614704,
+        "new": 27614832,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27614724,
+        "new": 27614852,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27614704,
+        "new": 27614832,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 27738376,
+        "new": 27738504,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 8828653,
+        "new": 8828716,
+        "kind": "identical logging format string",
+        "bytes_sha256": "3b5f823c7af3077b1a2f64864caf74204246e72cf3795b5ec14b95cbc24bce9f"
+      },
+      {
+        "old": 27738376,
+        "new": 27738504,
+        "kind": "zero-initialized BSS",
+        "bytes_sha256": null
+      },
+      {
+        "old": 18747444,
+        "new": 18747572,
+        "kind": "initialized data, identical words or identical string pointees",
+        "bytes_sha256": "972d2d0245c77723278be4576c4d8a21bf52362f5870d7b3232b58bdf759087d"
+      },
+      {
+        "old": 8518296,
+        "new": 8518312,
+        "kind": "identical logging format string",
+        "bytes_sha256": "d0d7af95aaccaca58a4dab901c7d761460f80fec1c515260a653c029a0b5b9ac"
+      }
+    ]
+  }
+}

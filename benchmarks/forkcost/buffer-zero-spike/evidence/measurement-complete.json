@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "processes": 48,
+  "measured_processes": 36,
+  "warmups": 12
+}

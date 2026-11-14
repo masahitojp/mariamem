@@ -1,0 +1,9 @@
+{
+  "sha256": "0699b5697487f56f2001d0ab91ef60b5c4c1032ef652818fc514dc2cc79c0492",
+  "overlays": {
+    "<workspace>/worktree/internal/generatedgo/runtime_instance.go": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "<workspace>/worktree/internal/generatedgo/code/p3/p3_pure.go": "41e0b3aa3c9dbf740ead5a4f08af9c9c6cd8cae302fd7eebb200422db92a9227",
+    "<workspace>/worktree/internal/generatedgo/code/base/buffer_recovery_witness.go": "52b0fa4b999da85cadd65e5e956da39a6356387b26c122262e580da6dd7fe5ff",
+    "<workspace>/worktree/internal/host/server.go": "f77985540cbfcf1ce1e9ca9414f9e84b9223e43a1044adba31f06199c74daae9"
+  }
+}

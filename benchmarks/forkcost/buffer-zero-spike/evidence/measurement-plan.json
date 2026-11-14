@@ -1,0 +1,290 @@
+[
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": -1
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": -1
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": -1
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": -1
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": -1
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": -1
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": 0
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": 0
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": 0
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": 0
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": 0
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": 0
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": 1
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": 1
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": 1
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": 1
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": 1
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": 1
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": 2
+  },
+  {
+    "p": 1,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": 2
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": 2
+  },
+  {
+    "p": 1,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": 2
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": 2
+  },
+  {
+    "p": 1,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": 2
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": -1
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": -1
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": -1
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": -1
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": -1
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": -1
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": 0
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": 0
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": 0
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": 0
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": 0
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": 0
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": 1
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": 1
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": 1
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": 1
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": 1
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": 1
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "probe",
+    "repetition": 2
+  },
+  {
+    "p": 8,
+    "variant": "baseline",
+    "harness": "suite",
+    "repetition": 2
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "probe",
+    "repetition": 2
+  },
+  {
+    "p": 8,
+    "variant": "metadata",
+    "harness": "suite",
+    "repetition": 2
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "probe",
+    "repetition": 2
+  },
+  {
+    "p": 8,
+    "variant": "canonical",
+    "harness": "suite",
+    "repetition": 2
+  }
+]

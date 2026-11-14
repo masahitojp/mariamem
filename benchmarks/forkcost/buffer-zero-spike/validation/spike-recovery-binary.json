@@ -1,0 +1,8 @@
+{
+  "sha256": "de0754dfa6dc5db1130d68c01ad333148e5b37fd24c1bd3aded2eeca58db6ec7",
+  "overlays": {
+    "<workspace>/temp/native/product/internal/generatedgo/code/p3/p3_pure.go": "e62b4619713a394656fbeb63dd71b58d97680d9460396fa2d7d31fdfe3eacb6a",
+    "<workspace>/temp/native/product/internal/generatedgo/code/base/buffer_recovery_witness.go": "52b0fa4b999da85cadd65e5e956da39a6356387b26c122262e580da6dd7fe5ff",
+    "<workspace>/temp/native/product/internal/host/server.go": "f77985540cbfcf1ce1e9ca9414f9e84b9223e43a1044adba31f06199c74daae9"
+  }
+}

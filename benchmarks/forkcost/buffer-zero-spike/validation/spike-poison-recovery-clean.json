@@ -1,0 +1,13 @@
+{
+  "crash_fixture": false,
+  "recovery_branches": [
+    0,
+    0
+  ],
+  "success": true,
+  "mode": "poison",
+  "fixture": "test-only host overlay captures fast_shutdown=2 filesystem; normal Snapshot remains fast_shutdown=1",
+  "recovery_logs": null,
+  "poison_witnesses": 3,
+  "verified_forks": 2
+}

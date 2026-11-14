@@ -1,0 +1,36 @@
+[
+  {
+    "relative_line": 15158,
+    "context": [
+      "\t} else {",
+      "\t\tgoto L584",
+      "\t}",
+      "L583:",
+      "\t;",
+      "\tbase.MemoryFill(m, v3097, int32(165), v3103)",
+      "\tgoto L585",
+      "L584:",
+      "\t;",
+      "\tgoto L585",
+      "L585:",
+      "\t;"
+    ]
+  },
+  {
+    "relative_line": 15489,
+    "context": [
+      "\tv3566 = v3456 + int32(1)",
+      "\tgoto L633",
+      "L637:",
+      "\t;",
+      "\tv3508 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3475)), 0, 1))))",
+      "\tif v3508 != int32(165) {",
+      "\t\tgoto L507",
+      "\t} else {",
+      "\t\tgoto L639",
+      "\t}",
+      "L638:",
+      "\t;"
+    ]
+  }
+]

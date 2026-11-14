@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "mode": "poison",
+  "case": "basic",
+  "witnesses": [
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1",
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1",
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1",
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1",
+    "BP_ZERO_WITNESS pool=16777216 descriptor=233856 frames=1008 page=16384 aligned=1"
+  ],
+  "checks": [
+    "fork_0_pristine_rollback_mutation_error_cleanup",
+    "fork_1_pristine_rollback_mutation_error_cleanup",
+    "fork_2_pristine_rollback_mutation_error_cleanup",
+    "fork_3_pristine_rollback_mutation_error_cleanup"
+  ],
+  "ReadMissesBefore": 0,
+  "ReadMissesAfter": 0,
+  "Started": 5,
+  "Closed": 5,
+  "ElapsedSeconds": 0.375503
+}

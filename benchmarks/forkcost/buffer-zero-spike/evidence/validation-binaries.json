@@ -1,0 +1,30 @@
+{
+  "canonical-correct": {
+    "sha256": "64f3eb0095a67ba45bd41be42d4e4e41851428f938e520b0a015833897eca8d6",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/canonical-correct: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t../../worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=4cf4393d1a9193b5b3a2d074e51f792164ecf7bd\n\tbuild\tvcs.time=2026-10-28T23:01:59Z\n\tbuild\tvcs.modified=true\n"
+  },
+  "canonical-recovery": {
+    "sha256": "0699b5697487f56f2001d0ab91ef60b5c4c1032ef652818fc514dc2cc79c0492",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/canonical-recovery: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<workspace>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "canonical-fault": {
+    "sha256": "ee75ee4f1fd11c8bff255768cd35117dd1b718282b789cc157c628362833f3a4",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/canonical-fault: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<workspace>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "spike-correct": {
+    "sha256": "37f08e7e25d0f5b4d2db99417c0cfac53406bfa6be8a1ca6e51d94236f17eb6e",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/spike-correct: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<workspace>/temp/native/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "spike-recovery": {
+    "sha256": "de0754dfa6dc5db1130d68c01ad333148e5b37fd24c1bd3aded2eeca58db6ec7",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/spike-recovery: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<workspace>/temp/native/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "spike-fault": {
+    "sha256": "54f059da87a8e5158f7790e5a4c65804c8d85dbd744f271adda7c57f57f88ba6",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/spike-fault: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<workspace>/temp/native/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "spike-negative": {
+    "sha256": "f3f70d9e9622700c85366d5095d2437e23d34da9138091213d7a1e8b790fd21b",
+    "go_buildinfo": "build/experiment-work/buffer-zero-spike/temp/spike-negative: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/bufferzerocorrect\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<workspace>/temp/native/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  }
+}

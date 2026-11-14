@@ -1,0 +1,152 @@
+{
+  "success": true,
+  "parallel": 8,
+  "traced": false,
+  "profile": false,
+  "children": [
+    {
+      "index": 0,
+      "fork_ms": 51.406834,
+      "validation_sql_connection_ms": 4.422625,
+      "disconnect_wait_ms": 0.068166,
+      "close_ms": 4.09625,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 1,
+      "fork_ms": 37.1475,
+      "validation_sql_connection_ms": 4.466666,
+      "disconnect_wait_ms": 0.052458,
+      "close_ms": 2.254375,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 2,
+      "fork_ms": 37.128,
+      "validation_sql_connection_ms": 4.282,
+      "disconnect_wait_ms": 0.044583,
+      "close_ms": 2.110708,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 3,
+      "fork_ms": 37.047833,
+      "validation_sql_connection_ms": 3.879833,
+      "disconnect_wait_ms": 0.037375,
+      "close_ms": 1.983792,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 4,
+      "fork_ms": 44.489167,
+      "validation_sql_connection_ms": 4.03025,
+      "disconnect_wait_ms": 0.041042,
+      "close_ms": 2.121291,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 5,
+      "fork_ms": 37.087625,
+      "validation_sql_connection_ms": 3.775833,
+      "disconnect_wait_ms": 0.0565,
+      "close_ms": 1.969875,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 6,
+      "fork_ms": 31.054916,
+      "validation_sql_connection_ms": 3.922875,
+      "disconnect_wait_ms": 0.051167,
+      "close_ms": 2.068542,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 7,
+      "fork_ms": 51.593458,
+      "validation_sql_connection_ms": 3.895709,
+      "disconnect_wait_ms": 0.088375,
+      "close_ms": 2.301958,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 8,
+      "fork_ms": 51.544542,
+      "validation_sql_connection_ms": 6.252792,
+      "disconnect_wait_ms": 0.076416,
+      "close_ms": 6.040708,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 9,
+      "fork_ms": 37.680083,
+      "validation_sql_connection_ms": 4.10925,
+      "disconnect_wait_ms": 0.046917,
+      "close_ms": 2.173875,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 10,
+      "fork_ms": 37.66625,
+      "validation_sql_connection_ms": 3.993625,
+      "disconnect_wait_ms": 0.052916,
+      "close_ms": 2.062583,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 11,
+      "fork_ms": 51.418166,
+      "validation_sql_connection_ms": 3.916334,
+      "disconnect_wait_ms": 0.036167,
+      "close_ms": 2.014916,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 12,
+      "fork_ms": 37.670708,
+      "validation_sql_connection_ms": 3.735291,
+      "disconnect_wait_ms": 0.037375,
+      "close_ms": 1.947042,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 13,
+      "fork_ms": 37.573583,
+      "validation_sql_connection_ms": 3.923875,
+      "disconnect_wait_ms": 0.044,
+      "close_ms": 2.329167,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 14,
+      "fork_ms": 43.469042,
+      "validation_sql_connection_ms": 3.751,
+      "disconnect_wait_ms": 0.040875,
+      "close_ms": 1.922042,
+      "oracle": true,
+      "closed": true
+    },
+    {
+      "index": 15,
+      "fork_ms": 37.705333,
+      "validation_sql_connection_ms": 3.748583,
+      "disconnect_wait_ms": 0.041083,
+      "close_ms": 1.949333,
+      "oracle": true,
+      "closed": true
+    }
+  ]
+}
