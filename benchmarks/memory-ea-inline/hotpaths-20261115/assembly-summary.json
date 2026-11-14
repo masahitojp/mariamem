@@ -1,0 +1,98 @@
+{
+  "baseline": {
+    "MemoryEA": {
+      "memory_ea_calls": 0,
+      "panic_calls": 0,
+      "instruction_lines": 36
+    },
+    "Fn18056": {
+      "memory_ea_calls": 125,
+      "panic_calls": 0,
+      "instruction_lines": 1840
+    },
+    "Fn5423": {
+      "memory_ea_calls": 1272,
+      "panic_calls": 0,
+      "instruction_lines": 16548
+    },
+    "Fn18187": {
+      "memory_ea_calls": 68,
+      "panic_calls": 0,
+      "instruction_lines": 784
+    },
+    "Fn13460": {
+      "memory_ea_calls": 157,
+      "panic_calls": 0,
+      "instruction_lines": 1716
+    },
+    "Fn15594": {
+      "memory_ea_calls": 853,
+      "panic_calls": 0,
+      "instruction_lines": 10692
+    }
+  },
+  "direct": {
+    "MemoryEA": {
+      "memory_ea_calls": 0,
+      "panic_calls": 1,
+      "instruction_lines": 36
+    },
+    "Fn18056": {
+      "memory_ea_calls": 125,
+      "panic_calls": 0,
+      "instruction_lines": 1840
+    },
+    "Fn5423": {
+      "memory_ea_calls": 1272,
+      "panic_calls": 0,
+      "instruction_lines": 16548
+    },
+    "Fn18187": {
+      "memory_ea_calls": 0,
+      "panic_calls": 68,
+      "instruction_lines": 1244
+    },
+    "Fn13460": {
+      "memory_ea_calls": 0,
+      "panic_calls": 157,
+      "instruction_lines": 3004
+    },
+    "Fn15594": {
+      "memory_ea_calls": 853,
+      "panic_calls": 0,
+      "instruction_lines": 10692
+    }
+  },
+  "shared": {
+    "MemoryEA": {
+      "memory_ea_calls": 0,
+      "panic_calls": 0,
+      "instruction_lines": 36
+    },
+    "Fn18056": {
+      "memory_ea_calls": 125,
+      "panic_calls": 0,
+      "instruction_lines": 1840
+    },
+    "Fn5423": {
+      "memory_ea_calls": 1272,
+      "panic_calls": 0,
+      "instruction_lines": 16548
+    },
+    "Fn18187": {
+      "memory_ea_calls": 68,
+      "panic_calls": 0,
+      "instruction_lines": 784
+    },
+    "Fn13460": {
+      "memory_ea_calls": 0,
+      "panic_calls": 1,
+      "instruction_lines": 1488
+    },
+    "Fn15594": {
+      "memory_ea_calls": 0,
+      "panic_calls": 1,
+      "instruction_lines": 11212
+    }
+  }
+}

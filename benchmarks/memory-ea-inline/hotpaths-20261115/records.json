@@ -1,0 +1,35 @@
+[
+  {
+    "label": "baseline",
+    "wall_s": 30.71379229100421,
+    "cpu_s": 40.040559999999985,
+    "elapsed_ms": 29212.372,
+    "counts": {
+      "test": 1400,
+      "fork": 400,
+      "sample": 401
+    }
+  },
+  {
+    "label": "direct",
+    "wall_s": 24.342642417002935,
+    "cpu_s": 31.168075999999957,
+    "elapsed_ms": 22075.012,
+    "counts": {
+      "test": 1400,
+      "fork": 400,
+      "sample": 401
+    }
+  },
+  {
+    "label": "shared",
+    "wall_s": 30.365096249995986,
+    "cpu_s": 40.13937899999988,
+    "elapsed_ms": 29278.93,
+    "counts": {
+      "test": 1400,
+      "fork": 400,
+      "sample": 401
+    }
+  }
+]
