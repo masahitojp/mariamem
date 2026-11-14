@@ -1,4 +1,8 @@
 """Ledger updates preserve independent audit pins and reject source drift."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import GENERATED
 import hashlib
 import json
 from pathlib import Path
@@ -55,7 +59,7 @@ def test_metadata_update_is_minimal_and_idempotent(ledger):
 def test_unapproved_changes_rejected_before_writes(ledger,mutation):
     before=(ledger/'release/generated-license-evidence.json').read_bytes()
     if mutation=='metadata':
-        (ledger/'internal/generatedgo/image/layout.json').write_text('changed')
+        (ledger/(GENERATED / 'image/layout.json')).write_text('changed')
     else:
         name={'guest':'release/generated-go-inputs.json','source':'internal/generatedgo/provenance.json','reason':'release/attribution-tolerance.json'}[mutation]
         value=json.loads((ledger/name).read_text())
@@ -71,7 +75,7 @@ def test_explicit_source_delta_requires_exact_approved_hash(ledger):
     name='internal/generatedgo/provenance.json'
     record=json.loads((ledger/name).read_text())
     raw=b'approved handwritten helper'
-    (ledger/'internal/generatedgo/helper.go').write_bytes(raw)
+    (ledger/(GENERATED / 'helper.go')).write_bytes(raw)
     checksum=hashlib.sha256(raw).hexdigest()
     record['files_sha256']['helper.go']=checksum
     (ledger/name).write_text(json.dumps(record,indent=2)+'\n')
@@ -83,7 +87,7 @@ def test_explicit_source_delta_requires_exact_approved_hash(ledger):
     evidence=json.loads(updates[updater.LEDGERS[0]])
     assert evidence['attribution_continuity']['kind']=='reviewed-generated-source-delta'
     assert 'metadata_only_provenance_sha256' not in evidence
-    (ledger/'internal/generatedgo/helper.go').write_bytes(b'unapproved')
+    (ledger/(GENERATED / 'helper.go')).write_bytes(b'unapproved')
     with pytest.raises(ValueError): planned_updates(ledger)
 
 
@@ -93,7 +97,7 @@ def rewrite(path, value):
 
 def adopt_current_fixture(ledger):
     """Create an independent audited baseline that already includes metadata."""
-    provenance=ledger/'internal/generatedgo/provenance.json'
+    provenance=ledger/(GENERATED / 'provenance.json')
     evidence=ledger/updater.LEDGERS[0]
     value=json.loads(evidence.read_text())
     value['generated_provenance_sha256']=updater.sha(provenance.read_bytes())
@@ -109,14 +113,14 @@ def adopt_current_fixture(ledger):
 @pytest.mark.parametrize('change',['metadata','source','both'])
 def test_audited_metadata_preserved_during_reconstruction(ledger,change):
     adopt_current_fixture(ledger)
-    provenance=ledger/'internal/generatedgo/provenance.json'
+    provenance=ledger/(GENERATED / 'provenance.json')
     record=json.loads(provenance.read_text())
     if change in ('metadata','both'):
-        metadata=ledger/'internal/generatedgo/image/layout.json'
+        metadata=ledger/(GENERATED / 'image/layout.json')
         metadata.write_text('{  }\n')  # formatting-only metadata change
         record['files_sha256']['image/layout.json']=updater.sha(metadata.read_bytes())
     if change in ('source','both'):
-        helper=ledger/'internal/generatedgo/helper.go'
+        helper=ledger/(GENERATED / 'helper.go')
         helper.write_text('reviewed source')
         checksum=updater.sha(helper.read_bytes())
         record['files_sha256']['helper.go']=checksum
@@ -135,7 +139,7 @@ def test_audited_metadata_preserved_during_reconstruction(ledger,change):
 
 
 def test_reviewed_rename_reconstructs_original_audit(ledger):
-    generated=ledger/'internal/generatedgo'
+    generated=ledger/GENERATED
     (generated/'old.go').write_text('reviewed original')
     before=updater.sha((generated/'old.go').read_bytes())
     record=json.loads((generated/'provenance.json').read_text())

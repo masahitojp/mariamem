@@ -1,4 +1,8 @@
 """Saved benchmark analysis survives cleanup and never mutates evidence in check mode."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import hashlib
 import json
 from pathlib import Path
@@ -9,7 +13,7 @@ import sys
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE = ROOT / 'benchmarks/v060-latency-evidence'
+EVIDENCE = ROOT / (BENCHMARKS / 'v060-latency-evidence')
 ANALYZER = EVIDENCE / 'analyze.py'
 
 

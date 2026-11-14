@@ -1,8 +1,12 @@
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import importlib.util
 from pathlib import Path
 import pytest
 
-spec=importlib.util.spec_from_file_location('practical',Path(__file__).resolve().parents[1]/'benchmarks/practical_suites.py')
+spec=importlib.util.spec_from_file_location('practical',Path(__file__).resolve().parents[1]/(BENCHMARKS / 'practical_suites.py'))
 bench=importlib.util.module_from_spec(spec);spec.loader.exec_module(bench)
 
 def evidence():

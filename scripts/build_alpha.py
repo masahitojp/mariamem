@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build/stage a local platform alpha; does not publish anything."""
+from layout import GENERATED
 import argparse
 import hashlib
 import json
@@ -42,7 +43,7 @@ build_env.setdefault('GOCACHE', str(ROOT/'build/gocache'))
 observed_run([str(args.go), "build", "-p", "1", "-trimpath", "-o", str(host), "./cmd/mariamem-host"],
              cwd=ROOT, check=True, env=build_env, phase='wheel:go-host-build', outputs=[host],
              inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
-                     ROOT/'internal/generatedgo/provenance.json'])
+                     ROOT/(GENERATED / 'provenance.json')])
 # Reject the embedded source identity before packaging/using the host.
 if args.ci_candidate:
     from generated_release import checkout, source_inventory

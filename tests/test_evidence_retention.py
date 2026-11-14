@@ -73,3 +73,9 @@ def test_url_does_not_hide_a_separate_review_read(tmp_path):
         'data = Path("docs", "reviews", "contract.json").read_text()\n')
     with pytest.raises(ValueError, match='review path in maintained Python input'):
         check(tmp_path)
+
+
+
+def test_review_module_marker_is_not_an_archive_input():
+    assert review_input_references('marker = Path("docs/reviews/go.mod")') == []
+    assert review_input_references('data = Path("docs/reviews/contract.json").read_text()') == [1]

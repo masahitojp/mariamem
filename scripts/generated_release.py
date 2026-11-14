@@ -1,4 +1,5 @@
 """Fail-closed v0.4 generated-Go artifact/source contract (no publication)."""
+from layout import GENERATED
 import gzip
 import io
 import json
@@ -98,7 +99,7 @@ def verify_build(root, commit, directory=None):
     require(tool['archives_sha256']=={k:v['sha256'] for k,v in tools['archives'].items()},'toolchain archives differ')
     require(tool['host']=='linux-arm64' and tool['sysroot']['entries']>0,'wrong canonical build host/sysroot')
     require(regen['result']=='PASS' and regen['input_manifest_sha256']==digest(root/'release/generated-go-inputs.json'),'generation inputs differ')
-    generated=root/'internal/generatedgo'
+    generated=root/GENERATED
     require(regen['generated_inventory']=={p.relative_to(generated).as_posix():digest(p) for p in generated.rglob('*') if p.is_file()},'generated source inventory differs')
     require(regen['provenance_sha256']==digest(generated/'provenance.json'),'generated provenance differs')
     raw=regen['raw_translation']; expected=read(root/'release/generated-go-translation.json')
@@ -280,7 +281,7 @@ def check_aggregate(root,commit):
             require(name not in assets or assets[name]==value,'common source archive differs')
             assets[name]=value
     provenance={'contract':CONTRACT,'source_commit':commit,'guest_sha256':first['guest_sha256'],
-                'generated_provenance_sha256':digest(root/'internal/generatedgo/provenance.json'),
+                'generated_provenance_sha256':digest(root/(GENERATED / 'provenance.json')),
                 'inputs_sha256':digest(root/'release/generated-go-inputs.json'),
                 'toolchain_sha256':digest(root/'release/generated-go-toolchain.json'),
                 'notices':notices(root),'platforms':records,'assets':assets}
@@ -297,7 +298,7 @@ def stage(root,ready):
     require(not set(p.name for p in staging.iterdir())-(set(ready['assets'])|{'SHA256SUMS'}),'unexpected staged assets')
     first=ready['platforms'][DARWIN]
     provenance={'contract':CONTRACT,'source_commit':ready['source_commit'],'guest_sha256':first['guest_sha256'],
-                'generated_provenance_sha256':digest(root/'internal/generatedgo/provenance.json'),
+                'generated_provenance_sha256':digest(root/(GENERATED / 'provenance.json')),
                 'inputs_sha256':digest(root/'release/generated-go-inputs.json'),
                 'toolchain_sha256':digest(root/'release/generated-go-toolchain.json'),
                 'notices':notices(root),'platforms':ready['platforms'],

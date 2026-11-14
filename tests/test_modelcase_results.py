@@ -1,4 +1,8 @@
 """Compacted benchmark statistics remain checkable after raw/build cleanup."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import hashlib
 import json
 from pathlib import Path
@@ -9,7 +13,7 @@ import sys
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-CHECKER = ROOT / 'benchmarks/modelcase/check_results.py'
+CHECKER = ROOT / (BENCHMARKS / 'modelcase/check_results.py')
 
 
 def invoke(root):
@@ -25,7 +29,7 @@ def snapshot(root):
 @pytest.mark.parametrize('cohort', ['results', 'shared-read-results'])
 def test_compact_check_without_raw_is_read_only(tmp_path, cohort):
     root = tmp_path / 'evidence'
-    shutil.copytree(ROOT / 'benchmarks/modelcase' / cohort, root)
+    shutil.copytree(ROOT / (BENCHMARKS / 'modelcase') / cohort, root)
     assert not (root / 'matrix').exists()
     before = snapshot(root)
     result = invoke(root)
@@ -36,7 +40,7 @@ def test_compact_check_without_raw_is_read_only(tmp_path, cohort):
 @pytest.mark.parametrize('cohort', ['results', 'shared-read-results'])
 def test_resealed_wrong_median_fails_without_writing(tmp_path, cohort):
     root = tmp_path / 'evidence'
-    shutil.copytree(ROOT / 'benchmarks/modelcase' / cohort, root)
+    shutil.copytree(ROOT / (BENCHMARKS / 'modelcase') / cohort, root)
     path = root / 'summary.json'
     d = json.loads(path.read_text())
     d['rows'][0]['median_ms'] += 1
@@ -55,7 +59,7 @@ def test_resealed_wrong_median_fails_without_writing(tmp_path, cohort):
 @pytest.mark.parametrize('cohort', ['results', 'shared-read-results'])
 def test_input_hash_mismatch_fails(tmp_path, cohort):
     root = tmp_path / 'evidence'
-    shutil.copytree(ROOT / 'benchmarks/modelcase' / cohort, root)
+    shutil.copytree(ROOT / (BENCHMARKS / 'modelcase') / cohort, root)
     path = root / 'inputs.json'
     path.write_text(path.read_text()+' ')
     before = snapshot(root)

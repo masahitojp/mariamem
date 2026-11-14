@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Lint the reviewed fixture contract; never grant runtime acceptance."""
+from layout import FIXTURES
 import argparse
 import hashlib
 import json
@@ -10,7 +11,7 @@ import subprocess
 from git_identity import require_commit
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / 'tests/fixtures/fixture-entry/acceptance.json'
+CONTRACT = ROOT / (FIXTURES / 'fixture-entry/acceptance.json')
 ENTRIES = {'P1', 'G1', 'D1', 'EP1', 'EG1'}
 
 

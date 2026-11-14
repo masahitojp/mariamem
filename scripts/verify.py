@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Small local entry points for development, integration, release, and benchmarks."""
+from layout import BENCHMARKS, GENERATED
 
 import argparse
 import os
@@ -36,7 +37,7 @@ def run(argv, *, env=None):
     observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
                  phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
                  inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
-                         ROOT/'internal/generatedgo/provenance.json'])
+                         ROOT/(GENERATED / 'provenance.json')])
 
 
 DAILY_GO_PACKAGES = [".", "./cmd/...", "./internal/...", "./mariamemtest/..."]
@@ -203,7 +204,7 @@ def main():
                 parser.error("candidate root/platform requires --ci-candidate-sha")
             run([sys.executable, "scripts/check_release.py"])
     else:
-        run([sys.executable, ROOT / "benchmarks" / BENCHMARKS[args.workload], *extra])
+        run([sys.executable, ROOT / BENCHMARKS / BENCHMARKS[args.workload], *extra])
 
 
 if __name__ == "__main__":

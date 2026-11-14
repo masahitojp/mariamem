@@ -1,4 +1,8 @@
 """The CRC binding fails closed when guest semantics or generator output drift."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES, GENERATED, GENERATED_CODE
 import hashlib
 import json
 from pathlib import Path
@@ -13,11 +17,11 @@ import runtime_crc32c as crc
 
 
 def raw():
-    return (ROOT / 'tests/fixtures/pinned-crc-validator.go.txt').read_text()
+    return (ROOT / (FIXTURES / 'pinned-crc-validator.go.txt')).read_text()
 
 
 def data():
-    table = bytes.fromhex((ROOT / 'tests/fixtures/pinned-crc-table.hex').read_text())
+    table = bytes.fromhex((ROOT / (FIXTURES / 'pinned-crc-table.hex')).read_text())
     return bytes(crc.TABLE_OFFSET) + table
 
 
@@ -29,7 +33,7 @@ def test_binding_matches_installed_source_and_preserves_other_checks():
     source = raw()
     assert hashlib.sha256(source.encode()).hexdigest() == crc.BODY_SHA256
     crc.validate_inputs(crc.GUEST_SHA256, data())
-    installed = (ROOT / 'internal/generatedgo' / crc.PATH).read_text()
+    installed = (ROOT / GENERATED / crc.PATH).read_text()
     start = installed.index('func '+crc.FUNCTION+'(')
     end = installed.index('\nfunc ', start + 1)
     adapted = crc.apply(crc.PATH, source)
@@ -44,9 +48,9 @@ def test_binding_matches_installed_source_and_preserves_other_checks():
     assert all(new[k] == v for k, v in old.items() if k not in crc.CRC_BLOCKS)
     assert adapted.count('base.CRC32C(') == 1
     assert 'MARIAMEM_CRC_FAST' not in adapted
-    reference = (ROOT/'internal/generatedgo/code/p4/crc32c_reference_test.go').read_text()
+    reference = (ROOT/(GENERATED_CODE / 'p4/crc32c_reference_test.go')).read_text()
     assert compact(reference) == compact(crc.reference_source(source))
-    helper = (ROOT/'internal/generatedgo/code/base/crc32c.go').read_text()
+    helper = (ROOT/(GENERATED_CODE / 'base/crc32c.go')).read_text()
     assert 'os.Getenv' not in helper
 
 
@@ -81,7 +85,7 @@ def test_unrelated_files_are_untouched():
 
 def test_original_table_matches_canonical_data():
     import ast
-    source = (ROOT/'internal/generatedgo/code/generated.go').read_text()
+    source = (ROOT/(GENERATED_CODE / 'generated.go')).read_text()
     literal = source.split('var wasm2goData_data_bin = []byte(', 1)[1].split('\n', 1)[0][:-1]
     memory = ast.literal_eval(literal).encode('latin1')
     pins = json.loads((ROOT/'release/generated-go-inputs.json').read_text())

@@ -1,4 +1,8 @@
 """Native capture completeness and raw CALL reader error oracle."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import json
 from pathlib import Path
 import struct
@@ -10,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_minimal_reference_has_two_results_out_and_terminal():
-    ref=json.loads((ROOT/'tests/fixtures/prepared-call-native.json').read_text())
+    ref=json.loads((ROOT/(FIXTURES / 'prepared-call-native.json')).read_text())
     assert ref['result']=='PASS' and ref['following_select']=='PASS' and ref['close_ping']=='PASS'
     parts=ref['results']
     assert len(parts)==4

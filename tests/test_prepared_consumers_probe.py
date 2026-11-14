@@ -1,4 +1,8 @@
 """Consumer receipt/oracle controls, not execution of either database."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import copy
 import importlib.util
 import json
@@ -11,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def native():
-    return json.loads((ROOT/'tests/fixtures/prepared-p5-native-observation.json').read_text())
+    return json.loads((ROOT/(FIXTURES / 'prepared-p5-native-observation.json')).read_text())
 
 
 def test_failed_native_fixture_cannot_satisfy_functional_acceptance():
@@ -100,11 +104,11 @@ def test_secondary_reference_is_not_a_weak_fallback(mutation):
 
 
 def cext_environment():
-    return json.loads((ROOT/'tests/fixtures/prepared-p5-native-macos314-environment.json').read_text())
+    return json.loads((ROOT/(FIXTURES / 'prepared-p5-native-macos314-environment.json')).read_text())
 
 
 def test_recorded_python314_control_preserves_full_failure():
-    r=json.loads((ROOT/'tests/fixtures/prepared-p5-native-macos314.json').read_text())
+    r=json.loads((ROOT/(FIXTURES / 'prepared-p5-native-macos314.json')).read_text())
     assert compare_observations(native(),primary_without_cext(),r)==[]
     with pytest.raises(AssertionError):compare_reference(r,r)
     verify_cext_profile(cext_environment(),cext_environment())
@@ -123,11 +127,11 @@ def test_cli_requires_cext_client_binding_and_keeps_functional_fail(tmp_path,mon
     for name,data in [('actual',native()),('primary',primary_without_cext()),('env',cext_environment())]:
         (tmp_path/(name+'.json')).write_text(json.dumps(data))
     output=tmp_path/'result.json'
-    argv=['compare','--actual',str(tmp_path/'actual.json'),'--native',str(tmp_path/'primary.json'),'--native-cext',str(ROOT/'tests/fixtures/prepared-p5-native-macos314.json'),'--consumer-exit','1','--output',str(output)]
+    argv=['compare','--actual',str(tmp_path/'actual.json'),'--native',str(tmp_path/'primary.json'),'--native-cext',str(ROOT/(FIXTURES / 'prepared-p5-native-macos314.json')),'--consumer-exit','1','--output',str(output)]
     if profile!='missing':
         if profile=='wrong':
             r=cext_environment();r['extension_sha256']='0'*64;(tmp_path/'env.json').write_text(json.dumps(r))
-        argv+=['--actual-environment',str(tmp_path/'env.json'),'--native-cext-environment',str(ROOT/'tests/fixtures/prepared-p5-native-macos314-environment.json')]
+        argv+=['--actual-environment',str(tmp_path/'env.json'),'--native-cext-environment',str(ROOT/(FIXTURES / 'prepared-p5-native-macos314-environment.json'))]
     monkeypatch.setattr(sys,'argv',argv)
     if profile=='valid':m.main()
     else:
@@ -138,7 +142,7 @@ def test_cli_requires_cext_client_binding_and_keeps_functional_fail(tmp_path,mon
 
 
 def edge_reference():
-    return json.loads((ROOT/'tests/fixtures/prepared-p5-native-macos314-edges.json').read_text())
+    return json.loads((ROOT/(FIXTURES / 'prepared-p5-native-macos314-edges.json')).read_text())
 
 
 def test_full_edge_reference_matches_and_disposition_is_separate():
@@ -185,7 +189,7 @@ def test_explicit_accepted_disposition_still_requires_complete_tripwires(tmp_pat
         r=edge_reference();r['modes']['pure']['cases']['prepared_call']['following_query_error']['message']='new failure';(tmp_path/'edges.json').write_text(json.dumps(r))
     argv=['compare','--actual',str(tmp_path/'actual.json'),'--native',str(tmp_path/'native.json'),'--consumer-exit','1','--output',str(tmp_path/'out.json'),'--accepted-disposition',str(decision)]
     if mutation!='missing-edge':argv+=['--actual-edges',str(tmp_path/'edges.json'),'--native-edges',str(tmp_path/'native-edges.json')]
-    if mutation!='missing-profile':argv+=['--actual-environment',str(tmp_path/'env.json'),'--native-cext-environment',str(ROOT/'tests/fixtures/prepared-p5-native-macos314-environment.json')]
+    if mutation!='missing-profile':argv+=['--actual-environment',str(tmp_path/'env.json'),'--native-cext-environment',str(ROOT/(FIXTURES / 'prepared-p5-native-macos314-environment.json'))]
     monkeypatch.setattr(sys,'argv',argv)
     if mutation=='none':m.main()
     else:

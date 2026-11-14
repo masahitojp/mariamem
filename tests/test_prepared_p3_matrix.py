@@ -1,4 +1,8 @@
 """Full P3 scenario inventory and terminal-error reader oracle."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import json
 from pathlib import Path
 import struct
@@ -8,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def test_full_matrix_has_complete_pinned_native_controls():
-    r=json.loads((ROOT/'tests/fixtures/prepared-p3-native.json').read_text())
+    r=json.loads((ROOT/(FIXTURES / 'prepared-p3-native.json')).read_text())
     assert r['result']=='PASS' and not r['failures']
     assert set(r['cases'])==set(specifications()) and len(r['cases'])==14
     for name,c in r['cases'].items():
@@ -33,6 +37,6 @@ def test_reuse_preserves_bitmap_and_values_without_repeating_descriptors():
 
 
 def test_comparison_keeps_errors_metadata_status_and_following_query():
-    case=json.loads((ROOT/'tests/fixtures/prepared-p3-native.json').read_text())['cases']['later-error']
+    case=json.loads((ROOT/(FIXTURES / 'prepared-p3-native.json')).read_text())['cases']['later-error']
     assert comparable(case)['trace'][-1][-1]['sqlstate']=='45000'
     assert set(comparable(case))=={'prepare','trace','following_query','close_ping'}

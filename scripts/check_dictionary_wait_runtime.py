@@ -1,4 +1,5 @@
 """Exact guest/body/data boundary for the dictionary contention regression."""
+from layout import FIXTURES
 import hashlib
 import json
 from pathlib import Path
@@ -24,7 +25,7 @@ def validate_body(text, expected):
 
 def validate(root=ROOT):
     root = Path(root)
-    pins = json.loads((root/'tests/fixtures/dictionary-wait-layout.json').read_text())
+    pins = json.loads((root/(FIXTURES / 'dictionary-wait-layout.json')).read_text())
     guest = json.loads((root/'release/generated-go-inputs.json').read_text())
     if (guest['guest_sha256'] != pins['guest_sha256'] or
             guest['data_sha256'] != pins['data_sha256']):

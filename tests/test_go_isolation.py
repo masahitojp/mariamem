@@ -1,4 +1,8 @@
 """Thin launcher contract; fake process boundaries, no guest or artifact build."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import json
 from pathlib import Path
 import sys
@@ -6,7 +10,7 @@ from types import SimpleNamespace
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'benchmarks'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/BENCHMARKS))
 import go_isolation as benchmark
 
 
@@ -22,16 +26,16 @@ def test_native_input_is_retired(monkeypatch):
 def test_launcher_preserves_raw_case_summary_failure_and_generated_identity(tmp_path, monkeypatch, capsys, exit_code):
     root = tmp_path
     files = ['go_isolation.py', 'isolation_baseline.py', '_common.py', 'stage_report.py']
-    (root/'benchmarks/goisolation').mkdir(parents=True)
+    (root/(BENCHMARKS / 'goisolation')).mkdir(parents=True)
     for name in files:
-        (root/'benchmarks'/name).write_text('fixture')
-    (root/'benchmarks/goisolation/main.go').write_text('fixture')
+        (root/BENCHMARKS/name).write_text('fixture')
+    (root/(BENCHMARKS / 'goisolation/main.go')).write_text('fixture')
     (root/'release').mkdir()
     (root/'release/generated-go-inputs.json').write_text('{"guest_sha256":"test-hash"}')
-    output = root/'benchmarks/results/report.json'
+    output = root/(BENCHMARKS / 'results/report.json')
     monkeypatch.setattr(benchmark, 'ROOT', root)
     monkeypatch.setattr(benchmark, 'RESULTS', output.parent)
-    monkeypatch.setattr(benchmark, '__file__', str(root/'benchmarks/go_isolation.py'))
+    monkeypatch.setattr(benchmark, '__file__', str(root/(BENCHMARKS / 'go_isolation.py')))
     monkeypatch.setattr(benchmark, 'environment', lambda args: {'commit': 'test-sha', 'python': 'test-python'})
     monkeypatch.setattr(benchmark.subprocess, 'check_output', lambda *args, **kwargs: 'mysql test-version')
     commands = []

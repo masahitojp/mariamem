@@ -1,4 +1,8 @@
 """Normal notices are explicit; legacy attribution and guest sources survive."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import GENERATED
 import json
 from pathlib import Path
 import shutil
@@ -97,10 +101,10 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
     policy = json.loads(policy_path.read_text())
     policy['metadata_files'][0]['before'] = None
     policy_path.write_text(json.dumps(policy, indent=2)+'\n')
-    target = tmp_path/'internal/generatedgo'
+    target = tmp_path/GENERATED
     (target/'image').mkdir(parents=True)
     for name in ('provenance.json', 'image/layout.json'):
-        shutil.copyfile(ROOT/'internal/generatedgo'/name, target/name)
+        shutil.copyfile(ROOT/GENERATED/name, target/name)
     evidence = json.loads((ROOT/'release/generated-license-evidence.json').read_text())
     # Exercise the historical metadata-only path independently of whether the
     # current canonical audit already includes image metadata.
@@ -131,9 +135,9 @@ def test_replaced_image_binding_reconstructs_exact_audited_provenance(tmp_path):
     import shutil
     (tmp_path/'release').mkdir()
     shutil.copyfile(ROOT/'release/attribution-tolerance.json', tmp_path/'release/attribution-tolerance.json')
-    target = tmp_path/'internal/generatedgo'
-    shutil.copytree(ROOT/'internal/generatedgo/image', target/'image')
-    shutil.copyfile(ROOT/'internal/generatedgo/provenance.json', target/'provenance.json')
+    target = tmp_path/GENERATED
+    shutil.copytree(ROOT/(GENERATED / 'image'), target/'image')
+    shutil.copyfile(ROOT/(GENERATED / 'provenance.json'), target/'provenance.json')
     evidence = json.loads((ROOT/'release/generated-license-evidence.json').read_text())
     assert verify_generated_attribution(tmp_path, evidence) == 'unchanged-generated-code; image-metadata-only'
     bad = dict(evidence, audited_image_metadata_sha256='0'*64)

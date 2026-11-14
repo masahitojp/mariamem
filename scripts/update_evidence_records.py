@@ -1,4 +1,5 @@
 """Refresh derived license bindings while preserving audit and policy pins."""
+from layout import GENERATED
 import argparse
 from contextlib import contextmanager
 import fcntl
@@ -35,7 +36,7 @@ def planned_updates(root):
             evidence['linked_sha256'] == build['linked_guest_sha256']):
         raise ValueError('guest/link identity changed; a new audit is required')
     kind = verify_generated_attribution(root, evidence)
-    provenance = root/'internal/generatedgo/provenance.json'
+    provenance = root/(GENERATED / 'provenance.json')
     record = json.loads(provenance.read_text())
     for name, expected in record['files_sha256'].items():
         if (not name or Path(name).is_absolute() or '\\' in name or

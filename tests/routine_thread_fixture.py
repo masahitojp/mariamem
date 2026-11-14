@@ -1,4 +1,8 @@
 """Package actual canonical J1 functions; retain the historical failure assertions."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS, FIXTURES, GENERATED
 import argparse
 import hashlib
 import json
@@ -23,10 +27,10 @@ def data_file(path):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--run',action='store_true')
     a=parser.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
-    runtime=ROOT/'internal/generatedgo';provenance=json.loads((runtime/'provenance.json').read_text())
-    layout=json.loads((ROOT/'tests/fixtures/routine-thread-layout.json').read_text())
+    runtime=ROOT/GENERATED;provenance=json.loads((runtime/'provenance.json').read_text())
+    layout=json.loads((ROOT/(FIXTURES / 'routine-thread-layout.json')).read_text())
     assert provenance['guest_sha256']==layout['guest_sha256']==binding.GUEST_SHA256
-    baseline=json.loads((ROOT/'tests/fixtures/routine-j1-baseline.json').read_text())
+    baseline=json.loads((ROOT/(FIXTURES / 'routine-j1-baseline.json')).read_text())
     mapping={int(k):int(v) for k,v in layout['function_map'].items()}
     entries={row['old_function']:row for row in layout['functions']}
     closure={70,82,83,88,89,97,131,135,150,151,152,153,158,217,221}
@@ -58,7 +62,7 @@ def main():
     probe=module/'probe';probe.mkdir()
     imports='package probe\nimport("unsafe";"github.com/masahitojp/mariamem/internal/generatedgo/code/base"'+(';"sync/atomic"' if any('atomic.' in body for body in definitions) else '')+')\n'
     (probe/'functions.go').write_text(imports+'\n'.join(definitions))
-    extract=runpy.run_path(str(ROOT/'benchmarks/spikes/v050-semantic-audit/package.py'))['host_method']
+    extract=runpy.run_path(str(ROOT/(BENCHMARKS / 'spikes/v050-semantic-audit/package.py')))['host_method']
     source=(runtime/'main.go').read_text();methods=[extract(source,n) for n in ('Futex_wait','futexWake','Futex_wake','Futex_wake_all')]
     anchor='base.AtomicNotify(m, addr, 0, count)';assert methods[1].count(anchor)==1
     methods[1]=methods[1].replace(anchor,anchor+'\n if h.hook!=nil {h.hook(m,out)}')
@@ -73,7 +77,7 @@ def main():
     segments=layout['data_segments'];first=segments[0]['end'];second=segments[1]['end'];third=segments[2]['end']
     for text in (f'base.MemoryInit(m, 0, int32(8388608), v7, int32({first}))',f'base.MemoryInit(m, 1, int32({segments[1]["offset"]}), v7, int32(642620))',f'v14 = int32({segments[2]["offset"]})',f'base.MemoryInit(m, 2, v14, v7, int32({third-second}))'):
         assert text in init,text
-    template=ROOT/'benchmarks/spikes/v050-join-lifetime/probe_test.go.txt';test=template.read_text()
+    template=ROOT/(BENCHMARKS / 'spikes/v050-join-lifetime/probe_test.go.txt');test=template.read_text()
     replacements={
         'copy(memory[8388608:], data[:6207334])':f'copy(memory[8388608:], data[:{first}])',
         'copy(memory[14595968:], data[6207334:6849954])':f'copy(memory[{segments[1]["offset"]}:], data[{first}:{second}])',

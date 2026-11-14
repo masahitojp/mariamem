@@ -2,6 +2,10 @@
 
 Not a substitute for P6's full closure and forced-schedule J1 failure oracle.
 """
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import argparse
 import hashlib
 import json
@@ -19,12 +23,12 @@ def check_memory_initialization(runtime, identity):
     body=binding.function((runtime/pin['file']).read_text(),pin['function'])
     normalize=lambda text:re.sub(r'\s+','',text)
     assert hashlib.sha256(normalize(body).encode()).hexdigest()==pin['normalized_sha256'],'memory initialization changed'
-    fixture=(ROOT/'tests/fixtures/prepared-p2-binding/memory-init.txt').read_text()
+    fixture=(ROOT/(FIXTURES / 'prepared-p2-binding/memory-init.txt')).read_text()
     assert normalize(body)==normalize(fixture),'memory initialization fixture changed'
 
 
 def check(runtime):
-    identity=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())
+    identity=json.loads((ROOT/(FIXTURES / 'prepared-p2-binding/identity.json')).read_text())
     provenance=json.loads((runtime/'provenance.json').read_text())
     assert provenance['guest_sha256']==identity['guest_sha256']==binding.GUEST_SHA256
     generated=(runtime/'code/generated.go').read_text()
@@ -47,7 +51,7 @@ def check(runtime):
             body=body.replace(hook,'',1)
         digest=hashlib.sha256(re.sub(r'\s+','',body).encode()).hexdigest()
         assert digest==expected==identity['functions'][name]['normalized_sha256']
-        fixture=(ROOT/'tests/fixtures/prepared-p2-binding'/(function+'.txt')).read_text()
+        fixture=(ROOT/(FIXTURES / 'prepared-p2-binding')/(function+'.txt')).read_text()
         assert re.sub(r'\s+','',body)==re.sub(r'\s+','',fixture)
     print('PASS: installed prepared functions match the reviewed exact preimages and handoff')
 
