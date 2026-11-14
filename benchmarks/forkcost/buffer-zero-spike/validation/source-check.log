@@ -14,11 +14,11 @@ self = <test_uca_copy_source.UCACopySourceTests testMethod=test_accepted_exact_s
 >       self.assertEqual(guard.source(ROOT)['accepted_delta_sha256'], guard.DELTA_PATCH)
                          ^^^^^^^^^^^^^^^^^^
 
-tests/test_uca_copy_source.py:17: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_uca_copy_source.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/check_uca_copy_source.py:31: in source
     require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 condition = False, message = 'experimental patch remains'
 
@@ -36,11 +36,11 @@ self = <test_dictionary_wait_source.DictionarySourceTests testMethod=test_accept
 >       self.assertEqual(guard.source(ROOT)['dictionary_delta_sha256'], guard.DELTA_SHA)
                          ^^^^^^^^^^^^^^^^^^
 
-tests/test_dictionary_wait_source.py:23: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_dictionary_wait_source.py:23:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/check_dictionary_wait_source.py:25: in source
     require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 ok = False, message = 'experimental patch remains'
 

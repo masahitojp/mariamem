@@ -84,7 +84,7 @@ text+='''
 
 summary.jsonは主系列とClose補足を分離し、process別値も保持する。analyze.pyはraw JSONの完全matrix/成功/子件数を検査して再生成する。runs/とlifecycle-runs/が全観測で、失敗記録はvalidation/に分けて保存。tools/は今回使ったrecipe/解析コード、harness/は実際のGo入力。新規環境では現branchのclean source、同じ入力pinsから通常のsingle-pass development producerでguestを作り、同じSHAを確認して再生成する。今回は上記の段階再開を使った事実を保持しており、fresh replayをもう一度実行したとは主張しない。
 
-guest.jsonとdevelopment.jsonは圧縮して保存した。公開時に<workspace>/<repo>/<home>へpathだけ正規化した資料にはpublication.jsonで元hashと公開hashを併記する。新しい再現では新しいsource origin/pathsに結び付いたrecordを生成し、正規化済みrecordをそのままinstallation inputに流用しない。C/Go binary、SDK、module/compiler cache、生成sourceは再作成可能なため削除対象。canonical source.patch、release pins、mainと既存のユーザー変更は変更していない。
+guest.jsonとdevelopment.jsonは圧縮して保存した。公開時に<workspace>/<repo>/<home>へpathを正規化した資料（ログの行末空白と旧harnessの空行の空白も除去）にはpublication.jsonで元hashと公開hashを併記する。新しい再現では新しいsource origin/pathsに結び付いたrecordを生成し、正規化済みrecordをそのままinstallation inputに流用しない。C/Go binary、SDK、module/compiler cache、生成sourceは再作成可能なため削除対象。canonical source.patch、release pins、mainと既存のユーザー変更は変更していない。
 '''
 (D/'README.md').write_text(text);(E/'README.md').write_text(text)
 # Copy exact source inputs, then make only location-dependent replace paths portable.
@@ -94,6 +94,8 @@ for name in ['suite','probe','correct','fault','recovery','lifecycle']:
  mod=dest/'go.mod';s=mod.read_text();s=s[:s.index('replace github.com/masahitojp/mariamem')]+('replace github.com/masahitojp/mariamem => ../../worktree\n' if name in ['suite','probe','lifecycle'] else 'replace github.com/masahitojp/mariamem => ../native/product\n');mod.write_text(s)
 license_path=X.parents[2]/'build/experiment-work/modelcase-matched/evidence/harness/UPSTREAM-LICENSE';shutil.copy2(license_path,H/'UPSTREAM-LICENSE')
 for f in [T/'buffer_fault_experiment.go',T/'buffer_recovery_witness.go'] :shutil.copy2(f,H/f.name)
+for f in H.rglob('*.go'):
+ text=f.read_text();f.write_text('\n'.join('' if not line.strip() else line for line in text.split('\n')))
 # Publication records are derived from local originals; sample values never change.
 publication={}
 def normalize(b):
@@ -101,7 +103,7 @@ def normalize(b):
  except UnicodeDecodeError:return b
  return s.replace(str(X),'<workspace>').replace(str(X.parents[2]),'<repo>').replace('<home>/','<home>/').encode()
 def save(source,target,compress=False):
- raw=source.read_bytes();public=normalize(raw);target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(gzip.compress(public,mtime=0) if compress else public);publication[str(target.relative_to(D))]={'raw_sha256':hashlib.sha256(raw).hexdigest(),'public_content_sha256':hashlib.sha256(public).hexdigest(),'path_normalized':raw!=public,'gzip':compress}
+ raw=source.read_bytes();public=normalize(raw);public=b'\n'.join(line.rstrip(b' \t') for line in public.split(b'\n')) if source.suffix=='.log' else public;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(gzip.compress(public,mtime=0) if compress else public);publication[str(target.relative_to(D))]={'raw_sha256':hashlib.sha256(raw).hexdigest(),'public_content_sha256':hashlib.sha256(public).hexdigest(),'path_normalized':raw!=public,'gzip':compress}
 for f in E.glob('*.py'):save(f,D/'tools'/f.name)
 for name in ['runs','lifecycle-runs']:
  for f in (E/name).glob('*'):save(f,D/name/f.name)

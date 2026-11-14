@@ -59,7 +59,7 @@ func Migrate(ctx context.Context, db *sql.DB) error {
 			/* DDL implicitly commits on MariaDB */
 			return err
 		}
-		
+
 	}
 	return nil
 }

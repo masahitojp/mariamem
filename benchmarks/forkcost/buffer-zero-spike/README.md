@@ -79,4 +79,4 @@ canonicalと実験guestのbaselineにも差がある。追加したモード分�
 
 summary.jsonは主系列とClose補足を分離し、process別値も保持する。analyze.pyはraw JSONの完全matrix/成功/子件数を検査して再生成する。runs/とlifecycle-runs/が全観測で、失敗記録はvalidation/に分けて保存。tools/は今回使ったrecipe/解析コード、harness/は実際のGo入力。新規環境では現branchのclean source、同じ入力pinsから通常のsingle-pass development producerでguestを作り、同じSHAを確認して再生成する。今回は上記の段階再開を使った事実を保持しており、fresh replayをもう一度実行したとは主張しない。
 
-guest.jsonとdevelopment.jsonは圧縮して保存した。公開時に<workspace>/<repo>/<home>へpathだけ正規化した資料にはpublication.jsonで元hashと公開hashを併記する。新しい再現では新しいsource origin/pathsに結び付いたrecordを生成し、正規化済みrecordをそのままinstallation inputに流用しない。C/Go binary、SDK、module/compiler cache、生成sourceは再作成可能なため削除対象。canonical source.patch、release pins、mainと既存のユーザー変更は変更していない。
+guest.jsonとdevelopment.jsonは圧縮して保存した。公開時に<workspace>/<repo>/<home>へpathを正規化した資料（ログの行末空白と旧harnessの空行の空白も除去）にはpublication.jsonで元hashと公開hashを併記する。新しい再現では新しいsource origin/pathsに結び付いたrecordを生成し、正規化済みrecordをそのままinstallation inputに流用しない。C/Go binary、SDK、module/compiler cache、生成sourceは再作成可能なため削除対象。canonical source.patch、release pins、mainと既存のユーザー変更は変更していない。

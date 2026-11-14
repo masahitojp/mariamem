@@ -126,8 +126,8 @@
     "gzip": false
   },
   "tools/publish.py": {
-    "raw_sha256": "f822b890cb04edb8233fde4109007e8c077afbc54ab1c7267524234a75576e59",
-    "public_content_sha256": "1f6505ab6d81449ec89fd1de0f5e822d2bb22772c8ceaf6b2b18a428d8684b26",
+    "raw_sha256": "35f1ef4f6883ff2aed09845c2f49e2d837b51ee385ee0fb1be8ec92cff94b572",
+    "public_content_sha256": "9f5b552addf314eaf1eec669e5c796f4fd06dc29c5b3ffd471b795e219aa9190",
     "path_normalized": true,
     "gzip": false
   },
@@ -1261,7 +1261,7 @@
   },
   "validation/source-check.log": {
     "raw_sha256": "95742e99f911aee8a0dac3c68ae3dc182107856af14bfae14a3183b2925d74ed",
-    "public_content_sha256": "f2f229e58d3947a54a2d1a5fd55c3a613097ef63de5f5ad3fc3dcab022ff11fe",
+    "public_content_sha256": "4859532e0d4e668ceaff28b1fd2f6722f7f081284defd59df939b6841df1de01",
     "path_normalized": true,
     "gzip": false
   },
@@ -1345,8 +1345,8 @@
   },
   "build-evidence/guest-build-resumed.log.gz": {
     "raw_sha256": "313179023b626797e8a7381f797fa6c22c0a1f7b9c17f1f3e63af0d874ed477b",
-    "public_content_sha256": "313179023b626797e8a7381f797fa6c22c0a1f7b9c17f1f3e63af0d874ed477b",
-    "path_normalized": false,
+    "public_content_sha256": "fbbf8d9ebaf3d728f43301cbe0899126fa98b2a59d0bdad2198ee36900b15e95",
+    "path_normalized": true,
     "gzip": true
   },
   "build-evidence/guest-collect.log.gz": {
