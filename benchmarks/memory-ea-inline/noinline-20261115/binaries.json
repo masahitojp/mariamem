@@ -1,0 +1,14 @@
+{
+  "baseline": {
+    "bytes": 108555138,
+    "sha256": "f91bf4b48bfb67786a40b5974991e2719035ec3a6a3557092eda3bf5feb8f345"
+  },
+  "direct": {
+    "bytes": 191098530,
+    "sha256": "41f5eb2e2318880a558a89fe077fa2fac139404cd9cee1e2f64281580a4735f7"
+  },
+  "noinline": {
+    "bytes": 108555042,
+    "sha256": "4e70e2b78acf1888a240e5ffb4744aeb21759422d2cf5f55cd89817e25bbe6fa"
+  }
+}

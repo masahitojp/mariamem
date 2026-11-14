@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "normal_path_direct_equals_noinline": true,
+  "normal_path_instruction_count": 20,
+  "compiler_noinline_confirmed": true,
+  "selected_callers_retained": true
+}

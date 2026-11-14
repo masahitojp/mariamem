@@ -1,0 +1,18 @@
+=== RUN   TestPureMemory32GeneratedTraps
+    pure_memory32_test.go:87: root and worker generated traps survived; worker visibility, grow and private TLS/stack globals pass
+--- PASS: TestPureMemory32GeneratedTraps (0.01s)
+=== RUN   TestPureMemory32CRUDSessionsAndFork
+--- PASS: TestPureMemory32CRUDSessionsAndFork (0.10s)
+=== RUN   TestPureMemory32PlaceholderCredentials
+--- PASS: TestPureMemory32PlaceholderCredentials (0.02s)
+=== RUN   TestPureMemory32RepeatedClose
+--- PASS: TestPureMemory32RepeatedClose (0.07s)
+=== RUN   TestProcessImageSurvivesIndependentRootsAndSnapshots
+    static_image_test.go:56: retained process image: map[acquires:11 build_ms:16.045708 builds:1 cleanup_debt:false closed:false constructor_ms:2.164 failed:false full_scan:false image_allocated_bytes:27754496 image_logical_bytes:2147483648 image_ranges:[{8388608 3293184} {11730944 49152} {11796480 802816} {12664832 32768} {12713984 802816} {13582336 32768} {13631488 163840} {13844480 32768} {13893632 114688} {14024704 65536} {14155776 65536} {14286848 147456} {14450688 114688} {14581760 49152} {14696448 65536} {14827520 147456} {14991360 49152} {15056896 49152} {15122432 458752} {15630336 32768} {15679488 114688} {15826944 2949120} {27738112 16384}] initialized_page_bytes:9650176 owned_fds:1 page_size:16384 process_lifetime:true scan_ms:4.13275 scanned_bytes:19365888]
+--- PASS: TestProcessImageSurvivesIndependentRootsAndSnapshots (0.09s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.336s
+=== RUN   TestWorkerTrapActualGuestNotifiesAndIsolatesPeer
+--- PASS: TestWorkerTrapActualGuestNotifiesAndIsolatesPeer (0.09s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.845s

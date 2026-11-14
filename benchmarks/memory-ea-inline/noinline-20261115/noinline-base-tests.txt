@@ -1,0 +1,311 @@
+=== RUN   TestBlockStorageReference
+--- PASS: TestBlockStorageReference (0.03s)
+=== RUN   TestBlockBoundarySparseAndZeroLength
+--- PASS: TestBlockBoundarySparseAndZeroLength (0.00s)
+=== RUN   TestBlockRenameUnlinkAndConcurrentIO
+--- PASS: TestBlockRenameUnlinkAndConcurrentIO (0.00s)
+=== RUN   TestBlockRelativeOpenTruncateAndAppend
+--- PASS: TestBlockRelativeOpenTruncateAndAppend (0.00s)
+=== RUN   TestBulkBoundsAndEffects
+=== RUN   TestBulkBoundsAndEffects/fill/end
+=== RUN   TestBulkBoundsAndEffects/fill/past-dst
+=== RUN   TestBulkBoundsAndEffects/fill/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/fill/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/fill/one-valid
+=== RUN   TestBulkBoundsAndEffects/fill/one-invalid
+=== RUN   TestBulkBoundsAndEffects/copy/end
+=== RUN   TestBulkBoundsAndEffects/copy/past-dst
+=== RUN   TestBulkBoundsAndEffects/copy/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/copy/end-src
+=== RUN   TestBulkBoundsAndEffects/copy/past-src
+=== RUN   TestBulkBoundsAndEffects/copy/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/copy/one-valid
+=== RUN   TestBulkBoundsAndEffects/copy/one-invalid
+=== RUN   TestBulkBoundsAndEffects/init/end
+=== RUN   TestBulkBoundsAndEffects/init/past-dst
+=== RUN   TestBulkBoundsAndEffects/init/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/init/end-src
+=== RUN   TestBulkBoundsAndEffects/init/past-src
+=== RUN   TestBulkBoundsAndEffects/init/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/init/one-valid
+=== RUN   TestBulkBoundsAndEffects/init/one-invalid
+=== RUN   TestBulkBoundsAndEffects/init/dropped-empty
+=== RUN   TestBulkBoundsAndEffects/init/dropped-past
+=== RUN   TestBulkBoundsAndEffects/init/dropped-copy
+--- PASS: TestBulkBoundsAndEffects (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/end-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/past-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/end-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/past-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-empty (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-past (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-copy (0.00s)
+=== RUN   TestAllocationContracts
+=== RUN   TestAllocationContracts/memory/inside
+=== RUN   TestAllocationContracts/memory/zero
+=== RUN   TestAllocationContracts/memory/zero-beyond
+=== RUN   TestAllocationContracts/memory/grow
+=== RUN   TestAllocationContracts/memory/unsigned-wrap
+=== RUN   TestAllocationContracts/memory/signed-limit
+=== RUN   TestAllocationContracts/native/inside
+=== RUN   TestAllocationContracts/native/zero
+=== RUN   TestAllocationContracts/native/zero-beyond
+=== RUN   TestAllocationContracts/native/grow
+=== RUN   TestAllocationContracts/native/unsigned-wrap
+=== RUN   TestAllocationContracts/native/signed-limit
+--- PASS: TestAllocationContracts (0.00s)
+    --- PASS: TestAllocationContracts/memory/inside (0.00s)
+    --- PASS: TestAllocationContracts/memory/zero (0.00s)
+    --- PASS: TestAllocationContracts/memory/zero-beyond (0.00s)
+    --- PASS: TestAllocationContracts/memory/grow (0.00s)
+    --- PASS: TestAllocationContracts/memory/unsigned-wrap (0.00s)
+    --- PASS: TestAllocationContracts/memory/signed-limit (0.00s)
+    --- PASS: TestAllocationContracts/native/inside (0.00s)
+    --- PASS: TestAllocationContracts/native/zero (0.00s)
+    --- PASS: TestAllocationContracts/native/zero-beyond (0.00s)
+    --- PASS: TestAllocationContracts/native/grow (0.00s)
+    --- PASS: TestAllocationContracts/native/unsigned-wrap (0.00s)
+    --- PASS: TestAllocationContracts/native/signed-limit (0.00s)
+=== RUN   TestAllocationReadonlyAndInvalid
+=== RUN   TestAllocationReadonlyAndInvalid/memory
+=== RUN   TestAllocationReadonlyAndInvalid/native
+--- PASS: TestAllocationReadonlyAndInvalid (0.00s)
+    --- PASS: TestAllocationReadonlyAndInvalid/memory (0.00s)
+    --- PASS: TestAllocationReadonlyAndInvalid/native (0.00s)
+=== RUN   TestAllocationConcurrentHandles
+=== RUN   TestAllocationConcurrentHandles/memory
+=== RUN   TestAllocationConcurrentHandles/native
+--- PASS: TestAllocationConcurrentHandles (0.01s)
+    --- PASS: TestAllocationConcurrentHandles/memory (0.00s)
+    --- PASS: TestAllocationConcurrentHandles/native (0.01s)
+=== RUN   TestDuplicateLastAliasClosesUnderlyingFile
+--- PASS: TestDuplicateLastAliasClosesUnderlyingFile (0.00s)
+=== RUN   TestFDWriteReportsErrorsAndProgress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/broken-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/wrapped-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/other-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/no-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/short-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/partial-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/later-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm32/complete
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/broken-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/wrapped-pipe
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/other-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/no-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/short-progress
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/partial-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/later-error
+=== RUN   TestFDWriteReportsErrorsAndProgress/wasm64/complete
+--- PASS: TestFDWriteReportsErrorsAndProgress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/broken-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/wrapped-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/other-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/no-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/short-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/partial-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/later-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm32/complete (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/broken-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/wrapped-pipe (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/other-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/no-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/short-progress (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/partial-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/later-error (0.00s)
+    --- PASS: TestFDWriteReportsErrorsAndProgress/wasm64/complete (0.00s)
+=== RUN   TestFDWriteClosedPipeIsNotSuccessfulZeroProgress
+--- PASS: TestFDWriteClosedPipeIsNotSuccessfulZeroProgress (0.00s)
+=== RUN   TestHeapOwnershipAcrossGenerations
+--- PASS: TestHeapOwnershipAcrossGenerations (0.00s)
+=== RUN   TestHeapFreezeFailureAndIdentityOracle
+--- PASS: TestHeapFreezeFailureAndIdentityOracle (0.00s)
+=== RUN   TestHeapTargetCorruptionOracle
+--- PASS: TestHeapTargetCorruptionOracle (0.00s)
+=== RUN   TestRootFDAndGenerationIsolation
+--- PASS: TestRootFDAndGenerationIsolation (0.00s)
+=== RUN   TestHostImportLogicalMemory
+=== RUN   TestHostImportLogicalMemory/random_crossing
+=== RUN   TestHostImportLogicalMemory/random_past_end
+=== RUN   TestHostImportLogicalMemory/random_unsigned_overflow
+=== RUN   TestHostImportLogicalMemory/clock_crossing
+=== RUN   TestHostImportLogicalMemory/args_output_crossing
+=== RUN   TestHostImportLogicalMemory/env_output_crossing
+=== RUN   TestHostImportLogicalMemory/fd_output_crossing
+=== RUN   TestHostImportLogicalMemory/iovec_table_crossing
+--- PASS: TestHostImportLogicalMemory (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_past_end (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_unsigned_overflow (0.00s)
+    --- PASS: TestHostImportLogicalMemory/clock_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/args_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/env_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/fd_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/iovec_table_crossing (0.00s)
+=== RUN   TestMemFSGrowthAmortizedCopy
+--- PASS: TestMemFSGrowthAmortizedCopy (0.00s)
+=== RUN   TestMemFSGrowthZeroFillAndOffsets
+--- PASS: TestMemFSGrowthZeroFillAndOffsets (0.00s)
+=== RUN   TestMappingFailureOwnership
+--- PASS: TestMappingFailureOwnership (0.00s)
+=== RUN   TestMappingInitialCleanupFailureRetainsOwner
+--- PASS: TestMappingInitialCleanupFailureRetainsOwner (0.00s)
+=== RUN   TestNarrowAtomicValuesBounds
+--- PASS: TestNarrowAtomicValuesBounds (0.00s)
+=== RUN   TestNarrowAtomicReadonlyMapping
+--- PASS: TestNarrowAtomicReadonlyMapping (0.00s)
+=== RUN   TestNarrowAtomicPublication
+--- PASS: TestNarrowAtomicPublication (0.03s)
+=== RUN   TestNarrowWriterValuesAndBounds
+--- PASS: TestNarrowWriterValuesAndBounds (0.00s)
+=== RUN   TestNarrowWriterOrdinaryNeighbor
+--- PASS: TestNarrowWriterOrdinaryNeighbor (0.00s)
+=== RUN   TestNarrowWriterSameTarget
+--- PASS: TestNarrowWriterSameTarget (0.00s)
+=== RUN   TestNarrowWriterMixedWidthSC
+--- PASS: TestNarrowWriterMixedWidthSC (0.00s)
+=== RUN   TestOwnedPrivateViewsGrowthAndRelease
+--- PASS: TestOwnedPrivateViewsGrowthAndRelease (0.00s)
+=== RUN   TestOwnedPartialMappingFailure
+    owned_prepared_test.go:139: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:145: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:146: 100 partial mapping failures: file-backed VM bytes 0 -> 0
+--- PASS: TestOwnedPartialMappingFailure (0.00s)
+=== RUN   TestOwnedMappedTruncateRenameUnlinkIdentity
+--- PASS: TestOwnedMappedTruncateRenameUnlinkIdentity (0.00s)
+=== RUN   TestPreparedFilePrivateViews
+--- PASS: TestPreparedFilePrivateViews (0.00s)
+=== RUN   TestPreparedFilesRejectPartialInvalidTree
+--- PASS: TestPreparedFilesRejectPartialInvalidTree (0.00s)
+=== RUN   TestPreparedGrowthOwnershipAndZeroFill
+--- PASS: TestPreparedGrowthOwnershipAndZeroFill (0.00s)
+=== RUN   TestRelativeDirectoryMovedParentIdentity
+--- PASS: TestRelativeDirectoryMovedParentIdentity (0.00s)
+=== RUN   TestRelativeDirectoryIdentityDuringRename
+--- PASS: TestRelativeDirectoryIdentityDuringRename (0.00s)
+=== RUN   TestRelativeDirectoryRenameNestedAndParent
+--- PASS: TestRelativeDirectoryRenameNestedAndParent (0.00s)
+=== RUN   TestRelativeDirectoryUnlinkAndNameReuse
+--- PASS: TestRelativeDirectoryUnlinkAndNameReuse (0.00s)
+=== RUN   TestRelativeFileUnlinkKeepsOpenObject
+--- PASS: TestRelativeFileUnlinkKeepsOpenObject (0.00s)
+=== RUN   TestRelativeDirectoryCloseAndFDReuse
+--- PASS: TestRelativeDirectoryCloseAndFDReuse (0.00s)
+=== RUN   TestRelativeDirectoryConcurrentRename
+--- PASS: TestRelativeDirectoryConcurrentRename (0.00s)
+=== RUN   TestRelativeDirectoryStatReadlinkAndInvalidFD
+--- PASS: TestRelativeDirectoryStatReadlinkAndInvalidFD (0.00s)
+=== RUN   TestNonSharedWaitNeedsNoThreadPool
+--- PASS: TestNonSharedWaitNeedsNoThreadPool (0.00s)
+=== RUN   TestWorkerFailureNotifiesBeforeJoinAndCancelsWaits
+--- PASS: TestWorkerFailureNotifiesBeforeJoinAndCancelsWaits (0.00s)
+=== RUN   TestWaitContract
+--- PASS: TestWaitContract (0.00s)
+=== RUN   TestPageCleanerOrdering
+=== RUN   TestPageCleanerOrdering/signal-before-registration
+    spike_contract_test.go:174: signal_delivered=false wait_result=2 elapsed=1.001992334s
+=== RUN   TestPageCleanerOrdering/registered-before-signal
+    spike_contract_test.go:174: signal_delivered=true wait_result=0 elapsed=1.709µs
+--- PASS: TestPageCleanerOrdering (1.00s)
+    --- PASS: TestPageCleanerOrdering/signal-before-registration (1.00s)
+    --- PASS: TestPageCleanerOrdering/registered-before-signal (0.00s)
+=== RUN   TestStaticPagesRangesOwnership
+--- PASS: TestStaticPagesRangesOwnership (0.00s)
+=== RUN   TestThreadIdentityFailureBeforeLaunch
+=== RUN   TestThreadIdentityFailureBeforeLaunch/536870911
+=== RUN   TestThreadIdentityFailureBeforeLaunch/536870912
+=== RUN   TestThreadIdentityFailureBeforeLaunch/2147483647
+=== RUN   TestThreadIdentityFailureBeforeLaunch/-1
+--- PASS: TestThreadIdentityFailureBeforeLaunch (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/536870911 (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/536870912 (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/2147483647 (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/-1 (0.00s)
+=== RUN   TestThreadIdentityConcurrentAllocationAndExhaustion
+=== RUN   TestThreadIdentityConcurrentAllocationAndExhaustion/0
+=== RUN   TestThreadIdentityConcurrentAllocationAndExhaustion/536870901
+--- PASS: TestThreadIdentityConcurrentAllocationAndExhaustion (0.00s)
+    --- PASS: TestThreadIdentityConcurrentAllocationAndExhaustion/0 (0.00s)
+    --- PASS: TestThreadIdentityConcurrentAllocationAndExhaustion/536870901 (0.00s)
+=== RUN   TestThreadIdentityMissingEntryDoesNotAllocate
+--- PASS: TestThreadIdentityMissingEntryDoesNotAllocate (0.00s)
+=== RUN   TestWorkerReclaimWaitsForLastAccess
+--- PASS: TestWorkerReclaimWaitsForLastAccess (0.01s)
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion/return
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion/goexit
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion/panic
+--- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion (0.00s)
+    --- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion/return (0.00s)
+    --- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion/goexit (0.00s)
+    --- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion/panic (0.00s)
+=== RUN   TestCompletedJoinAddressReuseAndIndependentDB
+--- PASS: TestCompletedJoinAddressReuseAndIndependentDB (0.00s)
+=== RUN   TestConcurrentWorkerReclaims
+--- PASS: TestConcurrentWorkerReclaims (0.00s)
+=== RUN   TestFailedSpawnDoesNotRegisterAllocation
+--- PASS: TestFailedSpawnDoesNotRegisterAllocation (0.00s)
+=== RUN   TestCallerOwnedStackHasNoTrackedFree
+--- PASS: TestCallerOwnedStackHasNoTrackedFree (0.00s)
+=== RUN   TestReclaimerAddressReuseDoesNotEraseNewGeneration
+--- PASS: TestReclaimerAddressReuseDoesNotEraseNewGeneration (0.00s)
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/arg-oob
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/td-oob
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/empty
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/map-oob
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/duplicate
+--- PASS: TestWorkerAllocationBindingRejectsInvalidInputs (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/arg-oob (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/td-oob (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/empty (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/map-oob (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/duplicate (0.00s)
+=== RUN   TestDeferredAllocatorFailureIsRetained
+--- PASS: TestDeferredAllocatorFailureIsRetained (0.00s)
+=== RUN   TestLateReclaimerYieldCannotWriteDeadTLS
+--- PASS: TestLateReclaimerYieldCannotWriteDeadTLS (0.00s)
+=== RUN   TestWaitTimeoutPositiveRange
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775806/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775806/common64
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775807/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775807/common64
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775808/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775808/common64
+=== RUN   TestWaitTimeoutPositiveRange/9223372036854775807/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036854775807/common64
+=== RUN   TestWaitTimeoutPositiveRange/-1/wait32
+=== RUN   TestWaitTimeoutPositiveRange/-1/common64
+--- PASS: TestWaitTimeoutPositiveRange (0.11s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775806/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775806/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775807/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775807/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775808/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775808/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036854775807/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036854775807/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/-1/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/-1/common64 (0.01s)
+=== RUN   TestWaitTimeoutZeroShortAndMismatch
+--- PASS: TestWaitTimeoutZeroShortAndMismatch (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.474s

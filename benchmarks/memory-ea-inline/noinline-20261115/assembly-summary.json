@@ -1,0 +1,68 @@
+{
+  "baseline": {
+    "MemoryEA": {
+      "memory_ea_calls": 0,
+      "panic_calls": 0
+    },
+    "Fn13460": {
+      "memory_ea_calls": 157,
+      "panic_calls": 0
+    },
+    "Fn15594": {
+      "memory_ea_calls": 853,
+      "panic_calls": 0
+    },
+    "Fn18056": {
+      "memory_ea_calls": 125,
+      "panic_calls": 0
+    },
+    "Fn18187": {
+      "memory_ea_calls": 68,
+      "panic_calls": 0
+    }
+  },
+  "direct": {
+    "MemoryEA": {
+      "memory_ea_calls": 0,
+      "panic_calls": 1
+    },
+    "Fn13460": {
+      "memory_ea_calls": 0,
+      "panic_calls": 157
+    },
+    "Fn15594": {
+      "memory_ea_calls": 853,
+      "panic_calls": 0
+    },
+    "Fn18056": {
+      "memory_ea_calls": 125,
+      "panic_calls": 0
+    },
+    "Fn18187": {
+      "memory_ea_calls": 0,
+      "panic_calls": 68
+    }
+  },
+  "noinline": {
+    "MemoryEA": {
+      "memory_ea_calls": 0,
+      "panic_calls": 1
+    },
+    "Fn13460": {
+      "memory_ea_calls": 157,
+      "panic_calls": 0
+    },
+    "Fn15594": {
+      "memory_ea_calls": 853,
+      "panic_calls": 0
+    },
+    "Fn18056": {
+      "memory_ea_calls": 125,
+      "panic_calls": 0
+    },
+    "Fn18187": {
+      "memory_ea_calls": 68,
+      "panic_calls": 0
+    }
+  }
+}
