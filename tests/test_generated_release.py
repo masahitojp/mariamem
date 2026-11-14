@@ -62,15 +62,16 @@ def test_recovery_publication_authentication(tmp_path,failure):
 
 
 def test_recovery_workflow_has_no_qualification_or_publication_dependencies():
-    workflow=(ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
-    job=workflow.split('  public_smoke_recovery:\n',1)[1].split('  public_smoke:\n',1)[0]
-    assert '    needs:' not in job
-    assert '      contents: read\n      actions: read' in job
-    assert 'runs-on: ubuntu-24.04' in job
-    assert "if: inputs.operation != 'public-smoke-recovery'" in workflow
-    commands=job
-    assert 'recover-public-smoke' in commands
-    assert all(name not in commands for name in ('build_alpha','ci_release_publish','restore-platform',' guard '))
+    from workflow_model import load, commands
+    model = load(ROOT/'.github/workflows/release-candidate-ready.yml')
+    job = model['jobs']['public_smoke_recovery']
+    assert 'needs' not in job
+    assert job['permissions'] == {'contents': 'read', 'actions': 'read'}
+    assert job['runs-on'] == 'ubuntu-24.04'
+    assert any(owner.get('if', '').startswith("inputs.operation != 'public-smoke-recovery'") for owner in model['jobs'].values())
+    script = '\n'.join(step.get('run', '') for step in job['steps'])
+    assert 'recover-public-smoke' in script
+    assert all(name not in script for name in ('build_alpha','ci_release_publish','restore-platform',' guard '))
 
 
 def test_minimum_artifact_set():

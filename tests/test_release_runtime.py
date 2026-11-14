@@ -57,11 +57,14 @@ def test_shared_runtime_rejects_wrong_or_ambiguous_inputs(shared, monkeypatch, f
 
 
 def test_release_builds_one_wheel_and_every_feature_uses_it():
-    text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
+    from workflow_model import load, commands
+    text = commands(load(ROOT/'.github/workflows/release-candidate-ready.yml'))
     assert text.count('python scripts/build_alpha.py --ci-candidate') == 1
-    assert 'needs: [resolve, guest, core_darwin]' in text
-    assert 'needs: [resolve, guest, core_ubuntu]' in text
-    assert "if: needs.resolve.outputs.mode != 'full'" in text
+    from workflow_model import load, needs, steps
+    model = load(ROOT/'.github/workflows/release-candidate-ready.yml')
+    for suffix in ('darwin', 'ubuntu'):
+        assert needs(model['jobs']['candidate_'+suffix]) == {'resolve', 'guest', 'core_'+suffix}
+    assert any(step.get('if') == "needs.resolve.outputs.mode != 'full'" for step in steps(model))
     assert '--mode acceptance-only --candidate-run' in text
     candidate = job_text('candidate_darwin')
     core = job_text('core_darwin')

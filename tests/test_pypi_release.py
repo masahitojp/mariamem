@@ -220,7 +220,8 @@ def test_pypi_workflow_has_no_verify_upload_or_build_and_keeps_normal_gates():
     assert 'name: pypi-smoke-${{ needs.pypi_publication.outputs.source }}-${{ github.run_attempt }}' in smoke
     for text in (verify,publish,smoke):
         assert 'setup-go' not in text and 'build_alpha' not in text and 'build_generated_guest' not in text
-    assert 'options: [verify, release, public-smoke-recovery]' in workflow
+    from workflow_model import load, events
+    assert events(load(ROOT/'.github/workflows/release-candidate-ready.yml'))['workflow_dispatch']['inputs']['operation']['options'] == ['verify', 'release', 'public-smoke-recovery']
 
 
 def test_smoke_runs_installed_package_and_requires_real_host_exit(monkeypatch):
