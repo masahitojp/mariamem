@@ -338,3 +338,13 @@ def test_linux_boundaries_select_native_wheel_acceptance(path):
 
 def test_linux_acceptance_is_not_required_for_plain_docs():
     assert not scope.select(['README.md', 'docs/python.md'])['linux_wheel']
+
+
+@pytest.mark.parametrize('path', [
+    'scripts/update_evidence_records.py', 'release/attribution-tolerance.json',
+    'tests/test_update_evidence_records.py',
+])
+def test_evidence_ledger_tooling_needs_python_checks(path):
+    selected = scope.select([path])
+    assert selected['check_scope'] == 'python'
+    assert not selected['integration']

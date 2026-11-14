@@ -909,3 +909,28 @@ later explicitly requested Release transaction. See
 The former PR-family policy was measured at run40855108044 (head5b27eaf3,
 executed538ca001): macOS39m40s including24m25s generic integration. This is
 historical evidence, not a saving estimate for the Release-only policy.
+
+### License evidence ledger updates
+
+Run `python3 scripts/update_evidence_records.py --check` to check derived license
+bindings, or `--update` to write the displayed changes. The checkout test suite
+invokes the same `--check` entry point. The updater preserves historical audit
+facts, notice bytes, guest/link pins and policy. It validates all inputs before
+writing and records continuity as metadata-only or reviewed generated-source
+changes, with the original/current provenance and policy hashes.
+
+`release/attribution-tolerance.json` owns permitted derived JSON paths and
+explicit generated-file before/after hash deltas. Metadata `before` is its hash
+at audit time; null means it was absent then. Existing metadata is restored to
+that hash, not removed. Source deltas require exact hashes, a reason and an
+approval reference; adding one is a reviewed source-continuity decision.
+Renames use deletion/addition entries. The reconstructed provenance must match
+the exact audit digest, including guest/input identities. The updater never
+changes this policy or provenance, nor turns a source update into a fresh audit.
+
+Updates stage a recovery journal under ignored `build/` before atomically
+replacing each ledger. An ordinary write error rolls back. After interruption,
+`--check` rejects the pending transaction and `--update` restores the previous
+state, validates current inputs and retries. Keep the journal until recovery
+finishes. If a target was edited after interruption, recovery stops without
+overwriting that edit. A lock prevents concurrent updater invocations.

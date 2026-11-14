@@ -91,6 +91,12 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
     from distribution_licenses import verify_generated_attribution
     from common import digest
     import shutil
+    (tmp_path/'release').mkdir(exist_ok=True)
+    shutil.copyfile(ROOT/'release/attribution-tolerance.json', tmp_path/'release/attribution-tolerance.json')
+    policy_path = tmp_path/'release/attribution-tolerance.json'
+    policy = json.loads(policy_path.read_text())
+    policy['metadata_files'][0]['before'] = None
+    policy_path.write_text(json.dumps(policy, indent=2)+'\n')
     target = tmp_path/'internal/generatedgo'
     (target/'image').mkdir(parents=True)
     for name in ('provenance.json', 'image/layout.json'):
@@ -123,6 +129,8 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
 def test_replaced_image_binding_reconstructs_exact_audited_provenance(tmp_path):
     from distribution_licenses import verify_generated_attribution
     import shutil
+    (tmp_path/'release').mkdir()
+    shutil.copyfile(ROOT/'release/attribution-tolerance.json', tmp_path/'release/attribution-tolerance.json')
     target = tmp_path/'internal/generatedgo'
     shutil.copytree(ROOT/'internal/generatedgo/image', target/'image')
     shutil.copyfile(ROOT/'internal/generatedgo/provenance.json', target/'provenance.json')
