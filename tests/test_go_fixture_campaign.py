@@ -108,6 +108,8 @@ def observations(cap=2, parallel=4):
                     disk_free_bytes=32 << 30, children=0, baselines=count,
                     physical_pool_connections=0)
     go = dict(result='PASS', cleanup_complete=True, stop_reason='', pid=999,
+              process_image=dict(builds=1, owned_fds=1, process_lifetime=True,
+                                 closed=False, failed=False, cleanup_debt=False, image_allocated_bytes=4096),
               cap=cap, parallel=parallel, peak_children=min(cap, parallel),
               peak_physical_pool_connections=2, new_fixture_seconds=.1, fixture_close_seconds=.1,
               guards={k: RESOURCES[k] for k in ('owned_disk_ceiling_bytes', 'min_free_disk_bytes', 'min_fd_headroom')},
@@ -120,6 +122,7 @@ def observations(cap=2, parallel=4):
                           admission_seconds=.1, sql_seconds=.1, cleanup_seconds=.1)
                      for batch in ('warmup', 'observed_1', 'observed_2', 'observed_3') for i in range(4)],
               phases=[dict(name=name, seconds=.1) for name in ('start', 'prepare', 'disconnect', 'capture')])
+    go['samples'][-1].update(unlinked_file_bytes=4096, unlinked_files=1)
     observed = dict(result='PASS', counter_errors=[], stop_reason=None,
                     samples=[dict(unix_ns=i * 1_000_000_000 + 1, process_tree_rss_bytes=1000,
                                   members={'999': 1000}, available_memory_bytes=16 << 30)
@@ -156,7 +159,7 @@ def test_missing_or_bad_observation_is_rejected(mutation):
     elif mutation == 'unlinked_disk': go['samples'][1]['unlinked_file_bytes'] = 9 << 30
     elif mutation == 'free_disk': go['samples'][0]['disk_free_bytes'] = 1
     elif mutation == 'retained': go['samples'][3]['baselines'] = 1
-    elif mutation == 'leaked_backing': go['samples'][-1]['unlinked_file_bytes'] = 4096
+    elif mutation == 'leaked_backing': go['samples'][-1]['unlinked_file_bytes'] += 4096
     elif mutation == 'final_fd': go['samples'][-1]['fd'] = 30
     elif mutation == 'os_missing': observed['samples'] = []
     elif mutation == 'rss': observed['samples'][0]['process_tree_rss_bytes'] = None
@@ -360,3 +363,22 @@ def test_release_run_executes_four_modes_and_negative_guard_without_sampler(tmp_
     assert result['profile'] == 'release' and result['result'] == 'PASS'
     assert set(modes) == {(1,1),(1,4),(2,1),(2,4)}
     assert not list((tmp_path/'release').rglob('os.json'))
+
+
+@pytest.mark.parametrize('mutation', ['missing_image', 'extra_empty_file', 'extra_bytes',
+                                     'missing_count', 'closed', 'failed', 'cleanup_debt',
+                                     'owned_fds', 'builds', 'process_lifetime', 'missing_allocation'])
+def test_retained_image_does_not_hide_cleanup_debt(mutation):
+    go = release_observations()
+    image = go['process_image']
+    final = go['samples'][-1]
+    if mutation == 'missing_image': del go['process_image']
+    elif mutation == 'extra_empty_file': final['unlinked_files'] += 1
+    elif mutation == 'extra_bytes': final['unlinked_file_bytes'] += 512
+    elif mutation == 'missing_count': del final['unlinked_files']
+    elif mutation == 'missing_allocation': del image['image_allocated_bytes']
+    elif mutation in ('closed', 'failed', 'cleanup_debt'): image[mutation] = True
+    elif mutation == 'process_lifetime': image[mutation] = False
+    else: image[mutation] = 2
+    with pytest.raises(ValueError):
+        campaign.validate_mode(go, None, 2, 4, RESOURCES, 'release')

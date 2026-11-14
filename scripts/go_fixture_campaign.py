@@ -208,7 +208,16 @@ def validate_mode(go, observed, cap, parallel, resources, profile="measurement")
         need(s['children'] <= cap and s['physical_pool_connections'] <= cap * 2, 'runtime budget breach')
     final = samples[-1]
     need(all(final[key] == 0 for key in ('children', 'baselines', 'physical_pool_connections',
-                                      'linked_temp_bytes', 'unlinked_file_bytes')), 'cleanup debt remains')
+                                      'linked_temp_bytes')), 'cleanup debt remains')
+    image = go.get('process_image', {})
+    need(image.get('builds') == 1 and image.get('owned_fds') == 1
+         and image.get('process_lifetime') is True and image.get('closed') is False
+         and image.get('failed') is False and image.get('cleanup_debt') is False,
+         'shared process image is not a healthy retained owner')
+    allocated = image.get('image_allocated_bytes')
+    need(type(allocated) is int and allocated > 0
+         and final.get('unlinked_files') == 1 and final['unlinked_file_bytes'] == allocated,
+         'unlinked files differ from the retained process image')
     # Go's lazy netpoll initialization may retain a few process-global FDs.
     need(final['fd'] <= samples[0]['fd'] + 8, 'unexpected final FD growth')
     if profile == 'release':

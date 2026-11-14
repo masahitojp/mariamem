@@ -10,7 +10,6 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
-GUEST = '5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20'
 MUTATIONS = {'no_pool_check':('R2','idle-generation'), 'fallback':('R5','missing-target'),
              'ignore_retired':('R5','retired-context'), 'global_target':('R4','parallel-targets'),
              'retain_session':('R2','idle-session-state'),
@@ -24,6 +23,19 @@ CASES = {'direct-alias-deferred-reconnect', 'idle-generation', 'idle-session-sta
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def guest_identity(root):
+    """Bind the receipt to the checked source's canonical generated guest."""
+    manifest = root/'release/generated-go-inputs.json'
+    guest = json.loads(manifest.read_text())['guest_sha256']
+    provenance = json.loads((root/'internal/generatedgo/provenance.json').read_text())
+    if (not isinstance(guest, str) or len(guest) != 64
+            or any(c not in '0123456789abcdef' for c in guest)
+            or provenance['guest_sha256'] != guest
+            or provenance['input_manifest_sha256'] != digest(manifest)):
+        raise ValueError('canonical guest/provenance identity mismatch')
+    return guest
 
 
 def assess(data, mode, exit_code, allow_connector_import_skip=False):
@@ -75,7 +87,7 @@ def main():
     identity=require_commit(root,a.source_commit)
     assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==identity.source_commit
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()
-    assert json.loads((root/'release/generated-go-inputs.json').read_text())['guest_sha256']==GUEST
+    guest = guest_identity(root)
     env=dict(os.environ,GOTOOLCHAIN='go1.26.10',CGO_ENABLED='0',GOCACHE=str(temp/'gocache'),GOMODCACHE=str(temp/'modcache'),GOPATH=str(temp/'gopath'),GOTMPDIR=str(temp/'go-tmp'),TMPDIR=str(temp/'os-tmp'),PYTHONPATH=str(root/'python'),PYTHONDONTWRITEBYTECODE='1')
     host=a.host.resolve() if a.host else temp/'mariamem-host'
     go=a.go_consumer.resolve() if a.go_consumer else temp/'go-consumer'
@@ -102,7 +114,7 @@ def main():
         dist=importlib.metadata.distribution(name)
         files={str(f):digest(Path(dist.locate_file(f))) for f in dist.files or [] if str(f).endswith(('.py','.so','.dylib'))}
         installed[name]={'version':expected,'files':files}
-    receipt={'runtime_source_commit':identity.source_commit,'guest_sha256':GUEST,
+    receipt={'runtime_source_commit':identity.source_commit,'guest_sha256':guest,
              'host_sha256':digest(host),'host_buildinfo':buildinfo,'go_consumer_sha256':digest(go),
              'system':platform.platform(),'python':sys.version,
              'acceptance_files':{f.name:digest(f) for f in sorted(code.iterdir()) if f.is_file()},
