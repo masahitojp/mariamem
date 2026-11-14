@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"syscall"
 )
 
 // Each child owns its tree, descriptors, offsets and private writable views.
@@ -44,7 +43,7 @@ func MapPreparedFiles(fsys *MemFS, dir, prefix string) (*PreparedFiles, error) {
 		}
 		var data []byte
 		if st.Size() > 0 {
-			data, err = syscall.Mmap(int(f.Fd()), 0, int(st.Size()), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE)
+			data, err = mapPreparedMemory(int(f.Fd()), int(st.Size()), false)
 			if err != nil {
 				return err
 			}
@@ -74,7 +73,7 @@ func (p *PreparedFiles) Close() error {
 	}
 	var result error
 	for _, data := range p.mappings {
-		result = errors.Join(result, syscall.Munmap(data))
+		result = errors.Join(result, unmapPreparedMemory(data))
 	}
 	p.mappings = nil
 	return result

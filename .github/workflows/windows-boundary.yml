@@ -1,0 +1,52 @@
+name: Windows 0.6.2 OS boundaries
+on:
+  push:
+    branches: [backport/v0.6.2-windows]
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-2025
+            arch: amd64
+          - runner: windows-11-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - name: Require the native Go architecture and record source
+        shell: pwsh
+        env:
+          EXPECTED_ARCH: ${{ matrix.arch }}
+        run: |
+          if ((go env GOHOSTARCH) -ne $env:EXPECTED_ARCH) { throw 'Go toolchain architecture mismatch' }
+          if ((go env GOARCH) -ne $env:EXPECTED_ARCH) { throw 'Go target architecture mismatch' }
+          $expectedCPU = if ($env:EXPECTED_ARCH -eq 'arm64') { 'ARM64' } else { 'AMD64' }
+          if ($env:PROCESSOR_ARCHITECTURE -ne $expectedCPU) { throw 'Runner architecture mismatch' }
+          python scripts/git_identity.py inspect HEAD
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/verify_generated_runtime.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Snapshot ownership and memory, mappings and narrow atomics
+        shell: pwsh
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          New-Item -ItemType Directory -Force build/windows-boundary | Out-Null
+          go test -count=1 -timeout=8m -json ./internal/snapshot ./internal/generatedgo/code/base > build/windows-boundary/tests.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: windows-boundary-${{ matrix.arch }}
+          path: build/windows-boundary/tests.json
+          if-no-files-found: error
+          retention-days: 7

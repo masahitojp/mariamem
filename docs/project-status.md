@@ -14,6 +14,22 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Windows 0.6.2 backport — OS boundaries in progress
+
+The approved distribution basis is published 0.6.2, source_commit
+`47121e1be0b399ba4e2270ce3e25c411ade0e2eb`. Only OS support and necessary
+packaging changes belong in this backport; 0.7 product changes remain on main.
+[#171](https://github.com/masahitojp/mariamem/issues/171) owns Windows on both CPUs;
+[#169](https://github.com/masahitojp/mariamem/issues/169) owns the Linux backport
+and all-target additional publication. Preserve the existing release tag and assets.
+
+The first implementation separates snapshot file ownership, private prepared
+mappings and anonymous linear-memory reservation from Unix APIs. The native
+Windows boundary workflow checks both CPU architectures. This is not wheel or
+SQL acceptance: host launch/control, preparation commands, capacity, packaging
+and the initial SQL/Snapshot/Fork/Close acceptance remain unfinished. Windows
+support and publication are not yet complete.
+
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
 ### Current candidate — adopted after fixed-exit technical acceptance

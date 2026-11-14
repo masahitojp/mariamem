@@ -1,4 +1,4 @@
-//go:build (darwin && arm64) || (linux && amd64)
+//go:build (darwin && arm64) || (linux && amd64) || (windows && (amd64 || arm64))
 
 package base
 
@@ -6,7 +6,6 @@ import (
  "encoding/binary"
  "sync"
  "sync/atomic"
- "syscall"
  "testing"
  "unsafe"
 )
@@ -28,7 +27,7 @@ func TestNarrowAtomicValuesBounds(t *testing.T){
 }
 func TestNarrowAtomicReadonlyMapping(t *testing.T){
  m:=narrowTestModule(t,true);m.Memory[66]=0xff;m.Memory[67]=0x81;ForceContendedAtomics(m)
- if err:=syscall.Mprotect(m.Memory[:65536],syscall.PROT_READ);err!=nil{t.Fatal(err)}
+ if err:=narrowProtectReadonly(m.Memory[:65536]);err!=nil{t.Fatal(err)}
  if AtomicLoad32_8u(m,66,0)!=255||AtomicLoad32_16u(m,66,0)!=0x81ff{t.Fatal("readonly value")}
 }
 func TestNarrowAtomicPublication(t *testing.T){

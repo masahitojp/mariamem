@@ -13,7 +13,6 @@ import (
 	"reflect"
 	"sort"
 	"sync"
-	"syscall"
 
 	"github.com/masahitojp/mariamem/internal/prepared"
 )
@@ -126,11 +125,10 @@ func Import(root, build string) (*Owned, error) {
 		if !st.Mode().IsRegular() {
 			return errors.New("snapshot contains link or special file")
 		}
-		fd, err := syscall.Open(name, syscall.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK|syscall.O_CLOEXEC, 0)
+		in, err := openSnapshotFile(name)
 		if err != nil {
 			return err
 		}
-		in := os.NewFile(uintptr(fd), name)
 		defer in.Close()
 		opened, err := in.Stat()
 		if err != nil {
@@ -192,11 +190,10 @@ func adopt(root string, m Manifest) (result *Owned, err error) {
 		if !st.Mode().IsRegular() {
 			return errors.New("snapshot contains link or special file")
 		}
-		fd, e := syscall.Open(name, syscall.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK|syscall.O_CLOEXEC, 0)
+		f, e := openSnapshotFile(name)
 		if e != nil {
 			return e
 		}
-		f := os.NewFile(uintptr(fd), name)
 		o.files = append(o.files, f)
 		opened, e := f.Stat()
 		if e != nil {
@@ -207,7 +204,7 @@ func adopt(root string, m Manifest) (result *Owned, err error) {
 		}
 		size := opened.Size()
 		actual[rel] = Entry{Kind: "file", Bytes: &size}
-		o.entries = append(o.entries, prepared.Entry{Name: rel, Size: size, FD: fd})
+		o.entries = append(o.entries, prepared.Entry{Name: rel, Size: size, FD: int(f.Fd())})
 		names = append(names, name)
 		return nil
 	})
@@ -237,7 +234,7 @@ func adopt(root string, m Manifest) (result *Owned, err error) {
 		if e != nil {
 			return e
 		}
-		if st.Sys().(*syscall.Stat_t).Nlink != 0 {
+		if !snapshotUnlinked(f, st) {
 			return errors.New("owned backing retains path aliases")
 		}
 		h := sha256.New()
@@ -310,7 +307,7 @@ func (o *Owned) Acquire(build string) ([]prepared.Entry, func(), error) {
 		if e != nil {
 			return fail(e)
 		}
-		if !st.Mode().IsRegular() || st.Size() != v.Size || st.Sys().(*syscall.Stat_t).Nlink != 0 {
+		if !st.Mode().IsRegular() || st.Size() != v.Size || !snapshotUnlinked(f, st) {
 			return fail(errors.New("owned snapshot metadata changed"))
 		}
 	}
@@ -364,9 +361,11 @@ func ReceiveInherited(h Handoff, build string) (result *Owned, err error) {
 			continue
 		}
 		seen[v.FD] = true
-		syscall.CloseOnExec(v.FD)
 		f := os.NewFile(uintptr(v.FD), v.Name)
 		o.files = append(o.files, f)
+		if err = snapshotCloseOnExec(v.FD); err != nil {
+			return nil, err
+		}
 		if _, ok := descriptors[v.Name]; ok {
 			malformed = errors.New("duplicate inherited name")
 		}
@@ -399,11 +398,11 @@ func ReceiveInherited(h Handoff, build string) (result *Owned, err error) {
 		if e2 != nil {
 			return nil, e2
 		}
-		flags, _, errno := syscall.Syscall(syscall.SYS_FCNTL, uintptr(fd), syscall.F_GETFL, 0)
-		if errno != 0 {
-			return nil, errno
+		readOnly, accessErr := snapshotReadOnly(fd)
+		if accessErr != nil {
+			return nil, accessErr
 		}
-		if flags&syscall.O_ACCMODE != syscall.O_RDONLY || !st.Mode().IsRegular() || st.Size() != *e.Bytes || st.Sys().(*syscall.Stat_t).Nlink != 0 {
+		if !readOnly || !st.Mode().IsRegular() || st.Size() != *e.Bytes || !snapshotUnlinked(f, st) {
 			return nil, errors.New("inherited backing is not owned read-only state")
 		}
 		o.entries = append(o.entries, prepared.Entry{Name: name, Size: *e.Bytes, FD: fd})

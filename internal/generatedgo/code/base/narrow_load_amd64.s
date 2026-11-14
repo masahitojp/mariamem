@@ -1,3 +1,5 @@
+//go:build linux || windows
+
 #include "textflag.h"
 TEXT ·atomicRead8At(SB), NOSPLIT, $0-12
  MOVQ p+0(FP), AX

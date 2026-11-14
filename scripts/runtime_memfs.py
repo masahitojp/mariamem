@@ -31,4 +31,18 @@ def apply_mapping(text):
     old = 'node.data = data'
     if text.count(old) != 1:
         raise ValueError('pinned prepared mapping fragment changed')
-    return text.replace(old, 'fsys.installMappedStorage(node, data)', 1)
+    return apply_platform_mapping(text.replace(old, 'fsys.installMappedStorage(node, data)', 1))
+
+
+def apply_platform_mapping(text):
+    changes = (
+        ('\n\t"syscall"', ''),
+        ('syscall.Mmap(int(f.Fd()), 0, int(st.Size()), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE)',
+         'mapPreparedMemory(int(f.Fd()), int(st.Size()), false)'),
+        ('syscall.Munmap(data)', 'unmapPreparedMemory(data)'),
+    )
+    for old, new in changes:
+        if text.count(old) != 1:
+            raise ValueError('pinned prepared platform mapping changed: ' + old)
+        text = text.replace(old, new, 1)
+    return text
