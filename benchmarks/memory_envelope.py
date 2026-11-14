@@ -82,7 +82,7 @@ def main():
     if output.is_relative_to(ROOT) and not output.is_relative_to(RESULTS):ap.error('local output must be under benchmarks/results')
     output.parent.mkdir(parents=True,exist_ok=True)
     binary=ROOT/'build/bench/isolation-go';helper=ROOT/'build/bench/process-cost';binary.parent.mkdir(parents=True,exist_ok=True)
-    subprocess.run(['go','build','-trimpath','-o',str(binary),'./benchmarks/goisolation'],cwd=ROOT,check=True)
+    subprocess.run(['go','build','-trimpath','-o',str(binary),'./goisolation'],cwd=ROOT/"benchmarks",check=True)
     subprocess.run(['cc','-O2',str(ROOT/'benchmarks/tools/process_cost.c'),'-o',str(helper)],cwd=ROOT,check=True)
     a.backend='none';report={'schema_version':1,'benchmark':'memory_session_envelope','environment':environment(a),'trials':[]}
     report['environment']['native_manifest']=json.loads((native/'manifest.json').read_text())

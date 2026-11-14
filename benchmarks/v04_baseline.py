@@ -28,7 +28,7 @@ def main():
     native = a.native_dir.resolve()
     binary = ROOT/'build/bench/isolation-go'
     helper = ROOT/'build/bench/process-cost'
-    subprocess.run(['go', 'build', '-trimpath', '-o', str(binary), './benchmarks/goisolation'], cwd=ROOT, check=True)
+    subprocess.run(['go', 'build', '-trimpath', '-o', str(binary), './goisolation'], cwd=ROOT/"benchmarks", check=True)
     subprocess.run(['cc', '-O2', str(ROOT/'benchmarks/tools/process_cost.c'), '-o', str(helper)], check=True)
     manifest = json.loads((native/'manifest.json').read_text())
     for name, digest in manifest['sha256'].items():

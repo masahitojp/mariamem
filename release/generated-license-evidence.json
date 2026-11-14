@@ -590,5 +590,6 @@
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
     "record_sha256": "eed8f8badde5290bbd46d701486d14d9933c84bd4070e55060d5ae2b0f2f3308",
     "reason": "Only buffer-pool C source allocation/clear delta; dependency archives, recipe/compiler/converter and notices unchanged. New guest and generated source require a fresh retained-symbol audit, not a hash-only rebind."
-  }
+  },
+  "audited_image_metadata_sha256": "c0b3aa6c633659ccb92eab426f791fac537a73eb48dd5de0bfd37fd34ca1cd1e"
 }

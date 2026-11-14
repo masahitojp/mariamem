@@ -43,7 +43,7 @@ def main():
     binary = ROOT/'build/bench/isolation-go'
     binary.parent.mkdir(parents=True, exist_ok=True)
     # Build and all artifact metadata work are outside the measured Go interval.
-    subprocess.run(['go', 'build', '-p', '1', '-trimpath', '-o', str(binary), './benchmarks/goisolation'], cwd=ROOT, check=True)
+    subprocess.run(['go', 'build', '-p', '1', '-trimpath', '-o', str(binary), './goisolation'], cwd=ROOT/"benchmarks", check=True)
     command = [str(binary), '--json', str(output)]
     for name in ['runs', 'warmup', 'rows', 'queries', 'clients', 'interval', 'hold']:
         command += ['--'+name, str(getattr(args, name))]

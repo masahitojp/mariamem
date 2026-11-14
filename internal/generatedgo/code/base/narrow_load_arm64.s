@@ -1,3 +1,5 @@
+//go:build darwin || linux
+
 #include "textflag.h"
 TEXT ·atomicRead8At(SB), NOSPLIT, $0-12
  MOVD p+0(FP), R0

@@ -1,3 +1,28 @@
+# Local benchmark module
+
+This directory is a nested Go module so benchmark sources and saved measurements
+are excluded from the product's Go module ZIP. Run local Go harnesses from here:
+
+```sh
+cd benchmarks
+go build -mod=readonly -o /absolute/scratch/probe ./memorylifetime
+go test -mod=readonly ./goisolation
+```
+
+The module replaces `github.com/masahitojp/mariamem` with `..`, selecting this
+checkout. Set `GOWORK=off` for isolated reproduction. `modelcase` and `competitive`
+remain independent nested modules with their existing dependencies and `../..`
+replacement; invoke their commands within those directories.
+
+Python entry points may still be invoked from the repository root; their Go
+build commands use this module. Historical reports retain their original source
+and commands; use the source commit named in each report when reproducing history.
+Root `go test ./...` no longer includes these harnesses. Their explicit local
+checks are separate from product runtime acceptance. No product fixture or GPL
+corresponding-source input is removed by the module boundary.
+
+---
+
 # Optional lifecycle benchmarks
 
 ## Recent measurement and discovery reports

@@ -36,6 +36,8 @@ def test_unsupported_platform(monkeypatch):
     assert failure.value.stage == "platform"
     assert "detected Windows" in str(failure.value)
     assert "supported" in str(failure.value)
+    assert "Linux x86_64/aarch64" in str(failure.value)
+    assert "glibc 2.28+ or musl 1.2+" in str(failure.value)
     assert failure.value.__cause__ is not None
 
 

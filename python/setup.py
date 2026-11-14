@@ -21,6 +21,12 @@ class PlatformWheel(bdist_wheel):
                     or manifest.get("architecture") != "x86_64"):
                 raise ValueError("Native manifest must identify Ubuntu 24.04 x86_64")
             expected = "linux_x86_64"  # No manylinux compatibility claim.
+        elif manifest.get("platform") in ("linux-x86_64", "linux-aarch64"):
+            arch = manifest["platform"].removeprefix("linux-")
+            if (manifest.get("architecture") != arch or manifest.get("minimum_glibc") != "2.28"
+                    or manifest.get("minimum_musl") != "1.2"):
+                raise ValueError("Native manifest must identify portable Linux minimums")
+            expected = f"manylinux_2_28_{arch}.musllinux_1_2_{arch}"
         else:
             expected = TARGET["wheel_platform"]
             if (manifest.get("minimum_macos") != TARGET["minimum_macos"]
@@ -36,8 +42,8 @@ class PlatformWheel(bdist_wheel):
         self.plat_name_supplied = True
 
     def get_tag(self):
-        _, _, platform = super().get_tag()
-        return "py3", "none", platform
+        # Preserve compressed platform tags; the parent normalizes dots to underscores.
+        return "py3", "none", self.plat_name
 
 
 license_root = Path(__file__).parent

@@ -65,6 +65,6 @@
     "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
     "guest_identity.go": "5778d44113a177d1e85e3fec5955b5f950b48321b3d13c08ebc6f6b398d8913c",
     "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
-    "image/layout.json": "c0b3aa6c633659ccb92eab426f791fac537a73eb48dd5de0bfd37fd34ca1cd1e"
+    "image/layout.json": "5c49bec371d24d00b26ef004f844351cfdaff3b8b0929a2398160da47e11e285"
   }
 }

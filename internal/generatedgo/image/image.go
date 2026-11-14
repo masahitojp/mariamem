@@ -1,4 +1,4 @@
-//go:build (darwin && arm64) || (linux && amd64)
+//go:build (darwin && arm64) || (linux && (amd64 || arm64))
 
 // Package image owns the process-local immutable initial-memory image.
 package image
