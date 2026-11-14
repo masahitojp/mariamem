@@ -1,0 +1,66 @@
+--- a/internal/generatedgo/code/p1/p1_pure.go
++++ b/internal/generatedgo/code/p1/p1_pure.go
+@@ -16842,0 +16843 @@
++ base.ExperimentBegin(m,v167)
+@@ -20584 +20585,3 @@
+-	v2757 = Fn5766(m, v2755, v2756)
++	base.ExperimentMark(m,1)
++ v2757 = Fn5766(m, v2755, v2756)
++ base.ExperimentMark(m,2)
+@@ -21323 +21326,2 @@
+-	v3152 = int32(0)
++	base.ExperimentMark(m,3)
++ v3152 = int32(0)
+@@ -21484,0 +21489 @@
++ base.ExperimentMark(m,4)
+@@ -26862 +26867,3 @@
+-	Fn265(m, v7891, v7916, v7856)
++	base.ExperimentMark(m,5)
++ Fn265(m, v7891, v7916, v7856)
++ base.ExperimentEnd(m)
+--- a/internal/generatedgo/code/base/base.go
++++ b/internal/generatedgo/code/base/base.go
+@@ -98,0 +99,2 @@
++ ExperimentCurrent *ExperimentRecord
++ ExperimentRecords []ExperimentRecord
+@@ -13159,0 +13162 @@
++ if fd==1 && m.ExperimentCurrent!=nil {defer ExperimentWriteEnd(m,ExperimentNow())}
+--- a/internal/generatedgo/code/base/experiment_stages.go
++++ b/internal/generatedgo/code/base/experiment_stages.go
+@@ -0,0 +1,24 @@
++package base
++import("encoding/json";"os";"sync";"sync/atomic";"time";"fmt")
++var experimentEnabled=os.Getenv("INSERT_STAGES")=="1"
++var experimentPhase atomic.Bool
++var experimentOrigin=time.Now()
++var experimentMu sync.Mutex
++var experimentModules []*Module
++type ExperimentRecord struct{ID int32; T [7]int64; Counts [7]int; TriggerNS int64; TriggerCalls int; TriggerDepth int; WriteNS int64; Writes int}
++func ExperimentNow()int64{return time.Since(experimentOrigin).Nanoseconds()}
++func ExperimentPhase(on bool){experimentPhase.Store(on)}
++func ExperimentBegin(m *Module,id int32){
++ if !experimentEnabled||!experimentPhase.Load(){return}
++ if m.ExperimentCurrent!=nil{panic("overlapping request")}
++ if m.ExperimentRecords==nil{m.ExperimentRecords=make([]ExperimentRecord,0,128);experimentMu.Lock();experimentModules=append(experimentModules,m);experimentMu.Unlock()}
++ m.ExperimentRecords=append(m.ExperimentRecords,ExperimentRecord{ID:id});m.ExperimentCurrent=&m.ExperimentRecords[len(m.ExperimentRecords)-1];ExperimentMark(m,0)
++}
++func ExperimentMark(m *Module,i int){if r:=m.ExperimentCurrent;r!=nil{r.T[i]=ExperimentNow();r.Counts[i]++}}
++func ExperimentEnd(m *Module){ExperimentMark(m,6);m.ExperimentCurrent=nil}
++func ExperimentWriteEnd(m *Module,start int64){if r:=m.ExperimentCurrent;r!=nil{r.WriteNS+=ExperimentNow()-start;r.Writes++}}
++// Called after all children and the fixture have been closed/joined.
++func ExperimentDump(path string)error{if path==""{return nil};out:=make([]map[string]any,0);for _,m:=range experimentModules{if m.ExperimentCurrent!=nil{return fmt.Errorf("unfinished request")};out=append(out,map[string]any{"module":fmt.Sprintf("%p",m),"records":m.ExperimentRecords})};b,e:=json.Marshal(out);if e!=nil{return e};return os.WriteFile(path,b,0644)}
++
++func ExperimentTriggerBegin(m *Module)int64{r:=m.ExperimentCurrent;if r==nil{return -1};r.TriggerCalls++;r.TriggerDepth++;if r.TriggerDepth==1{return ExperimentNow()};return -1}
++func ExperimentTriggerEnd(m *Module,start int64){r:=m.ExperimentCurrent;if r==nil{return};r.TriggerDepth--;if start>=0{r.TriggerNS+=ExperimentNow()-start}}
+--- a/experiment_stages.go
++++ b/experiment_stages.go
+@@ -0,0 +1,4 @@
++package mariamem
++import "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
++func ExperimentPhase(on bool){base.ExperimentPhase(on)}
++func ExperimentDump(path string)error{return base.ExperimentDump(path)}
+--- a/internal/generatedgo/code/p4/p4_pure.go
++++ b/internal/generatedgo/code/p4/p4_pure.go
+@@ -1,0 +2,2 @@
++ experimentStart:=base.ExperimentTriggerBegin(m)
++ defer base.ExperimentTriggerEnd(m,experimentStart)

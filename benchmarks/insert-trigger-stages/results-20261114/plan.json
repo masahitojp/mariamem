@@ -1,0 +1,15 @@
+{
+  "source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "pairs": 3,
+  "parallel": [
+    1,
+    8
+  ],
+  "warmups": 1,
+  "per_process_db": 8,
+  "inserts_per_db": 100,
+  "triggers": "original SUM plus status-only audit",
+  "timeout_build_s": 1200,
+  "timeout_campaign_s": 900
+}
