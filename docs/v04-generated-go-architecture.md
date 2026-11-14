@@ -1,6 +1,8 @@
 # Current mariamem architecture
 
-This document describes the architecture shipped in 0.6.2. For the historical
+This document describes the current source architecture. The prepared-output
+reuse described below is an unreleased main integration; published0.6.2 uses the
+earlier output bind/refetch/reconstruction route. For the historical
 file-backed architecture, use the [v0.5.0 document](https://github.com/masahitojp/mariamem/blob/v0.5.0/docs/v04-generated-go-architecture.md).
 The [product contract](decisions/snapshot-product-contract.md) records WHY;
 [migration from 0.5.0](changes-since-v050.md) records API migration.
@@ -43,6 +45,26 @@ patches, translated inventory, handwritten runtime owners and final artifacts.
 See [guest reproducibility](v04-guest-reproducibility.md),
 [licenses](v04-license-inventory.md) and [source provenance](guest-source-provenance.md).
 No guest or converter update accompanied D adoption.
+
+## Prepared output boundary (unreleased)
+
+Embedded MariaDB and the existing Go wire remain. Input parameters, statement and
+connection state, admission, flow control and shutdown stay on their existing
+host path. There is no guest-native socket or new C++ controller.
+
+For prepared results, the C adapter in `guest/prepared_api.inc` uses the existing
+store-result API, copies the cached binary rows before result release/advance,
+and returns them through private prepared protocol v2. Direct `MYSQL_ROWS` layout,
+length/list and lifetime assumptions remain localized to this adapter. Output
+bind buffers, column refetch and numeric/MYSQL_TIME reconstruction are retired.
+Go validates raw-row framing, NULL bitmap, metadata-derived value widths/lengths
+and trailing bytes using shared type rules; it validates the full result chain,
+including hidden OUT results, before sending any packet. It does not reconstruct
+the values. Text results, public APIs and existing consumer exceptions are retained.
+
+The old private prepared version is rejected; there is no automatic fallback.
+Guest identity and canonical generation records must change coherently with the
+private API. See the [accepted boundary and upgrade checks](decisions/prepared-output-reuse.md).
 
 ## Cold baseline acquisition
 

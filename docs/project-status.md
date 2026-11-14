@@ -6,6 +6,29 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Prepared output — main integration approved (2026-11-14)
+
+The Human approved main integration after the
+[Issue-criteria submission](reviews/prepared-output-product/issue-criteria-submission.md).
+This includes its explicit selected-route test disposition: retain current host
+oracles for unchanged owners, add raw-output boundary checks, and keep the absent
+full-native controller/factory campaigns historical rather than claiming their
+old PASS counts. Issue138 remains stopped and its unadopted failures are not waived.
+
+Approved runtime source is `ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e`, on main basis
+`eb175ae23292c1c40cfbeb4b9b73132873c4cc6f`. The integration branch preserves those
+runtime bytes; later review and decision records are documentation only. The
+[decision](decisions/prepared-output-reuse.md) owns the accepted boundary and
+upgrade checks. Preserve evidence/fixture source ancestry during integration;
+normal CI must check the concrete PR before merging. Earlier dated recommendation
+and pending-approval entries below retain their original historical context.
+
+The accepted benefit is reduced custom output conversion responsibility. Total
+upgrade-hours, time to a new LTS, payback, peak RSS and two-series runtime acceptance
+remain unmeasured. Track actual future update costs in Issue128; no additional
+comparison experiment or engine offering is authorized. Qualification, release
+version and publication remain separate and unapproved.
+
 ## Prepared output — product acceptance checkpoint (2026-11-14)
 
 Independent source/regeneration43450619130, normal43460340200, public integration
