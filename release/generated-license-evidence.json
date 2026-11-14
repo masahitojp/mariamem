@@ -504,5 +504,15 @@
       }
     },
     "reason": "Checked installer changes only Go WASI write helper error/short-progress handling. Wasm guest, translated MariaDB functions/data, linked artifact, converter, dependencies and distributed notice bytes are unchanged. All audit source/host/symbol-map identities remain historical and unchanged; this is source continuity, not a new host-symbol attribution or release audit."
+  },
+  "os_glue_source_continuity": {
+    "basis_source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+    "os_source_commit": "054522fedb7d7dcaa3b872096aec017187d15202",
+    "previous_file_sha256": {
+      "code/base/base.go": "03556fa493672447e5698b7e5b0edb10f23232e53da313b7229f20157331dd10",
+      "code/base/prepared_files.go": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
+      "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe"
+    },
+    "scope": "Only reversible native errno, prepared mapping and entropy adapters. Original guest, dependencies, notices, audit/host/symbol identities remain historical; not a new attribution or release acceptance."
   }
 }
