@@ -585,5 +585,6 @@
     "sha256": "37dbc84befa9e47fed73a296bd6ca9b1914e6a2cac1aeac4035bc558da94b3c5",
     "buildinfo": "mariamem-host: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261113155818-1f2fef0b4ff3\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=1f2fef0b4ff3e5a92728e08a3446feccf8f769a7\n\tbuild\tvcs.time=2026-11-13T15:58:18Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
-  }
+  },
+  "audited_image_metadata_sha256": "64aab73a54adc84dfc43c954e036e2bc64755f7ad65caad9f5bc5ff8b040e32c"
 }

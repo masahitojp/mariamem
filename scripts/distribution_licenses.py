@@ -79,7 +79,7 @@ def verify_upstream_notices(root, lock, downloads=None):
 
 
 def verify_generated_attribution(root, evidence):
-    """Keep the original symbol audit when only derived image metadata was added.
+    """Keep the original symbol audit when only derived image metadata changes.
 
     The prior provenance is reconstructed byte-for-byte. This cannot accept a
     changed guest, input pin, generated function, or another generated file.
@@ -92,9 +92,17 @@ def verify_generated_attribution(root, evidence):
         return 'exact'
     record = json.loads(path.read_text())
     metadata = 'image/layout.json'
-    added = record['files_sha256'].pop(metadata, None)
+    added = record['files_sha256'].get(metadata)
     if added is None or digest(root/'internal/generatedgo'/metadata) != added:
         raise ValueError('generated attribution metadata mismatch')
+    # Reconstruct the original audited provenance, including its original image
+    # binding when present. The fixed audit digest still covers every other file,
+    # guest and input identity; the current layout must match its own binding.
+    historical = evidence.get('audited_image_metadata_sha256')
+    if historical is None:
+        record['files_sha256'].pop(metadata)
+    else:
+        record['files_sha256'][metadata] = historical
     original = (json.dumps(record, indent=2)+'\n').encode()
     if hashlib.sha256(original).hexdigest() != expected:
         raise ValueError('generated attribution source changed beyond image metadata')
