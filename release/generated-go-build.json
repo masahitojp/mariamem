@@ -1,6 +1,6 @@
 {
-  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback; balanced pool notification around contended dictionary eviction lock; prepared output raw-row reuse with unchanged input/session route",
-  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch; normal startup global concurrency, read group1 and16MiB retained; WASI matching SQL microsecond timer and bounded millisecond probe omission; default UCA contraction/flags/hash private copy with guarded fallback; balanced pool notification around contended dictionary eviction lock; prepared output raw-row reuse with unchanged input/session route; buffer-pool descriptor-only initial zeroing with unchanged common allocator, extent alignment, default16MiB and grow behavior",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -143,7 +143,7 @@
       "sql/mysqld.cc": "091d40a8edf55f470ee36b185ea7e5eccccd09f4283e66b49d7b57c86ddd3d0b",
       "sql/sql_plugin.cc": "a8811caebf288bf5257e7ffe5669c44ae27e607af5cf31adbb7e8631b7d85443",
       "sql/sql_prepare.cc": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5",
-      "storage/innobase/buf/buf0buf.cc": "319dc4ff0763fcf33d71c741047b7629330bb9785733feaaaf992ee1deefe8c8",
+      "storage/innobase/buf/buf0buf.cc": "12a670fa6cb8980e53bb30f2dd973d7cd1d4c2b625b2db6c59a84d0946dd3af4",
       "storage/innobase/dict/dict0dict.cc": "a301ec1c4a2853c37d1b5fba14224da8b66a6909adb4ac83ee2c3563caf77df5",
       "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
       "storage/innobase/handler/ha_innodb.cc": "7f5498c5e856fc0fa6e9dd3d95674ea64c884b0d246b8755329a99d17b87173c",
@@ -180,7 +180,7 @@
       "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
-      "source.patch": "6ef0b863be1c8416cbe071a0d40887094ecd4ca55a052024d77fba08cf451b03",
+      "source.patch": "413cd50b28c4cb4242c11795275670ac63ae23eee8dc4ac4b3a00be2eec6d1f9",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
       "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
@@ -361,43 +361,36 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
-  "guest_size": 21925350,
-  "linked_guest_sha256": "d42f681a86614f7bd0dd20527667859ba04740fadca7813ae1ab387f1f911979",
-  "repetitions": 2,
-  "completed": true,
-  "full_guest_regeneration": "PASS: two C builds and both-OS full120-file regeneration",
+  "source_commit": "3cfd9854d235d4d472734206d2ba03c6944d7d3a",
+  "guest_size": 21925284,
+  "linked_guest_sha256": "267763a3a8fab4896a77cc15d3006318b5a61fc49f403d2d3c6c2109852545fc",
+  "repetitions": 1,
+  "completed": false,
+  "full_guest_regeneration": "PENDING",
   "ci_evidence": {
-    "run_id": 43450619130,
-    "source_commit": "d8f66d9a5605b3b738b2175268a3734ee1c89a4a",
-    "platforms": [
-      "darwin-arm64",
-      "linux-amd64"
-    ],
-    "status": "PASS: canonical checkpoint; broader acceptance pending",
-    "receipt": "docs/reviews/prepared-output-product/ci43450619130/README.md"
+    "status": "PENDING_INDEPENDENT_CANONICAL_REGENERATION",
+    "bootstrap_receipt": "docs/reviews/buffer-zero-candidate/build-evidence/guest.json.gz"
   },
   "previous_canonical_evidence": {
-    "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
-    "guest_sha256": "332e0108443d68c20362247bfe96592da99beb1729a3a3ba107cbc0a5dea4a22",
+    "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+    "record": "docs/reviews/buffer-zero-candidate/build-evidence/previous-canonical-build.json",
+    "record_sha256": "041935ebb0d77e6604fed4d4a4b3dcfaebb70d084c975c0c98228518ef939f6c",
+    "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
     "ci_evidence": {
-      "status": "PASS: bounded canonical correctness; protected main integration pending",
-      "source_commit": "6da771df36fb452b920a3ae42e778ce110e46213",
-      "run_id": 43190662084,
-      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43190662084",
-      "receipt": "docs/reviews/uca-copy-ci-43190662084/assessment.json",
-      "independent_generation_files": 119,
+      "run_id": 43450619130,
+      "source_commit": "d8f66d9a5605b3b738b2175268a3734ee1c89a4a",
       "platforms": [
         "darwin-arm64",
-        "ubuntu24.04-x86_64"
+        "linux-amd64"
       ],
-      "followup_scope": "image_test.go fixture relocation and records only; no production runtime change"
-    },
-    "record_sha256": "8baaf19e3ce3861b68993cdf11950001ff972efab27d967d8300fcd9a9a4918c"
+      "status": "PASS: canonical checkpoint; broader acceptance pending",
+      "receipt": "docs/reviews/prepared-output-product/ci43450619130/README.md"
+    }
   },
   "incoming_guest_origin": {
-    "run_id": 43436504181,
-    "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
-    "contract": "development-unqualified-v1"
+    "source_commit": "3cfd9854d235d4d472734206d2ba03c6944d7d3a",
+    "contract": "development-unqualified-v1",
+    "independent_source_builds": 1,
+    "use": "Single-build source bootstrap; not qualification or a relabeled canonical CI PASS."
   }
 }

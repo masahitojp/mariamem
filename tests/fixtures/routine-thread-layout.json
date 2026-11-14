@@ -1,8 +1,8 @@
 {
-  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-  "result": "UNQUALIFIED output layout; J1 runtime controls pending",
+  "result": "Candidate unchanged data/worker layout; exact runtime controls remain required",
   "global_address_delta": 3522944,
   "data_segments": [
     {
