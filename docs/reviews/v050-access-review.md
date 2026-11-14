@@ -217,7 +217,7 @@ R2 must identify a missing argument, not merely demand more of the same tests.
 
 ### R2 — Do native narrow atomics and Go atomics compose with the required order?
 
-- **Evidence:** [native primitive owners](../../scripts/runtime_correctness/narrow_write_darwin_arm64.s.txt)
+- **Evidence:** [native primitive owners](../../scripts/runtime_correctness/narrow_write_arm64.s.txt)
   and [existing ordering results](v050-exact-writers-design.md#verification-and-actual-identities).
 - **Concrete basis:** 8/16-bit accesses use native assembly while full-width
   operations use Go atomic primitives. On arm64, the narrow helpers contain
