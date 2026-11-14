@@ -46,7 +46,9 @@ final diff. Keep routine collection output in owned scratch or CI artifacts.
    Verify original bytes before reduction and retain original hashes plus the
    inspected source anchor. A CI link alone is insufficient if artifact expiry
    would remove facts needed to assess the claim; compression alone is not
-   reduction. Leave unrelated historical receipts in their original context.
+   reduction. Apply [evidence retention](decisions/evidence-retention.md) to obsolete
+   reviews: transfer continuing decisions to ADRs and delete unneeded payloads.
+   State evidence bytes added/removed and explain retained large records.
 3. Verify retained checksums, references and the correspondence between summaries
    and original results. State the tested source and any reuse basis without
    relabeling receipts as head PASS. Check diff/status and use verification
@@ -802,7 +804,7 @@ No force-kill or guest race adaptation is added by runtime retirement.
 WASM is a build intermediate; WASIX libc/sysroot and LLVM runtime sources remain
 required. Retiring the Wasmer execution engine does not retire those sources,
 thread imports, converter or notices. The canonical guest input is now MariaDB 12.3.3; the v0.4.7 converter and
-toolchain pins remain unchanged. See the [integration record](reviews/v050-ad-integration.md).
+toolchain pins remain unchanged. See the [integration record](decisions/guest-patch-management.md).
 Canonical commands:
 
 - `scripts/build_generated_guest.py`: two independent source-to-WASM builds on
@@ -837,16 +839,28 @@ GOTOOLCHAIN=go1.26.10 python3 scripts/verify.py bench go-isolation --runs 3 --wa
 ```
 
 No native directory is needed. Measurements remain manual and run alone on the
-machine. Preserve useful lifecycle/stage/resource harnesses and historical
-reports; reproduce old Wasmer execution with its pinned old tag rather than a
+machine. Preserve useful lifecycle/stage/resource harnesses and decision-relevant
+observations; retire obsolete reports under the [retention policy](decisions/evidence-retention.md).
+Reproduce old Wasmer execution with its pinned old tag rather than a
 second current runtime. See [benchmark notes](../benchmarks/README.md).
 
 Use independent experiment branches/worktrees and explicit disk/resource guards.
-Preserve compact JSON/CSV, final reports and checksums; dispose owned temp/build
+Preserve needed compact JSON/CSV and checksums, and transfer final decisions to ADRs; dispose owned temp/build
 outputs after finalization. Confirm shared-cache inactivity, preserve unique evidence, then delete
 recreatable caches; regeneration cost is not a KEEP reason. See [workspace cleanup](experiment-workspace.md) and [project status](project-status.md).
 
 ### Compact CI receipts
+
+[Evidence retention](decisions/evidence-retention.md) owns the lifetime of these
+records. A final review is not a permanent archive: retain its continuing
+decision in an ADR, then remove obsolete reports and payloads. Active harness
+inputs belong in maintained fixture/tooling directories, not `docs/reviews`.
+The public-source check rejects encoded CI archives and literal Python review
+paths (including common `Path` joins), excluding docstrings/comments and named
+selector/guard test cases. This is not general dataflow analysis; review dynamic
+paths and non-Python consumers when adding them. Existing JSON receipt pointers
+remain historical metadata, not permission to make reviews executable inputs.
+
 
 For new or revised receipts, keep the decision report, source/run/job/artifact
 identities and digests, structured PASS/FAIL/SKIP outcomes, essential SQL/negative/

@@ -84,7 +84,7 @@ source from df3e683. No previous CI receipt is rebound to this candidate.
 passes all four jobs on exact source_commit
 `6edcd29e65d3a669d5be6520abf6be2e61fa3445`. The
 [saved assessment](v06x-live-main-evidence/ci-40417099015/assessment.json) and
-[receipt validator](v06x-live-main-evidence/ci-40417099015/validate.py) verify all
+[receipt validator](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-live-main-evidence/ci-40417099015/validate.py) verify all
 four original ZIP digests, API source/job binding and uncompressed member hashes,
 then re-apply candidate predicates to raw XML/events. No guest was rerun to
 collect this receipt; no old receipt was relabelled.

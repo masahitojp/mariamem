@@ -1,8 +1,8 @@
 # Prepared output reuse — accepted integration boundary
 
 On2026-11-14 the Human approved main integration after the
-[Issue criteria review](../reviews/prepared-output-product/issue-criteria-submission.md),
-including the proposed [prior-condition disposition](../reviews/prepared-output-product/acceptance-map.md).
+[Issue criteria review](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/prepared-output-product/issue-criteria-submission.md),
+including the proposed [prior-condition disposition](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/prepared-output-product/acceptance-map.md).
 Runtime source: ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e; base:
 eb175ae23292c1c40cfbeb4b9b73132873c4cc6f. Later documentation/decision commits do
 not change the CI-tested runtime. This is adoption approval, not release approval.
@@ -60,3 +60,22 @@ through the approved host; normal43530112119/public43530115529/installed43530119
 pass the approved host SHA. Preserve named source identities and their Git ancestry;
 do not relabel receipts to an integration or merge SHA. Normal PR CI verifies the
 concrete integration source. Later release Qualification/publication remains separate.
+
+## Retained observations and limits
+
+The [compact performance samples](../../benchmarks/prepared-output-20261114/README.md)
+retain the original regression and host-only repair, five alternating pairs and
+all outliers. Final median candidate/main execute+fetch ratios were 0.987 (one
+row), 0.827 (1,000 rows) and 0.998 (64KiB); the latter pairs span 0.950–1.140.
+This single Apple M1 sample does not establish a universal speedup or Linux result.
+The 71 native-reference scenarios covered P2 22+20+15 and P3 14 cases, including
+metadata/reprepare, OUT and PS_MULTI_RESULTS. Finite frame probes at 65535,
+65536, 65537 and 16MiB−1024 bytes succeeded on both sources; 16MiB−1 produced
+the same fatal Proc_exit2/ERR2013 on both. This is neither an exact maximum nor
+a recoverable-oversize guarantee. The initial tuple-versus-JSON-array comparison
+failure was a comparator representation error, not a runtime repair.
+
+The canonical [short receipt](../reviews/prepared-output-product/ci43450619130/README.md)
+remains because current generation provenance references it. Superseded reviews
+and raw job bundles were retired under #158; original detailed context is
+available at the fixed source linked above, not asserted as current CI evidence.

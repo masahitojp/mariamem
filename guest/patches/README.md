@@ -18,7 +18,7 @@ new evidence and updated pins, not an automatic major-version selector.
 
 The [approved inventory](../../docs/decisions/guest-patch-management.md) owns each
 file's purpose and inherited VM/file-lock/directory-fsync constraints. The
-[integration report](../../docs/reviews/v050-ad-integration.md) owns this adoption's
+[integration report](../../docs/decisions/guest-patch-management.md) owns this adoption's
 actual build/generation/runtime evidence. Fifteen original per-file diff blocks
 were byte-identical, while seventeen files can use the common patch; see its
 repeated comparison for line-context and comment differences.

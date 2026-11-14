@@ -122,7 +122,7 @@ thread/trap/race censusと独立再生成の必要性は既存の開発・Releas
 ## 調査証拠と現在の実装状態
 
 12.3.3正式経路の採用入力・実装・今回の検証は
-[A–D統合報告](../reviews/v050-ad-integration.md)を参照。
+[A–D統合報告](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-ad-integration.md)を参照。
 
 - [12.3.3 feasibility報告](https://github.com/masahitojp/mariamem/blob/5f14221463b6400e72e72a115bd1cc1a3acee88d/docs/reviews/v05-stable-guest-feasibility.md)
   は実build、SQL、所有権・lifecycle検証と残るVM契約の限界を記録する。

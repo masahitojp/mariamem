@@ -91,7 +91,7 @@ MemoryEA15.13%、MemSizeのatomic Load15.13%、MemoryInBounds13.45%、memclr13.4
 Fn18085（buf_page_is_corrupted）9.24%、Fn456（my_uca_info_init）5.04%がflat上位。
 [累積stack](ubuntu-parallel-startup-evidence/native/barrier-cpu-cum.txt)ではinit_embedded_serverと
 page read/transaction初期化/charset初期化を確認した。
-Fn対応は固定guestの[function-map](v050-ad-integration-evidence/function-map.txt)による。
+Fn対応は固定guestの[function-map](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-ad-integration-evidence/function-map.txt)による。
 MemoryInBoundsはMemSize.Loadを行う（`internal/generatedgo/code/base/base.go:1463`）。
 このLoadをDBデータのlock競合や誤ったatomic実装の証拠とは扱わない。
 サンプル比率はCPU時間の内訳で、wallの削減可能量ではない。累積比率を合算しない。

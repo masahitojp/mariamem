@@ -19,8 +19,8 @@ native-job history. The selection test checks that both WorkerTrap and
 DictionaryWait actual-guest tests match. No check is skipped or weakened and
 no runtime, guest bytes or benchmark inputs change.
 
-[Failure receipts](failure.json) bind both downloaded artifacts and all failures.
-[Local verification](verification.json) uses a fresh Python3.14 environment with
+[Failure receipts](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/dictionary-installation/ci-43318436823/failure.json) bind both downloaded artifacts and all failures.
+[Local verification](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/dictionary-installation/ci-43318436823/verification.json) uses a fresh Python3.14 environment with
 the workflow's exact dependency arguments: the134 focused tests pass, followed
 by the complete Python-only check, including a pass with CI's default parent
 plugin autoload. YAML and all embedded shell steps parse; the public-source

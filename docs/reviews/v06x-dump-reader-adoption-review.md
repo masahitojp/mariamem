@@ -21,9 +21,9 @@ branch; its later documentation commit is not a newly tested runtime source.
 
 [CI40207664068](https://github.com/masahitojp/mariamem/actions/runs/40207664068)
 is success on that exact SHA. Saved [assessment](v06x-dump-reader-evidence/ci-40207664068/assessment.json),
-[run](v06x-dump-reader-evidence/ci-40207664068/run.json),
-[jobs](v06x-dump-reader-evidence/ci-40207664068/jobs.json) and
-[checksums](v06x-dump-reader-evidence/ci-40207664068/SHA256SUMS.json)
+[run](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-dump-reader-evidence/ci-40207664068/run.json),
+[jobs](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-dump-reader-evidence/ci-40207664068/jobs.json) and
+[checksums](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-dump-reader-evidence/ci-40207664068/SHA256SUMS.json)
 bind the original three artifacts. ZIPs are stored losslessly as base64 text;
 decode them before comparing with GitHub's archive digest. No source guard was
 weakened to store binary evidence. Every archive's digest was independently

@@ -3,7 +3,7 @@
 [CI39747013913](https://github.com/masahitojp/mariamem/actions/runs/39747013913)
 PASS at source_commit `fbe419613cc0cc99657d39543c37df7b4dfe5d4a`.
 All7 actual guest cases PASS on macOS15 arm64 and Ubuntu24.04 x86_64.
-The [saved receipt and raw evidence](v06x-prepared-p4-active-pass-evidence/receipt.json)
+The [saved receipt and raw evidence](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-prepared-p4-active-pass-evidence/receipt.json)
 retain per-case execution witnesses, dispositions and cleanup results.
 
 Baseline source_commit54b9332c27c4e2db5fcc6972eee5ea1c5fbc9732 preserves the

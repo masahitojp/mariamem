@@ -195,8 +195,8 @@ R2 must identify a missing argument, not merely demand more of the same tests.
 
 ### R1 — Does ordinary/atomic mixing change allowed reads or synchronization?
 
-- **Evidence:** [generated statements](v050-access-paths-evidence/generated-excerpts.txt)
-  and [mutex fixture receipt](v050-access-paths-evidence/mutex-results.json).
+- **Evidence:** [generated statements](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/generated-excerpts.txt)
+  and [mutex fixture receipt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/mutex-results.json).
 - **Concrete basis:** Fn93 mutex lock, Fn130 unlock and Fn88 futex adapter use
   ordinary word reads alongside atomic updates. The copied NORMAL-mutex fixture
   reports heap conflicts while its 2,000 protected updates finish correctly.
@@ -239,7 +239,7 @@ R2 must identify a missing argument, not merely demand more of the same tests.
 
 - **Evidence:** [AtomicWait and wake implementation](../../internal/generatedgo/code/base/base.go),
   [host import mapping](../../internal/generatedgo/main.go) and
-  [function graph](v050-access-paths-evidence/direct-call-graph.json).
+  [function graph](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/direct-call-graph.json).
 - **Concrete basis:** `AtomicWait` compares/registers under `parkMu`; wake uses
   the same lock. WASIX `Futex_wait` converts timeout/result values and writes a
   result byte. The earlier check covered a NORMAL mutex, not the full CV route.
@@ -283,8 +283,8 @@ R2 must identify a missing argument, not merely demand more of the same tests.
 
 ### R5 — Have all relevant guest target families been accounted for?
 
-- **Evidence:** [complete writer inventory](v050-access-paths-evidence/writer-inventory.json)
-  and [selected source references](v050-access-paths-evidence/source-references.json).
+- **Evidence:** [complete writer inventory](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/writer-inventory.json)
+  and [selected source references](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/source-references.json).
 - **Concrete basis:** the complete 65-function/147-site inventory has 14 primary
   families. Important target narratives exist; several remaining families have
   declarations and references but lack completed ownership/lifetime arguments.

@@ -33,15 +33,15 @@
 | macOS | 15.7.9 arm64、canonical Go1.26.8、external Go1.27.2もPASS |
 | Ubuntu | 24.04 x86_64、canonical Go1.26.8、external Go1.27.2もPASS |
 
-[receipt check](main-storage-qualification-evidence/receipt-check.json)は、3つの小さな証拠artifactの
+[receipt check](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/receipt-check.json)は、3つの小さな証拠artifactの
 ZIP hashをGitHub APIと照合し、元READY・両受入JSON・wheel・installed fixtureのidentityを
 照合した記録。両Go consumer／wheelの全2,586 source file hashは、対象commitのGit blobと一致。
 CI build／guardをローカルで再実行した結果ではない。
 
-[READY](main-storage-qualification-evidence/ci-ready.json)、
-[qualification references](main-storage-qualification-evidence/qualification.json)、
-[macOS acceptance](main-storage-qualification-evidence/darwin-acceptance.json)、
-[Ubuntu acceptance](main-storage-qualification-evidence/ubuntu-acceptance.json)を保存。
+[READY](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/ci-ready.json)、
+[qualification references](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/qualification.json)、
+[macOS acceptance](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/darwin-acceptance.json)、
+[Ubuntu acceptance](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/ubuntu-acceptance.json)を保存。
 READY内のrunner home prefixだけを公開用に正規化し、元／保存hashをreceiptに残した。
 受入JSONは元bytesのまま。後続の資料commitへexact-SHA READYを付け替えない。
 
@@ -64,8 +64,8 @@ native認証ソース比較3 modeに対応する。うち17件はintegrationで�
 残るガイド3件・開発専用経路・型probe・強制timeout診断とnative認証3 modeを、このrunで
 PASSしたとは数えない。ガイドは以前の限定native検証で通過している。
 checkは`-q`で個別SKIP理由を記録しないため、内訳は固定source／workflow選択からの対応づけ。
-[macOS集計](main-storage-qualification-evidence/darwin-check-integration-excerpt.txt)、
-[Ubuntu集計](main-storage-qualification-evidence/ubuntu-check-integration-excerpt.txt)を保存した。
+[macOS集計](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/darwin-check-integration-excerpt.txt)、
+[Ubuntu集計](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/main-storage-qualification-evidence/ubuntu-check-integration-excerpt.txt)を保存した。
 
 installed fixtureのassertion failure1件・setup error1件は意図したcleanup試験であり、
 全fixture disposalと最終host reapが成功した。実行していない項目や期待失敗を隠すために

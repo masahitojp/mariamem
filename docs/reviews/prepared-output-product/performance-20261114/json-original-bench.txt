@@ -1,9 +1,0 @@
-goos: darwin
-goarch: arm64
-pkg: github.com/masahitojp/mariamem/internal/guest
-cpu: Apple M1
-BenchmarkResultUnmarshalRaw64KiB-8   	     526	   2102857 ns/op	  62.36 MB/s	  280582 B/op	      36 allocs/op
-BenchmarkResultUnmarshalRaw64KiB-8   	     554	   2120255 ns/op	  61.85 MB/s	  280490 B/op	      35 allocs/op
-BenchmarkResultUnmarshalRaw64KiB-8   	     552	   2064005 ns/op	  63.54 MB/s	  280480 B/op	      35 allocs/op
-PASS
-ok  	github.com/masahitojp/mariamem/internal/guest	4.233s

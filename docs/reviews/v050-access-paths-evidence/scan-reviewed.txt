@@ -1,1 +1,0 @@
-PASS: pinned source bytes, 65 writer functions / 147 sites, lexical references and direct call graph

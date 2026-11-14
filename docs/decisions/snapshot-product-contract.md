@@ -95,7 +95,7 @@ already owned by children. Removing the earlier file-backed public save/load API
 intentional API removal; the earlier reports preserve that historical contract.
 The maintainer accepted main adoption after bounded validation on both native
 platforms. Final release validation and release approval remain separate.
-See the [adoption decision and evidence](../reviews/d-heap-shared-host.md).
+See the [adoption decision and evidence](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/d-heap-shared-host.md).
 
 The Human approved the ownership boundary above and the minimal FileStore/Root/
 capture-binding implementation, adapters and ownership oracles on 2026-10-17.

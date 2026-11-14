@@ -62,7 +62,7 @@ must pass on the eventual integration head.
 
 [CI40987752495](https://github.com/masahitojp/mariamem/actions/runs/40987752495)
 attempt1 succeeded at the exact candidate. Scope, both native cells, both host
-jobs and aggregate Live gate all succeeded. The [saved assessment](v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json)
+jobs and aggregate Live gate all succeeded. The [saved assessment](../../tests/fixtures/fixture-entry/p1-fixed-exit-assessment.json)
 contains job/artifact IDs, all four original GitHub ZIP digests, actual profile
 results and the derived archive digest. The archive retains 898 original files
 with inner checksums; outer SHA256SUMS.json protects the committed receipt.

@@ -1,8 +1,0 @@
-...                                                                      [100%]
-=============================== warnings summary ===============================
-tests/routing_acceptance/test_pytest_native.py:7
-  /private/tmp/mariamem-output-product/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
-    pytest.mark.shadow_maria]
-
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-3 passed, 2 skipped, 2094 deselected, 1 warning in 1.42s

@@ -35,7 +35,7 @@ Main remains `098b0144ed50835da792ba811d11e0a1c8b000b2`. Independent review unit
 
 [Fixed input identities](v050-correctness-fixes-evidence/fixed-input-identity.json)
 record byte hashes, patch order, generated delta and actual host/recipe origins.
-The [A–D report](v050-ad-integration.md) owns MariaDB source/recipe/toolchain
+The [A–D report](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-ad-integration.md) owns MariaDB source/recipe/toolchain
 acquisition; they remain unchanged here. No converter/dependency version bump,
 new guest series, API, platform or Go minimum change is included.
 

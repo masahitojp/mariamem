@@ -59,7 +59,7 @@ not establish arbitrary legacy env.py, dump import or other frameworks.
 | Qualification/performance/dump import/external application | Not run; outside this candidate |
 
 Local compact evidence is in
-[productization-local](v06x-preparation-migration-productization-evidence/local/results.json).
+[productization-local](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-productization-evidence/local/results.json).
 It records actual interpreter/package versions, tested worktree file hashes and
 raw log hashes; files.json records original/stored dependency-report hashes and
 normalization of local prefixes (including upstream README examples). Package
@@ -77,9 +77,9 @@ hide a failed/missing worker. Worker-local files prevent concurrent JSONL writes
 
 ## Native CI receipts
 
-[Assessment and job identities](v06x-preparation-migration-productization-evidence/ci-40079827071/assessment.json)
+[Assessment and job identities](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-productization-evidence/ci-40079827071/assessment.json)
 record all six scenarios per interpreter/OS and distinct source-host PIDs per
-worker. [Artifact identities](v06x-preparation-migration-productization-evidence/ci-40079827071/artifacts.json)
+worker. [Artifact identities](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-productization-evidence/ci-40079827071/artifacts.json)
 are GitHub-reported ZIP digests, not locally recomputed ZIP hashes. Each platform
 has py311/py314 results, events, JUnit and dependency receipts with files.json
 original/stored SHA256 and normalization rules. Nested raw hashes are not claimed

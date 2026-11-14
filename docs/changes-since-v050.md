@@ -64,7 +64,7 @@ temporary handoff; it is not a user-managed save/load interface.
 ## Adoption and validation status
 
 The [startup correction](reviews/v050-startup-tail-source-fix-integration.md)
-and [D/shared-host implementation](reviews/d-heap-shared-host.md) are adopted
+and [D/shared-host implementation](decisions/snapshot-product-contract.md) are adopted
 on main. Both supported native platforms passed their relevant bounded checks.
 The D/shared-host runtime input, independently regenerated provenance, failure
 oracles and installed-consumer evidence are recorded in the implementation report.

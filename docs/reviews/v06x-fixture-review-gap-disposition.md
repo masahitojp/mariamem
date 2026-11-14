@@ -8,7 +8,7 @@ approval statements describe that earlier proposal, not the current gate.
 
 2026-10-28. Review corrections plus next Go API design, not implementation or
 runtime acceptance. Source baseline is adopted main cc00ccd; exact SHA and
-source hashes are in the [structured contract](v06x-fixture-acceptance.json).
+source hashes are in the [structured contract](../../tests/fixtures/fixture-entry/acceptance.json).
 
 | Review gap | Concrete correction | Detection and unfinished evidence |
 | --- | --- | --- |

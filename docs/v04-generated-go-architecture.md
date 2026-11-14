@@ -197,7 +197,7 @@ process. Query interruption invalidates the DB; it is not hard containment.
 D/shared-host ownership, I/O, lifecycle, SQL/isolation, failure cleanup,
 installed consumers and ORM checks passed on macOS arm64 and Ubuntu x86_64.
 Canonical guest builds and Go regeneration/provenance checks also passed.
-The [implementation/adoption report](reviews/d-heap-shared-host.md) records exact
+The [implementation/adoption report](decisions/snapshot-product-contract.md) records exact
 source identities, oracles, SKIPs, platform scope and the accepted failure domain.
 Its [approved design](reviews/d-heap-productization-design.md) preserves the
 scope change removing public persistence.

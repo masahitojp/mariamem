@@ -8,7 +8,7 @@ reviewed design commit39f9757, with D1 nonblocking for v0.6.0 as recorded in the
 [scope](v06x-dogfood-scope-draft.md). Implementation and its current verification are now tracked in the
 [checkpoint record](v06x-go-fixture-implementation.md). [Scope](v06x-dogfood-scope-draft.md),
 [milestone](v06x-go-fixture-first-milestone.md) and
-[acceptance manifest](v06x-fixture-acceptance.json) are cross-checks.
+[acceptance manifest](../../tests/fixtures/fixture-entry/acceptance.json) are cross-checks.
 
 ## Proposed supplied entry
 
