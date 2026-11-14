@@ -131,6 +131,11 @@ Snapshot/Fork independence and Close/cleanup. Image digests, source and wheel ha
 are retained as small CI receipts. Containers share the runner kernel; these runs
 do not establish execution on an old minimum kernel.
 
+The initial four-environment acceptance passed in
+[CI43574710937](https://github.com/masahitojp/mariamem/actions/runs/43574710937)
+on candidate0f3cb82a (CI merge source74ce30e5, identical tree). This is not a
+versioned release qualification.
+
 This candidate path does not change the existing release inventory above.
 #169 connects the accepted portable wheel set to publication and aggregate smoke;
 normal publication still fails closed on an unexpected asset set until that work

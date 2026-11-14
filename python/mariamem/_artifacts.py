@@ -46,7 +46,7 @@ def _platform_identity():
         detected += f" (ID={release.get('ID')!r}, VERSION_ID={release.get('VERSION_ID')!r})"
         if release.get("ID") == "ubuntu" and release.get("VERSION_ID") == "24.04":
             return "ubuntu24.04-x86_64"
-    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64 or Ubuntu 24.04 x86_64. Run on a supported platform with its matching wheel.", "unsupported_platform")
+    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64, or Linux x86_64/aarch64 with glibc 2.28+ or musl 1.2+ (use the matching platform wheel).", "unsupported_platform")
 
 
 def _portable_linux(manifest):

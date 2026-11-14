@@ -34,19 +34,25 @@ initial boundary acceptance; public smoke stays install/hash/start/SELECT 1/Clos
 not a repeated ORM/Snapshot campaign. Windows ordinary releases use short smoke,
 with focused additional checks when relevant OS boundaries change.
 
-## Linux distribution implementation in progress (#170)
+## Linux distribution initial acceptance passed (#170)
 
-The Human approved proceeding after the sequencing review. Start from main
-`291467b4fbac143093b35ea15d16cda798590f97`: extend the existing mmap/static image
-and ARM64 narrow-atomic host path to Linux arm64 without a guest patch. Portable
-candidate floors are glibc2.28 / musl1.2, with one static host per CPU reused in
-both environments. Initial acceptance and affected-boundary CI accompany the
-implementation; #172 later consolidates selection/build duplication. Candidate
-implementation or cross-compilation alone is not four-environment acceptance.
-#158's minimal module boundaries and the Python package description accompany
-this work; the full evidence cleanup remains a separate required item. #169 owns
-connecting the accepted portable inventory to publication. No new release version
-or public upload is authorized by this implementation.
+The Human approved proceeding after the sequencing review. Candidate
+`0f3cb82ad46be613a164c49b38f9a2dfa61f09d4`, based on main
+`291467b4fbac143093b35ea15d16cda798590f97`, passed
+[CI43574710937](https://github.com/masahitojp/mariamem/actions/runs/43574710937).
+CI source `74ce30e5ec89221c27822980f41f7d643495c3d9` has the same tree as that
+candidate; this equivalence does not relabel a receipt to a different commit.
+Both native Linux CPUs passed memory/image/atomic checks, then the same wheel
+per CPU passed installed SQL, Snapshot/Fork independence and Close/host exit on
+glibc2.28 and musllinux1.2 containers. These share the modern runner kernel;
+no old-kernel execution, full per-OS ORM campaign or release qualification is claimed.
+
+The change extends the existing host mmap/static-image and ARM64 atomic paths
+without a guest patch. #158's minimum module boundaries and Python description
+accompany it; full evidence cleanup remains required. #172 owns later CI selection/
+duplicate-build consolidation; #169 connects the accepted portable inventory to
+publication. Final guide/diagnostic wording reflects this CI checkpoint. Main
+integration and a versioned public release remain separate Human decisions.
 
 ## Prepared output — integrated on main (2026-11-14)
 
