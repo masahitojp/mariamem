@@ -47,6 +47,10 @@ HANDWRITTEN_FILES = (
     'code/base/prepared_mapping_unix.go',
     'code/base/prepared_mapping_windows.go',
     'code/base/owned_prepared_test.go',
+    'code/base/prepared_backing_unix_test.go',
+    'code/base/prepared_backing_windows_test.go',
+    'code/base/native_errors_unix.go',
+    'code/base/native_errors_windows.go',
     'runtime_instance.go',
     'runtime_instance_test.go',
     'host_dup_test.go',
@@ -172,6 +176,8 @@ def main():
         text = worker_failure(str(target.relative_to(out)), text)
         from runtime_write import apply as write_errors
         text = write_errors(str(target.relative_to(out)), text)
+        from runtime_native_errors import apply as native_errors
+        text = native_errors(target.relative_to(out).as_posix(), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.

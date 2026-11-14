@@ -157,7 +157,7 @@ func TestOwnedMappedTruncateRenameUnlinkIdentity(t *testing.T) {
 	if err := os.WriteFile(name, original, 0600); err != nil {
 		t.Fatal(err)
 	}
-	f, err := os.Open(name)
+	f, err := openPreparedTestBacking(name)
 	if err != nil {
 		t.Fatal(err)
 	}

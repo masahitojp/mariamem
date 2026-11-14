@@ -12466,6 +12466,7 @@ const (
 // path-based syscalls so any os.PathError surfaces as the appropriate
 // guest-visible code instead of a coarse EIO.
 func mapOSError(err error) int32 {
+	err = normalizeNativeError(err)
 	if err == nil {
 		return _wasiESUCCESS
 	}
@@ -13249,7 +13250,7 @@ func (w *WasiStubs) Fd_allocate(m *Module, fd int32, offset, length int64) int32
 	unlock := lockNativeFileResize(op.f)
 	defer unlock()
 
-	if _, err := op.f.Write(nil); err != nil {
+	if err := nativeFileWriteProbe(op.f); err != nil {
 		return mapOSError(err)
 	}
 	info, err := op.f.Stat()
