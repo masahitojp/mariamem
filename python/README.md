@@ -19,9 +19,13 @@ with mariamem.start() as db:
             assert cursor.fetchone() == (1,)
 ```
 
-The published 0.6.2 PyPI wheel supports macOS 15 or newer on arm64.
-Portable Linux wheels for x86_64 and aarch64 (glibc 2.28+ or musl 1.2+) are in
-preparation as additional 0.6.2 assets, together with Windows x86_64/arm64 wheels. Do not assume these platforms are already published.
+The 0.6.2 wheels support:
+
+- macOS 15 or newer on arm64.
+- Linux on x86_64 and aarch64, with glibc 2.28+ or musl 1.2+.
+- Windows build 22000 or newer on x86_64 and arm64, using native Python
+  for the selected architecture.
+
 The wheel includes the generated-Go host; Go and a separate MariaDB server are
 not required at runtime. Python 3.11 or newer is required.
 
