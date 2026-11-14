@@ -1,7 +1,6 @@
 """Both interpreter campaigns share one exact-source host, without hiding failure."""
 import os
 from pathlib import Path
-import re
 import subprocess
 
 import pytest
@@ -11,31 +10,32 @@ WORKFLOW = ROOT/'.github/workflows/django-lifecycle.yml'
 
 
 def step_script(text, name):
-    match = re.search(r'      - name: '+re.escape(name)+r'\n(.*?)(?=      - |\Z)', text, re.S)
-    assert match is not None, f'Workflow step missing: {name}'
-    block = match[1]
-    return '\n'.join(line[10:] for line in block.split('        run: |\n', 1)[1].splitlines())
+    from workflow_model import parse, step_named
+    return step_named(parse(text), name)['run']
+
 
 
 def test_single_host_retains_both_source_bound_python_campaigns():
     text = WORKFLOW.read_text()
-    recipe = text.split('  recipe:\n', 1)[1]
-    assert '        python:' not in recipe
-    assert 'go build ' not in recipe
-    assert 'release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}' in recipe
-    assert recipe.index('scripts/release_runtime.py') < recipe.index('tests/django_lifecycle/ci.py')
-    assert 'fetch-depth: 0' in recipe
+    from workflow_model import parse, action
+    recipe = parse(text)['jobs']['recipe']
+    recipe_steps = recipe['steps']
+    script = '\n'.join(step.get('run', '') for step in recipe_steps)
+    assert 'python' not in recipe.get('strategy', {}).get('matrix', {})
+    assert 'go build ' not in script
+    assert any(step.get('with', {}).get('name') == 'release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}' for step in recipe_steps)
+    assert script.index('scripts/release_runtime.py') < script.index('tests/django_lifecycle/ci.py')
+    assert any(action(step, 'actions/checkout') and step['with']['fetch-depth'] == 0 for step in recipe_steps)
     for minor in ['3.11', '3.14']:
-        assert f"python-version: '{minor}'" in recipe
-        assert 'name: django-native-'+minor+'-${{ inputs.source_commit }}' in recipe
-        assert 'path: build/django-reference/py'+minor in recipe
+        assert any(action(step, 'actions/setup-python') and step['with']['python-version'] == minor for step in recipe_steps)
+        assert any(step.get('with', {}).get('name') == 'django-native-'+minor+'-${{ inputs.source_commit }}' and step['with']['path'] == 'build/django-reference/py'+minor for step in recipe_steps)
     acceptance = step_script(text, 'Standard runner and prepared entry on both interpreters')
     assert 'for py in "$PY311" "$PY314"' in acceptance
     assert '--host build/mariamem-host' in acceptance
     assert '--reference "build/django-reference/py$version/reference"' in acceptance
     assert '--output "build/django-evidence/py$version/acceptance"' in acceptance
     assert '--expected-source-commit "$SOURCE_COMMIT"' in acceptance
-    assert 'name: django-${{ matrix.os }}-${{ inputs.source_commit }}' in recipe
+    assert any(step.get('with', {}).get('name') == 'django-${{ matrix.os }}-${{ inputs.source_commit }}' for step in recipe_steps)
     ci = (ROOT/'tests/django_lifecycle/ci.py').read_text()
     assert 'base.verify_go_binary(ROOT, args.host.resolve(), args.expected_source_commit)' in ci
     assert 'check_reference(reference, args.expected_source_commit, current_inputs, minor)' in ci

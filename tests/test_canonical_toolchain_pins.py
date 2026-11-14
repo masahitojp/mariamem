@@ -20,6 +20,8 @@ def test_canonical_generation_matches_authoritative_go_pin():
 
 def test_release_ci_uses_authoritative_go_pin():
     version = json.loads((ROOT / 'release/generated-go-toolchain.json').read_text())['go']
-    text = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
-    assert set(re.findall(r'go-version:\s*[\'\"]?(\d+\.\d+\.\d+)', text)) == {version}
-    assert set(re.findall(r'GOTOOLCHAIN:\s*(go1\.\d+\.\d+)', text)) == {'go' + version}
+    from workflow_model import load, steps, action
+    model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
+    assert {step['with']['go-version'] for step in steps(model) if action(step, 'actions/setup-go')} == {version}
+    pins = {owner['env']['GOTOOLCHAIN'] for owner in [model, *model['jobs'].values(), *steps(model)] if 'GOTOOLCHAIN' in owner.get('env', {})}
+    assert pins == {'go' + version}

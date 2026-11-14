@@ -105,8 +105,8 @@ def test_candidate_cache_retains_race_compilation_but_never_skips_tests():
 
 
 def dependencies(job):
-    value = re.search(r'^    needs: (.+)$', job_text(job), re.M)[1]
-    return {name.strip() for name in value.strip('[]').split(',')}
+    from workflow_model import load, needs
+    return needs(load(ROOT / '.github/workflows/release-candidate-ready.yml')['jobs'][job])
 
 
 @pytest.mark.parametrize('suffix,runner,platform', [('darwin', 'macos-15', 'darwin-arm64'),
@@ -141,10 +141,10 @@ def test_platform_pipeline_starts_core_without_guest_and_advances_independently(
 
 
 def test_both_platforms_share_the_same_step_definitions_and_frozen_proof():
+    from workflow_model import load
+    model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
     for phase in ('core', 'candidate', 'verification'):
-        darwin = job_text(phase+'_darwin').split('    steps: &'+phase+'_steps\n')[1]
-        ubuntu = job_text(phase+'_ubuntu', expand_steps=True).split('    steps:\n')[1]
-        assert darwin == ubuntu
+        assert model['jobs'][phase+'_darwin']['steps'] == model['jobs'][phase+'_ubuntu']['steps']
     core = job_text('core_darwin')
     freeze = job_text('candidate_darwin')
     name = 'release-core-runtime-proof-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}'

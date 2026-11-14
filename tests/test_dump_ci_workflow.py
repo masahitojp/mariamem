@@ -9,11 +9,15 @@ sys.path.insert(0, str(ROOT/'scripts'))
 WORKFLOW = ROOT/'.github/workflows/dump-import-productization.yml'
 
 def validate(text):
-    assert 'needs: native-reference' in text
-    assert 'os: [ubuntu-24.04, macos-15]' in text
-    assert 'scripts/verify.py' not in text
+    from workflow_model import parse, needs, commands
+    model = parse(text)
+    assert any(needs(job) == {'native-reference'} for job in model['jobs'].values())
+    assert any(job.get('strategy', {}).get('matrix', {}).get('os') == ['ubuntu-24.04', 'macos-15'] for job in model['jobs'].values())
+    script = commands(model)
+    assert 'scripts/verify.py' not in script
     for owner in ['producer.py', 'native_reference.py', 'variant.py', 'campaign.py']:
-        assert 'tests/dump_import_acceptance/'+owner in text
+        assert 'tests/dump_import_acceptance/'+owner in script
+
 
 
 def test_release_dump_retains_specific_oracles_and_candidate_identity():
