@@ -52,11 +52,36 @@ Transport failure reuses the same version/source/bytes instead of forcing a
 version bump. Hash conflicts stop, and successful smoke reuse binds exact
 artifacts and check conditions.
 
-0.7.0's later work is split: #170 Linux x86_64/arm64 manylinux and musllinux;
-#171 Windows x86_64/arm64 and limited initial acceptance; #172 ordinary CI
-selection and duplicate-build cleanup; #169 all-target public smoke and guide
-consistency. macOS-first sequencing does not reduce that scope. #158 remains
-the independent required distribution/evidence-size cleanup. New platforms need
+The Human subsequently fixed the next distribution basis: **backport only the
+Linux/Windows support and necessary packaging changes to published 0.6.2**, then
+publish the additional 0.6.2 wheels after all targets are ready. Do not publish
+Linux alone first. The 0.7 product changes on main are deliberately excluded;
+main integration is not sufficient release validation for those changes.
+
+The original `source_commit` is `47121e1be0b399ba4e2270ce3e25c411ade0e2eb`;
+`v0.6.2` has `tag_object_sha` `cebdb4114187171bd418b0a1b419e1c27368808d`,
+verified against [the baseline pin](../release/baselines/v0.6.2.json). Preserve
+the tag and existing published assets, including the macOS wheel. An OS backport
+has its own actual source commit: record that separately from the original
+release and from the publication tooling, with matching corresponding source,
+artifact hashes and acceptance evidence. The existing same-byte macOS backfill
+path does not yet implement this new-artifact transaction.
+
+[#169](https://github.com/masahitojp/mariamem/issues/169) owns the Linux backport,
+its fresh acceptance and the all-target publication connection;
+[#171](https://github.com/masahitojp/mariamem/issues/171) owns Windows x86_64/arm64
+on the same 0.6.2 basis. #170 remains complete for its main implementation;
+its CI does not qualify the backport. Select the needed OS changes rather than
+merging main or bringing in its prepared-output, static-image or buffer-pool
+improvements. If an OS port requires a broader product change, surface that
+dependency before expanding the scope.
+
+#172 still owns ordinary CI selection and duplicate-build cleanup; #158 remains
+the independent required distribution/evidence-size cleanup. Their main-side
+work is distinct from the source shipped in these wheels. Existing v0.7.0
+milestone assignments track development work, not the version of this additional
+distribution. Publication awaits the complete candidate and acceptance; this
+direction does not dispatch a release now. New platforms need
 initial boundary acceptance; public smoke stays install/hash/start/SELECT 1/Close,
 not a repeated ORM/Snapshot campaign. Windows ordinary releases use short smoke,
 with focused additional checks when relevant OS boundaries change.

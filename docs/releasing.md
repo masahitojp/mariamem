@@ -50,6 +50,20 @@ can install from PyPI; Ubuntu users continue to use GitHub Release wheels.
 
 ## PyPI publication and existing-release backfill
 
+The next planned OS expansion is a **0.6.2 backport**, not a release of current
+main under the old version. Only Linux/Windows support and necessary packaging
+changes belong in that product candidate; main's 0.7 product changes stay out.
+Linux and Windows must both be ready before additional publication. See
+[the approved direction](project-status.md#pypi-distribution-direction-2026-11-14)
+and [#169](https://github.com/masahitojp/mariamem/issues/169).
+
+This requires an additional-artifact path which is not yet implemented. Preserve
+the existing tag and assets; bind new wheels to the actual backport source,
+corresponding source and acceptance, separately from the original release source
+and the workflow's tooling commit. The existing same-byte backfill instructions
+below only transfer already accepted GitHub assets; they neither build nor
+qualify new backport artifacts. Do not use them to bypass that missing work.
+
 Stable normal releases also run `pypi_publication` after GitHub publication,
 then `pypi_smoke`. Both use the dispatch commit's tooling while recording the
 original artifact `source_commit` separately. The current explicit PyPI target
