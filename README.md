@@ -145,6 +145,11 @@ gh release download v0.6.2 --repo masahitojp/mariamem \
   --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.2-corresponding-source.tar.gz'
 ```
 
+For a manual wheel audit, the Windows x86_64 asset is
+`mariamem-0.6.2-py3-none-win_amd64.whl`; match the CPU/platform filename and
+its hash against the additional provenance described in
+[publication details](docs/releasing.md#additional-linuxwindows-wheels-for-published-062).
+
 Build/forward-compatibility pins and historical results are in
 [Go compatibility](docs/go-compatibility.md).
 
