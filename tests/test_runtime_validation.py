@@ -272,9 +272,14 @@ def test_frozen_proof_cannot_be_a_verified_flag(tmp_path, monkeypatch):
 def test_workflow_requires_proof_before_expensive_work():
     from test_release_plan import job_text
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
-    assert workflow.index('scripts/release_plan.py') < workflow.index('scripts/build_alpha.py')
-    runtime_job = workflow.split('  runtime:\n', 1)[1].split('  guest:\n', 1)[0]
-    assert 'needs: resolve' in runtime_job
+    from workflow_model import load, commands, needs
+    model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
+    assert 'scripts/release_plan.py' in '\n'.join(step.get('run', '') for step in model['jobs']['resolve']['steps'])
+    assert 'resolve' in needs(model['jobs']['guest'])
+    workflow = commands(model)
+    from workflow_model import load, needs
+    model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
+    assert needs(model['jobs']['runtime']) == {'resolve'}
     for suffix in ('darwin', 'ubuntu'):
         core = job_text('core_'+suffix, expand_steps=True)
         candidate = job_text('candidate_'+suffix, expand_steps=True)
@@ -287,7 +292,7 @@ def test_workflow_requires_proof_before_expensive_work():
     development = (ROOT / '.github/workflows/check.yml').read_text()
     assert 'scripts/runtime_validation.py' not in development
     assert 'scripts/development_scope.py' in development
-    assert "if: steps.diff.outputs.integration == 'true'" in development
+    assert any(step.get("if") == "steps.diff.outputs.integration == 'true'" for step in load(ROOT / '.github/workflows/check.yml')["jobs"]["check"]["steps"])
     assert 'scripts/verify.py smoke' in development
 
 

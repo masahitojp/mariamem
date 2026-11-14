@@ -98,3 +98,12 @@ def local_workflow(root, job):
     if path.parent != directory:
         raise ValueError(f'workflow reference escapes workflow directory: {reference}')
     return load(path)
+
+
+def manual_platform_commands(path):
+    model = load(path)
+    assert 'workflow_dispatch' in events(model), str(path)
+    assert 'push' not in events(model), str(path)
+    assert all('continue-on-error' not in owner for owner in [model, *model['jobs'].values(), *steps(model)]), str(path)
+    assert any(job.get('strategy', {}).get('matrix', {}).get('runner') == ['macos-15', 'ubuntu-24.04'] for job in model['jobs'].values()), str(path)
+    return commands(model)

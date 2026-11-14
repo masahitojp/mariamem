@@ -103,7 +103,7 @@ jobs:
         run: |
           go clean -testcache
           python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
-          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1 -r tests/workflow-requirements.txt
           mkdir -p build/timer-product-ci
           python scripts/git_identity.py inspect HEAD > build/timer-product-ci/source.json
           python -c 'import json,os;assert json.load(open("build/timer-product-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'

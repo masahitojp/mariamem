@@ -72,17 +72,35 @@ def selected(candidate, api, validate=None):
 
 
 def job_text(job, *, expand_steps=False):
-    workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
-    section = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
-    alias = re.search(r'^    steps: \*(\w+)\s*$', section, re.M)
-    if expand_steps and alias:
-        steps = re.search(r'^    steps: &'+alias[1]+r'\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
-        section = section[:alias.start()]+'    steps:\n'+steps
-    return section
+    # Existing command assertions consume a deterministic view of a parsed job.
+    # Anchors are resolved by the loader; source indentation/order is irrelevant.
+    import yaml
+    from workflow_model import load
+    class Dumper(yaml.SafeDumper):
+        def increase_indent(self, flow=False, indentless=False):
+            return super().increase_indent(flow, False)
+    def string(dumper, value):
+        return dumper.represent_scalar('tag:yaml.org,2002:str', value,
+                                       style='|' if '\n' in value else None)
+    Dumper.add_representer(str, string)
+    def sequence(dumper, value):
+        return dumper.represent_sequence('tag:yaml.org,2002:seq', value, flow_style=all(not isinstance(item, (dict, list)) for item in value))
+    Dumper.add_representer(list, sequence)
+    value = load(ROOT / '.github/workflows/release-candidate-ready.yml')['jobs'][job]
+    def ordered(value):
+        if isinstance(value, dict):
+            priority = {'name': 0, 'id': 1, 'if': 2, 'needs': 3, 'runs-on': 4, 'env': 5, 'uses': 6, 'shell': 7, 'with': 8, 'run': 9, 'steps': 10}
+            return {key: ordered(item) for key, item in sorted(value.items(), key=lambda pair: (priority.get(pair[0], 11), str(pair[0])))}
+        if isinstance(value, list):
+            return [ordered(item) for item in value]
+        return value
+    document = yaml.dump({'job': ordered(value)}, Dumper=Dumper, sort_keys=False, width=10000)
+    return '\n'.join('  '+line for line in document.splitlines()[1:])+'\n'
 
 
 def job_condition(job):
-    return re.search(r'^    if: (.+)$', job_text(job), re.M)[1]
+    from workflow_model import load
+    return load(ROOT / '.github/workflows/release-candidate-ready.yml')['jobs'][job]['if']
 
 
 def runs_job(job, result, *, aggregate='success', publication='success',

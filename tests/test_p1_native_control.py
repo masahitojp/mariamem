@@ -42,14 +42,17 @@ def test_reference_cannot_accept_wrong_data_or_recovery(key,bad):
 
 
 def test_both_native_python_cells_execute_p1_after_acquisition():
-    workflow = (ROOT/'.github/workflows/live-host.yml').read_text()
-    section = workflow.split('  native-reference:',1)[1].split('  live:',1)[0]
-    assert "python: ['3.11', '3.14']" in section
+    from workflow_model import load, commands, action
+    model = load(ROOT/'.github/workflows/live-host.yml')
+    job = model['jobs']['native-reference']
+    workflow = commands(model)
+    section = '\n'.join(step.get('run', '') for step in job['steps'])
+    assert job['strategy']['matrix']['python'] == ['3.11', '3.14']
     assert section.index('linux_acquisition.py') < section.index('tests/fixture_entry_acceptance/native.py')
     assert '--acquisition build/live-native/acquisition' in section
     assert '--expected-source-commit "$SOURCE_COMMIT"' in section
     assert '--expected-source-commit "$GITHUB_SHA"' not in section
-    assert 'ref: ${{ inputs.source_commit }}' in section
+    assert all(step['with']['ref'] == '${{ inputs.source_commit }}' for step in job['steps'] if action(step, 'actions/checkout'))
     assert '--disposable-server' in section
     assert '-r tests/preparation_migration_acceptance/requirements.txt' in section
     assert 'P1_NATIVE_REFERENCE="$PWD/build/reference/py$version/p1"' in workflow

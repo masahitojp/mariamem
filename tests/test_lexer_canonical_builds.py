@@ -54,9 +54,21 @@ class CanonicalBuildTests(unittest.TestCase):
                     (second / 'linked.wasm').write_bytes(b'linked')
 
     def test_workflow_keeps_independent_regeneration_and_actual_controls(self):
-        text = (ROOT / '.github/workflows/lexer-canonical-input.yml').read_text()
-        for required in ['workflow_dispatch:', 'HOME: /root', 'test ! -e guest/experimental.patch',
-                         'scripts/build_generated_guest.py --repetitions 2', 'runner: [macos-15, ubuntu-24.04]',
+        from workflow_model import manual_platform_commands
+        text = manual_platform_commands((ROOT / '.github/workflows/lexer-canonical-input.yml'))
+        from workflow_model import load
+        def home_values(value):
+            if isinstance(value, dict):
+                for key, item in value.items():
+                    if key == 'HOME':
+                        yield item
+                    yield from home_values(item)
+            elif isinstance(value, list):
+                for item in value:
+                    yield from home_values(item)
+        assert '/root' in set(home_values(load(ROOT/'.github/workflows/lexer-canonical-input.yml')))
+        for required in ['test ! -e guest/experimental.patch',
+                         'scripts/build_generated_guest.py --repetitions 2',
                          'scripts/regenerate_release_guest.py', 'scripts/check_prepared_build_guards.py',
                          'TestPreparedLexerTablesActualGuest', 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer',
                          'tests/routine_thread_fixture.py', 'tests/lexer_prepared_acceptance.py',
@@ -66,10 +78,11 @@ class CanonicalBuildTests(unittest.TestCase):
         self.assertNotIn('continue-on-error', text)
         self.assertNotIn('operation: release', text)
 
-        candidate = (ROOT / '.github/workflows/startup-cap-candidate.yml').read_text()
-        for required in ['workflow_dispatch:',
+        from workflow_model import manual_platform_commands
+        candidate = manual_platform_commands((ROOT / '.github/workflows/startup-cap-candidate.yml'))
+        for required in [
                          'scripts/build_generated_guest.py --repetitions 2',
-                         'runner: [macos-15, ubuntu-24.04]', 'test_startup_concurrency.py',
+                         'test_startup_concurrency.py',
                          'scripts/regenerate_release_guest.py', 'scripts/check_prepared_build_guards.py',
                          'TestPreparedLexerTablesActualGuest', 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer',
                          'tests/routine_thread_fixture.py', 'tests/lexer_prepared_acceptance.py',

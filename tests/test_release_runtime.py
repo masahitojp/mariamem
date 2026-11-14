@@ -57,11 +57,14 @@ def test_shared_runtime_rejects_wrong_or_ambiguous_inputs(shared, monkeypatch, f
 
 
 def test_release_builds_one_wheel_and_every_feature_uses_it():
-    text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
+    from workflow_model import load, commands
+    text = commands(load(ROOT/'.github/workflows/release-candidate-ready.yml'))
     assert text.count('python scripts/build_alpha.py --ci-candidate') == 1
-    assert 'needs: [resolve, guest, core_darwin]' in text
-    assert 'needs: [resolve, guest, core_ubuntu]' in text
-    assert "if: needs.resolve.outputs.mode != 'full'" in text
+    from workflow_model import load, needs, steps
+    model = load(ROOT/'.github/workflows/release-candidate-ready.yml')
+    for suffix in ('darwin', 'ubuntu'):
+        assert needs(model['jobs']['candidate_'+suffix]) == {'resolve', 'guest', 'core_'+suffix}
+    assert any(step.get('if') == "needs.resolve.outputs.mode != 'full'" for step in steps(model))
     assert '--mode acceptance-only --candidate-run' in text
     candidate = job_text('candidate_darwin')
     core = job_text('core_darwin')
@@ -105,8 +108,8 @@ def test_candidate_cache_retains_race_compilation_but_never_skips_tests():
 
 
 def dependencies(job):
-    value = re.search(r'^    needs: (.+)$', job_text(job), re.M)[1]
-    return {name.strip() for name in value.strip('[]').split(',')}
+    from workflow_model import load, needs
+    return needs(load(ROOT / '.github/workflows/release-candidate-ready.yml')['jobs'][job])
 
 
 @pytest.mark.parametrize('suffix,runner,platform', [('darwin', 'macos-15', 'darwin-arm64'),
@@ -141,10 +144,10 @@ def test_platform_pipeline_starts_core_without_guest_and_advances_independently(
 
 
 def test_both_platforms_share_the_same_step_definitions_and_frozen_proof():
+    from workflow_model import load
+    model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
     for phase in ('core', 'candidate', 'verification'):
-        darwin = job_text(phase+'_darwin').split('    steps: &'+phase+'_steps\n')[1]
-        ubuntu = job_text(phase+'_ubuntu', expand_steps=True).split('    steps:\n')[1]
-        assert darwin == ubuntu
+        assert model['jobs'][phase+'_darwin']['steps'] == model['jobs'][phase+'_ubuntu']['steps']
     core = job_text('core_darwin')
     freeze = job_text('candidate_darwin')
     name = 'release-core-runtime-proof-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}'

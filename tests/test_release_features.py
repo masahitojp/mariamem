@@ -164,21 +164,24 @@ def test_fresh_receipt_cannot_be_minted_from_partial_success(tmp_path):
 
 
 def test_workflow_rechecks_original_proof_after_guard_and_retains_publication_boundary():
-    text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
-    aggregate = text.split('  aggregate:\n')[1].split('  publication:\n')[0]
+    from workflow_model import load
+    model = load(ROOT/'.github/workflows/release-candidate-ready.yml')
+    owner = model['jobs']['aggregate']
+    aggregate = '\n'.join(step.get('run', '') for step in owner['steps'])
     assert aggregate.index('release_features.py gate') < aggregate.index('python "$script" restore-guard')
     assert aggregate.index('python "$script" restore-guard') < aggregate.index('release_features.py record')
-    assert "if: needs.resolve.outputs.features_reused != 'true'" in aggregate
-    assert 'name: release-features-${{ needs.resolve.outputs.source_sha }}' in aggregate
-    assert 'candidate-source/build/release/qualification.json' in aggregate
+    assert any(step.get('if') == "needs.resolve.outputs.features_reused != 'true'" for step in owner['steps'])
+    assert any(step.get('with', {}).get('name') == 'release-features-${{ needs.resolve.outputs.source_sha }}' for step in owner['steps'])
+    assert any('candidate-source/build/release/qualification.json' in step.get('with', {}).get('path', '') for step in owner['steps'])
 
 
 def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
-    text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
-    units = text.split('  units:\n')[1].split('  runtime:\n')[0]
-    assert "python: '3.11'" in units and "pytest: '7.0.0'" in units
-    assert "python: '3.14'" in units and "pytest: '9.0.2'" in units
-    assert 'runs-on: ubuntu-24.04' in units
+    from workflow_model import load, commands, local_workflow
+    model = load(ROOT/'.github/workflows/release-candidate-ready.yml')
+    owner = model['jobs']['units']
+    units = '\n'.join(step.get('run', '') for step in owner['steps'])
+    assert owner['strategy']['matrix']['include'] == [{'python': '3.11', 'pytest': '7.0.0'}, {'python': '3.14', 'pytest': '9.0.2'}]
+    assert owner['runs-on'] == 'ubuntu-24.04'
     moved = ('test_routing.py', 'test_routing_pytest.py', 'test_routing_receipts.py',
              'test_preparation_migration_acceptance.py', 'test_dump_ci_workflow.py',
              'test_git_identity.py', 'test_dump_product_binding.py', 'test_dump_import_acceptance.py',
@@ -186,10 +189,10 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
              'test_live_oracles.py', 'test_django_recipe_unit.py',
              'test_e2e_entry.py', 'test_forklimit_options.py')
     # Discover all six callers from Release so a new owner cannot escape this check.
-    import re
-    paths = re.findall(r'uses: \./(\.github/workflows/[^\s]+)', text)
-    assert len(paths) == 6
-    called = {Path(path).name: (ROOT/path).read_text() for path in paths}
+    callers = [job for job in model['jobs'].values() if 'uses' in job]
+    assert len(callers) == 6
+    called_models = {Path(job['uses']).name: local_workflow(ROOT, job) for job in callers}
+    called = {name: commands(value) for name, value in called_models.items()}
     for name in moved:
         assert units.count('tests/'+name) == 1
         for workflow, body in called.items():
@@ -197,7 +200,7 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
     # Installed dump tests own this behavior on each OS/minor; the native producer
     # no longer repeats them against source before running the actual DB controls.
     dump = called['dump-import-productization.yml']
-    assert 'tests/test_dump_import.py' not in dump.split('  guest-comparison:', 1)[0]
+    assert all('tests/test_dump_import.py' not in '\n'.join(step.get('run', '') for step in job.get('steps', [])) for name, job in called_models['dump-import-productization.yml']['jobs'].items() if name != 'guest-comparison')
     assert dump.count('-m pytest tests/test_dump_import.py') == 2
     for python in ('MINIMUM_PYTHON', 'CURRENT_PYTHON'):
         install = f'"${python}" -m pip install --no-deps build/dist/*.whl'
@@ -220,9 +223,9 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
         verify.integration()
     race = next(argv for argv in calls if argv[:3] == ['go', 'test', '-race'])
     assert './mariamemtest' in race and '-count=1' in race
-    assert 'runs-on: macos-15' in text and 'runs-on: ubuntu-24.04' in text
-    assert 'steps: *core_steps' in text
-    assert all('os: [' in body for body in called.values())
+    assert {'macos-15', 'ubuntu-24.04'} <= {job.get('runs-on') for job in model['jobs'].values()}
+    assert model['jobs']['core_darwin']['steps'] == model['jobs']['core_ubuntu']['steps']
+    assert all(any('os' in job.get('strategy', {}).get('matrix', {}) for job in value['jobs'].values()) for value in called_models.values())
 
 
 @pytest.mark.parametrize('mutation', ['empty-assets', 'bad-hash', 'source', 'platform', 'not-ready'])

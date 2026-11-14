@@ -1,3 +1,4 @@
+-r ../workflow-requirements.txt
 Alembic==1.18.4
 SQLAlchemy==2.0.54
 PyMySQL==1.2.3

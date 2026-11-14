@@ -4,9 +4,13 @@ from pathlib import Path
 
 def test_static_image_candidate_boundaries():
     root = Path(__file__).resolve().parents[1]
-    text = (root/'.github/workflows/issue123-layout.yml').read_text()
+    from workflow_model import load, commands, steps, events, action
+    model = load(root/'.github/workflows/issue123-layout.yml')
+    text = commands(model)
+    assert any(job.get('strategy', {}).get('matrix', {}).get('runner') == ['macos-15', 'ubuntu-24.04'] for job in model['jobs'].values())
+    assert any(action(step, 'actions/setup-go') and step['with']['go-version'] == '1.26.10' for step in steps(model))
+    assert any(step.get('with', {}).get('if-no-files-found') == 'error' for step in steps(model))
     for contract in (
-        'runner: [macos-15, ubuntu-24.04]', 'go-version: \'1.26.10\'',
         'scripts/git_identity.py inspect HEAD', 'os.environ["GITHUB_SHA"]',
         'test -z "$(git status --porcelain)"', 'go clean -testcache',
         './internal/generatedgo/layoutgen -check',
@@ -16,8 +20,9 @@ def test_static_image_candidate_boundaries():
         './tests/generatedmemory -run=TestProcessImageSurvivesIndependentRootsAndSnapshots',
         'tests/test_consumer_acceptance.py',
         'tests/test_owned_snapshot.py', 'tests/snapshots.py',
-        'if-no-files-found: error', 'SHA256SUMS.json',
+        'SHA256SUMS.json',
     ):
         assert contract in text
     assert 'operation: release' not in text and 'continue-on-error' not in text
-    assert '  workflow_dispatch:' in text and '  push:' not in text and '  pull_request:' not in text
+    assert 'workflow_dispatch' in events(model) and not set(events(model)) & {'push', 'pull_request'}
+    assert all('continue-on-error' not in owner for owner in [*model['jobs'].values(), *steps(model)])
