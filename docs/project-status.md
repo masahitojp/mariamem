@@ -30,6 +30,9 @@ recommends bounded output adoption with its explicit prior-condition disposition
 This remains Codex's recommendation: main integration, Issue132's final selected-route
 disposition and release are Human decisions. Owned measurement scratch/cache/source
 copies were removed; committed reports and reproducible source refs remain.
+Issue134 is closed as formalization/handoff complete. Issue65 and Issue132 remain
+open for the integration and selected-route disposition; closure of134 is not
+a contract waiver or adoption approval.
 
 ## Output-only productization authorized (2026-11-13)
 
