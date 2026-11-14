@@ -1,0 +1,11 @@
+# 製品Goと正規変換の確認
+
+source_commit 075c8328ab5b446566eaaff36ea7f4a41244a1d3。Go1.26.10/macOS arm64。
+
+実生成baseへの候補overlayでMemoryEA cost44、inline可能。TestBulkBoundsAndEffects成功。正規converterを新規buildし、CI43569024494 artifact14103568702のguest SHA256 77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450を全面変換。raw manifestの変更はbase/base.goだけ。既存source adapterとbaseのnarrow/memfs/thread lifetime/failure/write adapterを適用した差分は、直接panicへの変更と不要trap helper削除のみ。
+
+最初の実行はsystem Pythonのtarfile filter未対応で停止。Python3.14で再実行成功。helper失敗時にscratchが削除されたため同一artifactを再取得した。失敗後の再実行はscript timeout1200秒による手動監督。製品pinは未更新。
+
+今回はraw全面変換とbase adapter照合まで。generate_runtime.pyの全体installation/provenance/static image生成、再生成候補を使う実guest検査、製品Goでの性能、元SUM/全suite/両OS、配布物sizeは未実施。正規生成結果からtrap helperが消えるため、旧overlayとinventoryは同一ではない。製品採用は未判断。
+
+次の推奨は正規生成結果をdevelopment installationへ渡し、既存検査を維持して製品Goの同条件性能を対照すること。利益が消えたら広いcampaignへ進まず判断を戻す。
