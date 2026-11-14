@@ -1,0 +1,9 @@
+{
+  "generator_origin": "benchmarks/spikes/wasm2go/pure-memory32.patch",
+  "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "generator_patch_baseline_sha256": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+  "generator_patch_candidate_sha256": "88cf7dbb5e72573414397dc437981559fe12b052b4b177c7821717960aa1492c",
+  "upstream_helpers_sha256": "787994480cc303bdcf677f3ea2865216564ee15721eb36d727b03e53a4d82862",
+  "candidate_change": "MemoryEA retains MemoryInBounds; direct panic with same string replaces noinline trap helper call",
+  "unverified": "fresh converter rebuild and full guest retranslation; generated-file inventory after unused helper removal"
+}

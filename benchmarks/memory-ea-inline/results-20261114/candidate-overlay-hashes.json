@@ -1,0 +1,8 @@
+{
+  "internal/generatedgo/code/p1/p1_pure.go": "8426b5ab978d0083acbba70cc514a9949453ff198a78e7aac19e2b24e6c16e48",
+  "internal/generatedgo/code/base/base.go": "1a44ec166d2686cd892cab78ff5c9c5e34bfc1a37363471a7f2b75cf3eb30e33",
+  "internal/generatedgo/code/base/experiment_stages.go": "b86f9a2383fb63629d253ad995a3e5b5fc7af07417f747a0e0cbedd6e032ed36",
+  "experiment_stages.go": "ee2ba17c8124fbf8d546d797dc5154249071a81fa9b25711b863d68de674d338",
+  "internal/generatedgo/code/p4/p4_pure.go": "7502febef2ddb231d4061585eacd3f3ecb4add62367c115b1750a52b1113db12",
+  "internal/generatedgo/code/base/memory_ea_property_test.go": "347005357572d841be5946670b9e01d81443b6ce2799984e163e282e996101bd"
+}

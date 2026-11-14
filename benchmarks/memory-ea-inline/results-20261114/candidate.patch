@@ -1,0 +1,5 @@
+--- baseline/base.go
++++ candidate/base.go
+@@ -1471 +1471 @@
+-		Wasm_trap_memory_oob()
++		panic("wasm: memory access out of bounds")

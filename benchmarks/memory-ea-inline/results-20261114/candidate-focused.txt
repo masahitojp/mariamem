@@ -1,0 +1,95 @@
+=== RUN   TestBulkBoundsAndEffects
+=== RUN   TestBulkBoundsAndEffects/fill/end
+=== RUN   TestBulkBoundsAndEffects/fill/past-dst
+=== RUN   TestBulkBoundsAndEffects/fill/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/fill/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/fill/one-valid
+=== RUN   TestBulkBoundsAndEffects/fill/one-invalid
+=== RUN   TestBulkBoundsAndEffects/copy/end
+=== RUN   TestBulkBoundsAndEffects/copy/past-dst
+=== RUN   TestBulkBoundsAndEffects/copy/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/copy/end-src
+=== RUN   TestBulkBoundsAndEffects/copy/past-src
+=== RUN   TestBulkBoundsAndEffects/copy/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/copy/one-valid
+=== RUN   TestBulkBoundsAndEffects/copy/one-invalid
+=== RUN   TestBulkBoundsAndEffects/init/end
+=== RUN   TestBulkBoundsAndEffects/init/past-dst
+=== RUN   TestBulkBoundsAndEffects/init/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/init/end-src
+=== RUN   TestBulkBoundsAndEffects/init/past-src
+=== RUN   TestBulkBoundsAndEffects/init/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/init/one-valid
+=== RUN   TestBulkBoundsAndEffects/init/one-invalid
+=== RUN   TestBulkBoundsAndEffects/init/dropped-empty
+=== RUN   TestBulkBoundsAndEffects/init/dropped-past
+=== RUN   TestBulkBoundsAndEffects/init/dropped-copy
+--- PASS: TestBulkBoundsAndEffects (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/end-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/past-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/end-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/past-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-empty (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-past (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-copy (0.00s)
+=== RUN   TestHostImportLogicalMemory
+=== RUN   TestHostImportLogicalMemory/random_crossing
+=== RUN   TestHostImportLogicalMemory/random_past_end
+=== RUN   TestHostImportLogicalMemory/random_unsigned_overflow
+=== RUN   TestHostImportLogicalMemory/clock_crossing
+=== RUN   TestHostImportLogicalMemory/args_output_crossing
+=== RUN   TestHostImportLogicalMemory/env_output_crossing
+=== RUN   TestHostImportLogicalMemory/fd_output_crossing
+=== RUN   TestHostImportLogicalMemory/iovec_table_crossing
+--- PASS: TestHostImportLogicalMemory (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_past_end (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_unsigned_overflow (0.00s)
+    --- PASS: TestHostImportLogicalMemory/clock_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/args_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/env_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/fd_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/iovec_table_crossing (0.00s)
+=== RUN   TestExperimentMemoryEAOracle
+    memory_ea_property_test.go:7: oracle cases 24641
+--- PASS: TestExperimentMemoryEAOracle (0.02s)
+=== RUN   TestExperimentSharedBound
+--- PASS: TestExperimentSharedBound (0.00s)
+=== RUN   TestNarrowAtomicValuesBounds
+--- PASS: TestNarrowAtomicValuesBounds (0.00s)
+=== RUN   TestNarrowAtomicReadonlyMapping
+--- PASS: TestNarrowAtomicReadonlyMapping (0.00s)
+=== RUN   TestNarrowAtomicPublication
+--- PASS: TestNarrowAtomicPublication (0.04s)
+=== RUN   TestNarrowWriterValuesAndBounds
+--- PASS: TestNarrowWriterValuesAndBounds (0.00s)
+=== RUN   TestNarrowWriterOrdinaryNeighbor
+--- PASS: TestNarrowWriterOrdinaryNeighbor (0.00s)
+=== RUN   TestNarrowWriterSameTarget
+--- PASS: TestNarrowWriterSameTarget (0.00s)
+=== RUN   TestNarrowWriterMixedWidthSC
+--- PASS: TestNarrowWriterMixedWidthSC (0.00s)
+=== RUN   TestOwnedPrivateViewsGrowthAndRelease
+--- PASS: TestOwnedPrivateViewsGrowthAndRelease (0.00s)
+=== RUN   TestPreparedGrowthOwnershipAndZeroFill
+--- PASS: TestPreparedGrowthOwnershipAndZeroFill (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.417s

@@ -338,7 +338,7 @@
 +}
 +func memoryEA(m *Module, addr, offset, size uint64) uint64 {
 +	if !memoryInBounds(m, addr, offset, size) {
-+		wasm_trap_memory_oob()
++		panic("wasm: memory access out of bounds")
 +	}
 +	return addr + offset
 +}

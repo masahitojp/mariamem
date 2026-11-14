@@ -1,0 +1,62 @@
+{
+  "baseline": {
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13977(SB)": {
+      "instructions": 2488,
+      "memory_ea_calls": 170
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn17041(SB)": {
+      "instructions": 4976,
+      "memory_ea_calls": 380
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594(SB)": {
+      "instructions": 10684,
+      "memory_ea_calls": 853
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338(SB)": {
+      "instructions": 4868,
+      "memory_ea_calls": 426
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146(SB)": {
+      "instructions": 4388,
+      "memory_ea_calls": 387
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn13460(SB)": {
+      "instructions": 1716,
+      "memory_ea_calls": 157
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn15541(SB)": {
+      "instructions": 816,
+      "memory_ea_calls": 68
+    }
+  },
+  "candidate": {
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13977(SB)": {
+      "instructions": 2488,
+      "memory_ea_calls": 170
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn17041(SB)": {
+      "instructions": 4976,
+      "memory_ea_calls": 380
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594(SB)": {
+      "instructions": 10684,
+      "memory_ea_calls": 853
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338(SB)": {
+      "instructions": 4868,
+      "memory_ea_calls": 426
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146(SB)": {
+      "instructions": 4388,
+      "memory_ea_calls": 387
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn13460(SB)": {
+      "instructions": 3004,
+      "memory_ea_calls": 0
+    },
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn15541(SB)": {
+      "instructions": 1508,
+      "memory_ea_calls": 0
+    }
+  }
+}
