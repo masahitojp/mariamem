@@ -12,8 +12,8 @@ Current release: Python `0.6.2` / Go `v0.6.2` ([release notes](release/NOTES-v0.
 
 Supported hosts: **macOS 15+ arm64** and **Ubuntu 24.04 x86_64**.
 Python requires **3.11+**; Go requires **1.26.0+**.
-Use a GitHub Release wheel for Python. PyPI account setup is complete; the first
-macOS upload is pending. Until its public smoke succeeds, use the URLs below.
+The macOS arm64 wheel is available on PyPI and passed public installation smoke.
+Use `python -m pip install "mariamem[test]==0.6.2"` on macOS.
 Linux continues to use the GitHub wheel; broader Linux/Windows distribution is
 planned for 0.7.0.
 
@@ -24,7 +24,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.2/mariamem-0.6.2-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test]==0.6.2'
 
 # Ubuntu x86_64: use this instead
 python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.2/mariamem-0.6.2-py3-none-linux_x86_64.whl'
