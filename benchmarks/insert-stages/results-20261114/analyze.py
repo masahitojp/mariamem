@@ -30,7 +30,7 @@ for p in [1,8]:
  for k in ['wall_ms','cpu_ms']:summary[str(p)][k+'_paired_pct']=[100*(c[i][k]/b[i][k]-1)for i in range(3)]
 (E/'summary.json').write_text(json.dumps(summary,indent=2));(E/'analyzed-runs.json').write_text(json.dumps(out,indent=2))
 with(E/'db-stages.csv').open('w')as f:
- w=csv.DictWriter(f,fieldnames=list(dbrows[0]));w.writeheader();w.writerows(dbrows)
+ w=csv.DictWriter(f,fieldnames=list(dbrows[0]),lineterminator="\n");w.writeheader();w.writerows(dbrows)
 print(json.dumps(summary,indent=2))
 pooled={}
 for p in [1,8]:
