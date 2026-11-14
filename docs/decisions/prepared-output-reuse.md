@@ -27,7 +27,7 @@ For the next actual engine update, review the direct `MYSQL_STMT.result` /
 and ownership. Review metadata/status/OUT and existing input/engine patches as
 common obligations. Retain shared valueShape/validValue rules; do not grow a
 second independent conversion table. Record shared versus per-series repairs,
-human investigation/review versus machine/queue time, and initial migration versus
+human investigation and review versus machine and queue time, and initial migration versus
 recurring update cost. The earlier #150 preparation benefit is common to both routes.
 
 Use existing C ownership/failure controls, Go raw/chain/hidden-OUT/version tests,
