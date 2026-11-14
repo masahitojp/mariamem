@@ -1,0 +1,52 @@
+[
+  {
+    "pair": 0,
+    "variant": "baseline",
+    "file": "run-0-baseline.json"
+  },
+  {
+    "pair": 0,
+    "variant": "candidate",
+    "file": "run-0-candidate.json"
+  },
+  {
+    "pair": 1,
+    "variant": "candidate",
+    "file": "run-1-candidate.json"
+  },
+  {
+    "pair": 1,
+    "variant": "baseline",
+    "file": "run-1-baseline.json"
+  },
+  {
+    "pair": 2,
+    "variant": "baseline",
+    "file": "run-2-baseline.json"
+  },
+  {
+    "pair": 2,
+    "variant": "candidate",
+    "file": "run-2-candidate.json"
+  },
+  {
+    "pair": 3,
+    "variant": "candidate",
+    "file": "run-3-candidate.json"
+  },
+  {
+    "pair": 3,
+    "variant": "baseline",
+    "file": "run-3-baseline.json"
+  },
+  {
+    "pair": 4,
+    "variant": "baseline",
+    "file": "run-4-baseline.json"
+  },
+  {
+    "pair": 4,
+    "variant": "candidate",
+    "file": "run-4-candidate.json"
+  }
+]

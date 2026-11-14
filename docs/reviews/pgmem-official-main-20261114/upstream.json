@@ -1,0 +1,26 @@
+{
+  "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "tag_object_sha": null,
+  "files": [
+    {
+      "file": "main.go",
+      "sha256": "3b5493161c7e38018b0a9ef5e60e16545b7f000f8370ff923ea70910492a7195",
+      "source_path": "bench/alternatives/main.go"
+    },
+    {
+      "file": "pgmem.go",
+      "sha256": "746189291d5c8c9a6e8d233d9796fd786ee38ab97f89018380ddd90a306fb09c",
+      "source_path": "bench/alternatives/pgmem.go"
+    },
+    {
+      "file": "run.sh",
+      "sha256": "02f2759b640cef3ab1a94b290088c86289f3dad70e6238f3e11d2baa668907d0",
+      "source_path": "bench/alternatives/run.sh"
+    },
+    {
+      "file": "pgmem_test.go",
+      "sha256": "c49b404847cef5b95b197ab2607d1603afe7127da0bcb5701fcfd24158d79d0d",
+      "source_path": "pgmem_test.go"
+    }
+  ]
+}

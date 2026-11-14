@@ -1,0 +1,38 @@
+{
+  "harness_source_commit": "d3ed44a766e7a3464bc25a54b173f78795567d8d",
+  "harness_main_sha256": "edc1cc7d97a78c195649cf36eb4f0841dd67249ad0584f598da65f333866701b",
+  "cohorts": {
+    "candidate": {
+      "source_identity": {
+        "object_sha": "eeef899a296be8aa38cc9e3de0a550c428d4dca9",
+        "object_type": "commit",
+        "source_commit": "eeef899a296be8aa38cc9e3de0a550c428d4dca9"
+      },
+      "binary_sha256": "040d8dcf126003b90e05d0f025dc5dcf6b8349791d3b470b4137e1c7e735e3e0",
+      "buildinfo": "${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/candidate-bench: go1.26.10\n\tpath\texample.com/mariamem-pgmem-official\n\tmod\texample.com/mariamem-pgmem-official\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/candidate-source\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+      "actual_go_mod": "module example.com/mariamem-pgmem-official\n\ngo 1.26.0\n\nrequire (\n\tgithub.com/go-sql-driver/mysql v1.9.3\n\tgithub.com/masahitojp/mariamem v0.0.0\n)\n\nrequire filippo.io/edwards25519 v1.1.0 // indirect\n\nreplace github.com/masahitojp/mariamem => ${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/candidate-source\n",
+      "actual_go_sum": "filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\nfilippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=\ngithub.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\ngithub.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=\n",
+      "source_clean_before_build": true
+    },
+    "baseline": {
+      "source_identity": {
+        "object_sha": "eb175ae23292c1c40cfbeb4b9b73132873c4cc6f",
+        "object_type": "commit",
+        "source_commit": "eb175ae23292c1c40cfbeb4b9b73132873c4cc6f"
+      },
+      "binary_sha256": "d4b3254ac5190794cd3af4d0baa4b24140248304069700331f33fe75a4a8cf9d",
+      "buildinfo": "${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/baseline-bench: go1.26.10\n\tpath\texample.com/mariamem-pgmem-official\n\tmod\texample.com/mariamem-pgmem-official\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/baseline-source\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+      "actual_go_mod": "module example.com/mariamem-pgmem-official\n\ngo 1.26.0\n\nrequire (\n\tgithub.com/go-sql-driver/mysql v1.9.3\n\tgithub.com/masahitojp/mariamem v0.0.0\n)\n\nrequire filippo.io/edwards25519 v1.1.0 // indirect\n\nreplace github.com/masahitojp/mariamem => ${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/baseline-source\n",
+      "actual_go_sum": "filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\nfilippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=\ngithub.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\ngithub.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=\n",
+      "source_clean_before_build": true
+    }
+  },
+  "budget": {
+    "active_minutes": 120,
+    "measurement_tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "workspace_gib": 4,
+    "min_free_gib": 8
+  },
+  "started_unix": 1794619750.246357
+}

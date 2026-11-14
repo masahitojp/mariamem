@@ -1,0 +1,802 @@
+{
+  "build_info": {
+    "GoVersion": "go1.26.10",
+    "Path": "example.com/mariamem-pgmem-official",
+    "Main": {
+      "Path": "example.com/mariamem-pgmem-official",
+      "Version": "(devel)"
+    },
+    "Deps": [
+      {
+        "Path": "filippo.io/edwards25519",
+        "Version": "v1.1.0",
+        "Sum": "h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA="
+      },
+      {
+        "Path": "github.com/go-sql-driver/mysql",
+        "Version": "v1.9.3",
+        "Sum": "h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo="
+      },
+      {
+        "Path": "github.com/masahitojp/mariamem",
+        "Version": "v0.0.0",
+        "Replace": {
+          "Path": "${HOME}/src/mysqlmem/publish/mariamem/build/experiment-work/pgmem-official-main-20261114/temp/baseline-source",
+          "Version": "(devel)"
+        }
+      }
+    ],
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      }
+    ]
+  },
+  "completed": true,
+  "dial_query_us": 98.026,
+  "engine_version": "12.3.3-MariaDB-embedded",
+  "fork_close_ms": [
+    10.991625,
+    10.81475,
+    12.128125,
+    10.779042,
+    12.25025,
+    11.5465,
+    13.900708,
+    12.750709,
+    11.644875,
+    11.201042,
+    11.90025,
+    12.690042,
+    13.296,
+    12.477291,
+    12.37075,
+    12.455833,
+    4.710708,
+    13.756084,
+    11.105834,
+    16.939959
+  ],
+  "fork_first_query_ms": [
+    31.821125,
+    31.886209,
+    32.1845,
+    32.276125,
+    30.166542,
+    33.120709,
+    37.779875,
+    47.792125,
+    35.159583,
+    32.795458,
+    32.684709,
+    33.557,
+    34.491708,
+    35.036375,
+    34.033125,
+    34.766917,
+    35.831042,
+    34.759333,
+    37.125667,
+    35.309583
+  ],
+  "go": "go1.26.10",
+  "harness_source_commit": "d3ed44a766e7a3464bc25a54b173f78795567d8d",
+  "heavy_ms": [
+    1558.758709,
+    1531.86875,
+    1556.847625
+  ],
+  "heavy_plan": {
+    "query_block": {
+      "select_id": 1,
+      "cost": 0.012859814,
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "\u003cderived2\u003e",
+            "access_type": "ALL",
+            "loops": 1,
+            "rows": 64,
+            "cost": 0.012859814,
+            "filtered": 100,
+            "materialized": {
+              "query_block": {
+                "select_id": 2,
+                "cost": 0.099684763,
+                "filesort": {
+                  "sort_key": "md5(cast(1 + 1 * d0.d + 10 * d1.d + 100 * d2.d + 1000 * d3.d + 10000 * d4.d + 100000 * `last`.d as char charset utf8mb4))",
+                  "temporary_table": {
+                    "nested_loop": [
+                      {
+                        "table": {
+                          "table_name": "\u003cderived4\u003e",
+                          "access_type": "ALL",
+                          "loops": 1,
+                          "rows": 2,
+                          "cost": 0.010089369,
+                          "filtered": 100,
+                          "materialized": {
+                            "query_block": {
+                              "union_result": {
+                                "query_specifications": [
+                                  {
+                                    "query_block": {
+                                      "select_id": 4,
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 5,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 6,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 7,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 8,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 9,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 10,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 11,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 12,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 13,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "block-nl-join": {
+                          "table": {
+                            "table_name": "\u003cderived14\u003e",
+                            "access_type": "ALL",
+                            "loops": 2,
+                            "rows": 2,
+                            "cost": 0.010582565,
+                            "filtered": 100
+                          },
+                          "buffer_type": "flat",
+                          "buffer_size": "54",
+                          "join_type": "BNL",
+                          "materialized": {
+                            "query_block": {
+                              "union_result": {
+                                "query_specifications": [
+                                  {
+                                    "query_block": {
+                                      "select_id": 14,
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 15,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 16,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 17,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 18,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 19,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 20,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 21,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 22,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 23,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "block-nl-join": {
+                          "table": {
+                            "table_name": "\u003cderived24\u003e",
+                            "access_type": "ALL",
+                            "loops": 4,
+                            "rows": 2,
+                            "cost": 0.011562689,
+                            "filtered": 100
+                          },
+                          "buffer_type": "incremental",
+                          "buffer_size": "98",
+                          "join_type": "BNL",
+                          "materialized": {
+                            "query_block": {
+                              "union_result": {
+                                "query_specifications": [
+                                  {
+                                    "query_block": {
+                                      "select_id": 24,
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 25,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 26,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 27,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 28,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 29,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 30,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 31,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 32,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 33,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "block-nl-join": {
+                          "table": {
+                            "table_name": "\u003cderived34\u003e",
+                            "access_type": "ALL",
+                            "loops": 8,
+                            "rows": 2,
+                            "cost": 0.014009865,
+                            "filtered": 100
+                          },
+                          "buffer_type": "incremental",
+                          "buffer_size": "98",
+                          "join_type": "BNL",
+                          "materialized": {
+                            "query_block": {
+                              "union_result": {
+                                "query_specifications": [
+                                  {
+                                    "query_block": {
+                                      "select_id": 34,
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 35,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 36,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 37,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 38,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 39,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 40,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 41,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 42,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 43,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "block-nl-join": {
+                          "table": {
+                            "table_name": "\u003cderived44\u003e",
+                            "access_type": "ALL",
+                            "loops": 16,
+                            "rows": 2,
+                            "cost": 0.019878073,
+                            "filtered": 100
+                          },
+                          "buffer_type": "incremental",
+                          "buffer_size": "152",
+                          "join_type": "BNL",
+                          "materialized": {
+                            "query_block": {
+                              "union_result": {
+                                "query_specifications": [
+                                  {
+                                    "query_block": {
+                                      "select_id": 44,
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 45,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 46,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 47,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 48,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 49,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 50,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 51,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 52,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 53,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "block-nl-join": {
+                          "table": {
+                            "table_name": "\u003cderived54\u003e",
+                            "access_type": "ALL",
+                            "loops": 32,
+                            "rows": 2,
+                            "cost": 0.033562201,
+                            "filtered": 100
+                          },
+                          "buffer_type": "incremental",
+                          "buffer_size": "296",
+                          "join_type": "BNL",
+                          "materialized": {
+                            "query_block": {
+                              "union_result": {
+                                "query_specifications": [
+                                  {
+                                    "query_block": {
+                                      "select_id": 54,
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "query_block": {
+                                      "select_id": 55,
+                                      "operation": "UNION",
+                                      "table": {
+                                        "message": "No tables used"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "heavy_sql": "SELECT COUNT(*) FROM (SELECT MD5(CAST(n AS CHAR)) h FROM (SELECT 1+1*d0.d+10*d1.d+100*d2.d+1000*d3.d+10000*d4.d+100000*last.d n FROM (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d0 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d1 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d2 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d3 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d4 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1) last) numbers ORDER BY h LIMIT 200000) sorted",
+  "insert": {
+    "prepared": {
+      "rows": 1000,
+      "total_ms": 127.745666,
+      "us_per_row": 127.745666,
+      "verified": true
+    },
+    "text": {
+      "rows": 1000,
+      "total_ms": 172.149666,
+      "us_per_row": 172.149666,
+      "verified": true
+    },
+    "transaction": {
+      "rows": 1000,
+      "total_ms": 109.812792,
+      "us_per_row": 109.812792,
+      "verified": true
+    }
+  },
+  "isolate_ms": [
+    42.920875,
+    42.809292,
+    44.414,
+    43.163916,
+    42.537208,
+    44.786625,
+    51.8625,
+    60.73825,
+    46.953291,
+    44.130208,
+    44.732542,
+    46.375875,
+    47.983583,
+    47.671292,
+    46.544208,
+    47.360875,
+    40.794792,
+    48.656833,
+    48.377375,
+    52.391166
+  ],
+  "platform": "darwin/arm64",
+  "rss_after_kib": 504672,
+  "rss_before_kib": 10656,
+  "rss_idle_kib": 123760,
+  "schema_sql": "CREATE TABLE bench(id INT PRIMARY KEY,v TEXT NOT NULL) ENGINE=InnoDB;INSERT INTO bench SELECT n,MD5(CAST(n AS CHAR)) FROM (SELECT 1+1*d0.d+10*d1.d+100*d2.d n FROM (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d0 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d1 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d2) numbers;CREATE TABLE users(id BIGINT AUTO_INCREMENT PRIMARY KEY,name TEXT NOT NULL,email VARCHAR(255) UNIQUE) ENGINE=InnoDB;CREATE TABLE orders(id BIGINT AUTO_INCREMENT PRIMARY KEY,user_id BIGINT NOT NULL,amount INT NOT NULL,created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(user_id) REFERENCES users(id)) ENGINE=InnoDB;CREATE INDEX orders_user_id ON orders(user_id);INSERT INTO users(name,email) SELECT CONCAT('user',n),CONCAT('user',n,'@example.com') FROM (SELECT 1+1*d0.d+10*d1.d+100*d2.d n FROM (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d0 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d1 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d2) numbers;INSERT INTO orders(user_id,amount) SELECT 1+(n%1000),n%997 FROM (SELECT 1+1*d0.d+10*d1.d+100*d2.d+1000*d3.d n FROM (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d0 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d1 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d2 CROSS JOIN (SELECT 0 d UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) d3) numbers",
+  "settings": {
+    "heavy": 3,
+    "heavy_rows": 200000,
+    "heavy_warmup": 1,
+    "insert_per_mode": 1000,
+    "isolate": 20,
+    "simple": 3000,
+    "simple_warmup": 300
+  },
+  "setup_ms": 143.783458,
+  "simple_query_us": 146.43866666666668,
+  "snapshot_ms": 3.172667,
+  "source_commit": "eb175ae23292c1c40cfbeb4b9b73132873c4cc6f",
+  "startup_ms": 46.618125
+}
