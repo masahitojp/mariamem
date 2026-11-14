@@ -1,0 +1,100 @@
+--- a/internal/generatedgo/code/p1/p1_pure.go
++++ b/internal/generatedgo/code/p1/p1_pure.go
+@@ -16840,6 +16840,7 @@
+ 	v167 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v65)), 100, 4)))
+ 	v168 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v65)), 96, 4)))
+ 	v169 = Fn130(m, v85)
++ base.ExperimentBegin(m,v167)
+ 	mBase = m.M
+ 	if v160 == v161 {
+ 		goto L22
+@@ -20581,7 +20582,9 @@
+ 	;
+ 	v2755 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v1698)), 0, 4)))
+ 	v2756 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2152)), 0, 4)))
+-	v2757 = Fn5766(m, v2755, v2756)
++	base.ExperimentMark(m,1)
++ v2757 = Fn5766(m, v2755, v2756)
++ base.ExperimentMark(m,2)
+ 	mBase = m.M
+ 	v2758 = m.ExcPending
+ 	if v2758 != 0 {
+@@ -21320,7 +21323,8 @@
+ L626:
+ 	;
+ 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v1698)), 8, 4))) = v2152
+-	v3152 = int32(0)
++	base.ExperimentMark(m,3)
++ v3152 = int32(0)
+ 	v3154 = int32(1)
+ 	v3155 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v1698)), 0, 4)))
+ 	v3156 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3155)), 48, 4)))
+@@ -21482,6 +21486,7 @@
+ 	goto L648
+ L651:
+ 	;
++ base.ExperimentMark(m,4)
+ 	v3683 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v1698)), 12, 4)))
+ 	if v3683 == int32(0) {
+ 		goto L756
+@@ -26859,7 +26864,9 @@
+ 	v7915 = Fn130(m, v7875)
+ 	mBase = m.M
+ 	v7916 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7855)), 104, 4)))
+-	Fn265(m, v7891, v7916, v7856)
++	base.ExperimentMark(m,5)
++ Fn265(m, v7891, v7916, v7856)
++ base.ExperimentEnd(m)
+ 	mBase = m.M
+ 	v7918 = m.ExcPending
+ 	if v7918 != 0 {
+--- a/internal/generatedgo/code/base/base.go
++++ b/internal/generatedgo/code/base/base.go
+@@ -96,6 +96,8 @@
+ 	Resolve(m *Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32) int32
+ }
+ type Module struct {
++ ExperimentCurrent *ExperimentRecord
++ ExperimentRecords []ExperimentRecord
+ 	Memory                 []byte
+ 	MaxMem                 uint64
+ 	M                      unsafe.Pointer
+@@ -13157,6 +13159,7 @@
+ }
+ 
+ func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) int32 {
++ if fd==1 && m.ExperimentCurrent!=nil {defer ExperimentWriteEnd(m,ExperimentNow())}
+ 	w.mu.Lock()
+ 	dst, op := w.fdDstLocked(fd)
+ 	w.mu.Unlock()
+--- a/internal/generatedgo/code/base/experiment_stages.go
++++ b/internal/generatedgo/code/base/experiment_stages.go
+@@ -0,0 +1,21 @@
++package base
++import("encoding/json";"os";"sync";"sync/atomic";"time";"fmt")
++var experimentEnabled=os.Getenv("INSERT_STAGES")=="1"
++var experimentPhase atomic.Bool
++var experimentOrigin=time.Now()
++var experimentMu sync.Mutex
++var experimentModules []*Module
++type ExperimentRecord struct{ID int32; T [7]int64; Counts [7]int; WriteNS int64; Writes int}
++func ExperimentNow()int64{return time.Since(experimentOrigin).Nanoseconds()}
++func ExperimentPhase(on bool){experimentPhase.Store(on)}
++func ExperimentBegin(m *Module,id int32){
++ if !experimentEnabled||!experimentPhase.Load(){return}
++ if m.ExperimentCurrent!=nil{panic("overlapping request")}
++ if m.ExperimentRecords==nil{m.ExperimentRecords=make([]ExperimentRecord,0,128);experimentMu.Lock();experimentModules=append(experimentModules,m);experimentMu.Unlock()}
++ m.ExperimentRecords=append(m.ExperimentRecords,ExperimentRecord{ID:id});m.ExperimentCurrent=&m.ExperimentRecords[len(m.ExperimentRecords)-1];ExperimentMark(m,0)
++}
++func ExperimentMark(m *Module,i int){if r:=m.ExperimentCurrent;r!=nil{r.T[i]=ExperimentNow();r.Counts[i]++}}
++func ExperimentEnd(m *Module){ExperimentMark(m,6);m.ExperimentCurrent=nil}
++func ExperimentWriteEnd(m *Module,start int64){if r:=m.ExperimentCurrent;r!=nil{r.WriteNS+=ExperimentNow()-start;r.Writes++}}
++// Called after all children and the fixture have been closed/joined.
++func ExperimentDump(path string)error{if path==""{return nil};out:=make([]map[string]any,0);for _,m:=range experimentModules{if m.ExperimentCurrent!=nil{return fmt.Errorf("unfinished request")};out=append(out,map[string]any{"module":fmt.Sprintf("%p",m),"records":m.ExperimentRecords})};b,e:=json.Marshal(out);if e!=nil{return e};return os.WriteFile(path,b,0644)}
+--- a/experiment_stages.go
++++ b/experiment_stages.go
+@@ -0,0 +1,4 @@
++package mariamem
++import "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
++func ExperimentPhase(on bool){base.ExperimentPhase(on)}
++func ExperimentDump(path string)error{return base.ExperimentDump(path)}

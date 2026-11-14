@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "model": "mariamem",
+    "server_version": "12.3.3-MariaDB-embedded"
+  },
+  "elapsed_ms": 291.546,
+  "spans": [
+    {
+      "name": "boot",
+      "kind": "boot",
+      "lane": "setup",
+      "start_ms": 0.001,
+      "end_ms": 71.835
+    },
+    {
+      "name": "import",
+      "kind": "import",
+      "lane": "setup",
+      "start_ms": 71.836,
+      "end_ms": 101.848
+    },
+    {
+      "name": "snapshot",
+      "kind": "snapshot",
+      "lane": "setup",
+      "start_ms": 101.848,
+      "end_ms": 107.307
+    },
+    {
+      "name": "reader_fork",
+      "kind": "fork",
+      "lane": "setup",
+      "start_ms": 107.308,
+      "end_ms": 123.983
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child1",
+      "start_ms": 190.147,
+      "end_ms": 217.411
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child0",
+      "start_ms": 190.131,
+      "end_ms": 217.644
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child3",
+      "start_ms": 190.12,
+      "end_ms": 219.758
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child2",
+      "start_ms": 190.115,
+      "end_ms": 220.976
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child7",
+      "start_ms": 190.1,
+      "end_ms": 221.784
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child5",
+      "start_ms": 190.141,
+      "end_ms": 222.621
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child4",
+      "start_ms": 190.132,
+      "end_ms": 223.536
+    },
+    {
+      "name": "raw_insert",
+      "kind": "insert",
+      "lane": "raw/child6",
+      "start_ms": 190.148,
+      "end_ms": 225.564
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "1": {
+    "raw_mean_ms": 19.684124999999998,
+    "input_mean_ms": 0.15872095833333327,
+    "bind_mean_ms": 0.012527625000000006,
+    "old_parameter_cleanup_mean_ms": 0.04076816666666669,
+    "execute_mean_ms": 15.658500541666667,
+    "result_mean_ms": 0.3036460416666666,
+    "reply_mean_ms": 0.38317579166666643,
+    "fd_write_mean_ms": 0.26407424999999984,
+    "worker_mean_ms": 16.557339124999995,
+    "outer_minus_worker_ms": 3.126785875000003,
+    "input_total_ms": 0.21201674999999998,
+    "execute_share_worker_pct": 94.57135849820115
+  },
+  "8": {
+    "raw_mean_ms": 32.244875,
+    "input_mean_ms": 0.25125845833333316,
+    "bind_mean_ms": 0.02262545833333334,
+    "old_parameter_cleanup_mean_ms": 0.06187241666666669,
+    "execute_mean_ms": 23.971063083333334,
+    "result_mean_ms": 0.42225570833333315,
+    "reply_mean_ms": 0.47259616666666654,
+    "fd_write_mean_ms": 0.30726229166666646,
+    "worker_mean_ms": 25.201671291666663,
+    "outer_minus_worker_ms": 7.043203708333334,
+    "input_total_ms": 0.3357563333333332,
+    "execute_share_worker_pct": 95.11695794262562
+  }
+}

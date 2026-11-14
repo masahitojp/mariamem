@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-stages/worktree/../evidence/build.py", line 6, in <module>
+    subprocess.run(['go','test','-c','-vet=off','-p','1','-overlay',str(E/'overlay.json'),'-o',str(T/'probe'),'./store'],cwd=T/'maria',env=env,stdout=f,stderr=f,check=True,timeout=1200)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['go', 'test', '-c', '-vet=off', '-p', '1', '-overlay', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-stages/evidence/overlay.json', '-o', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-stages/temp/probe', './store']' returned non-zero exit status 1.
