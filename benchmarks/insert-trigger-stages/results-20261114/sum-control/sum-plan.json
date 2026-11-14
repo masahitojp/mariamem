@@ -1,0 +1,20 @@
+{
+  "source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "modes": [
+    "sum",
+    "incremental"
+  ],
+  "parallel": [
+    1,
+    8
+  ],
+  "observer": [
+    0,
+    1
+  ],
+  "pairs": 3,
+  "warmups": 1,
+  "processes": 32,
+  "old": "CREATE TRIGGER order_items_total_insert AFTER INSERT ON order_items FOR EACH ROW UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=NEW.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id;",
+  "new": "CREATE TRIGGER order_items_total_insert AFTER INSERT ON order_items FOR EACH ROW UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id;"
+}

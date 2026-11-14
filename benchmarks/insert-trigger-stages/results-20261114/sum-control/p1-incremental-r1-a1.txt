@@ -1,0 +1,35 @@
+=== RUN   TestInsertOnly
+=== RUN   TestInsertOnly/child0
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child1
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child2
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child3
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child4
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child5
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child6
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+=== RUN   TestInsertOnly/child7
+    insert_stage_test.go:21: TRIGGER incremental=true body=UPDATE orders SET total_cents=total_cents+NEW.quantity*NEW.unit_price_cents,updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id
+    insert_stage_test.go:21: PASS raw=true off=false user_triggers=5 orders40/items100/audits40/totals/500stocks/FK/CHECK
+--- PASS: TestInsertOnly (0.34s)
+    --- PASS: TestInsertOnly/child0 (0.01s)
+    --- PASS: TestInsertOnly/child1 (0.00s)
+    --- PASS: TestInsertOnly/child2 (0.00s)
+    --- PASS: TestInsertOnly/child3 (0.00s)
+    --- PASS: TestInsertOnly/child4 (0.00s)
+    --- PASS: TestInsertOnly/child5 (0.00s)
+    --- PASS: TestInsertOnly/child6 (0.00s)
+    --- PASS: TestInsertOnly/child7 (0.00s)
+PASS

@@ -1,0 +1,37 @@
+[
+  {
+    "old": "v169 = Fn130(m, v85)",
+    "new": "v169 = Fn130(m, v85)\n base.ExperimentBegin(m,v167)",
+    "matches": 1
+  },
+  {
+    "old": "v2757 = Fn5766(m, v2755, v2756)",
+    "new": "base.ExperimentMark(m,1)\n v2757 = Fn5766(m, v2755, v2756)\n base.ExperimentMark(m,2)",
+    "matches": 1
+  },
+  {
+    "old": "v3152 = int32(0)\n\tv3154 = int32(1)",
+    "new": "base.ExperimentMark(m,3)\n v3152 = int32(0)\n\tv3154 = int32(1)",
+    "matches": 1
+  },
+  {
+    "old": "L651:\n\t;",
+    "new": "L651:\n\t;\n base.ExperimentMark(m,4)",
+    "matches": 1
+  },
+  {
+    "old": "Fn265(m, v7891, v7916, v7856)",
+    "new": "base.ExperimentMark(m,5)\n Fn265(m, v7891, v7916, v7856)\n base.ExperimentEnd(m)",
+    "matches": 1
+  },
+  {
+    "old": "type Module struct {",
+    "new": "type Module struct {\n ExperimentCurrent *ExperimentRecord\n ExperimentRecords []ExperimentRecord",
+    "matches": 1
+  },
+  {
+    "old": "func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) int32 {",
+    "new": "func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) int32 {\n if fd==1 && m.ExperimentCurrent!=nil {defer ExperimentWriteEnd(m,ExperimentNow())}",
+    "matches": 1
+  }
+]
