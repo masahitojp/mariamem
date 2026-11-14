@@ -4,8 +4,13 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+import tempfile
+import hashlib
+import sys
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT/'scripts'))
+from layout import GENERATED
 spec=importlib.util.spec_from_file_location('routing_spike_run',ROOT/'tests/routing_acceptance/run.py')
 runner=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(runner)
@@ -13,6 +18,30 @@ OLD=ROOT/'tests/routing_acceptance/reference-receipts/control.json'
 
 
 class RoutingReceiptContract(unittest.TestCase):
+    def test_current_guest_identity_is_bound_to_provenance(self):
+        self.assertEqual(runner.guest_identity(ROOT), json.loads(
+            (ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256'])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root/'release').mkdir()
+            (root/GENERATED).mkdir(parents=True)
+            manifest = root/'release/generated-go-inputs.json'
+            provenance = root/GENERATED/'provenance.json'
+            # A different canonical guest is allowed, but stale/malformed pins aren't.
+            for guest in ['a'*64, 'b'*64]:
+                manifest.write_text(json.dumps({'guest_sha256': guest}))
+                good = {'guest_sha256': guest, 'input_manifest_sha256': hashlib.sha256(manifest.read_bytes()).hexdigest()}
+                provenance.write_text(json.dumps(good))
+                self.assertEqual(runner.guest_identity(root), guest)
+                for key in good:
+                    provenance.write_text(json.dumps(dict(good, **{key: '0'*64})))
+                    with self.assertRaisesRegex(ValueError, 'identity mismatch'):
+                        runner.guest_identity(root)
+            manifest.write_text(json.dumps({'guest_sha256': 'not-a-hash'}))
+            provenance.write_text(json.dumps({'guest_sha256': 'not-a-hash', 'input_manifest_sha256': hashlib.sha256(manifest.read_bytes()).hexdigest()}))
+            with self.assertRaisesRegex(ValueError, 'identity mismatch'):
+                runner.guest_identity(root)
+
     def control(self):
         data=json.loads(OLD.read_text())
         # Synthetic rows exercise receipt validation, not the actual new cases.

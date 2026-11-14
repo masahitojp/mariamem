@@ -20,6 +20,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/internal/generatedgo/image"
 )
 
 // Campaign instrumentation is test-only. It wraps the actual production
@@ -42,6 +43,7 @@ type campaign struct {
 	Phases          []campaignPhase  `json:"phases"`
 	Stop            string           `json:"stop_reason"`
 	Result          string           `json:"result"`
+	ProcessImage    map[string]any   `json:"process_image"`
 	Cleanup         bool             `json:"cleanup_complete"`
 	NewSeconds      float64          `json:"new_fixture_seconds"`
 	CloseSeconds    float64          `json:"fixture_close_seconds"`
@@ -53,17 +55,18 @@ type campaignLimits struct {
 	FD   uint64 `json:"min_fd_headroom"`
 }
 type campaignSample struct {
-	Unix        int64   `json:"unix_ns"`
-	At          float64 `json:"at_seconds"`
-	Label       string  `json:"label"`
-	FD          int     `json:"fd"`
-	FDLimit     uint64  `json:"fd_soft_limit"`
-	Linked      int64   `json:"linked_temp_bytes"`
-	Unlinked    int64   `json:"unlinked_file_bytes"`
-	Free        uint64  `json:"disk_free_bytes"`
-	Children    int     `json:"children"`
-	Baselines   int     `json:"baselines"`
-	Connections int     `json:"physical_pool_connections"`
+	Unix          int64   `json:"unix_ns"`
+	At            float64 `json:"at_seconds"`
+	Label         string  `json:"label"`
+	FD            int     `json:"fd"`
+	FDLimit       uint64  `json:"fd_soft_limit"`
+	Linked        int64   `json:"linked_temp_bytes"`
+	UnlinkedFiles int     `json:"unlinked_files"`
+	Unlinked      int64   `json:"unlinked_file_bytes"`
+	Free          uint64  `json:"disk_free_bytes"`
+	Children      int     `json:"children"`
+	Baselines     int     `json:"baselines"`
+	Connections   int     `json:"physical_pool_connections"`
 }
 type campaignPhase struct {
 	Name    string  `json:"name"`
@@ -80,21 +83,21 @@ type campaignCase struct {
 	Cleanup   float64 `json:"cleanup_seconds"`
 }
 
-func fdInventory() (int, int64, uint64, error) {
+func fdInventory() (int, int64, uint64, int, error) {
 	var limit syscall.Rlimit
 	if err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &limit); err != nil {
-		return 0, 0, 0, err
+		return 0, 0, 0, 0, err
 	}
 	var fds []int
 	if runtime.GOOS == "linux" {
 		entries, err := os.ReadDir("/proc/self/fd")
 		if err != nil {
-			return 0, 0, 0, err
+			return 0, 0, 0, 0, err
 		}
 		for _, entry := range entries {
 			fd, err := strconv.Atoi(entry.Name())
 			if err != nil {
-				return 0, 0, 0, err
+				return 0, 0, 0, 0, err
 			}
 			fds = append(fds, fd)
 		}
@@ -111,7 +114,7 @@ func fdInventory() (int, int64, uint64, error) {
 		if err := syscall.Fstat(fd, &st); errors.Is(err, syscall.EBADF) {
 			continue
 		} else if err != nil {
-			return 0, 0, 0, err
+			return 0, 0, 0, 0, err
 		}
 		n++
 		key := [2]uint64{uint64(st.Dev), uint64(st.Ino)}
@@ -120,8 +123,23 @@ func fdInventory() (int, int64, uint64, error) {
 			unlinked += st.Blocks * 512
 		}
 	}
-	return n, unlinked, limit.Cur, nil
+	return n, unlinked, limit.Cur, len(seen), nil
 }
+
+// A healthy process image deliberately survives DB Close. Match its actual
+// allocation AND unique-file count; an extra sparse/empty leak must also fail.
+func retainedImageOnly(s campaignSample, stats map[string]any) bool {
+	// A guard may stop admission before the lazy image is built.
+	if stats["builds"] == 0 && stats["owned_fds"] == 0 && stats["failed"] == false && stats["cleanup_debt"] == false {
+		return s.UnlinkedFiles == 0 && s.Unlinked == 0
+	}
+	bytes, ok := stats["image_allocated_bytes"].(int64)
+	return ok && bytes > 0 && stats["builds"] == 1 && stats["owned_fds"] == 1 &&
+		stats["process_lifetime"] == true && stats["failed"] == false &&
+		stats["closed"] == false && stats["cleanup_debt"] == false &&
+		s.UnlinkedFiles == 1 && s.Unlinked == bytes
+}
+
 func tempUsage() (int64, uint64, error) {
 	var total int64
 	err := filepath.WalkDir(os.TempDir(), func(path string, d os.DirEntry, err error) error {
@@ -168,7 +186,7 @@ func (m *campaign) saveLocked() error {
 func (m *campaign) sample(label string) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	fd, unlinked, limit, err := fdInventory()
+	fd, unlinked, limit, unlinkedFiles, err := fdInventory()
 	if err != nil {
 		return err
 	}
@@ -180,7 +198,7 @@ func (m *campaign) sample(label string) error {
 	for _, p := range m.Pools {
 		connections += p.Stats().OpenConnections
 	}
-	s := campaignSample{time.Now().UnixNano(), time.Since(m.Start).Seconds(), label, fd, limit, linked, unlinked, free, m.Children, m.Baselines, connections}
+	s := campaignSample{time.Now().UnixNano(), time.Since(m.Start).Seconds(), label, fd, limit, linked, unlinkedFiles, unlinked, free, m.Children, m.Baselines, connections}
 	m.Snapshots = append(m.Snapshots, s)
 	if m.Children > m.PeakChildren {
 		m.PeakChildren = m.Children
@@ -365,7 +383,8 @@ func TestFixtureCampaign(t *testing.T) {
 		m.mu.Lock()
 		defer m.mu.Unlock()
 		last := m.Snapshots[len(m.Snapshots)-1]
-		m.Cleanup = cleanup == nil && m.Children == 0 && m.Baselines == 0 && last.Connections == 0 && last.Linked == 0 && last.Unlinked == 0
+		m.ProcessImage = image.Stats()
+		m.Cleanup = cleanup == nil && m.Children == 0 && m.Baselines == 0 && last.Connections == 0 && last.Linked == 0 && retainedImageOnly(last, m.ProcessImage)
 		if !m.Cleanup {
 			t.Errorf("cleanup incomplete: %v %+v", cleanup, last)
 		}

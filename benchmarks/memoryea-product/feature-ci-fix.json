@@ -1,0 +1,151 @@
+{
+  "failed_ci_run": 43623427404,
+  "source_commit": "cab524b5cc915ce2ade7d44285630822b55cddfb",
+  "toolchain": "go1.26.10",
+  "host": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "version": "27.2.1"
+  },
+  "result": "PASS",
+  "modes": [
+    {
+      "cap": 1,
+      "parallel": 1,
+      "result": "PASS",
+      "cleanup_complete": true,
+      "cases": 4,
+      "final": {
+        "unix_ns": 1794681087189927000,
+        "at_seconds": 0.583423791,
+        "label": "final",
+        "fd": 5,
+        "fd_soft_limit": 61440,
+        "linked_temp_bytes": 0,
+        "unlinked_files": 1,
+        "unlinked_file_bytes": 27754496,
+        "disk_free_bytes": 17533583360,
+        "children": 0,
+        "baselines": 0,
+        "physical_pool_connections": 0
+      },
+      "process_image": {
+        "builds": 1,
+        "owned_fds": 1,
+        "process_lifetime": true,
+        "closed": false,
+        "failed": false,
+        "cleanup_debt": false,
+        "image_allocated_bytes": 27754496
+      },
+      "original_receipt_sha256": "713138c7b0c48562269649e612a7d833432ac93609884941a35c41e835555ed6"
+    },
+    {
+      "cap": 1,
+      "parallel": 4,
+      "result": "PASS",
+      "cleanup_complete": true,
+      "cases": 4,
+      "final": {
+        "unix_ns": 1794681087752570000,
+        "at_seconds": 0.513562084,
+        "label": "final",
+        "fd": 5,
+        "fd_soft_limit": 61440,
+        "linked_temp_bytes": 0,
+        "unlinked_files": 1,
+        "unlinked_file_bytes": 27754496,
+        "disk_free_bytes": 17533472768,
+        "children": 0,
+        "baselines": 0,
+        "physical_pool_connections": 0
+      },
+      "process_image": {
+        "builds": 1,
+        "owned_fds": 1,
+        "process_lifetime": true,
+        "closed": false,
+        "failed": false,
+        "cleanup_debt": false,
+        "image_allocated_bytes": 27754496
+      },
+      "original_receipt_sha256": "74764d53c7e13901d41c4953326e7ad212862cef4810f73c11a0e3aed2ce7739"
+    },
+    {
+      "cap": 2,
+      "parallel": 1,
+      "result": "PASS",
+      "cleanup_complete": true,
+      "cases": 4,
+      "final": {
+        "unix_ns": 1794681088280416000,
+        "at_seconds": 0.495711333,
+        "label": "final",
+        "fd": 5,
+        "fd_soft_limit": 61440,
+        "linked_temp_bytes": 0,
+        "unlinked_files": 1,
+        "unlinked_file_bytes": 27754496,
+        "disk_free_bytes": 17533362176,
+        "children": 0,
+        "baselines": 0,
+        "physical_pool_connections": 0
+      },
+      "process_image": {
+        "builds": 1,
+        "owned_fds": 1,
+        "process_lifetime": true,
+        "closed": false,
+        "failed": false,
+        "cleanup_debt": false,
+        "image_allocated_bytes": 27754496
+      },
+      "original_receipt_sha256": "6853868346c484bb12b58d0882b6f94c121d444542b2d8cff3479d103fe85fe4"
+    },
+    {
+      "cap": 2,
+      "parallel": 4,
+      "result": "PASS",
+      "cleanup_complete": true,
+      "cases": 4,
+      "final": {
+        "unix_ns": 1794681088703537000,
+        "at_seconds": 0.370671583,
+        "label": "final",
+        "fd": 5,
+        "fd_soft_limit": 61440,
+        "linked_temp_bytes": 0,
+        "unlinked_files": 1,
+        "unlinked_file_bytes": 27754496,
+        "disk_free_bytes": 17533698048,
+        "children": 0,
+        "baselines": 0,
+        "physical_pool_connections": 0
+      },
+      "process_image": {
+        "builds": 1,
+        "owned_fds": 1,
+        "process_lifetime": true,
+        "closed": false,
+        "failed": false,
+        "cleanup_debt": false,
+        "image_allocated_bytes": 27754496
+      },
+      "original_receipt_sha256": "40835250d0b183c75bb094b4d1dc1bcf8d07a3b1335553164101bb505f603328"
+    }
+  ],
+  "guard_probe": {
+    "result": "STOP",
+    "stop_reason": "FD headroom guard",
+    "cleanup_complete": true,
+    "peak_children": 0
+  },
+  "focused_python": {
+    "passed": 92,
+    "subtests_passed": 25
+  },
+  "focused_go": [
+    "TestCampaignRetainedImageCleanup",
+    "TestCampaignCountsEmptyUnlinkedFiles"
+  ]
+}

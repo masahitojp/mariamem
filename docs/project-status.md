@@ -22,6 +22,26 @@ and [publication inputs](releasing.md#additional-linuxwindows-wheels-for-publish
 #169 owns the final documentation alignment; older publication checkpoints below
 retain their historical scope.
 
+## MemoryEA direct panic with noinline — adoption approved, integration in progress (2026-11-15)
+
+The Human authorized product verification under [Issue182](https://github.com/masahitojp/mariamem/issues/182).
+The minimal canonical candidate is generated and its provenance/license bindings
+updated. MemoryEA uses direct panic with explicit noinline; bounds arithmetic,
+guest Wasm and SQL are unchanged. Local current-main P1/P4/P8 paired suite
+medians improved by 2.65/11.49/10.11%, but only 3/5 pairs at each P were faster.
+The actual host is 96 bytes smaller and wheel 70 bytes larger: effectively no
+distribution growth. These are bounded, shared-Mac observations, not guarantees.
+
+[Product verification and all process observations](../benchmarks/memoryea-product/README.md)
+record correctness, source identities and limits. The known Connector/Python /
+OpenSSL 4 failure is explicitly excluded by the Human from this task's blockers;
+no investigation is authorized. [CI43627343077](https://github.com/masahitojp/mariamem/actions/runs/43627343077)
+qualified source_commit `19133f9756c868ef846415b687383f5a533883c6` as READY
+on macOS arm64 and Ubuntu x86_64. The Human accepted the integration review
+and authorized main integration. Integration bookkeeping and the newer main's
+tooling changes are not a new exact-source READY result. Publication remains a
+separate decision; no release is authorized here.
+
 ## Evidence retention approved (#158, 2026-11-14)
 
 The Human approved retaining continuing decisions in existing ADRs and deleting

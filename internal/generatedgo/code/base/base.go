@@ -1464,15 +1464,14 @@ func MemoryInBounds(m *Module, addr, offset, size uint64) bool {
 	bound := m.MemSize.Load()
 	return addr <= bound && offset <= bound-addr && size <= bound-addr-offset
 }
+
+//go:noinline
 func MemoryEA(m *Module, addr, offset, size uint64) uint64 {
 	if !MemoryInBounds(m, addr, offset, size) {
-		Wasm_trap_memory_oob()
+		panic("wasm: memory access out of bounds")
 	}
 	return addr + offset
 }
-
-//go:noinline
-func Wasm_trap_memory_oob() { panic("wasm: memory access out of bounds") }
 
 // atomicEA bounds- and alignment-checks an atomic access and returns the
 // effective address.
