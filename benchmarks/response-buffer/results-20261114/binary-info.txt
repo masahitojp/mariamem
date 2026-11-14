@@ -1,0 +1,14 @@
+build/experiment-work/response-buffer/temp/probe: go1.27.4
+	path	github.com/shibukawa/pgmem/bench/modelcase/store.test
+	mod	github.com/shibukawa/pgmem/bench/modelcase	(devel)	
+	dep	filippo.io/edwards25519	v1.1.0	h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
+	dep	github.com/go-sql-driver/mysql	v1.9.3	h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=
+	dep	github.com/masahitojp/mariamem	v0.0.0
+	=>	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/worktree	(devel)	
+	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	CGO_ENABLED=0
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0

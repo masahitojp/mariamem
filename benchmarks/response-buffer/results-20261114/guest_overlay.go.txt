@@ -1,0 +1,463 @@
+// Package guest owns a WASIX guest instance and its framed API.
+// This transport is internal: public database identity is independent of PIDs.
+package guest
+
+import (
+	"context"
+ "bufio"
+	"encoding/binary"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"os"
+	"strings"
+	"sync"
+	"time"
+
+	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
+	"github.com/masahitojp/mariamem/internal/prepared"
+	"github.com/masahitojp/mariamem/internal/preparedproto"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
+)
+
+type Column struct {
+	Name     string `json:"name"`
+	OrgName  string `json:"org_name"`
+	Table    string `json:"table"`
+	OrgTable string `json:"org_table"`
+	DB       string `json:"db"`
+	Catalog  string `json:"catalog"`
+	Type     uint8  `json:"type"`
+	Charset  uint16 `json:"charset"`
+	Flags    uint16 `json:"flags"`
+	Length   uint32 `json:"length"`
+	Decimals uint8  `json:"decimals"`
+}
+type Cell struct {
+	Hex string `json:"$h"`
+}
+type Result struct {
+	RawRows            []string  `json:"raw_rows,omitempty"`
+	RowsPresent        bool      `json:"-"`
+	RawRowsPresent     bool      `json:"-"`
+	BinaryRows         bool      `json:"binary_rows"`
+	PreparedOperations []uint8   `json:"prepared_operations"`
+	PreparedVersion    int       `json:"prepared_version"`
+	SessionGeneration  uint32    `json:"session_generation"`
+	StatementID        uint32    `json:"statement_id"`
+	ParamCount         uint32    `json:"param_count"`
+	Parameters         []Column  `json:"parameters"`
+	Results            []Result  `json:"results"`
+	OK                 bool      `json:"ok"`
+	Ready              bool      `json:"ready"`
+	Closed             bool      `json:"closed"`
+	Version            int       `json:"api_version"`
+	MaxSessions        int       `json:"max_sessions"`
+	SnapshotVersion    int       `json:"snapshot_version"`
+	Snapshot           bool      `json:"snapshot"`
+	Status             uint16    `json:"server_status"`
+	Warnings           uint16    `json:"warnings"`
+	Errno              uint16    `json:"errno"`
+	Error              string    `json:"error"`
+	SQLState           string    `json:"sqlstate"`
+	Affected           string    `json:"affected"`
+	InsertID           string    `json:"insert_id"`
+	Columns            []Column  `json:"columns"`
+	Rows               [][]*Cell `json:"rows"`
+}
+
+// UnmarshalJSON converts MariaDB's internal unsigned 32-bit status to the
+// two-byte status used by its network protocol. Internal-only flags such as
+// SERVER_STATUS_RETURNED_ROW (1<<16) must not make a valid reply undecodable.
+func (r *Result) UnmarshalJSON(data []byte) error {
+	type fields Result
+	var decoded struct {
+		fields
+		Status  json.RawMessage `json:"server_status"`
+		Rows    *[][]*Cell      `json:"rows"`
+		RawRows *[]string       `json:"raw_rows"`
+	}
+	// A missing field leaves the pointer to a nil slice intact; JSON null
+	// clears the pointer, and [] creates a non-nil empty slice. Decode once
+	// while retaining the distinction needed to reject mixed row formats.
+	var rows [][]*Cell
+	var rawRows []string
+	decoded.Rows, decoded.RawRows = &rows, &rawRows
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	var status uint32
+	if len(decoded.Status) != 0 {
+		if string(decoded.Status) == "null" {
+			return errors.New("invalid null server_status")
+		}
+		if err := json.Unmarshal(decoded.Status, &status); err != nil {
+			return fmt.Errorf("invalid server_status: %w", err)
+		}
+	}
+	if decoded.RawRows == nil {
+		return errors.New("null raw_rows")
+	}
+	decoded.fields.Status = uint16(status)
+	decoded.fields.RowsPresent = decoded.Rows == nil || *decoded.Rows != nil
+	if decoded.Rows != nil {
+		decoded.fields.Rows = *decoded.Rows
+	}
+	decoded.fields.RawRowsPresent = *decoded.RawRows != nil
+	decoded.fields.RawRows = *decoded.RawRows
+	*r = Result(decoded.fields)
+	return nil
+}
+
+type response struct {
+	result              Result
+	err                 error
+	headerAt, decodedAt time.Time
+}
+type Process struct {
+	capture            *prepared.Capture
+	in                 io.WriteCloser
+	out                io.ReadCloser
+	mu                 sync.Mutex
+	next               uint32
+	pending            map[uint32]chan response
+	failure            error
+	failureDone        chan struct{}
+	stopping           bool
+	writes             chan struct{}
+	done               chan struct{}
+	exitErr            error
+	abort              sync.Once
+	startupTiming      bool
+	SnapshotVersion    int
+	MaxSessions        int
+	PreparedVersion    int
+	PreparedOperations []uint8
+}
+
+func StartGenerated(ctx context.Context, transfer string, restore []prepared.Entry, stderr io.Writer) (*Process, error) {
+	return startLinked(ctx, runtimekind.GuestSHA256, transfer, restore, stderr)
+}
+func (p *Process) PID() int              { return os.Getpid() }
+func (p *Process) Done() <-chan struct{} { return p.done }
+
+// FailureDone closes at the first failure, even while worker retirement is
+// pending. It is a health notification, not permission to reclaim resources.
+func (p *Process) FailureDone() <-chan struct{} {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.failureDone == nil {
+		p.failureDone = make(chan struct{})
+		if p.failure != nil {
+			close(p.failureDone)
+		}
+	}
+	return p.failureDone
+}
+
+// Err reports the cause that made the guest unusable, if any.
+func (p *Process) Err() error {
+	p.mu.Lock()
+	err := p.failure
+	p.mu.Unlock()
+	if err != nil {
+		select {
+		case <-p.done:
+			if p.exitErr != nil {
+				return errors.Join(err, fmt.Errorf("guest process: %w", p.exitErr))
+			}
+		default:
+		}
+		return err
+	}
+	select {
+	case <-p.done:
+		if p.exitErr != nil {
+			return fmt.Errorf("guest exited: %w", p.exitErr)
+		}
+		return errors.New("guest exited")
+	default:
+		return nil
+	}
+}
+func (p *Process) fail(err error) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.failure == nil {
+		p.failure = err
+		if p.failureDone != nil {
+			close(p.failureDone)
+		}
+	}
+	err = p.failure
+	for id, ch := range p.pending {
+		ch <- response{err: err}
+		delete(p.pending, id)
+	}
+}
+func (p *Process) Abort(err error) {
+	p.abort.Do(func() {
+		p.fail(err)
+		p.in.Close()
+		p.out.Close()
+	})
+}
+
+func (p *Process) AbortAndWait(err error) error {
+	return p.abortAndWait(err, 10*time.Second)
+}
+
+func (p *Process) abortAndWait(err error, grace time.Duration) error {
+	p.Abort(err)
+	timer := time.NewTimer(grace)
+	defer timer.Stop()
+	select {
+	case <-p.done:
+		return errors.Join(err, p.Err())
+	case <-timer.C:
+		owner := disposal.New(func(ctx context.Context) error { return disposal.Wait(ctx, p.done) })
+		return disposal.Retain(err, errors.New("guest cleanup timed out"), owner)
+	}
+}
+
+func (p *Process) readFailed(err error) {
+	p.mu.Lock()
+	stopping := p.stopping
+	p.mu.Unlock()
+	if stopping {
+		p.fail(err)
+	} else {
+		p.Abort(fmt.Errorf("guest output closed unexpectedly: %w", err))
+	}
+}
+var experimentReadBuffer = os.Getenv("MARIAMEM_EXPERIMENT_READ_BUFFER")=="1"
+func (p *Process) read() {
+ var input io.Reader=p.out
+ if experimentReadBuffer {input=bufio.NewReaderSize(p.out,4096)}
+	first := true
+	for {
+		var h [4]byte
+		if _, err := io.ReadFull(input, h[:]); err != nil {
+			p.readFailed(err)
+			return
+		}
+		var headerAt time.Time
+		if first && p.startupTiming {
+			headerAt = time.Now()
+		}
+		n := binary.LittleEndian.Uint32(h[:])
+		if n == 0 || n > 32<<20 {
+			p.Abort(errors.New("invalid guest frame"))
+			return
+		}
+		b := make([]byte, n)
+		if _, err := io.ReadFull(input, b); err != nil {
+			p.readFailed(err)
+			return
+		}
+		var msg struct {
+			ID     uint32 `json:"request_id"`
+			Result Result `json:"result"`
+		}
+		if err := json.Unmarshal(b, &msg); err != nil {
+			p.Abort(err)
+			return
+		}
+		p.mu.Lock()
+		ch := p.pending[msg.ID]
+		delete(p.pending, msg.ID)
+		p.mu.Unlock()
+		if ch == nil {
+			p.Abort(errors.New("unknown guest response ID"))
+			return
+		}
+		var decodedAt time.Time
+		if first && p.startupTiming {
+			decodedAt = time.Now()
+		}
+		first = false
+		ch <- response{result: msg.Result, headerAt: headerAt, decodedAt: decodedAt}
+	}
+}
+func writeAll(w io.Writer, b []byte) error {
+	for len(b) > 0 {
+		n, err := w.Write(b)
+		if err != nil {
+			return err
+		}
+		if n == 0 {
+			return io.ErrShortWrite
+		}
+		b = b[n:]
+	}
+	return nil
+}
+func (p *Process) write(ctx context.Context, b []byte) error {
+	select {
+	case p.writes <- struct{}{}:
+	case <-ctx.Done():
+		p.Abort(ctx.Err())
+		return ctx.Err()
+	}
+	defer func() { <-p.writes }()
+	complete := make(chan error, 1)
+	go func() { complete <- writeAll(p.in, b) }()
+	select {
+	case err := <-complete:
+		if err != nil {
+			p.Abort(err)
+		}
+		return err
+	case <-ctx.Done():
+		p.Abort(ctx.Err())
+		return ctx.Err()
+	}
+}
+func (p *Process) Call(ctx context.Context, op byte, slot uint32, sql []byte) (Result, error) {
+	limit := 1 << 20
+	if op == preparedproto.GuestOpcode {
+		limit = preparedproto.MaxEnvelope
+	}
+	if len(sql) > limit {
+		return Result{}, errors.New("guest request exceeds payload limit")
+	}
+	ch := make(chan response, 1)
+	p.mu.Lock()
+	if p.failure != nil || p.stopping {
+		err := p.failure
+		if err == nil {
+			err = errors.New("guest is stopping")
+		}
+		p.mu.Unlock()
+		return Result{}, err
+	}
+	p.next++
+	id := p.next
+	p.pending[id] = ch
+	p.mu.Unlock()
+	packet := make([]byte, 13+len(sql))
+	binary.LittleEndian.PutUint32(packet, uint32(9+len(sql)))
+	packet[4] = op
+	binary.LittleEndian.PutUint32(packet[5:], id)
+	binary.LittleEndian.PutUint32(packet[9:], slot)
+	copy(packet[13:], sql)
+	if err := p.write(ctx, packet); err != nil {
+		return Result{}, err
+	}
+	select {
+	case r := <-ch:
+		return r.result, r.err
+	case <-ctx.Done():
+		p.Abort(ctx.Err())
+		return Result{}, ctx.Err()
+	}
+}
+func (p *Process) Shutdown(ctx context.Context) error {
+	return p.stop(ctx, false)
+}
+func (p *Process) Export(ctx context.Context) error {
+	return p.stop(ctx, true)
+}
+func (p *Process) stop(ctx context.Context, export bool) error {
+	var saved chan response
+	p.mu.Lock()
+	p.stopping = true
+	failed := p.failure != nil
+	if export {
+		saved = make(chan response, 1)
+		p.pending[0] = saved
+	}
+	p.mu.Unlock()
+	if failed && !export {
+		select {
+		case <-p.done:
+			return nil
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
+	select {
+	case <-p.done:
+		if export {
+			return errors.New("guest exited before snapshot")
+		}
+		return nil // Already reaped; the owner reports an unexpected exit separately.
+	default:
+	}
+	frame := []byte{0, 0, 0, 0}
+	if export {
+		binary.LittleEndian.PutUint32(frame, 0xfffffffe)
+	}
+	if err := p.write(ctx, frame); err != nil {
+		if !export && p.Err() != nil {
+			select {
+			case <-p.done:
+				return nil
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+		}
+		return err
+	}
+	p.in.Close()
+	if export {
+		select {
+		case r := <-saved:
+			if r.err != nil {
+				return p.AbortAndWait(r.err)
+			}
+			if !r.result.Snapshot || r.result.SnapshotVersion != 1 {
+				return p.AbortAndWait(errors.New("invalid snapshot acknowledgement"))
+			}
+		case <-ctx.Done():
+			return p.AbortAndWait(ctx.Err())
+		}
+	}
+	select {
+	case <-p.done:
+		if p.exitErr != nil {
+			return fmt.Errorf("guest shutdown: %w", p.exitErr)
+		}
+		return nil
+	case <-ctx.Done():
+		p.Abort(ctx.Err())
+		return ctx.Err()
+	}
+}
+
+// stderrTail bounds startup diagnostics without retaining the full runtime log.
+type stderrTail struct {
+	mu   sync.Mutex
+	data []byte
+}
+
+func (t *stderrTail) Write(b []byte) (int, error) {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	n := len(b)
+	t.data = append(t.data, b...)
+	if len(t.data) > 1024 {
+		t.data = append([]byte(nil), t.data[len(t.data)-1024:]...)
+	}
+	return n, nil
+}
+func startupError(err error, tail *stderrTail) error {
+	tail.mu.Lock()
+	text := strings.TrimSpace(string(tail.data))
+	tail.mu.Unlock()
+	if text != "" {
+		err = fmt.Errorf("%w; stderr tail: %s", err, text)
+	}
+	return diagnostic.Wrap("guest_connection", "guest_ready", fmt.Errorf("generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: %w", err))
+}
+
+// RequestCapture precedes cooperative Shutdown; normal TakeRoot follows Done.
+// TakeCapture is an unused legacy Heap bridge, not the production capture path.
+func (p *Process) RequestCapture()             { p.capture.Request() }
+func (p *Process) TakeCapture() *prepared.Heap { return p.capture.TakeResult() }
+
+func (p *Process) DiscardCapture() { p.capture.Discard() }
+
+func (p *Process) TakeRoot(build string) (*prepared.Root, error) { return p.capture.TakeRoot(build) }

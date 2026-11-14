@@ -1,0 +1,24 @@
+{
+  "source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "candidate": "same binary static experiment flag; host 4096 byte reader only",
+  "harness": "918fb708 plus checked public Close errors",
+  "sql": "REVENUE_PREAGG=1",
+  "plain": {
+    "parallel": [
+      1,
+      8
+    ],
+    "warmup_per_arm_per_parallel": 1,
+    "measured_pairs_per_parallel": 5
+  },
+  "observer": {
+    "parallel": 8,
+    "pairs": 3,
+    "location": "underlying os.Pipe before buffered reader"
+  },
+  "budget_gib": 8,
+  "min_free_gib": 8,
+  "build_timeout_s": 1200,
+  "process_timeout_s": 180,
+  "stop": "fixed campaign; failures preserved; no additional favorable repeats"
+}

@@ -1,0 +1,7 @@
+{
+  "Replace": {
+    "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/worktree/internal/guest/linked.go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/temp/linked_overlay.go",
+    "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/worktree/internal/guest/guest.go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/temp/guest_overlay.go",
+    "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/worktree/internal/guest/experiment_buffer_test.go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/response-buffer/temp/experiment_buffer_test.go"
+  }
+}

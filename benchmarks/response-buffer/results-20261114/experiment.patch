@@ -1,0 +1,35 @@
+--- internal/guest/guest.go
++++ internal/guest/guest.go
+@@ -4,6 +4,7 @@
+ 
+ import (
+ 	"context"
++ "bufio"
+ 	"encoding/binary"
+ 	"encoding/json"
+ 	"errors"
+@@ -231,11 +232,14 @@
+ 		p.Abort(fmt.Errorf("guest output closed unexpectedly: %w", err))
+ 	}
+ }
++var experimentReadBuffer = os.Getenv("MARIAMEM_EXPERIMENT_READ_BUFFER")=="1"
+ func (p *Process) read() {
++ var input io.Reader=p.out
++ if experimentReadBuffer {input=bufio.NewReaderSize(p.out,4096)}
+ 	first := true
+ 	for {
+ 		var h [4]byte
+-		if _, err := io.ReadFull(p.out, h[:]); err != nil {
++		if _, err := io.ReadFull(input, h[:]); err != nil {
+ 			p.readFailed(err)
+ 			return
+ 		}
+@@ -249,7 +253,7 @@
+ 			return
+ 		}
+ 		b := make([]byte, n)
+-		if _, err := io.ReadFull(p.out, b); err != nil {
++		if _, err := io.ReadFull(input, b); err != nil {
+ 			p.readFailed(err)
+ 			return
+ 		}

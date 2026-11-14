@@ -1,0 +1,11 @@
+package guest
+import("bytes";"encoding/binary";"io";"testing";"time";"strings";"errors")
+type expWriteCloser struct{io.Writer}
+func(expWriteCloser)Close()error{return nil}
+type expChunks struct{r *bytes.Reader; max int; calls int}
+func(r *expChunks)Read(b []byte)(int,error){r.calls++;if len(b)>r.max{b=b[:r.max]};return r.r.Read(b)}
+func expFrame(s string)[]byte{b:=make([]byte,4+len(s));binary.LittleEndian.PutUint32(b,uint32(len(s)));copy(b[4:],s);return b}
+func expProcess(r io.ReadCloser)*Process{return &Process{in:expWriteCloser{io.Discard},out:r,pending:map[uint32]chan response{1:make(chan response,1),2:make(chan response,1)}}}
+func TestExperimentBufferedFrames(t *testing.T){for _,chunk:=range []int{1,3,65536}{t.Run(strings.Repeat("x",chunk%5+1),func(t *testing.T){b:=append(expFrame(`{"request_id":1,"result":{"ok":true}}`),expFrame(`{"request_id":2,"result":{"ok":true,"message":"`+strings.Repeat("x",6600)+`"}}`)...);r:=&expChunks{r:bytes.NewReader(b),max:chunk};p:=expProcess(io.NopCloser(r));a,c:=p.pending[1],p.pending[2];p.read();for _,ch:=range []chan response{a,c}{v:=<-ch;if v.err!=nil||!v.result.OK{t.Fatal(v.err)}};if p.Err()==nil{t.Fatal("missing EOF")}})}}
+func TestExperimentMalformedBufferedFrames(t *testing.T){for name,b:=range map[string][]byte{"zero":{0,0,0,0},"oversize":{1,0,0,2},"header":{1,2},"body":{20,0,0,0,1,2},"json":expFrame("{"),"id":expFrame(`{"request_id":99,"result":{"ok":true}}`)}{t.Run(name,func(t *testing.T){p:=expProcess(io.NopCloser(bytes.NewReader(b)));p.read();if p.Err()==nil{t.Fatal("accepted malformed frame")}})}}
+func TestExperimentBufferedAbortUnblocks(t *testing.T){r,w:=io.Pipe();defer w.Close();p:=expProcess(r);done:=make(chan struct{});go func(){p.read();close(done)}();p.Abort(errors.New("injected abort"));select{case<-done:case<-time.After(2*time.Second):t.Fatal("blocked read did not retire")}}

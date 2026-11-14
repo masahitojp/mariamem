@@ -1,0 +1,196 @@
+package guest
+
+import (
+	"context"
+ "encoding/binary"
+ "encoding/json"
+ "path/filepath"
+ "sync"
+ "sync/atomic"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/preparedproto"
+	"io"
+	"os"
+	"time"
+
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	"github.com/masahitojp/mariamem/internal/prepared"
+	"github.com/masahitojp/mariamem/internal/timing"
+)
+
+func startLinked(ctx context.Context, module, transfer string, restore []prepared.Entry, stderr io.Writer) (*Process, error) {
+	if module != generatedgo.GuestSHA256 {
+		return nil, fmt.Errorf("compiled guest identity mismatch")
+	}
+	tail := &stderrTail{}
+	logs := io.Writer(tail)
+	if stderr != nil {
+		logs = io.MultiWriter(stderr, tail)
+	}
+	childIn, in, err := os.Pipe()
+	if err != nil {
+		return nil, err
+	}
+	out, childOut, err := os.Pipe()
+	if err != nil {
+		childIn.Close()
+		in.Close()
+		return nil, err
+	}
+	timing.Mark(ctx, "linked_execution_begin")
+	capture := &prepared.Capture{}
+	failed := make(chan error, 1)
+	var guestIn io.Reader=childIn
+ var guestOut io.Writer=childOut
+ var hostIn io.WriteCloser=in
+ var hostOut io.ReadCloser=out
+ var ledger *ipcLedger
+ if os.Getenv("IPC_DIAG_DIR")!="" {
+  label,_:=ctx.Value("mariamem_benchmark_label").(string)
+  ledger=&ipcLedger{ID:ipcIDs.Add(1), Label:label, Directions:map[string]*ipcCounter{}}
+  guestIn=&ipcReader{Reader:childIn,c:ledger.counter("guest_read",true)}
+  guestOut=&ipcWriter{Writer:childOut,c:ledger.counter("guest_write",false)}
+  hostIn=&ipcWriteCloser{WriteCloser:in,c:ledger.counter("host_write",true)}
+  hostOut=&ipcReadCloser{ReadCloser:out,c:ledger.counter("host_read",false)}
+ }
+ execution := generatedgo.StartInstance(guestIn, guestOut, logs, transfer, restore, timing.Enabled(ctx), func(err error) { failed <- err }, capture)
+ if ledger!=nil {
+  observedDone:=make(chan error,1)
+  originalDone:=execution
+  go func(){e:=<-originalDone;if e!=nil{ledger.ExitError=e.Error()};ledger.save();observedDone<-e}()
+  execution=observedDone
+ }
+	p, e := ConnectWithFailure(ctx, hostIn, hostOut, execution, func() {
+		childIn.Close()
+		childOut.Close()
+	}, tail, failed)
+	if p != nil {
+		p.capture = capture
+	}
+	return p, e
+}
+
+// Connect owns a framed transport, not a runtime executable. Completion must
+// be followed by closePeer closing the peer endpoints (or already-closed peers). The linked runtime and deterministic
+// transport fixtures use the same response reader and cooperative teardown.
+func Connect(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer) (*Process, error) {
+	return ConnectWithFailure(ctx, in, out, completed, closePeer, logs, nil)
+}
+
+// ConnectWithFailure poisons the instance on an early fatal runtime notification.
+// completed remains a separate joined-cleanup boundary, including after failure.
+func ConnectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer, failed <-chan error) (*Process, error) {
+	return connectWithFailure(ctx, in, out, completed, closePeer, logs, failed, 10*time.Second)
+}
+
+func connectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer, failed <-chan error, grace time.Duration) (*Process, error) {
+	tail, ok := logs.(*stderrTail)
+	if !ok {
+		tail = &stderrTail{}
+	}
+	ready := make(chan response, 1)
+	p := &Process{startupTiming: timing.Enabled(ctx), in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
+	readDone := make(chan struct{})
+	go func() { defer close(readDone); p.read() }()
+	go func() {
+		var err error
+		select {
+		case err = <-completed:
+		case err = <-failed:
+			p.Abort(err)
+			err = <-completed
+		}
+		if err != nil {
+			p.Abort(err)
+		}
+		if closePeer != nil {
+			closePeer()
+		}
+		<-readDone
+		_ = out.Close()
+		p.exitErr = err
+		close(p.done)
+		p.fail(errors.New("guest exited"))
+	}()
+	select {
+	case r := <-ready:
+		timing.MarkAt(ctx, "ready_header_received", r.headerAt)
+		timing.MarkAt(ctx, "ready_frame_decoded", r.decodedAt)
+		timing.Mark(ctx, "ready_response_observed")
+		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 && r.result.MaxSessions <= 65536 {
+			p.SnapshotVersion = r.result.SnapshotVersion
+			p.MaxSessions = r.result.MaxSessions
+			if r.result.PreparedVersion != 0 && r.result.PreparedVersion != preparedproto.Version {
+				return nil, startupError(p.abortAndWait(errors.New("unsupported prepared protocol"), grace), tail)
+			}
+			p.PreparedVersion = r.result.PreparedVersion
+			p.PreparedOperations = append([]uint8(nil), r.result.PreparedOperations...)
+			return p, nil
+		}
+		if r.err == nil {
+			r.err = errors.New("unsupported guest: requires multi-session API v2 with valid capacity")
+		}
+		return nil, startupError(p.abortAndWait(r.err, grace), tail)
+	case <-ctx.Done():
+		return nil, startupError(p.abortAndWait(ctx.Err(), grace), tail)
+	}
+}
+
+// Disposable observation only. Calls preserve the original os.Pipe endpoints.
+var ipcIDs atomic.Uint64
+type ipcCounter struct {
+ mu sync.Mutex
+ Calls uint64 `json:"calls"`
+ Bytes uint64 `json:"bytes"`
+ Nanoseconds uint64 `json:"call_elapsed_ns"`
+ Errors uint64 `json:"errors"`
+ Sizes map[int]uint64 `json:"returned_sizes"`
+ Frames uint64 `json:"frames"`
+ ZeroFrames uint64 `json:"zero_frames"`
+ ExportFrames uint64 `json:"export_frames"`
+ FrameBytes uint64 `json:"frame_payload_bytes"`
+ FrameSizes map[uint32]uint64 `json:"frame_sizes"`
+ Opcodes map[byte]uint64 `json:"opcodes,omitempty"`
+ header [4]byte
+ hn int
+ remaining uint32
+ first bool
+ request bool
+}
+func(c *ipcCounter)record(b []byte,t time.Time,e error){
+ elapsed:=time.Since(t)
+ c.mu.Lock();defer c.mu.Unlock()
+ c.Calls++;c.Bytes+=uint64(len(b));c.Nanoseconds+=uint64(elapsed);if e!=nil{c.Errors++};c.Sizes[len(b)]++
+ for len(b)>0 {
+  if c.remaining==0 {
+   n:=copy(c.header[c.hn:],b);c.hn+=n;b=b[n:]
+   if c.hn<4 {break};c.hn=0;c.remaining=binary.LittleEndian.Uint32(c.header[:]);c.first=true
+   if c.remaining==0 {c.ZeroFrames++;continue}
+   if c.request && c.remaining==0xfffffffe {c.ExportFrames++;c.remaining=0;continue}
+   c.Frames++;c.FrameBytes+=uint64(c.remaining);c.FrameSizes[c.remaining]++
+  }
+  if len(b)==0 {break}
+  if c.first&&c.request {c.Opcodes[b[0]]++};c.first=false
+  n:=len(b);if uint32(n)>c.remaining{n=int(c.remaining)};b=b[n:];c.remaining-=uint32(n)
+ }
+}
+type ipcLedger struct {Label string `json:"label"`; ExitError string `json:"exit_error"`; ID uint64 `json:"db_instance"`;Directions map[string]*ipcCounter `json:"directions"`}
+func(l *ipcLedger)counter(name string,request bool)*ipcCounter{c:=&ipcCounter{Sizes:map[int]uint64{},FrameSizes:map[uint32]uint64{},Opcodes:map[byte]uint64{},request:request};l.Directions[name]=c;return c}
+func(l *ipcLedger)save(){
+ // Guest workers have joined. Host EOF/close may still be finishing.
+ for _,k:=range []string{"guest_read","guest_write","host_read","host_write"}{l.Directions[k].mu.Lock()}
+ b,e:=json.Marshal(l)
+ for _,k:=range []string{"host_write","host_read","guest_write","guest_read"}{l.Directions[k].mu.Unlock()}
+ if e!=nil{panic(e)}
+ p:=filepath.Join(os.Getenv("IPC_DIAG_DIR"),fmt.Sprintf("db-%03d.json",l.ID))
+ if e=os.WriteFile(p,b,0644);e!=nil{panic(e)}
+}
+type ipcReader struct{io.Reader;c *ipcCounter}
+func(r *ipcReader)Read(b []byte)(int,error){t:=time.Now();n,e:=r.Reader.Read(b);r.c.record(b[:n],t,e);return n,e}
+type ipcWriter struct{io.Writer;c *ipcCounter}
+func(w *ipcWriter)Write(b []byte)(int,error){t:=time.Now();n,e:=w.Writer.Write(b);w.c.record(b[:n],t,e);return n,e}
+type ipcReadCloser struct{io.ReadCloser;c *ipcCounter}
+func(r *ipcReadCloser)Read(b []byte)(int,error){t:=time.Now();n,e:=r.ReadCloser.Read(b);r.c.record(b[:n],t,e);return n,e}
+type ipcWriteCloser struct{io.WriteCloser;c *ipcCounter}
+func(w *ipcWriteCloser)Write(b []byte)(int,error){t:=time.Now();n,e:=w.WriteCloser.Write(b);w.c.record(b[:n],t,e);return n,e}

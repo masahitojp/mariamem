@@ -1,0 +1,91 @@
+=== RUN   TestCompiledIdentityFailure
+--- PASS: TestCompiledIdentityFailure (0.00s)
+=== RUN   TestStartupCauseAndBoundedTail
+--- PASS: TestStartupCauseAndBoundedTail (0.00s)
+=== RUN   TestFramedStartupFailureSurvivesAndJoins
+--- PASS: TestFramedStartupFailureSurvivesAndJoins (0.00s)
+=== RUN   TestFailedGreetingRetainsLateJoinedOwnerWithNilProcess
+--- PASS: TestFailedGreetingRetainsLateJoinedOwnerWithNilProcess (0.00s)
+=== RUN   TestExperimentBufferedFrames
+=== RUN   TestExperimentBufferedFrames/xx
+=== RUN   TestExperimentBufferedFrames/xxxx
+=== RUN   TestExperimentBufferedFrames/xx#01
+--- PASS: TestExperimentBufferedFrames (0.00s)
+    --- PASS: TestExperimentBufferedFrames/xx (0.00s)
+    --- PASS: TestExperimentBufferedFrames/xxxx (0.00s)
+    --- PASS: TestExperimentBufferedFrames/xx#01 (0.00s)
+=== RUN   TestExperimentMalformedBufferedFrames
+=== RUN   TestExperimentMalformedBufferedFrames/id
+=== RUN   TestExperimentMalformedBufferedFrames/zero
+=== RUN   TestExperimentMalformedBufferedFrames/oversize
+=== RUN   TestExperimentMalformedBufferedFrames/header
+=== RUN   TestExperimentMalformedBufferedFrames/body
+=== RUN   TestExperimentMalformedBufferedFrames/json
+--- PASS: TestExperimentMalformedBufferedFrames (0.00s)
+    --- PASS: TestExperimentMalformedBufferedFrames/id (0.00s)
+    --- PASS: TestExperimentMalformedBufferedFrames/zero (0.00s)
+    --- PASS: TestExperimentMalformedBufferedFrames/oversize (0.00s)
+    --- PASS: TestExperimentMalformedBufferedFrames/header (0.00s)
+    --- PASS: TestExperimentMalformedBufferedFrames/body (0.00s)
+    --- PASS: TestExperimentMalformedBufferedFrames/json (0.00s)
+=== RUN   TestExperimentBufferedAbortUnblocks
+--- PASS: TestExperimentBufferedAbortUnblocks (0.00s)
+=== RUN   TestFailureSignal
+--- PASS: TestFailureSignal (0.00s)
+=== RUN   TestResultRowPresenceAndDecodeAtomicity
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"rows":null}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"rows":[]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"rows":[[{"$h":"00"}]]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":[]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":["0000"]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":null}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":{}}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":[1]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"rows":null,"raw_rows":[]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":null,"raw_rows":[]}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":[],"raw_rows":null}
+=== RUN   TestResultRowPresenceAndDecodeAtomicity/{"rows":[],"rows":null}
+--- PASS: TestResultRowPresenceAndDecodeAtomicity (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"rows":null} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"rows":[]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"rows":[[{"$h":"00"}]]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":[]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":["0000"]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":null} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":{}} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":[1]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"rows":null,"raw_rows":[]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":null,"raw_rows":[]} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"raw_rows":[],"raw_rows":null} (0.00s)
+    --- PASS: TestResultRowPresenceAndDecodeAtomicity/{"rows":[],"rows":null} (0.00s)
+=== RUN   TestPreparedEnvelopeBudgetDoesNotIncreaseTextSQLBudget
+--- PASS: TestPreparedEnvelopeBudgetDoesNotIncreaseTextSQLBudget (0.00s)
+=== RUN   TestResultInternalStatusProjectsProtocolBits
+=== RUN   TestResultInternalStatusProjectsProtocolBits/0
+=== RUN   TestResultInternalStatusProjectsProtocolBits/2
+=== RUN   TestResultInternalStatusProjectsProtocolBits/65538
+=== RUN   TestResultInternalStatusProjectsProtocolBits/65539
+=== RUN   TestResultInternalStatusProjectsProtocolBits/65546
+=== RUN   TestResultInternalStatusProjectsProtocolBits/65602
+=== RUN   TestResultInternalStatusProjectsProtocolBits/65666
+=== RUN   TestResultInternalStatusProjectsProtocolBits/4294967295
+--- PASS: TestResultInternalStatusProjectsProtocolBits (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/0 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/2 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/65538 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/65539 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/65546 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/65602 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/65666 (0.00s)
+    --- PASS: TestResultInternalStatusProjectsProtocolBits/4294967295 (0.00s)
+=== RUN   TestResultRejectsInvalidInternalStatus
+--- PASS: TestResultRejectsInvalidInternalStatus (0.00s)
+=== RUN   TestResultMissingStatusAllowsReadyEnvelope
+--- PASS: TestResultMissingStatusAllowsReadyEnvelope (0.00s)
+=== RUN   TestReadyTransportObservationsAreOptIn
+--- PASS: TestReadyTransportObservationsAreOptIn (0.00s)
+=== RUN   TestWorkerTrapFailsPendingCallsBeforeCompletion
+--- PASS: TestWorkerTrapFailsPendingCallsBeforeCompletion (0.00s)
+PASS
