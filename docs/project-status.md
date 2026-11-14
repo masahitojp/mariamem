@@ -6,6 +6,27 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Prepared output — integrated on main (2026-11-14)
+
+PR163 merged as `c129ab0e2d0d286da57b3be87d7d5e9cc2d3239c`. Normal PR CI
+[43535618715](https://github.com/masahitojp/mariamem/actions/runs/43535618715)
+passes all three gates on head `5793989ccdbe712eb54f5bc057643e7f65ba63d2`.
+The main merge tree equals that head exactly, and its runtime remains the
+accepted ef4d5cd9 source. These are identity/equivalence facts, not a CI receipt
+relabeled to a different SHA. Engine/C/generated inputs and old evidence source
+commits remain unchanged and reachable through main history.
+
+Issue132's selected-route acceptance and Issue128's comparison/decision support
+are complete and closed after the Human's integration approval. The unmeasured
+update-hours, availability lead time, payback and recovery cost move to
+[Issue164](https://github.com/masahitojp/mariamem/issues/164), to be recorded during
+the next actually authorized LTS update. Closing128 does not establish measured
+cost savings or authorize a new experiment. Earlier approval/pending sections
+below describe their dated historical checkpoints.
+
+The source change is adopted and unreleased. Release version, Qualification and
+publication remain separate and unapproved. Issue138 remains stopped.
+
 ## Prepared output — main integration approved (2026-11-14)
 
 The Human approved main integration after the
@@ -25,7 +46,7 @@ and pending-approval entries below retain their original historical context.
 
 The accepted benefit is reduced custom output conversion responsibility. Total
 upgrade-hours, time to a new LTS, payback, peak RSS and two-series runtime acceptance
-remain unmeasured. Track actual future update costs in Issue128; no additional
+remain unmeasured. Track actual future update costs in Issue164 (comparison Issue128 is complete); no additional
 comparison experiment or engine offering is authorized. Qualification, release
 version and publication remain separate and unapproved.
 

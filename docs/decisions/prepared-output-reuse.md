@@ -16,7 +16,8 @@ guest replace the old representation; no automatic old-route fallback is provide
 The benefit accepted now is fewer custom output-conversion responsibilities.
 The sampled LTS direct boundary was stable. Total update-hours, availability lead
 time and payback remain unmeasured; source line counts and CI PASS are not those
-measurements. Issue128 retains the future-cost questions. Provision for roughly
+measurements. Issue128 completed comparison and decision support; Issue164 retains
+the future actual-update cost observations. Provision for roughly
 two user-selectable LTS offerings with upstream-aligned maintenance remains the
 direction, with only12.3 offered now. This decision does not add another engine.
 
