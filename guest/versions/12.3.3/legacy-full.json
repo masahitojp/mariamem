@@ -2,7 +2,7 @@
   "schema": 1,
   "engine": "12.3.3",
   "profile": "legacy-full",
-  "origin": "cb5a2e0ff1b772e6196ea0ae4295392ac361a891",
+  "origin": "d8f66d9a5605b3b738b2175268a3734ee1c89a4a",
   "guest_input": {
     "schema": 1,
     "candidate": "MariaDB 12.3.3",
@@ -181,7 +181,7 @@
     },
     "guest/resident.inc": {
       "file": "guest/resident.inc",
-      "sha256": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+      "sha256": "f26c16193e6ac48a17d0a5ccebbd78dc889118f34e6056c1348f9b6a1c142643"
     },
     "guest/snapshot_fs.inc": {
       "file": "guest/snapshot_fs.inc",
@@ -205,7 +205,7 @@
     },
     "guest/prepared_api.inc": {
       "file": "guest/prepared_api.inc",
-      "sha256": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334"
+      "sha256": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45"
     },
     "guest/init_diagnostics.h": {
       "file": "guest/init_diagnostics.h",

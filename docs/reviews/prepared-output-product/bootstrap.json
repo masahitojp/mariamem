@@ -1,0 +1,19 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/43436504181",
+  "artifact_id": 14043019999,
+  "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
+  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "guest_bytes": 21925350,
+  "contract": "development-unqualified-v1",
+  "result": "UNQUALIFIED",
+  "repetitions": [
+    {
+      "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+      "linked_sha256": "d42f681a86614f7bd0dd20527667859ba04740fadca7813ae1ab387f1f911979"
+    }
+  ],
+  "raw_receipt_sha256": "5e67670ace42c11698f3fd841278eb43b662c9c07d9e1dcdd9e3c771bbac6aad",
+  "source_inventory_verified": true,
+  "toolchain_pins_sha256": "8be84eea6e38432eabbc1ba3095551d90b8b213f765a5423207d2dca40c21b8a",
+  "note": "Verified against clean producer source and current pinned toolchain; one build, not canonical independent reproduction."
+}

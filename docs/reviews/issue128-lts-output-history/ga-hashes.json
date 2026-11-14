@@ -1,0 +1,92 @@
+[
+  {
+    "tag": "mariadb-11.4.2",
+    "path": "include/mysql.h",
+    "sha256": "f117fb11798dbf86be2bdac82838f5e8ea6f404d210057fffe490749f249f628",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/include/mysql.h"
+  },
+  {
+    "tag": "mariadb-11.4.2",
+    "path": "libmysqld/libmysql.c",
+    "sha256": "eb02130a5bb0ce5700084d27eefc749a5aa8d336a7957b8f635debe50cfb5ed5",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/libmysqld/libmysql.c"
+  },
+  {
+    "tag": "mariadb-11.4.2",
+    "path": "libmysqld/lib_sql.cc",
+    "sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/libmysqld/lib_sql.cc"
+  },
+  {
+    "tag": "mariadb-11.4.2",
+    "path": "sql/protocol.cc",
+    "sha256": "a405f4ed5ca06aa641099fcb5f78e3e8932a402b0667b2486b330d33ce4e4fc4",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/sql/protocol.cc"
+  },
+  {
+    "tag": "mariadb-11.4.2",
+    "path": "sql/protocol.h",
+    "sha256": "fa44614e8d8b051952e9c1460289c629eef724804237bfea453c5289cf3d4f2b",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/sql/protocol.h"
+  },
+  {
+    "tag": "mariadb-11.8.2",
+    "path": "include/mysql.h",
+    "sha256": "8a6cc1950a69219b060e31b90001e7557f6dabff36c19fd2ea51cbc68450deaf",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/include/mysql.h"
+  },
+  {
+    "tag": "mariadb-11.8.2",
+    "path": "libmysqld/libmysql.c",
+    "sha256": "233d1c24a89c8ff797b304a8f83b7542ea2b886300dd3ba6d2d0737f9b246110",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/libmysqld/libmysql.c"
+  },
+  {
+    "tag": "mariadb-11.8.2",
+    "path": "libmysqld/lib_sql.cc",
+    "sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/libmysqld/lib_sql.cc"
+  },
+  {
+    "tag": "mariadb-11.8.2",
+    "path": "sql/protocol.cc",
+    "sha256": "7003754e6577513597b7c1dbca307c541cedae066ecafde385b37d7c6ced0e9d",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/sql/protocol.cc"
+  },
+  {
+    "tag": "mariadb-11.8.2",
+    "path": "sql/protocol.h",
+    "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/sql/protocol.h"
+  },
+  {
+    "tag": "mariadb-12.3.2",
+    "path": "include/mysql.h",
+    "sha256": "aff93c3ce50a8d3e2e56d42c9e2150af2cfc61c139098fae08d16c8427cd8a7c",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/include/mysql.h"
+  },
+  {
+    "tag": "mariadb-12.3.2",
+    "path": "libmysqld/libmysql.c",
+    "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/libmysqld/libmysql.c"
+  },
+  {
+    "tag": "mariadb-12.3.2",
+    "path": "libmysqld/lib_sql.cc",
+    "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/libmysqld/lib_sql.cc"
+  },
+  {
+    "tag": "mariadb-12.3.2",
+    "path": "sql/protocol.cc",
+    "sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/sql/protocol.cc"
+  },
+  {
+    "tag": "mariadb-12.3.2",
+    "path": "sql/protocol.h",
+    "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+    "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/sql/protocol.h"
+  }
+]

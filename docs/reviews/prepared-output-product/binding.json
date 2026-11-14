@@ -1,0 +1,39 @@
+{
+  "source_commit": "90a505cbad9799c1bc8f918d4280793d4284fe6b",
+  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "workers": {
+    "Fn153": {
+      "path": "p3/p3_pure.go",
+      "normalized_sha256": "81315492ae9cc91bab7555df2015a1de3922496804cd95e8faf37b08e8c87cfe",
+      "unchanged": false
+    },
+    "Fn214": {
+      "path": "p5/p5_pure.go",
+      "normalized_sha256": "fb9047e999ed96ef1ae1bfb43bbc5e166161803f665a2b53c5d60567435a27a0",
+      "unchanged": false
+    },
+    "Fn131": {
+      "path": "p8/p8_pure.go",
+      "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "unchanged": true
+    }
+  },
+  "crc": {
+    "path": "p4/p4_pure.go",
+    "function": "Fn18142",
+    "body_sha256": "969069032f2d154a16adbe3f998f2c9eb8e020f02ad99257e48d6b356f4186e4",
+    "unchanged": false,
+    "table_offset": 7929536,
+    "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+    "old_table_offset": 7930560,
+    "adapted_body_sha256": "f33a2a01ff508682deb1ca024b873452340e847cafcd887472654b0d1bc6da7c",
+    "source_adapter_only_whitespace": true
+  },
+  "data_sha256": "2cc750c09f00f657bf59021a22e1e91c54ce74e46bf7a72b34642de63db06e67",
+  "review_status": "EXACT_BINDINGS_INSTALLED_PENDING_RUNTIME_ACCEPTANCE",
+  "symbol_map": {
+    "sha256": "c44275c51b8312ec76d3b9a4edc8904882c7a583b1ad4907430db31c195eb2c4",
+    "postopt_exact_guest": true,
+    "binaryen_archive_sha256": "ad66da82ac13f163e424b1643f16c6dfcccc98b5966296b43e52d3cab04f84a8"
+  }
+}

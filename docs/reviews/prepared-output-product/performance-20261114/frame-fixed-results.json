@@ -1,0 +1,86 @@
+{
+  "scope": "real guest single binary row near length-prefix/32MiB JSON envelope; each case owns DB; errors and following-query captured without recovery assumption",
+  "sources": {
+    "baseline": "eb175ae23292c1c40cfbeb4b9b73132873c4cc6f",
+    "fixed": "ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e"
+  },
+  "runs": [
+    {
+      "variant": "fixed",
+      "payload_bytes": 65535,
+      "result": "ROW",
+      "sha256": "09ab7495d3e61a76f0deb12cb0306f0696cbb17ffc12131368c7a939f12f56d3",
+      "columns": [
+        [
+          "payload",
+          250
+        ]
+      ],
+      "following_query": "PASS",
+      "elapsed_seconds": 0.3341784579970408
+    },
+    {
+      "variant": "fixed",
+      "payload_bytes": 65536,
+      "result": "ROW",
+      "sha256": "1f8745f0d2d1387ec1af2211a3cf417b2e9e885e853472649c1d979d0e9370e3",
+      "columns": [
+        [
+          "payload",
+          250
+        ]
+      ],
+      "following_query": "PASS",
+      "elapsed_seconds": 0.13472916700993665
+    },
+    {
+      "variant": "fixed",
+      "payload_bytes": 65537,
+      "result": "ROW",
+      "sha256": "1abe08ebecf1c18cab71f6fe28aaddf20268f85bad78bb9a72f88ca47c874662",
+      "columns": [
+        [
+          "payload",
+          250
+        ]
+      ],
+      "following_query": "PASS",
+      "elapsed_seconds": 0.10740033299953211
+    },
+    {
+      "variant": "fixed",
+      "payload_bytes": 16776192,
+      "result": "ROW",
+      "sha256": "f53a162e1072255c1da5fddb247ec0c24d24ec5530cb4408745d82c4f45746a4",
+      "columns": [
+        [
+          "payload",
+          251
+        ]
+      ],
+      "following_query": "PASS",
+      "elapsed_seconds": 1.8411537499923725
+    },
+    {
+      "variant": "fixed",
+      "payload_bytes": 16777215,
+      "result": "ERR",
+      "error": {
+        "type": "OperationalError",
+        "errno": 2013,
+        "sqlstate": "HY000",
+        "message": "2013 (HY000): mariamem database instance terminated: generated-Go guest failure: unimplemented WASIX: Proc_exit2"
+      },
+      "following_query": {
+        "type": "OperationalError",
+        "errno": -1,
+        "sqlstate": null,
+        "message": "MySQL Connection not available"
+      },
+      "elapsed_seconds": 0.2503148339892505
+    }
+  ],
+  "differences": [],
+  "comparison": "PASS",
+  "comparison_note": "Initial comparator compared live tuples with JSON-loaded lists for columns. Recompared saved JSON arrays without changing values; changed SHA/error code negative controls differ."
+}

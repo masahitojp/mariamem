@@ -1,0 +1,22 @@
+[
+  {
+    "variant": "fixed",
+    "probe": "v06_prepared_p2_probe.py",
+    "returncode": 0
+  },
+  {
+    "variant": "fixed",
+    "probe": "v06_prepared_p2_matrix.py",
+    "returncode": 0
+  },
+  {
+    "variant": "fixed",
+    "probe": "v06_prepared_p2_repair_probe.py",
+    "returncode": 0
+  },
+  {
+    "variant": "fixed",
+    "probe": "v06_prepared_p3_matrix.py",
+    "returncode": 0
+  }
+]

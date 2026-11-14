@@ -10,10 +10,10 @@ import re
 # Exact prepared-lexer guest binding, preserving the reviewed P6/J1 ownership
 # transforms. Full bodies/data are checked against pinned fixtures; the prior
 # guest is not an alternate accepted identity. No fuzzy matching is permitted.
-GUEST_SHA256 = "5f8b711f8efe31529c12847a093e92b8f962598e035cb1d5e253e41093feee20"
+GUEST_SHA256 = "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "0b91dbdbb97dcfe0916ecdc8379769d078e33e3ecf5a3ed85ef0da8b5fe8b9b0"),
-    "code/p5/p5_pure.go": ("Fn214", "7c7d83da40e4ed0b7a8ff0f910ffec1a7cbbde21de90e12a2e12b314777ea4a8"),
+    "code/p3/p3_pure.go": ("Fn153", "81315492ae9cc91bab7555df2015a1de3922496804cd95e8faf37b08e8c87cfe"),
+    "code/p5/p5_pure.go": ("Fn214", "fb9047e999ed96ef1ae1bfb43bbc5e166161803f665a2b53c5d60567435a27a0"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
 }
 

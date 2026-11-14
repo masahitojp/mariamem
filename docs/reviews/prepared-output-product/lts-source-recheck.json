@@ -1,0 +1,359 @@
+{
+  "scope": "independent re-fetch of 30 frozen primary source files; verifies historical bytes, not runtime/ABI or repair hours",
+  "files": [
+    {
+      "tag": "mariadb-11.4.2",
+      "path": "include/mysql.h",
+      "sha256": "f117fb11798dbf86be2bdac82838f5e8ea6f404d210057fffe490749f249f628",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/include/mysql.h",
+      "verified_sha256": "f117fb11798dbf86be2bdac82838f5e8ea6f404d210057fffe490749f249f628"
+    },
+    {
+      "tag": "mariadb-11.4.2",
+      "path": "libmysqld/libmysql.c",
+      "sha256": "eb02130a5bb0ce5700084d27eefc749a5aa8d336a7957b8f635debe50cfb5ed5",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/libmysqld/libmysql.c",
+      "verified_sha256": "eb02130a5bb0ce5700084d27eefc749a5aa8d336a7957b8f635debe50cfb5ed5"
+    },
+    {
+      "tag": "mariadb-11.4.2",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/libmysqld/lib_sql.cc",
+      "verified_sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6"
+    },
+    {
+      "tag": "mariadb-11.4.2",
+      "path": "sql/protocol.cc",
+      "sha256": "a405f4ed5ca06aa641099fcb5f78e3e8932a402b0667b2486b330d33ce4e4fc4",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/sql/protocol.cc",
+      "verified_sha256": "a405f4ed5ca06aa641099fcb5f78e3e8932a402b0667b2486b330d33ce4e4fc4"
+    },
+    {
+      "tag": "mariadb-11.4.2",
+      "path": "sql/protocol.h",
+      "sha256": "fa44614e8d8b051952e9c1460289c629eef724804237bfea453c5289cf3d4f2b",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/3fca5ed772fb75e3e57c507edef2985f8eba5b12/sql/protocol.h",
+      "verified_sha256": "fa44614e8d8b051952e9c1460289c629eef724804237bfea453c5289cf3d4f2b"
+    },
+    {
+      "tag": "mariadb-11.8.2",
+      "path": "include/mysql.h",
+      "sha256": "8a6cc1950a69219b060e31b90001e7557f6dabff36c19fd2ea51cbc68450deaf",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/include/mysql.h",
+      "verified_sha256": "8a6cc1950a69219b060e31b90001e7557f6dabff36c19fd2ea51cbc68450deaf"
+    },
+    {
+      "tag": "mariadb-11.8.2",
+      "path": "libmysqld/libmysql.c",
+      "sha256": "233d1c24a89c8ff797b304a8f83b7542ea2b886300dd3ba6d2d0737f9b246110",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/libmysqld/libmysql.c",
+      "verified_sha256": "233d1c24a89c8ff797b304a8f83b7542ea2b886300dd3ba6d2d0737f9b246110"
+    },
+    {
+      "tag": "mariadb-11.8.2",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/libmysqld/lib_sql.cc",
+      "verified_sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6"
+    },
+    {
+      "tag": "mariadb-11.8.2",
+      "path": "sql/protocol.cc",
+      "sha256": "7003754e6577513597b7c1dbca307c541cedae066ecafde385b37d7c6ced0e9d",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/sql/protocol.cc",
+      "verified_sha256": "7003754e6577513597b7c1dbca307c541cedae066ecafde385b37d7c6ced0e9d"
+    },
+    {
+      "tag": "mariadb-11.8.2",
+      "path": "sql/protocol.h",
+      "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/8d36cafe4fc700e6e577d5a36650c58707e76b92/sql/protocol.h",
+      "verified_sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689"
+    },
+    {
+      "tag": "mariadb-12.3.2",
+      "path": "include/mysql.h",
+      "sha256": "aff93c3ce50a8d3e2e56d42c9e2150af2cfc61c139098fae08d16c8427cd8a7c",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/include/mysql.h",
+      "verified_sha256": "aff93c3ce50a8d3e2e56d42c9e2150af2cfc61c139098fae08d16c8427cd8a7c"
+    },
+    {
+      "tag": "mariadb-12.3.2",
+      "path": "libmysqld/libmysql.c",
+      "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/libmysqld/libmysql.c",
+      "verified_sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c"
+    },
+    {
+      "tag": "mariadb-12.3.2",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/libmysqld/lib_sql.cc",
+      "verified_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+    },
+    {
+      "tag": "mariadb-12.3.2",
+      "path": "sql/protocol.cc",
+      "sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/sql/protocol.cc",
+      "verified_sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242"
+    },
+    {
+      "tag": "mariadb-12.3.2",
+      "path": "sql/protocol.h",
+      "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/9f98f82b14a9b939834281672b6d0cf965db69a3/sql/protocol.h",
+      "verified_sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689"
+    },
+    {
+      "tag": "mariadb-11.4.13",
+      "path": "include/mysql.h",
+      "sha256": "f117fb11798dbf86be2bdac82838f5e8ea6f404d210057fffe490749f249f628",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/170b1d70737be6f134448f51713cdc1ae215b420/include/mysql.h",
+      "verified_sha256": "f117fb11798dbf86be2bdac82838f5e8ea6f404d210057fffe490749f249f628"
+    },
+    {
+      "tag": "mariadb-11.4.13",
+      "path": "libmysqld/libmysql.c",
+      "sha256": "a3ead82a0918208c23f209d93521543e668dad530d333326a5b4f8c7c157d714",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/170b1d70737be6f134448f51713cdc1ae215b420/libmysqld/libmysql.c",
+      "verified_sha256": "a3ead82a0918208c23f209d93521543e668dad530d333326a5b4f8c7c157d714"
+    },
+    {
+      "tag": "mariadb-11.4.13",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/170b1d70737be6f134448f51713cdc1ae215b420/libmysqld/lib_sql.cc",
+      "verified_sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6"
+    },
+    {
+      "tag": "mariadb-11.4.13",
+      "path": "sql/protocol.cc",
+      "sha256": "ec85cc0153b7980d00d9297eabb6680d88ac83a25c9af30a7c671721497373c6",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/170b1d70737be6f134448f51713cdc1ae215b420/sql/protocol.cc",
+      "verified_sha256": "ec85cc0153b7980d00d9297eabb6680d88ac83a25c9af30a7c671721497373c6"
+    },
+    {
+      "tag": "mariadb-11.4.13",
+      "path": "sql/protocol.h",
+      "sha256": "a81c50bb6cb45bc1b55c023dbd54429080ffcbfd2c0993e6a254b1ff9df89223",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/170b1d70737be6f134448f51713cdc1ae215b420/sql/protocol.h",
+      "verified_sha256": "a81c50bb6cb45bc1b55c023dbd54429080ffcbfd2c0993e6a254b1ff9df89223"
+    },
+    {
+      "tag": "mariadb-11.8.9",
+      "path": "include/mysql.h",
+      "sha256": "8a6cc1950a69219b060e31b90001e7557f6dabff36c19fd2ea51cbc68450deaf",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/bf9193a939f515e95dd8def1a5468088c91cede6/include/mysql.h",
+      "verified_sha256": "8a6cc1950a69219b060e31b90001e7557f6dabff36c19fd2ea51cbc68450deaf"
+    },
+    {
+      "tag": "mariadb-11.8.9",
+      "path": "libmysqld/libmysql.c",
+      "sha256": "0180a69db3385f4ba3d4da74ded9d3a356cad6c8dc38b19036bef9929f061247",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/bf9193a939f515e95dd8def1a5468088c91cede6/libmysqld/libmysql.c",
+      "verified_sha256": "0180a69db3385f4ba3d4da74ded9d3a356cad6c8dc38b19036bef9929f061247"
+    },
+    {
+      "tag": "mariadb-11.8.9",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/bf9193a939f515e95dd8def1a5468088c91cede6/libmysqld/lib_sql.cc",
+      "verified_sha256": "4da6ca787eea5e91673f5b8fb2a5f0a753c4871d7a169413f2d2a87f8fcccce6"
+    },
+    {
+      "tag": "mariadb-11.8.9",
+      "path": "sql/protocol.cc",
+      "sha256": "026490298e0d8a37844dd336260f1ba968f3561dbd389ff1096bc35929c1e4bd",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/bf9193a939f515e95dd8def1a5468088c91cede6/sql/protocol.cc",
+      "verified_sha256": "026490298e0d8a37844dd336260f1ba968f3561dbd389ff1096bc35929c1e4bd"
+    },
+    {
+      "tag": "mariadb-11.8.9",
+      "path": "sql/protocol.h",
+      "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/bf9193a939f515e95dd8def1a5468088c91cede6/sql/protocol.h",
+      "verified_sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689"
+    },
+    {
+      "tag": "mariadb-12.3.3",
+      "path": "include/mysql.h",
+      "sha256": "aff93c3ce50a8d3e2e56d42c9e2150af2cfc61c139098fae08d16c8427cd8a7c",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/mysql.h",
+      "verified_sha256": "aff93c3ce50a8d3e2e56d42c9e2150af2cfc61c139098fae08d16c8427cd8a7c"
+    },
+    {
+      "tag": "mariadb-12.3.3",
+      "path": "libmysqld/libmysql.c",
+      "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/libmysql.c",
+      "verified_sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c"
+    },
+    {
+      "tag": "mariadb-12.3.3",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/lib_sql.cc",
+      "verified_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+    },
+    {
+      "tag": "mariadb-12.3.3",
+      "path": "sql/protocol.cc",
+      "sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/protocol.cc",
+      "verified_sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242"
+    },
+    {
+      "tag": "mariadb-12.3.3",
+      "path": "sql/protocol.h",
+      "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/protocol.h",
+      "verified_sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689"
+    }
+  ],
+  "include/mysql.h_diffs": [
+    {
+      "old": "mariadb-11.4.2",
+      "new": "mariadb-11.8.2",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -143,6 +143,8 @@\n",
+        " #define ER_UNSUPPORTED_ENGINE_FOR_VIRTUAL_COLUMNS ER_UNSUPPORTED_ENGINE_FOR_GENERATED_COLUMNS",
+        " #define ER_KEY_COLUMN_DOES_NOT_EXITS ER_KEY_COLUMN_DOES_NOT_EXIST",
+        " #define ER_DROP_PARTITION_NON_EXISTENT ER_PARTITION_DOES_NOT_EXIST",
+        "+#define ER_SPATIAL_CANT_HAVE_NULL ER_INDEX_CANNOT_HAVE_NULL",
+        "+#define ER_INNODB_NO_FT_TEMP_TABLE ER_NO_INDEX_ON_TEMPORARY",
+        " ",
+        " typedef struct st_mysql_rows {",
+        "   struct st_mysql_rows *next;\t\t/* list of rows */"
+      ]
+    },
+    {
+      "old": "mariadb-11.8.2",
+      "new": "mariadb-12.3.2",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -145,6 +145,8 @@\n",
+        " #define ER_DROP_PARTITION_NON_EXISTENT ER_PARTITION_DOES_NOT_EXIST",
+        " #define ER_SPATIAL_CANT_HAVE_NULL ER_INDEX_CANNOT_HAVE_NULL",
+        " #define ER_INNODB_NO_FT_TEMP_TABLE ER_NO_INDEX_ON_TEMPORARY",
+        "+#define ER_CANT_CHANGE_TX_CHARACTERISTICS ER_CANT_SET_IN_TRANSACTION",
+        "+#define ER_VARIABLE_NOT_SETTABLE_IN_SF_OR_TRIGGER ER_VARIABLE_NOT_SETTABLE_IN_SF_OR_TRG",
+        " ",
+        " typedef struct st_mysql_rows {",
+        "   struct st_mysql_rows *next;\t\t/* list of rows */"
+      ]
+    },
+    {
+      "old": "mariadb-11.4.13",
+      "new": "mariadb-11.8.9",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -143,6 +143,8 @@\n",
+        " #define ER_UNSUPPORTED_ENGINE_FOR_VIRTUAL_COLUMNS ER_UNSUPPORTED_ENGINE_FOR_GENERATED_COLUMNS",
+        " #define ER_KEY_COLUMN_DOES_NOT_EXITS ER_KEY_COLUMN_DOES_NOT_EXIST",
+        " #define ER_DROP_PARTITION_NON_EXISTENT ER_PARTITION_DOES_NOT_EXIST",
+        "+#define ER_SPATIAL_CANT_HAVE_NULL ER_INDEX_CANNOT_HAVE_NULL",
+        "+#define ER_INNODB_NO_FT_TEMP_TABLE ER_NO_INDEX_ON_TEMPORARY",
+        " ",
+        " typedef struct st_mysql_rows {",
+        "   struct st_mysql_rows *next;\t\t/* list of rows */"
+      ]
+    },
+    {
+      "old": "mariadb-11.8.9",
+      "new": "mariadb-12.3.3",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -145,6 +145,8 @@\n",
+        " #define ER_DROP_PARTITION_NON_EXISTENT ER_PARTITION_DOES_NOT_EXIST",
+        " #define ER_SPATIAL_CANT_HAVE_NULL ER_INDEX_CANNOT_HAVE_NULL",
+        " #define ER_INNODB_NO_FT_TEMP_TABLE ER_NO_INDEX_ON_TEMPORARY",
+        "+#define ER_CANT_CHANGE_TX_CHARACTERISTICS ER_CANT_SET_IN_TRANSACTION",
+        "+#define ER_VARIABLE_NOT_SETTABLE_IN_SF_OR_TRIGGER ER_VARIABLE_NOT_SETTABLE_IN_SF_OR_TRG",
+        " ",
+        " typedef struct st_mysql_rows {",
+        "   struct st_mysql_rows *next;\t\t/* list of rows */"
+      ]
+    }
+  ],
+  "libmysqld/lib_sql.cc_diffs": [
+    {
+      "old": "mariadb-11.4.2",
+      "new": "mariadb-11.8.2",
+      "diff": []
+    },
+    {
+      "old": "mariadb-11.8.2",
+      "new": "mariadb-12.3.2",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -789,9 +789,21 @@\n",
+        "   sctx->proxy_user[0]= 0;",
+        "   sctx->master_access= GLOBAL_ACLS;       // Full rights",
+        "   emb_transfer_connect_attrs(mysql);",
+        "+",
+        "   /* Change database if necessary */",
+        "-  if (!(result= (db && db[0] && mysql_change_db(thd, &db_str, FALSE))))",
+        "+  result = 0;",
+        "+  if (db && db[0])",
+        "+  {",
+        "+    result = mysql_change_db(thd, db_str, FALSE);",
+        "+    if (!result)",
+        "+    {",
+        "+      my_free(mysql->db);",
+        "+      mysql->db = my_strdup(PSI_NOT_INSTRUMENTED, db, MYF(0));",
+        "+    }",
+        "+  }",
+        "+  if (!result)",
+        "     my_ok(thd);",
+        "+ ",
+        "   thd->protocol->end_statement();",
+        "   emb_read_query_result(mysql);",
+        "   return result;"
+      ]
+    },
+    {
+      "old": "mariadb-11.4.13",
+      "new": "mariadb-11.8.9",
+      "diff": []
+    },
+    {
+      "old": "mariadb-11.8.9",
+      "new": "mariadb-12.3.3",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -789,9 +789,21 @@\n",
+        "   sctx->proxy_user[0]= 0;",
+        "   sctx->master_access= GLOBAL_ACLS;       // Full rights",
+        "   emb_transfer_connect_attrs(mysql);",
+        "+",
+        "   /* Change database if necessary */",
+        "-  if (!(result= (db && db[0] && mysql_change_db(thd, &db_str, FALSE))))",
+        "+  result = 0;",
+        "+  if (db && db[0])",
+        "+  {",
+        "+    result = mysql_change_db(thd, db_str, FALSE);",
+        "+    if (!result)",
+        "+    {",
+        "+      my_free(mysql->db);",
+        "+      mysql->db = my_strdup(PSI_NOT_INSTRUMENTED, db, MYF(0));",
+        "+    }",
+        "+  }",
+        "+  if (!result)",
+        "     my_ok(thd);",
+        "+ ",
+        "   thd->protocol->end_statement();",
+        "   emb_read_query_result(mysql);",
+        "   return result;"
+      ]
+    }
+  ]
+}

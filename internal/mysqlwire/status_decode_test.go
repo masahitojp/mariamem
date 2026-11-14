@@ -37,9 +37,15 @@ func TestInternalStatusDecodedPreparedChainMatchesNative(t *testing.T) {
 	if err := json.Unmarshal(data, &raw); err != nil {
 		t.Fatal(err)
 	}
+	delete(raw, "rows")
+	delete(raw, "raw_rows")
 	raw["server_status"] = raw["server_status"].(float64) + 65536
 	for _, part := range raw["results"].([]any) {
 		p := part.(map[string]any)
+		delete(p, "rows")
+		if p["columns"] == nil {
+			delete(p, "raw_rows")
+		}
 		p["server_status"] = p["server_status"].(float64) + 65536
 	}
 	data, err = json.Marshal(raw)

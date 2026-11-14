@@ -1,0 +1,63 @@
+name: Prepared output installed distributions
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  installed:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            platform: darwin-arm64
+          - runner: ubuntu-24.04
+            platform: ubuntu24.04-x86_64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Build exact-source private wheel
+        run: |
+          mkdir -p build/output-installed
+          python scripts/git_identity.py inspect HEAD > build/output-installed/source.json
+          python -c 'import json,os;assert json.load(open("build/output-installed/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python scripts/verify_generated_runtime.py
+          python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0 wheel setuptools
+          python scripts/build_alpha.py --ci-candidate > build/output-installed/wheel-build.txt 2>&1
+          cp tests/evidence/alpha-wheel.json build/output-installed/wheel.json
+      - name: Existing exact-wheel and external-module consumers
+        run: |
+          python scripts/generated_release_acceptance.py --candidate-sha "$GITHUB_SHA" --platform '${{ matrix.platform }}' --output "$RUNNER_TEMP/output-installed-consumers" --go-build-jobs 1 > build/output-installed/consumers.txt 2>&1
+      - name: Retain installed-consumer evidence
+        if: always()
+        shell: python
+        run: |
+          from pathlib import Path
+          import os, shutil
+          src=Path(os.environ['RUNNER_TEMP'])/'output-installed-consumers'
+          dst=Path('build/output-installed/details')
+          dst.mkdir(parents=True,exist_ok=True)
+          for p in (src,src.with_suffix('.log')):
+              if p.is_file():
+                  shutil.copy2(p,dst/p.name)
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: output-installed-${{ matrix.platform }}-${{ github.sha }}
+          path: build/output-installed
+          if-no-files-found: error
+          retention-days: 14

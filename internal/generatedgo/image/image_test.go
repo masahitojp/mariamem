@@ -26,7 +26,7 @@ import (
 
 // Init completion flag written to 2 by the pinned generated p7.Fn67.
 // Keep this test-only address bound to the constructor when guest data relocates.
-const initialMemoryFlagOffset = 27745648
+const initialMemoryFlagOffset = 27744624
 
 func assertInitialMemoryFlag(t *testing.T, m *base.Module) {
 	t.Helper()
@@ -136,7 +136,7 @@ func TestFullInitialEqualityAndIsolation(t *testing.T) {
 		t.Fatal("missed dropped segment mutation")
 	}
 	a.m.DataSegs[0] = nil
-	for _, off := range []int{8388608, 18119936, 18762560, 18763072, initialMemoryFlagOffset} {
+	for _, off := range []int{8388608, 18118912, 18761536, 18762048, initialMemoryFlagOffset} {
 		original := m.Memory[off]
 		a.m.Memory[off] ^= 0xff
 		if sameInitial(m, a.m) == nil || b.m.Memory[off] != original {

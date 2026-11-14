@@ -1,0 +1,2210 @@
+[
+  {
+    "file": "macos/SHA256SUMS.json",
+    "raw_sha256": "e6b9f1e101a5a9e4d2c82241cb0f0736bd8f52de6b30f073d1f90fb8c3dd08ff",
+    "normalized_sha256": "e6b9f1e101a5a9e4d2c82241cb0f0736bd8f52de6b30f073d1f90fb8c3dd08ff",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/actual-tables.txt",
+    "raw_sha256": "4246dcd7b1ee5bcf160ad0b1bdbc4fc21bb1ac3fe94a074447ac446d1516e945",
+    "normalized_sha256": "4246dcd7b1ee5bcf160ad0b1bdbc4fc21bb1ac3fe94a074447ac446d1516e945",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/build-guard.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/build-negative.json",
+    "raw_sha256": "2be160761513851460f2bd10f945df21fa06895ede6da6e19f147c4b769cc0fc",
+    "normalized_sha256": "2be160761513851460f2bd10f945df21fa06895ede6da6e19f147c4b769cc0fc",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/build-negative.txt",
+    "raw_sha256": "5f39905bba074aa7b0af48256c48dd5989b78635b9b6f5447009a0bcad02f8c1",
+    "normalized_sha256": "5f39905bba074aa7b0af48256c48dd5989b78635b9b6f5447009a0bcad02f8c1",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/guest.json",
+    "raw_sha256": "c770bb707cddccf0132ca2befee66b201af5c675a53f654ce92457de69878363",
+    "normalized_sha256": "c770bb707cddccf0132ca2befee66b201af5c675a53f654ce92457de69878363",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/input.txt",
+    "raw_sha256": "568d2fa3a22716a46fa8d69bbc52933cd23cc9b1ff926a6824e463eb72d7476e",
+    "normalized_sha256": "568d2fa3a22716a46fa8d69bbc52933cd23cc9b1ff926a6824e463eb72d7476e",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/crc.txt",
+    "raw_sha256": "d62eb78958dda61c317ad14729bf811b403c65490a7c07ac76bc7d4be6a69bcc",
+    "normalized_sha256": "d62eb78958dda61c317ad14729bf811b403c65490a7c07ac76bc7d4be6a69bcc",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/output-boundary.txt",
+    "raw_sha256": "6a11efeaeff5ef0bdf7f6c140f502222f314a5fc39a6f0775681c82e9d739042",
+    "normalized_sha256": "6a11efeaeff5ef0bdf7f6c140f502222f314a5fc39a6f0775681c82e9d739042",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/output-host.txt",
+    "raw_sha256": "5a6c1dab4c62592c56576d36dd73903c80135074a4fd5a8172f6929287d5cef9",
+    "normalized_sha256": "5a6c1dab4c62592c56576d36dd73903c80135074a4fd5a8172f6929287d5cef9",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/regeneration.json",
+    "raw_sha256": "e3ef046578bb7651b93b33e9aa22fdf0db1f6fb1a7d8e59d03756435210d65ea",
+    "normalized_sha256": "e3ef046578bb7651b93b33e9aa22fdf0db1f6fb1a7d8e59d03756435210d65ea",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/regeneration.txt",
+    "raw_sha256": "3ed6112c64c9f5554c08c14689d8e88c9bb34238bdc05351c9d23ca826adaa93",
+    "normalized_sha256": "a86446c07dce499708156ed306ea6039d0008f23662b0d9eb0d138871f6da6a3",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 2
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/snapshot-smoke.txt",
+    "raw_sha256": "aad379e7b2a64858e712e62619e117bec18395755c8c673c8e0ff100744c7455",
+    "normalized_sha256": "aad379e7b2a64858e712e62619e117bec18395755c8c673c8e0ff100744c7455",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/source.json",
+    "raw_sha256": "7cbf7b40abd4e370a7fd0544ef7d43d528c65248d08f2895c6ba6801d347ceac",
+    "normalized_sha256": "7cbf7b40abd4e370a7fd0544ef7d43d528c65248d08f2895c6ba6801d347ceac",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/sql-children.json",
+    "raw_sha256": "a1b6a07f9d2e60fd8f8b72b8702ab659906f7da47dda53e33dead61f2a7085eb",
+    "normalized_sha256": "a1b6a07f9d2e60fd8f8b72b8702ab659906f7da47dda53e33dead61f2a7085eb",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/sql-children.txt",
+    "raw_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+    "normalized_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/startup-input.txt",
+    "raw_sha256": "3ec280eb23d9f42d455ca234974b866b0ccac3f4189941aa5da793fd58459870",
+    "normalized_sha256": "3ec280eb23d9f42d455ca234974b866b0ccac3f4189941aa5da793fd58459870",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/timer-source.txt",
+    "raw_sha256": "0a5b8b396e27d55a14a6763f257c6007ad0fde9abee20185638e12ad30a9bd7c",
+    "normalized_sha256": "0a5b8b396e27d55a14a6763f257c6007ad0fde9abee20185638e12ad30a9bd7c",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/timer-sql.txt",
+    "raw_sha256": "0894480997a159afafb54312472fc067ab22703c639fefed39a1e81ef20c58d6",
+    "normalized_sha256": "0894480997a159afafb54312472fc067ab22703c639fefed39a1e81ef20c58d6",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/uca-sql-children.json",
+    "raw_sha256": "6181b34da38f11e5f82d565e0ecd88200ceea88a2d79e4f79939abd1bdc53678",
+    "normalized_sha256": "6181b34da38f11e5f82d565e0ecd88200ceea88a2d79e4f79939abd1bdc53678",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/uca-sql-children.txt",
+    "raw_sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+    "normalized_sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/worker-identities.json",
+    "raw_sha256": "50f313a2691f96f98f3a02c26a48cd1baffd0eda44d1e4c6af0424cbc20383e5",
+    "normalized_sha256": "50f313a2691f96f98f3a02c26a48cd1baffd0eda44d1e4c6af0424cbc20383e5",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/worker-results.json",
+    "raw_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+    "normalized_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "macos/worker.txt",
+    "raw_sha256": "18850ceb7c25f22fa899439e379b88fd2d2bf52949ba63757a320efff9182ed9",
+    "normalized_sha256": "235a9c90f72f70d8a37c4c5b6d1f65a491e277a89a51323f1d952ec9638aeb8e",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 1
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/SHA256SUMS.json",
+    "raw_sha256": "44f5374e0aeee76b7b6d64d993f7f281bd73b7bfe610d87f63702475533fdfe6",
+    "normalized_sha256": "44f5374e0aeee76b7b6d64d993f7f281bd73b7bfe610d87f63702475533fdfe6",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/actual-tables.txt",
+    "raw_sha256": "6699c662efbac33359cd054f297277d94ea8779e562598838a74ea5f8e0dcfb5",
+    "normalized_sha256": "6699c662efbac33359cd054f297277d94ea8779e562598838a74ea5f8e0dcfb5",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/build-guard.txt",
+    "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/build-negative.json",
+    "raw_sha256": "2be160761513851460f2bd10f945df21fa06895ede6da6e19f147c4b769cc0fc",
+    "normalized_sha256": "2be160761513851460f2bd10f945df21fa06895ede6da6e19f147c4b769cc0fc",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/build-negative.txt",
+    "raw_sha256": "5f39905bba074aa7b0af48256c48dd5989b78635b9b6f5447009a0bcad02f8c1",
+    "normalized_sha256": "5f39905bba074aa7b0af48256c48dd5989b78635b9b6f5447009a0bcad02f8c1",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/crc.txt",
+    "raw_sha256": "b1fa94c000993ec50b7cbb8e50216a11f55e784fe87764f6da541a6df8d34726",
+    "normalized_sha256": "b1fa94c000993ec50b7cbb8e50216a11f55e784fe87764f6da541a6df8d34726",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/guest.json",
+    "raw_sha256": "c770bb707cddccf0132ca2befee66b201af5c675a53f654ce92457de69878363",
+    "normalized_sha256": "c770bb707cddccf0132ca2befee66b201af5c675a53f654ce92457de69878363",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/input.txt",
+    "raw_sha256": "b498229f86e91a40aadc109e299a7ea8115ce388b8e2e4ea74deaedb54793af3",
+    "normalized_sha256": "b498229f86e91a40aadc109e299a7ea8115ce388b8e2e4ea74deaedb54793af3",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/output-boundary.txt",
+    "raw_sha256": "4ceeeb206fe252851e2eea57e2c211ea565b22c22cbae0955df27cd295254e98",
+    "normalized_sha256": "4ceeeb206fe252851e2eea57e2c211ea565b22c22cbae0955df27cd295254e98",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/output-host.txt",
+    "raw_sha256": "ceaea04df3e317b5ada1b5da79033975a225030ca0dda7ef1eccbda4e96321b2",
+    "normalized_sha256": "ceaea04df3e317b5ada1b5da79033975a225030ca0dda7ef1eccbda4e96321b2",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/regeneration.json",
+    "raw_sha256": "db03aff8fc7f0add06277b1cd689d76c1761f505764a50291a59a5c39de9fc08",
+    "normalized_sha256": "db03aff8fc7f0add06277b1cd689d76c1761f505764a50291a59a5c39de9fc08",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/regeneration.txt",
+    "raw_sha256": "6f75f69aa510f1d6aaeb59df91f0298258c8d5d181d633ff55a7bf797eea886c",
+    "normalized_sha256": "a86446c07dce499708156ed306ea6039d0008f23662b0d9eb0d138871f6da6a3",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/snapshot-smoke.txt",
+    "raw_sha256": "e6330811cefb5de143db2a5663d16558b0831eabd3480f02ae5c54f2252c25aa",
+    "normalized_sha256": "e6330811cefb5de143db2a5663d16558b0831eabd3480f02ae5c54f2252c25aa",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/sql-children.json",
+    "raw_sha256": "9b1107f88578226f34a4042d450981211b89b0bcf812a2be2147bf18dcf1e133",
+    "normalized_sha256": "9b1107f88578226f34a4042d450981211b89b0bcf812a2be2147bf18dcf1e133",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/sql-children.txt",
+    "raw_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+    "normalized_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/source.json",
+    "raw_sha256": "7cbf7b40abd4e370a7fd0544ef7d43d528c65248d08f2895c6ba6801d347ceac",
+    "normalized_sha256": "7cbf7b40abd4e370a7fd0544ef7d43d528c65248d08f2895c6ba6801d347ceac",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/startup-input.txt",
+    "raw_sha256": "8f235cc0d4ffcdb68ef508a68ad319b5335215d59337d875cdb1d8d67601a65c",
+    "normalized_sha256": "8f235cc0d4ffcdb68ef508a68ad319b5335215d59337d875cdb1d8d67601a65c",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/timer-source.txt",
+    "raw_sha256": "4eac4b54565dcefaadb800613d7d60a87b8536a2062c92753a27f16045a22096",
+    "normalized_sha256": "4eac4b54565dcefaadb800613d7d60a87b8536a2062c92753a27f16045a22096",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/timer-sql.txt",
+    "raw_sha256": "5e6fa889428a8f504c76518faf457df767075cc53d11d476b765d092a12f4e7a",
+    "normalized_sha256": "5e6fa889428a8f504c76518faf457df767075cc53d11d476b765d092a12f4e7a",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/uca-sql-children.json",
+    "raw_sha256": "cacd4bd98e165b61952ee83cf60ec2e0d8f0396113cc90e4fb56de94e7386255",
+    "normalized_sha256": "cacd4bd98e165b61952ee83cf60ec2e0d8f0396113cc90e4fb56de94e7386255",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/uca-sql-children.txt",
+    "raw_sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+    "normalized_sha256": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/worker-identities.json",
+    "raw_sha256": "23dc78f386e0bad63ea545daf59e32aa3cdcd62278ab14b4a2b2e370694fba5e",
+    "normalized_sha256": "23dc78f386e0bad63ea545daf59e32aa3cdcd62278ab14b4a2b2e370694fba5e",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/worker-results.json",
+    "raw_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+    "normalized_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "file": "ubuntu/worker.txt",
+    "raw_sha256": "e61e774bf02e5aee0d6e5960add89a07ad6b8b0bc6caf5a3d6b3e2f9d30dbbb6",
+    "normalized_sha256": "235a9c90f72f70d8a37c4c5b6d1f65a491e277a89a51323f1d952ec9638aeb8e",
+    "prefix_replacements": [
+      {
+        "source_prefix_codepoints": [
+          47,
+          85,
+          115,
+          101,
+          114,
+          115,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 0
+      },
+      {
+        "source_prefix_codepoints": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47
+        ],
+        "target_prefix": "${RUNNER_HOME}/",
+        "count": 1
+      }
+    ]
+  }
+]

@@ -29,7 +29,7 @@ func validatePrepared(r guest.Result, generation uint32) error {
 	if r.Version != 2 || r.PreparedVersion != preparedproto.Version || generation == 0 || r.SessionGeneration != generation {
 		return errors.New("prepared API/session identity mismatch")
 	}
-	if r.Results != nil || (!r.OK && (r.Errno == 0 || len(r.SQLState) != 5)) {
+	if r.Results != nil || (!r.OK && (r.Errno == 0 || len(r.SQLState) != 5 || r.RawRowsPresent || r.RawRows != nil)) {
 		return errors.New("invalid prepared result envelope")
 	}
 	return nil
@@ -44,7 +44,7 @@ func preparePackets(r guest.Result, generation, wireID uint32) ([][]byte, error)
 	if !r.OK {
 		return packets(r)
 	}
-	if r.BinaryRows || r.Rows != nil || wireID == 0 || r.StatementID == 0 || r.ParamCount > 65535 || uint32(len(r.Parameters)) != r.ParamCount || len(r.Columns) > 65535 {
+	if r.BinaryRows || (r.RowsPresent || r.Rows != nil || r.RawRowsPresent || r.RawRows != nil) || wireID == 0 || r.StatementID == 0 || r.ParamCount > 65535 || uint32(len(r.Parameters)) != r.ParamCount || len(r.Columns) > 65535 {
 		return nil, errors.New("invalid prepared metadata")
 	}
 	b := append([]byte{0}, le32(wireID)...)

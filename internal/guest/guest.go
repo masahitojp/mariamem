@@ -38,6 +38,9 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
+	RawRows            []string  `json:"raw_rows,omitempty"`
+	RowsPresent        bool      `json:"-"`
+	RawRowsPresent     bool      `json:"-"`
 	BinaryRows         bool      `json:"binary_rows"`
 	PreparedOperations []uint8   `json:"prepared_operations"`
 	PreparedVersion    int       `json:"prepared_version"`
@@ -71,8 +74,16 @@ func (r *Result) UnmarshalJSON(data []byte) error {
 	type fields Result
 	var decoded struct {
 		fields
-		Status json.RawMessage `json:"server_status"`
+		Status  json.RawMessage `json:"server_status"`
+		Rows    *[][]*Cell      `json:"rows"`
+		RawRows *[]string       `json:"raw_rows"`
 	}
+	// A missing field leaves the pointer to a nil slice intact; JSON null
+	// clears the pointer, and [] creates a non-nil empty slice. Decode once
+	// while retaining the distinction needed to reject mixed row formats.
+	var rows [][]*Cell
+	var rawRows []string
+	decoded.Rows, decoded.RawRows = &rows, &rawRows
 	if err := json.Unmarshal(data, &decoded); err != nil {
 		return err
 	}
@@ -85,7 +96,16 @@ func (r *Result) UnmarshalJSON(data []byte) error {
 			return fmt.Errorf("invalid server_status: %w", err)
 		}
 	}
+	if decoded.RawRows == nil {
+		return errors.New("null raw_rows")
+	}
 	decoded.fields.Status = uint16(status)
+	decoded.fields.RowsPresent = decoded.Rows == nil || *decoded.Rows != nil
+	if decoded.Rows != nil {
+		decoded.fields.Rows = *decoded.Rows
+	}
+	decoded.fields.RawRowsPresent = *decoded.RawRows != nil
+	decoded.fields.RawRows = *decoded.RawRows
 	*r = Result(decoded.fields)
 	return nil
 }

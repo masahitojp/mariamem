@@ -21,7 +21,7 @@ import (
 )
 
 // The source guard pins these actual guest bodies and their unchanged data.
-const dictionaryLatch int32 = 18662528
+const dictionaryLatch int32 = 18661504
 
 type dictionaryWriter struct {
 	base.Wasi_snapshot_preview1Imports
@@ -69,13 +69,13 @@ func dictionaryFlags(m *base.Module) int32 {
 }
 func dictionaryLock(m *base.Module) {
 	if base.AtomicRmwCmpxchg32(m, dictionaryLatch, 0, 0, 2147483647) != 0 {
-		p6.Fn17733(m)
+		p6.Fn17730(m)
 	}
 	dictionaryRequire(m.ExcPending == 0, "owner lock exception")
 }
 
 // Same exclusive CAS/wake as the guest. Only the harness owner uses this;
-// Fn17744 retains its own original lock and unlock implementation.
+// Fn17741 retains its own original lock and unlock implementation.
 func dictionaryUnlock(m *base.Module) {
 	for {
 		waiters := atomic.LoadInt32(dictionaryWord(m, dictionaryLatch+4))
@@ -111,8 +111,8 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 						// Suppress only this controlled pool's periodic rescue timer via
 						// its existing virtual start method. No notification is injected.
 						m.T0 = append([]any(nil), m.T0...)
-						timerIndex := *dictionaryWord(m, 16856344)
-						dictionaryRequire(timerIndex == 12330, "timer virtual method binding")
+						timerIndex := *dictionaryWord(m, 16855320)
+						dictionaryRequire(timerIndex == 12329, "timer virtual method binding")
 						originalTimer := m.T0[timerIndex]
 						starts := 0
 						m.T0[timerIndex] = func(c *base.Module, timer, delay, period int32) {
@@ -120,12 +120,12 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							starts++
 							poolAddress.Store(*dictionaryWord(c, timer+164))
 						}
-						pool := p3.Fn16610(m)
+						pool := p3.Fn16607(m)
 						m.T0[timerIndex] = originalTimer
 						dictionaryRequire(pool != 0 && m.ExcPending == 0 && starts == 1 && poolAddress.Load() == pool, "controlled pool constructor")
-						p8.Fn16604(m, pool, int32(concurrency))
+						p8.Fn16601(m, pool, int32(concurrency))
 						dictionaryRequire(*dictionaryWord(m, pool+344) == int32(concurrency), "effective concurrency")
-						p5.Fn16603(m, pool) // Prime empty maintenance timestamp before queuing.
+						p5.Fn16600(m, pool) // Prime empty maintenance timestamp before queuing.
 						initEntered, initRelease := make(chan struct{}), make(chan struct{})
 						aDone, bDone, bRelease := make(chan struct{}), make(chan struct{}), make(chan struct{})
 						ownerRelease := make(chan struct{})
@@ -141,7 +141,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 								dictionaryUnlock(m)
 							}
 							if pool != 0 {
-								p8.Fn16609(m, pool)
+								p8.Fn16606(m, pool)
 							}
 						}()
 						var created, retired, refs atomic.Int32
@@ -165,20 +165,20 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 						*dictionaryWord(m, pool+16) = add(func(c *base.Module) { originalDestroy(c); retired.Add(1) })
 						*dictionaryWord(m, table) = add(func(*base.Module, int32) { refs.Add(1) })
 						*dictionaryWord(m, table+4) = add(func(*base.Module, int32) { refs.Add(-1) })
-						*dictionaryWord(m, table+8) = add(p6.Fn16586)
+						*dictionaryWord(m, table+8) = add(p6.Fn16583)
 						*dictionaryWord(m, taskA) = table
 						*dictionaryWord(m, taskB) = table
 						waiting := func(c *base.Module) int32 {
-							p7.Fn16559(c, pool+184)
+							p8.Fn16556(c, pool+184)
 							n := *dictionaryWord(c, pool+372)
-							p7.Fn16561(c, pool+184)
+							p8.Fn16558(c, pool+184)
 							return n
 						}
-						dictionaryRequire(*dictionaryWord(m, 18662604) < *dictionaryWord(m, 27744792), "dictionary below eviction threshold")
+						dictionaryRequire(*dictionaryWord(m, 18661580) < *dictionaryWord(m, 27743768), "dictionary below eviction threshold")
 						evict := func(c *base.Module) {
 							tls.Store(c.G1)
 							dictionaryRequire(dictionaryFlags(c)&6 == 0, "caller is neither WAITING nor LONG")
-							n := p6.Fn17744(c, 0) // Actual patched C guest; no begin/end supplied here.
+							n := p6.Fn17741(c, 0) // Actual patched C guest; no begin/end supplied here.
 							dictionaryRequire(c.ExcPending == 0 && n == 0, "normal eviction without dictionary mutation")
 							dictionaryRequire(dictionaryFlags(c)&6 == 0, "WAITING/LONG restored by guest")
 						}
@@ -191,7 +191,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 								dictionaryUnlock(c)
 								close(aDone)
 							})
-							p7.Fn16605(m, pool, taskA)
+							p7.Fn16602(m, pool, taskA)
 							dictionaryWait(ownerReady, "nonpool owner ready")
 							dictionaryRequire(*dictionaryWord(m, m.G1+392) == 0 && *dictionaryWord(m, m.G1+396) == 0, "nonpool TLS")
 							helperDone := make(chan struct{})
@@ -211,17 +211,17 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							}
 							*dictionaryWord(m, taskA+4) = add(func(c *base.Module, _ int32) { evict(c); close(aDone) })
 							*dictionaryWord(m, taskB+4) = add(func(*base.Module, int32) { close(bDone); dictionaryWait(bRelease, "queued task release") })
-							p7.Fn16605(m, pool, taskA)
+							p7.Fn16602(m, pool, taskA)
 							dictionaryWait(initEntered, "initial worker")
 							if mode != "late-submit" {
-								p7.Fn16605(m, pool, taskB)
+								p7.Fn16602(m, pool, taskB)
 							}
 							initOnce.Do(func() { close(initRelease) })
 							if mode != "uncontended" {
 								dictionaryWait(parked, "actual dictionary futex")
 							}
 							if mode == "late-submit" {
-								p7.Fn16605(m, pool, taskB)
+								p7.Fn16602(m, pool, taskB)
 							}
 							dictionaryWait(bDone, "queued progress without timer or owner release")
 							expected := int32(1)
@@ -243,7 +243,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							bOnce.Do(func() { close(bRelease) })
 						}
 						// Join before checking retirement, refs, or releasing task storage.
-						p8.Fn16609(m, pool)
+						p8.Fn16606(m, pool)
 						// Prevent the deferred failure cleanup from disposing twice.
 						pool = 0
 						expectedWorkers := int32(2)
@@ -257,7 +257,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							dictionaryRequire(futexes.Load() > 0, "actual contended futex")
 						}
 						for _, p := range []int32{taskA, taskB, table} {
-							p8.Fn153(m, p)
+							p3.Fn153(m, p)
 						}
 					}
 					tap := func(c *base.Module, address int32) {

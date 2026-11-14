@@ -1,8 +1,8 @@
 /* Public embedded statement owner. Included after wire_core in wire_api.inc.
- * Internal request: 'P','S',version1,operation,u32 generation,u32 handle,
+ * Internal request: 'P','S',version2,operation,u32 generation,u32 handle,
  * u32 payload length,payload. Never export MYSQL_STMT pointers.
  */
-#define PS_VERSION 1
+#define PS_VERSION 2
 #define PS_HEADER 16
 #define PS_MAX_ENVELOPE (32U << 20)
 #define PS_MAX_SQL (1U << 20)
@@ -48,7 +48,7 @@ static ps_buffers *ps_buffers_new(unsigned int count)
 typedef struct ps_entry {
   MYSQL_STMT *stmt;
   uint32_t id;
-  ps_buffers *parameters, *results;
+  ps_buffers *parameters;
   unsigned char *long_data;
   int deferred_long_error;
   struct ps_entry *next;
@@ -69,7 +69,7 @@ static int ps_clear(void)
     ps_entry *e= ps_entries;
     ps_entries= e->next;
     if (e->stmt && mysql_stmt_close(e->stmt)) failed= 1;
-    ps_buffers_free(e->parameters);ps_buffers_free(e->results);free(e->long_data);
+    ps_buffers_free(e->parameters);free(e->long_data);
     free(e);
   }
   return failed;
@@ -144,10 +144,6 @@ static uint64_t ps_uint(const unsigned char *p,unsigned int n)
   for (unsigned int i=0;i<n;++i) v|=(uint64_t)p[i]<<(8*i);
   return v;
 }
-static void ps_little(unsigned char *p,uint64_t v,unsigned int n)
-{
-  for (unsigned int i=0;i<n;++i) p[i]=(unsigned char)(v>>(8*i));
-}
 /* Check the entire independent envelope before allocation or native binding. */
 static int ps_check_values(const unsigned char *data,size_t size,unsigned long count)
 {
@@ -213,81 +209,6 @@ static ps_buffers *ps_parameters(const unsigned char *data,unsigned int count)
   }
   return p;
 }
-static unsigned int ps_time_output(unsigned char *p,const MYSQL_TIME *t,unsigned int type)
-{
-  if (type==11) {
-    if (!t->day && !t->hour && !t->minute && !t->second && !t->second_part) return 0;
-    p[0]=t->neg!=0;ps_little(p+1,(uint64_t)t->day+t->hour/24,4);
-    p[5]=(unsigned char)(t->hour%24);p[6]=(unsigned char)t->minute;p[7]=(unsigned char)t->second;
-    if (t->second_part) {ps_little(p+8,t->second_part,4);return 12;}
-    return 8;
-  }
-  if (!t->year && !t->month && !t->day && !t->hour && !t->minute && !t->second && !t->second_part) return 0;
-  ps_little(p,t->year,2);p[2]=(unsigned char)t->month;p[3]=(unsigned char)t->day;
-  if (type==10 || type==14) return 4;
-  p[4]=(unsigned char)t->hour;p[5]=(unsigned char)t->minute;p[6]=(unsigned char)t->second;
-  if (t->second_part) {ps_little(p+7,t->second_part,4);return 11;}
-  return t->hour || t->minute || t->second ? 7 : 4;
-}
-static ps_buffers *ps_result_bindings(MYSQL_RES *meta)
-{
-  unsigned int count=mysql_num_fields(meta);MYSQL_FIELD *fields=mysql_fetch_fields(meta);
-  if (count && !fields) return NULL;
-  ps_buffers *p=ps_buffers_new(count);
-  if (!p) return NULL;
-  for (unsigned int i=0;i<count;++i) {
-    MYSQL_BIND *b=p->bind+i;ps_slot *s=p->slots+i;unsigned int type=fields[i].type;int shape=ps_shape(type);
-    if (shape==-3) {ps_buffers_free(p);return NULL;}
-    b->buffer_type=(enum enum_field_types)type;b->is_unsigned=(fields[i].flags&32)!=0;
-    b->buffer=&s->value;
-    if (shape>=0) {
-      if (type==13) b->buffer_type=MYSQL_TYPE_SHORT;
-      if (type==9) b->buffer_type=MYSQL_TYPE_LONG;
-      b->buffer_length=(unsigned long)shape;
-    } else if (shape==-2) {
-      if (type==14) b->buffer_type=MYSQL_TYPE_DATE;
-      b->buffer_length=sizeof(MYSQL_TIME);
-    } else {
-      /* One-byte scratch satisfies the pinned API's nonzero-buffer assertion;
-       * actual lengths drive checked fetch_column, never truncated success. */
-      b->buffer_type=MYSQL_TYPE_BLOB;b->buffer=&s->value.u8;b->buffer_length=1;
-    }
-  }
-  return p;
-}
-static int ps_cell(buf_t *b,MYSQL_STMT *stmt,ps_buffers *p,MYSQL_FIELD *fields,unsigned int i)
-{
-  ps_slot *s=p->slots+i;unsigned int type=fields[i].type;int shape=ps_shape(type);
-  unsigned char raw[12];const unsigned char *bytes=raw;unsigned long n=0;
-  if (s->null_value) return buf_puts(b,"null");
-  if (shape>=0) {
-    if (!shape || s->error || s->length!=(unsigned long)shape) return 1;
-    n=(unsigned long)shape;
-    if (type==4) {uint32_t v;memcpy(&v,&s->value.f32,4);ps_little(raw,v,4);}
-    else if (type==5) {uint64_t v;memcpy(&v,&s->value.f64,8);ps_little(raw,v,8);}
-    else if (n==1) ps_little(raw,s->value.u8,1);
-    else if (n==2) ps_little(raw,s->value.u16,2);
-    else if (n==4) ps_little(raw,s->value.u32,4);
-    else ps_little(raw,s->value.u64,8);
-  } else if (shape==-2) {
-    if (s->error || s->length!=sizeof(MYSQL_TIME)) return 1;
-    n=ps_time_output(raw,&s->value.time,type);
-  } else {
-    n=s->length;
-    if (b->n>PS_MAX_ENVELOPE-512 || n>(PS_MAX_ENVELOPE-512-b->n)/2) return 1;
-    if (n) {
-      unsigned char *full=malloc(n);
-      if (!full) return 1;
-      MYSQL_BIND column=p->bind[i];my_bool null_value=0,error=0;unsigned long length=0;
-      column.buffer=full;column.buffer_length=n;column.length=&length;column.is_null=&null_value;column.error=&error;
-      int failed=mysql_stmt_fetch_column(stmt,&column,i,0) || null_value || error || length!=n;
-      if (!failed) failed=buf_puts(b,"{\"$h\":") || buf_put_json_hex(b,(const char *)full,n) || buf_putc(b,'}');
-      free(full);return failed;
-    }
-  }
-  if (b->n>PS_MAX_ENVELOPE-512 || n>(PS_MAX_ENVELOPE-512-b->n)/2) return 1;
-  return buf_puts(b,"{\"$h\":") || buf_put_json_hex(b,(const char *)bytes,n) || buf_putc(b,'}');
-}
 static char *ps_capture_result(MYSQL *db,ps_entry *e)
 {
   unsigned int columns=mysql_stmt_field_count(e->stmt);
@@ -298,26 +219,25 @@ static char *ps_capture_result(MYSQL *db,ps_entry *e)
            e->id,(unsigned long long)mysql_stmt_affected_rows(e->stmt),(unsigned long long)mysql_stmt_insert_id(e->stmt));
   int failed=buf_puts(&b,text);
   if (!failed && meta) {
-    ps_buffers *bindings=ps_result_bindings(meta);
-    if (!bindings) failed=1;
-    else if (mysql_stmt_bind_result(e->stmt,bindings->bind)) {
-      mysql_stmt_close(e->stmt);e->stmt=NULL;ps_buffers_free(bindings);failed=1;
-    } else {
-      ps_buffers_free(e->results);e->results=bindings;
-      if (mysql_stmt_store_result(e->stmt)) {error=ps_error(e->stmt);failed=1;}
-      if (!failed) failed=buf_puts(&b,",\"columns\":") || ps_columns(&b,meta) || buf_puts(&b,",\"rows\":[");
-      unsigned int first=1;
-      while (!failed) {
-        int rc=mysql_stmt_fetch(e->stmt);
-        if (rc==MYSQL_NO_DATA) break;
-        if (rc!=0 && rc!=MYSQL_DATA_TRUNCATED) {error=ps_error(e->stmt);failed=1;break;}
-        failed=(!first && buf_putc(&b,',')) || buf_putc(&b,'[');first=0;
-        for (unsigned int i=0;!failed && i<columns;++i)
-          failed=(i && buf_putc(&b,',')) || ps_cell(&b,e->stmt,bindings,mysql_fetch_fields(meta),i);
-        if (!failed) failed=buf_putc(&b,']');
-      }
-      if (!failed) failed=buf_putc(&b,']');
+    if (mysql_stmt_store_result(e->stmt)) {error=ps_error(e->stmt);failed=1;}
+    if (!failed) failed=buf_puts(&b,",\"columns\":") || ps_columns(&b,meta) || buf_puts(&b,",\"raw_rows\":[");
+    MYSQL_ROWS *row=e->stmt->result.data;
+    unsigned long long count=e->stmt->result.rows;
+    size_t minimum=1+(columns+9)/8;
+    if (count>PS_MAX_ENVELOPE/(2*minimum+3)) failed=1;
+    for (unsigned long long i=0;!failed && i<count;++i) {
+      if (!row || !row->data || row->length<minimum || row->length>0xfffffeU ||
+          b.n>PS_MAX_ENVELOPE-512 || row->length>(PS_MAX_ENVELOPE-512-b.n)/2) {failed=1;break;}
+      failed=(i && buf_putc(&b,',')) || buf_puts(&b,"\"00");
+      const unsigned char *data=(const unsigned char *)row->data;
+      static const char hex[]="0123456789abcdef";
+      for (unsigned long j=0;!failed && j<row->length-1;++j)
+        failed=buf_putc(&b,hex[data[j]>>4]) || buf_putc(&b,hex[data[j]&15]);
+      if (!failed) failed=buf_putc(&b,'"');
+      row=row->next;
     }
+    if (!failed && row) failed=1;
+    if (!failed) failed=buf_putc(&b,']');
   }
   if (meta) mysql_free_result(meta);
 
@@ -516,7 +436,7 @@ static char *ps_dispatch(MYSQL *db, const unsigned char *data, size_t size)
       while (*link != e) link= &(*link)->next;
       *link= e->next;
       int failed= mysql_stmt_close(e->stmt);
-      ps_buffers_free(e->parameters);ps_buffers_free(e->results);free(e->long_data);
+      ps_buffers_free(e->parameters);free(e->long_data);
       free(e);
       if (failed) return NULL;
     }

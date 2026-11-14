@@ -1,0 +1,527 @@
+{
+  "runner_sha256": "63eccd038f2cd6711938e3d0631c688f177bc0df2c2c09b252abfc2b62a32f58",
+  "runner_source_commit": "6a85fd1b64af2215326d52e80a9cc55c1be9a908",
+  "python": "3.11.18",
+  "scope": "single-machine prepared output query time + retained RSS; no threshold or total upgrade-cost claim",
+  "platform": "macOS-27.2.1-arm64-arm-64bit",
+  "client": "26.7.0",
+  "pairs": 5,
+  "iterations": 7,
+  "hosts": {
+    "baseline": {
+      "sha256": "8dbc9a2b77a6a76f9f7ea611ff6f91cdd1a67a24c5f98e9a167e79a1b9bc38a9",
+      "source_commit": "eb175ae23292c1c40cfbeb4b9b73132873c4cc6f",
+      "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261113021719-eb175ae23292\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=eb175ae23292c1c40cfbeb4b9b73132873c4cc6f\n\tbuild\tvcs.time=2026-11-13T02:17:19Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate": {
+      "sha256": "cc62f050b17123bf87ba3c3b4ec962af8ffb751820509f6dbcafa47b01ad2a40",
+      "source_commit": "d0aca17352708c5cb85812e0f4c11b228d3006e7",
+      "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261113164426-d0aca1735270\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d0aca17352708c5cb85812e0f4c11b228d3006e7\n\tbuild\tvcs.time=2026-11-13T16:44:26Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "runs": [
+    {
+      "pair": 0,
+      "variant": "baseline",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            1171417,
+            713083,
+            1167000,
+            777708,
+            647042,
+            730584,
+            689042
+          ],
+          "median_ns": 730584,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            38561125,
+            38476500,
+            31947708,
+            32660375,
+            37833166,
+            31457500,
+            34675208
+          ],
+          "median_ns": 34675208,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            8947208,
+            6779500,
+            7119000,
+            10613584,
+            8162958,
+            8019459,
+            17468167
+          ],
+          "median_ns": 8162958,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 89168
+    },
+    {
+      "pair": 0,
+      "variant": "candidate",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            1574375,
+            2078208,
+            2995750,
+            1616917,
+            1419667,
+            1470833,
+            1557375
+          ],
+          "median_ns": 1574375,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            35307084,
+            29817750,
+            52083709,
+            34728208,
+            27566084,
+            31343750,
+            24056792
+          ],
+          "median_ns": 31343750,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            7897041,
+            7288666,
+            7238875,
+            7238209,
+            7051542,
+            7099875,
+            6994250
+          ],
+          "median_ns": 7238209,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 125792
+    },
+    {
+      "pair": 1,
+      "variant": "candidate",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            725583,
+            636083,
+            670292,
+            725125,
+            717750,
+            615042,
+            735583
+          ],
+          "median_ns": 717750,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            28694375,
+            100327666,
+            32922709,
+            32714042,
+            42491917,
+            34523458,
+            37556084
+          ],
+          "median_ns": 34523458,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            7301333,
+            7158334,
+            7783875,
+            7915708,
+            7742292,
+            6962083,
+            7408750
+          ],
+          "median_ns": 7408750,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 125968
+    },
+    {
+      "pair": 1,
+      "variant": "baseline",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            696458,
+            1169792,
+            1220500,
+            895833,
+            2283708,
+            2238375,
+            1634875
+          ],
+          "median_ns": 1220500,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            32973250,
+            50337083,
+            42565584,
+            37825541,
+            33923667,
+            72005667,
+            67064000
+          ],
+          "median_ns": 42565584,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            11971834,
+            6990416,
+            10211834,
+            10932375,
+            9067542,
+            7429542,
+            6270625
+          ],
+          "median_ns": 9067542,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 126528
+    },
+    {
+      "pair": 2,
+      "variant": "baseline",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            1213083,
+            1389708,
+            1425958,
+            2108917,
+            3787125,
+            958750,
+            1420333
+          ],
+          "median_ns": 1420333,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            39597583,
+            33311750,
+            34786333,
+            37320167,
+            36292584,
+            33087625,
+            30816917
+          ],
+          "median_ns": 34786333,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            7181375,
+            7193916,
+            7159292,
+            6498583,
+            10379416,
+            6354625,
+            6341625
+          ],
+          "median_ns": 7159292,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 126512
+    },
+    {
+      "pair": 2,
+      "variant": "candidate",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            1472875,
+            1863375,
+            2996167,
+            1894333,
+            2253250,
+            2084500,
+            1722459
+          ],
+          "median_ns": 1894333,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            33781292,
+            28190958,
+            28155667,
+            29732458,
+            28309042,
+            123075584,
+            40279500
+          ],
+          "median_ns": 29732458,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            8827542,
+            7347250,
+            7470750,
+            7598834,
+            8533083,
+            7172833,
+            7179958
+          ],
+          "median_ns": 7470750,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 123744
+    },
+    {
+      "pair": 3,
+      "variant": "candidate",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            2132500,
+            2674750,
+            1913375,
+            1615875,
+            2402375,
+            1205292,
+            2112000
+          ],
+          "median_ns": 2112000,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            28016208,
+            27455083,
+            29010208,
+            30278833,
+            34368708,
+            30209667,
+            43803125
+          ],
+          "median_ns": 30209667,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            11199625,
+            14073292,
+            12194166,
+            14477917,
+            17913125,
+            22270209,
+            9430625
+          ],
+          "median_ns": 14073292,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 123808
+    },
+    {
+      "pair": 3,
+      "variant": "baseline",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            1270041,
+            835500,
+            775125,
+            900041,
+            1465250,
+            1541209,
+            1514458
+          ],
+          "median_ns": 1270041,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            28016750,
+            26854917,
+            26601459,
+            36489500,
+            34750958,
+            34249250,
+            33746708
+          ],
+          "median_ns": 33746708,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            6523750,
+            6195583,
+            7154083,
+            6994208,
+            5773208,
+            6120625,
+            6122375
+          ],
+          "median_ns": 6195583,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 126736
+    },
+    {
+      "pair": 4,
+      "variant": "baseline",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            2054667,
+            2791042,
+            4400209,
+            1872417,
+            3085667,
+            1933250,
+            2731542
+          ],
+          "median_ns": 2731542,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            56771333,
+            40985125,
+            53278542,
+            54997958,
+            35384625,
+            38344334,
+            55929750
+          ],
+          "median_ns": 53278542,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            14061834,
+            13122667,
+            15995583,
+            12908459,
+            15154875,
+            14277834,
+            14131625
+          ],
+          "median_ns": 14131625,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 124800
+    },
+    {
+      "pair": 4,
+      "variant": "candidate",
+      "cases": {
+        "one": {
+          "samples_ns": [
+            1767458,
+            1566792,
+            1568417,
+            1429250,
+            1141125,
+            1213708,
+            1087125
+          ],
+          "median_ns": 1429250,
+          "fingerprint": "7749f3fd9c7a2476bafae42330bf7622b1bb07aa5e500eb1d3f06c74b8f9cb62"
+        },
+        "thousand": {
+          "samples_ns": [
+            28557416,
+            36873375,
+            27233416,
+            52056333,
+            40884667,
+            28373125,
+            43524709
+          ],
+          "median_ns": 36873375,
+          "fingerprint": "09a5ef4c9e4c75403ad0d2acb27e15010345b85ef9c5a02f2786a9df98b98d52"
+        },
+        "blob64k": {
+          "samples_ns": [
+            39251958,
+            26666833,
+            98385500,
+            13773875,
+            14573625,
+            17448792,
+            15945584
+          ],
+          "median_ns": 17448792,
+          "fingerprint": "9e7355c29cfa926192936dd07e6d576782563087d31c7ece52da728029a2a0ea"
+        }
+      },
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "retained_rss_kib": 63520
+    }
+  ],
+  "ratios": {
+    "one": {
+      "candidate_over_baseline_by_pair": [
+        2.1549541188966637,
+        0.5880786562884064,
+        1.33372455614282,
+        1.662938440570029,
+        0.523239254604176
+      ],
+      "median_ratio": 1.33372455614282
+    },
+    "thousand": {
+      "candidate_over_baseline_by_pair": [
+        0.9039239216676076,
+        0.8110650613885622,
+        0.8547166497831202,
+        0.8951885617998651,
+        0.6920867879605264
+      ],
+      "median_ratio": 0.8547166497831202
+    },
+    "blob64k": {
+      "candidate_over_baseline_by_pair": [
+        0.8867139828478843,
+        0.8170626615239279,
+        1.0435040224647911,
+        2.2715040699156157,
+        1.2347335851326369
+      ],
+      "median_ratio": 1.0435040224647911
+    }
+  },
+  "correctness": "PASS: every measured result and metadata name/type matches expected values and peer"
+}

@@ -1,0 +1,14 @@
+${WORKSPACE}/artifacts/baseline-host: go1.26.10
+	path	github.com/masahitojp/mariamem/cmd/mariamem-host
+	mod	github.com/masahitojp/mariamem	v0.6.3-0.20261113021719-eb175ae23292	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=eb175ae23292c1c40cfbeb4b9b73132873c4cc6f
+	build	vcs.time=2026-11-13T02:17:19Z
+	build	vcs.modified=false

@@ -1,0 +1,17 @@
+[
+  {
+    "tag": "mariadb-11.4.13",
+    "tag_object_sha": "c02896e01b3e282f2377c70a5dcc38811716b1b3",
+    "source_commit": "170b1d70737be6f134448f51713cdc1ae215b420"
+  },
+  {
+    "tag": "mariadb-11.8.9",
+    "tag_object_sha": "7e2a4ce676800d6d898e98100f88c7f0ad6db386",
+    "source_commit": "bf9193a939f515e95dd8def1a5468088c91cede6"
+  },
+  {
+    "tag": "mariadb-12.3.3",
+    "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+  }
+]

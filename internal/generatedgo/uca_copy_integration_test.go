@@ -117,7 +117,7 @@ func TestUCACopyActualGuest(t *testing.T) {
 				m, release, err := newMemoryModule(h)
 				if err == nil && tc.corrupt {
 					// Exact canonical flag table in this guest, not an inferred match.
-					const address = 10144192
+					const address = 10143200
 					const size = 12288
 					if fmt.Sprintf("%x", sha256.Sum256(m.Memory[address:address+size])) != "ef290f39feb57991e9871bbc5d58d78f8e42e6db73c477f25920493cebba6a0f" {
 						release()

@@ -1,0 +1,83 @@
+=== RUN   TestDictionaryWaitActualGuest
+=== RUN   TestDictionaryWaitActualGuest/pending/P1/0
+=== RUN   TestDictionaryWaitActualGuest/pending/P1/1
+=== RUN   TestDictionaryWaitActualGuest/pending/P1/2
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P1/0
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P1/1
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P1/2
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P1/0
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P1/1
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P1/2
+=== RUN   TestDictionaryWaitActualGuest/nonpool/P1/0
+=== RUN   TestDictionaryWaitActualGuest/nonpool/P1/1
+=== RUN   TestDictionaryWaitActualGuest/nonpool/P1/2
+=== RUN   TestDictionaryWaitActualGuest/pending/P16/0
+=== RUN   TestDictionaryWaitActualGuest/pending/P16/1
+=== RUN   TestDictionaryWaitActualGuest/pending/P16/2
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P16/0
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P16/1
+=== RUN   TestDictionaryWaitActualGuest/late-submit/P16/2
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P16/0
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P16/1
+=== RUN   TestDictionaryWaitActualGuest/uncontended/P16/2
+--- PASS: TestDictionaryWaitActualGuest (0.55s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P1/0 (0.04s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P1/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P1/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/nonpool/P1/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/nonpool/P1/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/nonpool/P1/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P16/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P16/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/pending/P16/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P16/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P16/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/late-submit/P16/2 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P16/0 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P16/1 (0.02s)
+    --- PASS: TestDictionaryWaitActualGuest/uncontended/P16/2 (0.02s)
+=== RUN   TestPreparedLexerTablesActualGuest
+=== RUN   TestPreparedLexerTablesActualGuest/normal_ambient_ignored
+=== RUN   TestPreparedLexerTablesActualGuest/profiling_does_not_verify
+    lexer_prepared_integration_test.go:175: ordinary profiling diagnostics: 
+=== RUN   TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors
+=== RUN   TestPreparedLexerTablesActualGuest/corrupt_table_rejected
+--- PASS: TestPreparedLexerTablesActualGuest (0.11s)
+    --- PASS: TestPreparedLexerTablesActualGuest/normal_ambient_ignored (0.02s)
+    --- PASS: TestPreparedLexerTablesActualGuest/profiling_does_not_verify (0.02s)
+    --- PASS: TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors (0.03s)
+    --- PASS: TestPreparedLexerTablesActualGuest/corrupt_table_rejected (0.03s)
+=== RUN   TestUCACopyActualGuest
+=== RUN   TestUCACopyActualGuest/normal_ambient_ignored
+=== RUN   TestUCACopyActualGuest/profiling_does_not_verify
+    uca_copy_integration_test.go:156: ordinary profiling diagnostics: 
+=== RUN   TestUCACopyActualGuest/fifteen_default_levels
+=== RUN   TestUCACopyActualGuest/corruption_without_verifier
+=== RUN   TestUCACopyActualGuest/corrupt_table_rejected
+--- PASS: TestUCACopyActualGuest (0.11s)
+    --- PASS: TestUCACopyActualGuest/normal_ambient_ignored (0.02s)
+    --- PASS: TestUCACopyActualGuest/profiling_does_not_verify (0.02s)
+    --- PASS: TestUCACopyActualGuest/fifteen_default_levels (0.04s)
+    --- PASS: TestUCACopyActualGuest/corruption_without_verifier (0.02s)
+    --- PASS: TestUCACopyActualGuest/corrupt_table_rejected (0.00s)
+=== RUN   TestPreparedUCATablesActualGuest
+=== RUN   TestPreparedUCATablesActualGuest/normal_ambient_ignored
+=== RUN   TestPreparedUCATablesActualGuest/profiling_does_not_verify
+    uca_prepared_integration_test.go:186: ordinary profiling diagnostics: 
+=== RUN   TestPreparedUCATablesActualGuest/six_resolved_tables
+=== RUN   TestPreparedUCATablesActualGuest/corrupt_table_rejected
+--- PASS: TestPreparedUCATablesActualGuest (0.46s)
+    --- PASS: TestPreparedUCATablesActualGuest/normal_ambient_ignored (0.02s)
+    --- PASS: TestPreparedUCATablesActualGuest/profiling_does_not_verify (0.02s)
+    --- PASS: TestPreparedUCATablesActualGuest/six_resolved_tables (0.05s)
+    --- PASS: TestPreparedUCATablesActualGuest/corrupt_table_rejected (0.37s)
+=== RUN   TestWorkerTrapActualGuestNotifiesAndIsolatesPeer
+--- PASS: TestWorkerTrapActualGuestNotifiesAndIsolatesPeer (0.04s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	2.139s

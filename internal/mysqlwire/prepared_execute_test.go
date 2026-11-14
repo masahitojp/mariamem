@@ -16,7 +16,7 @@ import (
 func TestExecuteSessionTypesOwnershipAndErrors(t *testing.T) {
 	open := preparedOpen(7)
 	open.PreparedOperations = []byte{22, 23, 25, 26}
-	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	s, err := newPreparedSession(open, 2, open.PreparedOperations)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -37,7 +37,7 @@ func TestExecuteSessionTypesOwnershipAndErrors(t *testing.T) {
 		if err != nil || !values[0].Unsigned || !bytes.Equal(values[0].Bytes, bytes.Repeat([]byte{255}, 8)) {
 			t.Fatalf("typed input %+v %v", values, err)
 		}
-		return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 3, Affected: "18446744073709551615", InsertID: "9007199254740993"}, nil
+		return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 3, Affected: "18446744073709551615", InsertID: "9007199254740993"}, nil
 	}
 	packets, err := s.handle(23, payload, call)
 	if err != nil || len(packets) != 1 || packets[0][0] != 0 || s.status != 3 {
@@ -75,7 +75,7 @@ func TestExecuteSessionTypesOwnershipAndErrors(t *testing.T) {
 	// SQL failure keeps the descriptors consumed by the engine and returns its
 	// original errno/state, preserving healthy following executions.
 	reply, err = s.handle(23, payload, func([]byte, bool) (guest.Result, error) {
-		return guest.Result{Version: 2, PreparedVersion: 1, SessionGeneration: 7, Errno: 1062, SQLState: "23000", Error: "duplicate", Status: 3}, nil
+		return guest.Result{Version: 2, PreparedVersion: 2, SessionGeneration: 7, Errno: 1062, SQLState: "23000", Error: "duplicate", Status: 3}, nil
 	})
 	if err != nil || binary.LittleEndian.Uint16(reply[0][1:]) != 1062 {
 		t.Fatal("SQL error", err)
@@ -133,14 +133,20 @@ func TestPreparedResultPacketsMatchNativeValues(t *testing.T) {
 	}
 	for _, v := range vectors {
 		ref := native.Cases[v.Name]
-		r := guest.Result{OK: true, BinaryRows: true, Status: 2, Columns: []guest.Column{nativeTestColumn(t, ref.Columns[0])}, Rows: [][]*guest.Cell{{nil}}}
+		c := nativeTestColumn(t, ref.Columns[0])
+		value := preparedproto.Value{ParameterType: preparedproto.ParameterType{Type: c.Type, Unsigned: c.Flags&32 != 0}, Null: v.Null}
 		if !v.Null {
 			h := v.Value
 			if v.Name == "float-negative-zero" {
 				h = "00000000"
-			} // actual engine result, not echoed input
-			r.Rows[0][0] = &guest.Cell{Hex: h}
+			}
+			value.Bytes, _ = hex.DecodeString(h)
 		}
+		row, encodeErr := preparedproto.EncodeBinaryRow([]preparedproto.Value{value}, maxPacket)
+		if encodeErr != nil {
+			t.Fatal(encodeErr)
+		}
+		r := guest.Result{OK: true, BinaryRows: true, Status: 2, Columns: []guest.Column{c}, RawRows: []string{hex.EncodeToString(row)}}
 		got, err := preparedResultPackets(r)
 		if err != nil || len(got) != 5 || hex.EncodeToString(got[1]) != ref.Columns[0] || hex.EncodeToString(got[3]) != ref.Rows[0] || hex.EncodeToString(got[4]) != ref.Terminal {
 			t.Fatalf("native %s: %x %v", v.Name, got, err)
@@ -149,7 +155,7 @@ func TestPreparedResultPacketsMatchNativeValues(t *testing.T) {
 }
 
 func TestPreparedBinaryResultRejectsInvalidEnvelopes(t *testing.T) {
-	good := guest.Result{OK: true, BinaryRows: true, Status: 2, Columns: []guest.Column{{Catalog: "def", Name: "v", Type: 3}}, Rows: [][]*guest.Cell{{{Hex: "2a000000"}}}}
+	good := guest.Result{OK: true, BinaryRows: true, Status: 2, Columns: []guest.Column{{Catalog: "def", Name: "v", Type: 3}}, RawRows: []string{"00002a000000"}}
 	for _, change := range []func(*guest.Result){
 		func(r *guest.Result) { r.OK = false },
 		func(r *guest.Result) { r.BinaryRows = false },
@@ -172,7 +178,7 @@ func TestPreparedBinaryResultRejectsInvalidEnvelopes(t *testing.T) {
 func TestZeroParameterExecuteOptionalTypeFlag(t *testing.T) {
 	open := preparedOpen(7)
 	open.PreparedOperations = []byte{22, 23, 25, 26}
-	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	s, err := newPreparedSession(open, 2, open.PreparedOperations)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -193,7 +199,7 @@ func TestZeroParameterExecuteOptionalTypeFlag(t *testing.T) {
 		if err != nil || len(values) != 0 {
 			t.Fatalf("zero-parameter engine payload %x: %v", r.Payload, err)
 		}
-		return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2, Affected: "0", InsertID: "0"}, nil
+		return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2, Affected: "0", InsertID: "0"}, nil
 	}
 	for _, suffix := range [][]byte{nil, {0}, {1}} {
 		reply, err := s.handle(23, append(bytes.Clone(header), suffix...), call)

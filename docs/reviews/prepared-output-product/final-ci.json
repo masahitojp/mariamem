@@ -1,0 +1,700 @@
+{
+  "normal": {
+    "conclusion": "success",
+    "headSha": "ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e",
+    "jobs": [
+      {
+        "completedAt": "2026-11-13T23:59:45Z",
+        "conclusion": "success",
+        "databaseId": 132245415710,
+        "name": "check",
+        "startedAt": "2026-11-13T23:50:57Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:50:59Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:50:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:41Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "startedAt": "2026-11-13T23:50:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:41Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-11-13T23:51:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:42Z",
+            "conclusion": "success",
+            "name": "Run python scripts/development_scope.py --candidate-sha 'ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e' --github-output",
+            "number": 4,
+            "startedAt": "2026-11-13T23:51:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:52Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 5,
+            "startedAt": "2026-11-13T23:51:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:52Z",
+            "conclusion": "success",
+            "name": "Share Go compiler cache and discard restored test results",
+            "number": 6,
+            "startedAt": "2026-11-13T23:51:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:52:00Z",
+            "conclusion": "success",
+            "name": "Run python -m pip install -r tests/routing_acceptance/unit-requirements.txt",
+            "number": 7,
+            "startedAt": "2026-11-13T23:51:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:31Z",
+            "conclusion": "success",
+            "name": "Run python scripts/verify.py check --scope 'full' --profile daily",
+            "number": 8,
+            "startedAt": "2026-11-13T23:52:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:41Z",
+            "conclusion": "success",
+            "name": "Representative runtime smoke using the source-check compiler cache",
+            "number": 9,
+            "startedAt": "2026-11-13T23:59:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:41Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 16,
+            "startedAt": "2026-11-13T23:59:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:41Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 17,
+            "startedAt": "2026-11-13T23:59:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:41Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 18,
+            "startedAt": "2026-11-13T23:59:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:41Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-11-13T23:59:41Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530112119/job/132245415710"
+      },
+      {
+        "completedAt": "2026-11-13T23:59:51Z",
+        "conclusion": "success",
+        "databaseId": 132248736624,
+        "name": "integration",
+        "startedAt": "2026-11-13T23:59:47Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:59:48Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:59:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:50Z",
+            "conclusion": "success",
+            "name": "Require successful source checks and actual smoke",
+            "number": 2,
+            "startedAt": "2026-11-13T23:59:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:50Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 3,
+            "startedAt": "2026-11-13T23:59:50Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530112119/job/132248736624"
+      },
+      {
+        "completedAt": "2026-11-13T23:59:56Z",
+        "conclusion": "success",
+        "databaseId": 132248778723,
+        "name": "Live required gate",
+        "startedAt": "2026-11-13T23:59:53Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:59:54Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:59:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:54Z",
+            "conclusion": "success",
+            "name": "Require daily source checks and selected smoke",
+            "number": 2,
+            "startedAt": "2026-11-13T23:59:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:59:54Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 3,
+            "startedAt": "2026-11-13T23:59:54Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530112119/job/132248778723"
+      }
+    ],
+    "status": "completed"
+  },
+  "public": {
+    "conclusion": "success",
+    "headSha": "ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e",
+    "jobs": [
+      {
+        "completedAt": "2026-11-14T00:11:25Z",
+        "conclusion": "success",
+        "databaseId": 132245424274,
+        "name": "public-integration / public-integration (macos-15)",
+        "startedAt": "2026-11-13T23:51:06Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:51:09Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:51:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:44Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "startedAt": "2026-11-13T23:51:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:55Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 3,
+            "startedAt": "2026-11-13T23:51:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:55Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 4,
+            "startedAt": "2026-11-13T23:51:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:52:07Z",
+            "conclusion": "success",
+            "name": "Bind source and installed guest",
+            "number": 5,
+            "startedAt": "2026-11-13T23:51:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:11:19Z",
+            "conclusion": "success",
+            "name": "Existing public integration and prepared consumers",
+            "number": 6,
+            "startedAt": "2026-11-13T23:52:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:11:21Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-11-14T00:11:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:11:21Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 12,
+            "startedAt": "2026-11-14T00:11:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:11:21Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 13,
+            "startedAt": "2026-11-14T00:11:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:11:21Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 14,
+            "startedAt": "2026-11-14T00:11:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:11:24Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-11-14T00:11:21Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530115529/job/132245424274"
+      },
+      {
+        "completedAt": "2026-11-14T00:00:56Z",
+        "conclusion": "success",
+        "databaseId": 132245424695,
+        "name": "public-integration / public-integration (ubuntu-24.04)",
+        "startedAt": "2026-11-13T23:50:58Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:51:01Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:50:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:22Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "startedAt": "2026-11-13T23:51:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:30Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 3,
+            "startedAt": "2026-11-13T23:51:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:30Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 4,
+            "startedAt": "2026-11-13T23:51:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:41Z",
+            "conclusion": "success",
+            "name": "Bind source and installed guest",
+            "number": 5,
+            "startedAt": "2026-11-13T23:51:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:00:53Z",
+            "conclusion": "success",
+            "name": "Existing public integration and prepared consumers",
+            "number": 6,
+            "startedAt": "2026-11-13T23:51:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:00:53Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 7,
+            "startedAt": "2026-11-14T00:00:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:00:54Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 12,
+            "startedAt": "2026-11-14T00:00:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:00:54Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 13,
+            "startedAt": "2026-11-14T00:00:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:00:54Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 14,
+            "startedAt": "2026-11-14T00:00:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:00:54Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-11-14T00:00:54Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530115529/job/132245424695"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:56Z",
+        "conclusion": "skipped",
+        "databaseId": 132245425894,
+        "name": "guest",
+        "startedAt": "2026-11-13T23:50:56Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530115529/job/132245425894"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:56Z",
+        "conclusion": "skipped",
+        "databaseId": 132245426183,
+        "name": "installed-distributions",
+        "startedAt": "2026-11-13T23:50:57Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530115529/job/132245426183"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:56Z",
+        "conclusion": "skipped",
+        "databaseId": 132245426205,
+        "name": "reference",
+        "startedAt": "2026-11-13T23:50:57Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530115529/job/132245426205"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:56Z",
+        "conclusion": "skipped",
+        "databaseId": 132245426206,
+        "name": "native",
+        "startedAt": "2026-11-13T23:50:57Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530115529/job/132245426206"
+      }
+    ],
+    "status": "completed"
+  },
+  "installed": {
+    "conclusion": "success",
+    "headSha": "ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e",
+    "jobs": [
+      {
+        "completedAt": "2026-11-14T00:10:17Z",
+        "conclusion": "success",
+        "databaseId": 132245437248,
+        "name": "installed-distributions / installed (macos-15, darwin-arm64)",
+        "startedAt": "2026-11-13T23:51:01Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:51:05Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:51:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:34Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "startedAt": "2026-11-13T23:51:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:47Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 3,
+            "startedAt": "2026-11-13T23:51:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:47Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 4,
+            "startedAt": "2026-11-13T23:51:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:55:52Z",
+            "conclusion": "success",
+            "name": "Build exact-source private wheel",
+            "number": 5,
+            "startedAt": "2026-11-13T23:51:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:10Z",
+            "conclusion": "success",
+            "name": "Existing exact-wheel and external-module consumers",
+            "number": 6,
+            "startedAt": "2026-11-13T23:55:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:10Z",
+            "conclusion": "success",
+            "name": "Retain installed-consumer evidence",
+            "number": 7,
+            "startedAt": "2026-11-14T00:10:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:12Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 8,
+            "startedAt": "2026-11-14T00:10:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:12Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 14,
+            "startedAt": "2026-11-14T00:10:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:13Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 15,
+            "startedAt": "2026-11-14T00:10:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:13Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 16,
+            "startedAt": "2026-11-14T00:10:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:10:16Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-14T00:10:13Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530119031/job/132245437248"
+      },
+      {
+        "completedAt": "2026-11-14T00:07:20Z",
+        "conclusion": "success",
+        "databaseId": 132245437878,
+        "name": "installed-distributions / installed (ubuntu-24.04, ubuntu24.04-x86_64)",
+        "startedAt": "2026-11-13T23:51:00Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-13T23:51:02Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-13T23:51:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:24Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "startedAt": "2026-11-13T23:51:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:36Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 3,
+            "startedAt": "2026-11-13T23:51:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:51:36Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 4,
+            "startedAt": "2026-11-13T23:51:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-13T23:55:31Z",
+            "conclusion": "success",
+            "name": "Build exact-source private wheel",
+            "number": 5,
+            "startedAt": "2026-11-13T23:51:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:16Z",
+            "conclusion": "success",
+            "name": "Existing exact-wheel and external-module consumers",
+            "number": 6,
+            "startedAt": "2026-11-13T23:55:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:16Z",
+            "conclusion": "success",
+            "name": "Retain installed-consumer evidence",
+            "number": 7,
+            "startedAt": "2026-11-14T00:07:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:17Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "number": 8,
+            "startedAt": "2026-11-14T00:07:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:17Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 14,
+            "startedAt": "2026-11-14T00:07:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:17Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 15,
+            "startedAt": "2026-11-14T00:07:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:18Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 16,
+            "startedAt": "2026-11-14T00:07:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-14T00:07:18Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-14T00:07:18Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530119031/job/132245437878"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:58Z",
+        "conclusion": "skipped",
+        "databaseId": 132245438689,
+        "name": "public-integration",
+        "startedAt": "2026-11-13T23:50:59Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530119031/job/132245438689"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:58Z",
+        "conclusion": "skipped",
+        "databaseId": 132245438800,
+        "name": "reference",
+        "startedAt": "2026-11-13T23:50:59Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530119031/job/132245438800"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:58Z",
+        "conclusion": "skipped",
+        "databaseId": 132245438988,
+        "name": "guest",
+        "startedAt": "2026-11-13T23:50:59Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530119031/job/132245438988"
+      },
+      {
+        "completedAt": "2026-11-13T23:50:58Z",
+        "conclusion": "skipped",
+        "databaseId": 132245439950,
+        "name": "native",
+        "startedAt": "2026-11-13T23:50:59Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/43530119031/job/132245439950"
+      }
+    ],
+    "status": "completed"
+  }
+}

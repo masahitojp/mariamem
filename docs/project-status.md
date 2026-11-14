@@ -6,6 +6,107 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Prepared output — main integration approved (2026-11-14)
+
+The Human approved main integration after the
+[Issue-criteria submission](reviews/prepared-output-product/issue-criteria-submission.md).
+This includes its explicit selected-route test disposition: retain current host
+oracles for unchanged owners, add raw-output boundary checks, and keep the absent
+full-native controller/factory campaigns historical rather than claiming their
+old PASS counts. Issue138 remains stopped and its unadopted failures are not waived.
+
+Approved runtime source is `ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e`, on main basis
+`eb175ae23292c1c40cfbeb4b9b73132873c4cc6f`. The integration branch preserves those
+runtime bytes; later review and decision records are documentation only. The
+[decision](decisions/prepared-output-reuse.md) owns the accepted boundary and
+upgrade checks. Preserve evidence/fixture source ancestry during integration;
+normal CI must check the concrete PR before merging. Earlier dated recommendation
+and pending-approval entries below retain their original historical context.
+
+The accepted benefit is reduced custom output conversion responsibility. Total
+upgrade-hours, time to a new LTS, payback, peak RSS and two-series runtime acceptance
+remain unmeasured. Track actual future update costs in Issue128; no additional
+comparison experiment or engine offering is authorized. Qualification, release
+version and publication remain separate and unapproved.
+
+## Prepared output — product acceptance checkpoint (2026-11-14)
+
+Independent source/regeneration43450619130, normal43460340200, public integration
+43460417407 and installed distributions43465753261 passed on their exact recorded
+candidates. The [checkpoint](reviews/prepared-output-product/README.md) retains
+identities and scope. The single bootstrap remains UNQUALIFIED historical evidence;
+later independent reproduction is separate evidence, not a relabeling.
+
+A same-condition prepared comparison found a64KiB regression. Host-only JSON
+presence decoding removed a redundant whole-message parse without changing the
+guest or weakening row validation. Fixed candidate
+`ef4d5cd97f718ebaaa5b2fa0d7999e3e6b169b9e` has repeat measurements,71 unchanged
+native-reference scenarios and five frame cases. Median query ratios versus fixed
+main: one row0.987,1,000 rows0.827,64KiB0.998. Variance and single-Mac limits remain;
+no universal speedup, peak-RSS benefit or measured upgrade-hour reduction is claimed.
+The [measurements](reviews/prepared-output-product/performance-20261114/README.md)
+retain the original regression, follow-up and failed measurement setup.
+
+Same-source normal43530112119, public43530115529 and installed43530119031 are
+all PASS on that exact host SHA. The [integration review](reviews/prepared-output-product/adoption-review.md)
+recommends bounded output adoption with its explicit prior-condition disposition.
+This remains Codex's recommendation: main integration, Issue132's final selected-route
+disposition and release are Human decisions. Owned measurement scratch/cache/source
+copies were removed; committed reports and reproducible source refs remain.
+Issue134 is closed as formalization/handoff complete. Issue65 and Issue132 remain
+open for the integration and selected-route disposition; closure of134 is not
+a contract waiver or adoption approval.
+
+## Output-only productization authorized (2026-11-13)
+
+The Human approved proceeding with the output-only candidate after the LTS
+maintenance comparison. This authorizes formalization and acceptance; main
+integration and release remain separate decisions. Retain embedded, existing
+input/session and host state. Additional engine hooks, per-series conversion
+implementations or weakened contracts return to the value decision.
+
+The product branch starts from main eb175ae23292c1c40cfbeb4b9b73132873c4cc6f,
+preserving recent performance changes, and ports the bounded source/test delta
+from73d1dca153348feab07a7638172782056af7897d. First build a fresh UNQUALIFIED
+guest using the existing producer. Review its translation and worker/CRC binding
+before updating canonical pins. Then independently regenerate and execute the
+same-candidate #132 acceptance. The intermediate host v2 with canonical guest v1
+is deliberately not a usable release. Old trial artifacts/bindings are not current
+inputs. The earlier recommendation-wait text is historical after this approval.
+
+
+## MariaDB support direction — provision for two recent LTS series (2026-11-12)
+
+The Human clarified the direction: only12.3 LTS is required now; eventually
+provide roughly the two most recent LTS series so a new LTS does not force users
+to migrate immediately. This supersedes the earlier latest-LTS-only premise.
+It does not request adding11.4/11.8 now or product support for rolling/Preview
+releases. Users will select a series-specific distribution whose version makes
+its MariaDB series visible (Human examples: `0.7.1-12` and `0.7.1-13`). These are
+illustrative names, not approved release versions or final tag/package syntax;
+Go/Python version rules and resolution ordering must be checked in distribution
+design. Exact engine versions remain identified in inputs/provenance.
+
+Maintain each offered series for its upstream MariaDB LTS maintenance period.
+A new offering alone does not end maintenance of an older one. Roughly two
+series is a planning expectation, not a hard cap overriding overlapping LTS
+periods. This does not request retroactive offerings of every old LTS. Record the
+official maintenance category and dates when setting concrete end dates; no
+Community/commercial-extension category or exact date is chosen here.
+Simultaneous engines in one process are not a requirement.
+
+Evaluate both the cost of adding a new LTS and the incremental cost of maintaining
+old/new offerings: version-specific adapter/patch differences, applying shared
+fixes, per-series generation/binding, CI and distribution. Distinguish shared
+work from version-specific work rather than doubling every cost. Historical
+parallel preparation can support this direction, but is not product acceptance.
+
+The prepared-output candidate remains unadopted. Its LTS source comparison and
+limits are recorded in [Issue128 evidence](reviews/issue128-lts-output-history/README.md).
+The observed stable raw-row boundary is relevant to limiting version branches,
+but does not prove two-series runtime acceptance. No runtime or release inputs
+change with this clarification.
+
 ## Issue156 — dictionary-wait main integration approved
 
 On2026-11-12 the Human approved proceeding to a product candidate, prioritizing

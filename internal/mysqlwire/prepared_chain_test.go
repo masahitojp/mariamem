@@ -53,11 +53,7 @@ func minimalPreparedChain(t *testing.T) (guest.Result, [][]byte) {
 				if len(b) != 2+4*len(part.Columns) {
 					t.Fatal("unexpected numeric fixture shape")
 				}
-				cells := make([]*guest.Cell, len(part.Columns))
-				for i := range cells {
-					cells[i] = &guest.Cell{Hex: hex.EncodeToString(b[2+i*4 : 6+i*4])}
-				}
-				part.Rows = append(part.Rows, cells)
+				part.RawRows = append(part.RawRows, hex.EncodeToString(b))
 				expected = append(expected, b)
 			}
 			expected = append(expected, decode(item.Terminal))
@@ -85,11 +81,11 @@ func TestPreparedChainMatchesNativePackets(t *testing.T) {
 	// reject the same result shape, and EXECUTE must validate all nested parts.
 	open := preparedOpen(7)
 	open.PreparedOperations = []byte{22, 23, 25, 26}
-	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	s, err := newPreparedSession(open, 2, open.PreparedOperations)
 	if err != nil {
 		t.Fatal(err)
 	}
-	r.PreparedVersion = 1
+	r.PreparedVersion = 2
 	r.SessionGeneration = 7
 	if _, err = s.call(preparedproto.Execute, 91, nil, true, func([]byte, bool) (guest.Result, error) { return r, nil }); err != nil {
 		t.Fatal(err)
@@ -109,7 +105,7 @@ func TestPreparedChainRejectsMalformedSuffixBeforeSending(t *testing.T) {
 		"last-more":         func(r *guest.Result) { r.Results[3].Status |= 8 },
 		"text-part":         func(r *guest.Result) { r.Results[1].BinaryRows = false },
 		"nested":            func(r *guest.Result) { r.Results[1].Results = []guest.Result{{OK: true}} },
-		"bad-row":           func(r *guest.Result) { r.Results[2].Rows[0][0].Hex = "zz" },
+		"bad-row":           func(r *guest.Result) { r.Results[2].RawRows[0] = "zz" },
 		"bad-version":       func(r *guest.Result) { r.Results[1].Version = 1 },
 		"nonterminal-error": func(r *guest.Result) { r.Results[1].OK = false },
 		"missing-error":     func(r *guest.Result) { r.Results[3].OK = false },

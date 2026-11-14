@@ -48,7 +48,7 @@ func TestMalformedEnvelopeRejected(t *testing.T) {
 }
 
 func TestSharedGuestEnvelopeVector(t *testing.T) {
-	data, err := os.ReadFile("../../tests/fixtures/prepared-envelope-v1.json")
+	data, err := os.ReadFile("../../tests/fixtures/prepared-envelope-v2.json")
 	if err != nil {
 		t.Fatal(err)
 	}

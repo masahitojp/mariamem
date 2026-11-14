@@ -1,0 +1,8 @@
+=== RUN   TestCRC32CEquivalence
+    crc32c_test.go:64: 832 lengths/alignment cases + independent bitwise + known vector PASS
+--- PASS: TestCRC32CEquivalence (0.14s)
+=== RUN   TestCRC32CPageValidation
+    crc32c_test.go:112: 80 actual Fn18142 valid/corrupt/LSN cases PASS
+--- PASS: TestCRC32CPageValidation (0.04s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	0.203s

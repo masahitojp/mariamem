@@ -15,7 +15,7 @@ import (
 func TestLongDataNoReplyOwnedMappingDeferredErrorAndReset(t *testing.T) {
 	open := preparedOpen(7)
 	open.PreparedOperations = []byte{22, 23, 24, 25, 26}
-	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	s, err := newPreparedSession(open, 2, open.PreparedOperations)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,7 +31,7 @@ func TestLongDataNoReplyOwnedMappingDeferredErrorAndReset(t *testing.T) {
 		if req.Generation != 7 || req.Handle != 91 || monitor != (req.Operation != 24 && req.Operation != 25) {
 			t.Fatal(req, monitor)
 		}
-		r := guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, Status: 2}
+		r := guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, Status: 2}
 		if req.Operation == 24 && bad {
 			r.OK = false
 			r.Errno = 1210
@@ -81,7 +81,7 @@ func TestLongDataFailedOrMalformedAckIsFatalWithoutInventedReply(t *testing.T) {
 		t.Run(mode, func(t *testing.T) {
 			open := preparedOpen(7)
 			open.PreparedOperations = []byte{22, 23, 24, 25, 26}
-			s, _ := newPreparedSession(open, 1, open.PreparedOperations)
+			s, _ := newPreparedSession(open, 2, open.PreparedOperations)
 			id, _ := s.registry.Add(7, 91, 1)
 			body := append(le32(id), 0, 0, 'x')
 			if mode == "accepted-invalid-index" {
@@ -91,12 +91,12 @@ func TestLongDataFailedOrMalformedAckIsFatalWithoutInventedReply(t *testing.T) {
 				if monitor {
 					t.Fatal("LONG_DATA monitored next packet")
 				}
-				r := guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, Status: 2}
+				r := guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, Status: 2}
 				switch mode {
 				case "transport":
 					return guest.Result{}, errors.New("injected failure")
 				case "schema":
-					r.PreparedVersion = 2
+					r.PreparedVersion = 1
 				case "rows":
 					r.Rows = [][]*guest.Cell{{}}
 				case "spurious-deferred-error":

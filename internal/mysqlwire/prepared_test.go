@@ -8,7 +8,7 @@ import (
 )
 
 func preparedResult() guest.Result {
-	return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 99, ParamCount: 65, Parameters: make([]guest.Column, 65), Status: 2, Columns: make([]guest.Column, 65)}
+	return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, StatementID: 99, ParamCount: 65, Parameters: make([]guest.Column, 65), Status: 2, Columns: make([]guest.Column, 65)}
 }
 func TestPrepareMetadataBeyondPrototypeCounts(t *testing.T) {
 	r := preparedResult()
@@ -36,7 +36,7 @@ func TestPrepareMetadataBeyondPrototypeCounts(t *testing.T) {
 	}
 }
 func TestPrepareRejectsWrongIdentityAndCorruptMetadata(t *testing.T) {
-	for _, change := range []func(*guest.Result){func(r *guest.Result) { r.Version = 1 }, func(r *guest.Result) { r.PreparedVersion = 2 }, func(r *guest.Result) { r.SessionGeneration++ }, func(r *guest.Result) { r.StatementID = 0 }, func(r *guest.Result) { r.ParamCount = 65536 }, func(r *guest.Result) { r.Columns = make([]guest.Column, 65536) }, func(r *guest.Result) { r.Results = []guest.Result{{}} }, func(r *guest.Result) { r.OK = false; r.Errno = 0 }} {
+	for _, change := range []func(*guest.Result){func(r *guest.Result) { r.Version = 1 }, func(r *guest.Result) { r.PreparedVersion = 1 }, func(r *guest.Result) { r.SessionGeneration++ }, func(r *guest.Result) { r.StatementID = 0 }, func(r *guest.Result) { r.ParamCount = 65536 }, func(r *guest.Result) { r.Columns = make([]guest.Column, 65536) }, func(r *guest.Result) { r.Results = []guest.Result{{}} }, func(r *guest.Result) { r.OK = false; r.Errno = 0 }} {
 		r := preparedResult()
 		change(&r)
 		if _, e := preparePackets(r, 7, 3); e == nil {

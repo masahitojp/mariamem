@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	Version          = 1
+	Version          = 2
 	GuestOpcode byte = 5
 	Prepare     byte = 22
 	Execute     byte = 23
