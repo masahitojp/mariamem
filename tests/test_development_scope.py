@@ -365,3 +365,15 @@ def test_workflow_migration_keeps_conservative_boundaries():
         result = scope.select([path])
         assert result['check_scope'] == 'full'
         assert result['integration'] and result['linux_wheel']
+
+
+@pytest.mark.parametrize('path', [
+    'tests/test_layout.py', 'tests/test_evidence_retention.py',
+    'tests/test_static_image_workflow.py', 'tests/test_canonical_toolchain_pins.py',
+])
+def test_reviewed_source_only_suites_do_not_build_wheels(path):
+    plan = scope.select([path])
+    assert plan['check_scope'] == 'python'
+    assert not plan['integration'] and not plan['linux_wheel']
+    assert scope.select([path, 'scripts/layout.py'])['linux_wheel']
+    assert scope.select([path, 'tests/fixtures/new-contract.json'])['integration']

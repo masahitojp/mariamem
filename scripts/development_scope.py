@@ -76,6 +76,8 @@ TOOLING = {
 # Only already-owned non-real-host suites are runtime-free. New test files are
 # unknown until deliberately assigned a responsibility, even if named .py.
 PURE_TESTS = {
+    "tests/test_layout.py", "tests/test_evidence_retention.py",
+    "tests/test_static_image_workflow.py", "tests/test_canonical_toolchain_pins.py",
     "tests/test_workflow_model.py",
     'tests/test_ci_efficiency.py', 'tests/test_ci_efficiency_summary.py',
     'tests/test_ci_runtime_selection.py', 'tests/test_live_ci_workflow.py',

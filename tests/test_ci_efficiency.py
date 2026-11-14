@@ -217,3 +217,58 @@ def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
     from runtime_validation import WORKFLOW
     assert WORKFLOW == '.github/workflows/v044-product-validation.yml'
     assert 'workflow_dispatch' in events(parse((ROOT/WORKFLOW).read_text()))
+
+
+def development_gate_script():
+    model = parse((ROOT/'.github/workflows/check.yml').read_text())
+    script = model['jobs']['required']['steps'][0]['run']
+    return script.split("<<'PY'\n", 1)[1].rsplit('\nPY', 1)[0]
+
+
+@pytest.mark.parametrize('smoke', ['true', 'false'])
+@pytest.mark.parametrize('linux', ['true', 'false'])
+def test_required_gate_rejects_failed_missing_or_skipped_selected_work(smoke, linux, monkeypatch):
+    import copy
+    script = development_gate_script()
+    expected = lambda flag: 'success' if flag == 'true' else 'skipped'
+    valid = {'check': {'result': 'success', 'outputs': {
+        'integration': smoke, 'linux_wheel': linux, 'smoke_result': expected(smoke)}},
+        'integration': {'result': expected(smoke)}, 'linux': {'result': expected(linux)}}
+    def evaluate(value):
+        monkeypatch.setenv('NEEDS_JSON', json.dumps(value))
+        exec(compile(script, 'development required gate', 'exec'), {})
+    evaluate(valid)
+    for job in valid:
+        missing = copy.deepcopy(valid)
+        del missing[job]
+        with pytest.raises((AssertionError, KeyError)):
+            evaluate(missing)
+        for result in ('success', 'skipped', 'failure', 'cancelled', ''):
+            if result == valid[job]['result']:
+                continue
+            changed = copy.deepcopy(valid)
+            changed[job]['result'] = result
+            with pytest.raises(AssertionError):
+                evaluate(changed)
+    for output in valid['check']['outputs']:
+        for value in (None, '', 'invalid', 'failure', 'cancelled', 'true', 'false', 'success', 'skipped'):
+            if value == valid['check']['outputs'][output]:
+                continue
+            changed = copy.deepcopy(valid)
+            if value is None:
+                del changed['check']['outputs'][output]
+            else:
+                changed['check']['outputs'][output] = value
+            with pytest.raises(AssertionError):
+                evaluate(changed)
+
+
+def test_linux_packaging_inherits_compiler_cache_without_reusing_test_pass():
+    model = parse((ROOT/'.github/workflows/linux-wheel.yml').read_text())
+    sequence = model['jobs']['wheel']['steps']
+    cache = next(i for i, step in enumerate(sequence) if 'go clean -testcache' in step.get('run', ''))
+    assert 'echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"' in sequence[cache]['run']
+    assert all(i > cache for i, step in enumerate(sequence)
+               if 'go test ' in step.get('run', '') or 'scripts/build_alpha.py' in step.get('run', ''))
+    assert sum('scripts/build_alpha.py' in step.get('run', '') for step in sequence) == 1
+    assert 'cache-hit' not in str(sequence)
