@@ -1,3 +1,4 @@
+-r ../workflow-requirements.txt
 pytest>=7
 pytest-xdist==3.8.0
 PyMySQL==1.2.3

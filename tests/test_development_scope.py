@@ -348,3 +348,20 @@ def test_evidence_ledger_tooling_needs_python_checks(path):
     selected = scope.select([path])
     assert selected['check_scope'] == 'python'
     assert not selected['integration']
+
+
+@pytest.mark.parametrize('path', ['tests/workflow_model.py', 'tests/workflow-requirements.txt',
+                                 'tests/routing_acceptance/unit-requirements.txt',
+                                 'tests/test_workflow_model.py'])
+def test_workflow_test_tooling_has_no_runtime_smoke(path):
+    result = scope.select([path])
+    assert result['check_scope'] == 'python'
+    assert not result['integration'] and not result['linux_wheel']
+
+
+def test_workflow_migration_keeps_conservative_boundaries():
+    assert scope.select(['scripts/development_scope.py'])['linux_wheel']
+    for path in ('tests/test_p1_pytest_entry.py', 'tests/test_timer_source.py'):
+        result = scope.select([path])
+        assert result['check_scope'] == 'full'
+        assert result['integration'] and result['linux_wheel']

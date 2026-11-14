@@ -1,6 +1,6 @@
 """Full acceptance is explicit; daily protected checks cannot silently skip smoke."""
 from pathlib import Path
-import re
+from workflow_model import parse, needs, steps, commands, step_named
 import sys
 import pytest
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,47 +10,49 @@ DEVELOPMENT = ROOT/'.github/workflows/check.yml'
 
 
 def validate_development_owners(development):
-    def job(name):
-        match = re.search(r'^  ' + name + r':\n(.*?)(?=^  \S|\Z)', development, re.M | re.S)
-        assert match, name
-        return match[1]
-    assert 'continue-on-error:' not in development
-    assert not re.search(r'^    if:', job('check'), re.M)
-    assert 'runs-on: ubuntu-24.04' in job('check')
-    assert "python scripts/verify.py check --scope '${{ steps.diff.outputs.check_scope }}'" in job('check')
-    assert "if: steps.diff.outputs.integration == 'true'" in job('check')
-    assert 'python scripts/verify.py smoke' in job('check')
-    assert 'needs: check' in job('integration')
-    assert "if: always() && needs.check.outputs.integration == 'true'" in job('integration')
-    assert 'python scripts/development_scope.py' in job('check')
+    model = parse(development)
+    jobs = model['jobs']
+    assert 'continue-on-error' not in model
+    assert all('continue-on-error' not in owner for owner in [*jobs.values(), *steps(model)])
+    check = jobs['check']
+    assert 'if' not in check
+    assert check['runs-on'] == 'ubuntu-24.04'
+    script = '\n'.join(step.get('run', '') for step in check['steps'])
+    assert "python scripts/verify.py check --scope '${{ steps.diff.outputs.check_scope }}'" in script
+    assert any(step.get('if') == "steps.diff.outputs.integration == 'true'" and 'python scripts/verify.py smoke' in step.get('run', '') for step in check['steps'])
+    assert needs(jobs['integration']) == {'check'}
+    assert jobs['integration']['if'] == "always() && needs.check.outputs.integration == 'true'"
+    assert 'python scripts/development_scope.py' in script
     for name in ['integration', 'required']:
-        assert 'uses:' not in job(name)
-
+        assert 'uses' not in jobs[name]
 
 
 def validate(text):
-    assert 'needs: native-reference' in text
-    assert 'needs: [native-reference, live]' in text
-    assert 'name: Live full acceptance gate' in text
-    assert 'name: Live required gate' not in text
-    assert 'os: [macos-15, ubuntu-24.04]' in text
-    assert "python: ['3.11', '3.14']" in text
-    assert 'needs.scope' not in text
-    for command in [
-                    'tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
+    model = parse(text)
+    jobs = model['jobs']
+    assert needs(jobs['live']) == {'native-reference'}
+    gates = [job for job in jobs.values() if job.get('name') == 'Live full acceptance gate']
+    assert len(gates) == 1 and needs(gates[0]) == {'native-reference', 'live'}
+    assert all(job.get('name') != 'Live required gate' for job in jobs.values())
+    matrix = jobs['live']['strategy']['matrix']
+    assert matrix['os'] == ['macos-15', 'ubuntu-24.04']
+    assert jobs['native-reference']['strategy']['matrix']['python'] == ['3.11', '3.14']
+    assert 'needs.scope' not in str(model)
+    script = commands(model)
+    for command in ['tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
                     'tests/live_acceptance/installed.py', 'docs/examples/live/verify.py',
-                    'tests/test_forklimit_unit.py',
-                    'tests/test_forklimit_entries.py', 'tests/test_forklimit_transport.py',
-                    'tests/test_handoff_failures.py', 'tests/test_owned_snapshot.py',
-                    'scripts/go_fixture_campaign.py', 'scripts/go_fixture_completion.py']:
-        assert command in text
-    assert 'docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders' in text
-    assert 'scripts/e2e_workflow_timing.py' not in text
-    assert '--output build/live-evidence/g1 --profile release' in text
-    assert '--validate-matrix build/g1-matrix --profile release' in text
+                    'tests/test_forklimit_unit.py', 'tests/test_forklimit_entries.py',
+                    'tests/test_forklimit_transport.py', 'tests/test_handoff_failures.py',
+                    'tests/test_owned_snapshot.py', 'scripts/go_fixture_campaign.py',
+                    'scripts/go_fixture_completion.py']:
+        assert command in script, command
+    assert 'docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders' in script
+    assert 'scripts/e2e_workflow_timing.py' not in script
+    assert '--output build/live-evidence/g1 --profile release' in script
+    assert '--validate-matrix build/g1-matrix --profile release' in script
     for scenario in ['positive', 'skip-reset', 'restart-app']:
-        assert scenario in text
-    installed = text.split('      - name: Installed wheel and external Go module\n', 1)[1].split('      - name:', 1)[0]
+        assert scenario in script
+    installed = step_named(model, 'Installed wheel and external Go module')['run']
     assert 'for py in "$PY311" "$PY314"' in installed
     assert 'build/live-evidence/installed-py$version' in installed
 
@@ -88,10 +90,10 @@ def test_full_gate_rejects_missing_runtime_acceptance(job, result):
 
 def gate_script(name):
     """Exercise the actual checkout-free gate, rather than a second implementation."""
-    import textwrap
-    text = DEVELOPMENT.read_text()
-    block = re.search(r'^  '+name+r':\n(.*?)(?=^  \S|\Z)', text, re.M | re.S)[1]
-    return textwrap.dedent(block.split('        run: |\n', 1)[1])
+    job = parse(DEVELOPMENT.read_text())['jobs'][name]
+    scripts = [step['run'] for step in job['steps'] if 'run' in step]
+    assert len(scripts) == 1
+    return scripts[0]
 
 
 def run_gate(name, **env):
@@ -152,11 +154,12 @@ def test_missing_gate_evidence_fails(missing):
 
 
 def test_daily_gate_owns_the_existing_protected_context():
-    text = DEVELOPMENT.read_text()
-    assert 'name: Live required gate' in text
-    assert 'needs: [check, integration, linux]' in text
-    assert 'smoke_result: ${{ steps.smoke.outcome }}' in text
-    assert 'if: always()' in text.split('  required:')[1]
+    model = parse(DEVELOPMENT.read_text())
+    gate = model['jobs']['required']
+    assert gate['name'] == 'Live required gate'
+    assert needs(gate) == {'check', 'integration', 'linux'}
+    assert model['jobs']['check']['outputs']['smoke_result'] == '${{ steps.smoke.outcome }}'
+    assert gate['if'] == 'always()'
 
 
 @pytest.mark.parametrize('name', ['Runnable public documentation examples',
@@ -165,10 +168,8 @@ def test_daily_gate_owns_the_existing_protected_context():
 def test_actual_language_loop_runs_go_once_and_preserves_failures(tmp_path, name, failed_language):
     import os
     import subprocess
-    import textwrap
     text = WORKFLOW.read_text()
-    step = text.split('      - name: '+name+'\n', 1)[1].split('      - ', 1)[0]
-    script = textwrap.dedent(step.split('        run: |\n', 1)[1])
+    script = step_named(parse(text), name)['run']
     interpreters = {}
     for minor in ('3.11', '3.14'):
         executable = tmp_path/('py'+minor)
@@ -193,16 +194,15 @@ def test_actual_language_loop_runs_go_once_and_preserves_failures(tmp_path, name
 
 def test_release_e2e_steps_are_unconditional_and_shell_blocks_complete():
     import subprocess
-    import textwrap
     text = WORKFLOW.read_text()
     assert 'steps.families' not in text and 'scripts/live_selection.py' not in text
     for name in ['Owned E2E entry component and actual application checks',
                  'Installed owned E2E entry outside the source checkout',
                  'P1 real prepared command and callback on both Python minors']:
-        step = text.split('      - name: '+name+'\n', 1)[1].split('      - ', 1)[0]
-        assert not re.search(r'^        if:', step, re.M), name
-        assert 'for py in "$PY311" "$PY314"' in step
-        code = textwrap.dedent(step.split('        run: |\n', 1)[1])
+        step = step_named(parse(text), name)
+        assert 'if' not in step, name
+        code = step['run']
+        assert 'for py in "$PY311" "$PY314"' in code
         subprocess.run(['bash', '-n'], input=code, text=True, check=True)
         assert 'build_alpha.py' not in code
 
