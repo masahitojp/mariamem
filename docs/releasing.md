@@ -43,9 +43,10 @@ rewritten. PyPI account access is restored and the Human has registered the
 Trusted Publisher for `masahitojp/mariamem`, `release-candidate-ready.yml`,
 environment `pypi`. The initial macOS upload succeeded in
 [run 43567522416](https://github.com/masahitojp/mariamem/actions/runs/43567522416);
-public smoke remains pending. The immediate JSON lookup saw the wheel as absent;
-a later read confirmed its original SHA256. GitHub Release wheels remain the
-currently smoke-verified Python distribution channel.
+the initial immediate JSON lookup saw the wheel as absent. A later read confirmed
+its original SHA256. [Attempt 2](https://github.com/masahitojp/mariamem/actions/runs/43567522416/attempts/2)
+completed PyPI publication and installed-wheel smoke successfully. macOS users
+can install from PyPI; Ubuntu users continue to use GitHub Release wheels.
 
 ## PyPI publication and existing-release backfill
 
@@ -113,7 +114,7 @@ conditions never reuse the old success. No new review-document dumps are needed.
 | --- | --- |
 | Go module | Exact source commit/tag; canonical generated Go is ordinary source/build input in the module. `Options{}` direct-links it; no guest executable, NativeDir, bundle/cache or Wasmer download. |
 | macOS wheel | `mariamem-<version>-py3-none-macosx_15_0_arm64.whl`; macOS 15+ arm64; `_native` contains only `mariamem-host` and its checksum-bound manifest. |
-| PyPI | Stable macOS wheel only, identical to the GitHub asset; uploaded, public smoke pending. Linux/Windows expansion is tracked separately. |
+| PyPI | Stable macOS wheel only, identical to the GitHub asset; published and public smoke passed. Linux/Windows expansion is tracked separately. |
 | Ubuntu wheel | `mariamem-<version>-py3-none-linux_x86_64.whl`; tested on Ubuntu 24.04 x86_64, not a manylinux claim; same host-only layout. |
 | Corresponding source | One common `mariamem-<version>-corresponding-source.tar.gz`, covering both wheels and Go source: product source/generated code/patches/scripts, pinned MariaDB/lite4mariadb/dependency sources, WASIX libc, LLVM runtime/header submodule sources, converter source and build evidence. |
 | Provenance | `mariamem-<version>-provenance.json`: exact source/guest/generated/toolchain/notices hashes, both frozen wheel records and external acceptance hashes. |

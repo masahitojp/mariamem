@@ -16,8 +16,11 @@ The Human subsequently approved the initial 0.6.2 macOS upload.
 [Run 43567522416](https://github.com/masahitojp/mariamem/actions/runs/43567522416)
 authenticated and uploaded successfully (HTTP 200), but the immediate public JSON
 lookup reported the wheel absent and stopped before smoke. A later JSON read
-confirmed the original wheel hash. Public smoke remains unobserved; the release
-transaction is incomplete. Stable versions only; no alpha/beta/rc on PyPI.
+confirmed the original wheel hash. [Attempt 2](https://github.com/masahitojp/mariamem/actions/runs/43567522416/attempts/2)
+completed publication and PyPI-installed smoke successfully: exact wheel/hash,
+SELECT 1 and Close/host exit. The 0.6.2 macOS PyPI transaction is complete.
+That recovery used the original implementation; the bounded visibility-wait fix
+is covered separately by regression tests. Stable versions only; no alpha/beta/rc on PyPI.
 Transport failure reuses the same version/source/bytes instead of forcing a
 version bump. Hash conflicts stop, and successful smoke reuse binds exact
 artifacts and check conditions.
