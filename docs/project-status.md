@@ -21,6 +21,7 @@ and [publication inputs](releasing.md#additional-linuxwindows-wheels-for-publish
 #172 completed with PR197/main0818504c and exact-candidate CI43626029466.
 #169 owns the final documentation alignment; older publication checkpoints below
 retain their historical scope.
+
 ## MemoryEA direct panic with noinline — adoption approved, integration in progress (2026-11-15)
 
 The Human authorized product verification under [Issue182](https://github.com/masahitojp/mariamem/issues/182).
