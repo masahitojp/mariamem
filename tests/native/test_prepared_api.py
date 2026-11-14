@@ -1,4 +1,8 @@
 """Native ownership/failure tests; do not claim actual embedded API semantics."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[2] / 'scripts'))
+from layout import FIXTURES
 import json
 import os
 from pathlib import Path
@@ -18,7 +22,7 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     target=tmp_path/'prepared-owner'
     subprocess.run([cc,'-std=c11','-Wall','-Wextra','-Werror',
                     *(['-fsanitize=address,undefined','-fno-omit-frame-pointer'] if sanitize else []),
-                    '-I',str(ROOT/'guest'),str(ROOT/'tests/fixtures/prepared_api_harness.c'),
+                    '-I',str(ROOT/'guest'),str(ROOT/(FIXTURES / 'prepared_api_harness.c')),
                     '-o',str(target)],check=True,capture_output=True,text=True)
     result=subprocess.run([str(target)],check=True,capture_output=True,text=True)
     record=json.loads(result.stdout)
@@ -43,7 +47,7 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     metadata=json.loads(subprocess.run([str(target),'parameter-metadata'],check=True,capture_output=True,text=True).stdout)
     assert metadata=={'metadata_ownership':'PASS'}
 
-    vector=json.loads((ROOT/'tests/fixtures/prepared-envelope-v2.json').read_text())
+    vector=json.loads((ROOT/(FIXTURES / 'prepared-envelope-v2.json')).read_text())
     golden=subprocess.run([str(target),vector['hex']],check=True,capture_output=True,text=True)
     reply=json.loads(golden.stdout)
     assert reply['ok'] and reply['prepared_version']==2 and reply['session_generation']==vector['generation']

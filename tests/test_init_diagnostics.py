@@ -1,4 +1,8 @@
 """Diagnostic collectors and source hooks: no real guest required."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import json
 from pathlib import Path
 import shutil
@@ -9,7 +13,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'scripts'))
-sys.path.insert(0, str(ROOT/'benchmarks'))
+sys.path.insert(0, str(ROOT/BENCHMARKS))
 from guest_init_hooks import HOOKS, instrument
 from init_report import summarize, validate
 

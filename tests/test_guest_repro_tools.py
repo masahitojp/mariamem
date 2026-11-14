@@ -1,4 +1,8 @@
 """Fast regressions for fail-closed guest reproducibility tooling."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import importlib.util
 import json
 from pathlib import Path
@@ -6,7 +10,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOLS = ROOT / 'benchmarks/spikes/generated-go-integration'
+TOOLS = ROOT / (BENCHMARKS / 'spikes/generated-go-integration')
 
 
 def load_comparator():

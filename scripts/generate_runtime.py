@@ -4,6 +4,7 @@
 First reproduce the legacy-EH guest and candidate using the documented scripts.
 This deterministic import/package/data transformation needs no manual patches.
 """
+from layout import GENERATED
 import argparse
 import hashlib
 import json
@@ -80,7 +81,7 @@ def handwritten_owner(root, name):
     filename = Path(name).name
     if filename.startswith(('narrow_load_', 'narrow_write_')) or filename in {'fd_allocate_test.go','bulk_bounds_test.go','wait_timeout_test.go','thread_identity_test.go'}:
         return root/'scripts/runtime_correctness'/(filename+'.txt')
-    return root/'internal/generatedgo'/name
+    return root/GENERATED/name
 
 
 def adapt_driver(text):
@@ -126,7 +127,7 @@ def adapt_driver(text):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
-    parser.add_argument('--output', type=Path, default=ROOT/'internal/generatedgo')
+    parser.add_argument('--output', type=Path, default=ROOT/GENERATED)
     parser.add_argument('--development-input', type=Path, help='explicit verified UNQUALIFIED candidate inventory')
     args = parser.parse_args()
     src = args.source_module.resolve()

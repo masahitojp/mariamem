@@ -1,4 +1,8 @@
 """Release native compiler controls for the prepared source repair."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[2] / 'scripts'))
+from layout import FIXTURES
 import json
 import os
 from pathlib import Path
@@ -21,7 +25,7 @@ def test_real_source_functions(tmp_path, version, wasi, expected, sanitize):
         if os.environ.get('MARIAMEM_REQUIRE_PREPARED_C') == '1':
             pytest.fail('C compiler required')
         pytest.skip('C compiler unavailable')
-    fixture = json.loads((ROOT / 'tests/fixtures/prepared-p2-source-functions.json').read_text())
+    fixture = json.loads((ROOT / (FIXTURES / 'prepared-p2-source-functions.json')).read_text())
     (tmp_path / 'functions.inc').write_text('\n\n'.join(fixture[version].values())+'\n')
     binary = tmp_path / 'source-proof'
     command = [cc, '-std=c11', '-Wall', '-Wextra', '-Werror', '-DEMBEDDED_LIBRARY']
@@ -29,7 +33,7 @@ def test_real_source_functions(tmp_path, version, wasi, expected, sanitize):
         command += ['-D__wasi__']
     if sanitize:
         command += ['-fsanitize=address,undefined', '-fno-omit-frame-pointer']
-    subprocess.run(command + ['-I', str(tmp_path), str(ROOT / 'tests/fixtures/prepared_p2_source_harness.c'),
+    subprocess.run(command + ['-I', str(tmp_path), str(ROOT / (FIXTURES / 'prepared_p2_source_harness.c')),
                               '-o', str(binary)], check=True, capture_output=True, text=True)
     result = subprocess.run([str(binary)], check=True, capture_output=True, text=True)
     record = json.loads(result.stdout)

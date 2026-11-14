@@ -1,4 +1,8 @@
 """Fail-closed guest ABI/reclaimer installation, independent of runtime scheduling tests."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES, GENERATED
 import importlib.util
 import json
 from pathlib import Path
@@ -16,14 +20,14 @@ def preimage(name):
     # the old guest. New candidate preimages are exact, reviewed converter output,
     # never normalized into acceptance. Native development CI also checks these
     # against the freshly generated candidate before executing it.
-    provenance=json.loads((ROOT/'internal/generatedgo/provenance.json').read_text())
+    provenance=json.loads((ROOT/(GENERATED / 'provenance.json')).read_text())
     if provenance['guest_sha256'] != binding.GUEST_SHA256 and name in binding.FUNCTIONS:
-        identity=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())
+        identity=json.loads((ROOT/(FIXTURES / 'prepared-p2-binding/identity.json')).read_text())
         assert provenance['guest_sha256']==identity['baseline_guest_sha256'],'unexpected canonical guest during prepared transition'
         assert binding.GUEST_SHA256==identity['guest_sha256']
         fn=binding.FUNCTIONS[name][0]
-        return (ROOT/'tests/fixtures/prepared-p2-binding'/(fn+'.txt')).read_text()
-    text = (ROOT/'internal/generatedgo'/name).read_text()
+        return (ROOT/(FIXTURES / 'prepared-p2-binding')/(fn+'.txt')).read_text()
+    text = (ROOT/GENERATED/name).read_text()
     # Construct raw input from canonical output only for mutation tests. The
     # independent regeneration command is the valid-input acceptance oracle.
     if name == 'code/base/base.go':
@@ -92,7 +96,7 @@ def test_guest_and_required_file_identity():
 
 @pytest.mark.parametrize('old_identity', ['baseline_guest_sha256', 'previous_guest_sha256', 'p1_guest_sha256', 'initial_p2_guest_sha256', 'type_repair_guest_sha256', 'p2_guest_sha256', 'p3_guest_sha256', 'long_data_guest_sha256', 'prior_alignment_guest_sha256', 'prior_uca_prepared_guest_sha256', 'prior_lexer_prepared_guest_sha256', 'prior_uca_copy_guest_sha256', 'prior_dictionary_guest_sha256', 'prior_prepared_output_guest_sha256'])
 def test_old_guest_is_not_an_alternate_allowed_identity(old_identity):
-    old=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())[old_identity]
+    old=json.loads((ROOT/(FIXTURES / 'prepared-p2-binding/identity.json')).read_text())[old_identity]
     files={'generated/base/base.go',*('generated/'+p.removeprefix('code/') for p in binding.FUNCTIONS)}
     with pytest.raises(ValueError,match='unreviewed'):
         binding.validate_inputs(old,files)
@@ -101,8 +105,8 @@ def test_old_guest_is_not_an_alternate_allowed_identity(old_identity):
 @pytest.mark.parametrize('mutate_offset',[False,True])
 def test_memory_initialization_binding(tmp_path,mutate_offset):
     import check_prepared_p1_binding as checker
-    identity=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())
-    body=(ROOT/'tests/fixtures/prepared-p2-binding/memory-init.txt').read_text()
+    identity=json.loads((ROOT/(FIXTURES / 'prepared-p2-binding/identity.json')).read_text())
+    body=(ROOT/(FIXTURES / 'prepared-p2-binding/memory-init.txt')).read_text()
     target=tmp_path/identity['memory_init']['file'];target.parent.mkdir(parents=True)
     target.write_text(body.replace('int32(8388608)','int32(8388612)',1) if mutate_offset else body)
     if mutate_offset:

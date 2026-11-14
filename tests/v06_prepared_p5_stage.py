@@ -2,6 +2,10 @@
 
 Never changes canonical inventories, invokes release packaging or publishes.
 """
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES
 import argparse
 import hashlib
 import json
@@ -44,7 +48,7 @@ def verify_inputs(development, expected_commit, expected_guest):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--development',type=Path,required=True);p.add_argument('--work',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     identity=source_identity(ROOT)
-    expected=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())['guest_sha256']
+    expected=json.loads((ROOT/(FIXTURES / 'prepared-p2-binding/identity.json')).read_text())['guest_sha256']
     r=verify_inputs(a.development,identity['commit'],expected)
     work=external_output(ROOT,a.work.resolve());work.mkdir(parents=True)
     package=work/'python'

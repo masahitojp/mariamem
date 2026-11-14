@@ -12,8 +12,9 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).parent
 sys.path.insert(0, str(ROOT / "scripts"))
+from layout import BENCHMARKS, FIXTURES, GENERATED_CODE
 from runtime_atomic_loads import apply
-sys.path.insert(0, str(ROOT / "benchmarks/spikes/generated-go-integration"))
+sys.path.insert(0, str(ROOT / (BENCHMARKS / 'spikes/generated-go-integration')))
 from translate_guest import PATCHES
 
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -79,7 +80,7 @@ def main():
         source=next(archive.iterdir());subprocess.run(["git","init","-q"],cwd=source,check=True)
         assert set(PATCHES)==set(pins["patches_sha256"])
         for name in PATCHES:
-            patch=ROOT/"benchmarks/spikes/wasm2go"/name
+            patch=ROOT/(BENCHMARKS / 'spikes/wasm2go')/name
             assert digest(patch)==pins["patches_sha256"][name]
             subprocess.run(["git","apply","--unidiff-zero",str(patch)],cwd=source,check=True)
         converter=out/"wasm2go"
@@ -102,8 +103,8 @@ def main():
     for template in HERE.glob("narrow_*"):
         if not template.name.endswith((".go.txt",".s.txt")) or "_test.go" in template.name:continue
         shutil.copyfile(template,base/template.name.removesuffix(".txt"))
-    shutil.copyfile(ROOT/"internal/generatedgo/code/base/memory_mapping.go",base/"memory_mapping.go")
-    driver=(ROOT/"tests/fixtures/narrow-atomic-driver.go.txt").read_text()
+    shutil.copyfile(ROOT/(GENERATED_CODE / 'base/memory_mapping.go'),base/"memory_mapping.go")
+    driver=(ROOT/(FIXTURES / 'narrow-atomic-driver.go.txt')).read_text()
     entries=[]
     for op in ops:
         args=["m","addr"]+[f"int{op['result']}(a[{i}])" for i in range(op["argc"]-1)]
@@ -126,7 +127,7 @@ def main():
             "adapted_base_sha256":digest(base/"base.go"),"checks":rows,
             "go_version":subprocess.check_output(["go","version"],env=env,text=True).strip(),
             "reference_engine":subprocess.check_output(["node","--version"],text=True).strip(),
-            "owner_sha256":{str(x.relative_to(ROOT)):digest(x) for x in [ROOT/"scripts/runtime_atomic_loads.py",HERE/"narrow_reference.js",ROOT/"tests/fixtures/narrow-atomic-driver.go.txt",*HERE.glob("narrow_*.go.txt"),*HERE.glob("narrow_*.s.txt")]},
+            "owner_sha256":{str(x.relative_to(ROOT)):digest(x) for x in [ROOT/"scripts/runtime_atomic_loads.py",HERE/"narrow_reference.js",ROOT/(FIXTURES / 'narrow-atomic-driver.go.txt'),*HERE.glob("narrow_*.go.txt"),*HERE.glob("narrow_*.s.txt")]},
             "scope":"Real memory32 Wasm exports, i32/i64 values, all narrow families plus full-width controls; no general mixed-access proof"}
     (out/"results.json").write_text(json.dumps(report,indent=2)+"\n")
 

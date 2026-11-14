@@ -1,4 +1,8 @@
 """The actual guest regression must reject either removed notification."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import GENERATED
 from pathlib import Path
 import sys
 import pytest
@@ -28,7 +32,7 @@ def test_notification_order_and_real_guest_owner():
     entry = pins['functions']['Fn17741']
     original = guard.body((ROOT/entry['file']).read_text(), 'Fn17741')
     assert original.index('Fn16580(m)') < original.index('Fn17730(m)') < original.index('Fn16581(m)')
-    test = (ROOT/'internal/generatedgo/dictionary_wait_integration_test.go').read_text()
+    test = (ROOT/(GENERATED / 'dictionary_wait_integration_test.go')).read_text()
     assert 'p6.Fn17741(c, 0)' in test
     assert 'Fn16580(' not in test and 'Fn16581(' not in test
     assert "'dictionary_wait_integration_test.go'" in (ROOT/'scripts/generate_runtime.py').read_text()

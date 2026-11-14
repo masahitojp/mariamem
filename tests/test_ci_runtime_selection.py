@@ -1,6 +1,7 @@
 """Daily runtime checks reuse one host and do not invoke release campaigns."""
 from pathlib import Path
 import re
+import pytest
 import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'scripts'))
@@ -74,3 +75,23 @@ def test_retired_native_override_cannot_change_integration(monkeypatch, tmp_path
     verify.integration()
     assert all('MARIAMEM_NATIVE_DIR' not in env for _, env in calls)
     assert all(env['MARIAMEM_TEST_DEFAULT'] == '1' for _, env in calls)
+
+
+@pytest.mark.parametrize(('workload', 'script'), [
+    ('envelope', 'memory_envelope.py'),
+    ('competitive', 'testcontainers_compare.py'),
+    ('go-isolation', 'go_isolation.py'),
+    ('isolation', 'isolation_baseline.py'),
+    ('ready', 'ready_to_query.py'),
+    ('seeded', 'seeded_database.py'),
+    ('parallel', 'parallel_databases.py'),
+    ('memory', 'memory_scaling.py'),
+])
+def test_bench_dispatches_selected_script_and_forwards_arguments(monkeypatch, workload, script):
+    import verify
+    import layout
+    calls = []
+    monkeypatch.setattr(verify, 'run', lambda argv, **kw: calls.append(argv))
+    monkeypatch.setattr(sys, 'argv', ['verify.py', 'bench', workload, '--output', 'result.json'])
+    verify.main()
+    assert calls == [[sys.executable, ROOT / layout.BENCHMARKS / script, '--output', 'result.json']]

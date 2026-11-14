@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Run/validate bounded G1 observations; declarations alone never grant PASS."""
+from layout import FIXTURES
 import argparse
 import hashlib
 import json
@@ -255,7 +256,7 @@ def validate_host(directory, expected, expected_host=None, profile="measurement"
     need(report['source_commit'] == expected, 'source SHA mismatch')
     need(report['source_inventory_sha256'] == source_identity(ROOT), 'source bytes mismatch')
     need(report['toolchain'] == 'go1.26.10', 'wrong Go toolchain')
-    resources = json.loads((ROOT / 'tests/fixtures/fixture-entry/acceptance.json').read_text())['resources']
+    resources = json.loads((ROOT / (FIXTURES / 'fixture-entry/acceptance.json')).read_text())['resources']
     need(set(report['inputs_sha256']) == set(input_paths(resources)), 'input identity inventory missing')
     for path, sha in report['inputs_sha256'].items():
         need(digest(ROOT / path) == sha, 'input bytes mismatch: ' + path)
@@ -321,7 +322,7 @@ def run(expected, output, profile="measurement"):
     need(not subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT), 'campaign requires clean candidate')
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
-    plan = json.loads((ROOT / 'tests/fixtures/fixture-entry/acceptance.json').read_text())
+    plan = json.loads((ROOT / (FIXTURES / 'fixture-entry/acceptance.json')).read_text())
     resources = plan['resources']
     host = host_profile()
     version = subprocess.check_output(['go', 'version'], text=True).split()[2]

@@ -1,4 +1,8 @@
 """Independent baseline contract: no selective removal or hidden guest diagnostics."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 from pathlib import Path
 import sys
 import json
@@ -6,7 +10,7 @@ from types import SimpleNamespace
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'benchmarks'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/BENCHMARKS))
 from final_latency import summarize_trials, trial_command
 import final_latency as benchmark
 

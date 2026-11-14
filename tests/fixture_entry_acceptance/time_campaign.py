@@ -1,4 +1,8 @@
 """P1 three-time checkpoint, separate from the complete resource campaign."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[2] / 'scripts'))
+from layout import FIXTURES
 import hashlib
 import importlib.metadata
 import json
@@ -193,7 +197,7 @@ def assess(events, owners, counts, code, cases, workers, repeated):
 def run(root, output, host, source, installed, base_conf, cases_text):
     first_started=time.monotonic()
     root=Path(root);output=Path(output);output.mkdir(parents=True,exist_ok=False)
-    plan=json.loads((root/'tests/fixtures/fixture-entry/time-campaign-plan.json').read_text())
+    plan=json.loads((root/(FIXTURES / 'fixture-entry/time-campaign-plan.json')).read_text())
     assert plan['repeated_batch']['labels']==BATCHES and plan['repeated_batch']['workers']==[1,2]
     project=output/'project';project.mkdir()
     sentinel=socket.socket();sentinel.bind(('127.0.0.1',0));sentinel.listen();sentinel.setblocking(False)
@@ -268,7 +272,7 @@ def run(root, output, host, source, installed, base_conf, cases_text):
                               ('tests/fixture_entry_acceptance/time_campaign.py','tests/test_p1_runtime.py')},
                  added_second_test_lines=len(SECOND.splitlines()),repeated_lifecycle_lines=0,
                  acquisition=plan['acquisition'],human_authoring_minutes=None,phase_times_are_not_summed=True,
-                 runs=results,plan_sha256=hashlib.sha256((root/'tests/fixtures/fixture-entry/time-campaign-plan.json').read_bytes()).hexdigest(),
+                 runs=results,plan_sha256=hashlib.sha256((root/(FIXTURES / 'fixture-entry/time-campaign-plan.json')).read_bytes()).hexdigest(),
                  input_sha256={p:hashlib.sha256((project/p).read_bytes()).hexdigest() for p in ('application.py','conftest.py','pytest.ini','test_first.py','test_second.py','test_repeat.py')},
                  original_endpoint_contacts=0,remaining=plan['still_required'])
     (output/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')

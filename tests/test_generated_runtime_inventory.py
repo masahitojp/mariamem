@@ -1,4 +1,8 @@
 """Canonical transpilation checks remain fail-closed without obsolete images."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import GENERATED_CODE, FIXTURES, GENERATED
 import importlib.util
 import json
 from pathlib import Path
@@ -14,7 +18,7 @@ spec.loader.exec_module(verifier)
 
 @pytest.fixture
 def canonical(tmp_path, monkeypatch):
-    source = tmp_path/'internal/generatedgo'
+    source = tmp_path/GENERATED
     source.mkdir(parents=True)
     # Minimal inert inventory still stages each independently owned primitive.
     # Use the owner directory, not the installer's list, to catch omissions.
@@ -48,7 +52,7 @@ def test_canonical_inventory_needs_no_executable_image(canonical):
 
 @pytest.mark.parametrize('change', ['modified', 'extra', 'missing', 'pins', 'guest'])
 def test_canonical_identity_changes_are_rejected(canonical, change):
-    source = canonical/'internal/generatedgo'
+    source = canonical/GENERATED
     if change == 'modified':
         (source/'entry.go').write_text('modified')
     elif change == 'extra':
@@ -77,14 +81,14 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
     spec = importlib.util.spec_from_file_location('runtime_installer', ROOT/'scripts/generate_runtime.py')
     installer = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(installer)
-    canonical = ROOT/'internal/generatedgo'
+    canonical = ROOT/GENERATED
     record = json.loads((canonical/'provenance.json').read_text())
     handwritten = {p.relative_to(canonical).as_posix() for p in canonical.rglob('*')
                    if p.is_file() and p.name != 'provenance.json'} - set(record['files_sha256'])
     assert {'code/base/owned_prepared.go', 'code/base/owned_prepared_test.go'} <= handwritten
     project, module, output = tmp_path/'project', tmp_path/'input', tmp_path/'output'
     for name in handwritten:
-        target = project/'internal/generatedgo'/name
+        target = project/GENERATED/name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((canonical/name).read_bytes())
     import shutil
@@ -103,9 +107,9 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
         + SUBWORD + '\n' + CMP + '\n'
         + 'func (w *WasiStubs) Sched_yield(m *Module) int32 {\n\truntime.Gosched()\n\treturn _wasiESUCCESS\n}\n'
         + 'const _wasiESUCCESS int32 = 0\n'
-        + (ROOT/'tests/fixtures/pinned-fd-write.go.txt').read_text()
-        + (ROOT/'tests/fixtures/pinned-worker-failure.go.txt').read_text()
-        + (ROOT/'tests/fixtures/pinned-memfs.go.txt').read_text())
+        + (ROOT/(FIXTURES / 'pinned-fd-write.go.txt')).read_text()
+        + (ROOT/(FIXTURES / 'pinned-worker-failure.go.txt')).read_text()
+        + (ROOT/(FIXTURES / 'pinned-memfs.go.txt')).read_text())
     for relative, (fn, _) in FUNCTIONS.items():
         body = function((canonical/relative).read_text(), fn)
         if fn == 'Fn153':
@@ -116,8 +120,8 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
     from runtime_crc32c import TABLE_OFFSET
     target = module/'generated/p4/p4_pure.go'
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text('package p4\n' + (ROOT/'tests/fixtures/pinned-crc-validator.go.txt').read_text())
-    data = bytes(TABLE_OFFSET) + bytes.fromhex((ROOT/'tests/fixtures/pinned-crc-table.hex').read_text())
+    target.write_text('package p4\n' + (ROOT/(FIXTURES / 'pinned-crc-validator.go.txt')).read_text())
+    data = bytes(TABLE_OFFSET) + bytes.fromhex((ROOT/(FIXTURES / 'pinned-crc-table.hex')).read_text())
     (module/'generated/data.bin').write_bytes(data)
     (project/'release').mkdir()
     (project/'release/generated-go-inputs.json').write_text(json.dumps({
@@ -152,7 +156,7 @@ def test_repository_inventory_matches_committed_provenance():
 
 
 def test_generated_edit_reports_the_file_and_does_not_bless_it(canonical):
-    (canonical/'internal/generatedgo/entry.go').write_text('changed')
+    (canonical/(GENERATED / 'entry.go')).write_text('changed')
     with pytest.raises(ValueError, match='entry.go.*canonical generator/adapter'):
         verifier.main()
 
@@ -168,11 +172,11 @@ def test_pinned_driver_adapter_contains_snapshot_attribution():
     spec = importlib.util.spec_from_file_location('driver_installer', ROOT/'scripts/generate_runtime.py')
     installer = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(installer)
-    raw = (ROOT/'tests/fixtures/generated-driver.go.txt').read_bytes()
+    raw = (ROOT/(FIXTURES / 'generated-driver.go.txt')).read_bytes()
     pins = json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     assert hashlib.sha256(raw).hexdigest() == pins['candidate_files_sha256']['main.go']
     adapted = installer.adapt_driver(raw.decode().replace(installer.OLD, installer.NEW))
-    canonical = (ROOT/'internal/generatedgo/main.go').read_text()
+    canonical = (ROOT/(GENERATED / 'main.go')).read_text()
     # Compare the changed export boundary before gofmt, without a Go prerequisite
     # for Python-only checks. Exact whole-driver pinned-gofmt bytes are recorded
     # in repair evidence; existing memory glue also has gofmt-normalized semicolons.
@@ -189,7 +193,7 @@ def test_pinned_driver_adapter_contains_snapshot_attribution():
 @pytest.mark.parametrize('change', ['output', 'owner', 'missing'])
 def test_template_owned_primitive_rejects_drift(canonical, change, family):
     owner = canonical/f'scripts/runtime_correctness/{family}_arm64.s.txt'
-    output = canonical/f'internal/generatedgo/code/base/{family}_arm64.s'
+    output = canonical/GENERATED_CODE/f'base/{family}_arm64.s'
     if change == 'output': output.write_text('changed')
     elif change == 'owner': owner.write_text('changed')
     else: owner.unlink()
@@ -318,7 +322,7 @@ def validate_wasix_stub_classification(driver, classification):
 
 def test_generated_driver_wasix_stubs_are_explicitly_classified():
     # Host methods can be added in any non-test file in the generatedgo package.
-    sources = sorted(path for path in (ROOT/'internal/generatedgo').glob('*.go')
+    sources = sorted(path for path in (ROOT/GENERATED).glob('*.go')
                      if not path.name.endswith('_test.go'))
     assert sources
     validate_wasix_stub_classification(

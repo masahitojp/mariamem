@@ -98,6 +98,7 @@ def review_input_references(text):
 
     return sorted({node.lineno for node in ast.walk(tree)
                    if id(node) not in docstrings | url_nodes
+                   and literal(node) != "docs/reviews/go.mod"  # module boundary, not review data
                    and re.search(r"(?:^|/)docs/reviews(?:/|$)",
                                  literal(node).replace("\\", "/"))})
 

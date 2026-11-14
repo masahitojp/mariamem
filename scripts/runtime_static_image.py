@@ -1,4 +1,5 @@
 """Generate and verify static-image metadata against the selected installed tree."""
+from layout import GENERATED
 import hashlib
 import json
 import os
@@ -32,7 +33,7 @@ def generate(runtime, go):
     runtime = Path(runtime).resolve()
     with tempfile.TemporaryDirectory(prefix='mariamem-image-layout-') as temporary:
         root = Path(temporary)
-        staged = root/'internal/generatedgo'
+        staged = root/GENERATED
         staged.mkdir(parents=True)
         for name in ('code', 'imagelayout', 'layoutgen'):
             shutil.copytree(runtime/name, staged/name)

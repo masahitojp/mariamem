@@ -1,4 +1,8 @@
 """Pinned extraction and startup-helper failure oracles; no network/guest build."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS, FIXTURES
 import base64
 import importlib.util
 import json
@@ -21,7 +25,7 @@ def inputs(tmp_path):
     (root/'guest').mkdir(parents=True)
     (root/'release').mkdir()
     # Lossless encoding preserves upstream whitespace and GPL notice; no network fixture.
-    raw = base64.decodebytes((ROOT/'tests/fixtures/mariadb-proc-source.sql.base64').read_bytes())
+    raw = base64.decodebytes((ROOT/(FIXTURES / 'mariadb-proc-source.sql.base64')).read_bytes())
     (source/'scripts/mariadb_system_tables.sql').write_bytes(raw)
     (source/'VERSION').write_text('MYSQL_VERSION_MAJOR=12\nMYSQL_VERSION_MINOR=3\nMYSQL_VERSION_PATCH=3\n')
     for name in ['guest/routine_schema.json', 'release/inputs.lock.json']:
@@ -95,7 +99,7 @@ def test_c_startup_helper_oracles(inputs, tmp_path):
     source,root=inputs;schema.prepare(source,root=root)
     binary=tmp_path/'routine-helper-test'
     subprocess.run([cc,'-std=c11','-Wall','-Wextra','-Werror','-I',str(ROOT/'guest'),'-I',str(source/'wasm'),
-                    str(ROOT/'tests/fixtures/routine_bootstrap_harness.c'),'-o',str(binary)],check=True,capture_output=True,text=True)
+                    str(ROOT/(FIXTURES / 'routine_bootstrap_harness.c')),'-o',str(binary)],check=True,capture_output=True,text=True)
     run=subprocess.run([str(binary)],capture_output=True,text=True,check=True)
     assert 'PASS: fresh/restore, mode, metadata, SQL failures and context' in run.stdout
 
@@ -104,7 +108,7 @@ def test_driver_adapter_keeps_boot_mode_with_timing():
     spec=importlib.util.spec_from_file_location('generate_runtime',ROOT/'scripts/generate_runtime.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     # Actual preimage fixture supplied to the deterministic driver owner.
-    text=(ROOT/'benchmarks/spikes/generated-go-integration/io-driver.go.txt').read_text()
+    text=(ROOT/(BENCHMARKS / 'spikes/generated-go-integration/io-driver.go.txt')).read_text()
     # This source has the pre-adapter verify helper supplied by setup_candidate.
     text+='\nfunc verifyCompiledGuest(name string) { }\n'
     out=module.adapt_driver(text)

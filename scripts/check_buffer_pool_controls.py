@@ -4,6 +4,7 @@ Test-only overlays inject EIO and observe real redo recovery. They never enter
 product code or performance binaries. Output is an external disposable directory.
 The archived measurement harness remains immutable.
 """
+from layout import BENCHMARKS, FIXTURES
 
 import argparse
 import hashlib
@@ -16,7 +17,7 @@ import subprocess
 import sys
 
 REPOSITORY = Path(__file__).resolve().parents[1]
-ARCHIVE = REPOSITORY / "benchmarks/forkcost/buffer-zero-candidate"
+ARCHIVE = REPOSITORY / (BENCHMARKS / 'forkcost/buffer-zero-candidate')
 
 
 def main():
@@ -51,7 +52,7 @@ def main():
             text[:text.index("replace github.com/masahitojp/mariamem")]
             + f"replace github.com/masahitojp/mariamem => {root}\n"
         )
-    fault_source = root / "tests/fixtures/buffer-pool-fault/main.go.txt"
+    fault_source = root / (FIXTURES / 'buffer-pool-fault/main.go.txt')
     shutil.copy2(fault_source, temp / "fault/main.go")
     for name in ("buffer_fault_experiment.go", "buffer_recovery_witness.go"):
         shutil.copy2(ARCHIVE / "harness" / (name + ".txt"), temp / name)

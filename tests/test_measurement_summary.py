@@ -1,8 +1,12 @@
 """Current measurement reductions retain tails, resource scope and failed trials."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'benchmarks'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / BENCHMARKS))
 from measurement_summary import distribution, summarize_resources
 def sample(n):
     row = {'group_ready_seconds': .5, 'host_cpu_seconds': .1, 'runtime_cpu_seconds': .2,

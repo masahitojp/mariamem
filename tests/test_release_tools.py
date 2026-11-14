@@ -1,4 +1,8 @@
 """Checks for the publication boundary and source archive extraction."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import BENCHMARKS
 import io
 from pathlib import Path
 import sys
@@ -16,9 +20,9 @@ class PublicationBoundary(unittest.TestCase):
     def test_benchmark_sources_included_but_results_excluded(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / "benchmarks/results").mkdir(parents=True)
-            (root / "benchmarks/ready_to_query.py").write_text("# source\n")
-            (root / "benchmarks/results/raw.json").write_text('{"local": true}')
+            (root / (BENCHMARKS / 'results')).mkdir(parents=True)
+            (root / (BENCHMARKS / 'ready_to_query.py')).write_text("# source\n")
+            (root / (BENCHMARKS / 'results/raw.json')).write_text('{"local": true}')
             with patch.object(check_public, "ROOT", root):
                 self.assertEqual(list(check_public.check()["files"]), ["benchmarks/ready_to_query.py"])
 

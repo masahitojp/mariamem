@@ -1,4 +1,8 @@
 """Keep WASI write error repair bound to the pinned helper preimages."""
+import sys as _layout_sys
+from pathlib import Path as _LayoutPath
+_layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
+from layout import FIXTURES, GENERATED_CODE
 from pathlib import Path
 import sys
 
@@ -10,8 +14,8 @@ from runtime_write import apply,CHANGES
 
 
 def test_write_adapter_matches_installed_helpers():
-    raw=(ROOT/'tests/fixtures/pinned-fd-write.go.txt').read_text()
-    current=(ROOT/'internal/generatedgo/code/base/base.go').read_text()
+    raw=(ROOT/(FIXTURES / 'pinned-fd-write.go.txt')).read_text()
+    current=(ROOT/(GENERATED_CODE / 'base/base.go')).read_text()
     parts=[]
     for start,end in [('func writeVec(', '// fdSrcLocked'),
                       ('func (w *WasiStubs) Fd_write(', 'func (w *WasiStubs) Fd_sync('),
@@ -24,7 +28,7 @@ def test_write_adapter_matches_installed_helpers():
 @pytest.mark.parametrize('index',range(3))
 @pytest.mark.parametrize('mutation',['missing','duplicate'])
 def test_write_adapter_rejects_changed_preimages(index,mutation):
-    raw=(ROOT/'tests/fixtures/pinned-fd-write.go.txt').read_text()
+    raw=(ROOT/(FIXTURES / 'pinned-fd-write.go.txt')).read_text()
     old=CHANGES[index][0]
     changed=raw.replace(old,'changed-preimage',1) if mutation=='missing' else raw+'\n'+old
     with pytest.raises(ValueError,match='preimage changed'):
