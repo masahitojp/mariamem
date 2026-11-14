@@ -7,6 +7,19 @@ continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
 
+## MemoryEA direct panic with noinline — product verification authorized (2026-11-15)
+
+The Human authorized product verification under [Issue182](https://github.com/masahitojp/mariamem/issues/182).
+The candidate expresses failure directly with panic and explicitly keeps MemoryEA
+out of line; bounds arithmetic, guest Wasm and SQL are unchanged. The earlier
+fixed-source macOS trial reduced full-suite time by paired medians of4.8–5.7%
+without test executable growth. This motivates validation, not a universal
+performance claim. Port only the minimal canonical generator/runtime delta onto
+main9d1ea060b3180bbba8424f30383b47fa6859ebb3, then verify regeneration,
+provenance/license bindings, current-source performance and distribution sizes.
+Existing CI owns platform/consumer qualification after exact-SHA submission.
+Integration and publication remain separate Human decisions.
+
 ## Evidence retention approved (#158, 2026-11-14)
 
 The Human approved retaining continuing decisions in existing ADRs and deleting
