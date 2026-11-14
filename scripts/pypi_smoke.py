@@ -3,6 +3,7 @@
 import json
 import platform
 import sys
+import sysconfig
 
 
 def check(version, expected_platform="darwin-arm64"):
@@ -11,7 +12,10 @@ def check(version, expected_platform="darwin-arm64"):
 
     expected = {"darwin-arm64": ("Darwin", "arm64"), "linux-x86_64": ("Linux", "x86_64"),
                 "linux-aarch64": ("Linux", "aarch64")}.get(expected_platform)
-    if expected is None or (platform.system(), platform.machine()) != expected:
+    windows = {'windows-x86_64': 'win-amd64', 'windows-arm64': 'win-arm64'}
+    matches = ((platform.system() == 'Windows' and sysconfig.get_platform() == windows[expected_platform])
+               if expected_platform in windows else expected is not None and (platform.system(), platform.machine()) == expected)
+    if not matches:
         raise RuntimeError(f"expected native {expected_platform} smoke")
     if mariamem.__version__ != version:
         raise RuntimeError('installed package version differs')

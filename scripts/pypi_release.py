@@ -102,8 +102,17 @@ def verify_origin(report, provenance, sums, release, source, tag, repository):
     assets = release['assets']
     require(release.get('tag_name') == tag and release.get('draft') is False
             and release.get('prerelease') is False, 'GitHub release is not published stable')
-    require(len(assets) == len(names) + 1 and {a['name'] for a in assets} == names | {'SHA256SUMS'},
-            'GitHub release filenames differ')
+    actual = [a['name'] for a in assets]
+    additions = set(actual) - (names | {'SHA256SUMS'})
+    allowed_wheels = {f'mariamem-{version}-py3-none-{tag}.whl' for tag in (
+        'manylinux_2_28_x86_64.musllinux_1_2_x86_64',
+        'manylinux_2_28_aarch64.musllinux_1_2_aarch64', 'win_amd64', 'win_arm64')}
+    require(len(actual) == len(set(actual)) and names | {'SHA256SUMS'} <= set(actual),
+            'GitHub original release filenames missing/duplicated')
+    require(not additions or (version == '0.6.2' and all(
+        name in allowed_wheels or re.fullmatch(
+            r'mariamem-0\.6\.2-additional-[0-9a-f]{40}-(?:source\.tar\.gz|provenance\.json)', name)
+        for name in additions)), 'GitHub release filenames differ')
     # Reuse the existing both-platform final-artifact READY validation, including wheel identities.
     publication = report or {
         'version': 3, 'contract': 'generated-go-v1', 'status': 'PUBLISHED',
