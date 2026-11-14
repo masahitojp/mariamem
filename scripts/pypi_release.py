@@ -231,18 +231,19 @@ def find_smoke(root, record, conditions):
                 or str(info['id']) == os.environ.get('GITHUB_RUN_ID')
                 or info.get('path', '').split('@')[0] != WORKFLOW):
             continue
-        name = 'pypi-smoke-' + record['source_commit']
+        prefix = 'pypi-smoke-' + record['source_commit'] + '-'
         found = api.json(f"/actions/runs/{info['id']}/artifacts?per_page=100")['artifacts']
-        if not any(a['name'] == name and not a['expired'] for a in found):
-            continue
-        with tempfile.TemporaryDirectory(prefix='mariamem-pypi-reuse-') as tmp:
-            archive = Path(tmp) / 'receipt.zip'
-            reference = api.artifact(info['id'], name, record['source_commit'], archive)
-            with zipfile.ZipFile(archive) as zipped:
-                require(zipped.namelist() == ['ci-pypi-publication.json'], 'unexpected smoke receipt archive')
-                previous = json.loads(zipped.read('ci-pypi-publication.json'))
-            if reusable(previous, record, conditions):
-                return {**previous['smoke'], 'reused_from': reference}
+        matches = sorted((a for a in found if a['name'].startswith(prefix) and not a['expired']),
+                         key=lambda a: a['id'], reverse=True)
+        for item in matches:
+            with tempfile.TemporaryDirectory(prefix='mariamem-pypi-reuse-') as tmp:
+                archive = Path(tmp) / 'receipt.zip'
+                reference = api.artifact(info['id'], item['name'], record['source_commit'], archive)
+                with zipfile.ZipFile(archive) as zipped:
+                    require(zipped.namelist() == ['ci-pypi-publication.json'], 'unexpected smoke receipt archive')
+                    previous = json.loads(zipped.read('ci-pypi-publication.json'))
+                if reusable(previous, record, conditions):
+                    return {**previous['smoke'], 'reused_from': reference}
     return None
 
 

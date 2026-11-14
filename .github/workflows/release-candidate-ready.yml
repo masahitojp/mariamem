@@ -769,7 +769,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: pypi-preflight-${{ inputs.candidate_ref }}
+          name: pypi-preflight-${{ inputs.candidate_ref }}-${{ github.run_attempt }}
           path: build/pypi/ci-pypi-publication.json
           if-no-files-found: error
           retention-days: 14
@@ -789,6 +789,7 @@ jobs:
       cancel-in-progress: false
     outputs:
       enabled: ${{ steps.prepare.outputs.enabled }}
+      artifact: pypi-publication-${{ inputs.candidate_ref }}-${{ github.run_attempt }}
       source: ${{ steps.prepare.outputs.source }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -832,7 +833,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: pypi-publication-${{ inputs.candidate_ref }}
+          name: pypi-publication-${{ inputs.candidate_ref }}-${{ github.run_attempt }}
           path: build/pypi/ci-pypi-publication.json
           if-no-files-found: error
           retention-days: 14
@@ -852,7 +853,7 @@ jobs:
           architecture: arm64
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: pypi-publication-${{ needs.pypi_publication.outputs.source }}
+          name: ${{ needs.pypi_publication.outputs.artifact }}
           path: build/pypi
       - name: Fresh PyPI install, exact wheel hash, SELECT 1 and host exit
         env:
@@ -861,7 +862,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: pypi-smoke-${{ needs.pypi_publication.outputs.source }}
+          name: pypi-smoke-${{ needs.pypi_publication.outputs.source }}-${{ github.run_attempt }}
           path: build/pypi/ci-pypi-publication.json
           if-no-files-found: error
           retention-days: 14

@@ -214,6 +214,9 @@ def test_pypi_workflow_has_no_verify_upload_or_build_and_keeps_normal_gates():
     assert "inputs.published_tag == ''" in job_text('resolve')
     assert "needs.pypi_publication.result == 'success'" in smoke
     assert 'architecture: arm64' in smoke
+    assert 'name: ${{ needs.pypi_publication.outputs.artifact }}' in smoke
+    assert 'artifact: pypi-publication-${{ inputs.candidate_ref }}-${{ github.run_attempt }}' in publish
+    assert 'name: pypi-smoke-${{ needs.pypi_publication.outputs.source }}-${{ github.run_attempt }}' in smoke
     for text in (verify,publish,smoke):
         assert 'setup-go' not in text and 'build_alpha' not in text and 'build_generated_guest' not in text
     assert 'options: [verify, release, public-smoke-recovery]' in workflow
@@ -270,3 +273,35 @@ def test_reused_smoke_does_not_install_or_execute_again(origin, monkeypatch):
     monkeypatch.setattr(release, 'run', unexpected)
     result=release.smoke(ROOT,path)
     assert result['status']=='COMPLETE' and result['smoke']==reused
+
+
+def test_reuse_fetches_authenticated_attempt_receipt_and_skips_failed_one(origin, monkeypatch):
+    import zipfile
+    current=prepare(origin,'release')
+    conditions=release.smoke_conditions(ROOT)
+    success={**current,'status':'COMPLETE','smoke':{'result':'PASS','conditions':conditions}}
+    monkeypatch.setenv('GITHUB_ACTIONS','true')
+    monkeypatch.setenv('GITHUB_RUN_ID','30')
+    prefix='pypi-smoke-'+SOURCE+'-'
+    calls=[]
+    class API:
+        def __init__(self,*args): pass
+        def json(self,path):
+            if '/workflows/' in path:
+                return {'workflow_runs':[
+                    {'id':30,'head_sha':TOOLING,'status':'in_progress','path':release.WORKFLOW},
+                    {'id':20,'head_sha':'f'*40,'status':'completed','path':release.WORKFLOW},
+                    {'id':10,'head_sha':TOOLING,'status':'completed','path':release.WORKFLOW}]}
+            assert path.startswith('/actions/runs/10/')
+            return {'artifacts':[{'id':1,'name':prefix+'1','expired':False},
+                                 {'id':2,'name':prefix+'2','expired':False}]}
+        def artifact(self,run,name,source,destination):
+            calls.append((run,name,source))
+            previous=success if name.endswith('-1') else {**success,'status':'FAILED'}
+            with zipfile.ZipFile(destination,'w') as archive:
+                archive.writestr('ci-pypi-publication.json',json.dumps(previous))
+            return {'run_id':run,'zip_sha256':digest(destination)}
+    monkeypatch.setattr(release,'GitHub',API)
+    found=release.find_smoke(ROOT,current,conditions)
+    assert found['result']=='PASS' and found['reused_from']['run_id']==10
+    assert calls==[(10,prefix+'2',SOURCE),(10,prefix+'1',SOURCE)]
