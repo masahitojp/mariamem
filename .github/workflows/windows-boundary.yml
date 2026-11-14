@@ -78,7 +78,7 @@ jobs:
       - name: Verify owned-log close before unlink
         env:
           CGO_ENABLED: '0'
-        run: go test -count=1 ./internal/control -run '^TestOwnedLogCleanupClosesBeforeRemoval$'
+        run: go test -count=1 ./internal/control -run '^(TestOwnedLogCleanupClosesBeforeRemoval|TestDatabaseLogCleanupRetriesRemovalAfterClosingWriter)$'
       - name: Install the same wheel in a fresh environment and accept changed boundaries
         run: python scripts/windows_wheel_acceptance.py --target '${{ matrix.target }}' --wheel 'build/dist/mariamem-0.6.2-py3-none-${{ matrix.wheel }}.whl' --output 'build/windows-boundary/acceptance.json'
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
