@@ -22,7 +22,7 @@ See the [release notes](release/NOTES-v0.6.2.md),
 ## Installation
 
 The published release supports **macOS 15+ / Apple Silicon (arm64)** and
-**Ubuntu 24.04 LTS / x86_64**. The Windows wheel candidate is described below.
+**Ubuntu 24.04 LTS / x86_64**. The additional Linux/Windows wheel candidates are described below.
 Release validation uses Go 1.26.10 and Python 3.14. Package minimums are
 Go 1.26.0 and Python 3.11; they are not a tested matrix of all later versions.
 Python3.9/3.10 are no longer supported.
@@ -49,6 +49,12 @@ python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/r
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
 Git source install: it includes the required platform executable.
+
+The additional `0.6.2` Linux wheel candidates target x86_64 and aarch64 with
+**glibc2.28+ or musl1.2+**, using native static Go hosts and compressed
+`manylinux_2_28` / `musllinux_1_2` platform tags. They are not published yet.
+The existing Ubuntu wheel remains unchanged. #169 tracks installed acceptance
+on both CPUs and both libc families, followed by all-target additional publication.
 
 The additional `0.6.2` Windows wheel candidate targets **Windows build 22000+**
 (Windows 11 or newer) on x86_64 and arm64, with tags `win_amd64` and `win_arm64`.

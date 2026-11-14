@@ -43,7 +43,7 @@ def main():
     binary = ROOT/'build/bench/isolation-go'
     binary.parent.mkdir(parents=True, exist_ok=True)
     # Build and all artifact metadata work are outside the measured Go interval.
-    subprocess.run(['go', 'build', '-p', '1', '-trimpath', '-o', str(binary), './benchmarks/goisolation'], cwd=ROOT, check=True)
+    subprocess.run(['go', 'build', '-p', '1', '-trimpath', '-o', str(binary), './goisolation'], cwd=ROOT/'benchmarks', check=True)
     command = [str(binary), '--json', str(output)]
     for name in ['runs', 'warmup', 'rows', 'queries', 'clients', 'interval', 'hold']:
         command += ['--'+name, str(getattr(args, name))]
@@ -68,7 +68,7 @@ def main():
     report['environment']['guest_sha256'] = json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256']
     report['environment']['runner_sha256'] = hashlib.sha256(binary.read_bytes()).hexdigest()
     report['environment']['mysql_driver'] = subprocess.check_output(
-        ['go', 'list', '-m', 'github.com/go-sql-driver/mysql'], cwd=ROOT, text=True).strip()
+        ['go', 'list', '-m', 'github.com/go-sql-driver/mysql'], cwd=ROOT/'benchmarks', text=True).strip()
     sources = [Path(__file__), ROOT/'benchmarks/isolation_baseline.py', ROOT/'benchmarks/_common.py',
                ROOT/'benchmarks/stage_report.py', *sorted((ROOT/'benchmarks/goisolation').glob('*.go'))]
     if args.init_diagnostics:

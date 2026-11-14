@@ -86,7 +86,7 @@ def test_real_packager_preserves_windows_wheel_tag(tmp_path, name):
     project = tmp_path / 'package'
     native = project / 'mariamem/_native'
     native.mkdir(parents=True)
-    for filename in ('setup.py', 'setup.cfg', 'deployment_target.json'):
+    for filename in ('setup.py', 'setup.cfg', 'deployment_target.json', 'README.md'):
         shutil.copyfile(ROOT / 'python' / filename, project / filename)
     (project / 'mariamem/__init__.py').write_text('')
     shutil.copyfile(ROOT / 'python/mariamem/_version.py', project / 'mariamem/_version.py')

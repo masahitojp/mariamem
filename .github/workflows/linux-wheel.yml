@@ -1,0 +1,80 @@
+name: Linux 0.6.2 wheel acceptance
+on:
+  push:
+    branches: [backport/v0.6.2-linux]
+permissions:
+  contents: read
+concurrency:
+  group: linux-v062-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  wheel:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: linux-x86_64
+            arch: x86_64
+          - runner: ubuntu-24.04-arm
+            target: linux-aarch64
+            arch: aarch64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    env:
+      GOTOOLCHAIN: go1.26.10
+      CGO_ENABLED: '0'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Verify source and native memory boundary
+        run: |
+          mkdir -p build/linux-receipts
+          python scripts/git_identity.py inspect HEAD > build/linux-receipts/source.json
+          test "$(uname -m)" = '${{ matrix.arch }}'
+          python scripts/verify_generated_runtime.py
+          go test -p 1 ./internal/artifacts ./internal/snapshot ./internal/generatedgo/code/base ./internal/forklimit ./internal/entropyfs -count=1
+          go test -p 1 ./internal/generatedgo -run '^TestMapped' -count=1
+      - name: Build one exact-source wheel for both libc families
+        run: |
+          python -m pip install pytest==8.4.2 wheel==0.45.1 setuptools==80.9.0 twine==6.2.0
+          PYTHONPATH=python python -m pytest -q tests/test_linux_distribution.py tests/test_windows_distribution.py tests/test_generated_runtime_inventory.py tests/test_go_isolation.py
+          go list -mod=readonly ./... > build/linux-receipts/root-packages.txt
+          python -c "from pathlib import Path; packages=Path('build/linux-receipts/root-packages.txt').read_text().splitlines(); assert not any(p.startswith(('github.com/masahitojp/mariamem/docs/reviews','github.com/masahitojp/mariamem/benchmarks')) for p in packages)"
+          (cd benchmarks && go list -mod=readonly ./goisolation)
+          (cd benchmarks/competitive && go list -mod=readonly .)
+          python scripts/build_alpha.py --target '${{ matrix.target }}' --ci-candidate
+          python -m twine check build/dist/*.whl
+          cp tests/evidence/alpha-wheel.json build/linux-receipts/wheel.json
+      - name: Accept same bytes on glibc and musl
+        env:
+          TARGET: ${{ matrix.target }}
+          ARCH: ${{ matrix.arch }}
+        run: python scripts/linux_wheel_acceptance.py --target "$TARGET" --arch "$ARCH"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: linux-wheel-${{ matrix.target }}-${{ github.sha }}
+          path: |
+            build/dist/*.whl
+            build/linux-receipts/*.json
+          if-no-files-found: error
+          retention-days: 14
+  gate:
+    name: Linux wheel gate
+    if: always()
+    needs: wheel
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require both native CPUs and both libc acceptances
+        env:
+          RESULT: ${{ needs.wheel.result }}
+        run: test "$RESULT" = success

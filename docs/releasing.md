@@ -7,6 +7,26 @@ CI acceptance; preparation is not qualification or publication evidence.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
+## Additional 0.6.2 Linux wheel candidate
+
+The Linux backport starts from the Windows-integrated maintenance/v0.6.2 source,
+not current main. `.github/workflows/linux-wheel.yml` builds on native x86_64 and
+aarch64 with CGO disabled. ELF checks reject an interpreter, shared dependencies,
+wrong CPU and GLIBC/GLIBCXX symbol requirements before applying compressed
+`manylinux_2_28` / `musllinux_1_2` wheel tags. One wheel per CPU is installed into
+fresh Python3.11 environments in both PyPA libc-family containers. Acceptance
+requires smoke plus the two installed SQL/Snapshot/Fork/Close cases, no skipped
+cases, matching source/manifest/host/wheel hashes, and records image/environment
+identities. A tag alone is not a portability result. #169 owns the remaining
+all-target additional-publication path and public smoke; this CI never publishes.
+
+`docs/reviews/go.mod` and `benchmarks/go.mod` exclude evidence/harness trees from
+the root Go module distribution. `benchmarks/competitive` remains an independent
+nested module; local isolation launchers build from the benchmarks module with
+its existing root replacement. These boundaries do not remove corresponding
+source from the Git repository. Python METADATA includes `python/README.md` as
+the Markdown project description, validated in the built wheel.
+
 ## Additional 0.6.2 Windows wheel candidate
 
 [#171](https://github.com/masahitojp/mariamem/issues/171) builds from the0.6.2

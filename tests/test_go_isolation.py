@@ -38,6 +38,7 @@ def test_launcher_preserves_raw_case_summary_failure_and_generated_identity(tmp_
     def run(command, **kwargs):
         commands.append(command)
         if command[0] == 'go':
+            assert command[-1] == './goisolation' and kwargs['cwd'] == root/'benchmarks'
             Path(command[command.index('-o')+1]).write_bytes(b'runner')
             return SimpleNamespace(returncode=0)
         assert command[command.index('--workers')+1] == '1,4,8'

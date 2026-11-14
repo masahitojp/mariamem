@@ -14,7 +14,7 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Windows 0.6.2 backport — OS boundaries in progress
+## Additional 0.6.2 OS backports — Windows accepted, Linux in progress
 
 The approved distribution basis is published 0.6.2, source_commit
 `47121e1be0b399ba4e2270ce3e25c411ade0e2eb`. Only OS support and necessary
@@ -35,9 +35,24 @@ and Windows wheel/PE/manifest handling. The same CPU-specific wheel is installed
 in a fresh environment for SQL, Snapshot/Fork independence, remote-host handoff,
 capacity and Close/exit. Minimum Windows build is22000; initial representative
 systems are Windows Server2025 x86_64 and Windows11 arm64 with native Python3.14.
-This installed acceptance is pending; Windows support/publication are not yet
-complete. #169 owns all-target publication and corresponding source/provenance.
+Windows installed acceptance passed on both CPUs at `b0932e63` in
+[CI43604388156](https://github.com/masahitojp/mariamem/actions/runs/43604388156).
+PR184 was integrated into maintenance/v0.6.2; publication remains incomplete. #169 owns all-target publication and corresponding source/provenance.
 The original Go0.6.2 tag remains unchanged and does not gain Windows support.
+
+The Linux candidate keeps the original anonymous-memory engine and guest, adds
+native aarch64 OS boundaries and portable wheel metadata, and reuses one static
+host/wheel per CPU on glibc2.28+ and musl1.2+. #169 owns its initial installed
+acceptance, corresponding source/provenance and eventual all-target publication.
+The PyPI Markdown description and Go nested-module boundaries are packaging-only
+changes; existing benchmark modules and local harness paths remain usable.
+Linux installed acceptance passed on native x86_64 and aarch64 in both libc
+families at source_commit `722dfd1dbc1c077759b5c4062e1695066467bea4`:
+[CI43607401283](https://github.com/masahitojp/mariamem/actions/runs/43607401283).
+Each environment passed SQL/Close smoke and both installed consumer cases with
+no failures or skips. Publication remains pending: #169 owns the inherited
+license-evidence/provenance mismatch, all-target acceptance and additional
+publication/source/public-smoke integration.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 

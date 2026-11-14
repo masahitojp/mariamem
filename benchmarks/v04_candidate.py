@@ -27,7 +27,7 @@ def main():
     if a.runs<30 or a.scaling_runs<1:p.error('30+ startup trials and positive scaling trials required')
     native=a.native_dir.resolve() if a.native_dir else None;out=a.json.resolve();out.parent.mkdir(parents=True,exist_ok=True)
     binary=ROOT/'build/bench/isolation-go';helper=ROOT/'build/bench/process-cost';binary.parent.mkdir(parents=True,exist_ok=True)
-    subprocess.run(['go','build','-trimpath','-o',str(binary),'./benchmarks/goisolation'],cwd=ROOT,check=True)
+    subprocess.run(['go','build','-trimpath','-o',str(binary),'./goisolation'],cwd=ROOT/'benchmarks',check=True)
     subprocess.run(['cc','-O2',str(ROOT/'benchmarks/tools/process_cost.c'),'-o',str(helper)],check=True)
     manifest=json.loads((native/'manifest.json').read_text()) if native else None
     for name,digest in (manifest or {}).get('sha256',{}).items():

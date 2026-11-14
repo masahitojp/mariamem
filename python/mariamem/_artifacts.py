@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
+import subprocess
 import sys
 import sysconfig
 
@@ -53,7 +55,33 @@ def _platform_identity():
         detected += f" (ID={release.get('ID')!r}, VERSION_ID={release.get('VERSION_ID')!r})"
         if release.get("ID") == "ubuntu" and release.get("VERSION_ID") == "24.04":
             return "ubuntu24.04-x86_64"
-    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64, Ubuntu 24.04 x86_64, or Windows build 22000+ x86_64/arm64. Run on a supported platform with its matching wheel.", "unsupported_platform")
+    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64, Linux x86_64/aarch64 (glibc 2.28+ or musl 1.2+), or Windows build 22000+ x86_64/arm64. Run on a supported platform with its matching wheel.", "unsupported_platform")
+
+
+def _portable_linux(manifest):
+    arch = {"x86_64": "x86_64", "aarch64": "aarch64", "arm64": "aarch64"}.get(platform.machine())
+    if platform.system() != "Linux" or arch is None or manifest.get("platform") != "linux-" + arch:
+        raise ArtifactError("portable Linux wheel CPU does not match this host", "unsupported_platform")
+    if (manifest.get("architecture") != arch or manifest.get("minimum_glibc") != "2.28"
+            or manifest.get("minimum_musl") != "1.2"):
+        raise ArtifactError("portable Linux wheel has invalid minimum conditions", "artifact_mismatch")
+    libc, version = platform.libc_ver()
+    if libc == "glibc":
+        floor = (2, 28)
+    else:
+        # Alpine's musl loader is also its libc; do not use distro names as ABI evidence.
+        loader = Path("/lib") / ("ld-musl-" + arch + ".so.1")
+        try:
+            result = subprocess.run([str(loader)], capture_output=True, text=True, timeout=5)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            raise ArtifactError("cannot identify Linux libc; requires glibc 2.28+ or musl 1.2+", "unsupported_platform") from exc
+        match = re.search(r"musl libc.*?Version (\d+\.\d+(?:\.\d+)?)", result.stdout + result.stderr, re.S)
+        if not match:
+            raise ArtifactError("cannot identify musl version", "unsupported_platform")
+        libc, version, floor = "musl", match[1], (1, 2)
+    if not re.fullmatch(r"\d+\.\d+(?:\.\d+)?", version) or tuple(map(int, version.split("."))) < floor:
+        raise ArtifactError(f"unsupported {libc} {version}; requires glibc 2.28+ or musl 1.2+", "unsupported_platform")
+    return "linux-" + arch
 
 
 def resolve(host_binary=None, runtime=None, module=None):
@@ -65,10 +93,12 @@ def resolve(host_binary=None, runtime=None, module=None):
         _available(path, True)
         values["host_binary"] = str(path)
         return values
-    identity = _platform_identity()
+    identity = None if platform.system() == "Linux" else _platform_identity()
     root = NATIVE_ROOT
     try:
         manifest = json.loads((root / "manifest.json").read_text())
+        identity = (_portable_linux(manifest) if manifest.get("platform") in ("linux-x86_64", "linux-aarch64")
+                    else identity or _platform_identity())
         if manifest["version"] != 1:
             raise ValueError(f"expected host manifest format 1, got {manifest['version']!r}")
         if manifest.get("platform") != identity:
