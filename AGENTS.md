@@ -22,6 +22,21 @@ At a budget boundary, report evidence, uncertainty, options and the cost of
 continuing; obtain agreement before expanding scope/budget. Ordinary fixes within
 the agreed bounds remain autonomous. See `docs/development.md#bounded-investigations`.
 
+Keep investigation tied to its decision:
+
+- Before substantial work, record the user/maintainer outcome, the decision this
+  work informs, and finite exit/stop conditions in the parent issue. For
+  comparisons, name the targets, conditions and result table before measuring.
+- After each spike, answer the original question and recommend adoption,
+  rejection or bounded evidence gathering. A successful experiment alone does
+  not authorize another experiment; continue autonomously within approved scope.
+- When direction changes, reconcile retained, non-applicable and replaced
+  conditions, dependencies and exit criteria before adding work. Keep current
+  status and remaining work at the top of the parent issue; link history below.
+
+Use `docs/development.md#decision-driven-investigation` for the proportional
+workflow. Reuse existing records; this adds no approval gate to authorized work.
+
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
 Judge completion against the requested scope. Obtain agreement before reducing
