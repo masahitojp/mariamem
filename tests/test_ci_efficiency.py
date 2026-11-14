@@ -2,51 +2,59 @@
 import json
 import os
 from pathlib import Path
-import re
 import subprocess
 
 import pytest
+from workflow_model import parse, events, steps, commands, action, local_workflow
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = ['check', 'live-host', 'dump-import-productization', 'django-lifecycle']
 
 
 def validate_cancellation(text):
-    block = re.search(r'^concurrency:\n(.*?)(?=^\S)', text, re.M | re.S)
-    assert block
-    # Workflow and event isolate other suites; PR number groups updates, while
-    # non-PR runs each get a unique run_id (including pending main/manual runs).
-    assert '  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}\n' in block[1]
-    assert "  cancel-in-progress: ${{ github.event_name == 'pull_request' }}\n" in block[1]
+    concurrency = parse(text)['concurrency']
+    assert concurrency['group'] == '${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}'
+    assert concurrency['cancel-in-progress'] == "${{ github.event_name == 'pull_request' }}"
 
 
 def validate_caches(text, name):
-    jobs = re.findall(r'^  ([\w-]+):\n(.*?)(?=^  \S|\Z)', text.split('jobs:\n', 1)[1], re.M | re.S)
+    model = parse(text)
+    assert model.get('permissions') == {'contents': 'read'}, f'{name}: workflow permissions must be contents:read'
+    assert all(job.get('permissions', {'contents': 'read'}) == {'contents': 'read'} for job in model['jobs'].values()), f'{name}: job permissions expanded'
     found = 0
-    for job, block in jobs:
-        if 'uses: actions/setup-go@' not in block:
+    namespaces = []
+    for job, block in model['jobs'].items():
+        job_steps = block.get('steps', [])
+        setups = [(i, step) for i, step in enumerate(job_steps) if action(step, 'actions/setup-go')]
+        if not setups:
             continue
         found += 1
+        execution = '\n'.join(step.get('run', '') for step in job_steps)
         if name in ('dump-import-productization', 'django-lifecycle'):
-            assert 'cache: false' in block and 'go build ' not in block
-            assert 'scripts/release_runtime.py' in block
+            assert all(step['with']['cache'] is False for _, step in setups)
+            assert 'go build ' not in execution
+            assert 'scripts/release_runtime.py' in execution
             continue
-        assert 'cache: true' in block and 'cache: false' not in block
-        assert 'cache-hit' not in block  # A hit must never skip builds or tests.
-        assert 'cache-dependency-path: |\n            go.mod\n            go.sum\n' in block
-        assert 'echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"' in block
-        assert 'go clean -testcache' in block
-        assert block.index('actions/setup-go@') < block.index('go clean -testcache')
-        # Invalidating restored PASS must happen before any test/build consumer.
-        execution = re.sub(r'          cache-dependency-path: \|\n(?:            [^\n]+\n)+', '', block)
-        consumers = [m.start() for m in re.finditer(r'python scripts/verify.py|go test |go build |scripts/build_alpha.py|tests/live_acceptance/installed.py', execution)]
-        assert consumers and execution.index('go clean -testcache') < min(consumers)
-        # Django cleanup may remove scratch, never the setup-go-managed cache.
-        assert 'GOCACHE=$RUNNER_TEMP/' not in block
+        for _, setup in setups:
+            assert setup['with']['cache'] is True
+            paths = tuple(setup['with']['cache-dependency-path'].split())
+            assert paths == ('go.mod', 'go.sum')
+            namespaces.append(paths)
+        assert 'cache-hit' not in str(block)
+        assert 'echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"' in execution
+        assert 'go clean -testcache' in execution
+        clean = next(i for i, step in enumerate(job_steps) if 'go clean -testcache' in step.get('run', ''))
+        assert all(i < clean for i, _ in setups)
+        consumers = [i for i, step in enumerate(job_steps) if any(value in step.get('run', '') for value in
+            ('python scripts/verify.py', 'go test ', 'go build ', 'scripts/build_alpha.py', 'tests/live_acceptance/installed.py'))]
+        assert consumers and clean <= min(consumers)
+        if clean == min(consumers):
+            script = job_steps[clean]['run']
+            assert script.index('go clean -testcache') < min(script.index(value) for value in
+                ('python scripts/verify.py', 'go test ', 'go build ', 'scripts/build_alpha.py', 'tests/live_acceptance/installed.py') if value in script)
+        assert 'GOCACHE=$RUNNER_TEMP/' not in execution
         if name == 'check' and job == 'check':
-            prefix = block.split('shell: bash')[0]
-            assert prefix.count("if: steps.diff.outputs.check_scope == 'full'") == 2
-    namespaces = re.findall(r'          cache-dependency-path: \|\n((?:            [^\n]+\n)+)', text)
+            assert sum(step.get('if') == "steps.diff.outputs.check_scope == 'full'" for step in job_steps[:clean+1]) == 2
     if name in ('check', 'dump-import-productization'):
         assert len(namespaces) == len(set(namespaces))
     assert found == {'check': 1, 'live-host': 2, 'dump-import-productization': 1, 'django-lifecycle': 1}[name]
@@ -85,8 +93,8 @@ def test_cache_regressions_are_detected(before, after):
 
 def test_cache_export_preserves_paths_with_spaces_and_invalidates_results(tmp_path):
     text = (ROOT/'.github/workflows/live-host.yml').read_text()
-    commands = re.search(r'        run: \|\n(          echo "GOCACHE=.*?go clean -testcache\n)', text, re.S)[1]
-    commands = '\n'.join(line[10:] for line in commands.splitlines())
+    script = next(step['run'] for step in steps(parse(text)) if 'echo "GOCACHE=' in step.get('run', '') and 'go clean -testcache' in step['run'])
+    commands = script
     tools = tmp_path/'bin'
     tools.mkdir()
     go = tools/'go'
@@ -113,63 +121,58 @@ def test_cache_export_preserves_paths_with_spaces_and_invalidates_results(tmp_pa
 
 
 def test_pr_does_not_start_macos_acceptance_jobs():
-    # Count expanded PR cells from the actual runner and matrix declarations.
-    # The selectors may skip more work; this is the selected full-diff ceiling.
-    macos = []
-    for name in WORKFLOWS:
-        text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
-        if '  pull_request:' not in text.split('jobs:')[0]:
-            continue
-        jobs = re.findall(r'^  ([\w-]+):\n(.*?)(?=^  \S|\Z)', text.split('jobs:\n', 1)[1], re.M | re.S)
-        for job, block in jobs:
-            runner = re.search(r'^    runs-on: (.+)$', block, re.M)
-            if runner is None:
-                called = re.search(r'^    uses: \./(\.github/workflows/[\w-]+\.yml)$', block, re.M)
-                assert called, 'job must have a runner or a local reusable workflow'
-                nested = (ROOT/called[1]).read_text()
-                runners = re.findall(r'^\s+(?:- )?(?:runner|runs-on): ([\w.-]+)$', nested, re.M)
-                assert runners, 'reusable workflow runner inventory is empty'
-                assert all(not value.startswith('macos-') for value in runners)
+    def runners(model, seen):
+        for block in model['jobs'].values():
+            if 'uses' in block:
+                reference = block['uses']
+                assert reference not in seen, 'recursive reusable workflow'
+                yield from runners(local_workflow(ROOT, block), seen | {reference})
                 continue
-            if runner[1] == '${{ matrix.os }}':
-                if name in ('check', 'django-lifecycle', 'dump-import-productization'):
-                    raise AssertionError('daily PR must not launch a platform matrix')
-                else:
-                    values = re.search(r'^        os: \[([^]]+)\]$', block, re.M)
-                    assert values
-                    platforms = [v.strip() for v in values[1].split(',')]
+            runner = block['runs-on']
+            matrix = block.get('strategy', {}).get('matrix', {})
+            if isinstance(runner, str) and runner.startswith('${{ matrix.'):
+                axis = runner.removeprefix('${{ matrix.').removesuffix(' }}')
+                values = matrix.get(axis, [])
+                if not values:
+                    values = [entry[axis] for entry in matrix.get('include', [])]
+                assert values, 'runner matrix is empty'
+                yield from values
             else:
-                platforms = [runner[1]]
-            python = re.search(r'^        python: \[([^]]+)\]$', block, re.M)
-            multiplicity = len(python[1].split(',')) if python else 1
-            for platform in platforms:
-                if platform.startswith('macos-'):
-                    macos.extend([(name, job)] * multiplicity)
-    assert macos == []
+                yield runner
+    for name in WORKFLOWS:
+        model = parse((ROOT/'.github/workflows'/f'{name}.yml').read_text())
+        if 'pull_request' in events(model):
+            if name in ('check', 'django-lifecycle', 'dump-import-productization'):
+                assert all(job.get('runs-on') != '${{ matrix.os }}' for job in model['jobs'].values())
+            assert all(not str(value).startswith('macos-') for value in runners(model, set()))
 
 
 def test_daily_checks_and_smoke_share_one_checkout_and_compiler_cache():
-    text = (ROOT/'.github/workflows/check.yml').read_text()
-    check = text.split('  check:\n', 1)[1].split('\n  integration:', 1)[0]
-    assert text.count('uses: actions/checkout@') == 1
-    assert text.count('uses: actions/setup-go@') == 1
-    assert text.count('go clean -testcache') == 1
+    model = parse((ROOT/'.github/workflows/check.yml').read_text())
+    all_steps = steps(model)
+    assert sum(action(step, 'actions/checkout') for step in all_steps) == 1
+    assert sum(action(step, 'actions/setup-go') for step in all_steps) == 1
+    check = model['jobs']['check']
+    script = '\n'.join(step.get('uses', '') + '\n' + step.get('run', '') for step in check['steps'])
+    assert script.count('go clean -testcache') == 1
     order = ['scripts/development_scope.py', 'actions/setup-go@', 'go clean -testcache',
              'scripts/verify.py check', 'scripts/verify.py smoke']
-    assert [check.index(item) for item in order] == sorted(check.index(item) for item in order)
-    assert "if: steps.diff.outputs.check_scope == 'full'" in check
-    assert "if: steps.diff.outputs.integration == 'true'" in check
-    assert 'cache-hit' not in check and 'continue-on-error:' not in check
-    assert 'actions/upload-artifact@' not in check and 'actions/download-artifact@' not in check
-    assert 'GOCACHE=' in check and 'go clean -cache' not in check
+    assert [script.index(item) for item in order] == sorted(script.index(item) for item in order)
+    conditions = [step.get('if') for step in check['steps']]
+    assert "steps.diff.outputs.check_scope == 'full'" in conditions
+    assert "steps.diff.outputs.integration == 'true'" in conditions
+    assert 'cache-hit' not in str(check)
+    assert 'continue-on-error' not in check and all('continue-on-error' not in step for step in check['steps'])
+    assert not any(action(step, name) for step in check['steps'] for name in ('actions/upload-artifact', 'actions/download-artifact'))
+    assert 'GOCACHE=' in script and 'go clean -cache' not in script
 
 
 def validate_release_workflow(text, source_argument):
-    triggers = text.split('permissions:', 1)[0]
-    assert '  workflow_call:' in triggers
-    assert not re.search(r'^  (push|pull_request|pull_request_target|workflow_dispatch|schedule|workflow_run):', triggers, re.M)
-    assert 'ref: ${{ inputs.source_commit }}' in text
-    assert source_argument+' "$SOURCE_COMMIT"' in text
+    model = parse(text)
+    assert set(events(model)) == {'workflow_call'}
+    checkouts = [step for step in steps(model) if action(step, 'actions/checkout')]
+    assert checkouts and all(step.get('with', {}).get('ref') == '${{ inputs.source_commit }}' for step in checkouts)
+    assert source_argument+' "$SOURCE_COMMIT"' in commands(model)
 
 
 RELEASE_WORKFLOWS = {
@@ -198,19 +201,19 @@ def test_shared_release_policy_rejects_trigger_and_identity_regressions(before, 
 
 
 def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
-    release = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
-    called = re.findall(r'uses: \./\.github/workflows/([^\s]+)\.yml', release)
+    release = parse((ROOT/'.github/workflows/release-candidate-ready.yml').read_text())
+    called = [Path(job['uses']).stem for job in release['jobs'].values() if 'uses' in job]
     assert set(called) == set(RELEASE_WORKFLOWS) and len(called) == len(RELEASE_WORKFLOWS)
     for path in (ROOT/'.github/workflows').glob('*.yml'):
-        triggers = path.read_text().split('permissions:', 1)[0]
-        assert not re.search(r'^  (push|schedule|workflow_run|pull_request_target):', triggers, re.M), path
-        if '  pull_request:' in triggers:
+        triggers = events(parse(path.read_text(), str(path)))
+        assert not set(triggers) & {'push', 'schedule', 'workflow_run', 'pull_request_target'}, path
+        if 'pull_request' in triggers:
             assert path.name == 'check.yml'
-    daily = (ROOT/'.github/workflows/check.yml').read_text()
-    assert 'pull_request:\n    branches: [main]' in daily
-    triggers = daily.split('permissions:', 1)[0]
-    assert 'paths:' not in triggers and 'paths-ignore:' not in triggers
-    assert 'ref:' not in daily and 'pull_request.head.sha' not in daily
+    daily = parse((ROOT/'.github/workflows/check.yml').read_text())
+    assert events(daily)['pull_request']['branches'] == ['main']
+    assert not set(events(daily)['pull_request']) & {'paths', 'paths-ignore'}
+    assert all('ref' not in step.get('with', {}) for step in steps(daily))
+    assert 'pull_request.head.sha' not in str(daily)
     from runtime_validation import WORKFLOW
     assert WORKFLOW == '.github/workflows/v044-product-validation.yml'
-    assert '  workflow_dispatch:' in (ROOT/WORKFLOW).read_text()
+    assert 'workflow_dispatch' in events(parse((ROOT/WORKFLOW).read_text()))

@@ -40,6 +40,8 @@ WORKFLOW_SCOPES = {
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
+    "tests/workflow_model.py", "tests/workflow-requirements.txt",
+    "tests/routing_acceptance/unit-requirements.txt",
     # Historical test relocation does not change current runtime behavior.
     'tests/historical/test_v04_direct_link_report.py',
     'tests/historical/test_ubuntu_product_performance.py',
@@ -74,6 +76,7 @@ TOOLING = {
 # Only already-owned non-real-host suites are runtime-free. New test files are
 # unknown until deliberately assigned a responsibility, even if named .py.
 PURE_TESTS = {
+    "tests/test_workflow_model.py",
     'tests/test_ci_efficiency.py', 'tests/test_ci_efficiency_summary.py',
     'tests/test_ci_runtime_selection.py', 'tests/test_live_ci_workflow.py',
     'tests/test_dump_ci_workflow.py', 'tests/test_django_recipe_workflow.py',
