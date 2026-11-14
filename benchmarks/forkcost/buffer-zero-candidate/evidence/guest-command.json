@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "docker",
+    "run",
+    "--rm",
+    "--name",
+    "mariamem-bp-zero-candidate",
+    "--cpus",
+    "8",
+    "--mount",
+    "type=bind,src=<workspace>,dst=/exp",
+    "--mount",
+    "type=bind,src=<workspace>/worktree,dst=/exp/worktree,readonly",
+    "--mount",
+    "type=bind,src=<workspace>/temp/build,dst=/exp/worktree/build",
+    "--mount",
+    "type=bind,src=<home>/src/mysqlmem/publish/mariamem/.git,dst=<home>/src/mysqlmem/publish/mariamem/.git,readonly",
+    "--mount",
+    "type=bind,src=<workspace>/temp/root,dst=/root",
+    "--mount",
+    "type=bind,src=<workspace>/temp/work,dst=/work",
+    "-e",
+    "MARIAMEM_PHASE_TRACE=/exp/evidence/guest-phases.jsonl",
+    "3ded805d8dca",
+    "/usr/bin/python3",
+    "/exp/worktree/scripts/build_generated_guest.py",
+    "--development-output",
+    "/exp/temp/guest"
+  ],
+  "timeout_seconds": 2700
+}

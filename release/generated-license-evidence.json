@@ -7,11 +7,11 @@
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
   "audit_source_commit": "1f2fef0b4ff3e5a92728e08a3446feccf8f769a7",
-  "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
-  "linked_sha256": "d42f681a86614f7bd0dd20527667859ba04740fadca7813ae1ab387f1f911979",
-  "symbol_map_sha256": "c44275c51b8312ec76d3b9a4edc8904882c7a583b1ad4907430db31c195eb2c4",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "linked_sha256": "267763a3a8fab4896a77cc15d3006318b5a61fc49f403d2d3c6c2109852545fc",
+  "symbol_map_sha256": "ad4c0607efcb95328ebf49a21c09d5b3d4ff7c40c4fc2b9f1aa31fbed6c6704e",
   "symbol_map_entries": 21750,
-  "generated_provenance_sha256": "9ef1392bce41bf7b3e79821e8f7bc368f4588e8a98feb797ab42f2465d29af3e",
+  "generated_provenance_sha256": "87b319a0acf7a348fc5e9a40042706cbb846dd28bbd1725251da4861bd2e13bc",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -354,7 +354,7 @@
     "path": "release/generated-license-evidence.json",
     "sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067"
   },
-  "result": "PASS: positive retained-function evidence for every recorded component family",
+  "result": "PENDING actual clean-source candidate host symbol audit",
   "previous_attribution": {
     "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
     "path": "release/generated-license-evidence.json",
@@ -585,5 +585,10 @@
     "sha256": "37dbc84befa9e47fed73a296bd6ca9b1914e6a2cac1aeac4035bc558da94b3c5",
     "buildinfo": "mariamem-host: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261113155818-1f2fef0b4ff3\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=1f2fef0b4ff3e5a92728e08a3446feccf8f769a7\n\tbuild\tvcs.time=2026-11-13T15:58:18Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
+  },
+  "previous_candidate_audit": {
+    "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+    "record_sha256": "eed8f8badde5290bbd46d701486d14d9933c84bd4070e55060d5ae2b0f2f3308",
+    "reason": "Only buffer-pool C source allocation/clear delta; dependency archives, recipe/compiler/converter and notices unchanged. New guest and generated source require a fresh retained-symbol audit, not a hash-only rebind."
   }
 }

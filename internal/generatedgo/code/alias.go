@@ -9299,7 +9299,7 @@ func Fn10512(m *base.Module) int32
 //go:linkname Fn10513 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn10513
 func Fn10513(m *base.Module, l0 int32) int32
 
-//go:linkname Fn10514 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn10514
+//go:linkname Fn10514 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn10514
 func Fn10514(m *base.Module, l0 int32, l1 int32) int32
 
 //go:linkname Fn10515 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn10515

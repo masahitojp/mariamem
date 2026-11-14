@@ -1,0 +1,7 @@
+{
+  "result": "PASS_EMPTY_DIFF",
+  "reference_source_commit": "eeef899a296be8aa38cc9e3de0a550c428d4dca9",
+  "build_source_commit": "3cfd9854d235d4d472734206d2ba03c6944d7d3a",
+  "paths_checked": 345,
+  "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

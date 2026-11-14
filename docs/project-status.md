@@ -6,6 +6,23 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Buffer-pool initial zeroing — candidate preparation authorized (2026-11-14)
+
+The Human authorized a minimal candidate after the descriptor-only zeroing spike.
+The candidate changes only WASIX/Emscripten buffer-pool allocation/descriptor
+initialization; shared allocator zeroing, extent alignment, default16MiB and grow
+remain unchanged. Experiment mode/env/poison/abort paths are removed. The exact
+new guest and canonical inputs are bound after whole worker/CRC identity review.
+Bootstrap remains one UNQUALIFIED build; independent regeneration is pending.
+
+The [candidate evidence](../benchmarks/forkcost/buffer-zero-candidate/README.md)
+records matched current-main P1/P8 comparisons: Fork medians improve5.3/10.7%,
+with all three process pairs improving. Suite medians improve2.5/4.6%, but one
+pair at each parallelism is slower. This single-Mac observation is not a universal
+speedup. Large/compressed/resize/Fork/EIO/clean-vs-dirty redo controls pass locally.
+Canonical independent builds and both-platform normal/runtime gates precede the
+adoption decision. Main integration, issue closure and release are not approved.
+
 ## Prepared output — integrated on main (2026-11-14)
 
 PR163 merged as `c129ab0e2d0d286da57b3be87d7d5e9cc2d3239c`. Normal PR CI

@@ -1,0 +1,4 @@
+{
+  "reason": "Inherited harness required a removed experiment mode before any Start. Remove that invocation-only gate for both baseline/candidate. EIO injection counts, data oracle, sibling and Close assertions unchanged.",
+  "product_change": false
+}

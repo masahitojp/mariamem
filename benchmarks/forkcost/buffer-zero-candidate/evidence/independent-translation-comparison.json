@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "files": 61,
+  "scope": "two native translation executions from the same C guest, not independent C builds",
+  "inventory_sha256": "fb40f0a608e1ffe036219331f827f930611100332f2673a4100afee28c32333e"
+}

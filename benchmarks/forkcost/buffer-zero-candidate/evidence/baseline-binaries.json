@@ -1,0 +1,59 @@
+{
+  "probe": {
+    "sha256": "46ebdf638e0146160dfc4d6cd0d69a4ad314399abe886d2dd2bca2bf1e73a364",
+    "argv": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "<workspace>/temp/baseline-probe",
+      "."
+    ]
+  },
+  "suite": {
+    "sha256": "8a91cb8e6019f8c9948b0b023223275e2bed2b76ccd469d9d8992c82c7ca14b4",
+    "argv": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-c",
+      "-o",
+      "<workspace>/temp/baseline-suite",
+      "./store"
+    ]
+  },
+  "lifecycle": {
+    "sha256": "66575d87145e42e957a612a8047c96739bb1323b4d700046e6aa962d715e1ff7",
+    "argv": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "<workspace>/temp/baseline-lifecycle",
+      "."
+    ]
+  },
+  "correct": {
+    "sha256": "d06ee5b696f0593219720496a50a52e314b251681150509a758cbb7d68d5163a",
+    "argv": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "<workspace>/temp/baseline-correct",
+      "."
+    ]
+  }
+}

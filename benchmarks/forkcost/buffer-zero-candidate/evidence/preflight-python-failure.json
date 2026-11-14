@@ -1,0 +1,6 @@
+{
+  "result": "FAIL_SETUP",
+  "python": "Apple Python3.9",
+  "error": "tarfile.extractall filter unsupported",
+  "correction": "Use task Python3.14 venv; remove incomplete translation and retry unchanged source"
+}

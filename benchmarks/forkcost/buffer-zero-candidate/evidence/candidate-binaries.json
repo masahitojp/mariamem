@@ -1,0 +1,59 @@
+{
+  "probe": {
+    "sha256": "f50d85531f7101e9a677f7f880ffa2acbed16bcba9fe9a79ba53ac2d63965e62",
+    "argv": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "<workspace>/temp/candidate-probe",
+      "."
+    ]
+  },
+  "suite": {
+    "sha256": "1cb65eb08e242f19025dbab5502c1100c22d12122554db580e305825cf399de8",
+    "argv": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-c",
+      "-o",
+      "<workspace>/temp/candidate-suite",
+      "./store"
+    ]
+  },
+  "lifecycle": {
+    "sha256": "0274776b91e59563cc811f6cd12ad66c0d35371106c2aa278a837767c024bec1",
+    "argv": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "<workspace>/temp/candidate-lifecycle",
+      "."
+    ]
+  },
+  "correct": {
+    "sha256": "08f7002351c60c8240147ad887bde043b3c6eed8fceb4f250089d494559b7007",
+    "argv": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "<workspace>/temp/candidate-correct",
+      "."
+    ]
+  }
+}
