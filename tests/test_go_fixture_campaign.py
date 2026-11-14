@@ -242,16 +242,17 @@ def test_guard_probe_rejects_a_source_started_before_stop():
 
 
 def test_ci_runs_both_modes_and_requires_both_host_artifacts():
-    text = (ROOT / '.github/workflows/live-host.yml').read_text()
-    assert 'os: [macos-15, ubuntu-24.04]' in text
+    from workflow_model import load, commands, needs, steps
+    model = load(ROOT / '.github/workflows/live-host.yml')
+    text = commands(model)
+    assert model['jobs']['live']['strategy']['matrix']['os'] == ['macos-15', 'ubuntu-24.04']
     assert 'scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1' in text
-    assert 'name: go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}' in text
-    assert '--validate-matrix build/g1-matrix' in text
-    assert 'pattern: go-fixture-host-*-${{ inputs.source_commit }}' in text
-    required = text.split('  required:\n', 1)[1]
-    assert '--validate-matrix build/g1-matrix' in required
-    assert 'needs: [native-reference, live]' in required
-    assert 'needs.scope' not in required
+    assert any(step.get('with', {}).get('name') == 'go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}' for step in steps(model))
+    assert any(step.get('with', {}).get('pattern') == 'go-fixture-host-*-${{ inputs.source_commit }}' for step in steps(model))
+    required = model['jobs']['required']
+    assert '--validate-matrix build/g1-matrix' in '\n'.join(step.get('run', '') for step in required['steps'])
+    assert needs(required) == {'native-reference', 'live'}
+    assert 'needs.scope' not in str(required)
 
 
 @pytest.mark.parametrize('present', ['macos-15', 'ubuntu-24.04'])

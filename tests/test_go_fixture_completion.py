@@ -115,9 +115,11 @@ def test_completion_receipt_rejects_missing_or_wrong_evidence(root, tmp_path, mu
 
 
 def test_both_host_workflow_executes_and_requires_completion_receipts():
-    text = (REPO / '.github/workflows/live-host.yml').read_text()
+    from workflow_model import load, commands
+    model = load(REPO / '.github/workflows/live-host.yml')
+    text = commands(model)
     assert '--output build/live-evidence/g1/completion' in text
-    required = text.split('  required:\n', 1)[1]
+    required = '\n'.join(step.get('run', '') for step in model['jobs']['required']['steps'])
     assert 'scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix' in required
 
 
