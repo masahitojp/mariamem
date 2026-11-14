@@ -46,7 +46,13 @@ host/wheel per CPU on glibc2.28+ and musl1.2+. #169 owns its initial installed
 acceptance, corresponding source/provenance and eventual all-target publication.
 The PyPI Markdown description and Go nested-module boundaries are packaging-only
 changes; existing benchmark modules and local harness paths remain usable.
-This candidate has not yet passed Linux installed acceptance or been published.
+Linux installed acceptance passed on native x86_64 and aarch64 in both libc
+families at source_commit `722dfd1dbc1c077759b5c4062e1695066467bea4`:
+[CI43607401283](https://github.com/masahitojp/mariamem/actions/runs/43607401283).
+Each environment passed SQL/Close smoke and both installed consumer cases with
+no failures or skips. Publication remains pending: #169 owns the inherited
+license-evidence/provenance mismatch, all-target acceptance and additional
+publication/source/public-smoke integration.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 

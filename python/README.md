@@ -25,8 +25,8 @@ preparation as additional 0.6.2 assets, together with Windows x86_64/arm64 wheel
 The wheel includes the generated-Go host; Go and a separate MariaDB server are
 not required at runtime. Python 3.11 or newer is required.
 
-See the [Python guide](https://github.com/masahitojp/mariamem/blob/main/docs/python.md),
-[API reference](https://github.com/masahitojp/mariamem/blob/main/docs/python.md)
+See the [Python guide](https://github.com/masahitojp/mariamem/blob/722dfd1dbc1c077759b5c4062e1695066467bea4/docs/python.md),
+[API reference](https://github.com/masahitojp/mariamem/blob/722dfd1dbc1c077759b5c4062e1695066467bea4/docs/python.md)
 and [releases](https://github.com/masahitojp/mariamem/releases).
 
 mariamem is distributed under GPL-2.0-only. Distribution includes license notices;
