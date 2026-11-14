@@ -260,6 +260,37 @@ than copying constants among workflows/harnesses.
 The runtime-qualification workflow and comparison tools perform this preflight
 before tools, builds or performance work. Identity failures should cost Git checks, not a build.
 
+## Ordinary PR checks
+
+`scripts/development_scope.py` owns the explicit changed-path classification.
+Unknown paths, missing diffs, runtime and active fixture inputs select full source
+checks, representative smoke and both native Linux wheel targets. Documentation
+and already-reviewed inert evidence select version/public-source checks; registered
+unit/workflow tooling selects Python tests. File extensions alone do not make
+new evidence or tests runtime-free. Shared `scripts/layout.py` remains a runtime
+input. Selector and packaging changes retain the Linux wheel checks.
+
+The Development required gate checks both the selection and the actual result:
+selected work must succeed, unselected work must be skipped, and missing or
+invalid outputs fail. Existing protected job names remain stable.
+
+Daily source smoke, installed Linux wheels and PyPI smoke share
+`scripts/pypi_smoke.py` for start/SELECT 1/Close/successful host exit. Daily smoke
+passes its one built host explicitly and retains the separate Live/Snapshot and
+Go consumer oracles. Wheel/PyPI callers retain their own artifact hash, source
+and installation checks and use the bundled host. The short smoke does not
+replace initial platform qualification or Release acceptance.
+
+Linux packaging exports setup-go's compiler cache to the packager and discards
+restored test results. Each native CPU builds one wheel and accepts those exact
+bytes under glibc and musl. Different CPUs require different host binaries; the
+Go consumer is a separate public API program, not a duplicate host build.
+Windows has no current main runtime/workflow: its implementation must connect
+shared host/OS boundary changes to real platform checks at the same time, rather
+than treating a skipped or placeholder job as acceptance. See [#172](https://github.com/masahitojp/mariamem/issues/172)
+for the finite boundary audit and [#169](https://github.com/masahitojp/mariamem/issues/169)
+for the separate OS backport/publication work.
+
 ## Local verification
 
 Homebrew Python3.14 linked to OpenSSL4 has a known local verification constraint:

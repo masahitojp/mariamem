@@ -153,6 +153,10 @@ def smoke():
     with tempfile.TemporaryDirectory(prefix="mariamem-smoke-") as temporary:
         host = Path(temporary) / "mariamem-host"
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
+        from pypi_smoke import native_platform
+        from release_version import PYTHON_VERSION
+        run([sys.executable, "scripts/pypi_smoke.py", PYTHON_VERSION,
+             native_platform(), "--host", host], env=env)
         run([sys.executable, "tests/live_acceptance/smoke.py", "--host", host], env=env)
         run(["go", "run", "./tests/live_acceptance/go_consumer", "-source-smoke"], env=env)
     # Same-process Go transport shares the core session/ownership boundary.

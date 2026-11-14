@@ -356,3 +356,83 @@ def test_visibility_retry_never_hides_integrity_or_network_errors(origin, monkey
         release.verify_uploaded(path)
     assert len(reads) == 2 and waits == [2]
     assert json.loads(path.read_text())['status'] == 'FAILED'
+
+
+@pytest.mark.parametrize('host', [None, '/explicit/source-host'])
+@pytest.mark.parametrize('failure', [None, 'sql', 'close', 'version', 'platform'])
+def test_common_short_smoke_preserves_sql_close_and_host_selection(monkeypatch, host, failure):
+    from contextlib import contextmanager
+    import pypi_smoke
+    starts = []
+    closed = []
+    process = SimpleNamespace(poll=lambda: 1 if failure == 'close' else 0, returncode=0)
+    db = SimpleNamespace(_session=SimpleNamespace(_process=process), closed=False,
+                         connection_info=lambda: {'port': 1234})
+    def close():
+        db.closed = True
+        closed.append(True)
+    db.close = close
+    def start(**kwargs):
+        starts.append(kwargs)
+        return db
+    monkeypatch.setitem(sys.modules, 'mariamem', SimpleNamespace(
+        __version__='wrong' if failure == 'version' else VERSION, start=start))
+    @contextmanager
+    def connect(**kwargs):
+        assert kwargs == {'port': 1234, 'connect_timeout': 10, 'read_timeout': 10}
+        @contextmanager
+        def cursor():
+            def execute(sql):
+                assert sql == 'SELECT 1'
+                if failure == 'sql':
+                    raise RuntimeError('SQL failed')
+            yield SimpleNamespace(execute=execute, fetchone=lambda: (1,))
+        yield SimpleNamespace(cursor=cursor)
+    monkeypatch.setitem(sys.modules, 'pymysql', SimpleNamespace(connect=connect))
+    monkeypatch.setattr(pypi_smoke.platform, 'system', lambda: 'wrong' if failure == 'platform' else 'Linux')
+    monkeypatch.setattr(pypi_smoke.platform, 'machine', lambda: 'x86_64')
+    if failure:
+        with pytest.raises(RuntimeError):
+            pypi_smoke.check(VERSION, 'linux-x86_64', host=host)
+    else:
+        assert pypi_smoke.check(VERSION, 'linux-x86_64', host=host)['result'] == 'PASS'
+    if failure in ('version', 'platform'):
+        assert not starts and not closed
+    else:
+        assert starts == [({'host_binary': host} if host else {})]
+        assert closed == [True]
+
+
+@pytest.mark.parametrize('system,machine,expected', [
+    ('Darwin', 'arm64', 'darwin-arm64'),
+    ('Linux', 'x86_64', 'linux-x86_64'),
+    ('Linux', 'aarch64', 'linux-aarch64'),
+    ('Windows', 'AMD64', None),
+])
+def test_short_smoke_native_platform_is_explicit(monkeypatch, system, machine, expected):
+    import pypi_smoke
+    monkeypatch.setattr(pypi_smoke.platform, 'system', lambda: system)
+    monkeypatch.setattr(pypi_smoke.platform, 'machine', lambda: machine)
+    if expected is None:
+        with pytest.raises(RuntimeError):
+            pypi_smoke.native_platform()
+    else:
+        assert pypi_smoke.native_platform() == expected
+
+
+@pytest.mark.parametrize('target,python_platform', [
+    ('windows-x86_64', 'win-amd64'), ('windows-arm64', 'win-arm64'),
+])
+def test_shared_smoke_preserves_publication_windows_python_architecture(monkeypatch, target, python_platform):
+    import pypi_smoke
+    monkeypatch.setitem(sys.modules, 'mariamem', SimpleNamespace(__version__='wrong'))
+    monkeypatch.setitem(sys.modules, 'pymysql', SimpleNamespace())
+    monkeypatch.setattr(pypi_smoke.platform, 'system', lambda: 'Windows')
+    # On arm64 Windows the OS machine name does not establish Python's CPU.
+    monkeypatch.setattr(pypi_smoke.platform, 'machine', lambda: 'ARM64')
+    monkeypatch.setattr(pypi_smoke.sysconfig, 'get_platform', lambda: python_platform)
+    with pytest.raises(RuntimeError, match='installed package version differs'):
+        pypi_smoke.check(VERSION, target)
+    monkeypatch.setattr(pypi_smoke.sysconfig, 'get_platform', lambda: 'wrong-cpu')
+    with pytest.raises(RuntimeError, match='expected native'):
+        pypi_smoke.check(VERSION, target)
