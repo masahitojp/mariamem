@@ -418,3 +418,21 @@ def test_short_smoke_native_platform_is_explicit(monkeypatch, system, machine, e
             pypi_smoke.native_platform()
     else:
         assert pypi_smoke.native_platform() == expected
+
+
+@pytest.mark.parametrize('target,python_platform', [
+    ('windows-x86_64', 'win-amd64'), ('windows-arm64', 'win-arm64'),
+])
+def test_shared_smoke_preserves_publication_windows_python_architecture(monkeypatch, target, python_platform):
+    import pypi_smoke
+    monkeypatch.setitem(sys.modules, 'mariamem', SimpleNamespace(__version__='wrong'))
+    monkeypatch.setitem(sys.modules, 'pymysql', SimpleNamespace())
+    monkeypatch.setattr(pypi_smoke.platform, 'system', lambda: 'Windows')
+    # On arm64 Windows the OS machine name does not establish Python's CPU.
+    monkeypatch.setattr(pypi_smoke.platform, 'machine', lambda: 'ARM64')
+    monkeypatch.setattr(pypi_smoke.sysconfig, 'get_platform', lambda: python_platform)
+    with pytest.raises(RuntimeError, match='installed package version differs'):
+        pypi_smoke.check(VERSION, target)
+    monkeypatch.setattr(pypi_smoke.sysconfig, 'get_platform', lambda: 'wrong-cpu')
+    with pytest.raises(RuntimeError, match='expected native'):
+        pypi_smoke.check(VERSION, target)

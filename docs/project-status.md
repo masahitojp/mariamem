@@ -7,6 +7,18 @@ continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
 
+
+## Additional 0.6.2 distribution (#169)
+
+Windows and portable Linux support plus license-attribution continuity are
+integrated on `maintenance/v0.6.2`. Main owns publication tooling; the approved
+maintenance SHA owns the distributed product. Existing tag/macOS/Ubuntu bytes
+are preserved. The additive route reuses the configured Trusted Publisher and
+adds four qualified wheels, separate corresponding-source/provenance assets and
+seven representative public smoke cells. Implementation is in progress; no
+additional assets have been published by this work. #169 owns qualification,
+recovery and publication completion. See [the workflow inputs](releasing.md#additional-linuxwindows-wheels-for-published-062).
+
 ## Evidence retention approved (#158, 2026-11-14)
 
 The Human approved retaining continuing decisions in existing ADRs and deleting

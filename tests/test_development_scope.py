@@ -377,3 +377,10 @@ def test_reviewed_source_only_suites_do_not_build_wheels(path):
     assert not plan['integration'] and not plan['linux_wheel']
     assert scope.select([path, 'scripts/layout.py'])['linux_wheel']
     assert scope.select([path, 'tests/fixtures/new-contract.json'])['integration']
+
+
+def test_additional_publication_tooling_does_not_select_main_runtime():
+    result = scope.select(['scripts/additional_v062.py',
+                           'tests/test_additional_v062.py',
+                           '.github/workflows/additional-v062-build.yml'])
+    assert result['check_scope'] == 'python' and not result['integration']

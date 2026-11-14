@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Every maintained workflow has a reviewed classification. New workflow paths
 # remain conservative until assigned here; the inventory test catches omissions.
 WORKFLOW_SCOPES = {
+    ".github/workflows/additional-v062-build.yml": "python",
     ".github/workflows/linux-wheel.yml": "python",
     ".github/workflows/prepared-output-installed.yml": "python",
     ".github/workflows/prepared-output-product.yml": "python",
@@ -40,6 +41,7 @@ WORKFLOW_SCOPES = {
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
+    "scripts/additional_v062.py",
     "tests/workflow_model.py", "tests/workflow-requirements.txt",
     "tests/routing_acceptance/unit-requirements.txt",
     # Historical test relocation does not change current runtime behavior.
@@ -78,6 +80,9 @@ TOOLING = {
 PURE_TESTS = {
     "tests/test_layout.py", "tests/test_evidence_retention.py",
     "tests/test_static_image_workflow.py", "tests/test_canonical_toolchain_pins.py",
+
+
+    "tests/test_additional_v062.py",
     "tests/test_workflow_model.py",
     'tests/test_ci_efficiency.py', 'tests/test_ci_efficiency_summary.py',
     'tests/test_ci_runtime_selection.py', 'tests/test_live_ci_workflow.py',

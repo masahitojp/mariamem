@@ -35,6 +35,11 @@ on:
         description: Remotely fetchable exact candidate (full 40-character SHA)
         required: true
         type: string
+      additional_v062:
+        description: Add qualified Linux/Windows assets to existing 0.6.2; candidate_ref is maintenance source
+        required: false
+        default: false
+        type: boolean
       published_tag:
         description: Advanced PyPI backfill/recovery — existing stable tag; candidate_ref is its original source SHA
         required: false
@@ -48,7 +53,7 @@ permissions:
   actions: read
 jobs:
   resolve:
-    if: inputs.operation != 'public-smoke-recovery' && inputs.published_tag == ''
+    if: ${{ !inputs.additional_v062 && (inputs.operation != 'public-smoke-recovery' && inputs.published_tag == '') }}
     runs-on: ubuntu-24.04
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
@@ -658,7 +663,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   public_smoke_recovery:
-    if: inputs.operation == 'public-smoke-recovery'
+    if: ${{ !inputs.additional_v062 && (inputs.operation == 'public-smoke-recovery') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -748,7 +753,7 @@ jobs:
           retention-days: 14
 
   pypi_verify:
-    if: inputs.operation == 'verify' && inputs.published_tag != ''
+    if: ${{ !inputs.additional_v062 && (inputs.operation == 'verify' && inputs.published_tag != '') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -776,7 +781,7 @@ jobs:
 
   pypi_publication:
     needs: [resolve, publication]
-    if: always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')
+    if: ${{ !inputs.additional_v062 && (always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     environment: pypi
@@ -864,5 +869,218 @@ jobs:
         with:
           name: pypi-smoke-${{ needs.pypi_publication.outputs.source }}-${{ github.run_attempt }}
           path: build/pypi/ci-pypi-publication.json
+          if-no-files-found: error
+          retention-days: 14
+  additional_plan:
+    if: inputs.additional_v062
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Require the approved maintenance product and immutable baseline
+        env:
+          SOURCE: ${{ inputs.candidate_ref }}
+          OPERATION: ${{ inputs.operation }}
+          TAG: ${{ inputs.published_tag }}
+        run: |
+          test "$OPERATION" = verify || test "$OPERATION" = release
+          test -z "$TAG"
+          [[ "$SOURCE" =~ ^[0-9a-f]{40}$ ]]
+          git fetch --no-tags origin "$SOURCE"
+          python scripts/additional_v062.py identity --source "$SOURCE" --directory build/additional-plan
+  additional_build:
+    needs: additional_plan
+    if: inputs.additional_v062 && inputs.candidate_run == ''
+    uses: ./.github/workflows/additional-v062-build.yml
+    with:
+      source: ${{ inputs.candidate_ref }}
+  additional_qualification:
+    needs: [additional_plan, additional_build]
+    if: always() && !cancelled() && inputs.additional_v062 && needs.additional_plan.result == 'success' && (needs.additional_build.result == 'success' || inputs.candidate_run != '')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.candidate_ref }}
+          path: product
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: inputs.candidate_run == ''
+        with:
+          pattern: additional-input-*
+          path: qualification-inputs
+      - name: Freeze accepted wheels and corresponding product/dependency source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE: ${{ inputs.candidate_ref }}
+          REUSE: ${{ inputs.candidate_run }}
+        run: |
+          git fetch --no-tags origin "$SOURCE"
+          if [ -n "$REUSE" ]; then
+            python scripts/additional_v062.py restore --source "$SOURCE" --run "$REUSE" --directory build/additional
+          else
+            python scripts/additional_v062.py assemble --source "$SOURCE" --product product --inputs qualification-inputs --directory build/additional
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: additional-v062-${{ inputs.candidate_ref }}
+          path: build/additional/*
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: additional-receipt-${{ inputs.candidate_ref }}
+          path: build/additional/candidate.json
+          if-no-files-found: error
+          retention-days: 14
+  additional_verify:
+    needs: additional_qualification
+    if: inputs.additional_v062 && inputs.operation == 'verify'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: additional-v062-${{ inputs.candidate_ref }}
+          path: build/additional
+      - name: Read-only additional-publication preflight
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE: ${{ inputs.candidate_ref }}
+        run: |
+          git fetch --no-tags origin "$SOURCE"
+          python scripts/additional_v062.py prepare --source "$SOURCE" --operation verify --directory build/additional
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: additional-preflight-${{ github.run_id }}
+          path: build/additional/transaction.json
+          if-no-files-found: error
+          retention-days: 14
+  additional_publication:
+    needs: additional_qualification
+    if: inputs.additional_v062 && inputs.operation == 'release'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: pypi
+    permissions:
+      contents: write
+      actions: read
+      id-token: write
+    concurrency:
+      group: mariamem-pypi-publication
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: additional-v062-${{ inputs.candidate_ref }}
+          path: build/additional
+      - id: prepare
+        name: Preserve existing assets and select missing additions only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE: ${{ inputs.candidate_ref }}
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          git fetch --no-tags origin "$SOURCE"
+          python scripts/additional_v062.py prepare --source "$SOURCE" --operation "$OPERATION" --directory build/additional
+      - name: Upload missing wheels through existing Trusted Publishing
+        if: inputs.operation == 'release' && steps.prepare.outputs.upload == 'true'
+        continue-on-error: true
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086
+        with:
+          packages-dir: build/additional/upload/
+          skip-existing: false
+      - name: Reconcile authoritative PyPI hashes after upload
+        if: inputs.operation == 'release'
+        env:
+          SOURCE: ${{ inputs.candidate_ref }}
+        run: python scripts/additional_v062.py verify-upload --source "$SOURCE" --directory build/additional
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: additional-transaction-${{ github.run_id }}
+          path: build/additional/transaction.json
+          if-no-files-found: error
+          retention-days: 14
+  additional_public_smoke:
+    needs: additional_publication
+    if: inputs.additional_v062 && inputs.operation == 'release'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            target: darwin-arm64
+            python: arm64
+          - runner: ubuntu-24.04
+            target: linux-x86_64
+            python: x64
+          - runner: ubuntu-24.04-arm
+            target: linux-aarch64
+            python: arm64
+          - runner: windows-2025
+            target: windows-x86_64
+            python: x64
+          - runner: windows-11-arm
+            target: windows-arm64
+            python: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+          architecture: ${{ matrix.python }}
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: additional-receipt-${{ inputs.candidate_ref }}
+          path: build/additional
+      - name: Check public selected wheel and host exit on each target libc
+        shell: bash
+        env:
+          SOURCE: ${{ inputs.candidate_ref }}
+          REUSE: ${{ inputs.candidate_run }}
+          GH_TOKEN: ${{ github.token }}
+          TARGET: ${{ matrix.target }}
+        run: |
+          if [[ "$TARGET" == linux-* ]]; then
+            ARCH=${TARGET#linux-}
+            for LIBC in manylinux_2_28 musllinux_1_2; do
+              IMAGE="quay.io/pypa/${LIBC}_${ARCH}:latest"
+              docker pull "$IMAGE"
+              docker run --rm -e GH_TOKEN -v "$PWD:/tools:ro" -v "$PWD/build/additional:/out" "$IMAGE" sh -c "/opt/python/cp311-cp311/bin/python /tools/scripts/additional_v062.py smoke --source '$SOURCE' --target '$TARGET' --family '$LIBC' --run '$REUSE' --directory /out"
+            done
+          else
+            python scripts/additional_v062.py smoke --source "$SOURCE" --target "$TARGET" --run "$REUSE" --directory build/additional
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: additional-smoke-${{ matrix.target }}-${{ github.run_id }}
+          path: build/additional/smoke-*.json
           if-no-files-found: error
           retention-days: 14

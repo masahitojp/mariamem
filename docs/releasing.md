@@ -8,6 +8,42 @@ the next human-selected candidate; preparation alone is not qualification.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
+
+## Additional Linux/Windows wheels for published 0.6.2
+
+The additive route uses the existing `release-candidate-ready.yml` and `pypi`
+Trusted Publisher. Set `additional_v062=true`, `candidate_ref` to the exact
+maintenance product SHA, and `operation=verify` or `release`. Leave `published_tag`
+empty. The workflow/tooling SHA and product SHA are distinct. The product must
+retain the engine, guest, wire and SDK of the approved maintenance baseline;
+main's later product implementation is not built for this route.
+
+Both operations qualify native Linux x86_64/aarch64 and Windows x86_64/arm64.
+Linux installs one CPU-specific wheel on glibc and musl; Windows runs its initial
+installed acceptance. The read-only verify operation then checks the additive
+publication guard. Release performs the same qualification and guard, appends
+missing GitHub/PyPI assets and runs seven short public smoke environments. There
+is no new-tag step or second approval after qualification. Existing macOS/Ubuntu
+assets and the annotated v0.6.2 tag remain immutable.
+
+Qualification freezes four wheels, their source-bound build/acceptance receipts,
+and an additional corresponding-source archive. That archive contains the full
+current tracked product tree and the hash-checked original corresponding-source
+archive with the dependency inputs, plus extraction instructions. It does not
+require a local build folder. Additional source/provenance assets include the
+full product SHA in their names and never overwrite the original source bundle,
+provenance or SHA256SUMS.
+
+After a partial failure, use `candidate_run` only as an advanced recovery input
+pointing to the run holding `additional-v062-<product SHA>`. The workflow validates
+its artifact digest, original workflow and exact tooling/source identities;
+changed qualification conditions require fresh qualification. It reuses the same
+wheel bytes, rejects existing-name hash conflicts, and uploads only missing files.
+Successful public smoke cells are reused only for identical wheel/source and
+runtime/script conditions. Missing or failed cells are executed again. Without a
+recovery run the normal path performs fresh qualification. Publication is not
+complete until every expected asset/hash and all seven public smoke cells pass.
+
 ## Exact-source release boundary
 
 **Exact source commit → immutable artifacts → external acceptance evidence →
