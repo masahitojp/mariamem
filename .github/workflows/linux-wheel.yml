@@ -1,0 +1,71 @@
+name: Portable Linux wheels
+on:
+  workflow_call:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  wheel:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: linux-x86_64
+            arch: x86_64
+          - runner: ubuntu-24.04-arm
+            target: linux-aarch64
+            arch: aarch64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
+    env:
+      GOTOOLCHAIN: go1.26.10
+      CGO_ENABLED: '0'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Verify source and native memory boundary
+        run: |
+          mkdir -p build/linux-receipts
+          python scripts/git_identity.py inspect HEAD > build/linux-receipts/source.json
+          test "$(uname -m)" = '${{ matrix.arch }}'
+          python scripts/verify_generated_runtime.py
+          go test -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo/image ./internal/generatedgo -count=1
+      - name: Build one exact-source wheel for both libc families
+        run: |
+          python -m pip install wheel setuptools twine
+          python scripts/build_alpha.py --target '${{ matrix.target }}' --ci-candidate
+          python -m twine check build/dist/*.whl
+          cp tests/evidence/alpha-wheel.json build/linux-receipts/wheel.json
+      - name: Accept same bytes on glibc and musl
+        env:
+          TARGET: ${{ matrix.target }}
+          ARCH: ${{ matrix.arch }}
+        run: python scripts/linux_wheel_acceptance.py --target "$TARGET" --arch "$ARCH"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: linux-wheel-${{ matrix.target }}-${{ github.sha }}
+          path: |
+            build/dist/*.whl
+            build/linux-receipts/*.json
+          if-no-files-found: error
+          retention-days: 14
+  gate:
+    name: Linux wheel gate
+    if: always()
+    needs: wheel
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require both native CPUs and both libc acceptances
+        env:
+          RESULT: ${{ needs.wheel.result }}
+        run: test "$RESULT" = success

@@ -1,5 +1,11 @@
 # Python usage
 
+Portable Linux candidate wheels use `manylinux_2_28` / `musllinux_1_2` for
+x86_64 and aarch64. This source-build path passed initial four-environment
+acceptance in [CI43574710937](https://github.com/masahitojp/mariamem/actions/runs/43574710937).
+Publication integration remains in [Issue169](https://github.com/masahitojp/mariamem/issues/169).
+The published 0.6.2 instructions below remain version-specific.
+
 Use Python `0.6.2` on a [supported platform](../README.md#installation).
 Start with one database, then share preparation when setup becomes expensive.
 For Django, use the [dedicated guide](django-prepared.md).

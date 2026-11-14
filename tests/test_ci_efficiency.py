@@ -123,7 +123,14 @@ def test_pr_does_not_start_macos_acceptance_jobs():
         jobs = re.findall(r'^  ([\w-]+):\n(.*?)(?=^  \S|\Z)', text.split('jobs:\n', 1)[1], re.M | re.S)
         for job, block in jobs:
             runner = re.search(r'^    runs-on: (.+)$', block, re.M)
-            assert runner
+            if runner is None:
+                called = re.search(r'^    uses: \./(\.github/workflows/[\w-]+\.yml)$', block, re.M)
+                assert called, 'job must have a runner or a local reusable workflow'
+                nested = (ROOT/called[1]).read_text()
+                runners = re.findall(r'^\s+(?:- )?(?:runner|runs-on): ([\w.-]+)$', nested, re.M)
+                assert runners, 'reusable workflow runner inventory is empty'
+                assert all(not value.startswith('macos-') for value in runners)
+                continue
             if runner[1] == '${{ matrix.os }}':
                 if name in ('check', 'django-lifecycle', 'dump-import-productization'):
                     raise AssertionError('daily PR must not launch a platform matrix')

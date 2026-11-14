@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Every maintained workflow has a reviewed classification. New workflow paths
 # remain conservative until assigned here; the inventory test catches omissions.
 WORKFLOW_SCOPES = {
+    ".github/workflows/linux-wheel.yml": "python",
     ".github/workflows/prepared-output-installed.yml": "python",
     ".github/workflows/prepared-output-product.yml": "python",
     ".github/workflows/prepared-output-acceptance.yml": "python",
@@ -154,6 +155,13 @@ def select(paths, *, fallback=None):
     scopes = {boundary(path) for path in paths}
     full = bool(fallback or not paths or 'runtime' in scopes)
     return {'version': 1, 'check_scope': 'full' if full else ('python' if 'python' in scopes else 'docs'),
+            # Linux ABI/OS acceptance accompanies full runtime changes and direct
+            # packaging changes; #172 can refine this conservative initial set.
+            'linux_wheel': full or any(path.startswith('python/') or path in {
+                '.github/workflows/check.yml', '.github/workflows/linux-wheel.yml',
+                'scripts/build_alpha.py', 'scripts/native_target.py', 'scripts/linux_wheel_acceptance.py',
+                'scripts/wheel_metadata.py', 'scripts/pypi_smoke.py', 'scripts/development_scope.py',
+                'tests/test_linux_distribution.py'} for path in paths),
             'integration': full, 'changed_paths': sorted(set(paths)),
             'reason': fallback or ('unknown/runtime input' if full else 'local changed-input classification')}
 
@@ -199,6 +207,7 @@ def main():
     if args.github_output:
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('check_scope=' + result['check_scope'] + '\n')
+            output.write('linux_wheel=' + str(result['linux_wheel']).lower() + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
 
 

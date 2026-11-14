@@ -9,7 +9,7 @@ Use the canonical Go toolchain and keep **all** raw work outside `publish/`:
 ```sh
 work=/path/to/ignored/work/memory-lifetime
 mkdir -p "$work"
-GOTOOLCHAIN=go1.26.8 go build -o "$work/probe" ./benchmarks/memorylifetime
+GOTOOLCHAIN=go1.26.8 go -C benchmarks build -o "$work/probe" ./memorylifetime
 cc -O2 benchmarks/tools/process_cost.c -o "$work/process-cost"
 
 # Each command is an independent process; do not run trials concurrently.

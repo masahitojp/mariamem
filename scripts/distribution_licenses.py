@@ -103,6 +103,10 @@ def attribution_tolerance(root):
             fields = {'path', 'reason', 'approval', 'before'}
             if group == 'generated_file_deltas':
                 fields.add('after')
+            if isinstance(row, dict) and group == 'metadata_files' and 'audit_field' in row:
+                fields.add('audit_field')
+                if not isinstance(row['audit_field'], str) or not row['audit_field'].strip():
+                    raise ValueError('invalid attribution audit field')
             if not isinstance(row, dict) or set(row) != fields:
                 raise ValueError('invalid attribution tolerance entry')
             name = row['path']
@@ -131,6 +135,10 @@ def verify_generated_attribution(root, evidence):
     """
     root = Path(root)
     policy = attribution_tolerance(root)
+    for row in policy['metadata_files']:
+        field = row.get('audit_field')
+        if field in evidence and evidence[field] != row['before']:
+            raise ValueError('generated attribution source changed beyond image metadata: audit binding differs')
     path = root/'internal/generatedgo/provenance.json'
     expected = evidence['generated_provenance_sha256']
     if digest(path) == expected:

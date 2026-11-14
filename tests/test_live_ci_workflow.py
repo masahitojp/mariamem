@@ -108,8 +108,8 @@ def run_gate(name, **env):
 @pytest.mark.parametrize('result', ['success', 'failure', 'cancelled', 'skipped'])
 def test_daily_gate_requires_all_selected_checks(selected, job, result):
     expected = 'success' if selected == 'true' else 'skipped'
-    needs = {'check': {'result': 'success', 'outputs': {'integration': selected, 'smoke_result': expected}},
-             'integration': {'result': expected}}
+    needs = {'check': {'result': 'success', 'outputs': {'integration': selected, 'smoke_result': expected, 'linux_wheel': selected}},
+             'integration': {'result': expected}, 'linux': {'result': expected}}
     original = needs[job]['result']; needs[job]['result'] = result
     assert (run_gate('required', NEEDS_JSON=needs) == 0) == (result == original)
 
@@ -118,8 +118,8 @@ def test_daily_gate_requires_all_selected_checks(selected, job, result):
 @pytest.mark.parametrize('smoke', ['success', 'failure', 'cancelled', 'skipped', ''])
 def test_selected_smoke_cannot_be_omitted_or_substituted(selected, smoke):
     expected = 'success' if selected == 'true' else 'skipped'
-    needs = {'check': {'result': 'success', 'outputs': {'integration': selected, 'smoke_result': smoke}},
-             'integration': {'result': expected}}
+    needs = {'check': {'result': 'success', 'outputs': {'integration': selected, 'smoke_result': smoke, 'linux_wheel': selected}},
+             'integration': {'result': expected}, 'linux': {'result': expected}}
     valid = selected in ('true', 'false') and smoke == expected
     assert (run_gate('required', NEEDS_JSON=needs) == 0) == valid
 
@@ -143,8 +143,8 @@ def test_unknown_daily_selection_fails(selected):
 
 @pytest.mark.parametrize('missing', ['check', 'integration', 'outputs', 'selection', 'smoke'])
 def test_missing_gate_evidence_fails(missing):
-    needs = {'check': {'result': 'success', 'outputs': {'integration': 'true', 'smoke_result': 'success'}},
-             'integration': {'result': 'success'}}
+    needs = {'check': {'result': 'success', 'outputs': {'integration': 'true', 'smoke_result': 'success', 'linux_wheel': 'true'}},
+             'integration': {'result': 'success'}, 'linux': {'result': 'success'}}
     if missing in ('check', 'integration'): del needs[missing]
     elif missing == 'outputs': del needs['check']['outputs']
     else: del needs['check']['outputs']['integration' if missing == 'selection' else 'smoke_result']
@@ -154,7 +154,7 @@ def test_missing_gate_evidence_fails(missing):
 def test_daily_gate_owns_the_existing_protected_context():
     text = DEVELOPMENT.read_text()
     assert 'name: Live required gate' in text
-    assert 'needs: [check, integration]' in text
+    assert 'needs: [check, integration, linux]' in text
     assert 'smoke_result: ${{ steps.smoke.outcome }}' in text
     assert 'if: always()' in text.split('  required:')[1]
 
@@ -205,3 +205,15 @@ def test_release_e2e_steps_are_unconditional_and_shell_blocks_complete():
         code = textwrap.dedent(step.split('        run: |\n', 1)[1])
         subprocess.run(['bash', '-n'], input=code, text=True, check=True)
         assert 'build_alpha.py' not in code
+
+
+@pytest.mark.parametrize('selected', ['true', 'false'])
+@pytest.mark.parametrize('result', ['success', 'failure', 'cancelled', 'skipped', 'missing'])
+def test_daily_protected_gate_requires_linux_execution(selected, result):
+    needs = {'check': {'result': 'success', 'outputs': {
+        'integration': 'false', 'smoke_result': 'skipped', 'linux_wheel': selected}},
+        'integration': {'result': 'skipped'}}
+    if result != 'missing':
+        needs['linux'] = {'result': result}
+    assert (run_gate('required', NEEDS_JSON=needs) == 0) == (
+        result == ('success' if selected == 'true' else 'skipped'))

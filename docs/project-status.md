@@ -61,6 +61,33 @@ initial boundary acceptance; public smoke stays install/hash/start/SELECT 1/Clos
 not a repeated ORM/Snapshot campaign. Windows ordinary releases use short smoke,
 with focused additional checks when relevant OS boundaries change.
 
+## Linux distribution initial acceptance passed (#170)
+
+The Human approved proceeding after the sequencing review. Candidate
+`0f3cb82ad46be613a164c49b38f9a2dfa61f09d4`, based on main
+`291467b4fbac143093b35ea15d16cda798590f97`, passed
+[CI43574710937](https://github.com/masahitojp/mariamem/actions/runs/43574710937).
+CI source `74ce30e5ec89221c27822980f41f7d643495c3d9` has the same tree as that
+candidate; this equivalence does not relabel a receipt to a different commit.
+Both native Linux CPUs passed memory/image/atomic checks, then the same wheel
+per CPU passed installed SQL, Snapshot/Fork independence and Close/host exit on
+glibc2.28 and musllinux1.2 containers. These share the modern runner kernel;
+no old-kernel execution, full per-OS ORM campaign or release qualification is claimed.
+
+The change extends the existing host mmap/static-image and ARM64 atomic paths
+without a guest patch. #158's minimum module boundaries and Python description
+accompany it; full evidence cleanup remains required. #172 owns later CI selection/
+duplicate-build consolidation; #169 connects the accepted portable inventory to
+publication. Final guide/diagnostic wording reflects this CI checkpoint.
+
+The Human approved main integration on2026-11-14. Main's subsequent #176
+buffer-pool improvement (`bb1e937ae75b5788c8548a52987d9d42f78292d5`) is incorporated
+into the candidate, preserving its new guest/generated code and fresh symbol audit.
+The derived layout retains the same constructor values and binds the combined
+handwritten sources. Required CI must accept this combined candidate before the
+authorized automatic merge; the earlier CI is not reused as its PASS. A versioned
+public release remains a separate Human decision.
+
 ## Prepared output — integrated on main (2026-11-14)
 
 PR163 merged as `c129ab0e2d0d286da57b3be87d7d5e9cc2d3239c`. Normal PR CI

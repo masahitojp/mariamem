@@ -107,6 +107,7 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
     import hashlib
     historical = json.loads((target/'provenance.json').read_text())
     historical['files_sha256'].pop('image/layout.json')
+    evidence.pop('audited_image_metadata_sha256', None)
     evidence['generated_provenance_sha256'] = hashlib.sha256(
         (json.dumps(historical, indent=2)+'\n').encode()).hexdigest()
     assert verify_generated_attribution(tmp_path, evidence) == 'unchanged-generated-code; image-metadata-only'
@@ -122,4 +123,24 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
     (target/'provenance.json').write_bytes(original)
     (target/'image/layout.json').write_text('{}')
     with pytest.raises(ValueError, match='metadata mismatch'):
+        verify_generated_attribution(tmp_path, evidence)
+
+
+def test_replaced_image_binding_reconstructs_exact_audited_provenance(tmp_path):
+    from distribution_licenses import verify_generated_attribution
+    import shutil
+    (tmp_path/'release').mkdir()
+    shutil.copyfile(ROOT/'release/attribution-tolerance.json', tmp_path/'release/attribution-tolerance.json')
+    target = tmp_path/'internal/generatedgo'
+    shutil.copytree(ROOT/'internal/generatedgo/image', target/'image')
+    shutil.copyfile(ROOT/'internal/generatedgo/provenance.json', target/'provenance.json')
+    evidence = json.loads((ROOT/'release/generated-license-evidence.json').read_text())
+    assert verify_generated_attribution(tmp_path, evidence) == 'unchanged-generated-code; image-metadata-only'
+    bad = dict(evidence, audited_image_metadata_sha256='0'*64)
+    with pytest.raises(ValueError, match='beyond image metadata'):
+        verify_generated_attribution(tmp_path, bad)
+    record = json.loads((target/'provenance.json').read_text())
+    record['files_sha256']['code/alias.go'] = '0'*64
+    (target/'provenance.json').write_text(json.dumps(record, indent=2)+'\n')
+    with pytest.raises(ValueError, match='beyond image metadata'):
         verify_generated_attribution(tmp_path, evidence)

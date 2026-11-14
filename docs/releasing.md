@@ -120,6 +120,33 @@ conditions never reuse the old success. No new review-document dumps are needed.
 | Provenance | `mariamem-<version>-provenance.json`: exact source/guest/generated/toolchain/notices hashes, both frozen wheel records and external acceptance hashes. |
 | Hashes | `SHA256SUMS` binds the two wheels, common corresponding source and provenance. Go source identity is bound to the exact tag commit and module fixture inventory. |
 
+Portable Linux candidate path (#170): `scripts/build_alpha.py --target linux-x86_64`
+or `--target linux-aarch64` produces one CPU-specific wheel with compressed platform
+tags `manylinux_2_28_<arch>.musllinux_1_2_<arch>`. The host must be static ELF with
+no interpreter, NEEDED library or GLIBC symbol dependency. Runtime discovery checks
+CPU, libc version and manifest minimums; it does not identify portability by
+Ubuntu release name. The native-runner Linux wheel workflow checks memory/image/
+atomic ownership and installs the same wheel in both libc environments for SQL,
+Snapshot/Fork independence and Close/cleanup. Image digests, source and wheel hashes
+are retained as small CI receipts. Containers share the runner kernel; these runs
+do not establish execution on an old minimum kernel.
+
+The initial four-environment acceptance passed in
+[CI43574710937](https://github.com/masahitojp/mariamem/actions/runs/43574710937)
+on candidate0f3cb82a (CI merge source74ce30e5, identical tree). This is not a
+versioned release qualification.
+
+This candidate path does not change the existing release inventory above.
+#169 connects the accepted portable wheel set to publication and aggregate smoke;
+normal publication still fails closed on an unexpected asset set until that work
+is complete. No candidate build publishes or chooses a version.
+
+`docs/reviews/go.mod` and `benchmarks/go.mod` exclude those nested modules from the
+Go module ZIP. Corresponding source still includes the repository inputs and
+GPL notices; module delivery exclusion does not remove corresponding source.
+The external consumer fixture continues to include the runtime's embedded layout.
+See [local benchmark invocation](../benchmarks/README.md) for the separate module.
+
 These four assets plus SHA256SUMS replace native-bundle/AOT assets on the normal
 release path. Wasmer runtime, bundle resolution and legacy wheel packaging are retired on the
 v0.4.3 release. Prior tags/reports and retained historical notice

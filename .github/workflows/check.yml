@@ -14,6 +14,7 @@ jobs:
     timeout-minutes: 30
     outputs:
       integration: ${{ steps.diff.outputs.integration }}
+      linux_wheel: ${{ steps.diff.outputs.linux_wheel }}
       smoke_result: ${{ steps.smoke.outcome }}
     steps:
       # One checkout owns selection, source checks and representative smoke.
@@ -65,10 +66,15 @@ jobs:
           test "$CHECK_RESULT" = success
           test "$SMOKE_RESULT" = success
 
+  linux:
+    needs: check
+    if: needs.check.outputs.linux_wheel == 'true'
+    uses: ./.github/workflows/linux-wheel.yml
+
   required:
     name: Live required gate
     if: always()
-    needs: [check, integration]
+    needs: [check, integration, linux]
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -80,7 +86,7 @@ jobs:
           python3 - <<'PY'
           import json, os
           needs = json.loads(os.environ['NEEDS_JSON'])
-          assert set(needs) == {'check', 'integration'}, 'missing development dependency'
+          assert set(needs) == {'check', 'integration', 'linux'}, 'missing development dependency'
           assert needs['check']['result'] == 'success', 'source checks failed'
           outputs = needs['check']['outputs']
           selected = outputs.get('integration')
@@ -88,4 +94,8 @@ jobs:
           expected = 'success' if selected == 'true' else 'skipped'
           assert outputs.get('smoke_result') == expected, 'smoke did not finish as selected'
           assert needs['integration']['result'] == expected, 'integration context did not finish as selected'
+          linux = outputs.get('linux_wheel')
+          assert linux in ('true', 'false'), 'invalid Linux wheel selection'
+          expected_linux = 'success' if linux == 'true' else 'skipped'
+          assert needs['linux']['result'] == expected_linux, 'Linux wheel checks did not finish as selected'
           PY

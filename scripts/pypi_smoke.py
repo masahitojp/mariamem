@@ -5,12 +5,14 @@ import platform
 import sys
 
 
-def check(version):
+def check(version, expected_platform="darwin-arm64"):
     import mariamem
     import pymysql
 
-    if platform.system() != 'Darwin' or platform.machine() != 'arm64':
-        raise RuntimeError('expected native macOS arm64 smoke')
+    expected = {"darwin-arm64": ("Darwin", "arm64"), "linux-x86_64": ("Linux", "x86_64"),
+                "linux-aarch64": ("Linux", "aarch64")}.get(expected_platform)
+    if expected is None or (platform.system(), platform.machine()) != expected:
+        raise RuntimeError(f"expected native {expected_platform} smoke")
     if mariamem.__version__ != version:
         raise RuntimeError('installed package version differs')
     db = mariamem.start()
@@ -26,8 +28,8 @@ def check(version):
     if not db.closed or process.poll() != 0:
         raise RuntimeError('Close did not finish with successful host exit')
     return {'result': 'PASS', 'version': version, 'python': platform.python_version(),
-            'os': platform.mac_ver()[0], 'machine': platform.machine(), 'host_exit': process.returncode}
+            'os': platform.mac_ver()[0] if platform.system() == 'Darwin' else platform.release(), 'machine': platform.machine(), 'host_exit': process.returncode}
 
 
 if __name__ == '__main__':
-    print(json.dumps(check(sys.argv[1])))
+    print(json.dumps(check(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else 'darwin-arm64')))
