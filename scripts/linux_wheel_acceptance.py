@@ -54,9 +54,15 @@ $P -I /input/smoke.py {wheel['manifest']['package_version']} {args.target}
 $P -I -m pytest /input/test_database.py -q -k 'test_defaults_and_cleanup or test_snapshot_defaults'
 $P -c 'import json,platform; print(json.dumps(dict(python=platform.python_version(),machine=platform.machine(),libc=platform.libc_ver(),kernel=platform.release())))'
 '''
-            result = subprocess.run(['docker', 'run', '--rm', '--network', 'bridge',
-                                     '-v', f'{scratch}:/input:ro', image_info['Id'], 'sh', '-c', script],
-                                    check=True, text=True, stdout=subprocess.PIPE, timeout=600)
+            try:
+                result = subprocess.run(['docker', 'run', '--rm', '--network', 'bridge',
+                                         '-v', f'{scratch}:/input:ro', image_info['Id'], 'sh', '-c', script],
+                                        check=True, text=True, stdout=subprocess.PIPE, timeout=600)
+            except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+                # Keep the original assertion/SQL failure visible in CI, not in a committed dump.
+                if exc.stdout:
+                    print(exc.stdout, flush=True)
+                raise
             # Keep only small machine-readable observations; routine logs stay in CI.
             print(result.stdout, end='')
             record.update(result='PASS', environment=json.loads(result.stdout.strip().splitlines()[-1]))
