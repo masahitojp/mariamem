@@ -1,0 +1,44 @@
+[
+  {
+    "name": "r0-off",
+    "code": 0,
+    "wall_ms": 1997.8471249999998,
+    "cpu_ms": 2290.629,
+    "binary_sha256": "0d8074b9396eb3d7d8a0f98df610dbcdc4ef74d31fe8801069045b2d320e05ea"
+  },
+  {
+    "name": "r0-on",
+    "code": 0,
+    "wall_ms": 569.5310839999999,
+    "cpu_ms": 2257.25,
+    "binary_sha256": "0d8074b9396eb3d7d8a0f98df610dbcdc4ef74d31fe8801069045b2d320e05ea"
+  },
+  {
+    "name": "r1-on",
+    "code": 0,
+    "wall_ms": 503.96158300000013,
+    "cpu_ms": 2191.873,
+    "binary_sha256": "0d8074b9396eb3d7d8a0f98df610dbcdc4ef74d31fe8801069045b2d320e05ea"
+  },
+  {
+    "name": "r1-off",
+    "code": 0,
+    "wall_ms": 459.6199999999997,
+    "cpu_ms": 2148.7509999999997,
+    "binary_sha256": "0d8074b9396eb3d7d8a0f98df610dbcdc4ef74d31fe8801069045b2d320e05ea"
+  },
+  {
+    "name": "r2-off",
+    "code": 0,
+    "wall_ms": 451.9467920000002,
+    "cpu_ms": 2154.9580000000005,
+    "binary_sha256": "0d8074b9396eb3d7d8a0f98df610dbcdc4ef74d31fe8801069045b2d320e05ea"
+  },
+  {
+    "name": "r2-on",
+    "code": 0,
+    "wall_ms": 503.57937500000014,
+    "cpu_ms": 2142.135999999999,
+    "binary_sha256": "0d8074b9396eb3d7d8a0f98df610dbcdc4ef74d31fe8801069045b2d320e05ea"
+  }
+]
