@@ -28,7 +28,15 @@ def test_full_integration_retains_regressions_without_duplicate_routing(monkeypa
     verify.integration()
     actual_guest = next(a for a in calls if './internal/generatedgo' in a and '-tags=integration' in a)
     selector = next(a.removeprefix('-run=') for a in actual_guest if a.startswith('-run='))
-    assert re.search(selector, 'TestWorkerTrapActualGuest')
+    # Match actual Go declarations, so a stale invented name cannot keep CI green.
+    declarations = set()
+    for filename in ('worker_trap_integration_test.go', 'dictionary_wait_integration_test.go'):
+        source = (ROOT/'internal/generatedgo'/filename).read_text()
+        declarations.update(re.findall(r'^func (Test\w+)\(', source, re.MULTILINE))
+    required = {'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer', 'TestDictionaryWaitActualGuest'}
+    assert required <= declarations
+    assert {name for name in declarations if re.search(selector, name)} == required
+    assert re.search(selector, 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer')
     assert re.search(selector, 'TestDictionaryWaitActualGuest')
     assert any('scripts/check_prepared_consumers.py' in a for a in calls)
     race = next(a for a in calls if a[:3] == ['go', 'test', '-race'])

@@ -46,4 +46,4 @@ def test_normal_integration_selects_actual_dictionary_guest(monkeypatch):
     assert len(selected) == 1
     pattern = next(arg.removeprefix('-run=') for arg in selected[0] if arg.startswith('-run='))
     assert re.search(pattern, 'TestDictionaryWaitActualGuest')
-    assert re.search(pattern, 'TestWorkerTrapActualGuest')
+    assert re.search(pattern, 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer')
