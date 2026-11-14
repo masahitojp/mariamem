@@ -2,6 +2,12 @@
 
 ## Recent measurement and discovery reports
 
+- [Historical v0.5.3 → v0.6.0 latency](v060-latency.md): paired Go/Python
+  observations, including small-workload increases; not a current-main comparison.
+- [Historical parallel application suite](parallel-modelcase.md) and
+  [shared-read follow-up](shared-read-modelcase.md): separate same-host cohorts,
+  compact samples and pinned raw archives. [Current disposition](../docs/project-status.md#historical-benchmark-reports-retained-2026-11-14).
+
 - [Timer product candidate versus main](timer-product/README.md): single-Mac
   Go Pipe paired Fresh/Fork and P4/P8 shop70 results; startup improves,
   whole-suite benefit remains uncertain. Exact candidate/source identities retained.
@@ -453,3 +459,16 @@ Historical Wasmer comparisons require historical tags; current selectors reject
 legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
 
 [Final v0.4.3 baseline and compact evidence](v043-release-baseline.md).
+
+## Historical compact result checks
+
+These commands verify saved statistics and hashes without rerunning databases:
+
+```sh
+python3 benchmarks/v060-latency-evidence/analyze.py --check
+python3 benchmarks/modelcase/check_results.py --check --results benchmarks/modelcase/results
+python3 benchmarks/modelcase/check_results.py --check --results benchmarks/modelcase/shared-read-results
+```
+
+Reproduction uses each report's pinned source. A new run is a new cohort;
+historical observations do not qualify current main.

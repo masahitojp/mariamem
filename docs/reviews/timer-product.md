@@ -122,3 +122,13 @@ artifact identities, essential SQL/negative/cleanup outcomes and current-file
 checksums remain. Original assessments are unchanged; bootstrap is still
 UNQUALIFIED and installed correctness remains bound to `37023152`.
 This cleanup changes documentation only and makes no new measurement claim.
+
+## Subsequent Human decision and main integration
+
+On 2026-11-11 the Human accepted the recommendation above, including the
+unestablished whole-suite benefit. PR152 merged as source_commit
+`500020e7dc6d702ef059f0e73a4bab738103b774`; see the
+[authoritative decision](../decisions/wasi-timer-startup.md#main-adoption-2026-11-11)
+for approved head and successful protected-check identities. This supersedes
+only the earlier awaiting-adoption status, not the historical measured or CI
+sources. No UCA change or release is adopted by this decision.

@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "original_commit": "7878b43c115d3a72f3712259e3d319d066f63bf0",
+  "normalization": "Owned workspace prefix replaced with <WORKSPACES>/; observations and source identities unchanged.",
+  "files": [
+    {
+      "path": "attempt-1/console.txt",
+      "original_sha256": "a2709276b609f0e730a1289f071afffa069e983ffdfc8f16f83619db9f0c1d5d",
+      "published_sha256": "f10c2a852decc5f24310ee9ee3d8ac722f32c3bf5c4663d2ebade35076ccdbe1"
+    },
+    {
+      "path": "attempt-1/inputs.json",
+      "original_sha256": "8da4c0693aa3ea4687024a56d2180865d2806f93160ab17c470788d177fe453d",
+      "published_sha256": "ec853c0d10c9417a3f9255640bcf123cac5539310324064752be0631e116c7c8"
+    },
+    {
+      "path": "attempt-2/inputs.json",
+      "original_sha256": "138e7697d6148e0c01cbed69c5f80b4395d9b5a09762d7c4b948b1079927d013",
+      "published_sha256": "119d1e4c7e78f17290102527c0cff637812abdc1e47033b3961f3c7863fb3647"
+    },
+    {
+      "path": "attempt-2/pilot-console.txt",
+      "original_sha256": "f743fcbc0ea343d71bd698de86eb71d33eb822c1b04b49f42c07bb617d03f8e9",
+      "published_sha256": "d0f8817e2be19b964ec4e53cc14a624388fbdc7160dbf11633f872b23155eb2c"
+    },
+    {
+      "path": "inputs.json",
+      "original_sha256": "5a349ee1ba74d588938546ac375a8ea281cd61fb03055c235e10ea9cac05cff1",
+      "published_sha256": "38373f71808a7d470779fbb966616794a3fce5a8689fe5b1e0e87cf96db8ed16"
+    }
+  ]
+}

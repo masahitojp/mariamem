@@ -1,0 +1,238 @@
+{
+  "rows": [
+    {
+      "parallelism": 1,
+      "mode": "mariamem",
+      "median_ms": 3418.7006250140257,
+      "min_ms": 3363.929165992886,
+      "max_ms": 3447.916292003356,
+      "suite_ms": 3364.230042,
+      "median_run": "matrix/trial-mariamem-p1-3.json",
+      "fork_count": 70,
+      "phase_sum_ms": {
+        "boot": 44.227917,
+        "schema-master-sample": 78.174042,
+        "capture-disconnect": 10.379125,
+        "read-baseline-fork": 0,
+        "fork": 2589.099166,
+        "input-oracle": 319.088038,
+        "read": 34.235293,
+        "write": 43.576541999999996,
+        "case-cleanup": 240.255836,
+        "read-baseline-cleanup": 0,
+        "read-baseline-final-oracle": 0
+      }
+    },
+    {
+      "parallelism": 1,
+      "mode": "mariamem-shared-read",
+      "median_ms": 1273.3733329805546,
+      "min_ms": 1248.8317089737393,
+      "max_ms": 1298.1769999605604,
+      "suite_ms": 1255.973083,
+      "median_run": "matrix/trial-mariamem-shared-read-p1-1.json",
+      "fork_count": 21,
+      "phase_sum_ms": {
+        "boot": 43.189458,
+        "schema-master-sample": 83.805708,
+        "capture-disconnect": 10.301917,
+        "read-baseline-fork": 35.672292,
+        "fork": 755.048581,
+        "input-oracle": 186.834749,
+        "read": 27.717207,
+        "write": 44.815752,
+        "case-cleanup": 60.269754,
+        "read-baseline-cleanup": 2.884625,
+        "read-baseline-final-oracle": 1.820459
+      }
+    },
+    {
+      "parallelism": 2,
+      "mode": "mariamem",
+      "median_ms": 1947.9437499539927,
+      "min_ms": 1941.5668330038898,
+      "max_ms": 2000.5614169640467,
+      "suite_ms": 1924.96,
+      "median_run": "matrix/trial-mariamem-p2-3.json",
+      "fork_count": 70,
+      "phase_sum_ms": {
+        "boot": 46.191375,
+        "schema-master-sample": 81.8995,
+        "capture-disconnect": 10.198125,
+        "read-baseline-fork": 0,
+        "fork": 2793.736705,
+        "input-oracle": 388.920833,
+        "read": 41.707334,
+        "write": 52.299042,
+        "case-cleanup": 274.14058,
+        "read-baseline-cleanup": 0,
+        "read-baseline-final-oracle": 0
+      }
+    },
+    {
+      "parallelism": 2,
+      "mode": "mariamem-shared-read",
+      "median_ms": 803.2150419894606,
+      "min_ms": 791.6060829884373,
+      "max_ms": 835.121333017014,
+      "suite_ms": 758.102542,
+      "median_run": "matrix/trial-mariamem-shared-read-p2-0.json",
+      "fork_count": 21,
+      "phase_sum_ms": {
+        "boot": 44.189875,
+        "schema-master-sample": 83.779875,
+        "capture-disconnect": 10.420791,
+        "read-baseline-fork": 36.881917,
+        "fork": 788.915875,
+        "input-oracle": 207.66621,
+        "read": 27.476332,
+        "write": 50.363581,
+        "case-cleanup": 75.064124,
+        "read-baseline-cleanup": 2.852958,
+        "read-baseline-final-oracle": 1.797042
+      }
+    },
+    {
+      "parallelism": 4,
+      "mode": "mariamem",
+      "median_ms": 1424.398957984522,
+      "min_ms": 1413.0641669617034,
+      "max_ms": 1490.4592500533909,
+      "suite_ms": 1394.846958,
+      "median_run": "matrix/trial-mariamem-p4-3.json",
+      "fork_count": 70,
+      "phase_sum_ms": {
+        "boot": 46.499167,
+        "schema-master-sample": 83.309625,
+        "capture-disconnect": 10.429542,
+        "read-baseline-fork": 0,
+        "fork": 3745.64158,
+        "input-oracle": 653.200707,
+        "read": 63.078001,
+        "write": 61.035085,
+        "case-cleanup": 388.923626,
+        "read-baseline-cleanup": 0,
+        "read-baseline-final-oracle": 0
+      }
+    },
+    {
+      "parallelism": 4,
+      "mode": "mariamem-shared-read",
+      "median_ms": 625.4242080030963,
+      "min_ms": 600.6335830315948,
+      "max_ms": 629.466374986805,
+      "suite_ms": 552.605458,
+      "median_run": "matrix/trial-mariamem-shared-read-p4-1.json",
+      "fork_count": 21,
+      "phase_sum_ms": {
+        "boot": 45.354333,
+        "schema-master-sample": 81.242375,
+        "capture-disconnect": 10.006333,
+        "read-baseline-fork": 41.965125,
+        "fork": 948.968791,
+        "input-oracle": 283.180338,
+        "read": 33.691209,
+        "write": 65.839209,
+        "case-cleanup": 103.224585,
+        "read-baseline-cleanup": 3.026083,
+        "read-baseline-final-oracle": 2.276709
+      }
+    },
+    {
+      "parallelism": 8,
+      "mode": "mariamem",
+      "median_ms": 1281.0722909634933,
+      "min_ms": 1228.0952079454437,
+      "max_ms": 1304.4172920053825,
+      "suite_ms": 1217.077292,
+      "median_run": "matrix/trial-mariamem-p8-3.json",
+      "fork_count": 70,
+      "phase_sum_ms": {
+        "boot": 46.758209,
+        "schema-master-sample": 82.180042,
+        "capture-disconnect": 10.3375,
+        "read-baseline-fork": 0,
+        "fork": 6242.55354,
+        "input-oracle": 1074.893706,
+        "read": 203.887791,
+        "write": 230.962085,
+        "case-cleanup": 618.681124,
+        "read-baseline-cleanup": 0,
+        "read-baseline-final-oracle": 0
+      }
+    },
+    {
+      "parallelism": 8,
+      "mode": "mariamem-shared-read",
+      "median_ms": 639.2994589987211,
+      "min_ms": 539.8580000037327,
+      "max_ms": 913.760999974329,
+      "suite_ms": 572.74025,
+      "median_run": "matrix/trial-mariamem-shared-read-p8-0.json",
+      "fork_count": 21,
+      "phase_sum_ms": {
+        "boot": 45.33725,
+        "schema-master-sample": 77.116708,
+        "capture-disconnect": 10.294333,
+        "read-baseline-fork": 39.506209,
+        "fork": 1525.281586,
+        "input-oracle": 696.533748,
+        "read": 207.513671,
+        "write": 235.315079,
+        "case-cleanup": 176.069334,
+        "read-baseline-cleanup": 3.252458,
+        "read-baseline-final-oracle": 2.338792
+      }
+    }
+  ],
+  "paired": [
+    {
+      "parallelism": 1,
+      "ratio_of_medians": 0.37247289910778025,
+      "reduction_percent": 62.75271008922198,
+      "paired_ratio": [
+        0.36996294622226317,
+        0.3739947537913028,
+        0.37124197548468246,
+        0.3797281898455892,
+        0.37391396217047385
+      ]
+    },
+    {
+      "parallelism": 2,
+      "ratio_of_medians": 0.4123399569461034,
+      "reduction_percent": 58.76600430538965,
+      "paired_ratio": [
+        0.41346336764415814,
+        0.40771508326793265,
+        0.4184427930484472,
+        0.42871942941716784,
+        0.39984038642386777
+      ]
+    },
+    {
+      "parallelism": 4,
+      "ratio_of_medians": 0.4390793776541729,
+      "reduction_percent": 56.09206223458272,
+      "paired_ratio": [
+        0.42233048301337756,
+        0.44260142081718107,
+        0.42631347766912514,
+        0.42167510700897426,
+        0.42888818741242835
+      ]
+    },
+    {
+      "parallelism": 8,
+      "ratio_of_medians": 0.4990346473873887,
+      "reduction_percent": 50.09653526126113,
+      "paired_ratio": [
+        0.5205618056830013,
+        0.4173339375587112,
+        0.47660022890329873,
+        0.5766952725648723,
+        0.7005127926275286
+      ]
+    }
+  ]
+}

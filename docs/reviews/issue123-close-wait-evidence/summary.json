@@ -1,0 +1,18 @@
+{
+  "before": {
+    "primary_processes": 10,
+    "children": 480,
+    "close_p50_ms": 4.22625,
+    "close_p95_ms": 8.820375,
+    "close_max_ms": 14.975667,
+    "close_over_2000ms": 0
+  },
+  "after": {
+    "primary_processes": 10,
+    "children": 480,
+    "close_p50_ms": 3.7252295,
+    "close_p95_ms": 8.752417,
+    "close_max_ms": 16.453458,
+    "close_over_2000ms": 0
+  }
+}

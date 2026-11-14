@@ -1,0 +1,44 @@
+{
+  "question": "How does one 70-case isolated application suite scale at parallelism1/2/4/8 with the released Go helper versus shared and worker-schema Testcontainers?",
+  "decision_informed": "Publish a bounded timeline/latency comparison, with no preselected winner and no product changes.",
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "cases": {
+    "read_only": 50,
+    "writes": 20
+  },
+  "fixture": {
+    "categories": 20,
+    "products": 500,
+    "users": 1000,
+    "orders": 40
+  },
+  "modes": [
+    "mariamem-helper-all-forks",
+    "testcontainers-shared-read-parallel-write-serial",
+    "testcontainers-worker-schema"
+  ],
+  "parallelism": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "matrix": {
+    "pilot_parallelism": 1,
+    "warmups_per_cell": 1,
+    "measured_repetitions": 5,
+    "order": "rotate modes by repetition and parallelism"
+  },
+  "timing": "External process wall including boot, Ryuk first-use, schema/master/sample input, per-case admission/reset/Fork/SQL, all owned DB/pool/container cleanup and test-process exit. Image acquisition and compilation excluded.",
+  "oracles": "Exact shared testcase assertions, pristine input before every case, same70casenames, no overlap between shared writers/readers, bounded admission, helper cleanup, containerID absence. Corrupt-seed negative control must fail.",
+  "limits": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "workspace_gib": 16,
+    "reserve_gib": 16,
+    "cell_seconds": 240,
+    "campaign_seconds": 3600
+  },
+  "exit": "Compare medians/ranges and median-run timeline for each mode and parallelism; preserve FAIL/partial data. No general engine/VM memory or compatibility claim."
+}

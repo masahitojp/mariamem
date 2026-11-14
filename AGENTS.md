@@ -46,6 +46,13 @@ Investigation and review reports state the conclusion to the original question,
 an evidence-based recommendation, and conditions for proceeding; when no judgment
 is possible, state the missing evidence and the concrete work and cost to obtain it.
 
+Before moving a PR from Draft/WIP to Ready, opening it as Ready, or requesting
+Human Review, complete `docs/development.md#preparing-a-pr-for-review`: inspect
+the final base-to-head diff, reduce new/revised evidence, verify retained records
+and refresh the PR body/checklist. Repeat affected checks when results change.
+Do not leave raw CI logs, full REST responses or duplicated metadata for the
+reviewer to clean up. This author task adds no approval or heavy-CI gate.
+
 Human Review opens with one decision needed now, a short recommendation and its
 decisive reason, plus the strongest material objection and your assessment when
 one exists. Do not repeat the rationale; link technical evidence and remaining

@@ -1,0 +1,10 @@
+{
+  "result": "COLLECTED_WITH_FAILURES",
+  "failed_primary": 1,
+  "processes": 56,
+  "primary_processes": 40,
+  "extra_repetitions": 0,
+  "harness_source_commit": "f41b970d4bd34483d4072d719fdbc9a00dc6a62d",
+  "before": "c375edbc1e77bf078f50abc75c9de32ce23a641a",
+  "after": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50"
+}
