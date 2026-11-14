@@ -1,0 +1,84 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.280s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.880s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.742s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	5.482s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	1.246s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.584s
+ok  	github.com/masahitojp/mariamem/internal/host	1.321s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	2.032s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.306s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.464s
+ok  	github.com/masahitojp/mariamem/internal/live	1.322s
+ok  	github.com/masahitojp/mariamem/internal/control	2.546s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.548s
+ok  	github.com/masahitojp/mariamem/mariamemtest	2.792s
+ok  	github.com/masahitojp/mariamem	2.663s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	8.480s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	3.027s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.107s
++ go test -p 1 -tags=integration ./internal/generatedgo -run=^Test(WorkerTrap|DictionaryWait)ActualGuest$ -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.416s
++ go build -p 1 -o <workspace>/temp/tmp/mariamem-integration-f0mlf2be/mariamem-host ./cmd/mariamem-host
++ <workspace>/temp/venv/bin/python tests/live_acceptance/smoke.py --host <workspace>/temp/tmp/mariamem-integration-f0mlf2be/mariamem-host
+{"result": "PASS_SOURCE_PYTHON_LIVE", "module": "/private/tmp/mariamem-buffer-zero-audit-clone/python/mariamem/__init__.py", "source_consumed": true, "host_reaped": true, "directory_removed": true, "max_forks": 2, "capacity_timeout_preserved": true, "live_capacity_busy_preserved": true}
++ go run ./tests/live_acceptance/go_consumer -source-smoke
+{"busy_refused":true,"closed_parent_refused":true,"result":"PASS_SOURCE_GO_LIVE","source_consumed":true,"sum_after_reset":1}
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <workspace>/temp/venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+..............................................s.......                   [100%]
+53 passed, 1 skipped in 55.58s
++ <workspace>/temp/venv/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "/private/tmp/mariamem-buffer-zero-audit-clone/tests/evidence/snapshots.json"}
++ <workspace>/temp/venv/bin/python scripts/check_prepared_consumers.py --host <workspace>/temp/tmp/mariamem-integration-f0mlf2be/mariamem-host --output <workspace>/temp/tmp/mariamem-integration-f0mlf2be/prepared-consumers
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/tests/v06_prepared_connector_environment.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/tests/v06_prepared_connector_environment.py", line 32, in main
+    r=capture();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,indent=2)+'\n')
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/tests/v06_prepared_connector_environment.py", line 14, in capture
+    import mysql.connector as connector
+ModuleNotFoundError: No module named 'mysql'
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/check_prepared_consumers.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/check_prepared_consumers.py", line 19, in main
+    run([sys.executable,'tests/v06_prepared_connector_environment.py','--output',environment])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/check_prepared_consumers.py", line 15, in run
+    return subprocess.run([str(x) for x in args],cwd=ROOT,check=check,timeout=300)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', 'tests/v06_prepared_connector_environment.py', '--output', '<workspace>/temp/tmp/mariamem-integration-f0mlf2be/prepared-consumers/environment.json']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 210, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 191, in main
+    integration(args.host)
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 142, in integration
+    run([sys.executable, "scripts/check_prepared_consumers.py", "--host", host,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "--output", Path(temporary)/"prepared-consumers"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 36, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', 'scripts/check_prepared_consumers.py', '--host', '<workspace>/temp/tmp/mariamem-integration-f0mlf2be/mariamem-host', '--output', '<workspace>/temp/tmp/mariamem-integration-f0mlf2be/prepared-consumers']' returned non-zero exit status 1.

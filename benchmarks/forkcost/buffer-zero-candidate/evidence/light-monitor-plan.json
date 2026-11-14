@@ -1,0 +1,5 @@
+{
+  "reason": "The full directory-scanning budget monitor was observed using93% of one CPU core during later integration. Its exact CPU share during the original measurement was not recorded. Original guarded series is retained; no claim that93% was measured during that series.",
+  "decision": "Run one fixed supplementary matrix after all builds/tests end. Same Go binaries/hashes, P1/P8, three repetitions and warmups. No selection or replacement of individual observations.",
+  "monitor": "Full workspace budget/free check before and after; during fixed immutable-binary executions, cheap disk-free checks only. Known output growth is small; no compilation/download/cache growth is authorized during this matrix."
+}

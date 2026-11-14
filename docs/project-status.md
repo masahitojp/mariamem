@@ -16,12 +16,21 @@ new guest and canonical inputs are bound after whole worker/CRC identity review.
 Bootstrap remains one UNQUALIFIED build; independent regeneration is pending.
 
 The [candidate evidence](../benchmarks/forkcost/buffer-zero-candidate/README.md)
-records matched current-main P1/P8 comparisons: Fork medians improve5.3/10.7%,
-with all three process pairs improving. Suite medians improve2.5/4.6%, but one
-pair at each parallelism is slower. This single-Mac observation is not a universal
-speedup. Large/compressed/resize/Fork/EIO/clean-vs-dirty redo controls pass locally.
-Canonical independent builds and both-platform normal/runtime gates precede the
-adoption decision. Main integration, issue closure and release are not approved.
+retains two fixed current-main comparisons with identical binaries. P1 Fork
+improves5.3/8.7% across the guarded/light-monitor series. P8 Fork improves10.7%
+in the guarded series but is essentially unchanged in the light-monitor series;
+a stable parallel Fork benefit is not established. P8 suite medians improve4.6/7.1%,
+but P1 suite changes from2.5% faster to12.6% slower. Keep both complete cohorts,
+outliers and single-Mac limits; do not select the favorable series.
+
+Large/compressed/resize/Fork/EIO/clean-vs-dirty redo controls and standard check
+pass locally. The canonical CI buffer wrapper also passes with Go1.26.10.
+Race/actual SQL/worker/Live/Snapshot controls pass. Human explicitly accepts the
+fixed Connector/Python OpenSSL4 import defect as an existing external defect,
+not unfinished candidate work; preserve the raw failure without fabricating PASS
+for unexecuted consumer steps. Stop that investigation and consult issues first.
+Independent canonical builds and both-platform CI precede the adoption decision.
+Main integration, issue closure and release are not approved.
 
 ## Prepared output — integrated on main (2026-11-14)
 

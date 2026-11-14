@@ -1,16 +1,16 @@
 {
   "source": {
-    "object_sha": "f3e4fac9f04b9066cd3e9691a2201f8a8bc46a21",
+    "object_sha": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0",
     "object_type": "commit",
-    "source_commit": "f3e4fac9f04b9066cd3e9691a2201f8a8bc46a21"
+    "source_commit": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0"
   },
   "argv": [
     "<workspace>/temp/venv/bin/python",
     "scripts/verify.py",
     "check"
   ],
-  "returncode": 1,
-  "seconds": 12.034511332996772,
+  "returncode": 0,
+  "seconds": 170.0910078339948,
   "platform": "darwin-arm64",
   "go": "go1.26.10"
 }

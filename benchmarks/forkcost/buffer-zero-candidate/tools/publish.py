@@ -21,8 +21,11 @@ for p in (D/'harness').glob('*/go.mod'):
  s=p.read_text();p.write_text(s[:s.index('replace github.com/masahitojp/mariamem')]+ 'replace github.com/masahitojp/mariamem => ../../../../..\n')
 for n in ('runs',):
  for src in sorted((E/n).iterdir()):add(src,n+'/'+src.name)
+for directory in ('light-monitor','ci-wrapper','standard-integration-detail'):
+ for src in sorted((E/directory).rglob('*')):
+  if src.is_file():add(src,directory+'/'+str(src.relative_to(E/directory)))
 for src in sorted(E.glob('*.py')):
- if src.name=='ci_validate.py':add(src,'ci_validate.py')
+ if src.name in ('ci_validate.py','verify_saved.py'):add(src,src.name)
  else:add(src,'tools/'+src.name)
 for src in sorted(E.glob('*')):
  if not src.is_file() or src.suffix not in ('.json','.csv','.txt','.log','.jsonl'):continue
