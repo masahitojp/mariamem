@@ -29,7 +29,7 @@ Fork process中央値の組別短縮率は、P1が5.71/5.30/4.56%、P8が9.47/12
 - `.ibd`/`ibdata1`の実read EIOをそれぞれ1hit確認。双方とも再試行後に正しい値を返し、健全な別Forkを確認。SQLエラー発生を必須とはしていない。
 - test-only host overlayでfast_shutdown2のdirty fixtureを取得。実crash-recovery分岐はcleanで0/0、dirtyで1/1。双方とも512row payload/valueと2Fork分離を確認。通常Snapshotのfast_shutdown1は製品で変更していない。
 - 候補のCRC832 length/alignmentと80実validator valid/corrupt/LSN対照がPASS。per-instance env/controlled first-worker-trapの単体対照がPASS。実guest worker-trapと広い通常ゲートはcanonical CIの別のownerであり、この単体PASSへ含めない。
-- 公式Go1.26.10のUNQUALIFIED native SQL/transaction/Snapshot/Fork/Close smokeがPASS。事前normal source ownerは87件＋23subtest PASS。canonical化後の通常検証は別記録とCIで確認する。
+- 公式Go1.26.10のUNQUALIFIED native SQL/transaction/Snapshot/Fork/Close smokeがPASS。事前normal source ownerは87件＋23subtest PASS。canonical化後の通常検証は別記録とCIで確認する。新しいclean-source host（953ffbe0、Go1.26.10、vcs.modified=false）で12library familyのretained symbolを再照合し、ライセンス証跡も新guest/generated provenanceへ結び付けた。依存archive・notice・条件は変更していない。
 
 fault/recovery観測overlayは計測バイナリと製品に入っていない。前のspikeの意図的bad-descriptorsは20秒でkillした履歴を維持するが、そのmode/abort経路は今回削除した。今回の有限対照PASSは任意OOM・全破損入力・全OSの証明ではない。
 
@@ -37,7 +37,7 @@ fault/recovery観測overlayは計測バイナリと製品に入っていない�
 
 正確なcandidateをcanonical入力/recipeから再生成し、通常check/integration、worker ownership/CRC/実SQL/Fork/cleanupと上記buffer対照をmacOS arm64/Linux x86_64で通す。canonical build recordは独立再生成PENDING、UNQUALIFIED bootstrapは履歴のまま保持。CI提出後はrun URL/SHA/operationを返して引き渡し、監視しない。CI成功後のmain採用判断とRelease承認は別。
 
-初回のsourceチェック/依存取得ではsystem Pythonのpytest欠如、Python3.9のtar安全抽出API不足、sandboxのDNS/Docker/local bind拒否があった。適切なtask venv/許可で同じsourceを再実行した。fault harness初回は旧spikeのmode必須ガードでStart前に停止したため、双方からその起動専用ガードだけを除去。EIO・値・sibling・Closeのoracleは維持した。各failureは保存した。
+初回のsourceチェック/依存取得ではsystem Pythonのpytest欠如、Python3.9のtar安全抽出API不足、sandboxのDNS/Docker/local bind拒否があった。適切なtask venv/許可で同じsourceを再実行した。fault harness初回は旧spikeのmode必須ガードでStart前に停止したため、双方からその起動専用ガードだけを除去。EIO・値・sibling・Closeのoracleは維持した。各failureは保存した。通常のライセンスguardは旧guest証跡を正しく拒否したため、新バイナリで再auditした。入れ子/外部worktreeのGoビルドは親の別SHAまたはVCS stampなしとなり、auditが拒否。PWD変更では解消せず、同じコミットの通常cloneで正しいSHAとclean stampを確認してから採用した。元のユーザー変更は削除していない。
 
 ## 保存と再現
 

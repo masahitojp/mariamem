@@ -1,0 +1,5 @@
+{
+  "result": "FAIL_BUILD_IDENTITY",
+  "reason": "Nested worktree build stamped parent dirty root4cf4393d although subprocess cwd and Git checks were clean953ffbe0. Explicit PWD did not resolve it. No cause beyond nested location is claimed. Audit rejected both attempts.",
+  "correction": "Build exact same commit in an external flat worktree; leave user changes untouched."
+}

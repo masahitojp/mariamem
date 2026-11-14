@@ -688,6 +688,13 @@
       "compressed": false
     },
     {
+      "source": "evidence/audit.py",
+      "target": "tools/audit.py",
+      "raw_sha256": "8fdde18a0051ef4f0f65cfe4fa4fa3bdc4badcf5cdbfa434a3169f90939eaa26",
+      "public_uncompressed_sha256": "8fdde18a0051ef4f0f65cfe4fa4fa3bdc4badcf5cdbfa434a3169f90939eaa26",
+      "compressed": false
+    },
+    {
       "source": "evidence/build-extra.py",
       "target": "tools/build-extra.py",
       "raw_sha256": "46323430a7a1f2c4cef17e03243cccb0c6f7011e2d90bf6113e3c1b6de942367",
@@ -776,6 +783,20 @@
       "target": "tools/validate.py",
       "raw_sha256": "a355db1ade0491d1a365503ddb37bb58243341e69646fab98403435b837d8dec",
       "public_uncompressed_sha256": "a355db1ade0491d1a365503ddb37bb58243341e69646fab98403435b837d8dec",
+      "compressed": false
+    },
+    {
+      "source": "evidence/audit-source.json",
+      "target": "evidence/audit-source.json",
+      "raw_sha256": "ea41fa6bb8e44b1a666f3bf7acad7cdfabcc6c3194f0d3f3410f67aea9628d86",
+      "public_uncompressed_sha256": "ea41fa6bb8e44b1a666f3bf7acad7cdfabcc6c3194f0d3f3410f67aea9628d86",
+      "compressed": false
+    },
+    {
+      "source": "evidence/auxiliary-worktree.json",
+      "target": "evidence/auxiliary-worktree.json",
+      "raw_sha256": "3142031c76b5bb0767769dcc6e478c5a30d768aa2233d056ddabb0d682321457",
+      "public_uncompressed_sha256": "3142031c76b5bb0767769dcc6e478c5a30d768aa2233d056ddabb0d682321457",
       "compressed": false
     },
     {
@@ -1052,6 +1073,13 @@
       "compressed": false
     },
     {
+      "source": "evidence/canonical-license-transition-failure.json",
+      "target": "evidence/canonical-license-transition-failure.json",
+      "raw_sha256": "fa63aae57c88c8eebff8a35e1c40120485be3c7474e8891f3babd193278a3a2b",
+      "public_uncompressed_sha256": "fa63aae57c88c8eebff8a35e1c40120485be3c7474e8891f3babd193278a3a2b",
+      "compressed": false
+    },
+    {
       "source": "evidence/canonical-to-measured-runtime-equivalence.json",
       "target": "evidence/canonical-to-measured-runtime-equivalence.json",
       "raw_sha256": "d6899ad503145806ef3796e488302146e0916fe9688b02b74f98c9c4f99bdd8c",
@@ -1087,6 +1115,13 @@
       "compressed": false
     },
     {
+      "source": "evidence/generated-license-evidence.json",
+      "target": "evidence/generated-license-evidence.json",
+      "raw_sha256": "7c799a86b8d039aa92994bab5d78073e3eec8ee7717199ee14e3b7f5bfb8f396",
+      "public_uncompressed_sha256": "7c799a86b8d039aa92994bab5d78073e3eec8ee7717199ee14e3b7f5bfb8f396",
+      "compressed": false
+    },
+    {
       "source": "evidence/guest-build.log",
       "target": "build-evidence/guest-build.txt",
       "raw_sha256": "440934db7256698c5f08d56115bc2bac67c1bf8073c8d59b40185e2394d6c804",
@@ -1119,6 +1154,27 @@
       "target": "evidence/independent-translation-comparison.json",
       "raw_sha256": "a50ba6d722e30fcf84ea1333a3a21725cc5dea352fdd755bb95e974fc3f87294",
       "public_uncompressed_sha256": "a50ba6d722e30fcf84ea1333a3a21725cc5dea352fdd755bb95e974fc3f87294",
+      "compressed": false
+    },
+    {
+      "source": "evidence/license-audit-logical-cwd-failure.json",
+      "target": "evidence/license-audit-logical-cwd-failure.json",
+      "raw_sha256": "6117cb698de4232068aa27ff6585a95fb6a907dba598c5827bc9f47c5224edf1",
+      "public_uncompressed_sha256": "6117cb698de4232068aa27ff6585a95fb6a907dba598c5827bc9f47c5224edf1",
+      "compressed": false
+    },
+    {
+      "source": "evidence/license-audit-logical-cwd-failure.txt",
+      "target": "validation/license-audit-logical-cwd-failure.txt",
+      "raw_sha256": "9f0c3d4f3b3c157654815c9fdbb3058e621e7de499d44f3403c2b34825fc1bf6",
+      "public_uncompressed_sha256": "8a559c007532c623cace63d525fcb1617e844ebbd2d3e68cc925db560dba020a",
+      "compressed": false
+    },
+    {
+      "source": "evidence/license-audit.log",
+      "target": "validation/license-audit.txt",
+      "raw_sha256": "5b09e03568177b2b2ec3dd6577ec9373d987a23265afc5a11d94f909c645c127",
+      "public_uncompressed_sha256": "8614b9041a301646b1cd1ab5a3d5df6409aa44d8d32b9f0e24eba93fa9ab097e",
       "compressed": false
     },
     {
@@ -1203,6 +1259,13 @@
       "target": "build-evidence/previous-canonical-build.json",
       "raw_sha256": "041935ebb0d77e6604fed4d4a4b3dcfaebb70d084c975c0c98228518ef939f6c",
       "public_uncompressed_sha256": "041935ebb0d77e6604fed4d4a4b3dcfaebb70d084c975c0c98228518ef939f6c",
+      "compressed": false
+    },
+    {
+      "source": "evidence/previous-license-evidence.json",
+      "target": "evidence/previous-license-evidence.json",
+      "raw_sha256": "eed8f8badde5290bbd46d701486d14d9933c84bd4070e55060d5ae2b0f2f3308",
+      "public_uncompressed_sha256": "eed8f8badde5290bbd46d701486d14d9933c84bd4070e55060d5ae2b0f2f3308",
       "compressed": false
     },
     {

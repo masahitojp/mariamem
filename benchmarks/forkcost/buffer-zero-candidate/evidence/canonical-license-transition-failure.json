@@ -1,0 +1,7 @@
+{
+  "result": "FAIL_METADATA_BINDING",
+  "test": "test_evidence_bound_to_adopted_guest_and_generated_source",
+  "passed": 104,
+  "failed": 1,
+  "reason": "Prior guest7a98604b license evidence cannot certify new guest77b2ab49; original failure preserved; fresh symbol audit required"
+}
