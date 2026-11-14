@@ -140,6 +140,18 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    # Disposable, exact-SHA development binding. Canonical/release inputs stay
+    # pinned; offline proof found only BSS/data/string address relocations.
+    if args.development_input and pins['guest_sha256'] == '5da1c72aceb2c5db760e1dfb17bda0352ffad02b5f9b51a200da5d6ec0b2fd3c':
+        if pins.get('contract') != 'development-unqualified-v1' or pins.get('result') != 'UNQUALIFIED':
+            raise ValueError('experiment binding requires explicit UNQUALIFIED development inputs')
+        import runtime_thread_lifetime as experiment_thread
+        import runtime_crc32c as experiment_crc
+        experiment_thread.GUEST_SHA256 = '5da1c72aceb2c5db760e1dfb17bda0352ffad02b5f9b51a200da5d6ec0b2fd3c'
+        experiment_thread.FUNCTIONS = {'code/p3/p3_pure.go': ('Fn153', '2f5e21267ce8c714bd90c0ff315c5a21c0f19755e0eba31b10a617c05f081b77'), 'code/p5/p5_pure.go': ('Fn214', '28dfec46468b4f5d46d0a24790efce333fc537bee3ba11ea6e3d6d319e7df6ba'), 'code/p8/p8_pure.go': ('Fn131', 'e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932')}
+        experiment_crc.GUEST_SHA256 = '5da1c72aceb2c5db760e1dfb17bda0352ffad02b5f9b51a200da5d6ec0b2fd3c'
+        experiment_crc.BODY_SHA256 = 'dba6fd80925519f38667c967c7306e86188deb905854db8bd55ce747c4359ae9'
+        experiment_crc.TABLE_OFFSET = 7930688
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
     thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
