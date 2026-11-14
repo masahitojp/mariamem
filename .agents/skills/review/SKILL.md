@@ -59,6 +59,16 @@ read of those run/job IDs; never re-run, poll or supervise CI.
    (measured/diagnostic, macOS/Ubuntu) and never present a lower bound as proven.
 7. Treat "PASS", "complete" and "verified" in the artifact as claims to test
    against the artifact's own stated scope.
+8. Follow [decision-driven investigation](../../../docs/development.md#decision-driven-investigation):
+   reconstruct the original outcome, decision and exit conditions from the
+   request and parent issue, then check that the report answers that question.
+   Distinguish feasibility, adoption value and acceptance; for maintenance work,
+   check retired/retained/added responsibilities and dependencies. For comparisons,
+   check requested targets, conditions and the combined result table. After a
+   direction change, verify the disposition of old conditions and dependent tasks.
+   Identify missing decision evidence and its bounded acquisition cost; a PASS
+   alone is not a recommendation to start another experiment. These semantic
+   checks require review and are not established by CI success.
 
 ## Missing-things scan
 

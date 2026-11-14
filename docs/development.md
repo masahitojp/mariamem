@@ -74,6 +74,87 @@ Budgets never waive correctness, source identity, required platform coverage or
 existing failure oracles. Product acceptance, adoption and release keep their
 own gates; do not silently broaden them when measurement tooling is difficult.
 
+## Decision-driven investigation
+
+Use this decision record together with the budgets and stop procedure in
+[bounded investigations](#bounded-investigations); keep both in the same issue
+or plan. Before substantial investigation, an architectural spike or a comparison,
+record the following in the existing parent issue. For a small task, a few
+sentences in the working plan or reply are enough; do not create an issue or
+standalone plan just to satisfy this format. Reconstruct agreed inputs from
+the conversation and existing decisions before asking the Human to repeat them.
+
+> **Outcome:** What improves for the user or maintainer?
+> **Decision:** What action will these results help choose?
+> **Evidence:** What baseline and observations distinguish the alternatives?
+> **Exit/stop conditions:** What is enough to decide, and what result ends this
+> approach? Bound the investigation's time/resource cost and inconclusive case.
+> **Outside this task:** Which follow-up work is not automatically authorized?
+
+For a maintenance proposal, compare responsibilities retired, retained and added,
+including new upstream/internal dependencies, before investing in implementation.
+Separate technical feasibility, adoption value and product acceptance. A spike
+may establish feasibility without answering whether adoption is worthwhile.
+Do not substitute source line counts, CI passes or speedups for update effort.
+
+For example, an output-reuse spike can ask whether custom conversion can be
+retired while preserving embedded and host ownership. Its evidence compares
+the current conversion duties with the proposed adapter's upstream dependencies.
+Needing a new engine hook is a reason to return to the value decision, not an
+automatic next implementation task. Actual update-hours remain unknown until
+measured; state whether that unknown prevents the present decision.
+
+### Comparisons before execution
+
+Name the compared implementations/revisions, workload, metrics/units, repetitions
+and aggregation, and conditions to match (machine, toolchain, settings and load).
+Show the intended result table before running; for example:
+
+| Metric and unit | mariamem baseline | mariamem candidate | pgmem reference | Conditions/limits |
+| --- | --- | --- | --- | --- |
+| Selected workload latency | pending | pending | pending | State workload and environment differences |
+
+Include only targets relevant to the request. Distinguish a before/after change
+comparison from a cross-engine comparison, and an upstream harness from an
+adaptation of it. Record mismatches and their effect on interpretation. If a
+requested metric is absent from the harness, state the gap before execution and
+resolve it within scope or obtain agreement to reduce scope. Finish with the
+requested comparison, not only isolated target reports. Preserve all samples and
+source identity under the existing measurement rules.
+
+### Conclude a spike before extending it
+
+At each planned checkpoint, answer the original question with evidence and one
+recommendation: adopt, reject, or gather specified missing evidence. Explain
+which finding could change the decision and the bounded work/cost to obtain it.
+A PASS alone is not a reason to add the next experiment. Continue already
+authorized work autonomously; return to the Human when the objective or scope
+would expand, acceptance conditions would weaken, or a product decision is due.
+Do not invent thresholds or reopen accepted decisions solely because more
+evidence could be collected. Separate observed results, inference and unknowns.
+
+### Replace the plan when direction changes
+
+Before adding tasks under a new direction, reconcile the old conditions as
+retained, non-applicable or replaced, with reasons and replacement evidence.
+Non-applicability must follow the selected design; it cannot hide a failed
+condition that still applies. Obtain agreement where this changes accepted scope
+or requirements. Update task dependencies, superseded tasks and exit conditions
+together so the new route does not inherit unrelated unfinished campaigns.
+
+The parent issue opening owns the current actionable summary: outcome, decision,
+selected approach, confirmed results, remaining work/dependencies and exit
+conditions. Replace obsolete present-tense statements; link dated history and
+evidence below. Keep approved product direction in `docs/project-status.md` and
+decision documents, linking them instead of duplicating long narratives.
+
+At completion, check whether value was assessed before implementation, whether
+unplanned experiments accumulated, and whether the issue opening alone explains
+what remains and when work ends. Record concrete departures and corrections in
+the existing issue/review. Adding these instructions is not evidence that the
+process improved; assess their use in the next actual task. CI cannot determine
+whether an experiment answers the user's intended question.
+
 ## Human Review recommendations
 
 Identify **one decision needed from the Human now** before writing. Open with
