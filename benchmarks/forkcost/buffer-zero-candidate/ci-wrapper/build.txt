@@ -1,0 +1,3 @@
+building candidate correct
+building candidate fault
+building candidate recovery

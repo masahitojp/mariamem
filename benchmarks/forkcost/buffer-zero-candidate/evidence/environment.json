@@ -1,0 +1,22 @@
+{
+  "performance_go": "go version go1.27.4 darwin/arm64",
+  "performance_settings": {
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "CGO_ENABLED": "0",
+    "MODELCASE_MATCHED": "1",
+    "MARIA_AUDIT_OF": "1"
+  },
+  "python": "Python 3.14.10",
+  "dependencies": [
+    "iniconfig==2.3.1",
+    "packaging==26.3",
+    "pluggy==1.7.0",
+    "Pygments==2.21.0",
+    "PyMySQL==1.2.4",
+    "pytest==9.2.0",
+    "PyYAML==6.0.3"
+  ],
+  "machine": "Darwin MacBookAir 27.2.0 Darwin Kernel Version 27.2.0: Wed Oct 14 23:46:57 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T8103 arm64",
+  "scope": "macOS arm64 local evidence; no Linux execution claimed before CI"
+}

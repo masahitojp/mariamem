@@ -1,0 +1,8 @@
+=== RUN   TestAnalyzeTimerFreshAndFork
+=== RUN   TestAnalyzeTimerFreshAndFork/TCP
+=== RUN   TestAnalyzeTimerFreshAndFork/Pipe
+--- PASS: TestAnalyzeTimerFreshAndFork (0.82s)
+    --- PASS: TestAnalyzeTimerFreshAndFork/TCP (0.43s)
+    --- PASS: TestAnalyzeTimerFreshAndFork/Pipe (0.39s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/gointegration	0.829s

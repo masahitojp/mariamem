@@ -97,11 +97,15 @@ def main():
     declaration = 'char *my_large_virtual_alloc_aligned(size_t *size, size_t alignment);'
     assert '#if defined(__EMSCRIPTEN__) || defined(__wasi__)\n' + declaration in sources[names[1]]
     pool = sources[names[2]]
-    assert pool.count('my_large_virtual_alloc_aligned(') == 1
-    assert re.search(r'#if defined\(__EMSCRIPTEN__\) \|\| defined\(__wasi__\)\n'
-                     r'    memory_unaligned= my_large_virtual_alloc_aligned\(\n'
-                     r'        &size, innodb_buffer_pool_extent_size\);\n#else\n'
-                     r'    memory_unaligned= my_virtual_mem_reserve\(&size\);\n#endif', pool)
+    assert 'my_large_virtual_alloc_aligned(' not in pool
+    allocation = re.search(r'    void \*p= nullptr;\n'
+                           r'    memory_unaligned= posix_memalign\(&p, innodb_buffer_pool_extent_size, size\)\n'
+                           r'      \? nullptr : static_cast<char\*>\(p\);', pool).group(0)
+    clear = 'memset(block, 0, (extent_end - block) * sizeof *block);'
+    assert pool.count(clear) == 1
+    assert pool.index(clear) < pool.index('MEM_MAKE_DEFINED(block, (extent_end - block) * sizeof *block);')
+    assert pool.index(clear) < pool.index('ut_ad(!memcmp(block, field_ref_zero, sizeof *block));')
+    assert '#else\n    memory_unaligned= my_virtual_mem_reserve(&size);\n#endif' in pool
     assert 'return my_large_virtual_alloc(size);' in sources[names[3]]
     assert 'free(ptr);' in sources[names[3]]
     cc = ['cc', '-std=c11', '-D_POSIX_C_SOURCE=200112L', '-Wall', '-Wextra', '-Werror']
@@ -128,6 +132,46 @@ def main():
         subprocess.run(['c++', '-Wall', '-Wextra', '-Werror', str(caller), str(obj), '-o', str(linked)], check=True)
         subprocess.run([str(linked)], cwd=temp, check=True)
         results.append('C implementation / C++ caller linkage')
+        # Exercise the actual pool allocation/clear statements on dirty memory.
+        # Model layout boundaries only; real engine descriptor/layout ownership
+        # is checked by the prepared-source pin and actual guest controls.
+        pool_prefix = PRELUDE.replace('#define posix_memalign checked_memalign', '') + r"""
+struct block_t { unsigned char bytes[232]; };
+static int pool_case(size_t size, size_t count, bool fail) {
+  const size_t innodb_buffer_pool_extent_size = 2097152;
+  char *memory_unaligned;
+  fail_alloc = fail;
+#define posix_memalign checked_memalign
+""" + allocation + r"""
+#undef posix_memalign
+  if (fail) { assert(!memory_unaligned); return 0; }
+  assert(memory_unaligned && (uintptr_t)memory_unaligned % innodb_buffer_pool_extent_size == 0);
+  block_t *block = reinterpret_cast<block_t*>(memory_unaligned);
+  const block_t *extent_end = block + count;
+"""
+        pool_suffix = r"""
+  const size_t descriptor_bytes = count * sizeof *block;
+  for (size_t i=0; i<size; ++i)
+    assert((unsigned char)memory_unaligned[i] == (i<descriptor_bytes ? 0 : 0xa5));
+  free(memory_unaligned);
+  return 0;
+}
+int main() {
+  for (size_t count : {size_t(0),size_t(1),size_t(17),size_t(126)})
+    for (bool fail : {false,true}) pool_case(2097152,count,fail);
+}
+"""
+        pool_source = temp/'pool.cc'
+        pool_binary = temp/'pool'
+        for name, statement in [('valid',clear), ('missing-descriptor-clear',';'),
+                                ('whole-pool-clear','memset(block, 0, size);'),
+                                ('short-descriptor-clear','memset(block, 0, (extent_end - block));')]:
+            pool_source.write_text('#include <initializer_list>\n' + pool_prefix + statement + pool_suffix)
+            subprocess.run(['c++','-std=c++11','-D_POSIX_C_SOURCE=200112L',
+                            str(pool_source),'-o',str(pool_binary)],check=True)
+            run = subprocess.run([str(pool_binary)],cwd=temp,capture_output=True)
+            assert (run.returncode == 0) == (name == 'valid'), name
+        results.append('pool-only dirty allocation, bounded descriptor clear, preserved frame bytes, ENOMEM/free; three mutations rejected')
         # Prove the contract checks catch meaningful regressions.
         mutations = {
             'missing-zero': (helper.replace('memset(p, 0, *size);', ''), legacy),

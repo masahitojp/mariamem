@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "cases": [
+    {
+      "path": "/faultprobe.ibd",
+      "hits": 1,
+      "hits_at_ready": 0,
+      "outcome": "recovered_correct",
+      "poison_witness": false,
+      "healthy_sibling": true
+    },
+    {
+      "path": "/ibdata1",
+      "hits": 1,
+      "hits_at_ready": 1,
+      "outcome": "recovered_correct",
+      "poison_witness": false,
+      "healthy_sibling": true
+    }
+  ]
+}

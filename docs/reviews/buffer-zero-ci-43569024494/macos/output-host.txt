@@ -1,0 +1,3 @@
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	0.051s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.056s
+ok  	github.com/masahitojp/mariamem/internal/guest	0.021s

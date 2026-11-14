@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "fault_fixture_sha256": "07ddc997da8339238cafb5d4fd1b020ea959ecc82fde33a9a837e9745537805c",
+  "fault_arming": "ibd after Ready; 32MiB full CRC exceeds 16MiB pool; ibdata1 before Fork",
+  "scope": "canonical actual basic/large/compressed/resize/Fork/fault/clean-vs-dirty redo controls; test-only overlays excluded from product"
+}

@@ -12344,7 +12344,7 @@ func Fn768(m *base.Module, l0 int32) {
 	var v9, v9__h uint64
 	_, _ = v9, v9__h
 	v3 = int32(0)
-	base.Simd_p_fx262(m, l0)
+	base.Simd_p_fx259(m, l0)
 	return
 }
 func Fn769(m *base.Module, l0 int32, l1 int32, l2 int32) {
@@ -13055,7 +13055,7 @@ func Fn806(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	v5 = m.G0
 	v7 = v5 - int32(32)
 	m.G0 = v7
-	base.Simd_p_fx262(m, v7)
+	base.Simd_p_fx259(m, v7)
 	v19 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 108, 4)))
 	v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 36, 4)))
 	m.T0[v20].(func(*base.Module, int32, int32, int32, int32))(m, v7, l0, l1, l2)
@@ -14571,61 +14571,6 @@ func Fn996(m *base.Module, l0 int32, l1 int64) {
 	}
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 100, 4))) = v19
 	return
-}
-func Fn999(m *base.Module, l0 int32, l1 int32, l2 int32) int64 {
-	mBase := m.M
-	_ = mBase
-	var v6 int32
-	_ = v6
-	var v8 int32
-	_ = v8
-	var v15 int32
-	_ = v15
-	var v20 int32
-	_ = v20
-	var v21 int32
-	_ = v21
-	var v25 int32
-	_ = v25
-	var v39 int64
-	_ = v39
-	var v42 int32
-	_ = v42
-	var v43 int32
-	_ = v43
-	var v44 int32
-	_ = v44
-	var v45 int32
-	_ = v45
-	v6 = m.G0
-	v8 = v6 - int32(144)
-	m.G0 = v8
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 48, 4))) = l0
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 12, 4))) = l0
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 16, 4))) = int32(-1)
-	v15 = v8 + int32(8)
-	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 104, 8))) = int64(0)
-	v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 40, 4)))
-	v21 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 4, 4)))
-	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 112, 8))) = base.I64_extend_i32_s(v20 - v21)
-	v25 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 8, 4)))
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 100, 4))) = v25
-	v39 = Fn998(m, v8+int32(8), l2, int32(1), int64(-1))
-	mBase = m.M
-	v42 = m.ExcPending
-	if v42 != 0 {
-		return int64(0)
-	} else {
-		if l1 != 0 {
-			v43 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 120, 4)))
-			v44 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 12, 4)))
-			v45 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 48, 4)))
-			*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 0, 4))) = v43 + (l0 + (v44 - v45))
-		} else {
-		}
-		m.G0 = v8 + int32(144)
-		return v39
-	}
 }
 func Fn1008(m *base.Module, l0 int32) int32 {
 	mBase := m.M
@@ -18063,7 +18008,7 @@ func Fn1181(m *base.Module, l0 int32, l1 int32, l2 int32) {
 				v131 = int32(0)
 				v135, v135__h = 0x9b05688c510e527f, 0x5be0cd191f83d9ab
 				v138, v138__h = 0xbb67ae856a09e667, 0xa54ff53a3c6ef372
-				base.Simd_p_fx30(m, v7, l0, v135, v135__h, v138, v138__h)
+				base.Simd_p_fx584(m, v7, l0, v135, v135__h, v138, v138__h)
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 104, 4))) = v131
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 96, 8))) = int64(0)
 			}
@@ -18166,7 +18111,7 @@ func Fn1186(m *base.Module, l0 int32, l1 int32) {
 				v110 = int32(0)
 				v114, v114__h = 0x9b05688c510e527f, 0x5be0cd191f83d9ab
 				v117, v117__h = 0xbb67ae856a09e667, 0xa54ff53a3c6ef372
-				base.Simd_p_fx30(m, l0, l1, v114, v114__h, v117, v117__h)
+				base.Simd_p_fx584(m, l0, l1, v114, v114__h, v117, v117__h)
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 4))) = v110
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 96, 8))) = int64(0)
 			}
@@ -19643,7 +19588,7 @@ L64:
 	;
 	v312 = int32(16)
 	v316 = int32(0)
-	base.Simd_p_fx57(m, v310, v9)
+	base.Simd_p_fx54(m, v310, v9)
 	goto L62
 L65:
 	;
@@ -23263,8 +23208,8 @@ func Fn1401(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5
 	v12 = v10 + int32(-64)
 	m.G0 = v12
 	v14 = int32(16)
-	base.Simd_p_fx57(m, l4, v12)
-	base.Simd_p_fx203(m, l5, v12)
+	base.Simd_p_fx54(m, l4, v12)
+	base.Simd_p_fx200(m, l5, v12)
 	v27, v27__h = base.Simd_p_v128_load(m, l5, v14)
 	base.Simd_p_v128_store(m, v12, int32(48), v27, v27__h)
 	v30 = int32(15917680)
@@ -23344,8 +23289,8 @@ func Fn1403(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5
 	v12 = v10 + int32(-64)
 	m.G0 = v12
 	v14 = int32(16)
-	base.Simd_p_fx57(m, l4, v12)
-	base.Simd_p_fx203(m, l5, v12)
+	base.Simd_p_fx54(m, l4, v12)
+	base.Simd_p_fx200(m, l5, v12)
 	v27, v27__h = base.Simd_p_v128_load(m, l5, v14)
 	base.Simd_p_v128_store(m, v12, int32(48), v27, v27__h)
 	v30 = int32(15917694)
@@ -32661,7 +32606,7 @@ func Fn1742(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 							v83 = int32(32)
 							v87 = int32(16)
 							v91 = int32(0)
-							base.Simd_p_fx216(m, v72, v37)
+							base.Simd_p_fx213(m, v72, v37)
 							Fn3594(m, l0, v37)
 							mBase = m.M
 							v96 = int32(-64)
@@ -33430,7 +33375,7 @@ func Fn1769(m *base.Module, l0 int32, l1 int32) int32 {
 				v95 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 16, 8)))
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 8))) = v95
 				v97 = int32(0)
-				base.Simd_p_fx70(m, l1, l0)
+				base.Simd_p_fx67(m, l1, l0)
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 104, 4))) = v97
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 96, 8))) = int64(0)
 				v106, v106__h = 0x367cd507c1059ed8, 0xf70e59393070dd17
@@ -33549,7 +33494,7 @@ func Fn1770(m *base.Module, l0 int32, l1 int32) int32 {
 				v110 = int32(0)
 				v114, v114__h = 0x9b05688c510e527f, 0x5be0cd191f83d9ab
 				v117, v117__h = 0xbb67ae856a09e667, 0xa54ff53a3c6ef372
-				base.Simd_p_fx30(m, l1, l0, v114, v114__h, v117, v117__h)
+				base.Simd_p_fx584(m, l1, l0, v114, v114__h, v117, v117__h)
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 104, 4))) = v110
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 96, 8))) = int64(0)
 				v125 = v110
@@ -34148,7 +34093,7 @@ func Fn1778(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 						v129 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 16, 8)))
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v36)), 16, 8))) = v129
 						v131 = int32(0)
-						base.Simd_p_fx70(m, v8, v36)
+						base.Simd_p_fx67(m, v8, v36)
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 104, 4))) = v131
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 96, 8))) = int64(0)
 						v140, v140__h = 0x367cd507c1059ed8, 0xf70e59393070dd17
@@ -34331,7 +34276,7 @@ func Fn1779(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 						v144 = int32(0)
 						v148, v148__h = 0x9b05688c510e527f, 0x5be0cd191f83d9ab
 						v151, v151__h = 0xbb67ae856a09e667, 0xa54ff53a3c6ef372
-						base.Simd_p_fx30(m, v8, v36, v148, v148__h, v151, v151__h)
+						base.Simd_p_fx584(m, v8, v36, v148, v148__h, v151, v151__h)
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 104, 4))) = v144
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 96, 8))) = int64(0)
 						v159 = v144
@@ -35911,7 +35856,7 @@ func Fn1798(m *base.Module, l0 int32, l1 int32) int32 {
 			v29 = int32(6)
 			v32 = int32(7)
 			v64, v64__h = base.Simd_p_fx1011(m, v12, v12__h)
-			__sv1, __sv1__h = base.Simd_p_fx567(m, v64, v64__h)
+			__sv1, __sv1__h = base.Simd_p_fx564(m, v64, v64__h)
 			if base.Simd_p_i32x4_extract_lane(__sv1, __sv1__h, v11)&v17 == int32(0) {
 				return int32(-1)
 			} else {
@@ -36509,7 +36454,7 @@ func Fn1810(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5
 							v22 = l3 + int32(248)
 							if l4 != 0 {
 								v23 = int32(0)
-								base.Simd_p_fx70(m, l4, v22)
+								base.Simd_p_fx67(m, l4, v22)
 							} else {
 								v27, v27__h = 0x0, 0x0
 								base.Simd_p_v128_store(m, v22, int32(0), v27, v27__h)
@@ -47274,7 +47219,7 @@ L29:
 	}
 L30:
 	;
-	__sv1, __sv1__h = base.Simd_p_fx257(m, v63, v63__h)
+	__sv1, __sv1__h = base.Simd_p_fx254(m, v63, v63__h)
 	v72 = base.Simd_p_i64x2_extract_lane(__sv1, __sv1__h, int32(0))
 	if v46 == v36 {
 		v121 = v72
@@ -48270,7 +48215,7 @@ func Fn2008(m *base.Module, l0 int32, l1 int32) int32 {
 											}
 											break
 										}
-										__sv1, __sv1__h = base.Simd_p_fx257(m, v69, v69__h)
+										__sv1, __sv1__h = base.Simd_p_fx254(m, v69, v69__h)
 										v78 = base.Simd_p_i64x2_extract_lane(__sv1, __sv1__h, int32(0))
 										if v46 == v54 {
 											v122 = v78
@@ -48958,7 +48903,7 @@ L53:
 	;
 	v195 = int32(4)
 	v197 = int32(0)
-	base.Simd_p_fx331(m, v183, v161, v151, v147<<(uint(v169)%32)+v183+v195)
+	base.Simd_p_fx328(m, v183, v161, v151, v147<<(uint(v169)%32)+v183+v195)
 	v211 = v188 - v195
 	if v211 != 0 {
 		v183 = v183 - int32(16)
@@ -73911,8 +73856,8 @@ func Fn2962(m *base.Module, l0 int32, l1 int32) int32 {
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 100, 4))) = v11
 				v13 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 32, 4)))
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 96, 4))) = v13
-				base.Simd_p_fx95(m, l1, l0)
-				base.Simd_p_fx245(m, l1, l0)
+				base.Simd_p_fx92(m, l1, l0)
+				base.Simd_p_fx242(m, l1, l0)
 				v24 = int32(1)
 			}
 		}
@@ -74415,7 +74360,7 @@ func Fn2987(m *base.Module) int32 {
 								v59 = int32(32)
 								v63 = int32(16)
 								v67 = int32(0)
-								base.Simd_p_fx127(m, v31, v54)
+								base.Simd_p_fx124(m, v31, v54)
 								v77 = Fn3629(m, v38, v38+int32(63), v67, v54, int32(55), v67, v67)
 								mBase = m.M
 								if v77 != 0 {
@@ -74658,7 +74603,7 @@ func Fn2994(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) {
 					v16 = l0 + int32(280)
 					if l2 != 0 {
 						v17 = int32(0)
-						base.Simd_p_fx70(m, l2, v16)
+						base.Simd_p_fx67(m, l2, v16)
 					} else {
 						v21, v21__h = 0x0, 0x0
 						base.Simd_p_v128_store(m, v16, int32(0), v21, v21__h)
@@ -75818,7 +75763,7 @@ func Fn3037(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 							v44 = int32(32)
 							v48 = int32(16)
 							v52 = int32(0)
-							base.Simd_p_fx127(m, v16, v39)
+							base.Simd_p_fx124(m, v16, v39)
 							v62 = Fn3629(m, v23, v23+int32(63), v52, v39, int32(55), v52, v52)
 							mBase = m.M
 							if v62 != 0 {
@@ -77464,7 +77409,7 @@ func Fn3083(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 					v43 = l0 + int32(248)
 					if l3 != 0 {
 						v44 = int32(0)
-						base.Simd_p_fx70(m, l3, v43)
+						base.Simd_p_fx67(m, l3, v43)
 					} else {
 						v48, v48__h = 0x0, 0x0
 						base.Simd_p_v128_store(m, v43, int32(0), v48, v48__h)
@@ -77483,7 +77428,7 @@ func Fn3083(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 							v68 = v61
 							for {
 								v78 = int32(0)
-								base.Simd_p_fx318(m, v65, v21, v21__h)
+								base.Simd_p_fx315(m, v65, v21, v21__h)
 								v87 = v68 - int32(4)
 								if v87 != 0 {
 									v65 = v65 + int32(16)
@@ -77543,7 +77488,7 @@ func Fn3083(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 							v171 = v164
 							for {
 								v181 = int32(0)
-								base.Simd_p_fx318(m, v168, v21, v21__h)
+								base.Simd_p_fx315(m, v168, v21, v21__h)
 								v190 = v171 - int32(4)
 								if v190 != 0 {
 									v168 = v168 + int32(16)
@@ -77974,7 +77919,7 @@ func Fn3083(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 							v1256 = v1245
 							for {
 								v1265 = int32(0)
-								base.Simd_p_fx129(m, v1255, v1252)
+								base.Simd_p_fx126(m, v1255, v1252)
 								v1273 = int32(16)
 								v1277 = int32(4)
 								v1278 = v1251 - v1277
@@ -78092,7 +78037,7 @@ func Fn3085(m *base.Module, l0 int32, l1 int32) int32 {
 		v9 = l0 + int32(248)
 		if l1 != 0 {
 			v10 = int32(0)
-			base.Simd_p_fx70(m, l1, v9)
+			base.Simd_p_fx67(m, l1, v9)
 		} else {
 			v14, v14__h = 0x0, 0x0
 			base.Simd_p_v128_store(m, v9, int32(0), v14, v14__h)
@@ -81287,7 +81232,7 @@ func Fn3203(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
 		v8 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 4)))
 		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 16, 4))) = v8
 		v10 = int32(0)
-		base.Simd_p_fx70(m, l0, l2)
+		base.Simd_p_fx67(m, l0, l2)
 		return v10
 	} else {
 		if l3 == int32(4) {
@@ -97211,7 +97156,7 @@ func Fn3517(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 0, 4))) = int32(32)
 						v27 = int32(16)
 						v31 = int32(0)
-						base.Simd_p_fx57(m, l0, l1)
+						base.Simd_p_fx54(m, l0, l1)
 						v36 = v31
 					}
 					return v36
@@ -98323,7 +98268,7 @@ func Fn3536(m *base.Module, l0 int32, l1 int32, l2 int32) {
 	v19, v19__h = base.Simd_p_v128_load64_zero(m, l1, v16)
 	__sv1, __sv1__h = base.Simd_p_i32x4_add(v17, v17__h, v19, v19__h)
 	base.Simd_p_v128_store64_lane(m, l0, v16, v8, __sv1, __sv1__h)
-	base.Simd_p_fx138(m, l0, v13, v13__h, v15, v15__h, v9, v9__h, v11, v11__h)
+	base.Simd_p_fx135(m, l0, v13, v13__h, v15, v15__h, v9, v9__h, v11, v11__h)
 	return
 }
 func Fn3538(m *base.Module, l0 int32, l1 int32, l2 int32) {
@@ -98362,7 +98307,7 @@ func Fn3538(m *base.Module, l0 int32, l1 int32, l2 int32) {
 	v19, v19__h = base.Simd_p_v128_load64_zero(m, l2, v16)
 	__sv1, __sv1__h = base.Simd_p_i32x4_sub(v17, v17__h, v19, v19__h)
 	base.Simd_p_v128_store64_lane(m, l0, v16, v8, __sv1, __sv1__h)
-	base.Simd_p_fx139(m, l0, v15, v15__h, v13, v13__h, v11, v11__h, v9, v9__h)
+	base.Simd_p_fx136(m, l0, v15, v15__h, v13, v13__h, v11, v11__h, v9, v9__h)
 	return
 }
 func Fn3542(m *base.Module, l0 int32, l1 int32) {
@@ -98382,7 +98327,7 @@ func Fn3542(m *base.Module, l0 int32, l1 int32) {
 	v6, v6__h = base.Simd_p_v128_load(m, l1, v5)
 	v7 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 32, 8)))
 	v8 = int32(16)
-	base.Simd_p_fx140(m, l1, l0)
+	base.Simd_p_fx137(m, l1, l0)
 	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 32, 8))) = v7
 	base.Simd_p_v128_store(m, l0, v5, v6, v6__h)
 	return
@@ -103127,7 +103072,7 @@ func Fn3740(m *base.Module, l0 int32, l1 int32) int32 {
 				v21 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 16, 8)))
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 16, 8))) = v21
 				v23 = int32(0)
-				base.Simd_p_fx70(m, v7, l1)
+				base.Simd_p_fx67(m, v7, l1)
 			} else {
 			}
 			v27 = v16
@@ -103176,7 +103121,7 @@ func Fn3745(m *base.Module, l0 int32, l1 int32) int32 {
 			if v16 == int32(0) {
 				v19 = int32(16)
 				v23 = int32(0)
-				base.Simd_p_fx57(m, v7, l1)
+				base.Simd_p_fx54(m, v7, l1)
 			} else {
 			}
 			v27 = v16
@@ -103224,7 +103169,7 @@ func Fn3746(m *base.Module, l0 int32, l1 int32) int32 {
 				v19 = int32(32)
 				v23 = int32(16)
 				v27 = int32(0)
-				base.Simd_p_fx127(m, v7, l1)
+				base.Simd_p_fx124(m, v7, l1)
 			} else {
 			}
 			v31 = v16
@@ -105846,7 +105791,7 @@ func Fn3824(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 								v105 = int32(32)
 								v109 = int32(16)
 								v113 = int32(0)
-								base.Simd_p_fx216(m, v94, v59)
+								base.Simd_p_fx213(m, v94, v59)
 								Fn3594(m, v9, v59)
 								mBase = m.M
 								v118 = int32(-64)
@@ -106131,7 +106076,7 @@ func Fn3826(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 						v124 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9)), 16, 8)))
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 16, 8))) = v124
 						v126 = int32(0)
-						base.Simd_p_fx70(m, v9, l2)
+						base.Simd_p_fx67(m, v9, l2)
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9)), 104, 4))) = v126
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9)), 96, 8))) = int64(0)
 						v135, v135__h = 0x367cd507c1059ed8, 0xf70e59393070dd17
@@ -106297,7 +106242,7 @@ func Fn3827(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) in
 						v139 = int32(0)
 						v143, v143__h = 0x9b05688c510e527f, 0x5be0cd191f83d9ab
 						v146, v146__h = 0xbb67ae856a09e667, 0xa54ff53a3c6ef372
-						base.Simd_p_fx30(m, v9, l2, v143, v143__h, v146, v146__h)
+						base.Simd_p_fx584(m, v9, l2, v143, v143__h, v146, v146__h)
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9)), 104, 4))) = v139
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9)), 96, 8))) = int64(0)
 						v154 = v139
@@ -107787,7 +107732,7 @@ func Fn3840(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 								v106 = int32(32)
 								v110 = int32(16)
 								v114 = int32(0)
-								base.Simd_p_fx216(m, v95, v60)
+								base.Simd_p_fx213(m, v95, v60)
 								Fn3594(m, v8, v60)
 								mBase = m.M
 								v119 = int32(-64)
@@ -108078,7 +108023,7 @@ func Fn3842(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 						v125 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 16, 8)))
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 16, 8))) = v125
 						v127 = int32(0)
-						base.Simd_p_fx70(m, v8, l2)
+						base.Simd_p_fx67(m, v8, l2)
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 104, 4))) = v127
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 96, 8))) = int64(0)
 						v136, v136__h = 0x367cd507c1059ed8, 0xf70e59393070dd17
@@ -108247,7 +108192,7 @@ func Fn3843(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 						v140 = int32(0)
 						v144, v144__h = 0x9b05688c510e527f, 0x5be0cd191f83d9ab
 						v147, v147__h = 0xbb67ae856a09e667, 0xa54ff53a3c6ef372
-						base.Simd_p_fx30(m, v8, l2, v144, v144__h, v147, v147__h)
+						base.Simd_p_fx584(m, v8, l2, v144, v144__h, v147, v147__h)
 						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 104, 4))) = v140
 						*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 96, 8))) = int64(0)
 						v155 = v140
@@ -109935,7 +109880,7 @@ func Fn3873(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
 					v180 = v51
 					for {
 						v187 = int32(0)
-						base.Simd_p_fx320(m, v180, v176)
+						base.Simd_p_fx317(m, v180, v176)
 						v194 = int32(16)
 						v199 = v178 - int32(4)
 						if v199 != 0 {
@@ -110191,7 +110136,7 @@ func Fn3873(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
 					v376 = v370
 					for {
 						v385 = int32(0)
-						base.Simd_p_fx320(m, v374, v371)
+						base.Simd_p_fx317(m, v374, v371)
 						v392 = int32(16)
 						v397 = v376 - int32(4)
 						if v397 != 0 {
@@ -111201,11 +111146,11 @@ L30:
 	v185 = int32(0)
 	v186, v186__h = base.Simd_p_v128_load64_zero(m, v162, v185)
 	v191, v191__h = base.Simd_p_v128_load32x2_u(m, v163, v185)
-	__sa1 = base.Simd_i64x2_mul(base.Simd_p_pack(base.Simd_p_fx141(m, v186, v186__h, v167, v167__h)), [2]uint64{v191, v191__h})
+	__sa1 = base.Simd_i64x2_mul(base.Simd_p_pack(base.Simd_p_fx138(m, v186, v186__h, v167, v167__h)), [2]uint64{v191, v191__h})
 	v192, v192__h = __sa1[0], __sa1[1]
 	v195, v195__h = 0x1fffffffe, 0x1fffffffe
-	v197, v197__h = base.Simd_p_fx334(m, v192, v192__h, v195, v195__h, v169, v169__h)
-	v201, v201__h = base.Simd_p_fx335(m, v192, v192__h, v195, v195__h, v167, v167__h)
+	v197, v197__h = base.Simd_p_fx331(m, v192, v192__h, v195, v195__h, v169, v169__h)
+	v201, v201__h = base.Simd_p_fx332(m, v192, v192__h, v195, v195__h, v167, v167__h)
 	v202 = int32(8)
 	v207 = v166 - int32(2)
 	if v207 != 0 {
@@ -111222,9 +111167,9 @@ L31:
 	;
 	v208, v208__h = 0xf0e0d0c0b0a0908, 0x706050403020100
 	v211 = int32(0)
-	__sv2, __sv2__h = base.Simd_p_fx144(m, v201, v201__h, v208, v208__h)
+	__sv2, __sv2__h = base.Simd_p_fx141(m, v201, v201__h, v208, v208__h)
 	v212 = base.Simd_p_i64x2_extract_lane(__sv2, __sv2__h, v211)
-	__sv3, __sv3__h = base.Simd_p_fx145(m, v197, v197__h, v201, v201__h, v208, v208__h)
+	__sv3, __sv3__h = base.Simd_p_fx142(m, v197, v197__h, v201, v201__h, v208, v208__h)
 	v217 = base.Simd_p_i64x2_extract_lane(__sv3, __sv3__h, v211)
 	if v142 == v146 {
 		v305 = v212
@@ -112833,7 +112778,7 @@ func Fn4019(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) {
 		__sv3, __sv3__h = base.Simd_p_i32x4_replace_lane(__sv4, __sv4__h, v40, v39)
 		__sv2, __sv2__h = base.Simd_p_i32x4_replace_lane(__sv3, __sv3__h, v48, v47)
 		__sv1, __sv1__h = base.Simd_p_i32x4_replace_lane(__sv2, __sv2__h, v56, v55)
-		base.Simd_p_fx339(m, v32, __sv1, __sv1__h, v58, v58__h)
+		base.Simd_p_fx336(m, v32, __sv1, __sv1__h, v58, v58__h)
 		v63 = v32 + int32(16)
 		v64 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v63)), 0, 4)))
 		v67 = v64 + v55>>(uint(v37)%32)
@@ -112847,7 +112792,7 @@ func Fn4019(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) {
 		__sv7, __sv7__h = base.Simd_p_i32x4_replace_lane(__sv8, __sv8__h, v40, v74)
 		__sv6, __sv6__h = base.Simd_p_i32x4_replace_lane(__sv7, __sv7__h, v48, v82)
 		__sv5, __sv5__h = base.Simd_p_i32x4_replace_lane(__sv6, __sv6__h, v56, v90)
-		base.Simd_p_fx339(m, v63, __sv5, __sv5__h, v58, v58__h)
+		base.Simd_p_fx336(m, v63, __sv5, __sv5__h, v58, v58__h)
 		v96 = int32(32)
 		v97 = v32 + v96
 		v98 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v97)), 0, 4)))
@@ -117911,7 +117856,7 @@ func Fn4409(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	v19 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 8)))
 	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 16, 8))) = v19
 	v21 = int32(0)
-	base.Simd_p_fx70(m, l0, v15)
+	base.Simd_p_fx67(m, l0, v15)
 	return v21
 }
 func Fn4413(m *base.Module, l0 int32, l1 int32) {
@@ -125078,7 +125023,7 @@ func Fn4764(m *base.Module, l0 int32, l1 int32, l2 int32) {
 	var v5, v5__h uint64
 	_, _ = v5, v5__h
 	v4 = int32(0)
-	base.Simd_p_fx70(m, l2, l1)
+	base.Simd_p_fx67(m, l2, l1)
 	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 16, 8))) = int64(0)
 	return
 }
@@ -125484,7 +125429,7 @@ func Fn4772(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	v15 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 0, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 0, 4))) = v15 + int32(16)
 	v19 = int32(0)
-	base.Simd_p_fx70(m, l0, v15)
+	base.Simd_p_fx67(m, l0, v15)
 	return v19
 }
 func Fn4775(m *base.Module, l0 int32, l1 int32) {
@@ -171175,7 +171120,7 @@ func Fn6948(m *base.Module, l0 int32, l1 int32) int32 {
 	if v5 != 0 {
 		v6 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v5)), 52, 8)))
 		*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 32, 8))) = v6
-		base.Simd_p_fx568(m, v5, l1)
+		base.Simd_p_fx565(m, v5, l1)
 		v16 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))
 		v17 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 4, 4)))
 		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4))) = v17
@@ -182110,7 +182055,7 @@ func Fn7455(m *base.Module, l0 int32, l1 int32, l2 int32) {
 		v16 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 0, 1))))
 		if v16 == int32(0) {
 			v19 = int32(0)
-			base.Simd_p_fx70(m, v8, l0)
+			base.Simd_p_fx67(m, v8, l0)
 			m.G0 = v8 + int32(16)
 			return
 		} else {
@@ -192222,7 +192167,7 @@ func Fn7958(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	_ = v25
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 84, 4))) = l2
 	v5 = int32(4)
-	base.Simd_p_fx61(m, l2, l0)
+	base.Simd_p_fx58(m, l2, l0)
 	v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 20, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = v9
 	v11 = int32(*(*uint16)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 68, 2))))
@@ -198225,7 +198170,7 @@ func Fn8158(m *base.Module, l0 int32, l1 int32) int32 {
 				v91 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 16, 4)))
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v89)), 16, 4))) = v91
 				v93 = int32(0)
-				base.Simd_p_fx70(m, v19, v89)
+				base.Simd_p_fx67(m, v19, v89)
 				v97 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 20, 4)))
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 104, 4))) = v97
 				v99 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 24, 4)))
@@ -214876,7 +214821,7 @@ func Fn8703(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	_ = v30
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 84, 4))) = l2
 	v5 = int32(4)
-	base.Simd_p_fx61(m, l2, l0)
+	base.Simd_p_fx58(m, l2, l0)
 	v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 20, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = v9
 	v11 = int32(*(*uint16)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 68, 2))))
@@ -223666,7 +223611,7 @@ func Fn9408(m *base.Module, l0 int32, l1 int32) int32 {
 	v8 = int32(4)
 	v10 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3+v4<<(uint(int32(2))%32)-v8)), 0, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 128, 4))) = v10
-	base.Simd_p_fx61(m, v10, l0)
+	base.Simd_p_fx58(m, v10, l0)
 	v16 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v10)), 20, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = v16
 	v18 = int32(*(*uint16)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 68, 2))))
@@ -233437,7 +233382,7 @@ func Fn10023(m *base.Module, l0 int32, l1 int32, l2 int32) {
 							v102 = int32(32)
 							v106 = int32(16)
 							v110 = int32(0)
-							base.Simd_p_fx216(m, v91, v56)
+							base.Simd_p_fx213(m, v91, v56)
 							Fn3594(m, v7, v56)
 							mBase = m.M
 							v115 = int32(-64)
@@ -233687,7 +233632,7 @@ func Fn10027(m *base.Module, l0 int32, l1 int32, l2 int32) {
 							v83 = int32(32)
 							v87 = int32(16)
 							v91 = int32(0)
-							base.Simd_p_fx216(m, v72, v37)
+							base.Simd_p_fx213(m, v72, v37)
 							Fn3594(m, l0, v37)
 							mBase = m.M
 							v96 = int32(-64)
@@ -233911,7 +233856,7 @@ func Fn10029(m *base.Module, l0 int32, l1 int32, l2 int32) {
 				v116 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 16, 8)))
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 8))) = v116
 				v118 = int32(0)
-				base.Simd_p_fx70(m, v7, l0)
+				base.Simd_p_fx67(m, v7, l0)
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 104, 4))) = v118
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 96, 8))) = int64(0)
 				v127, v127__h = 0x367cd507c1059ed8, 0xf70e59393070dd17
@@ -234009,7 +233954,7 @@ func Fn10032(m *base.Module, l0 int32, l1 int32) {
 				v95 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 8)))
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 16, 8))) = v95
 				v97 = int32(0)
-				base.Simd_p_fx70(m, l0, l1)
+				base.Simd_p_fx67(m, l0, l1)
 				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 4))) = v97
 				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 96, 8))) = int64(0)
 				v106, v106__h = 0x367cd507c1059ed8, 0xf70e59393070dd17
@@ -242016,6 +241961,21 @@ func Fn10512(m *base.Module) int32 {
 			}
 		}
 	}
+}
+func Fn10514(m *base.Module, l0 int32, l1 int32) int32 {
+	mBase := m.M
+	_ = mBase
+	var v3 int32
+	_ = v3
+	var v9 int32
+	_ = v9
+	v3 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 0, 4)))
+	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4))) = v3
+	if v3 != int32(27456288) {
+		v9 = base.AtomicRmwAdd32(m, v3, int32(4), int32(1))
+	} else {
+	}
+	return l0
 }
 func Fn10515(m *base.Module, l0 int32) int32 {
 	mBase := m.M
@@ -258734,8 +258694,8 @@ L16:
 	}
 L17:
 	;
-	v81, v81__h = base.Simd_p_fx41(m, v74, v74__h)
-	__sv1, __sv1__h = base.Simd_p_fx42(m, v81, v81__h)
+	v81, v81__h = base.Simd_p_fx38(m, v74, v74__h)
+	__sv1, __sv1__h = base.Simd_p_fx39(m, v81, v81__h)
 	v86 = base.Simd_p_i32x4_extract_lane(__sv1, __sv1__h, int32(0))
 	if v44 == v55 {
 		v121 = v86
@@ -265074,7 +265034,7 @@ func Fn11283(m *base.Module, l0 int32, l1 int32) int32 {
 		v13 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v6)), 20, 4)))
 		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = v13
 		v15 = int32(4)
-		base.Simd_p_fx61(m, v6, l0)
+		base.Simd_p_fx58(m, v6, l0)
 		v19 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9)), 0, 4)))
 		v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 112, 4)))
 		v21 = m.T0[v20].(func(*base.Module, int32) int32)(m, v9)
@@ -284377,7 +284337,7 @@ func Fn12531(m *base.Module, l0 int32, l1 int32) int32 {
 					v45 = v10
 					return v45
 				} else {
-					__sv1, __sv1__h = base.Simd_p_fx53(m, v15, 0x5250000041d, 0x787000004a0)
+					__sv1, __sv1__h = base.Simd_p_fx50(m, v15, 0x5250000041d, 0x787000004a0)
 					if base.Simd_p_v128_any_true(__sv1, __sv1__h) != 0 {
 						v23 = int32(0)
 					} else {
@@ -284400,7 +284360,7 @@ func Fn12531(m *base.Module, l0 int32, l1 int32) int32 {
 				v45 = v10
 				return v45
 			} else {
-				__sv2, __sv2__h = base.Simd_p_fx53(m, v15, 0x5250000041d, 0x787000004a0)
+				__sv2, __sv2__h = base.Simd_p_fx50(m, v15, 0x5250000041d, 0x787000004a0)
 				if base.Simd_p_v128_any_true(__sv2, __sv2__h) != 0 {
 					v23 = int32(0)
 				} else {
@@ -305777,7 +305737,7 @@ func Fn13886(m *base.Module, l0 int32, l1 int32) int32 {
 			} else {
 				v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
 				v21 = int32(10080)
-				base.Simd_p_fx55(m, v20, 0x1, 0x1)
+				base.Simd_p_fx52(m, v20, 0x1, 0x1)
 				v27 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v5)), 0, 4)))
 				v28 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v27)), 40, 4)))
 				v29 = m.T0[v28].(func(*base.Module, int32) int32)(m, v5)
@@ -306991,7 +306951,7 @@ func Fn13942(m *base.Module, l0 int32, l1 int32) {
 	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 32, 8))) = v4
 	v6 = int32(220)
 	v10 = int32(204)
-	base.Simd_p_fx47(m, l0, l1)
+	base.Simd_p_fx44(m, l0, l1)
 	v14 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 380, 8)))
 	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 40, 8))) = v14
 	base.Simd_p_v128_store(m, l0, v6, v3, v3__h)
@@ -326893,7 +326853,7 @@ func Fn15215(m *base.Module, l0 int32, l1 int32) int32 {
 	v3 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 84, 4)))
 	v4 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3)), 0, 4)))
 	v5 = int32(4)
-	base.Simd_p_fx61(m, v4, l0)
+	base.Simd_p_fx58(m, v4, l0)
 	v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v4)), 20, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = v9
 	return int32(0)
@@ -334461,7 +334421,7 @@ func Fn15838(m *base.Module, l0 int32, l1 int32) {
 	_ = v13
 	var v15 int64
 	_ = v15
-	base.Simd_p_fx223(m, l0, l1)
+	base.Simd_p_fx220(m, l0, l1)
 	v11 = *(*float64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 56, 8)))
 	*(*float64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 48, 8))) = v11
 	v13 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 8)))
@@ -338190,7 +338150,7 @@ func Fn16001(m *base.Module, l0 int32, l1 int32) {
 	v5 = int32(32)
 	v9 = int32(16)
 	v13 = int32(0)
-	base.Simd_p_fx127(m, l1, l0)
+	base.Simd_p_fx124(m, l1, l0)
 	return
 }
 func Fn16002(m *base.Module, l0 int32) {
@@ -343325,8 +343285,8 @@ L15:
 	}
 L16:
 	;
-	v73, v73__h = base.Simd_p_fx41(m, v66, v66__h)
-	__sv1, __sv1__h = base.Simd_p_fx42(m, v73, v73__h)
+	v73, v73__h = base.Simd_p_fx38(m, v66, v66__h)
+	__sv1, __sv1__h = base.Simd_p_fx39(m, v73, v73__h)
 	v78 = base.Simd_p_i32x4_extract_lane(__sv1, __sv1__h, int32(0))
 	if v36 == v47 {
 		v113 = v78
@@ -343891,8 +343851,8 @@ L15:
 	}
 L16:
 	;
-	v72, v72__h = base.Simd_p_fx41(m, v65, v65__h)
-	__sv1, __sv1__h = base.Simd_p_fx42(m, v72, v72__h)
+	v72, v72__h = base.Simd_p_fx38(m, v65, v65__h)
+	__sv1, __sv1__h = base.Simd_p_fx39(m, v72, v72__h)
 	v77 = base.Simd_p_i32x4_extract_lane(__sv1, __sv1__h, int32(0))
 	if v35 == v46 {
 		v112 = v77
@@ -369093,7 +369053,7 @@ func Fn17640(m *base.Module, l0 int32, l1 int32) {
 		v8 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 104, 8)))
 		*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 8))) = v8
 		v10 = int32(88)
-		base.Simd_p_fx264(m, l1, l0)
+		base.Simd_p_fx261(m, l1, l0)
 	} else {
 	}
 	return
@@ -398067,7 +398027,7 @@ func Fn19362(m *base.Module, l0 int32, l1 int32) int32 {
 	v3 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
 	v4 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 0, 4)))
 	v5 = int32(0)
-	base.Simd_p_fx70(m, v4, v3)
+	base.Simd_p_fx67(m, v4, v3)
 	return v5
 }
 func Fn19363(m *base.Module, l0 int32) int32 {
@@ -418173,7 +418133,7 @@ func Fn20386(m *base.Module, l0 int32, l1 int32) int32 {
 	v3 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 84, 4)))
 	v4 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3)), 0, 4)))
 	v5 = int32(4)
-	base.Simd_p_fx61(m, v4, l1)
+	base.Simd_p_fx58(m, v4, l1)
 	v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v4)), 20, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l1)), 20, 4))) = v9
 	v11 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v4)), 0, 4)))
@@ -424638,7 +424598,7 @@ func Fn20626(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) {
 	m.G0 = v7
 	if base.Ui32(int32(36)) <= base.Ui32(l3) {
 		v11 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 0, 4)))
-		base.Simd_p_fx202(m, v11, v7)
+		base.Simd_p_fx199(m, v11, v7)
 		v17, v17__h = base.Simd_p_v128_load(m, v11, int32(16))
 		base.Simd_p_v128_store(m, v7, int32(24), v17, v17__h)
 		v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v11)), 32, 4)))
@@ -424689,7 +424649,7 @@ func Fn20627(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) {
 	m.G0 = v7
 	if base.Ui32(int32(36)) <= base.Ui32(l3) {
 		v11 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2)), 0, 4)))
-		base.Simd_p_fx202(m, v11, v7)
+		base.Simd_p_fx199(m, v11, v7)
 		v17, v17__h = base.Simd_p_v128_load(m, v11, int32(16))
 		base.Simd_p_v128_store(m, v7, int32(24), v17, v17__h)
 		v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v11)), 32, 4)))
@@ -444133,7 +444093,7 @@ func Fn21747(m *base.Module, l0 int32) int32 {
 		return int32(0)
 	} else {
 		v8 = int32(0)
-		base.Simd_p_fx70(m, l0, v4)
+		base.Simd_p_fx67(m, l0, v4)
 		return v4
 	}
 }

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/tests/v06_prepared_connector_environment.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/tests/v06_prepared_connector_environment.py", line 32, in main
+    r=capture();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,indent=2)+'\n')
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/tests/v06_prepared_connector_environment.py", line 14, in capture
+    import mysql.connector as connector
+  File "<workspace>/temp/venv/lib/python3.14/site-packages/mysql/connector/__init__.py", line 40, in <module>
+    from .connection import MySQLConnection
+  File "<workspace>/temp/venv/lib/python3.14/site-packages/mysql/connector/connection.py", line 97, in <module>
+    from .network import MySQLSocket, MySQLTCPSocket, MySQLUnixSocket
+  File "<workspace>/temp/venv/lib/python3.14/site-packages/mysql/connector/network.py", line 46, in <module>
+    "TLSv1": ssl.PROTOCOL_TLSv1,
+             ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'ssl' has no attribute 'PROTOCOL_TLSv1'. Did you mean: 'PROTOCOL_TLS'?

@@ -1,0 +1,16 @@
+{
+  "source": {
+    "object_sha": "b218a73148ef45f70c795232a4ab1b11d728a2fa",
+    "object_type": "commit",
+    "source_commit": "b218a73148ef45f70c795232a4ab1b11d728a2fa"
+  },
+  "argv": [
+    "<workspace>/temp/venv/bin/python",
+    "scripts/verify.py",
+    "check"
+  ],
+  "returncode": 1,
+  "seconds": 214.32741408298898,
+  "platform": "darwin-arm64",
+  "go": "go1.26.10"
+}

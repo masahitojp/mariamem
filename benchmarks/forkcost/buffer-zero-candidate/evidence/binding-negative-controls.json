@@ -1,0 +1,14 @@
+{
+  "worker-arithmetic": {
+    "rejected": true,
+    "error": "('worker changed beyond BSS relocation', 'dlfree')"
+  },
+  "crc-non-address-constant": {
+    "rejected": true,
+    "error": ""
+  },
+  "crc-table-byte": {
+    "rejected": true,
+    "error": ""
+  }
+}

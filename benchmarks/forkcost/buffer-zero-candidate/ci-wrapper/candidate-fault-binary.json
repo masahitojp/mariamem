@@ -1,0 +1,7 @@
+{
+  "sha256": "6b7a9b626b5e406d8af0d3543e2a31fec102db34b5f0d6fa82a01cd2629121ea",
+  "overlays": {
+    "/private/tmp/mariamem-buffer-zero-audit-clone/internal/generatedgo/runtime_instance.go": "636c0ac3e8336677cb077b2e0bdadd72ae3d026559bcb556ad9ef281a63a16a9",
+    "/private/tmp/mariamem-buffer-zero-audit-clone/internal/generatedgo/buffer_fault_experiment.go": "d7f36c6b1d61017378a7c1a52feabe271427b65c999a77dee76c9a8e1164e733"
+  }
+}
