@@ -38,7 +38,7 @@ jobs:
           python scripts/git_identity.py inspect HEAD > build/linux-receipts/source.json
           test "$(uname -m)" = '${{ matrix.arch }}'
           python scripts/verify_generated_runtime.py
-          go test -p 1 ./internal/generatedgo/code/base ./internal/generatedgo/image ./internal/generatedgo -count=1
+          go test -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo/image ./internal/generatedgo -count=1
       - name: Build one exact-source wheel for both libc families
         run: |
           python -m pip install wheel setuptools twine

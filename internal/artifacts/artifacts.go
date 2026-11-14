@@ -27,18 +27,14 @@ func ValidatePlatform(ctx context.Context) error {
 }
 
 func currentTarget(ctx context.Context) (string, int, error) {
-	if runtime.GOOS == "linux" && runtime.GOARCH == "amd64" {
-		raw, err := os.ReadFile("/etc/os-release")
-		if err != nil {
-			return "", 0, diagnostic.Wrap("unsupported_platform", "platform", err)
-		}
-		if err := ubuntuPlatform(string(raw)); err != nil {
+	if runtime.GOOS == "linux" {
+		if err := platformContextError(ctx); err != nil {
 			return "", 0, err
 		}
-		return "ubuntu24.04-x86_64", 0, nil
+		return linuxTarget(runtime.GOARCH, os.Getpagesize())
 	}
 	if runtime.GOOS != "darwin" || runtime.GOARCH != "arm64" {
-		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 or Ubuntu 24.04 x86_64; got %s-%s. Run on a supported platform with its matching generated-Go package", runtime.GOOS, runtime.GOARCH))
+		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 or Linux x86_64/aarch64; got %s-%s. Run on a supported platform with its matching generated-Go package", runtime.GOOS, runtime.GOARCH))
 	}
 	return readMacOS(ctx)
 }
@@ -71,16 +67,13 @@ func checkMacOS(ctx context.Context) error {
 	return err
 }
 
-func ubuntuPlatform(raw string) error {
-	values := map[string]string{}
-	for _, line := range strings.Split(raw, "\n") {
-		key, value, ok := strings.Cut(line, "=")
-		if ok {
-			values[key] = strings.Trim(value, "\"'")
-		}
+// The generated-Go host is static and uses kernel syscalls, not a libc ABI.
+// Python wheel discovery separately enforces its interpreter/libc tag minimums.
+func linuxTarget(arch string, pageSize int) (string, int, error) {
+	identity := map[string]string{"amd64": "linux-x86_64", "arm64": "linux-aarch64"}[arch]
+	if identity == "" || pageSize <= 0 || pageSize > 65536 || 65536%pageSize != 0 {
+		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf(
+			"requires Linux x86_64/aarch64 with a page size dividing 65536; got arch=%s page_size=%d", arch, pageSize))
 	}
-	if values["ID"] != "ubuntu" || values["VERSION_ID"] != "24.04" {
-		return diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("requires Ubuntu 24.04 x86_64; got ID=%q VERSION_ID=%q. Run on a supported platform with its matching generated-Go package", values["ID"], values["VERSION_ID"]))
-	}
-	return nil
+	return identity, 0, nil
 }
