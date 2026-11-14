@@ -122,6 +122,19 @@ func closeLog(f *os.File) error {
 	}
 	return err
 }
+
+// Only remove an implementation-owned log after its writer is closed. Windows
+// forbids unlinking the ordinary os.OpenFile handle while it is still open.
+func cleanupOwnedLog(f *os.File, path string, owned bool) error {
+	if err := closeLog(f); err != nil {
+		return err
+	}
+	if owned {
+		return removeLog(path)
+	}
+	return nil
+}
+
 func (d *db) logs() string {
 	f, e := os.Open(d.logPath)
 	if e != nil {
@@ -167,13 +180,7 @@ func makeDB(ctx context.Context, r Request, base *baseline, ownedLog bool) (*db,
 	}
 	// Only remove a private Live log after this call successfully created it.
 	// Public/requested logs remain with their caller for diagnostics.
-	cleanupLog := func() error {
-		var removal error
-		if ownedLog {
-			removal = removeLog(r.LogPath)
-		}
-		return errors.Join(closeLog(f), removal)
-	}
+	cleanupLog := func() error { return cleanupOwnedLog(f, r.LogPath, ownedLog) }
 	startup, cancel := context.WithTimeout(ctx, st)
 	defer cancel()
 	var backing *snapshot.Owned

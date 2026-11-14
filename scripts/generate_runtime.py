@@ -178,6 +178,8 @@ def main():
         text = write_errors(str(target.relative_to(out)), text)
         from runtime_native_errors import apply as native_errors
         text = native_errors(target.relative_to(out).as_posix(), text)
+        from runtime_entropy import apply as host_entropy
+        text = host_entropy(target.relative_to(out).as_posix(), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.

@@ -64,7 +64,7 @@ jobs:
           CGO_ENABLED: '0'
         run: |
           New-Item -ItemType Directory -Force build/windows-boundary | Out-Null
-          go test -count=1 -timeout=8m -json ./internal/snapshot ./internal/generatedgo/code/base ./internal/artifacts ./internal/forklimit > build/windows-boundary/tests.json
+          go test -count=1 -timeout=8m -json ./internal/snapshot ./internal/generatedgo/code/base ./internal/artifacts ./internal/forklimit ./internal/entropyfs > build/windows-boundary/tests.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Install packaging and focused Python test tools
         run: python -m pip install pytest==8.4.2 PyMySQL==1.2.3 setuptools==80.9.0 wheel==0.45.1
@@ -75,6 +75,10 @@ jobs:
       - id: build
         name: Build one immutable host and wheel for this CPU
         run: python scripts/build_alpha.py --ci-candidate
+      - name: Verify owned-log close before unlink
+        env:
+          CGO_ENABLED: '0'
+        run: go test -count=1 ./internal/control -run '^TestOwnedLogCleanupClosesBeforeRemoval$'
       - name: Install the same wheel in a fresh environment and accept changed boundaries
         run: python scripts/windows_wheel_acceptance.py --target '${{ matrix.target }}' --wheel 'build/dist/mariamem-0.6.2-py3-none-${{ matrix.wheel }}.whl' --output 'build/windows-boundary/acceptance.json'
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
