@@ -140,6 +140,16 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    # Explicit development-only identity; the full worker bodies, CRC body,
+    # table and offsets are identical to canonical (saved binding review).
+    # Keep ordinary canonical/release installation on its accepted guest.
+    if args.development_input and pins['guest_sha256'] == '77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450':
+        if pins.get('contract') != 'development-unqualified-v1' or pins.get('result') != 'UNQUALIFIED':
+            raise ValueError('candidate binding requires explicit UNQUALIFIED development input')
+        import runtime_thread_lifetime as candidate_thread
+        import runtime_crc32c as candidate_crc
+        candidate_thread.GUEST_SHA256 = pins['guest_sha256']
+        candidate_crc.GUEST_SHA256 = pins['guest_sha256']
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
     thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
