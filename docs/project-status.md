@@ -10,14 +10,17 @@ Version themes and candidate adoption do not authorize a release.
 
 ## Additional 0.6.2 distribution (#169)
 
-Windows and portable Linux support plus license-attribution continuity are
-integrated on `maintenance/v0.6.2`. Main owns publication tooling; the approved
-maintenance SHA owns the distributed product. Existing tag/macOS/Ubuntu bytes
-are preserved. The additive route reuses the configured Trusted Publisher and
-adds four qualified wheels, separate corresponding-source/provenance assets and
-seven representative public smoke cells. Implementation is in progress; no
-additional assets have been published by this work. #169 owns qualification,
-recovery and publication completion. See [the workflow inputs](releasing.md#additional-linuxwindows-wheels-for-published-062).
+The 0.6.2 Linux/Windows addition is published. [run 43622853054, attempt 2](https://github.com/masahitojp/mariamem/actions/runs/43622853054/attempts/2) completed qualification, additive publication and all seven public smoke cells.
+The Human confirmed the per-environment PyPI install, wheel/hash, SELECT 1 and
+successful Close/host exit records. Tooling source_commit is
+`dcb7a9c90684a5ed638322b7d5990647f8763ac6`; distributed maintenance source_commit
+is `3627e6de6a780dc19195dbbb0331bed42c5de2a0`. Original v0.6.2 tag/macOS/Ubuntu
+assets remain unchanged. Main owns the tooling and current documentation; it is
+not the source of the added product wheels. See [installation](../README.md#installation)
+and [publication inputs](releasing.md#additional-linuxwindows-wheels-for-published-062).
+#172 completed with PR197/main0818504c and exact-candidate CI43626029466.
+#169 owns the final documentation alignment; older publication checkpoints below
+retain their historical scope.
 
 ## Evidence retention approved (#158, 2026-11-14)
 
@@ -56,7 +59,7 @@ Main integration and release remain separate Human decisions. Existing
 Connector/Python/OpenSSL4 acceptance is retained; no new engine/driver inquiry
 or pgmem measurement is requested here.
 
-## PyPI distribution direction (2026-11-14)
+## Initial macOS PyPI checkpoint (2026-11-14, historical)
 
 The Human approved #159 implementation: begin with the existing 0.6.2 macOS
 arm64 wheel, then reuse the same publication/recovery path for normal stable
@@ -75,14 +78,11 @@ Transport failure reuses the same version/source/bytes instead of forcing a
 version bump. Hash conflicts stop, and successful smoke reuse binds exact
 artifacts and check conditions.
 
-0.7.0's later work is split: #170 Linux x86_64/arm64 manylinux and musllinux;
-#171 Windows x86_64/arm64 and limited initial acceptance; #172 ordinary CI
-selection and duplicate-build cleanup; #169 all-target public smoke and guide
-consistency. macOS-first sequencing does not reduce that scope. #158 remains
-the independent required distribution/evidence-size cleanup. New platforms need
-initial boundary acceptance; public smoke stays install/hash/start/SELECT 1/Close,
-not a repeated ORM/Snapshot campaign. Windows ordinary releases use short smoke,
-with focused additional checks when relevant OS boundaries change.
+The initial roadmap split Linux into #170, Windows into #171, ordinary CI into
+#172 and publication/guide consistency into #169. Linux/Windows distribution
+subsequently moved to the 0.6.2 maintenance route and completed as recorded
+above. Initial platform acceptance, changed-boundary CI and short public smoke
+remain distinct; public smoke does not repeat full ORM/Snapshot acceptance.
 
 ## Linux distribution initial acceptance passed (#170)
 

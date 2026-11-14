@@ -2,6 +2,17 @@
 
 For your first test and prepared fixtures, start with the [Python guide](python.md).
 
+## Published wheel platforms
+
+Python 0.6.2 wheels support macOS 15+ arm64, Linux x86_64/aarch64 with
+glibc 2.28+ or musl 1.2+, and Windows build 22000+ x86_64/arm64.
+Python 3.11+ is the package minimum, not an exhaustive tested-version matrix.
+See [installation](../README.md#installation) for pip commands and the distinction
+from Go tag support. A CPU, OS/libc minimum or manifest mismatch raises an
+artifact/platform error before host use; install the matching wheel rather than
+copying a host from another platform. Published wheel OS adapters come from the
+0.6.2 maintenance source; current main source is a separate development product.
+
 ## Snapshot ownership and host lifetime
 
 `snapshot()` fixes a baseline with private immutable blocks in Go memory.

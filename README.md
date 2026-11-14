@@ -10,32 +10,34 @@ Current release: Python `0.6.2` / Go `v0.6.2` ([release notes](release/NOTES-v0.
 
 ## Installation
 
-Supported hosts: **macOS 15+ arm64** and **Ubuntu 24.04 x86_64**.
-Python requires **3.11+**; Go requires **1.26.0+**.
-The macOS arm64 wheel is available on PyPI and passed public installation smoke.
-Use `python -m pip install "mariamem[test]==0.6.2"` on macOS.
-Linux continues to use the GitHub wheel; broader Linux/Windows distribution is
-planned for 0.7.0.
+Python **0.6.2** is available on PyPI for the following hosts (Python **3.11+**):
 
-The source tree also has an explicit portable Linux candidate build for x86_64
-and aarch64: glibc 2.28+ / musl 1.2+. Its initial four-environment acceptance
-[passed](https://github.com/masahitojp/mariamem/actions/runs/43574710937).
-Publication integration remains in [Issue169](https://github.com/masahitojp/mariamem/issues/169);
-0.6.2 on PyPI does not include Linux wheels. The host table above describes the
-published release, not additional Go API platform qualification.
+| Host | CPU | Minimum condition |
+| --- | --- | --- |
+| macOS | arm64 | macOS 15+ |
+| Linux | x86_64 / aarch64 | glibc 2.28+ or musl 1.2+ |
+| Windows | x86_64 / arm64 | Windows build 22000+ |
+
+Public installation, wheel/hash checks, SELECT 1 and successful host exit passed
+in seven representative environments: macOS, both Linux CPUs on both libc
+families, and both Windows CPUs. These runs do not test every OS/Python version
+above the minimum. Linux containers share the runner kernel, so no old-kernel
+execution is claimed.
+
+Go **v0.6.2** remains supported on **macOS 15+ arm64** and
+**Ubuntu 24.04 x86_64**, with Go **1.26.0+**. The added Python wheels do not
+expand the original Go tag's platform support. See [publication details](docs/releasing.md#additional-linuxwindows-wheels-for-published-062).
 
 ### Python
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-
-# macOS arm64
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install 'mariamem[test]==0.6.2'
-
-# Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.2/mariamem-0.6.2-py3-none-linux_x86_64.whl'
 ```
+
+For library use without pytest tools, use `python -m pip install mariamem==0.6.2`.
 
 Save this as `test_database.py`:
 
