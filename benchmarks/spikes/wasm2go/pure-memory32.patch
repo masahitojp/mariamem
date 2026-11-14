@@ -326,7 +326,7 @@
  // String produces a short "v3 = OpAdd32 v1 v2" rendering.
 --- a/internal/codegen/helpers/helpers.go
 +++ b/internal/codegen/helpers/helpers.go
-@@ -1251,6 +1251,22 @@
+@@ -1251,6 +1251,20 @@
  	panic("wasm: blocking atomic wait with no other agents (wasi-threads not enabled)")
  }
  
@@ -336,15 +336,13 @@
 +	bound := m.memSize.Load()
 +	return addr <= bound && offset <= bound-addr && size <= bound-addr-offset
 +}
++//go:noinline
 +func memoryEA(m *Module, addr, offset, size uint64) uint64 {
 +	if !memoryInBounds(m, addr, offset, size) {
-+		wasm_trap_memory_oob()
++		panic("wasm: memory access out of bounds")
 +	}
 +	return addr + offset
 +}
-+
-+//go:noinline
-+func wasm_trap_memory_oob() { panic("wasm: memory access out of bounds") }
 +
  // atomicEA bounds- and alignment-checks an atomic access and returns the
  // effective address.

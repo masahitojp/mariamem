@@ -17,7 +17,7 @@
   "source_sha256": {
     "internal/generatedgo/code/alias.go": "4ad42824b81103dfe07b3e60594f102af8cacb38fcf4b7e9e499ec25092b618b",
     "internal/generatedgo/code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "internal/generatedgo/code/base/base.go": "aa75e18392768f31b390ecb4f86c5aa9a280978bd6781315c5e16d2737297223",
+    "internal/generatedgo/code/base/base.go": "f52336d29336eb160cbc530840b801fcb22e92e1e09305aa975514d4c3eeed42",
     "internal/generatedgo/code/base/block_storage.go": "429c4c67d3cb3fd3356ae89bfaa07eaca49e83a58cad7fe1174744aede4ee73c",
     "internal/generatedgo/code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "internal/generatedgo/code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
