@@ -1,6 +1,7 @@
 # Go usage
 
-Use `v0.6.2` on a [supported platform](../README.md#installation).
+Use `v0.6.2` on macOS 15+ arm64 or Ubuntu 24.04 x86_64.
+The additional Python Linux/Windows wheels do not expand this Go tag's support.
 Start with the [README test](../README.md#go), then prepare schema and seed
 once with `mariamemtest` as shown below.
 

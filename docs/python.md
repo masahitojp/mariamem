@@ -1,19 +1,12 @@
 # Python usage
 
-Portable Linux candidate wheels use `manylinux_2_28` / `musllinux_1_2` for
-x86_64 and aarch64. This source-build path passed initial four-environment
-acceptance in [CI43574710937](https://github.com/masahitojp/mariamem/actions/runs/43574710937).
-Publication integration remains in [Issue169](https://github.com/masahitojp/mariamem/issues/169).
-The published 0.6.2 instructions below remain version-specific.
-
 Use Python `0.6.2` on a [supported platform](../README.md#installation).
+PyPI wheels are available for macOS 15+ arm64, Linux x86_64/aarch64 with
+glibc 2.28+ or musl 1.2+, and Windows build 22000+ x86_64/arm64.
+Python 3.11+ is required. Install with
+`python -m pip install "mariamem[test]==0.6.2"`; pip selects the platform wheel.
 Start with one database, then share preparation when setup becomes expensive.
 For Django, use the [dedicated guide](django-prepared.md).
-
-The PyPI distribution supports macOS 15+ arm64 and passed public installation
-smoke. Install it with `python -m pip install "mariamem[test]==0.6.2"`.
-Ubuntu 24.04 x86_64 continues to use its GitHub Release wheel.
-Linux/Windows PyPI expansion is planned for 0.7.0.
 
 ## A disposable database
 

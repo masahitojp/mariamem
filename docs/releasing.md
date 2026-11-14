@@ -2,7 +2,7 @@
 
 The current published release is `v0.6.2`; Python spelling is `0.6.2`.
 Its [versioned notes](../release/NOTES-v0.6.2.md) describe shipped scope and
-limitations; [project status](project-status.md#current-published-release) records
+limitations; [project status](project-status.md#additional-062-distribution-169) records
 its successful Release CI and public smoke. The procedure below applies to
 the next human-selected candidate; preparation alone is not qualification.
 A normal release requires one human request authorizing one exact final-version SHA.
@@ -10,6 +10,14 @@ An optional `verify` audit never authorizes publication.
 
 
 ## Additional Linux/Windows wheels for published 0.6.2
+
+Publication is complete: [run 43622853054, attempt 2](https://github.com/masahitojp/mariamem/actions/runs/43622853054/attempts/2). Tooling source_commit
+`dcb7a9c90684a5ed638322b7d5990647f8763ac6`, product source_commit
+`3627e6de6a780dc19195dbbb0331bed42c5de2a0`. Four added wheels are on PyPI;
+macOS plus Linux on two CPUs/two libc families plus Windows on two CPUs passed
+public install/hash/SELECT 1/Close/host exit. Existing tag and original assets
+were retained. The procedure below documents the additive/recovery route;
+completion does not require another publication.
 
 The additive route uses the existing `release-candidate-ready.yml` and `pypi`
 Trusted Publisher. Set `additional_v062=true`, `candidate_ref` to the exact
@@ -81,17 +89,19 @@ environment `pypi`. The initial macOS upload succeeded in
 [run 43567522416](https://github.com/masahitojp/mariamem/actions/runs/43567522416);
 the initial immediate JSON lookup saw the wheel as absent. A later read confirmed
 its original SHA256. [Attempt 2](https://github.com/masahitojp/mariamem/actions/runs/43567522416/attempts/2)
-completed PyPI publication and installed-wheel smoke successfully. macOS users
-can install from PyPI; Ubuntu users continue to use GitHub Release wheels.
+completed the initial macOS PyPI publication and installed-wheel smoke.
+The later Linux/Windows addition is complete as recorded above; all supported
+Python hosts can now install 0.6.2 from PyPI.
 
 ## PyPI publication and existing-release backfill
 
 Stable normal releases also run `pypi_publication` after GitHub publication,
 then `pypi_smoke`. Both use the dispatch commit's tooling while recording the
-original artifact `source_commit` separately. The current explicit PyPI target
-is the macOS arm64 wheel only. Linux's generic `linux_x86_64` wheel stays on
-GitHub until #170 adds qualified portable tags; Windows belongs to #171.
-#169 connects the eventual seven smoke environments and updates the full guide.
+original artifact `source_commit` separately. This normal/backfill route retains
+its original macOS target. The completed 0.6.2 Linux/Windows addition uses the
+separate additive route above; do not infer a future all-platform normal release
+inventory from the original macOS helper. The legacy Ubuntu wheel stays on
+GitHub, while the additional portable Linux and Windows wheels are on PyPI.
 
 The PyPI job uses `environment: pypi` and job-scoped `id-token: write` with the
 pinned PyPA publishing action. No long-lived API token or password is needed.
@@ -150,7 +160,7 @@ conditions never reuse the old success. No new review-document dumps are needed.
 | --- | --- |
 | Go module | Exact source commit/tag; canonical generated Go is ordinary source/build input in the module. `Options{}` direct-links it; no guest executable, NativeDir, bundle/cache or Wasmer download. |
 | macOS wheel | `mariamem-<version>-py3-none-macosx_15_0_arm64.whl`; macOS 15+ arm64; `_native` contains only `mariamem-host` and its checksum-bound manifest. |
-| PyPI | Stable macOS wheel only, identical to the GitHub asset; published and public smoke passed. Linux/Windows expansion is tracked separately. |
+| PyPI 0.6.2 | Original macOS wheel plus portable Linux x86_64/aarch64 and Windows x86_64/arm64; exact GitHub asset bytes, all seven public smoke environments passed. |
 | Ubuntu wheel | `mariamem-<version>-py3-none-linux_x86_64.whl`; tested on Ubuntu 24.04 x86_64, not a manylinux claim; same host-only layout. |
 | Corresponding source | One common `mariamem-<version>-corresponding-source.tar.gz`, covering both wheels and Go source: product source/generated code/patches/scripts, pinned MariaDB/lite4mariadb/dependency sources, WASIX libc, LLVM runtime/header submodule sources, converter source and build evidence. |
 | Provenance | `mariamem-<version>-provenance.json`: exact source/guest/generated/toolchain/notices hashes, both frozen wheel records and external acceptance hashes. |
@@ -172,10 +182,15 @@ The initial four-environment acceptance passed in
 on candidate0f3cb82a (CI merge source74ce30e5, identical tree). This is not a
 versioned release qualification.
 
-This candidate path does not change the existing release inventory above.
-#169 connects the accepted portable wheel set to publication and aggregate smoke;
-normal publication still fails closed on an unexpected asset set until that work
-is complete. No candidate build publishes or chooses a version.
+The main source-build path and its initial acceptance above are separate from
+the published 0.6.2 maintenance product. The original two-wheel contract above
+remains immutable. The additive inventory contains four new wheels:
+`manylinux_2_28_<arch>.musllinux_1_2_<arch>` for Linux x86_64/aarch64 and
+`win_amd64` / `win_arm64` for Windows build 22000+. It uses
+`mariamem-0.6.2-additional-<product source_commit>-source.tar.gz` and a matching
+`-provenance.json`; the qualified additional asset map binds their hashes and
+wheel hashes without rewriting original SHA256SUMS. Neither these wheels nor
+public smoke extend Go v0.6.2's OS support.
 
 `docs/reviews/go.mod` and `benchmarks/go.mod` exclude those nested modules from the
 Go module ZIP. Corresponding source still includes the repository inputs and
