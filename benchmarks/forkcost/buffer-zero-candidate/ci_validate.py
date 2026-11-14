@@ -13,7 +13,7 @@ s=(HERE/'tools/build-extra.py').read_text();old="product=X/'worktree' if variant
 for n in ('correct','fault','recovery'):
  shutil.copytree(HERE/'harness'/n,t/n)
  p=t/n/'go.mod';v=p.read_text();p.write_text(v[:v.index('replace github.com/masahitojp/mariamem')]+f'replace github.com/masahitojp/mariamem => {root}\n')
-for n in ('buffer_fault_experiment.go','buffer_recovery_witness.go'):shutil.copy2(HERE/'harness'/n,t/n)
+for n in ('buffer_fault_experiment.go','buffer_recovery_witness.go'):shutil.copy2(HERE/'harness'/(n+'.txt'),t/n)
 env=dict(os.environ,MARIAMEM_BUFFER_CANDIDATE_ROOT=str(root),CGO_ENABLED='0',GOMAXPROCS='8',GOGC='100',TMPDIR=str(t/'tmp'))
 def run(name,cmd):
  with (e/(name+'.log')).open('w') as f:subprocess.run(cmd,env=env,stdout=f,stderr=subprocess.STDOUT,check=True,timeout=1200)

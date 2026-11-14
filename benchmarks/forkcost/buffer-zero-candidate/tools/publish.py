@@ -16,7 +16,7 @@ def add(src,name,compressed=False,normalize=True):
  p.write_bytes(data)
  rows.append(dict(source=str(src.relative_to(X)),target=name,raw_sha256=hashlib.sha256(raw).hexdigest(),public_uncompressed_sha256=hashlib.sha256(data).hexdigest(),compressed=False))
 for src in sorted((E/'harness').rglob('*')):
- if src.is_file():add(src,'harness/'+str(src.relative_to(E/'harness')))
+ if src.is_file():add(src,'harness/'+str(src.relative_to(E/'harness'))+('.txt' if src.parent==E/'harness' and src.suffix=='.go' else ''))
 for p in (D/'harness').glob('*/go.mod'):
  s=p.read_text();p.write_text(s[:s.index('replace github.com/masahitojp/mariamem')]+ 'replace github.com/masahitojp/mariamem => ../../../../..\n')
 for n in ('runs',):

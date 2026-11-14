@@ -1,0 +1,12 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+........................................................................ [ 82%]
+...............                                   [100%]
+87 passed, 23 subtests passed in 11.46s
++ go test -p 1 -vet=off ./...
+# github.com/masahitojp/mariamem/benchmarks/forkcost/buffer-zero-candidate/harness
+found packages generatedgo (buffer_fault_experiment.go) and base (buffer_recovery_witness.go) in /private/tmp/mariamem-buffer-zero-audit-clone/benchmarks/forkcost/buffer-zero-candidate/harness
+FAIL	github.com/masahitojp/mariamem/benchmarks/forkcost/buffer-zero-candidate/harness [setup failed]
