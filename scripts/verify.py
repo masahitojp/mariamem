@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Small local entry points for development, integration, release, and benchmarks."""
-from layout import BENCHMARKS, GENERATED
+from layout import BENCHMARKS as BENCHMARK_ROOT, GENERATED
 
 import argparse
 import os
@@ -204,7 +204,7 @@ def main():
                 parser.error("candidate root/platform requires --ci-candidate-sha")
             run([sys.executable, "scripts/check_release.py"])
     else:
-        run([sys.executable, ROOT / BENCHMARKS / BENCHMARKS[args.workload], *extra])
+        run([sys.executable, ROOT / BENCHMARK_ROOT / BENCHMARKS[args.workload], *extra])
 
 
 if __name__ == "__main__":
