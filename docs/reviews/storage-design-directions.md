@@ -10,7 +10,7 @@
 Go/Pythonの公開保存・load APIを廃止し、メモリ内の`Snapshot`→`Fork`に絞った。
 採用したのはここにある方向の具体化であり、C／E／Fやworker共通daemonの同時採用ではない。
 現在の契約は[Snapshot product contract](../decisions/snapshot-product-contract.md)、
-実装・測定・両OS検証と採用決定は[統合報告](d-heap-shared-host.md)を参照する。
+実装・測定・両OS検証と採用決定は[統合報告](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/d-heap-shared-host.md)を参照する。
 以下の数値や参照実装の記述は当時の固定入力についての記録として読む。
 
 ## 以下は探索時点の記録

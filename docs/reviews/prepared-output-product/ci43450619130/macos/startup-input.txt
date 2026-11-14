@@ -1,7 +1,0 @@
-test_normal_regions_and_readonly_hashes (test_startup_concurrency.StartupConcurrencyTests.test_normal_regions_and_readonly_hashes) ... ok
-test_restricted_or_missing_operation_reset_or_lock_rejected (test_startup_concurrency.StartupConcurrencyTests.test_restricted_or_missing_operation_reset_or_lock_rejected) ... ok
-
-----------------------------------------------------------------------
-Ran 2 tests in 0.007s
-
-OK

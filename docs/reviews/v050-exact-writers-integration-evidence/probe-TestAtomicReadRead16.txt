@@ -1,4 +1,0 @@
-=== RUN   TestAtomicReadRead16
---- PASS: TestAtomicReadRead16 (0.00s)
-PASS
-ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.098s

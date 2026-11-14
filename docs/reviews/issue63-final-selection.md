@@ -17,7 +17,7 @@ identical to the accepted source. The earlier daily PR run 41598512834 passed
 all three required checks; strict freshness requires a new PR run after this
 base update. No heavy guest acceptance is repeated for documentation alone.
 [Run 41571252134](https://github.com/masahitojp/mariamem/actions/runs/41571252134)
-succeeded in all three jobs. The [checksummed receipt](issue63-canonical-adoption/ci-41571252134/receipt.json)
+succeeded in all three jobs. The [checksummed receipt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/issue63-canonical-adoption/ci-41571252134/receipt.json)
 contains exact source, job URLs, four verified ZIP digests and unchanged runtime
 Git objects. [Earlier failures](issue63-canonical-adoption.md) remain historical.
 

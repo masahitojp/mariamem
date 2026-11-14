@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check the explicitly selected public source files (not local build outputs)."""
+import ast
 import json
 import os
 from pathlib import Path
@@ -48,8 +49,57 @@ def public_files(root=None):
                 raise ValueError(f"symlink in publication set: {rel}")
             if path.suffix in (".pyc", ".wasm", ".wasmu", ".whl", ".zip", ".gz", ".log"):
                 raise ValueError(f"generated/binary file in publication set: {rel}")
+            if path.name.endswith(".zip.base64") or (rel.parts[:2] == ("docs", "reviews") and path.suffix == ".base64"):
+                raise ValueError(f"encoded CI archive in publication set: {rel}")
             found.append(path)
     return sorted(found)
+
+
+# #158: these literals describe selection/test inputs, never load review files.
+REVIEW_LITERAL_OWNERS = {
+    "scripts/check_public.py",  # this lint's own path vocabulary
+    "scripts/development_scope.py",  # changed-path classification
+    "tests/test_development_scope.py",  # synthetic changed-path cases
+    "tests/test_evidence_retention.py",  # synthetic forbidden-input cases
+}
+
+
+def review_input_references(text):
+    """Find literal Python review paths, excluding prose, URLs and docstrings.
+
+    This is a source-boundary lint, not dataflow analysis: dynamically constructed
+    paths still require author review. Recognize both full and Path / fragments.
+    """
+    tree = ast.parse(text)
+    docstrings = set()
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
+            if node.body and isinstance(node.body[0], ast.Expr):
+                value = node.body[0].value
+                if isinstance(value, ast.Constant) and isinstance(value.value, str):
+                    docstrings.add(id(value))
+
+    def literal(node):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Div, ast.Add)):
+            left, right = literal(node.left), literal(node.right)
+            return left + ("/" if isinstance(node.op, ast.Div) else "") + right
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "Path":
+            return "/".join(literal(arg) for arg in node.args)
+        return ""
+
+    # A fixed historical URL is metadata, including a statically concatenated
+    # URL. Do not mistake its component string literals for local inputs.
+    url_nodes = set()
+    for node in ast.walk(tree):
+        if re.match(r"https?://", literal(node)):
+            url_nodes.update(id(child) for child in ast.walk(node))
+
+    return sorted({node.lineno for node in ast.walk(tree)
+                   if id(node) not in docstrings | url_nodes
+                   and re.search(r"(?:^|/)docs/reviews(?:/|$)",
+                                 literal(node).replace("\\", "/"))})
 
 
 def check(root=None):
@@ -63,6 +113,11 @@ def check(root=None):
         except UnicodeDecodeError:
             errors.append(f"non-text file: {rel}")
             continue
+        if (rel.startswith(("scripts/", "tests/")) and path.suffix == ".py"
+                and rel not in REVIEW_LITERAL_OWNERS):
+            lines = review_input_references(text)
+            if lines:
+                errors.append(f"review path in maintained Python input: {rel}:{lines}; move the input to its fixture owner")
         # Generic checks avoid embedding the developer's personal path in this tool.
         patterns = (r"/Users/[^\s/]+/", r"/home/[^\s/]+/", r"(?i)-----BEGIN .*PRIVATE KEY-----",
                     r"\bgh[pousr]_[A-Za-z0-9]{30,}\b", r"\bgithub_pat_[A-Za-z0-9_]{30,}\b")

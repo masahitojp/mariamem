@@ -17,7 +17,7 @@ Starting source: `446d24a463da976aeb1112af8e796f0b613c31ce`, following
 [R1–R5](v050-semantic-audit.md) at
 `ccd75706fae112f1cd811f426ba7ca7dbfc3fe8a`. Accepted runtime component:
 `f66727dda49d1b4ca2c7e814e218587c051f7f97`. A–D and the earlier three fixes
-remain the [integration](v050-ad-integration.md) and
+remain the [integration](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-ad-integration.md) and
 [correctness](v050-correctness-fixes.md) evidence; this does not repeat them.
 Work belongs to `experiment/v050-boundary-join`, not main.
 

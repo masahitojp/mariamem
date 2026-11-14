@@ -14,7 +14,7 @@ Baseline is the pushed A–D source
 `808df8b614906a9cd918229e2754d33a5a76dc4b`, MariaDB 12.3.3 guest
 `7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c`,
 goccy/wasm2go `730057c146463f663e8774587bc96fb2bea91af8` plus unchanged nine
-patches. See [A–D integration](v050-ad-integration.md), rather than repeating
+patches. See [A–D integration](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-ad-integration.md), rather than repeating
 its input/build/consumer inventory. Main is still `098b0144ed50835da792ba811d11e0a1c8b000b2`.
 
 Probe input commit is `4b67095` (full SHA in results.json). The

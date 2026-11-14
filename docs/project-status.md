@@ -7,6 +7,17 @@ continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
 
+## Evidence retention approved (#158, 2026-11-14)
+
+The Human approved retaining continuing decisions in existing ADRs and deleting
+obsolete reviews/raw evidence. No new archive branch, evidence repository or
+mandatory release-asset migration is required. Active fixtures and indispensable
+unique observations remain with their maintained owners; provenance/license and
+release contracts remain unchanged. See [the retention decision](decisions/evidence-retention.md).
+#158 owns the cleanup and before/after measurements; this direction does not
+claim the entire historical backlog is already removed.
+
+
 ## Buffer-pool descriptor zeroing — CI complete, adoption pending (2026-11-14)
 
 The minimal product candidate is source_commit
@@ -112,7 +123,7 @@ publication remain separate and unapproved. Issue138 remains stopped.
 ## Prepared output — main integration approved (2026-11-14)
 
 The Human approved main integration after the
-[Issue-criteria submission](reviews/prepared-output-product/issue-criteria-submission.md).
+[Issue-criteria submission](decisions/prepared-output-reuse.md).
 This includes its explicit selected-route test disposition: retain current host
 oracles for unchanged owners, add raw-output boundary checks, and keep the absent
 full-native controller/factory campaigns historical rather than claiming their
@@ -136,7 +147,7 @@ version and publication remain separate and unapproved.
 
 Independent source/regeneration43450619130, normal43460340200, public integration
 43460417407 and installed distributions43465753261 passed on their exact recorded
-candidates. The [checkpoint](reviews/prepared-output-product/README.md) retains
+candidates. The [checkpoint](decisions/prepared-output-reuse.md) retains
 identities and scope. The single bootstrap remains UNQUALIFIED historical evidence;
 later independent reproduction is separate evidence, not a relabeling.
 
@@ -147,11 +158,11 @@ guest or weakening row validation. Fixed candidate
 native-reference scenarios and five frame cases. Median query ratios versus fixed
 main: one row0.987,1,000 rows0.827,64KiB0.998. Variance and single-Mac limits remain;
 no universal speedup, peak-RSS benefit or measured upgrade-hour reduction is claimed.
-The [measurements](reviews/prepared-output-product/performance-20261114/README.md)
+The [measurements](../benchmarks/prepared-output-20261114/README.md)
 retain the original regression, follow-up and failed measurement setup.
 
 Same-source normal43530112119, public43530115529 and installed43530119031 are
-all PASS on that exact host SHA. The [integration review](reviews/prepared-output-product/adoption-review.md)
+all PASS on that exact host SHA. The [integration review](decisions/prepared-output-reuse.md)
 recommends bounded output adoption with its explicit prior-condition disposition.
 This remains Codex's recommendation: main integration, Issue132's final selected-route
 disposition and release are Human decisions. Owned measurement scratch/cache/source

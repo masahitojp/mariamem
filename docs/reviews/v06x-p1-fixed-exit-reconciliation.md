@@ -18,12 +18,12 @@ approval. The submitted CI SHA identifies the candidate containing this record.
 
 ## Reusable evidence and its limits
 
-- [CI40829538394 assessment](v06x-python-fixture-implementation-evidence/ci-40829538394/assessment.json):
+- [CI40829538394 assessment](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-python-fixture-implementation-evidence/ci-40829538394/assessment.json):
   source_commit `5a9f3172639f626b82a6e303a6de4942e0c42ace`, native command/callback
   reference and four installed-wheel configurations in each host/minor cell.
   Native schema_count_after is zero. Exact test counts and final host/temp owners
   are retained; controlled-owner failures are distinct from actual guest runs.
-- [CI40962108392 assessment](v06x-python-fixture-implementation-evidence/ci-40962108392/assessment.json):
+- [CI40962108392 assessment](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-python-fixture-implementation-evidence/ci-40962108392/assessment.json):
   source_commit `9e52f82e358c640dd18c54ddc209de173caa8144`, required-host/minor
   installed-wheel time checkpoint and bounded real FD STOP. The latter is now
   optional resource evidence, not a P1 completion gate.
@@ -62,7 +62,7 @@ cells, but both host canonical checks failed the same three obsolete workflow
 assertions: resource probe, resource guard and observation barrier suites were
 still required by their old tests in the ordinary P1 CI step. Each host reported
 3 failed / 1591 passed / 60 skipped. Installed-wheel P1 acceptance did not run.
-The [checksummed original failure](v06x-python-fixture-implementation-evidence/ci-40979625348/assessment.json)
+The [checksummed original failure](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-python-fixture-implementation-evidence/ci-40979625348/assessment.json)
 retains both check logs, native input files and original artifact digests.
 
 The correction removes those three superseded workflow obligations. The central
@@ -78,7 +78,7 @@ both-host/minor CI. Each installed-consumer cell reports 220 unit PASS and
 5 runtime PASS; the four resource experiments are explicitly SKIP. Both native
 input cells pass with schema_count_after=0. Four original ZIP digests and the
 898-file selected archive are checked and retained in the
-[receipt](v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json).
+[receipt](../../tests/fixtures/fixture-entry/p1-fixed-exit-assessment.json).
 All six fixed conditions now have evidence at their declared boundary. See the
 [adoption review](v06x-p1-fixed-exit-adoption-review.md) for recommendation and
 remaining protected-PR/Human decisions. Historical FAIL and earlier PASS records

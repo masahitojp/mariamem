@@ -31,7 +31,7 @@ Prior conditions are pinned in the
 [corrected Human Review at bfcab22](https://github.com/masahitojp/mariamem/blob/bfcab22c974f9bc4bb0dfd8e2d1f438eace89dc7/docs/reviews/v06x-preparation-migration-human-review.md#productization-acceptance--not-yet-satisfied).
 [CI40079827071](https://github.com/masahitojp/mariamem/actions/runs/40079827071)
 succeeded at the exact source above. The
-[saved independent assessment](v06x-preparation-migration-productization-evidence/ci-40079827071/assessment.json)
+[saved independent assessment](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-productization-evidence/ci-40079827071/assessment.json)
 binds jobs120830863509/120830863657, actual interpreter/package versions,
 source/fixture/SDK hashes, guest identity and per-OS host identity. Raw event
 classification and JUnit counts were independently recomputed after download.

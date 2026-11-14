@@ -60,8 +60,10 @@ conditions afterward. Keep candidate adoption separate from later release approv
 Use no fixed length: the opening must explain what to decide, why, and the main
 concern. Codex recommends; the Human decides and explores the evidence as PO.
 Use the scalable format in `docs/development.md#human-review-recommendations`.
-Keep approved product direction in `docs/project-status.md`; preserve historical
-reviews under their original evidence and decision context.
+Keep approved product direction in `docs/project-status.md` and continuing
+decisions in `docs/decisions/`. After transferring decision-relevant facts, delete
+obsolete reviews and raw evidence under `docs/decisions/evidence-retention.md`.
+Retained historical records keep their original evidence and decision context.
 Milestone/gate reviews follow the repository `review` skill
 (`.agents/skills/review/SKILL.md`; Pi `/skill:review`, Codex `$review`), which
 pins the artifact SHA, cross-checks prior acceptance conditions and checks

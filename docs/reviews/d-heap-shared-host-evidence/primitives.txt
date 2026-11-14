@@ -1,2 +1,0 @@
-ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.337s
-ok  	github.com/masahitojp/mariamem/internal/prepared	1.267s

@@ -80,12 +80,12 @@ permitted environment SKIP; required default/pure must execute in updated CI.
 
 ## Native CI receipts and adoption follow-up
 
-The [run metadata](v06x-shadow-maria-implementation-evidence/ci-40061580952/run.json),
-[job results](v06x-shadow-maria-implementation-evidence/ci-40061580952/jobs.json),
-[artifact IDs/digests](v06x-shadow-maria-implementation-evidence/ci-40061580952/artifacts.json)
+The [run metadata](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-shadow-maria-implementation-evidence/ci-40061580952/run.json),
+[job results](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-shadow-maria-implementation-evidence/ci-40061580952/jobs.json),
+[artifact IDs/digests](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-shadow-maria-implementation-evidence/ci-40061580952/artifacts.json)
 and [independent assessment](v06x-shadow-maria-implementation-evidence/ci-40061580952/assessment.json)
-are retained in the repository. Native [macOS inputs](v06x-shadow-maria-implementation-evidence/ci-40061580952/macos/inputs.json)
-and [Ubuntu inputs](v06x-shadow-maria-implementation-evidence/ci-40061580952/ubuntu/inputs.json)
+are retained in the repository. Native [macOS inputs](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-shadow-maria-implementation-evidence/ci-40061580952/macos/inputs.json)
+and [Ubuntu inputs](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-shadow-maria-implementation-evidence/ci-40061580952/ubuntu/inputs.json)
 bind host, guest, SDK, consumer and test identities. Each platform's `files.json`
 records original/stored hashes and runner-path/whitespace transformations.
 The input receipt's evidence hashes refer to original bytes; scrubbed copies are

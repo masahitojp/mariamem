@@ -17,16 +17,16 @@ version metadata, release-facing version examples and candidate notes.
 The candidate's version is v0.5.0 / Python0.5.0, guest MariaDB12.3.3 and Wasm
 `7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c`.
 
-The [receipt check](v050-final-qualification-evidence/receipt-check.json) records
+The [receipt check](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-final-qualification-evidence/receipt-check.json) records
 artifact IDs and ZIP hashes verified against the GitHub API. The saved aggregate
 READY replaces absolute runner home prefixes with `<runner-root>/` to preserve
 the public-source boundary. Original and saved hashes are recorded separately;
 identity review used the original bytes. Acceptance and qualification JSON bytes
 are retained unchanged:
-[aggregate READY](v050-final-qualification-evidence/ci-ready.json),
-[qualification references](v050-final-qualification-evidence/qualification.json),
-[macOS acceptance](v050-final-qualification-evidence/darwin-acceptance.json) and
-[Ubuntu acceptance](v050-final-qualification-evidence/ubuntu-acceptance.json).
+[aggregate READY](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-final-qualification-evidence/ci-ready.json),
+[qualification references](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-final-qualification-evidence/qualification.json),
+[macOS acceptance](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-final-qualification-evidence/darwin-acceptance.json) and
+[Ubuntu acceptance](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-final-qualification-evidence/ubuntu-acceptance.json).
 Acceptance hashes match READY; wheels match acceptance; all module and wheel
 source-inventory hashes match Git blobs at the exact tested source. This is a
 receipt/identity review, not a second local execution of the CI build or guard.

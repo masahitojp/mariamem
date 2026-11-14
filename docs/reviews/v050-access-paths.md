@@ -68,11 +68,11 @@ WASIX 2,577), the registered portability patch postimages, both pinned libc++abi
 guard files, function-map hash and transpiled-file provenance. Added source,
 changed archive/source bytes and writer inventory drift fail the check.
 It records 716 lexical references in the declared scope, with file hashes,
-line numbers and contexts. The [65-function inventory](v050-access-paths-evidence/writer-inventory.json),
-[source references](v050-access-paths-evidence/source-references.json),
-[generated excerpts](v050-access-paths-evidence/generated-excerpts.txt),
-[access statements](v050-access-paths-evidence/generated-accesses.json) and
-[conservative direct graph](v050-access-paths-evidence/direct-call-graph.json)
+line numbers and contexts. The [65-function inventory](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/writer-inventory.json),
+[source references](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/source-references.json),
+[generated excerpts](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/generated-excerpts.txt),
+[access statements](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/generated-accesses.json) and
+[conservative direct graph](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/direct-call-graph.json)
 are the reproducible evidence; the script does not assign automatic safety verdicts.
 
 ## Important target paths
@@ -282,7 +282,7 @@ updates while deliberately yielding inside the critical section:
 | mmap, observed `-race` | PASS, 2,000; wait path observed | Zero reports, **no safety inference** |
 | mmap, observer disabled | PASS, 2,000 | Normal exit; no dispatch count collected |
 
-Use [exact results](v050-access-paths-evidence/mutex-results.json) for the actual
+Use [exact results](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/mutex-results.json) for the actual
 wait counts; they are not performance measurements or simultaneous-event counts.
 The 22 reports are detector warnings from this run, not 22 independent defects
 or SQL failures; report counts vary with scheduling.
@@ -355,9 +355,9 @@ proves the whole guest safe.
 
 ## Verification, provenance and reproduction
 
-The [baseline receipt](v050-access-paths-evidence/baseline.json) checks a commit
-object. The [source preflight](v050-access-paths-evidence/source-preflight.json)
-and [analysis identities](v050-access-paths-evidence/identity.json) bind archives,
+The [baseline receipt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/baseline.json) checks a commit
+object. The [source preflight](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/source-preflight.json)
+and [analysis identities](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/identity.json) bind archives,
 ordered patches, selected source bytes and canonical provenance
 `98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97`.
 No runtime/source-identity migration or new generation occurred in this
@@ -408,6 +408,6 @@ Use Go1.26.8 and an absolute task-local GOCACHE. Mutex probe packaging and
 partial TLS are explicitly different from a full guest build; unused imports
 panic and real function/host/base bytes are bound by the result receipt.
 Saved raw/sanitized file hashes are in
-[saved-files.json](v050-access-paths-evidence/saved-files.json). Workspaces,
+[saved-files.json](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-access-paths-evidence/saved-files.json). Workspaces,
 downloads, source copies, generated probe modules and caches are disposable
 after source/results are committed. Stop here for Human Review.

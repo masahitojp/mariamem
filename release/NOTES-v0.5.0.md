@@ -19,7 +19,7 @@ Saved Snapshots from the previous guest are rejected by identity and must be
 recreated from SQL or fixtures. Normal Snapshot/Fork semantics are unchanged.
 
 The source and checks are documented in the
-[A–D integration](../docs/reviews/v050-ad-integration.md),
+[A–D integration](../docs/decisions/guest-patch-management.md),
 [correctness fixes](../docs/reviews/v050-correctness-fixes.md),
 [access review](../docs/reviews/v050-semantic-audit.md),
 [boundary repairs](../docs/reviews/v050-boundary-join-fixes.md) and

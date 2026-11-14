@@ -55,7 +55,7 @@ Linux amd64, stores use memory XCHGB/W and cmpxchg uses LOCK CMPXCHGB/W.
 RMW loops use existing exact-width reads and these width-specific compare
 primitives. AtomicEA still checks logical bounds/alignment first. Operands are
 truncated and old values zero-extended. Unsupported platforms fail explicitly.
-The [actual host disassembly](v050-exact-writers-integration-evidence/native-disassembly.txt)
+The [actual host disassembly](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/native-disassembly.txt)
 confirms 1/2-byte guest operands on the tested native arm64 binary; ABI stack
 loads/stores are separate. ARM exclusive monitor granules can still cause
 retries from nearby writes. On x86, failed cmpxchg can write the observed target
@@ -76,7 +76,7 @@ Its receipt correctly names source **a64d8b**, not the later runtime commit.
 This is one development guest build, contract `development-unqualified-v1`,
 not the two independent guest builds required for release qualification.
 The existing source, ordered guest patches, SDK/Binaryen inputs and build
-options are retained in the [guest receipt](v050-exact-writers-integration-evidence/guest.json).
+options are retained in the [guest receipt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/guest.json).
 
 | Identity | Result |
 | --- | --- |
@@ -96,10 +96,10 @@ First translation used `translate_guest.py`, then `setup_candidate.py
 `regenerate_release_guest.py --guest-dir ... --output ...` repeated translation,
 the unchanged memory32 oracle, adaptation and installation in another tree.
 Every output byte, including handwritten ownership glue, matched canonical
-source: [proof and complete inventory](v050-exact-writers-integration-evidence/regeneration.json).
+source: [proof and complete inventory](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/regeneration.json).
 There are 62 translated files; handwritten inventory grows from 21 to 26.
 The only translated-file delta is `code/base/base.go`; five new owned files and
-provenance complete the [exact output delta](v050-exact-writers-integration-evidence/generated-delta.json).
+provenance complete the [exact output delta](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/generated-delta.json).
 Guest function bodies/data and raw converter output are unchanged.
 
 License evidence records source-only continuity and the new provenance hash.
@@ -113,8 +113,8 @@ oracle was relaxed.
 ## Verification results
 
 Local environment: macOS 27.0.1 arm64, Go 1.26.8, Python 3.14, Node 26.9.0;
-exact receipts are in [platform.txt](v050-exact-writers-integration-evidence/platform.txt)
-and [python-tools.txt](v050-exact-writers-integration-evidence/python-tools.txt).
+exact receipts are in [platform.txt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/platform.txt)
+and [python-tools.txt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/python-tools.txt).
 The private wheel uses the existing 0.4.7 package label because no release
 preparation/version bump is part of this change. It is never published.
 
@@ -224,7 +224,7 @@ must keep these failure controls and exact source identities. Stop at this
 verification handoff; release approval has not been given.
 
 Evidence is compact: saved raw/sanitized log identities are in
-[saved-files.json](v050-exact-writers-integration-evidence/saved-files.json);
+[saved-files.json](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-exact-writers-integration-evidence/saved-files.json);
 the full guest-build log is represented by a marked final excerpt, phase/input
 receipts and its raw hash. Recreated source/download/build/cache/wheel trees
 are disposable after preserving committed source and these receipts.

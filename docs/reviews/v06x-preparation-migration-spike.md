@@ -62,9 +62,9 @@ host was closed. No production helper retry/rollback policy is added.
 [CI40072694488](https://github.com/masahitojp/mariamem/actions/runs/40072694488)
 passed at exact source_commit `84c8ee16e09ad63475f7185f04292e4624761a7c`.
 [Assessment/job identities](v06x-preparation-migration-spike-evidence/ci-40072694488/assessment.json),
-[artifact IDs/digests](v06x-preparation-migration-spike-evidence/ci-40072694488/artifacts.json),
-[macOS receipt](v06x-preparation-migration-spike-evidence/ci-40072694488/macos/results.json)
-and [Ubuntu receipt](v06x-preparation-migration-spike-evidence/ci-40072694488/ubuntu/results.json)
+[artifact IDs/digests](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-spike-evidence/ci-40072694488/artifacts.json),
+[macOS receipt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-spike-evidence/ci-40072694488/macos/results.json)
+and [Ubuntu receipt](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-preparation-migration-spike-evidence/ci-40072694488/ubuntu/results.json)
 are saved. Source/SDK/fixture hashes and exact failure classification were
 independently checked against the downloaded bytes. Each platform's files.json
 explains original/stored hashes and path/whitespace/XML escaping transformations.

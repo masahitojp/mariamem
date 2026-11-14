@@ -27,7 +27,7 @@ Human decision, not explanatory recommendations.
 
 The accepted set is `wire.supported_commands`, `wire.base_capability_bits` and
 `wire.conditional_ps_multi_results` in
-[the fixture acceptance contract](../reviews/v06x-fixture-acceptance.json), fixed
+[the fixture acceptance contract](../../tests/fixtures/fixture-entry/acceptance.json), fixed
 at the adopted source286976c7; the formerly proposed LOCAL INFILE,
 CHANGE_USER/STATISTICS/PROCESS_INFO and binlog/replication rows in
 [Remaining-path dispositions](../reviews/v060-wire-d1-reconciliation.md#remaining-path-dispositions)

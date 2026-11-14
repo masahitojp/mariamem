@@ -225,7 +225,7 @@ original run remains FAIL and supplies no P1 probe acceptance.
 
 [Fresh Live40846147295](https://github.com/masahitojp/mariamem/actions/runs/40846147295)
 and required gate123375744109 pass at executed sourcebd3ab3f, tree equal to head
-e5350bc3. The [source-bound receipt and raw G1/P1 files](v06x-python-fixture-implementation-evidence/ci-40846147295/assessment.json)
+e5350bc3. The [source-bound receipt and raw G1/P1 files](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-python-fixture-implementation-evidence/ci-40846147295/assessment.json)
 replay both hosts through the full G1 validator, including all modes, aligned
 retention observations and guards. Ubuntu actually records two zero-RSS samples
 followed by confirmed exits within the requested50ms wait; raw counters and

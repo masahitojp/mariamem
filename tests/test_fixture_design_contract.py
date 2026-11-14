@@ -85,3 +85,9 @@ def test_current_lint_does_not_replay_adoption_or_v060_placement():
     for key in ('reviewed_design_commit', 'decision_commit', 'decision_record', 'decision_record_sha256', 'notice_paths'):
         del plan['p1_approval'][key]
     assert validate(plan) == {'result': 'FIXTURE_CONTRACT_LINT_PASS', 'runtime': 'NOT_RUN'}
+
+
+def test_contract_formatting_does_not_change_validation():
+    plan = json.loads(CONTRACT.read_text())
+    reformatted = json.dumps(plan, sort_keys=True, separators=(",", ":"))
+    assert validate(json.loads(reformatted)) == validate(plan)

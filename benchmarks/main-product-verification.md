@@ -145,7 +145,7 @@ Snapshot短縮から全体が毎回短いとは推論しない。
 
 ## Previously slow small workflow
 
-元の[1540.44msの資源計測](../docs/reviews/d-heap-shared-host.md#最終候補対mainの限定比較)は
+元の[1540.44msの資源計測](../docs/decisions/snapshot-product-contract.md)は
 保存したまま。今回の追加反復30対ずつを通常／資源で分ける：
 
 | 条件・各variantの回数 | whole≥1000ms：旧→新 | start≥900ms：旧→新 | whole最大：旧→新 |

@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import go_fixture_campaign as campaign
 
-RESOURCES = json.loads((ROOT / 'docs/reviews/v06x-fixture-acceptance.json').read_text())['resources']
+RESOURCES = json.loads((ROOT / 'tests/fixtures/fixture-entry/acceptance.json').read_text())['resources']
 
 
 @pytest.mark.parametrize('rss', [0, 4096])

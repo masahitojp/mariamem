@@ -3,7 +3,7 @@
 [CI39729456821](https://github.com/masahitojp/mariamem/actions/runs/39729456821)
 completes all five jobs successfully at source_commit
 `fba09f6356fd13aa088f67a2e2c17cad6729ec7e`. The
-[receipt and raw case evidence](v06x-prepared-long-data-pass-evidence/receipt.json)
+[receipt and raw case evidence](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-prepared-long-data-pass-evidence/receipt.json)
 confirm the following on macOS15 arm64 and Ubuntu24.04 x86_64:
 
 | Gate | Result on each OS |
@@ -54,7 +54,7 @@ hash was checked against scripts/dev_guest.py's replacement. Canonical files in
 the repository were not regenerated or edited by this reporting task.
 
 To avoid saving three identical source maps in each development receipt,
-[source-identity.json](v06x-prepared-long-data-pass-evidence/source-identity.json)
+[source-identity.json](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v06x-prepared-long-data-pass-evidence/source-identity.json)
 is stored once. Each platform's development-summary.json retains generated/raw
 inventories, binary/toolchain/input identities, original receipt hash, references
 to that shared clean-source map, and the complete installed-host delta. Rebuild

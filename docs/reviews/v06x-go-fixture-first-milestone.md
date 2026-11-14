@@ -106,7 +106,7 @@ it automatically. Broader explanatory categories and suggested remedies may be
 reported as unfinished when their cost triggers the authorized first milestone.
 
 The [concrete API/ownership/failure proposal](v06x-go-fixture-api-design.md)
-and [acceptance contract](v06x-fixture-acceptance.json) are the next review inputs.
+and [acceptance contract](../../tests/fixtures/fixture-entry/acceptance.json) are the next review inputs.
 No helper, CLI command runner, new framework adapter, runtime/guest patch,
 resource scheduler or external-project execution was implemented by this design
 direction. The independent Oscar input stays an optional later workload for the

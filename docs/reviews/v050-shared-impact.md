@@ -36,7 +36,7 @@ The source archive is MariaDB source commit
 `36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845`.
 The preparation manifest shows that the MariaDB headers cited below were not
 guest-patched. See [identities](v050-shared-impact-evidence/identities.json) and
-the [A–D fixed-input report](v050-ad-integration.md). The build is explicitly
+the [A–D fixed-input report](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/v050-ad-integration.md). The build is explicitly
 `development-unqualified-v1`, not a release qualification.
 
 The same Wasm was disassembled using pinned Binaryen `version_133`. The

@@ -50,8 +50,8 @@ receipt and CI receipt retain their actual Python patch versions and environment
 
 [Local assessment](dbt-revalidation-evidence/local-f37b2a7b/assessment.json),
 [Ubuntu assessment](dbt-revalidation-evidence/ci-41089916368/assessment.json),
-[Ubuntu result](dbt-revalidation-evidence/ci-41089916368/result.json),
-[checksums](dbt-revalidation-evidence/ci-41089916368/SHA256SUMS.json).
+[Ubuntu result](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/dbt-revalidation-evidence/ci-41089916368/result.json),
+[checksums](https://github.com/masahitojp/mariamem/blob/a45604e848ff8f58c684f05016b994b7e6e6f7eb/docs/reviews/dbt-revalidation-evidence/ci-41089916368/SHA256SUMS.json).
 
 ## Disposition and boundaries
 
