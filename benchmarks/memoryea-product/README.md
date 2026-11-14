@@ -134,3 +134,30 @@ READY workflow with `operation=verify`, `mode=auto`. CI owns supported-platform
 and consumer qualification. No new version, main merge, publication or CI
 supervision is part of this submission. A CI success is still separate from
 Human adoption of the candidate.
+
+## Feature acceptance repair after CI 43623427404
+
+The initial verify run passed both runtime jobs but failed routing on both OSes
+before any cases ran: a historical hard-coded guest hash disagreed with the
+current canonical manifest. Routing now records the selected source's guest and
+checks its agreement with generated provenance and the input-manifest digest.
+Exact-source host verification and strict positive/mutation case oracles remain.
+
+The G1 fixture's final cleanup also required all unlinked bytes to disappear,
+contradicting the accepted process-lifetime image. Ubuntu's original receipt
+showed all four SQL cases passing and 9,101,312 retained bytes. The repair checks
+healthy image ownership against OS-observed allocated bytes **and unique-file
+count**, in both the Go producer and Python validator. No fixed byte allowance
+or blanket exclusion is used. Extra empty files, extra allocation, invalid/missing
+owner evidence and cleanup debt fail. Shared-image bytes still count against the
+existing disk guard; child/baseline/connection/linked-file cleanup remains zero.
+Pre-admission guard cleanup permits no image and no unlinked files.
+
+At source `cab524b5cc915ce2ade7d44285630822b55cddfb`, focused Python tests passed
+(92 tests, 25 subtests); two Go cleanup controls passed, including an actual empty
+unlinked-file probe. The unchanged release-profile G1 campaign passed all four
+cap/parallel modes and the intentional FD-headroom STOP probe on macOS arm64,
+Go1.26.10. [Compact observations](feature-ci-fix.json) retain source-bound final
+counters. Product runtime/guest and performance measurements are unchanged.
+Routing's full driver matrix and both-platform acceptance remain owned by the
+next exact-source CI run; these local results do not relabel the failed run.
