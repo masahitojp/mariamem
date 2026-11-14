@@ -27,8 +27,8 @@ def main():
     handwritten = set(HANDWRITTEN_FILES)
     require(not handwritten & set(record['files_sha256']),
             'generated/handwritten ownership overlaps; review the installer boundary')
-    inventory = {str(p.relative_to(source)):digest(p) for p in source.rglob('*')
-                 if p.is_file() and p.name != 'provenance.json' and str(p.relative_to(source)) not in handwritten}
+    inventory = {p.relative_to(source).as_posix():digest(p) for p in source.rglob('*')
+                 if p.is_file() and p.name != 'provenance.json' and p.relative_to(source).as_posix() not in handwritten}
     for name in handwritten:
         owner = handwritten_owner(ROOT, name)
         if owner != source/name:
