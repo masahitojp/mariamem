@@ -188,9 +188,10 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
              'test_p1_native_control.py', 'test_fixture_design_contract.py',
              'test_live_oracles.py', 'test_django_recipe_unit.py',
              'test_e2e_entry.py', 'test_forklimit_options.py')
-    # Discover all six callers from Release so a new owner cannot escape this check.
+    # Discover every caller; the inventory test reviews the exact owner set.
     callers = [job for job in model['jobs'].values() if 'uses' in job]
-    assert len(callers) == 6
+    assert len(callers) == len({job['uses'] for job in callers})
+    assert any(job['uses'].endswith('/additional-v062-build.yml') for job in callers)
     called_models = {Path(job['uses']).name: local_workflow(ROOT, job) for job in callers}
     called = {name: commands(value) for name, value in called_models.items()}
     for name in moved:
@@ -225,7 +226,11 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
     assert './mariamemtest' in race and '-count=1' in race
     assert {'macos-15', 'ubuntu-24.04'} <= {job.get('runs-on') for job in model['jobs'].values()}
     assert model['jobs']['core_darwin']['steps'] == model['jobs']['core_ubuntu']['steps']
-    assert all(any('os' in job.get('strategy', {}).get('matrix', {}) for job in value['jobs'].values()) for value in called_models.values())
+    assert all(any('os' in job.get('strategy', {}).get('matrix', {}) for job in value['jobs'].values())
+               for name, value in called_models.items() if name != 'additional-v062-build.yml')
+    native = called_models['additional-v062-build.yml']['jobs']['native']
+    assert {cell['runner'] for cell in native['strategy']['matrix']['include']} == {
+        'ubuntu-24.04', 'ubuntu-24.04-arm', 'windows-2025', 'windows-11-arm'}
 
 
 @pytest.mark.parametrize('mutation', ['empty-assets', 'bad-hash', 'source', 'platform', 'not-ready'])

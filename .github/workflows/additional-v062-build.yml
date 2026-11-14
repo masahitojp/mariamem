@@ -1,0 +1,103 @@
+name: Additional 0.6.2 native qualification
+on:
+  workflow_call:
+    inputs:
+      source:
+        type: string
+        required: true
+permissions:
+  contents: read
+env:
+  PYTHONUTF8: '1'
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: linux-x86_64
+            arch: x86_64
+            python: x64
+          - runner: ubuntu-24.04-arm
+            target: linux-aarch64
+            arch: aarch64
+            python: arm64
+          - runner: windows-2025
+            target: windows-x86_64
+            arch: AMD64
+            python: x64
+          - runner: windows-11-arm
+            target: windows-arm64
+            arch: ARM64
+            python: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.source }}
+          path: product
+          fetch-depth: 0
+        env:
+          GIT_CONFIG_COUNT: '1'
+          GIT_CONFIG_KEY_0: core.autocrlf
+          GIT_CONFIG_VALUE_0: 'false'
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache-dependency-path: product/go.sum
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+          architecture: ${{ matrix.python }}
+      - name: Source and changed OS boundaries
+        working-directory: product
+        shell: bash
+        env:
+          CGO_ENABLED: '0'
+          TARGET: ${{ matrix.target }}
+          ARCH: ${{ matrix.arch }}
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          python scripts/verify_generated_runtime.py
+          python -m pip install pytest==8.4.2 PyMySQL==1.2.3 wheel==0.45.1 setuptools==80.9.0
+          PYTHONPATH=python python -m pytest -q tests/test_distribution_licenses.py tests/test_windows_distribution.py
+          go test -count=1 ./internal/snapshot ./internal/artifacts ./internal/forklimit ./internal/entropyfs ./internal/generatedgo/code/base
+          mkdir -p build/linux-receipts
+          python scripts/git_identity.py inspect HEAD > build/linux-receipts/source.json
+          if [[ "$TARGET" == linux-* ]]; then
+            test "$(uname -m)" = "$ARCH"
+            PYTHONPATH=python python -m pytest -q tests/test_linux_distribution.py
+            go test -count=1 ./internal/generatedgo -run '^TestMapped'
+            python scripts/build_alpha.py --target "$TARGET" --ci-candidate
+          else
+            python -c 'import os,platform; assert platform.machine().upper()==os.environ["ARCH"]'
+            go test -count=1 ./internal/control -run '^(TestOwnedLogCleanupClosesBeforeRemoval|TestDatabaseLogCleanupRetriesRemovalAfterClosingWriter)$'
+            python scripts/build_alpha.py --ci-candidate
+          fi
+      - name: Accept the exact installed wheel
+        working-directory: product
+        shell: bash
+        env:
+          TARGET: ${{ matrix.target }}
+          ARCH: ${{ matrix.arch }}
+        run: |
+          if [[ "$TARGET" == linux-* ]]; then
+            python scripts/linux_wheel_acceptance.py --target "$TARGET" --arch "$ARCH"
+          else
+            python scripts/windows_wheel_acceptance.py --target "$TARGET" --wheel "$(python -c 'import json; print(json.load(open("tests/evidence/alpha-wheel.json"))["wheel"])')" --output build/acceptance.json
+          fi
+          mkdir -p accepted
+          cp build/dist/*.whl tests/evidence/alpha-wheel.json accepted/
+          if [[ "$TARGET" == linux-* ]]; then
+            cp build/linux-receipts/manylinux_2_28.json build/linux-receipts/musllinux_1_2.json accepted/
+          else
+            cp build/acceptance.json accepted/
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: additional-input-${{ matrix.target }}-${{ inputs.source }}
+          path: product/accepted/*
+          if-no-files-found: error
+          retention-days: 14

@@ -365,3 +365,10 @@ def test_workflow_migration_keeps_conservative_boundaries():
         result = scope.select([path])
         assert result['check_scope'] == 'full'
         assert result['integration'] and result['linux_wheel']
+
+
+def test_additional_publication_tooling_does_not_select_main_runtime():
+    result = scope.select(['scripts/additional_v062.py',
+                           'tests/test_additional_v062.py',
+                           '.github/workflows/additional-v062-build.yml'])
+    assert result['check_scope'] == 'python' and not result['integration']

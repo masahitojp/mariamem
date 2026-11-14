@@ -72,7 +72,9 @@ def test_recovery_workflow_has_no_qualification_or_publication_dependencies():
     assert 'needs' not in job
     assert job['permissions'] == {'contents': 'read', 'actions': 'read'}
     assert job['runs-on'] == 'ubuntu-24.04'
-    assert any(owner.get('if', '').startswith("inputs.operation != 'public-smoke-recovery'") for owner in model['jobs'].values())
+    condition = model['jobs']['resolve']['if']
+    assert "inputs.operation != 'public-smoke-recovery'" in condition
+    assert '!inputs.additional_v062' in condition
     script = '\n'.join(step.get('run', '') for step in job['steps'])
     assert 'recover-public-smoke' in script
     assert all(name not in script for name in ('build_alpha','ci_release_publish','restore-platform',' guard '))
