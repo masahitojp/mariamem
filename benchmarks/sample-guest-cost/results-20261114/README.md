@@ -35,6 +35,44 @@ Go1.27.4/macOS arm64/CGO0/GOMAXPROCS8/GOGC100、共有Mac。依存とビルド�
 
 元SQLはcategories→products→order_items→ordersを結合して外側でSUM。対照は対象statusのordersと明細・productsを内側でcategory_id別にSUMしてからcategoriesへLEFT JOINし、COALESCEと並び順を維持。新index・設定変更なし。SQL全文はharness/*/store/store.goのrevenueSQLに保存。
 
+### 実際に変更したSQLと呼出し箇所
+
+変更は計測用ハーネスの `store/store.go` に限定する。`RevenueByCategory` の `db.QueryContext(ctx, SQLリテラル)` を `db.QueryContext(ctx, revenueSQL())` に変更し、`REVENUE_PREAGG=1` のときだけ対照SQLを返す。同じ切替を両側のハーネスへ追加した。製品側のSQL/APIは変更していない。
+
+元SQL:
+
+```sql
+SELECT c.name, COALESCE(sum(s.cents), 0)
+		  FROM categories c
+		  LEFT JOIN (
+		        SELECT p.category_id, i.quantity * i.unit_price_cents AS cents
+		          FROM order_items i
+		          JOIN orders o ON o.id = i.order_id AND o.status IN ('paid', 'shipped')
+		          JOIN products p ON p.id = i.product_id
+		       ) s ON s.category_id = c.id
+		 GROUP BY c.id, c.name
+		 ORDER BY 2 DESC, c.name
+```
+
+事前集約SQL:
+
+```sql
+SELECT c.name, COALESCE(s.cents, 0)
+ FROM categories c LEFT JOIN (
+ SELECT p.category_id, SUM(i.quantity * i.unit_price_cents) AS cents
+ FROM order_items i JOIN orders o ON o.id=i.order_id AND o.status IN ('paid','shipped')
+ JOIN products p ON p.id=i.product_id GROUP BY p.category_id
+ ) s ON s.category_id=c.id ORDER BY 2 DESC, c.name
+```
+
+差分の中心は、`SUM` と `GROUP BY` を内側へ移したこと。
+
+- 元: 内側は明細ごとの `quantity * unit_price_cents` を返し、外側で `SUM(s.cents)` と `GROUP BY c.id, c.name` を行う。
+- 対照: 内側で `SUM(quantity * unit_price_cents)` と `GROUP BY p.category_id` を行い、外側はそのカテゴリ別合計を `COALESCE(s.cents, 0)` で受け取る。
+- 両方で注文status条件、categoriesへのLEFT JOIN、売上降順・カテゴリ名順を維持する。
+
+実装: [mariamem側 store.go](harness/maria-suite/store/store.go) / [比較対照側 store.go](harness/pg-suite/store/store.go)。`revenueSQL()` の末尾に元SQLと対照SQLを両方保持している。
+
 各エンジン3process、各process100組。元/対照の実行順を組ごとに交替。各呼出しの全結果・順序を元の結果とDeepEqualで照合し、全1200呼出しで一致。検証は今回の決定的fixtureに対する有限検査であり、全データ型・数値境界に対する一般証明ではない。別processで両SQLの実行計画を取得。
 
 | 単独DB・各process中央値の中央値 | 元SQL | 事前集約 |
