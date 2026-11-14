@@ -185,10 +185,11 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
              'test_p1_native_control.py', 'test_fixture_design_contract.py',
              'test_live_oracles.py', 'test_django_recipe_unit.py',
              'test_e2e_entry.py', 'test_forklimit_options.py')
-    # Discover all six callers from Release so a new owner cannot escape this check.
+    # Discover every caller; the workflow inventory test reviews the exact owner set.
     import re
     paths = re.findall(r'uses: \./(\.github/workflows/[^\s]+)', text)
-    assert len(paths) == 6
+    assert paths and len(paths) == len(set(paths))
+    assert '.github/workflows/additional-v062-build.yml' in paths
     called = {Path(path).name: (ROOT/path).read_text() for path in paths}
     for name in moved:
         assert units.count('tests/'+name) == 1
@@ -222,7 +223,14 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
     assert './mariamemtest' in race and '-count=1' in race
     assert 'runs-on: macos-15' in text and 'runs-on: ubuntu-24.04' in text
     assert 'steps: *core_steps' in text
-    assert all('os: [' in body for body in called.values())
+    # The existing six feature owners retain their OS/minor matrix. The additive
+    # owner has four native CPU runners, checked separately below.
+    assert all('os: [' in body for name, body in called.items()
+               if name != 'additional-v062-build.yml')
+    from workflow_model import parse
+    native = parse(called['additional-v062-build.yml'])['jobs']['native']
+    assert {cell['runner'] for cell in native['strategy']['matrix']['include']} == {
+        'ubuntu-24.04', 'ubuntu-24.04-arm', 'windows-2025', 'windows-11-arm'}
 
 
 @pytest.mark.parametrize('mutation', ['empty-assets', 'bad-hash', 'source', 'platform', 'not-ready'])

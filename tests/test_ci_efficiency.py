@@ -203,7 +203,12 @@ def test_shared_release_policy_rejects_trigger_and_identity_regressions(before, 
 def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
     release = parse((ROOT/'.github/workflows/release-candidate-ready.yml').read_text())
     called = [Path(job['uses']).stem for job in release['jobs'].values() if 'uses' in job]
-    assert set(called) == set(RELEASE_WORKFLOWS) and len(called) == len(RELEASE_WORKFLOWS)
+    expected = set(RELEASE_WORKFLOWS) | {'additional-v062-build'}
+    assert set(called) == expected and len(called) == len(expected)
+    additional = parse((ROOT/'.github/workflows/additional-v062-build.yml').read_text())
+    assert set(events(additional)) == {'workflow_call'}
+    assert all(step.get('with', {}).get('ref') == '${{ inputs.source }}'
+               for step in steps(additional) if action(step, 'actions/checkout'))
     for path in (ROOT/'.github/workflows').glob('*.yml'):
         triggers = events(parse(path.read_text(), str(path)))
         assert not set(triggers) & {'push', 'schedule', 'workflow_run', 'pull_request_target'}, path

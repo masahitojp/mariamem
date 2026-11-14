@@ -67,7 +67,10 @@ def test_recovery_workflow_has_no_qualification_or_publication_dependencies():
     assert '    needs:' not in job
     assert '      contents: read\n      actions: read' in job
     assert 'runs-on: ubuntu-24.04' in job
-    assert "if: inputs.operation != 'public-smoke-recovery'" in workflow
+    from workflow_model import parse
+    resolve_condition = parse(workflow)['jobs']['resolve']['if']
+    assert "inputs.operation != 'public-smoke-recovery'" in resolve_condition
+    assert '!inputs.additional_v062' in resolve_condition
     commands=job
     assert 'recover-public-smoke' in commands
     assert all(name not in commands for name in ('build_alpha','ci_release_publish','restore-platform',' guard '))
