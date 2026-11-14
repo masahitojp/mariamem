@@ -135,6 +135,22 @@ def test_replaced_image_binding_reconstructs_exact_audited_provenance(tmp_path):
     shutil.copytree(ROOT/'internal/generatedgo/image', target/'image')
     shutil.copyfile(ROOT/'internal/generatedgo/provenance.json', target/'provenance.json')
     evidence = json.loads((ROOT/'release/generated-license-evidence.json').read_text())
+    # Exercise a metadata transition explicitly, including after a fresh exact audit.
+    from common import digest
+    provenance = target/'provenance.json'
+    record = json.loads(provenance.read_text())
+    layout = target/'image/layout.json'
+    policy_path = tmp_path/'release/attribution-tolerance.json'
+    policy = json.loads(policy_path.read_text())
+    for row in policy['metadata_files']:
+        if row['path'] == 'image/layout.json':
+            row['before'] = digest(layout)
+    policy_path.write_text(json.dumps(policy, indent=2)+'\n')
+    evidence['generated_provenance_sha256'] = digest(provenance)
+    evidence['audited_image_metadata_sha256'] = digest(layout)
+    layout.write_bytes(layout.read_bytes()+b'\n')
+    record['files_sha256']['image/layout.json'] = digest(layout)
+    provenance.write_text(json.dumps(record, indent=2)+'\n')
     assert verify_generated_attribution(tmp_path, evidence) == 'unchanged-generated-code; image-metadata-only'
     bad = dict(evidence, audited_image_metadata_sha256='0'*64)
     with pytest.raises(ValueError, match='beyond image metadata'):
