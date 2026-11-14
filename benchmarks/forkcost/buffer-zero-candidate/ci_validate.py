@@ -4,7 +4,7 @@ Test-only overlays inject EIO and observe real redo recovery. They never enter
 product code or performance binaries. Output is an external disposable directory.
 """
 from pathlib import Path
-import argparse,os,subprocess,shutil,json,sys
+import argparse,os,subprocess,shutil,json,sys,re
 HERE=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--root',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);a=parser.parse_args();root=a.root.resolve();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);e=out/'evidence';t=out/'temp';e.mkdir();t.mkdir();(t/'tmp').mkdir()
 # The generic overlay builder is the same recipe used locally. Its explicit
@@ -12,7 +12,7 @@ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--root'
 s=(HERE/'tools/build-extra.py').read_text();old="product=X/'worktree' if variant=='baseline' else T/'native/product'";assert old in s;s=s.replace(old,'product=Path(os.environ["MARIAMEM_BUFFER_CANDIDATE_ROOT"])').replace("GOCACHE=str(T/'gocache'),GOMODCACHE=str(T/'modcache'),",'');(e/'build-extra.py').write_text(s)
 for n in ('correct','fault','recovery'):
  shutil.copytree(HERE/'harness'/n,t/n)
- p=t/n/'go.mod';v=p.read_text();p.write_text(v[:v.index('replace github.com/masahitojp/mariamem')]+f'replace github.com/masahitojp/mariamem => {root}\n')
+ p=t/n/'go.mod';v=p.read_text();v=re.sub(r'(?m)^go 1\.27$', 'go 1.26.0', v);p.write_text(v[:v.index('replace github.com/masahitojp/mariamem')]+f'replace github.com/masahitojp/mariamem => {root}\n')
 for n in ('buffer_fault_experiment.go','buffer_recovery_witness.go'):shutil.copy2(HERE/'harness'/(n+'.txt'),t/n)
 env=dict(os.environ,MARIAMEM_BUFFER_CANDIDATE_ROOT=str(root),CGO_ENABLED='0',GOMAXPROCS='8',GOGC='100',TMPDIR=str(t/'tmp'))
 def run(name,cmd):

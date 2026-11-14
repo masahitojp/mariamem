@@ -32,5 +32,6 @@ for src in sorted(E.glob('*')):
  else:add(src,('evidence/' if src.suffix in ('.json','.csv') else 'validation/')+src.name)
 for src in (T/'guest/guest.json',T/'native/development.json',T/'native/installation-inputs.json',T/'native/translation/input-manifest.json',T/'build/buffer-pool-contract-0.json'):
  add(src,'build-evidence/'+src.parent.name+'-'+src.name+'.gz',compressed=True)
+for row in rows:row['public_uncompressed_sha256']=hashlib.sha256((D/row['target']).read_bytes()).hexdigest()
 (D/'publication.json').write_text(json.dumps({'normalization':'Paths and trailing whitespace only; numerical observations unchanged. Portable harness replace path follows repository location. Historical input records are evidence, not current install inputs.','files':rows},indent=2)+'\n')
 print('Published',len(rows),'compact evidence files')
