@@ -1,0 +1,33 @@
+{
+  "run_id": 43558598552,
+  "source_commit": "003111b91c2140133d40c9af0db356b6e29fe8f9",
+  "failure": "Native checkout defaulted to shallow history; two fixture source identity tests could not resolve ancestor d8f66d9a5605b3b738b2175268a3734ee1c89a4a.",
+  "jobs": {
+    "macos": {
+      "artifact_zip_sha256": "822129d466fd55e34558a95352948950427392e2982075e44f8c6455aebecc13",
+      "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+      "guest_source_commit": "003111b91c2140133d40c9af0db356b6e29fe8f9",
+      "independent_builds": 2,
+      "regeneration_result": "PASS",
+      "failed_tests": [
+        "test_current_contract_never_claims_runtime_acceptance_or_new_authorization",
+        "test_current_lint_does_not_replay_adoption_or_v060_placement"
+      ],
+      "python_passed": 1913,
+      "python_failed": 2
+    },
+    "ubuntu": {
+      "artifact_zip_sha256": "e6389f145c73c1d4fef1614d2d4ff1a566d78202df5a9581f06f9044ba414efc",
+      "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+      "guest_source_commit": "003111b91c2140133d40c9af0db356b6e29fe8f9",
+      "independent_builds": 2,
+      "regeneration_result": "PASS",
+      "failed_tests": [
+        "test_current_contract_never_claims_runtime_acceptance_or_new_authorization",
+        "test_current_lint_does_not_replay_adoption_or_v060_placement"
+      ],
+      "python_passed": 1913,
+      "python_failed": 2
+    }
+  }
+}

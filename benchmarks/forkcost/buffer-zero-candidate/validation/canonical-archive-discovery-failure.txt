@@ -1,0 +1,90 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+........................................................................ [ 82%]
+...............                                   [100%]
+87 passed, 23 subtests passed in 11.46s
++ go test -p 1 -vet=off ./...
+# github.com/masahitojp/mariamem/benchmarks/forkcost/buffer-zero-candidate/harness
+found packages generatedgo (buffer_fault_experiment.go) and base (buffer_recovery_witness.go) in /private/tmp/mariamem-buffer-zero-audit-clone/benchmarks/forkcost/buffer-zero-candidate/harness
+FAIL	github.com/masahitojp/mariamem/benchmarks/forkcost/buffer-zero-candidate/harness [setup failed]
+ok  	github.com/masahitojp/mariamem	0.920s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.254s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/platform-cache	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/ubuntu-startup	0.283s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	0.879s
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	0.839s
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.256s
+ok  	github.com/masahitojp/mariamem/internal/control	0.816s
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	0.223s
+ok  	github.com/masahitojp/mariamem/internal/disposal	0.231s
+ok  	github.com/masahitojp/mariamem/internal/forklimit	0.227s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.914s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.467s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	0.407s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	1.777s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	0.257s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/layoutgen	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.802s
+ok  	github.com/masahitojp/mariamem/internal/host	0.276s
+ok  	github.com/masahitojp/mariamem/internal/live	0.276s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.762s
+ok  	github.com/masahitojp/mariamem/internal/prepared	0.257s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	0.266s
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.461s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.243s
+ok  	github.com/masahitojp/mariamem/mariamemtest	0.945s
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
+FAIL
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 210, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 187, in main
+    check(args.scope, profile=args.profile)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 73, in check
+    run(["go", "test", "-p", "1", "-vet=off", *packages])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 36, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['go', 'test', '-p', '1', '-vet=off', './...']' returned non-zero exit status 1.

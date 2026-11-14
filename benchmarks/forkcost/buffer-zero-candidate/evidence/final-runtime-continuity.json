@@ -1,0 +1,6 @@
+{
+  "verified_source_commit": "e9f1e26da769c3d7ec9318f390c9c9cd246c56c0",
+  "paths": "internal/,guest/,release/,scripts/,python/,Go API files,go.mod/go.sum",
+  "result": "EMPTY_DIFF_AFTER_LOCAL_CHECK",
+  "later_changes": "Archived evidence, status, reproduction/verification scripts only; no new runtime execution is relabeled."
+}

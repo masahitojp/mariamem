@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+    "reference_source_commit": "eeef899a296be8aa38cc9e3de0a550c428d4dca9",
+    "build_source_commit": "3cfd9854d235d4d472734206d2ba03c6944d7d3a",
+    "equivalence": "All tracked Go/assembly files, internal/, cmd/, release/, go.mod/go.sum identical to current-main reference. Baseline uses already canonical generated guest, not candidate source.patch."
+  },
+  "guest": {
+    "source_commit": "3cfd9854d235d4d472734206d2ba03c6944d7d3a",
+    "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+    "linked_sha256": "267763a3a8fab4896a77cc15d3006318b5a61fc49f403d2d3c6c2109852545fc",
+    "prepared_buf_sha256": "12a670fa6cb8980e53bb30f2dd973d7cd1d4c2b625b2db6c59a84d0946dd3af4"
+  },
+  "host_source_commit": "29d7e04a3822a01ec26f74e52290e1b0c8b2058b",
+  "scope": "C candidate and explicit exact-SHA UNQUALIFIED dev host; not release qualification"
+}

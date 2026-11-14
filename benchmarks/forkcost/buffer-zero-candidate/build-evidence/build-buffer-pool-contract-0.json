@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "scope": "host C contract; not real WASIX OOM or guest execution",
+  "checks": [
+    "dirty-buffer zero-fill, exact alignment/size, legacy 4KiB, controlled ENOMEM, original-pointer free",
+    "C implementation / C++ caller linkage",
+    "pool-only dirty allocation, bounded descriptor clear, preserved frame bytes, ENOMEM/free; three mutations rejected",
+    "four semantic mutations rejected"
+  ],
+  "sources_sha256": {
+    "mysys/my_largepage.c": "c1107852a72152a8a481c86d77f80f360dadaddd7cea73e492d45bacef6706ae",
+    "include/my_sys.h": "ca63169323dcca605124befff5f40a56b78d3385e10f7d901a66ae7238634db5",
+    "storage/innobase/buf/buf0buf.cc": "12a670fa6cb8980e53bb30f2dd973d7cd1d4c2b625b2db6c59a84d0946dd3af4",
+    "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0"
+  },
+  "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0"
+}

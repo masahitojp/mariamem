@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "scope": "canonical actual basic/large/compressed/resize/Fork/fault/clean-vs-dirty redo controls; test-only overlays excluded from product"
+}

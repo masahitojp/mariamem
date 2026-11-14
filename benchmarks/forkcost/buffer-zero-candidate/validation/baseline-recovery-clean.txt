@@ -1,0 +1,15 @@
+PASS actual_redo_recovery_exact_isolated_fork 0
+PASS actual_redo_recovery_exact_isolated_fork 1
+{
+  "crash_fixture": false,
+  "recovery_branches": [
+    0,
+    0
+  ],
+  "success": true,
+  "mode": "",
+  "fixture": "test-only host overlay captures fast_shutdown=2 filesystem; normal Snapshot remains fast_shutdown=1",
+  "recovery_logs": null,
+  "poison_witnesses": 0,
+  "verified_forks": 2
+}

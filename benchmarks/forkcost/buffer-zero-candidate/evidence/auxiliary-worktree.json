@@ -1,0 +1,9 @@
+{
+  "path": "/private/tmp/mariamem-buffer-zero-audit-953ffbe0",
+  "source_commit": "953ffbe0fcc5eaa4cd9c4901991a4bea5df9bde7",
+  "purpose": "Exact same clean candidate outside nested repository for truthful Go VCS stamping and local canonical verification",
+  "cleanup": "Git-aware removal after exporting records; no independent source/history retained here",
+  "disposition": "External worktree also lacked Go VCS stamps and was removed with Git. Same commit was audited in a normal shared clone with a real .git directory.",
+  "clone_path": "/private/tmp/mariamem-buffer-zero-audit-clone",
+  "clone_cleanup": "Remove after local canonical check/integration logs and exact source IDs are preserved."
+}

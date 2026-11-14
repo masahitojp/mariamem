@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "<workspace>/temp/venv/bin/python",
+    "<workspace>/worktree/scripts/regenerate_release_guest.py",
+    "--development",
+    "--guest-dir",
+    "<workspace>/temp/guest",
+    "--output",
+    "<workspace>/temp/native"
+  ],
+  "timeout_seconds": 2700
+}

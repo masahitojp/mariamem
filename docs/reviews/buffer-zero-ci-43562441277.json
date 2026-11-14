@@ -1,0 +1,59 @@
+{
+  "run_id": 43562441277,
+  "source_commit": "f8df7a0d10bee4a34010851828ff0dd487bdbaf0",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "failure": "macOS fault fixture did not exercise /faultprobe.ibd: hits0. Its 2MiB payload can fit entirely in the 16MiB buffer pool before post-Ready injection. No corruption was reported.",
+  "jobs": {
+    "macos": {
+      "artifact_zip_sha256": "589975bcd8015a9b5745c2dcd089f05a2ed19ab0946b186dcf90b7b75dad151c",
+      "standard_check": "PASS",
+      "integration": "PASS",
+      "basic_large_compressed_resize_fork": "PASS",
+      "fault": "FAIL: hits0",
+      "redo": "NOT RUN"
+    },
+    "ubuntu": {
+      "artifact_zip_sha256": "cfacf6edbf4733b2df76de0bd89de8860b5883150724a16fda2fb824c89fd262",
+      "standard_check": "PASS",
+      "integration": "PASS",
+      "basic_large_compressed_resize_fork": "PASS",
+      "fault": "PASS: one hit per path, correct data and healthy sibling",
+      "redo": "PASS: clean0/dirty1"
+    }
+  },
+  "local_validation": {
+    "source_commit": "f8df7a0d10bee4a34010851828ff0dd487bdbaf0",
+    "working_fixture_sha256": "07ddc997da8339238cafb5d4fd1b020ea959ecc82fde33a9a837e9745537805c",
+    "binary_sha256": "6f54c07a4ee9d98e3c35c5e2475b6556b0ef51cff62ef994fac3fb3c12bf2a8e",
+    "go_version": "go1.27.4 darwin/arm64",
+    "environment": {
+      "GOMAXPROCS": "8",
+      "GOGC": "100",
+      "CGO_ENABLED": "0"
+    },
+    "build": "go build -p 1 -trimpath -buildvcs=false -overlay fault-overlay.json -o fault-bin .",
+    "overlay": "Archived buffer_fault_experiment.go.txt plus runtime_instance.go SetFS(newBPFaultFS(fs)); same recipe as maintained runner. No recovery overlay.",
+    "result": {
+      "success": true,
+      "cases": [
+        {
+          "path": "/faultprobe.ibd",
+          "hits": 1,
+          "hits_at_ready": 0,
+          "outcome": "recovered_correct",
+          "poison_witness": false,
+          "healthy_sibling": true
+        },
+        {
+          "path": "/ibdata1",
+          "hits": 1,
+          "hits_at_ready": 1,
+          "outcome": "recovered_correct",
+          "poison_witness": false,
+          "healthy_sibling": true
+        }
+      ]
+    },
+    "scope": "Actual candidate fault fixture only. CI uses Go1.26.10 and reruns all controls on both platforms; local result does not substitute for it."
+  }
+}

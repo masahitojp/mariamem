@@ -1,0 +1,7 @@
+{
+  "sha256": "c92a93ab552b523a75323351b8fc57b36ebc207e57b3d6d517c5edc46a17fcf6",
+  "overlays": {
+    "<workspace>/worktree/internal/generatedgo/runtime_instance.go": "636c0ac3e8336677cb077b2e0bdadd72ae3d026559bcb556ad9ef281a63a16a9",
+    "<workspace>/worktree/internal/generatedgo/buffer_fault_experiment.go": "d7f36c6b1d61017378a7c1a52feabe271427b65c999a77dee76c9a8e1164e733"
+  }
+}

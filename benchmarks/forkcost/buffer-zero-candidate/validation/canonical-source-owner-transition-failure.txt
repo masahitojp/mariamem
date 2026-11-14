@@ -1,0 +1,163 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+...................................................................F.... [ 82%]
+.........FFFFF.                                   [100%]
+=================================== FAILURES ===================================
+_______________ test_python_license_mirrors_match_source_inputs ________________
+
+    def test_python_license_mirrors_match_source_inputs():
+        root = Path(__file__).resolve().parents[1]
+>       assert (root/'python/license-inventory.json').read_bytes() == (root/'release/distribution-licenses.json').read_bytes()
+E       assert b'{\n  "versi...  }\n  }\n}\n' == b'{\n  "versi...  }\n  }\n}\n'
+E
+E         At index 3738 diff: b'e' != b'7'
+E         Use -v to get more diff
+
+tests/test_packaging_license_mirrors.py:7: AssertionError
+______________________ test_actual_guest_fixture_binding _______________________
+
+    def test_actual_guest_fixture_binding():
+>       guard.validate(ROOT)
+
+tests/test_dictionary_wait_runtime.py:12:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/private/tmp/mariamem-buffer-zero-audit-clone')
+
+    def validate(root=ROOT):
+        root = Path(root)
+        pins = json.loads((root/'tests/fixtures/dictionary-wait-layout.json').read_text())
+        guest = json.loads((root/'release/generated-go-inputs.json').read_text())
+        if (guest['guest_sha256'] != pins['guest_sha256'] or
+                guest['data_sha256'] != pins['data_sha256']):
+>           raise ValueError('dictionary fixture guest/data changed')
+E           ValueError: dictionary fixture guest/data changed
+
+scripts/check_dictionary_wait_runtime.py:31: ValueError
+_______ test_removed_guest_notification_or_lock_is_rejected[Fn16580(m)] ________
+
+call = 'Fn16580(m)'
+
+    @pytest.mark.parametrize('call', ['Fn16580(m)', 'Fn16581(m)', 'Fn17730(m)'])
+    def test_removed_guest_notification_or_lock_is_rejected(call):
+>       pins = guard.validate(ROOT)
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dictionary_wait_runtime.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/private/tmp/mariamem-buffer-zero-audit-clone')
+
+    def validate(root=ROOT):
+        root = Path(root)
+        pins = json.loads((root/'tests/fixtures/dictionary-wait-layout.json').read_text())
+        guest = json.loads((root/'release/generated-go-inputs.json').read_text())
+        if (guest['guest_sha256'] != pins['guest_sha256'] or
+                guest['data_sha256'] != pins['data_sha256']):
+>           raise ValueError('dictionary fixture guest/data changed')
+E           ValueError: dictionary fixture guest/data changed
+
+scripts/check_dictionary_wait_runtime.py:31: ValueError
+_______ test_removed_guest_notification_or_lock_is_rejected[Fn16581(m)] ________
+
+call = 'Fn16581(m)'
+
+    @pytest.mark.parametrize('call', ['Fn16580(m)', 'Fn16581(m)', 'Fn17730(m)'])
+    def test_removed_guest_notification_or_lock_is_rejected(call):
+>       pins = guard.validate(ROOT)
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dictionary_wait_runtime.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/private/tmp/mariamem-buffer-zero-audit-clone')
+
+    def validate(root=ROOT):
+        root = Path(root)
+        pins = json.loads((root/'tests/fixtures/dictionary-wait-layout.json').read_text())
+        guest = json.loads((root/'release/generated-go-inputs.json').read_text())
+        if (guest['guest_sha256'] != pins['guest_sha256'] or
+                guest['data_sha256'] != pins['data_sha256']):
+>           raise ValueError('dictionary fixture guest/data changed')
+E           ValueError: dictionary fixture guest/data changed
+
+scripts/check_dictionary_wait_runtime.py:31: ValueError
+_______ test_removed_guest_notification_or_lock_is_rejected[Fn17730(m)] ________
+
+call = 'Fn17730(m)'
+
+    @pytest.mark.parametrize('call', ['Fn16580(m)', 'Fn16581(m)', 'Fn17730(m)'])
+    def test_removed_guest_notification_or_lock_is_rejected(call):
+>       pins = guard.validate(ROOT)
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dictionary_wait_runtime.py:17:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/private/tmp/mariamem-buffer-zero-audit-clone')
+
+    def validate(root=ROOT):
+        root = Path(root)
+        pins = json.loads((root/'tests/fixtures/dictionary-wait-layout.json').read_text())
+        guest = json.loads((root/'release/generated-go-inputs.json').read_text())
+        if (guest['guest_sha256'] != pins['guest_sha256'] or
+                guest['data_sha256'] != pins['data_sha256']):
+>           raise ValueError('dictionary fixture guest/data changed')
+E           ValueError: dictionary fixture guest/data changed
+
+scripts/check_dictionary_wait_runtime.py:31: ValueError
+_________________ test_notification_order_and_real_guest_owner _________________
+
+    def test_notification_order_and_real_guest_owner():
+>       pins = guard.validate(ROOT)
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dictionary_wait_runtime.py:27:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/private/tmp/mariamem-buffer-zero-audit-clone')
+
+    def validate(root=ROOT):
+        root = Path(root)
+        pins = json.loads((root/'tests/fixtures/dictionary-wait-layout.json').read_text())
+        guest = json.loads((root/'release/generated-go-inputs.json').read_text())
+        if (guest['guest_sha256'] != pins['guest_sha256'] or
+                guest['data_sha256'] != pins['data_sha256']):
+>           raise ValueError('dictionary fixture guest/data changed')
+E           ValueError: dictionary fixture guest/data changed
+
+scripts/check_dictionary_wait_runtime.py:31: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_packaging_license_mirrors.py::test_python_license_mirrors_match_source_inputs
+FAILED tests/test_dictionary_wait_runtime.py::test_actual_guest_fixture_binding
+FAILED tests/test_dictionary_wait_runtime.py::test_removed_guest_notification_or_lock_is_rejected[Fn16580(m)]
+FAILED tests/test_dictionary_wait_runtime.py::test_removed_guest_notification_or_lock_is_rejected[Fn16581(m)]
+FAILED tests/test_dictionary_wait_runtime.py::test_removed_guest_notification_or_lock_is_rejected[Fn17730(m)]
+FAILED tests/test_dictionary_wait_runtime.py::test_notification_order_and_real_guest_owner
+6 failed, 81 passed, 23 subtests passed in 10.95s
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 210, in <module>
+    main()
+    ~~~~^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 187, in main
+    check(args.scope, profile=args.profile)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 70, in check
+    run([sys.executable, "-m", "pytest", *SOURCE_TESTS, "-q"], env=env)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/verify.py", line 36, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mariamem-buffer-zero-audit-clone/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests/test_generated_runtime_inventory.py', 'tests/test_distribution_licenses.py', 'tests/test_packaging_license_mirrors.py', 'tests/test_timer_source.py', 'tests/test_uca_copy_source.py', 'tests/test_dictionary_wait_source.py', 'tests/test_dictionary_wait_runtime.py', '-q']' returned non-zero exit status 1.

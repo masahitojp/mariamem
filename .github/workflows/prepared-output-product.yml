@@ -1,5 +1,5 @@
-name: Prepared output canonical candidate (not Qualification)
-# Input:43436504181 at90a505cb, single UNQUALIFIED build; retained as historical evidence.
+name: Buffer pool zeroing canonical candidate (not Qualification)
+# Candidate bootstrap:3cfd9854, one UNQUALIFIED build; fresh two-build CI evidence is required.
 # Explicit manual dispatch; Development owns PR checks.
 on:
   workflow_dispatch:
@@ -90,12 +90,15 @@ jobs:
       matrix:
         runner: [macos-15, ubuntu-24.04]
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       GOTOOLCHAIN: go1.26.10
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          filter: blob:none
+          fetch-depth: 0 # Fixture source-identity checks inspect ancestor commits.
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
@@ -115,7 +118,7 @@ jobs:
         run: |
           go clean -testcache
           python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
-          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0 pytest==9.1.1
           mkdir -p build/prepared-output-ci
           python scripts/git_identity.py inspect HEAD > build/prepared-output-ci/source.json
           python -c 'import json,os;assert json.load(open("build/prepared-output-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
@@ -156,6 +159,15 @@ jobs:
           PYTHONPATH=python python tests/lexer_prepared_acceptance.py --host build/prepared-output-ci/mariamem-host --native build/prepared-output-reference/native.json --output build/prepared-output-ci/sql-children.json > build/prepared-output-ci/sql-children.txt 2>&1
           PYTHONPATH=python python tests/uca_copy_acceptance.py --host build/prepared-output-ci/mariamem-host --native build/prepared-output-reference/uca-native.json --output build/prepared-output-ci/uca-sql-children.json > build/prepared-output-ci/uca-sql-children.txt 2>&1
           PYTHONPATH=python MARIAMEM_TEST_HOST="$GITHUB_WORKSPACE/build/prepared-output-ci/mariamem-host" python -m pytest tests/test_dev_guest_smoke.py tests/test_uca_copy_resnapshot.py -q > build/prepared-output-ci/snapshot-smoke.txt 2>&1
+      - name: Normal canonical check and public integration
+        run: |
+          python scripts/verify.py check > build/prepared-output-ci/check.txt 2>&1
+          python scripts/verify.py integration > build/prepared-output-ci/integration.txt 2>&1
+      - name: Buffer pool large, compressed, resize, EIO and redo controls
+        run: |
+          python scripts/check_buffer_pool_controls.py --root "$GITHUB_WORKSPACE" --output "$RUNNER_TEMP/buffer-zero-controls" > build/prepared-output-ci/buffer-controls.txt 2>&1
+          cp "$RUNNER_TEMP/buffer-zero-controls/evidence/"*.json build/prepared-output-ci/
+          cp "$RUNNER_TEMP/buffer-zero-controls/evidence/"*.log build/prepared-output-ci/
       - name: Bind compact receipt checksums
         if: success()
         run: |
@@ -167,6 +179,9 @@ jobs:
           path: |
             build/prepared-output-ci/*.txt
             build/prepared-output-ci/*.json
+            build/prepared-output-ci/*.log
+            ${{ runner.temp }}/buffer-zero-controls/evidence/*.json
+            ${{ runner.temp }}/buffer-zero-controls/evidence/*.log
           if-no-files-found: error
           retention-days: 14
 

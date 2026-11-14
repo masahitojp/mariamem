@@ -1,0 +1,12 @@
+{
+  "returncode": 1,
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "openssl": "OpenSSL 4.1.0 23 Oct 2026",
+  "argv": [
+    "<workspace>/temp/venv/bin/python",
+    "tests/v06_prepared_connector_environment.py",
+    "--output",
+    "<workspace>/evidence/connector-environment.json"
+  ],
+  "scope": "Original fixed consumer environment capture, before any host connection"
+}

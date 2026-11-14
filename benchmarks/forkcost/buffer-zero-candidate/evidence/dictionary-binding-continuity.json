@@ -1,0 +1,80 @@
+{
+  "result": "PASS_ALL_14_BODIES_AND_DATA_IDENTICAL",
+  "previous_guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
+  "new_guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "previous_fixture_sha256": "b7b3b46873f76167d5e930cc100b370fa67012323b3458568241133455b494b4",
+  "data_sha256": "2cc750c09f00f657bf59021a22e1e91c54ce74e46bf7a72b34642de63db06e67",
+  "bodies": [
+    {
+      "function": "Fn16607",
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "unchanged_sha256": "fdd88fcab67b197c51f7aeb05a007c8a1a192b60d9eaa90a285fd4213f6f3dad"
+    },
+    {
+      "function": "Fn16600",
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "unchanged_sha256": "18bb258d605341790a71b58cac29369fb973201ad5b5cbb56941a2969cb5a8f1"
+    },
+    {
+      "function": "Fn16602",
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "unchanged_sha256": "9dc3aa949c89450b8fce05739fb3f709e2fc03cedf21dfa0f7f93b55d903f44e"
+    },
+    {
+      "function": "Fn16606",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "bfc8f556a49102c5bcd9b6e940edd831e8878111ced323c5565a1e4f7cc370ff"
+    },
+    {
+      "function": "Fn16580",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "e162868334338a2e435629d82a909bc2c14587d1997641381f2776c064ac2c3e"
+    },
+    {
+      "function": "Fn16581",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "f50451590e8620803c4f26fa42ea62aa8728904d95239887afb5324c6837f301"
+    },
+    {
+      "function": "Fn16556",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "2ee459e006cca92b59485bde58fd8a394f523ad5fd6d978f6e2d5c465bad0757"
+    },
+    {
+      "function": "Fn16558",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "a8d9017df79203a141ef3d5978c5f77d5e4ee951a05bd2ed5a9180b151de1df4"
+    },
+    {
+      "function": "Fn16601",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "fb07b03239db417cc4abf1c4a266350d50f2420b3ae5ee052c3138bd657ce027"
+    },
+    {
+      "function": "Fn17730",
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "unchanged_sha256": "c034a28cd7decbbcef4db632b188566b3645c58a19518272c917ac5451adf482"
+    },
+    {
+      "function": "Fn16583",
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "unchanged_sha256": "0dbe5c1588336f861847065e72a3d28bdbd429f79c8112a15ec5c2b7f9ac170b"
+    },
+    {
+      "function": "Fn17741",
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "unchanged_sha256": "bc703017c97472eda5d7bc19a342de89fc2d16a9f83829f657ab004d41680457"
+    },
+    {
+      "function": "Fn16603",
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "unchanged_sha256": "2b2d7a6bb02a2082e8cd2f356b62249a1c1c9dcccf8f65f9b8b15dd6c741d652"
+    },
+    {
+      "function": "Fn16604",
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "unchanged_sha256": "89304bd7f024d7e23550d0da483b5a7e90ad93991c0b50a27bb6e33e5a6ea094"
+    }
+  ],
+  "scope": "Only guest identity is rebound. No function hash, notification/lock oracle or fixture data is changed."
+}

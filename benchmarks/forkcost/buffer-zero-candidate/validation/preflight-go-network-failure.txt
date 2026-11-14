@@ -1,0 +1,1 @@
+FAIL_SETUP: sandbox DNS blocked pinned Go1.26.10 download before converter build. Retry with network permission and fresh output. Source unchanged.

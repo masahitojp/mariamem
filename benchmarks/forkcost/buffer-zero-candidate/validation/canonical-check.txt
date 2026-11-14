@@ -1,0 +1,130 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+........................................................................ [ 82%]
+...............                                   [100%]
+87 passed, 23 subtests passed in 17.49s
++ go test -p 1 -vet=off ./...
+ok  	github.com/masahitojp/mariamem	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/platform-cache	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/ubuntu-startup	(cached)
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	(cached)
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	(cached)
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+ok  	github.com/masahitojp/mariamem/internal/control	(cached)
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	(cached)
+ok  	github.com/masahitojp/mariamem/internal/disposal	(cached)
+ok  	github.com/masahitojp/mariamem/internal/forklimit	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/layoutgen	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)
+ok  	github.com/masahitojp/mariamem/internal/host	(cached)
+ok  	github.com/masahitojp/mariamem/internal/live	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.610s
+ok  	github.com/masahitojp/mariamem/internal/prepared	(cached)
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	(cached)
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+ok  	github.com/masahitojp/mariamem/mariamemtest	(cached)
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
++ go vet -p 1 -vettool=/private/tmp/mariamem-buffer-zero-audit-clone/scripts/vet_generated.py ./...
++ <workspace>/temp/venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py --ignore=tests/test_timer_source.py --ignore=tests/test_uca_copy_source.py --ignore=tests/test_dictionary_wait_source.py --ignore=tests/test_dictionary_wait_runtime.py -q
+.........................ssss.................. [  2%]
+........................................................................ [  5%]
+..................................................s..................... [  9%]
+........................................................................ [ 13%]
+....................................ssssssssssssssssssss................ [ 16%]
+........................................................................ [ 20%]
+........................................................................ [ 23%]
+........................................................ [ 26%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+................................................................ [ 36%]
+.................................................................... [ 40%]
+............................................sss.................... [ 43%]
+................................................................... [ 46%]
+........................................................................ [ 50%]
+..................................................ssssssss [ 53%]
+sssssss................................................................. [ 57%]
+........................................................................ [ 60%]
+..........................................sssssssss..................... [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+...............................ssssssssssssssssssssssssss............... [ 78%]
+........................................................................ [ 82%]
+........................................................................ [ 85%]
+..........sssssss....................................................... [ 89%]
+............................................... [ 91%]
+.....................................................................................sssssss..........................ss....... [ 97%]
+.....sss...................................                              [100%]
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/test_routing.py:121: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", b):
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/test_routing.py:119: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", a):
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/test_routing.py:138: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()):
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/test_routing.py:142: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB("B")):
+
+tests/test_routing.py::test_slow_connection_is_closed_if_retirement_wins
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/test_routing.py:159: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()) as lease:
+
+tests/test_routing.py::test_active_scope_prevents_registry_close
+  /private/tmp/mariamem-buffer-zero-audit-clone/tests/test_routing.py:199: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1915 passed, 99 skipped, 7 warnings, 119 subtests passed in 121.85s (0:02:01)
++ <workspace>/temp/venv/bin/python -m pytest tests/native -q
+........                                                                 [100%]
+8 passed in 13.53s
++ <workspace>/temp/venv/bin/python scripts/check_public.py
+Public source check passed: 7493 files
