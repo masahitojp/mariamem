@@ -1,0 +1,10 @@
+{
+	"Path": "github.com/shibukawa/pgmem",
+	"Version": "v1.18.2",
+	"Time": "2026-10-05T23:34:30Z",
+	"Dir": "/Users/masahito/.go/pkg/mod/github.com/shibukawa/pgmem@v1.18.2",
+	"GoMod": "/Users/masahito/.go/pkg/mod/cache/download/github.com/shibukawa/pgmem/@v/v1.18.2.mod",
+	"GoVersion": "1.25.0",
+	"Sum": "h1:5jHuODcqyBUWsNJbddYN4gArmueFq6Td7m+mpR6XK4k=",
+	"GoModSum": "h1:STngHQfWG6aPSCb8vtJS25sPLipLbkXjPr5uHWZ+y7A="
+}

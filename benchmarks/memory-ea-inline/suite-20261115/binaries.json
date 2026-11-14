@@ -1,0 +1,14 @@
+{
+  "baseline": {
+    "sha256": "c1ee07b049ee36424407b45b374ae32d33d7e4936eb170194d78f6794d9e3ada",
+    "bytes": 110946866
+  },
+  "candidate": {
+    "sha256": "4a6a7c9a27e8cabfea579577cc939779819d57378463fe2288f3fd2b1fc7d494",
+    "bytes": 192846274
+  },
+  "pg": {
+    "sha256": "dd19b5bf49aa737378712901d3228790b4483b658daaff2e0e1135a51670b341",
+    "bytes": 68091634
+  }
+}
