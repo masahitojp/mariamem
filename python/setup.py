@@ -21,6 +21,12 @@ class PlatformWheel(bdist_wheel):
                     or manifest.get("architecture") != "x86_64"):
                 raise ValueError("Native manifest must identify Ubuntu 24.04 x86_64")
             expected = "linux_x86_64"  # No manylinux compatibility claim.
+        elif manifest.get("platform") in ("windows-x86_64", "windows-arm64"):
+            arm = manifest["platform"] == "windows-arm64"
+            if (manifest.get("architecture") != ("arm64" if arm else "x86_64")
+                    or manifest.get("minimum_windows_build") != 22000):
+                raise ValueError("Native manifest must identify Windows build 22000+ and CPU")
+            expected = "win_arm64" if arm else "win_amd64"
         else:
             expected = TARGET["wheel_platform"]
             if (manifest.get("minimum_macos") != TARGET["minimum_macos"]
