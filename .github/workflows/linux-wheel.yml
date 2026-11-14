@@ -46,7 +46,7 @@ jobs:
       - name: Build one exact-source wheel for both libc families
         run: |
           python -m pip install pytest==8.4.2 wheel==0.45.1 setuptools==80.9.0 twine==6.2.0
-          PYTHONPATH=python python -m pytest -q tests/test_linux_distribution.py tests/test_windows_distribution.py tests/test_generated_runtime_inventory.py tests/test_go_isolation.py
+          PYTHONPATH=python python -m pytest -q tests/test_linux_distribution.py tests/test_windows_distribution.py tests/test_generated_runtime_inventory.py tests/test_go_isolation.py tests/test_distribution_licenses.py
           go list -mod=readonly ./... > build/linux-receipts/root-packages.txt
           python -c "from pathlib import Path; packages=Path('build/linux-receipts/root-packages.txt').read_text().splitlines(); assert not any(p.startswith(('github.com/masahitojp/mariamem/docs/reviews','github.com/masahitojp/mariamem/benchmarks')) for p in packages)"
           (cd benchmarks && go list -mod=readonly ./goisolation)
