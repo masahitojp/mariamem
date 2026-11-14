@@ -10,6 +10,9 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'scripts'))
+from layout import GENERATED
+
 MUTATIONS = {'no_pool_check':('R2','idle-generation'), 'fallback':('R5','missing-target'),
              'ignore_retired':('R5','retired-context'), 'global_target':('R4','parallel-targets'),
              'retain_session':('R2','idle-session-state'),
@@ -29,7 +32,7 @@ def guest_identity(root):
     """Bind the receipt to the checked source's canonical generated guest."""
     manifest = root/'release/generated-go-inputs.json'
     guest = json.loads(manifest.read_text())['guest_sha256']
-    provenance = json.loads((root/'internal/generatedgo/provenance.json').read_text())
+    provenance = json.loads((root/GENERATED/'provenance.json').read_text())
     if (not isinstance(guest, str) or len(guest) != 64
             or any(c not in '0123456789abcdef' for c in guest)
             or provenance['guest_sha256'] != guest

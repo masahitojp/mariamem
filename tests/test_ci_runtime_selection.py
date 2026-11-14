@@ -5,6 +5,7 @@ import pytest
 import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'scripts'))
+from layout import GENERATED
 
 
 def test_daily_smoke_is_bounded_and_reuses_its_host(monkeypatch):
@@ -34,7 +35,7 @@ def test_full_integration_retains_regressions_without_duplicate_routing(monkeypa
     # Match actual Go declarations, so a stale invented name cannot keep CI green.
     declarations = set()
     for filename in ('worker_trap_integration_test.go', 'dictionary_wait_integration_test.go'):
-        source = (ROOT/'internal/generatedgo'/filename).read_text()
+        source = (ROOT/GENERATED/filename).read_text()
         declarations.update(re.findall(r'^func (Test\w+)\(', source, re.MULTILINE))
     required = {'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer', 'TestDictionaryWaitActualGuest'}
     assert required <= declarations
