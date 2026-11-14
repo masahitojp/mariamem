@@ -156,7 +156,7 @@ transaction. Close #156 on merge for the completed finite work; #140 retains the
 unproven natural PREPARE sequence. No new experiment or release is authorized.
 The bootstrap remains UNQUALIFIED; no historical result is relabeled.
 
-## WASI timer correction and startup reduction — product candidate approved
+## WASI timer correction and startup reduction — adopted on main
 
 On 2026-11-11 the Human approved the [timer adoption decision](decisions/wasi-timer-startup.md)
 after reviewing evidence `d24087ee`, Mac paired measurements and Ubuntu/native
@@ -173,8 +173,18 @@ pass at37023152 in [CI42959675387](reviews/timer-product-ci-42959675387/README.m
 All118 generated files agree; timer TCP/Pipe Fresh/two children, CRC/UCA/lexer,
 worker/J1, native SQL and disposal controls pass. Evidence/acceptance metadata
 updates preserve the tested runtime bytes and original receipt source.
-PR152 is ready for Human main-integration review. No new performance claim is made. Main integration,
-Qualification and release remain separate. UCA work is not part of this candidate.
+On 2026-11-11 the Human approved main integration, accepting the measured
+Fresh/Fork startup benefit and the absence of an established whole-suite benefit.
+[PR152](https://github.com/masahitojp/mariamem/pull/152) merged approved head
+`ba9bf77bcaf6e49a6b3a6ed4df54ed8837856b18` as main source_commit
+`500020e7dc6d702ef059f0e73a4bab738103b774`. All three protected checks passed
+at that head in [CI43008225827](https://github.com/masahitojp/mariamem/actions/runs/43008225827).
+The [candidate measurement](../benchmarks/timer-product/README.md) remains bound
+to its original measured source: Fresh/Fork median -8.63%/-8.96%, complete-suite
+P4 +2.23% and P8 -20.47% on one Mac. This authorizes bounded startup/timing
+correctness adoption, not a uniform end-to-end speedup claim. Main integration
+is complete; Qualification and release remain separate. The Human also authorized
+starting the separate UCA investigation, without adopting a new UCA change.
 
 ## Issue150 — versioned legacy preparation candidate (2026-11-10)
 
@@ -189,7 +199,42 @@ Implementation and bounded verification are complete; main integration remains
 subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
 new guest build or release follows from source preparation PASS.
 
-## Issue123 — process-lifetime static cache approved for candidate implementation
+## Issue123 — process-lifetime static cache adopted; post-merge Close failure observed
+
+On 2026-11-10 the Human authorized main integration and an immediate speed
+comparison. [PR147](https://github.com/masahitojp/mariamem/pull/147) squash-merged
+to `b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50`, with the same tree as approved
+head `08a2246a50bf5ce63de97ddf2b118b8df09dca1f`; required Development checks
+[42727872452](https://github.com/masahitojp/mariamem/actions/runs/42727872452)
+passed there. This supersedes the integration-pending checkpoint below for this
+bounded implementation, not release approval.
+
+The [post-merge comparison](reviews/issue123-postmerge-measurement.md) against
+immediately preceding main `c375edbc` completed the fixed56 processes on Mac:
+39/40 primary runs succeeded and one after/Fork/P4 run timed out in Close with
+one child mapping uncollected before process exit. All child SQL oracles in that
+failed run passed. No consistent whole-suite speedup was established; serial
+peak RSS decreased in all five pairs for Fresh and Fork. Successful Fork/P4
+speed statistics use four complete pairs, explicitly separate from the failure.
+The failure is not discarded or retried; its cause and relationship to this
+change remain unknown. Recommendation: investigate Close before further speed
+or release claims. No follow-up runtime change, rollback, extra sampling or
+release is authorized by this measurement record.
+
+The Human subsequently authorized a bounded Close diagnosis. The
+[diagnosis](reviews/issue123-close-wait-diagnosis.md) at harness `9edc93e5`
+completed10 alternating pairs on the same Mac:480 children per source, all SQL
+and cleanup checks passed, no Close exceeded2 seconds (max14.976/16.453ms).
+Result: **INCONCLUSIVE_NO_REPRODUCTION**, not a fix or withdrawal of the earlier
+failure. A delayed stack/log observer passed separate forced controls. The
+original error chain narrows the direct timeout to worker drain or subsequent
+guest shutdown, but no slow stack identifies the blocking operation. Stop at the
+fixed budget; retain the observer for the next authorized workload instead of
+adding unbounded repetitions. Product/runtime/API bytes are unchanged.
+
+The remaining Close question is tracked in [Issue162](https://github.com/masahitojp/mariamem/issues/162).
+The following paragraphs preserve the pre-integration checkpoint; they are not
+new implementation instructions.
 
 On 2026-11-10 the Human accepted retaining the immutable initial image for the
 host process lifetime to prioritize total test execution time. Build it lazily
@@ -251,7 +296,7 @@ The earlier historical statement that shutdown-mode changes were unapproved is
 superseded only for this bounded implementation. No broad startup tuning is added.
 
 
-## UCA default private-copy — accepted, canonical integration pending
+## UCA default private-copy — adopted on main, unreleased
 
 On2026-11-12 the Human accepted the bounded default contraction/flags/hash
 private-copy optimization, including the measured unfavorable P8 tradeoff,
@@ -266,9 +311,13 @@ builds and both-platform canonical acceptance passed at 6da771df in
 [CI43190662084](reviews/uca-copy-ci-43190662084/README.md). PR157 Development
 checks found an outdated test-only init-flag address after data relocation. The
 fixture is corrected with explicit flag/page preconditions; production runtime
-bytes are unchanged. Protected merge remains pending new required checks.
-#140/#156 retain the residual
-PREPARE investigation independently; NOT_REPRODUCED is not a fix. No release is
+bytes are unchanged. Development CI43201340611 passed all three required checks
+at a8dd2f1c. [PR157](https://github.com/masahitojp/mariamem/pull/157) was squash
+merged as `8df45792a927e440972266ee799d6f7223713e14` with strict-base and
+admin protection retained. [Completion record](reviews/uca-copy-main-adoption.md).
+#156 completed its bounded pending-clear correction in the later output
+integration; [#140](https://github.com/masahitojp/mariamem/issues/140) retains the
+unproven natural PREPARE sequence. NOT_REPRODUCED is not a fix. No release is
 authorized and no uniform complete-suite performance improvement is claimed.
 
 ## Current published release
@@ -637,3 +686,23 @@ Related work: #121's finite attribution is complete; #122 retains the candidate
 list and CRC/PR125 disposition. Static-image sharing in #123 is a distinct
 prototype and receives no product adoption from this decision. The measurement
 branch remains separate from the minimal product PR.
+
+## Historical benchmark reports retained (2026-11-14)
+
+The PR backlog reconciliation retains the [v0.5.3/v0.6.0 latency comparison](../benchmarks/v060-latency.md),
+[parallel model case](../benchmarks/parallel-modelcase.md) and
+[shared-read follow-up](../benchmarks/shared-read-modelcase.md) as historical
+observations with their exact source identities, compact samples and pinned raw
+archives. They do not measure current main or establish a current regression fix.
+
+The [former v0.6.1 disposition proposal](reviews/v061-latency-disposition.md)
+remains historical: v0.6.1 and v0.6.2 have already shipped. Its proposed attribution
+campaign is not an active task or a retroactive release condition. Retaining this
+record neither accepts the measured regressions nor proves that later changes
+fixed them. Reopening the question requires a current workload and decision.
+
+PR54's broader benchmark-retention policy is not adopted by this reconciliation.
+Its [original proposal](https://github.com/masahitojp/mariamem/blob/bb6d0efa9759629646f4d8d834221aa823bb6002/docs/development.md#benchmark-evidence-retained-on-main)
+remains available for a separate future decision; current
+[compact-receipt rules](development.md#compact-ci-receipts) continue to apply.
+No new experiment, performance acceptance or release follows from this cleanup.

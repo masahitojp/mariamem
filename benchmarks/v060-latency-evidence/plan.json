@@ -1,0 +1,16 @@
+{
+  "question": "Did v0.6.0 regress common Go/Python lifecycle latency versus v0.5.3?",
+  "action_informed": "Decide whether a bounded regression diagnosis is warranted; no optimization is pre-authorized.",
+  "workloads": "Go light/10MiB serial/10MiB four-worker Fresh/Fork; Python two-table small/medium prepared baseline with two children.",
+  "sampling": "Six alternating pairs per common cell; one separate Go warmup pair; Python resource observation kept separate.",
+  "exit": "Report raw distributions, phase timings, paired changes, correctness/cleanup outcomes and limits. No universal speed or memory claim. Any failure is retained and stops the campaign.",
+  "budget": {
+    "active_work_minutes": 120,
+    "measurement_tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "workspace_gib": 16,
+    "free_reserve_gib": 16,
+    "execution_seconds": 1800
+  },
+  "excluded": "100MiB, Windows/Linux claims, cold installation cost, new-feature versus nonexistent-old-feature comparisons, resource-model campaign."
+}

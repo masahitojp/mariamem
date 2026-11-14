@@ -1,0 +1,6 @@
+FORCED CONTROL ONLY; NOT A SLOW-CLOSE TRACE
+goroutine 82 [running]:
+main.observeClose.func1()
+	github.com/masahitojp/mariamem/benchmarks/issue123baseline/maria/observe.go:49 +0x1f0
+created by main.observeClose in goroutine 36
+	github.com/masahitojp/mariamem/benchmarks/issue123baseline/maria/observe.go:25 +0x128

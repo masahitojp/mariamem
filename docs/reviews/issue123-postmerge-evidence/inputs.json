@@ -1,0 +1,51 @@
+{
+  "harness_source_commit": "f41b970d4bd34483d4072d719fdbc9a00dc6a62d",
+  "go": "go version go1.26.10 darwin/arm64",
+  "binaries": {
+    "before": {
+      "sha256": "9f644cfff6e4461b7b695bf611955e3ad551a54dbca63f81c9d5a9dbdb883dbd",
+      "build_info": "<WORKSPACE>/temp/bin-before: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<WORKSPACE>/temp/before\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0"
+    },
+    "after": {
+      "sha256": "d0bfd023476063c9b8495e5eaece65b5908fe91b28790af1a42ceeaf7abace98",
+      "build_info": "<WORKSPACE>/temp/bin-after: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<WORKSPACE>/temp/after\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0"
+    }
+  },
+  "harness_files": {
+    "build.py": "497f8c172e6d683e5a84d1b996c251f4550bb4caf1c9a56663926df9ae3125dd",
+    "run.py": "0b7bf967a2c38ce1560ac5656e89445fa9550664a3a73a606988c17bef3a3430",
+    "plan.json": "043b2010d28593ca42760dc6f06f81e113e5b4136606c0ebf519b1986fa297b4",
+    "maria/main.go": "3d4ebf5993ac568fcaab48177897e35fd03fd86e9b776ef08d061e03eaeebc71",
+    "probe/probe.go": "06994d9e3fe76c6571f71257ce96ff4d7885de132cd2c2a1bd3acf7df9835d0a"
+  },
+  "product_sources": {
+    "before": {
+      "source_commit": "c375edbc1e77bf078f50abc75c9de32ce23a641a",
+      "tree": "a2c8a6afd19fc173649394ab63d314948b1bac23",
+      "inputs": {
+        "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+        "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+        "release/generated-go-inputs.json": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
+        "internal/generatedgo/provenance.json": "bbef4f5985c52a264bad5c2c10556454014b41c161f7d039a0f9954921e24af0"
+      }
+    },
+    "after": {
+      "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+      "tree": "f130fe9a02779984aa5ffd7bd3d14043c9cda858",
+      "inputs": {
+        "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+        "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+        "release/generated-go-inputs.json": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
+        "internal/generatedgo/provenance.json": "be4574cc3e97b07440617bb27daa9ff8f091a308ef41e6978ca204e1d381b353"
+      }
+    }
+  },
+  "build_flags": [
+    "-trimpath",
+    "-p",
+    "1",
+    "-buildvcs=false"
+  ]
+}
