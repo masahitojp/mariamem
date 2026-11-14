@@ -4,6 +4,12 @@ Use Python `0.6.2` on a [supported platform](../README.md#installation).
 Start with one database, then share preparation when setup becomes expensive.
 For Django, use the [dedicated guide](django-prepared.md).
 
+The initial PyPI distribution targets macOS 15+ arm64. Its first upload and
+public smoke are still pending; use the GitHub wheel in the installation guide
+until completion. After that check, macOS users can install
+`python -m pip install "mariamem[test]==0.6.2"`. Ubuntu 24.04 x86_64 continues
+to use its GitHub Release wheel. No Linux/Windows PyPI support is implied.
+
 ## A disposable database
 
 Use `mariamem.start()` to acquire a database and `connection_info()` to connect

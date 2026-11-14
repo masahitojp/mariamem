@@ -39,8 +39,68 @@ Stable releases use `STAGE = ""`, `SERIAL = 0` and tracked
 `release/NOTES-vX.Y.Z.md`; prereleases use `NOTES-<stage>.<serial>.md`.
 Update current README/Go/Python/releasing examples with the derived version.
 `check_version.py` rejects stale examples/metadata; historical evidence is not
-rewritten. PyPI publication remains unavailable pending account recovery;
-GitHub Release wheels are the current Python distribution channel.
+rewritten. PyPI account access is restored and the Human has registered the
+Trusted Publisher for `masahitojp/mariamem`, `release-candidate-ready.yml`,
+environment `pypi`. The initial macOS upload/public smoke remains pending;
+GitHub Release wheels are the currently verified Python distribution channel.
+
+## PyPI publication and existing-release backfill
+
+Stable normal releases also run `pypi_publication` after GitHub publication,
+then `pypi_smoke`. Both use the dispatch commit's tooling while recording the
+original artifact `source_commit` separately. The current explicit PyPI target
+is the macOS arm64 wheel only. Linux's generic `linux_x86_64` wheel stays on
+GitHub until #170 adds qualified portable tags; Windows belongs to #171.
+#169 connects the eventual seven smoke environments and updates the full guide.
+
+The PyPI job uses `environment: pypi` and job-scoped `id-token: write` with the
+pinned PyPA publishing action. No long-lived API token or password is needed.
+Configure the matching GitHub environment for the main deployment branch,
+without a second reviewer approval after the release decision. Pending publisher
+registration is not evidence that OIDC authentication or upload has succeeded.
+
+For the **one-time 0.6.2 macOS backfill**, or recovery of a later stable PyPI
+stage, use the same workflow on the reviewed main tooling commit with:
+
+- `published_tag`: the existing stable tag (`v0.6.2` for the first backfill).
+- `candidate_ref`: its original full source commit, verified with
+  `scripts/git_identity.py verify-release --pin release/baselines/v0.6.2.json`.
+- `operation=verify`: read-only preflight, checking tag/provenance/accepted wheel
+  hashes and the PyPI inventory. This never uploads and needs no OIDC permission.
+- `operation=release`: explicitly approved transfer and installed-wheel smoke.
+
+`published_tag` is an advanced backfill/recovery input, not a required step for
+new releases. Do not use `release_prepare.py submit` for an existing-tag
+backfill: that command prepares a new release and requires an unused tag.
+With this input, qualification/build/tag creation are skipped:
+only an already published, stable, checksum-bound GitHub release with matching
+both-platform READY provenance is eligible. Do not dispatch the old 0.6.2
+workflow or re-label current main as its source. A dry run is optional, not a new
+publication approval ceremony. `alpha`, `beta`, `rc` and verify never upload.
+
+The PyPI helper reuses exact GitHub asset bytes, verifies their SHA256 against
+SHA256SUMS and accepted provenance, and stages only absent PyPI filenames.
+An existing matching hash is reused; a conflict or yanked file stops. Never use
+unconditional `skip-existing`, replace assets, or bump a version just because
+transport failed. Even an upload-action error is reconciled against the actual
+PyPI hashes: a lost success response can complete; missing or conflicting bytes
+fail. A subsequent backfill attempt starts from the same published inputs.
+Failures before GitHub has a published release remain the existing GitHub-stage
+recovery responsibility; this input never manufactures a missing release.
+
+`ci-pypi-publication.json` records GitHub/PyPI stages, original source, tag object,
+tooling commit and hashes. `HASH_VERIFIED` is still `SMOKE_PENDING`; only the
+installed smoke makes the PyPI transaction `COMPLETE`. A failed stage retains
+its reason. GitHub publication success alone does not mean PyPI completion.
+
+The short smoke uses a fresh venv on macOS arm64/Python 3.14, installs the exact
+version from PyPI, checks pip's selected wheel and hash, starts the bundled host,
+executes SELECT 1, closes the database and observes host exit. It performs no Go
+build, guest generation, ORM or Snapshot/Fork campaign. Completed smoke receipts
+can be reused from recent canonical workflow runs only after checking the GitHub
+artifact digest, same tooling commit, source, tag, asset/provenance hashes and
+smoke conditions. Expired/missing receipts cause another short smoke; changed
+conditions never reuse the old success. No new review-document dumps are needed.
 
 ## v0.4 artifact contract: generated-go-v1
 
@@ -48,6 +108,7 @@ GitHub Release wheels are the current Python distribution channel.
 | --- | --- |
 | Go module | Exact source commit/tag; canonical generated Go is ordinary source/build input in the module. `Options{}` direct-links it; no guest executable, NativeDir, bundle/cache or Wasmer download. |
 | macOS wheel | `mariamem-<version>-py3-none-macosx_15_0_arm64.whl`; macOS 15+ arm64; `_native` contains only `mariamem-host` and its checksum-bound manifest. |
+| PyPI | Stable macOS wheel only, identical to the GitHub asset; first upload pending. Linux/Windows expansion is tracked separately. |
 | Ubuntu wheel | `mariamem-<version>-py3-none-linux_x86_64.whl`; tested on Ubuntu 24.04 x86_64, not a manylinux claim; same host-only layout. |
 | Corresponding source | One common `mariamem-<version>-corresponding-source.tar.gz`, covering both wheels and Go source: product source/generated code/patches/scripts, pinned MariaDB/lite4mariadb/dependency sources, WASIX libc, LLVM runtime/header submodule sources, converter source and build evidence. |
 | Provenance | `mariamem-<version>-provenance.json`: exact source/guest/generated/toolchain/notices hashes, both frozen wheel records and external acceptance hashes. |

@@ -60,6 +60,8 @@ TOOLING = {
     'scripts/release_features.py', 'scripts/release_prepare.py', 'scripts/release_version.py', 'scripts/release_plan.py',
     'scripts/release_preparation_checks.py', 'scripts/runtime_validation.py',
     'scripts/ci_release_reuse.py', 'scripts/ci_release_publish.py',
+    'scripts/pypi_release.py', 'scripts/pypi_smoke.py',
+    'release/baselines/v0.6.2.json',  # immutable publication identity; no runtime build input
     'scripts/ci_release_summary.py', 'scripts/check_release.py',
     'scripts/distribution_licenses.py', 'scripts/audit_generated_licenses.py',
     'scripts/consumer_module.py', 'scripts/consumer_acceptance.py',
@@ -77,7 +79,7 @@ PURE_TESTS = {
     'tests/test_measurement_summary.py', 'tests/test_published_assets.py',
     'tests/test_benchmark_inputs.py',
     'tests/test_ci_publication_workflow.py', 'tests/test_publication_handoff.py', 'tests/test_publication_handoff.py',
-    'tests/test_ci_release_publish.py',
+    'tests/test_ci_release_publish.py', 'tests/test_pypi_release.py',
     'tests/test_ci_release_reuse.py',
     'tests/test_competitive_benchmark.py',
     'tests/test_consumer_acceptance.py',

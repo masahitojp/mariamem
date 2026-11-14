@@ -35,6 +35,10 @@ on:
         description: Remotely fetchable exact candidate (full 40-character SHA)
         required: true
         type: string
+      published_tag:
+        description: Advanced PyPI backfill/recovery — existing stable tag; candidate_ref is its original source SHA
+        required: false
+        type: string
       smoke_ref:
         description: Advanced public-smoke recovery only — exact Go smoke repair commit
         required: false
@@ -44,7 +48,7 @@ permissions:
   actions: read
 jobs:
   resolve:
-    if: inputs.operation != 'public-smoke-recovery'
+    if: inputs.operation != 'public-smoke-recovery' && inputs.published_tag == ''
     runs-on: ubuntu-24.04
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
@@ -741,4 +745,123 @@ jobs:
             candidate-source/build/release/ci-public-smoke.json
             candidate-source/build/release/ci-public-smoke.log
           if-no-files-found: warn
+          retention-days: 14
+
+  pypi_verify:
+    if: inputs.operation == 'verify' && inputs.published_tag != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Read-only preflight of the existing stable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ inputs.candidate_ref }}
+          PUBLISHED_TAG: ${{ inputs.published_tag }}
+        run: |
+          python scripts/pypi_release.py prepare --source "$SOURCE_SHA" --tag "$PUBLISHED_TAG" --operation verify
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: pypi-preflight-${{ inputs.candidate_ref }}
+          path: build/pypi/ci-pypi-publication.json
+          if-no-files-found: error
+          retention-days: 14
+
+  pypi_publication:
+    needs: [resolve, publication]
+    if: always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: pypi
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    concurrency:
+      group: mariamem-pypi-publication
+      cancel-in-progress: false
+    outputs:
+      enabled: ${{ steps.prepare.outputs.enabled }}
+      source: ${{ steps.prepare.outputs.source }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: inputs.published_tag == ''
+        with:
+          name: release-publication-${{ needs.resolve.outputs.source_sha }}
+          path: publication-input
+      - id: prepare
+        name: Verify immutable GitHub bytes and select only absent PyPI files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ inputs.candidate_ref }}
+          PUBLISHED_TAG: ${{ inputs.published_tag }}
+        run: |
+          args=(--source "$SOURCE_SHA" --operation release)
+          if [ -n "$PUBLISHED_TAG" ]; then
+            args+=(--tag "$PUBLISHED_TAG")
+          else
+            args+=(--publication publication-input/ci-publication.json)
+          fi
+          python scripts/pypi_release.py prepare "${args[@]}"
+      - id: upload
+        name: Upload only missing wheels using Trusted Publishing
+        if: steps.prepare.outputs.enabled == 'true' && steps.prepare.outputs.upload == 'true'
+        # A lost upload response is reconciled by the authoritative hash check below.
+        continue-on-error: true
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # release/v1
+        with:
+          packages-dir: build/pypi/upload/
+          skip-existing: false
+      - name: Require every expected PyPI filename and hash
+        if: steps.prepare.outputs.enabled == 'true'
+        run: python scripts/pypi_release.py verify-upload
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: pypi-publication-${{ inputs.candidate_ref }}
+          path: build/pypi/ci-pypi-publication.json
+          if-no-files-found: error
+          retention-days: 14
+
+  pypi_smoke:
+    needs: pypi_publication
+    if: always() && !cancelled() && needs.pypi_publication.result == 'success' && needs.pypi_publication.outputs.enabled == 'true'
+    runs-on: macos-15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+          architecture: arm64
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: pypi-publication-${{ needs.pypi_publication.outputs.source }}
+          path: build/pypi
+      - name: Fresh PyPI install, exact wheel hash, SELECT 1 and host exit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/pypi_release.py smoke
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: pypi-smoke-${{ needs.pypi_publication.outputs.source }}
+          path: build/pypi/ci-pypi-publication.json
+          if-no-files-found: error
           retention-days: 14

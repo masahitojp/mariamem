@@ -73,7 +73,7 @@ def test_publication_job_gate_and_handoff():
     assert "if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'" in publication
     assert 'contents: write' not in before and 'contents: write' in publication
     assert 'cancel-in-progress: false' in publication
-    assert 'environment:' not in publication
+    assert 'environment:' not in publication.split('  public_smoke_recovery:', 1)[0]
     normal = publication.split('  public_smoke_recovery:', 1)[0]
     assert 'release_generated_ci.py restore' not in normal
     assert 'release_generated_ci.py guard' not in normal
