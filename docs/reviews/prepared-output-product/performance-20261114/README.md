@@ -98,5 +98,6 @@ representation before comparison. The oversize fatal Proc_exit2/ERR2013 remains
 identical to main and is not a new output-route change.
 
 Same-source follow-up submissions: Development43530112119, public43530115529,
-installed43530119031. Their results are pending at this checkpoint; no prior run
-is relabeled to the fixed host. Main adoption and release remain unapproved.
+installed43530119031. All three passed on the fixed host; final-ci.json and the per-run directories
+retain their evidence. No prior run is relabeled. Main adoption, the selected-route
+disposition and release remain unapproved.

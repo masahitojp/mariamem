@@ -1,0 +1,372 @@
+["go", "mod", "download", "github.com/masahitojp/mariamem@v0.6.2"]
+["go", "mod", "tidy"]
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+["go", "test", "-tags=integration", "-count=1", "-timeout=5m", "-v", "."]
+=== RUN   TestDefaultTestCredentials
+=== RUN   TestDefaultTestCredentials/default
+=== RUN   TestDefaultTestCredentials/test_test
+=== RUN   TestDefaultTestCredentials/root_root
+=== RUN   TestDefaultTestCredentials/test_empty
+=== RUN   TestDefaultTestCredentials/arbitrary
+=== RUN   TestDefaultTestCredentials/default_after_other_users
+=== RUN   TestDefaultTestCredentials/secure_response
+=== RUN   TestDefaultTestCredentials/legacy_response
+=== RUN   TestDefaultTestCredentials/empty_username
+=== RUN   TestDefaultTestCredentials/short_handshake
+=== RUN   TestDefaultTestCredentials/missing_username_terminator
+=== RUN   TestDefaultTestCredentials/missing_legacy_response_terminator
+=== RUN   TestDefaultTestCredentials/missing_secure_response_length
+=== RUN   TestDefaultTestCredentials/truncated_secure_response
+=== RUN   TestDefaultTestCredentials/missing_protocol41
+=== RUN   TestDefaultTestCredentials/unsupported_tls
+--- PASS: TestDefaultTestCredentials (0.13s)
+    --- PASS: TestDefaultTestCredentials/default (0.00s)
+    --- PASS: TestDefaultTestCredentials/test_test (0.00s)
+    --- PASS: TestDefaultTestCredentials/root_root (0.00s)
+    --- PASS: TestDefaultTestCredentials/test_empty (0.00s)
+    --- PASS: TestDefaultTestCredentials/arbitrary (0.00s)
+    --- PASS: TestDefaultTestCredentials/default_after_other_users (0.00s)
+    --- PASS: TestDefaultTestCredentials/secure_response (0.00s)
+    --- PASS: TestDefaultTestCredentials/legacy_response (0.00s)
+    --- PASS: TestDefaultTestCredentials/empty_username (0.00s)
+    --- PASS: TestDefaultTestCredentials/short_handshake (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_username_terminator (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_legacy_response_terminator (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_secure_response_length (0.00s)
+    --- PASS: TestDefaultTestCredentials/truncated_secure_response (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_protocol41 (0.00s)
+    --- PASS: TestDefaultTestCredentials/unsupported_tls (0.00s)
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (0.20s)
+=== RUN   TestDefaultRepeatedConcurrentLifecycle
+--- PASS: TestDefaultRepeatedConcurrentLifecycle (0.44s)
+=== RUN   TestDisconnectNotificationTransports
+=== RUN   TestDisconnectNotificationTransports/tcp
+=== RUN   TestDisconnectNotificationTransports/pipe
+--- PASS: TestDisconnectNotificationTransports (0.44s)
+    --- PASS: TestDisconnectNotificationTransports/tcp (0.23s)
+    --- PASS: TestDisconnectNotificationTransports/pipe (0.22s)
+=== RUN   TestDefaultReleaseFailurePaths
+[mysql] 2026/11/14 00:01:21 connection.go:706 closing bad idle connection: EOF
+[mysql] 2026/11/14 00:01:21 connection.go:706 closing bad idle connection: EOF
+=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory
+=== NAME  TestDefaultReleaseFailurePaths
+    failure_paths_test.go:197: FDs=8→8 goroutines=2→2
+--- PASS: TestDefaultReleaseFailurePaths (0.37s)
+    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.00s)
+=== RUN   TestClosedDatabaseRetainedPipeLifetime
+    fd_lifetime_test.go:100: retained closed handles=6 descriptors before=8 after=8
+--- PASS: TestClosedDatabaseRetainedPipeLifetime (0.57s)
+=== RUN   TestMemorySnapshotIndependentLifecycle
+--- PASS: TestMemorySnapshotIndependentLifecycle (0.21s)
+=== RUN   TestInProcessConnectionLifecycle
+[mysql] 2026/11/14 00:01:22 packets.go:155 io: read/write on closed pipe
+[mysql] 2026/11/14 00:01:22 packets.go:155 io: read/write on closed pipe
+--- PASS: TestInProcessConnectionLifecycle (0.20s)
+=== RUN   TestInProcessCapacityAndClose
+--- PASS: TestInProcessCapacityAndClose (0.08s)
+=== RUN   TestInProcessCancellation
+--- PASS: TestInProcessCancellation (1.07s)
+=== RUN   TestInProcessFixture
+=== RUN   TestInProcessFixture/mutate
+=== RUN   TestInProcessFixture/isolated
+--- PASS: TestInProcessFixture (0.20s)
+    --- PASS: TestInProcessFixture/mutate (0.06s)
+    --- PASS: TestInProcessFixture/isolated (0.06s)
+=== RUN   TestIndependentRootsAndSnapshotsRemainIsolated
+--- PASS: TestIndependentRootsAndSnapshotsRemainIsolated (0.28s)
+PASS
+ok  	example.com/release-consumer	4.193s
+["go", "run", "."]
+Start, SELECT 1, Snapshot, Fork, SELECT 1, Close: PASS
+["/tmp/mariamem-v04-acceptance-0wsujmyi/modcache/golang.org/toolchain@v0.0.1-go1.27.3.linux-amd64/bin/go", "test", "-tags=integration", "-count=1", "-timeout=5m", "-v", "."]
+=== RUN   TestDefaultTestCredentials
+=== RUN   TestDefaultTestCredentials/default
+=== RUN   TestDefaultTestCredentials/test_test
+=== RUN   TestDefaultTestCredentials/root_root
+=== RUN   TestDefaultTestCredentials/test_empty
+=== RUN   TestDefaultTestCredentials/arbitrary
+=== RUN   TestDefaultTestCredentials/default_after_other_users
+=== RUN   TestDefaultTestCredentials/secure_response
+=== RUN   TestDefaultTestCredentials/legacy_response
+=== RUN   TestDefaultTestCredentials/empty_username
+=== RUN   TestDefaultTestCredentials/short_handshake
+=== RUN   TestDefaultTestCredentials/missing_username_terminator
+=== RUN   TestDefaultTestCredentials/missing_legacy_response_terminator
+=== RUN   TestDefaultTestCredentials/missing_secure_response_length
+=== RUN   TestDefaultTestCredentials/truncated_secure_response
+=== RUN   TestDefaultTestCredentials/missing_protocol41
+=== RUN   TestDefaultTestCredentials/unsupported_tls
+--- PASS: TestDefaultTestCredentials (0.12s)
+    --- PASS: TestDefaultTestCredentials/default (0.00s)
+    --- PASS: TestDefaultTestCredentials/test_test (0.00s)
+    --- PASS: TestDefaultTestCredentials/root_root (0.00s)
+    --- PASS: TestDefaultTestCredentials/test_empty (0.00s)
+    --- PASS: TestDefaultTestCredentials/arbitrary (0.00s)
+    --- PASS: TestDefaultTestCredentials/default_after_other_users (0.00s)
+    --- PASS: TestDefaultTestCredentials/secure_response (0.00s)
+    --- PASS: TestDefaultTestCredentials/legacy_response (0.00s)
+    --- PASS: TestDefaultTestCredentials/empty_username (0.00s)
+    --- PASS: TestDefaultTestCredentials/short_handshake (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_username_terminator (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_legacy_response_terminator (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_secure_response_length (0.00s)
+    --- PASS: TestDefaultTestCredentials/truncated_secure_response (0.00s)
+    --- PASS: TestDefaultTestCredentials/missing_protocol41 (0.00s)
+    --- PASS: TestDefaultTestCredentials/unsupported_tls (0.00s)
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (0.19s)
+=== RUN   TestDefaultRepeatedConcurrentLifecycle
+--- PASS: TestDefaultRepeatedConcurrentLifecycle (0.42s)
+=== RUN   TestDisconnectNotificationTransports
+=== RUN   TestDisconnectNotificationTransports/tcp
+=== RUN   TestDisconnectNotificationTransports/pipe
+--- PASS: TestDisconnectNotificationTransports (0.42s)
+    --- PASS: TestDisconnectNotificationTransports/tcp (0.21s)
+    --- PASS: TestDisconnectNotificationTransports/pipe (0.21s)
+=== RUN   TestDefaultReleaseFailurePaths
+[mysql] 2026/11/14 00:06:29 connection.go:706 closing bad idle connection: EOF
+[mysql] 2026/11/14 00:06:29 connection.go:706 closing bad idle connection: EOF
+=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory
+=== NAME  TestDefaultReleaseFailurePaths
+    failure_paths_test.go:197: FDs=8→8 goroutines=2→2
+--- PASS: TestDefaultReleaseFailurePaths (0.37s)
+    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.00s)
+=== RUN   TestClosedDatabaseRetainedPipeLifetime
+    fd_lifetime_test.go:100: retained closed handles=6 descriptors before=8 after=8
+--- PASS: TestClosedDatabaseRetainedPipeLifetime (0.56s)
+=== RUN   TestMemorySnapshotIndependentLifecycle
+--- PASS: TestMemorySnapshotIndependentLifecycle (0.20s)
+=== RUN   TestInProcessConnectionLifecycle
+[mysql] 2026/11/14 00:06:30 packets.go:155 io: read/write on closed pipe
+[mysql] 2026/11/14 00:06:30 packets.go:155 io: read/write on closed pipe
+--- PASS: TestInProcessConnectionLifecycle (0.20s)
+=== RUN   TestInProcessCapacityAndClose
+--- PASS: TestInProcessCapacityAndClose (0.09s)
+=== RUN   TestInProcessCancellation
+--- PASS: TestInProcessCancellation (1.07s)
+=== RUN   TestInProcessFixture
+=== RUN   TestInProcessFixture/mutate
+=== RUN   TestInProcessFixture/isolated
+--- PASS: TestInProcessFixture (0.22s)
+    --- PASS: TestInProcessFixture/mutate (0.07s)
+    --- PASS: TestInProcessFixture/isolated (0.07s)
+=== RUN   TestIndependentRootsAndSnapshotsRemainIsolated
+--- PASS: TestIndependentRootsAndSnapshotsRemainIsolated (0.29s)
+PASS
+ok  	example.com/release-consumer	4.174s
+["/tmp/mariamem-v04-acceptance-0wsujmyi/modcache/golang.org/toolchain@v0.0.1-go1.27.3.linux-amd64/bin/go", "run", "."]
+Start, SELECT 1, Snapshot, Fork, SELECT 1, Close: PASS
+["go", "mod", "edit", "-require", "github.com/masahitojp/mariamem@v0.6.2"]
+["go", "mod", "tidy"]
+go: downloading gorm.io/driver/mysql v1.6.0
+go: downloading gorm.io/gorm v1.31.1
+go: downloading github.com/jinzhu/now v1.1.5
+go: downloading github.com/jinzhu/inflection v1.0.0
+go: downloading golang.org/x/text v0.20.0
+["go", "test", "-mod=readonly", "-v", "-count=1", "-timeout=3m", "."]
+=== RUN   TestDogfood
+=== RUN   TestDogfood/01_commit_without_cleanup
+=== RUN   TestDogfood/02_next_test_clean
+=== RUN   TestDogfood/03_crud_relationships
+
+2026/11/14 00:06:39 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:243 [35;1mrecord not found
+[0m[33m[0.568ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` LIMIT 1
+=== RUN   TestDogfood/04_explicit_rollback
+=== RUN   TestDogfood/05_constraint_errors_recoverable
+
+2026/11/14 00:06:40 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:259 [35;1mError 1062 (23000): Duplicate entry 'seed' for key 'idx_users_name'
+[0m[33m[0.966ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`,`fullname`,`created_at`,`updated_at`) VALUES ('seed',NULL,'2026-11-14 00:06:40.047','2026-11-14 00:06:40.047') RETURNING `id`
+
+2026/11/14 00:06:40 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:260 [35;1mError 1048 (23000): Column 'name' cannot be null
+[0m[33m[0.805ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`) VALUES (NULL) RETURNING `id`
+
+2026/11/14 00:06:40 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:261 [35;1mError 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`test`.`addresses`, CONSTRAINT `fk_users_addresses` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+[0m[33m[0.980ms] [34;1m[rows:0][0m INSERT INTO `addresses` (`email`,`user_id`) VALUES ('orphan@example.test',99999) RETURNING `id`
+=== RUN   TestDogfood/06_normal_pool_sessions
+=== RUN   TestDogfood/07_idempotent_migrate_introspection
+=== RUN   TestDogfood/08_shutdown_with_pool
+[mysql] 2026/11/14 00:06:40 packets.go:58 unexpected EOF
+--- PASS: TestDogfood (0.90s)
+    --- PASS: TestDogfood/01_commit_without_cleanup (0.13s)
+    --- PASS: TestDogfood/02_next_test_clean (0.10s)
+    --- PASS: TestDogfood/03_crud_relationships (0.11s)
+    --- PASS: TestDogfood/04_explicit_rollback (0.09s)
+    --- PASS: TestDogfood/05_constraint_errors_recoverable (0.09s)
+    --- PASS: TestDogfood/06_normal_pool_sessions (0.10s)
+    --- PASS: TestDogfood/07_idempotent_migrate_introspection (0.12s)
+    --- PASS: TestDogfood/08_shutdown_with_pool (0.11s)
+PASS
+ok  	mariamem-dogfood/gorm	0.909s
+["go", "test", "-mod=readonly", "-v", "-count=1", "-timeout=3m", "."]
+=== RUN   TestDogfood
+=== RUN   TestDogfood/01_commit_without_cleanup
+=== RUN   TestDogfood/02_next_test_clean
+=== RUN   TestDogfood/03_crud_relationships
+
+2026/11/14 00:06:41 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:243 [35;1mrecord not found
+[0m[33m[0.576ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` LIMIT 1
+=== RUN   TestDogfood/04_explicit_rollback
+=== RUN   TestDogfood/05_constraint_errors_recoverable
+
+2026/11/14 00:06:41 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:259 [35;1mError 1062 (23000): Duplicate entry 'seed' for key 'idx_users_name'
+[0m[33m[0.972ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`,`fullname`,`created_at`,`updated_at`) VALUES ('seed',NULL,'2026-11-14 00:06:41.904','2026-11-14 00:06:41.904') RETURNING `id`
+
+2026/11/14 00:06:41 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:260 [35;1mError 1048 (23000): Column 'name' cannot be null
+[0m[33m[0.718ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`) VALUES (NULL) RETURNING `id`
+
+2026/11/14 00:06:41 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:261 [35;1mError 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`test`.`addresses`, CONSTRAINT `fk_users_addresses` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+[0m[33m[1.013ms] [34;1m[rows:0][0m INSERT INTO `addresses` (`email`,`user_id`) VALUES ('orphan@example.test',99999) RETURNING `id`
+=== RUN   TestDogfood/06_normal_pool_sessions
+=== RUN   TestDogfood/07_idempotent_migrate_introspection
+=== RUN   TestDogfood/08_shutdown_with_pool
+[mysql] 2026/11/14 00:06:42 packets.go:58 unexpected EOF
+--- PASS: TestDogfood (0.78s)
+    --- PASS: TestDogfood/01_commit_without_cleanup (0.08s)
+    --- PASS: TestDogfood/02_next_test_clean (0.07s)
+    --- PASS: TestDogfood/03_crud_relationships (0.08s)
+    --- PASS: TestDogfood/04_explicit_rollback (0.08s)
+    --- PASS: TestDogfood/05_constraint_errors_recoverable (0.08s)
+    --- PASS: TestDogfood/06_normal_pool_sessions (0.08s)
+    --- PASS: TestDogfood/07_idempotent_migrate_introspection (0.10s)
+    --- PASS: TestDogfood/08_shutdown_with_pool (0.08s)
+PASS
+ok  	mariamem-dogfood/gorm	0.786s
+["go", "test", "-mod=readonly", "-v", "-count=1", "-timeout=3m", "."]
+=== RUN   TestDogfood
+=== RUN   TestDogfood/01_commit_without_cleanup
+=== RUN   TestDogfood/02_next_test_clean
+=== RUN   TestDogfood/03_crud_relationships
+
+2026/11/14 00:06:43 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:243 [35;1mrecord not found
+[0m[33m[0.541ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` LIMIT 1
+=== RUN   TestDogfood/04_explicit_rollback
+=== RUN   TestDogfood/05_constraint_errors_recoverable
+
+2026/11/14 00:06:43 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:259 [35;1mError 1062 (23000): Duplicate entry 'seed' for key 'idx_users_name'
+[0m[33m[1.091ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`,`fullname`,`created_at`,`updated_at`) VALUES ('seed',NULL,'2026-11-14 00:06:43.718','2026-11-14 00:06:43.718') RETURNING `id`
+
+2026/11/14 00:06:43 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:260 [35;1mError 1048 (23000): Column 'name' cannot be null
+[0m[33m[0.798ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`) VALUES (NULL) RETURNING `id`
+
+2026/11/14 00:06:43 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:261 [35;1mError 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`test`.`addresses`, CONSTRAINT `fk_users_addresses` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+[0m[33m[1.100ms] [34;1m[rows:0][0m INSERT INTO `addresses` (`email`,`user_id`) VALUES ('orphan@example.test',99999) RETURNING `id`
+=== RUN   TestDogfood/06_normal_pool_sessions
+=== RUN   TestDogfood/07_idempotent_migrate_introspection
+=== RUN   TestDogfood/08_shutdown_with_pool
+[mysql] 2026/11/14 00:06:43 packets.go:58 unexpected EOF
+--- PASS: TestDogfood (0.79s)
+    --- PASS: TestDogfood/01_commit_without_cleanup (0.08s)
+    --- PASS: TestDogfood/02_next_test_clean (0.08s)
+    --- PASS: TestDogfood/03_crud_relationships (0.09s)
+    --- PASS: TestDogfood/04_explicit_rollback (0.08s)
+    --- PASS: TestDogfood/05_constraint_errors_recoverable (0.08s)
+    --- PASS: TestDogfood/06_normal_pool_sessions (0.08s)
+    --- PASS: TestDogfood/07_idempotent_migrate_introspection (0.10s)
+    --- PASS: TestDogfood/08_shutdown_with_pool (0.08s)
+PASS
+ok  	mariamem-dogfood/gorm	0.803s
+["go", "test", "-mod=readonly", "-v", "-count=1", "-timeout=3m", "."]
+=== RUN   TestDogfood
+=== RUN   TestDogfood/01_commit_without_cleanup
+=== RUN   TestDogfood/02_next_test_clean
+=== RUN   TestDogfood/03_crud_relationships
+
+2026/11/14 00:06:45 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:243 [35;1mrecord not found
+[0m[33m[0.493ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` LIMIT 1
+=== RUN   TestDogfood/04_explicit_rollback
+=== RUN   TestDogfood/05_constraint_errors_recoverable
+
+2026/11/14 00:06:45 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:259 [35;1mError 1062 (23000): Duplicate entry 'seed' for key 'idx_users_name'
+[0m[33m[0.883ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`,`fullname`,`created_at`,`updated_at`) VALUES ('seed',NULL,'2026-11-14 00:06:45.415','2026-11-14 00:06:45.415') RETURNING `id`
+
+2026/11/14 00:06:45 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:260 [35;1mError 1048 (23000): Column 'name' cannot be null
+[0m[33m[0.734ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`) VALUES (NULL) RETURNING `id`
+
+2026/11/14 00:06:45 [31;1m/tmp/mariamem-v04-acceptance-0wsujmyi/gorm/dogfood_test.go:261 [35;1mError 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`test`.`addresses`, CONSTRAINT `fk_users_addresses` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+[0m[33m[0.904ms] [34;1m[rows:0][0m INSERT INTO `addresses` (`email`,`user_id`) VALUES ('orphan@example.test',99999) RETURNING `id`
+=== RUN   TestDogfood/06_normal_pool_sessions
+=== RUN   TestDogfood/07_idempotent_migrate_introspection
+=== RUN   TestDogfood/08_shutdown_with_pool
+[mysql] 2026/11/14 00:06:45 packets.go:58 unexpected EOF
+--- PASS: TestDogfood (0.82s)
+    --- PASS: TestDogfood/01_commit_without_cleanup (0.12s)
+    --- PASS: TestDogfood/02_next_test_clean (0.09s)
+    --- PASS: TestDogfood/03_crud_relationships (0.10s)
+    --- PASS: TestDogfood/04_explicit_rollback (0.09s)
+    --- PASS: TestDogfood/05_constraint_errors_recoverable (0.09s)
+    --- PASS: TestDogfood/06_normal_pool_sessions (0.10s)
+    --- PASS: TestDogfood/07_idempotent_migrate_introspection (0.12s)
+    --- PASS: TestDogfood/08_shutdown_with_pool (0.09s)
+PASS
+ok  	mariamem-dogfood/gorm	0.830s
+["/opt/hostedtoolcache/Python/3.14.10/x64/bin/python", "-m", "venv", "/tmp/mariamem-v04-acceptance-0wsujmyi/venv"]
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "-m", "pip", "install", "${RUNNER_HOME}/work/mariamem/mariamem/build/dist/mariamem-0.6.2-py3-none-linux_x86_64.whl[test]", "-r", "${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt", "pytest-xdist==3.8.0"]
+Processing ${RUNNER_HOME}/work/mariamem/mariamem/build/dist/mariamem-0.6.2-py3-none-linux_x86_64.whl (from mariamem==0.6.2)
+Collecting pytest-xdist==3.8.0
+  Downloading pytest_xdist-3.8.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting SQLAlchemy==2.0.54 (from -r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 1))
+  Downloading sqlalchemy-2.0.54-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+Collecting PyMySQL==1.2.3 (from -r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 2))
+  Downloading pymysql-1.2.3-py3-none-any.whl.metadata (4.2 kB)
+Collecting pytest==8.4.2 (from -r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 3))
+  Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+Collecting execnet>=2.1 (from pytest-xdist==3.8.0)
+  Downloading execnet-2.1.2-py3-none-any.whl.metadata (2.9 kB)
+Collecting greenlet>=1 (from SQLAlchemy==2.0.54->-r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 1))
+  Downloading greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting typing-extensions>=4.6.0 (from SQLAlchemy==2.0.54->-r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 1))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting iniconfig>=1 (from pytest==8.4.2->-r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 3))
+  Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=20 (from pytest==8.4.2->-r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 3))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest==8.4.2->-r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 3))
+  Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.2->-r ${RUNNER_HOME}/work/mariamem/mariamem/tests/consumer/sqlalchemy-requirements.txt (line 3))
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pymysql-1.2.3-py3-none-any.whl (46 kB)
+Downloading pytest_xdist-3.8.0-py3-none-any.whl (46 kB)
+Downloading sqlalchemy-2.0.54-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 49.8 MB/s  0:00:00
+Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+Downloading execnet-2.1.2-py3-none-any.whl (40 kB)
+Downloading greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (670 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 670.8/670.8 kB 127.2 MB/s  0:00:00
+Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 224.7 MB/s  0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: typing-extensions, PyMySQL, pygments, pluggy, packaging, mariamem, iniconfig, greenlet, execnet, SQLAlchemy, pytest, pytest-xdist
+
+Successfully installed PyMySQL-1.2.3 SQLAlchemy-2.0.54 execnet-2.1.2 greenlet-3.5.6 iniconfig-2.3.1 mariamem-0.6.2 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-8.4.2 pytest-xdist-3.8.0 typing-extensions-4.16.0
+
+[notice] A new release of pip is available: 26.2.2 -> 26.3
+[notice] To update, run: /tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python -m pip install --upgrade pip
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "${RUNNER_HOME}/work/mariamem/mariamem/tests/verify_alpha.py"]
+{"name": "serial", "tests": 7, "failures": 0, "errors": 0, "skipped": 0, "fixture_instances_disposed": 5, "final_hosts_reaped": 1}
+{"name": "parallel", "tests": 7, "failures": 0, "errors": 0, "skipped": 0, "fixture_instances_disposed": 6, "final_hosts_reaped": 2}
+{"name": "migration", "tests": 2, "failures": 0, "errors": 0, "skipped": 0, "fixture_instances_disposed": 3, "final_hosts_reaped": 1}
+{"name": "failure-cleanup", "tests": 2, "failures": 1, "errors": 1, "skipped": 0, "fixture_instances_disposed": 3, "final_hosts_reaped": 1}
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "-m", "pytest", "-q", "/tmp/mariamem-v04-acceptance-0wsujmyi/test_generated_platform.py"]
+..                                                                       [100%]
+2 passed in 0.30s
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "-m", "pytest", "-q", "test_sqlalchemy_dogfood.py", "--junitxml", "/tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-0.xml"]
+...........                                                              [100%]
+-- generated xml file: /tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-0.xml --
+11 passed in 3.11s
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "-m", "pytest", "-q", "test_sqlalchemy_dogfood.py", "--junitxml", "/tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-1.xml"]
+...........                                                              [100%]
+-- generated xml file: /tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-1.xml --
+11 passed in 1.63s
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "-m", "pytest", "-q", "test_sqlalchemy_dogfood.py", "--junitxml", "/tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-2.xml"]
+...........                                                              [100%]
+-- generated xml file: /tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-2.xml --
+11 passed in 1.64s
+["/tmp/mariamem-v04-acceptance-0wsujmyi/venv/bin/python", "-m", "pytest", "-q", "test_sqlalchemy_dogfood.py", "--junitxml", "/tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-3.xml"]
+...........                                                              [100%]
+-- generated xml file: /tmp/mariamem-v04-acceptance-0wsujmyi/sqlalchemy-3.xml --
+11 passed in 2.99s

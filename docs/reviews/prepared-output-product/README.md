@@ -9,7 +9,9 @@ consumers. No main integration or release is approved.
 [Bounded performance and prepared/frame checks](performance-20261114/README.md)
 found a64KiB regression, then a host-only JSON decode repair. Its follow-up real
 guest comparison has near-parity median64KiB/one-row and faster1,000-row results;
-same-source CI remains pending.71 current prepared oracle
+same-source normal43530112119/public43530115529/installed43530119031 all pass.
+[Integration review](adoption-review.md) and [prior-condition disposition](acceptance-map.md)
+are ready for Human judgment.71 current prepared oracle
 scenarios and five frame-limit samples match the fixed main baseline. These do
 not waive unrelated full-native conditions; selected-route applicability and the
 final adoption review remain required. The following records are historical

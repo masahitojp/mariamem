@@ -1,0 +1,72 @@
+[
+  {
+    "old": "mariadb-11.4.2",
+    "new": "mariadb-11.8.2",
+    "path": "include/mysql.h",
+    "added": 2,
+    "removed": 0
+  },
+  {
+    "old": "mariadb-11.4.2",
+    "new": "mariadb-11.8.2",
+    "path": "libmysqld/libmysql.c",
+    "added": 3,
+    "removed": 5
+  },
+  {
+    "old": "mariadb-11.4.2",
+    "new": "mariadb-11.8.2",
+    "path": "libmysqld/lib_sql.cc",
+    "added": 0,
+    "removed": 0
+  },
+  {
+    "old": "mariadb-11.4.2",
+    "new": "mariadb-11.8.2",
+    "path": "sql/protocol.cc",
+    "added": 43,
+    "removed": 44
+  },
+  {
+    "old": "mariadb-11.4.2",
+    "new": "mariadb-11.8.2",
+    "path": "sql/protocol.h",
+    "added": 11,
+    "removed": 11
+  },
+  {
+    "old": "mariadb-11.8.2",
+    "new": "mariadb-12.3.2",
+    "path": "include/mysql.h",
+    "added": 2,
+    "removed": 0
+  },
+  {
+    "old": "mariadb-11.8.2",
+    "new": "mariadb-12.3.2",
+    "path": "libmysqld/libmysql.c",
+    "added": 3,
+    "removed": 5
+  },
+  {
+    "old": "mariadb-11.8.2",
+    "new": "mariadb-12.3.2",
+    "path": "libmysqld/lib_sql.cc",
+    "added": 13,
+    "removed": 1
+  },
+  {
+    "old": "mariadb-11.8.2",
+    "new": "mariadb-12.3.2",
+    "path": "sql/protocol.cc",
+    "added": 17,
+    "removed": 8
+  },
+  {
+    "old": "mariadb-11.8.2",
+    "new": "mariadb-12.3.2",
+    "path": "sql/protocol.h",
+    "added": 0,
+    "removed": 0
+  }
+]

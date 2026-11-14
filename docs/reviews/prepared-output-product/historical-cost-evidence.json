@@ -1,0 +1,37 @@
+{
+  "action": "preserve existing November12 evidence byte-for-byte; original dirty checkout unchanged; not a new upstream audit",
+  "files": [
+    {
+      "file": "docs/reviews/issue128-output-maintenance-matrix-20261112.md",
+      "sha256": "95d55bb0d471d66f04f3f55f931552ab97af865b2b98a7d80ce01b1fe55fe6a8"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/ga-hashes.json",
+      "sha256": "6074ce464c0d66c0724c673bec35b9c9c47d1ca3ef852bf311d07697efa6cfc6"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/maintenance-pins.json",
+      "sha256": "e766592c3cb83d8ed9213320358afea2c965498235c5c6d02f5b4ab862af3b39"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/ga-pins.json",
+      "sha256": "28d76badde07b8e9320ae96aae6c71a9f90d2edb8daa2571b5750c17eaa869dd"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/README.md",
+      "sha256": "1a371b9eb435fba96809e21aed655d3ef89cdbd698f03d2e658b451e45ebcef9"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/maintenance-hashes.json",
+      "sha256": "b22953933a0aee8f90daf0c7c1ed622ba6b925a21d64124526524375ca31d51b"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/ga-summary.json",
+      "sha256": "1df3f482cb8f78cbebfc25384a557d0ec8785b4d4b3c73bf30c2e183e262ee29"
+    },
+    {
+      "file": "docs/reviews/issue128-lts-output-history/maintenance-summary.json",
+      "sha256": "6e08b1ed2c821d535e5dd553a3e9a8534fef27ad050fb21bed32bbe4baff71a1"
+    }
+  ]
+}
