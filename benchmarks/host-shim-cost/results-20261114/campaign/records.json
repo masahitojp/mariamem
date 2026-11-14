@@ -1,0 +1,173 @@
+[
+  {
+    "name": "p1-warm-a0",
+    "p": 1,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 1738.2403339999998,
+    "cpu_ms": 710.829
+  },
+  {
+    "name": "p1-warm-a1",
+    "p": 1,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 507.3530409999998,
+    "cpu_ms": 676.73
+  },
+  {
+    "name": "p1-r0-a0",
+    "p": 1,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 458.5368329999997,
+    "cpu_ms": 629.9179999999999
+  },
+  {
+    "name": "p1-r0-a1",
+    "p": 1,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 503.9631670000002,
+    "cpu_ms": 652.7220000000002
+  },
+  {
+    "name": "p1-r1-a1",
+    "p": 1,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 473.73074999999966,
+    "cpu_ms": 623.4189999999994
+  },
+  {
+    "name": "p1-r1-a0",
+    "p": 1,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 450.15804100000037,
+    "cpu_ms": 602.7499999999997
+  },
+  {
+    "name": "p1-r2-a0",
+    "p": 1,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 503.1074169999998,
+    "cpu_ms": 665.2710000000004
+  },
+  {
+    "name": "p1-r2-a1",
+    "p": 1,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 500.94058300000023,
+    "cpu_ms": 658.9880000000002
+  },
+  {
+    "name": "p8-warm-a0",
+    "p": 8,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 300.24499999999944,
+    "cpu_ms": 741.4159999999998
+  },
+  {
+    "name": "p8-warm-a1",
+    "p": 8,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 298.453125,
+    "cpu_ms": 736.1739999999999
+  },
+  {
+    "name": "p8-r0-a0",
+    "p": 8,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 358.26354099999946,
+    "cpu_ms": 766.4500000000007
+  },
+  {
+    "name": "p8-r0-a1",
+    "p": 8,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 315.8596249999999,
+    "cpu_ms": 624.2050000000008
+  },
+  {
+    "name": "p8-r1-a1",
+    "p": 8,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 299.36154099999965,
+    "cpu_ms": 652.7870000000005
+  },
+  {
+    "name": "p8-r1-a0",
+    "p": 8,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 296.84624999999977,
+    "cpu_ms": 656.224999999999
+  },
+  {
+    "name": "p8-r2-a0",
+    "p": 8,
+    "arm": 0,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 298.137584,
+    "cpu_ms": 680.4309999999996
+  },
+  {
+    "name": "p8-r2-a1",
+    "p": 8,
+    "arm": 1,
+    "profile": false,
+    "code": 0,
+    "wall_ms": 295.68999999999954,
+    "cpu_ms": 737.7020000000001
+  },
+  {
+    "name": "profile-0",
+    "p": 8,
+    "arm": 0,
+    "profile": true,
+    "code": 0,
+    "wall_ms": 2995.995333,
+    "cpu_ms": 5120.500000000001
+  },
+  {
+    "name": "profile-1",
+    "p": 8,
+    "arm": 0,
+    "profile": true,
+    "code": 0,
+    "wall_ms": 3000.1385000000005,
+    "cpu_ms": 5324.475999999998
+  },
+  {
+    "name": "profile-2",
+    "p": 8,
+    "arm": 0,
+    "profile": true,
+    "code": 0,
+    "wall_ms": 2938.6004999999996,
+    "cpu_ms": 5236.997999999998
+  }
+]

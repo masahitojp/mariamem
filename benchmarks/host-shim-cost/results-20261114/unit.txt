@@ -1,0 +1,11 @@
+=== RUN   TestObsReaderFrames
+--- PASS: TestObsReaderFrames (0.00s)
+=== RUN   TestObsReaderBadLength
+=== RUN   TestObsReaderBadLength/bad
+=== RUN   TestObsReaderBadLength/bad#01
+--- PASS: TestObsReaderBadLength (0.00s)
+    --- PASS: TestObsReaderBadLength/bad (0.00s)
+    --- PASS: TestObsReaderBadLength/bad#01 (0.00s)
+=== RUN   TestObsControlWrite
+--- PASS: TestObsControlWrite (0.00s)
+PASS

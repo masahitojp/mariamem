@@ -1,0 +1,17 @@
+File: probe
+Type: cpu
+Time: 2026-11-14 22:43:24 JST
+Duration: 1.64s, Total samples = 1.21s (73.71%)
+Active filters:
+   focus=Fn5570
+Showing nodes accounting for 0.10s, 8.26% of 1.21s total
+Showing top 8 nodes out of 105
+      flat  flat%   sum%        cum   cum%
+     0.02s  1.65%  1.65%      0.04s  3.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+     0.02s  1.65%  3.31%      0.02s  1.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+     0.01s  0.83%  4.13%      0.01s  0.83%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicEA
+     0.01s  0.83%  4.96%      0.01s  0.83%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwXchg32At
+     0.01s  0.83%  5.79%      0.03s  2.48%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn17041
+     0.01s  0.83%  6.61%      0.01s  0.83%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17655
+     0.01s  0.83%  7.44%      0.01s  0.83%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18011
+     0.01s  0.83%  8.26%      0.01s  0.83%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17183

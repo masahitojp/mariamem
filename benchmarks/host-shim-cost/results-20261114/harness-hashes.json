@@ -1,0 +1,14 @@
+{
+  "go.mod": "4e3917d1756ea5abc5cb6f024ec84d1d47bed9e243e09d0f1f4c8590384ecddc",
+  "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+  "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+  "store/fixture_test.go": "a8d0f5797c918e290d79a18ac9c89d16e59ed886f9f597337c148778f9caf60c",
+  "store/insert_stage_test.go": "d91c3e0b4699b28c134b5513950a6fd37128fee5cafcb42109dfd877ea9c76b6",
+  "store/migrations/0001_all.sql": "886a29ff569962ab2e89377422d4d427ce36fb44c4620705b949c14d16d0283b",
+  "store/read_test.go": "4a26ec4a913b1d1b1e47f2d3e57b0d953f971ba4dc8843bb851297657777b2e9",
+  "store/revenue_probe_test.go": "fdba2b0c265cdec1c4ce51fe02cc2e16263cce0637b35d462c6c246a6aefd2d4",
+  "store/sample_probe_test.go": "77d422922d40d9cad7c0cae14734d78d87218b00e8b2b1ccb9976717552f94ad",
+  "store/seed.go": "eedfc468c65edda0e0bdd45fd26c9e445a256e43cfa6fb76dcda291f2e98077b",
+  "store/store.go": "a85935742b5efc6677a9223a7896c0ae71978f35be46f424a6627043ab0d475d",
+  "store/write_test.go": "dd210ad26b5b091d54a869235aa49bf1836a1d8094984eb697fd496beb0ac307"
+}

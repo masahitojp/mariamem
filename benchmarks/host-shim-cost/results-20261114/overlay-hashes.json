@@ -1,0 +1,57 @@
+[
+  {
+    "source": "internal/generatedgo/code/p1/p1_pure.go",
+    "source_sha256": "46062115320b5c785afac05a87698baab9b84fb7272d0ad6e7398f104581312d",
+    "overlay_sha256": "8426b5ab978d0083acbba70cc514a9949453ff198a78e7aac19e2b24e6c16e48"
+  },
+  {
+    "source": "internal/generatedgo/code/base/base.go",
+    "source_sha256": "aa75e18392768f31b390ecb4f86c5aa9a280978bd6781315c5e16d2737297223",
+    "overlay_sha256": "d35b9e74baa5f03801888cde74b60ab81ae9b06e706a71ade1b142b5fe31be2a"
+  },
+  {
+    "source": "internal/generatedgo/code/base/experiment_stages.go",
+    "source_sha256": null,
+    "overlay_sha256": "fdd592685043f3a30869f0935f67440211352e9fae837bc96881d6507043e4f6"
+  },
+  {
+    "source": "experiment_stages.go",
+    "source_sha256": null,
+    "overlay_sha256": "e61b2eb8661cd602f14a19651f27d09f0065b0c5a36c59483c1d7f5be5ec2c6c"
+  },
+  {
+    "source": "internal/generatedgo/code/p4/p4_pure.go",
+    "source_sha256": "5572ca5c8b027ab9a67d15606138d88a7baa04b0ee07db389ea2571aa5994463",
+    "overlay_sha256": "7502febef2ddb231d4061585eacd3f3ecb4add62367c115b1750a52b1113db12"
+  },
+  {
+    "source": "internal/generatedgo/runtime_instance.go",
+    "source_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "overlay_sha256": "376f7294f7f7c146df822c3ce66cc8594fa70ba7c3f9048f9afcb59c07e50b11"
+  },
+  {
+    "source": "internal/guest/linked.go",
+    "source_sha256": "79d96d677f224248a57ba3c832adba2d85a54dbf02de5ee1041972e0071e1343",
+    "overlay_sha256": "e762a5a8523b4784c7f8e7e868132b5ac4a21e441ebbb652c79d860947bf7be2"
+  },
+  {
+    "source": "internal/guest/guest.go",
+    "source_sha256": "54e486451b07260a7dc5d8de5d35b33ffd576b0d6c9d68fef151cbc2e244d412",
+    "overlay_sha256": "2ac39fb03fa1ea457d2d4478bf044a2e06fb204d92a9c31c3a5efcbd240dfa61"
+  },
+  {
+    "source": "internal/generatedgo/code/base/observation.go",
+    "source_sha256": null,
+    "overlay_sha256": "a84b0df9f72dab8f5c8f078b15f76b65fa69196c462ae49c471279c373e25ad0"
+  },
+  {
+    "source": "internal/guest/observation_reader.go",
+    "source_sha256": null,
+    "overlay_sha256": "29bb80b41d5d4895f8098eec57e4fb80006b99702f7dc5cb85375e24cb482471"
+  },
+  {
+    "source": "internal/guest/observation_reader_test.go",
+    "source_sha256": null,
+    "overlay_sha256": "de76d80674c4809f6dd999707a757e81e59ed746aa054a5e8a3a6fb96d4e5cc3"
+  }
+]

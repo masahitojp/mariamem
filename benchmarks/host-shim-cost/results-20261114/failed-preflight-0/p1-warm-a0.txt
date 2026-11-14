@@ -1,0 +1,21 @@
+panic: runtime error: slice bounds out of range [5:4]
+
+goroutine 1 [running]:
+github.com/masahitojp/mariamem/internal/guest.(*Process).write(0x0?, {0x108787788?, 0x42fc15e8cdb0?}, {0x42fc15d8b120?, 0x0?, 0x0?})
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/worktree/internal/guest/guest.go:299 +0x2f8
+github.com/masahitojp/mariamem/internal/guest.(*Process).stop(0x42fc15f22000, {0x108787788, 0x42fc15e8cdb0}, 0x0)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/worktree/internal/guest/guest.go:399 +0x2d0
+github.com/masahitojp/mariamem/internal/guest.(*Process).Shutdown(...)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/worktree/internal/guest/guest.go:364
+github.com/masahitojp/mariamem/internal/host.(*Server).finish(0x42fc1635a000, {0x108787788, 0x42fc15e8cdb0}, 0x1)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/worktree/internal/host/server.go:369 +0x17c
+github.com/masahitojp/mariamem/internal/host.(*Server).SnapshotHeap(0x42fc1635a000, {0x108787788?, 0x42fc15e8cdb0?}, 0x0)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/worktree/internal/host/heap_snapshot.go:35 +0x504
+github.com/masahitojp/mariamem.(*Database).Snapshot(0x42fc15f0c000, {0x108787788?, 0x42fc15e8cdb0?}, {0xcc?, 0x8?})
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/worktree/snapshot.go:60 +0x268
+github.com/shibukawa/pgmem/bench/modelcase/store_test.(*fixture).usePgmem(0x42fc15e821e0, {0x108787788, 0x42fc15e8cdb0})
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/temp/maria/store/fixture_test.go:106 +0x238
+github.com/shibukawa/pgmem/bench/modelcase/store_test.TestMain(0x42fc15e84280)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/temp/maria/store/fixture_test.go:63 +0x16c
+main.main()
+	_testmain.go:78 +0x88

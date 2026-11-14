@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/evidence/reduce188.py", line 10, in <module>
+    reqs=sorted([r for r in req.values()if 'stage3'in r],key=lambda r:r['call_begin']);assert len(reqs)==len(clients[label])==100
+AssertionError

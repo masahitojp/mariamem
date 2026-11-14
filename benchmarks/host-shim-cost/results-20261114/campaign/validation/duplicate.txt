@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-shim-cost/evidence/reduce188.py", line 9, in <module>
+    r=req.setdefault(e['ID'],{});assert e['Name'] not in r,('duplicate',label,e);r[e['Name']]=e['NS']
+AssertionError: ('duplicate', 'raw/child0', {'ID': 53, 'Name': 'stage3', 'NS': 352598708})
