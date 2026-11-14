@@ -1,0 +1,6 @@
+{
+  "offset-overflow": "panic: unproven memory32 address base.MemoryEA(m, uint64(uint32(a)), 4294967296, 4)",
+  "width": "panic: unsupported width",
+  "unknown-address": "panic: unproven memory32 address base.MemoryEA(m, uint64(nextAddress()), 4294967295, 4)",
+  "label-collision": "panic: reserved name collision"
+}

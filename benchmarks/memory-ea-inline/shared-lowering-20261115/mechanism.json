@@ -1,0 +1,30 @@
+{
+  "baseline": {
+    "Fn13460": {
+      "instructions": 1716,
+      "bytes": 6864,
+      "MemoryEA_calls": 157,
+      "gopanic_calls": 0
+    },
+    "Fn15594": {
+      "instructions": 10692,
+      "bytes": 42768,
+      "MemoryEA_calls": 853,
+      "gopanic_calls": 0
+    }
+  },
+  "candidate": {
+    "Fn13460": {
+      "instructions": 1488,
+      "bytes": 5952,
+      "MemoryEA_calls": 0,
+      "gopanic_calls": 1
+    },
+    "Fn15594": {
+      "instructions": 11212,
+      "bytes": 44848,
+      "MemoryEA_calls": 0,
+      "gopanic_calls": 1
+    }
+  }
+}
