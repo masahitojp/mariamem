@@ -130,7 +130,9 @@ def test_workflow_qualifies_all_targets_and_separates_read_only_verify():
     assert 'always()' not in jobs['additional_public_smoke']['if']
     for name in ('resolve','public_smoke_recovery','pypi_verify','pypi_publication'):
         assert '!inputs.additional_v062' in jobs[name]['if']
-    build=parse((root/'.github/workflows/additional-v062-build.yml').read_text())['jobs']['native']
+    build_workflow=parse((root/'.github/workflows/additional-v062-build.yml').read_text())
+    assert build_workflow['env']['PYTHONUTF8']=='1'
+    build=build_workflow['jobs']['native']
     assert {row['target'] for row in build['strategy']['matrix']['include']}==set(TARGETS)
     smoke=jobs['additional_public_smoke']
     assert {row['target'] for row in smoke['strategy']['matrix']['include']}==set(TARGETS)|{'darwin-arm64'}
