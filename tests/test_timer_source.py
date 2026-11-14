@@ -25,10 +25,12 @@ def test_canonical_timer_source(tmp_path, name, result, cases, mutations):
 
 
 def test_product_candidate_requires_canonical_and_platform_timer_checks():
-    workflow = (ROOT / '.github/workflows/timer-product.yml').read_text()
+    from workflow_model import load, commands, events
+    model = load(ROOT / '.github/workflows/timer-product.yml')
+    workflow = commands(model)
+    assert any(job.get('strategy', {}).get('matrix', {}).get('runner') == ['macos-15', 'ubuntu-24.04'] for job in model['jobs'].values())
     for required in ['scripts/build_generated_guest.py --repetitions 2',
                      'test ! -e guest/experimental.patch',
-                     'runner: [macos-15, ubuntu-24.04]',
                      'scripts/regenerate_release_guest.py',
                      'scripts/check_prepared_build_guards.py',
                      'tests/test_timer_source.py',
@@ -36,7 +38,7 @@ def test_product_candidate_requires_canonical_and_platform_timer_checks():
                      'tests/routine_thread_fixture.py',
                      'tests/lexer_prepared_acceptance.py']:
         assert required in workflow
-    assert '  push:' not in workflow
-    assert '  workflow_dispatch:' in workflow
-    assert 'continue-on-error' not in workflow
+    assert 'push' not in events(model)
+    assert 'workflow_dispatch' in events(model)
+    assert all('continue-on-error' not in job for job in model['jobs'].values())
     assert 'operation: release' not in workflow

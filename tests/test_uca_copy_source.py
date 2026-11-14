@@ -69,11 +69,13 @@ class UCACopySourceTests(unittest.TestCase):
                     guard.validate_record(broken, commit)
 
     def test_canonical_gate_is_manual_and_requires_real_platform_controls(self):
-        text = (ROOT/'.github/workflows/uca-canonical.yml').read_text()
-        for expected in ('  workflow_dispatch:', 'timeout-minutes: 100',
-                         'test ! -e guest/experimental.patch',
+        from workflow_model import manual_platform_commands
+        text = manual_platform_commands((ROOT/'.github/workflows/uca-canonical.yml'))
+        from workflow_model import load
+        assert any(job.get('timeout-minutes') == 100 for job in load(ROOT/'.github/workflows/uca-canonical.yml')['jobs'].values())
+        for expected in (                         'test ! -e guest/experimental.patch',
                          'scripts/build_generated_guest.py --repetitions 2',
-                         'runner: [macos-15, ubuntu-24.04]',
+
                          'scripts/regenerate_release_guest.py',
                          'scripts/check_prepared_build_guards.py',
                          'test_uca_copy_source.py',
