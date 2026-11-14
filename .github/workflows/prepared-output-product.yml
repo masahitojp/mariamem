@@ -165,7 +165,7 @@ jobs:
           python scripts/verify.py integration > build/prepared-output-ci/integration.txt 2>&1
       - name: Buffer pool large, compressed, resize, EIO and redo controls
         run: |
-          python benchmarks/forkcost/buffer-zero-candidate/ci_validate.py --root "$GITHUB_WORKSPACE" --output "$RUNNER_TEMP/buffer-zero-controls" > build/prepared-output-ci/buffer-controls.txt 2>&1
+          python scripts/check_buffer_pool_controls.py --root "$GITHUB_WORKSPACE" --output "$RUNNER_TEMP/buffer-zero-controls" > build/prepared-output-ci/buffer-controls.txt 2>&1
           cp "$RUNNER_TEMP/buffer-zero-controls/evidence/"*.json build/prepared-output-ci/
           cp "$RUNNER_TEMP/buffer-zero-controls/evidence/"*.log build/prepared-output-ci/
       - name: Bind compact receipt checksums
