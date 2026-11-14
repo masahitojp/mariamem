@@ -17,6 +17,11 @@ Use `python -m pip install "mariamem[test]==0.6.2"` on macOS.
 Linux continues to use the GitHub wheel; broader Linux/Windows distribution is
 planned for 0.7.0.
 
+The source tree also has an explicit portable Linux candidate build for x86_64
+and aarch64: glibc 2.28+ / musl 1.2+. Its four-environment acceptance is tracked in
+[Issue170](https://github.com/masahitojp/mariamem/issues/170); this is not a claim
+that 0.6.2 on PyPI includes Linux wheels. The Go API support table above is unchanged.
+
 ### Python
 
 ```sh

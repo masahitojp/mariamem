@@ -34,6 +34,20 @@ initial boundary acceptance; public smoke stays install/hash/start/SELECT 1/Clos
 not a repeated ORM/Snapshot campaign. Windows ordinary releases use short smoke,
 with focused additional checks when relevant OS boundaries change.
 
+## Linux distribution implementation in progress (#170)
+
+The Human approved proceeding after the sequencing review. Start from main
+`291467b4fbac143093b35ea15d16cda798590f97`: extend the existing mmap/static image
+and ARM64 narrow-atomic host path to Linux arm64 without a guest patch. Portable
+candidate floors are glibc2.28 / musl1.2, with one static host per CPU reused in
+both environments. Initial acceptance and affected-boundary CI accompany the
+implementation; #172 later consolidates selection/build duplication. Candidate
+implementation or cross-compilation alone is not four-environment acceptance.
+#158's minimal module boundaries and the Python package description accompany
+this work; the full evidence cleanup remains a separate required item. #169 owns
+connecting the accepted portable inventory to publication. No new release version
+or public upload is authorized by this implementation.
+
 ## Prepared output — integrated on main (2026-11-14)
 
 PR163 merged as `c129ab0e2d0d286da57b3be87d7d5e9cc2d3239c`. Normal PR CI

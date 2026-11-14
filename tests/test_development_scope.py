@@ -325,3 +325,16 @@ def test_actual_pytest_collection_excludes_optional_directories_but_allows_expli
     assert len(optional) == 2
     assert any('test_native' in line for line in optional)
     assert any('test_measurement' in line for line in optional)
+
+
+@pytest.mark.parametrize('path', [
+    'internal/generatedgo/code/base/memory_mapping.go', 'internal/host/host.go',
+    'python/setup.cfg', 'python/mariamem/_artifacts.py', 'scripts/build_alpha.py',
+    'scripts/native_target.py', '.github/workflows/linux-wheel.yml',
+])
+def test_linux_boundaries_select_native_wheel_acceptance(path):
+    assert scope.select([path])['linux_wheel']
+
+
+def test_linux_acceptance_is_not_required_for_plain_docs():
+    assert not scope.select(['README.md', 'docs/python.md'])['linux_wheel']

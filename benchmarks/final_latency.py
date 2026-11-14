@@ -125,7 +125,7 @@ def main():
     native = args.native_dir.resolve()
     binary = ROOT/'build/bench/isolation-go'
     binary.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(['go', 'build', '-trimpath', '-o', str(binary), './benchmarks/goisolation'], cwd=ROOT, check=True)
+    subprocess.run(['go', 'build', '-trimpath', '-o', str(binary), './goisolation'], cwd=ROOT/"benchmarks", check=True)
     report = {'benchmark': 'final_v02_latency', 'schema_version': 1,
               'environment': environment(SimpleNamespace(backend='none')),
               'native_manifest': json.loads((native/'manifest.json').read_text()),

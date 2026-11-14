@@ -13,21 +13,22 @@ import zipfile
 
 from deployment import check_binary
 from release_version import PYTHON_VERSION
-from native_target import current_target, platform_fields, elf_dependencies
+from native_target import current_target, target_metadata, platform_fields, elf_dependencies
 from distribution_licenses import paths as license_paths
 from build_feedback import go_environment, run as observed_run
 
 ROOT = Path(__file__).resolve().parents[1]
-target = current_target(ROOT)
-major = target.get("minimum_macos")
-wheel_platform = target["wheel_platform"]
 parser = argparse.ArgumentParser()
+parser.add_argument("--target", choices=("linux-x86_64", "linux-aarch64"), help="explicit portable Linux target; does not publish")
 parser.add_argument("--go", type=Path, default=Path(shutil.which("go") or "go"))
 parser.add_argument("--runtime", type=Path, default=None)
 parser.add_argument("--module", type=Path, default=None)
 parser.add_argument("--ci-candidate", action="store_true",
                     help="build immutable candidate metadata without post-build review state")
 args = parser.parse_args()
+target = target_metadata(args.target, ROOT) if args.target else current_target(ROOT)
+major = target.get("minimum_macos")
+wheel_platform = target["wheel_platform"]
 if args.runtime is not None or args.module is not None: parser.error("legacy Wasmer packaging is retired; build the generated-Go host-only wheel")
 (ROOT / "build").mkdir(exist_ok=True)
 (ROOT / "tests/evidence").mkdir(parents=True, exist_ok=True)
@@ -51,7 +52,7 @@ if args.ci_candidate:
     buildinfo = verify_go_binary(ROOT, host, commit, go=args.go)
 binary_minimums = ({p.name: check_binary(p, major) for p in (host,)}
                    if major is not None else {})
-linux_dependencies = ({p.name: elf_dependencies(p) for p in (host,)}
+linux_dependencies = ({p.name: elf_dependencies(p, target) for p in (host,)}
                       if major is None else {})
 native = ROOT / "python/mariamem/_native"
 native.mkdir(parents=True, exist_ok=True)
@@ -79,7 +80,9 @@ print(json.dumps(manifest, indent=2))
 with zipfile.ZipFile(wheel) as archive:
     names = archive.namelist()
     metadata = archive.read(f"mariamem-{PYTHON_VERSION}.dist-info/WHEEL").decode()
-    assert f"Tag: py3-none-{wheel_platform}" in metadata, "incorrect wheel tag"
+    assert all(f"Tag: py3-none-{tag}" in metadata for tag in wheel_platform.split(".")), "incorrect wheel tags"
+    from wheel_metadata import check_description
+    check_description(archive)
     bundled_manifest = next(p for p in names if p.endswith("/mariamem/_native/manifest.json"))
     assert json.loads(archive.read(bundled_manifest)) == manifest, "incorrect bundled manifest"
     # Modern setuptools may put license files under .dist-info/licenses/.

@@ -1,4 +1,4 @@
-//go:build !((darwin && arm64) || (linux && amd64))
+//go:build !((darwin && arm64) || (linux && (amd64 || arm64)))
 
 package generatedgo
 
@@ -7,7 +7,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 )
 
-// Keep the previous allocation model outside the two supported platforms.
+// Keep the previous allocation model outside the supported native mappings.
 func newMemoryModule(h *host) (*base.Module, func() error, error) {
 	m := generated.NewWithWASI(h, nil, h)
 	installGuestThreadLifetime(m)
