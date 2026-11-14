@@ -102,7 +102,8 @@ def main():
     for template in HERE.glob("narrow_*"):
         if not template.name.endswith((".go.txt",".s.txt")) or "_test.go" in template.name:continue
         shutil.copyfile(template,base/template.name.removesuffix(".txt"))
-    shutil.copyfile(ROOT/"internal/generatedgo/code/base/memory_mapping.go",base/"memory_mapping.go")
+    for name in ("memory_mapping.go", "memory_mapping_unix.go", "memory_mapping_windows.go"):
+        shutil.copyfile(ROOT/"internal/generatedgo/code/base"/name, base/name)
     driver=(ROOT/"tests/fixtures/narrow-atomic-driver.go.txt").read_text()
     entries=[]
     for op in ops:

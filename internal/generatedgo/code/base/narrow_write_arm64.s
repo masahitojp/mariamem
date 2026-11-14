@@ -1,3 +1,5 @@
+//go:build darwin || windows
+
 #include "textflag.h"
 TEXT ·atomicWrite8At(SB), NOSPLIT, $0-12
  MOVD p+0(FP), R0

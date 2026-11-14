@@ -53,15 +53,24 @@ class Session:
         self.root = Path(self._temp.name)
         self._stderr = None
         self._process = None
+        self._writer_io = None
+        if os.name == "nt":
+            from ._windows_io import WriterIO
+            self._writer_io = WriterIO()
         try:
             self._stderr = (self.root / "host.log").open("xb")
             self._process = subprocess.Popen(
                 [self.binary, "--shared"], stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=self._stderr, bufsize=0,
-                env={**os.environ, "TMPDIR": str(self.root)})
+                env={**os.environ, "TMPDIR": str(self.root),
+                     **({"TMP": str(self.root), "TEMP": str(self.root)} if os.name == "nt" else {})})
             self._hello = _Reply()
-            os.set_blocking(self._process.stdin.fileno(), False)
-            os.set_blocking(self._process.stdout.fileno(), False)
+            # Windows pipe select/nonblocking support does not cover Python3.11.
+            # The existing dedicated I/O threads own blocking Windows pipe calls;
+            # request deadlines and process retirement remain on caller threads.
+            if os.name != "nt":
+                os.set_blocking(self._process.stdin.fileno(), False)
+                os.set_blocking(self._process.stdout.fileno(), False)
             self._reader = threading.Thread(target=self._read, daemon=True)
             self._reader.start()
             self._writer = threading.Thread(target=self._write, daemon=True)
@@ -156,7 +165,10 @@ class Session:
 
     def _write(self):
         from . import HostError
+        io = getattr(self, "_writer_io", None)
         try:
+            if io is not None:
+                io.register()
             while not self._transport_stop.is_set():
                 with self._write_condition:
                     while not self._writes and not self._transport_stop.is_set():
@@ -187,6 +199,28 @@ class Session:
             if not self._closing:
                 self._fail(HostError("Shared host control pipe closed: " + str(exc),
                                      code="unusable", stage="host_control", closed=True))
+
+        finally:
+            if io is not None:
+                io.close()
+
+    def _stop_windows_writer(self):
+        io = getattr(self, "_writer_io", None)
+        thread = getattr(self, "_writer", None)
+        if io is None or thread is None or thread.ident is None:
+            return
+        from ._windows_io import stop_writer
+        try:
+            stop_writer(thread, io, self._transport_stop, self._write_condition)
+        except (OSError, TimeoutError):
+            # A failed control transport already invalidates this host. Retire
+            # its process before retrying any CRT pipe close that could block.
+            if self._process.poll() is None:
+                self._process.terminate()
+            thread.join(timeout=2)
+            if thread.is_alive():
+                raise TimeoutError("Windows host control writer cleanup unconfirmed")
+            io.close()
 
     def _abandon(self, identifier, pending, task, error):
         with self._write_condition:
@@ -258,7 +292,7 @@ class Session:
     def _lines(self):
         data = b""
         while not self._transport_stop.is_set():
-            if not select.select([self._process.stdout.fileno()], [], [], .1)[0]:
+            if os.name != "nt" and not select.select([self._process.stdout.fileno()], [], [], .1)[0]:
                 continue
             chunk = os.read(self._process.stdout.fileno(), 65536)
             if not chunk:
@@ -372,6 +406,7 @@ class Session:
         # Irrecoverable control failure invalidates the lineage. Stop admitting
         # work and ask its host to close all DBs, preserving logs until release.
         try:
+            self._stop_windows_writer()
             if not self._process.stdin.closed:
                 self._process.stdin.close()
         except (OSError, ValueError):
@@ -394,6 +429,7 @@ class Session:
                         self.request("shutdown", response_timeout=5)
                     except Exception:
                         pass
+                self._stop_windows_writer()
                 if not self._process.stdin.closed:
                     self._process.stdin.close()
                 self._transport_stop.set()

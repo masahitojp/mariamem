@@ -7,6 +7,26 @@ managed host per root lineage. Public save/load APIs are removed. See
 
 Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
+The Windows wheel candidate backports OS support to the original0.6.2 source;
+main's0.7 product changes are excluded. It targets Windows build22000+ on x86_64
+and arm64. Installed SQL, Snapshot/Fork independence, remote-host handoff,
+capacity and Close/host-exit acceptance are tracked in
+[#171](https://github.com/masahitojp/mariamem/issues/171); these wheels are not
+published yet. Native Python3.14 on Windows Server2025 x86_64 and Windows11 arm64
+are the representative initial environments, not a full OS/Python version matrix.
+
+Windows control pipes use dedicated I/O threads. Retirement cancels a blocked
+writer and joins it before closing its pipe. `PrepareCommand` uses an owned
+Job Object: the user command starts only after assignment, descendants stay in
+the job, and timeout/failure retires the command tree. Cleanup is reported as
+completed only after the job has no active processes and output readers have
+finished; unavailable cleanup observations remain explicitly unconfirmed.
+Output remains bounded to the last16KiB per stream. As on other platforms,
+a preparation command must finish its background processes before returning.
+Automatic Fork sizing observes physical RAM and accessible current-job limits
+in addition to the existing CPU/GOMEMLIMIT policy; inaccessible ancestor-job
+limits can still require an explicit cap.
+
 Since 0.6.2, the endpoint accepts [bounded input pipelining](mysql-protocol.md)
 with serial execution/responses and at most1,048,581 pending bytes per physical
 connection. Exceeding the bound terminates that database instance. This does not

@@ -1,0 +1,100 @@
+name: Windows 0.6.2 wheel acceptance
+on:
+  push:
+    branches: [backport/v0.6.2-windows]
+permissions:
+  contents: read
+concurrency:
+  group: windows-v062-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  PYTHONUTF8: '1'
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-2025
+            arch: amd64
+            python_arch: x64
+            target: windows-x86_64
+            wheel: win_amd64
+          - runner: windows-11-arm
+            arch: arm64
+            python_arch: arm64
+            target: windows-arm64
+            wheel: win_arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        # Provenance hashes bind repository bytes, including LF line endings.
+        env:
+          GIT_CONFIG_COUNT: '1'
+          GIT_CONFIG_KEY_0: core.autocrlf
+          GIT_CONFIG_VALUE_0: 'false'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+          architecture: ${{ matrix.python_arch }}
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - name: Require the native Go architecture and record source
+        shell: pwsh
+        env:
+          EXPECTED_ARCH: ${{ matrix.arch }}
+          EXPECTED_PYTHON: ${{ matrix.wheel }}
+        run: |
+          if ((go env GOHOSTARCH) -ne $env:EXPECTED_ARCH) { throw 'Go toolchain architecture mismatch' }
+          if ((go env GOARCH) -ne $env:EXPECTED_ARCH) { throw 'Go target architecture mismatch' }
+          $expectedCPU = if ($env:EXPECTED_ARCH -eq 'arm64') { 'ARM64' } else { 'AMD64' }
+          if ($env:PROCESSOR_ARCHITECTURE -ne $expectedCPU) { throw 'Runner architecture mismatch' }
+          python -c "import os,sysconfig; assert sysconfig.get_platform().replace('-','_') == os.environ['EXPECTED_PYTHON']"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/git_identity.py inspect HEAD
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/verify_generated_runtime.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Snapshot ownership and memory, mappings and narrow atomics
+        shell: pwsh
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          New-Item -ItemType Directory -Force build/windows-boundary | Out-Null
+          go test -count=1 -timeout=8m -json ./internal/snapshot ./internal/generatedgo/code/base ./internal/artifacts ./internal/forklimit ./internal/entropyfs > build/windows-boundary/tests.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install packaging and focused Python test tools
+        run: python -m pip install pytest==8.4.2 PyMySQL==1.2.3 setuptools==80.9.0 wheel==0.45.1
+      - name: Check Python OS boundaries before building the host
+        env:
+          PYTHONPATH: python
+        run: python -m pytest -q tests/test_windows_distribution.py tests/windows/test_prepare.py tests/windows/test_control_pipe.py
+      - id: build
+        name: Build one immutable host and wheel for this CPU
+        run: python scripts/build_alpha.py --ci-candidate
+      - name: Verify owned-log close before unlink
+        env:
+          CGO_ENABLED: '0'
+        run: go test -count=1 ./internal/control -run '^(TestOwnedLogCleanupClosesBeforeRemoval|TestDatabaseLogCleanupRetriesRemovalAfterClosingWriter)$'
+      - name: Install the same wheel in a fresh environment and accept changed boundaries
+        run: python scripts/windows_wheel_acceptance.py --target '${{ matrix.target }}' --wheel 'build/dist/mariamem-0.6.2-py3-none-${{ matrix.wheel }}.whl' --output 'build/windows-boundary/acceptance.json'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: windows-boundary-${{ matrix.arch }}
+          path: |
+            build/windows-boundary/tests.json
+            build/windows-boundary/acceptance.json
+            tests/evidence/alpha-wheel.json
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.build.outcome == 'success'
+        with:
+          name: windows-wheel-${{ matrix.arch }}
+          path: build/dist/*.whl
+          if-no-files-found: error
+          retention-days: 7

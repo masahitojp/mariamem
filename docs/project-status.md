@@ -14,6 +14,31 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Windows 0.6.2 backport — OS boundaries in progress
+
+The approved distribution basis is published 0.6.2, source_commit
+`47121e1be0b399ba4e2270ce3e25c411ade0e2eb`. Only OS support and necessary
+packaging changes belong in this backport; 0.7 product changes remain on main.
+[#171](https://github.com/masahitojp/mariamem/issues/171) owns Windows on both CPUs;
+[#169](https://github.com/masahitojp/mariamem/issues/169) owns the Linux backport
+and all-target additional publication. Preserve the existing release tag and assets.
+
+The OS-boundary candidate `e4574850aead073576e62b0a980895dabfa4092f` passed
+[CI43586536274](https://github.com/masahitojp/mariamem/actions/runs/43586536274)
+on native Windows amd64 and arm64: Snapshot ownership, private mappings,
+anonymous memory/Grow/release and narrow atomics. That success does not qualify
+the next source or its wheels.
+
+The next candidate connects host platform checking, physical/current-job memory
+limits, Python control-pipe cancellation, Job Object preparation-command cleanup
+and Windows wheel/PE/manifest handling. The same CPU-specific wheel is installed
+in a fresh environment for SQL, Snapshot/Fork independence, remote-host handoff,
+capacity and Close/exit. Minimum Windows build is22000; initial representative
+systems are Windows Server2025 x86_64 and Windows11 arm64 with native Python3.14.
+This installed acceptance is pending; Windows support/publication are not yet
+complete. #169 owns all-target publication and corresponding source/provenance.
+The original Go0.6.2 tag remains unchanged and does not gain Windows support.
+
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
 ### Current candidate — adopted after fixed-exit technical acceptance

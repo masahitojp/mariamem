@@ -13,7 +13,7 @@ import zipfile
 
 from deployment import check_binary
 from release_version import PYTHON_VERSION
-from native_target import current_target, platform_fields, elf_dependencies
+from native_target import current_target, platform_fields, elf_dependencies, pe_dependencies
 from distribution_licenses import paths as license_paths
 from build_feedback import go_environment, run as observed_run
 
@@ -31,7 +31,8 @@ args = parser.parse_args()
 if args.runtime is not None or args.module is not None: parser.error("legacy Wasmer packaging is retired; build the generated-Go host-only wheel")
 (ROOT / "build").mkdir(exist_ok=True)
 (ROOT / "tests/evidence").mkdir(parents=True, exist_ok=True)
-host = ROOT / "build/mariamem-host"
+host_name = target.get("host_name", "mariamem-host")
+host = ROOT / "build" / host_name
 build_env = dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="go1.26.10",
                                              GOOS=target["goos"], GOARCH=target["goarch"],
                                              **({"MACOSX_DEPLOYMENT_TARGET": f"{major}.0"}
@@ -52,15 +53,19 @@ if args.ci_candidate:
 binary_minimums = ({p.name: check_binary(p, major) for p in (host,)}
                    if major is not None else {})
 linux_dependencies = ({p.name: elf_dependencies(p) for p in (host,)}
-                      if major is None else {})
+                      if target["goos"] == "linux" else {})
+windows_dependencies = ({p.name: pe_dependencies(p, target) for p in (host,)}
+                        if target["goos"] == "windows" else {})
 native = ROOT / "python/mariamem/_native"
 native.mkdir(parents=True, exist_ok=True)
-sources=[(host,"mariamem-host")]
+sources=[(host,host_name)]
+for stale in ("mariamem-host", "mariamem-host.exe"):
+ if stale != host_name: (native/stale).unlink(missing_ok=True)
 for name in ("wasmer-headless","mariamem.wasmu","mariamem.wasmu.json"):
  (native/name).unlink(missing_ok=True)
 for source, name in sources:
     shutil.copy2(source, native / name)
-for name in ["mariamem-host"]:
+for name in [host_name]:
     (native / name).chmod(0o755)
 manifest = {"version": 1, "package_version": PYTHON_VERSION, **platform_fields(target), "runtime_kind": "generated-go", "guest_sha256": json.loads((ROOT/"release/generated-go-inputs.json").read_text())["guest_sha256"], "public_release_ready": False,
             "sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
@@ -97,7 +102,7 @@ with zipfile.ZipFile(wheel) as archive:
     assert not any("/mysqlmem/" in p for p in names), "old package leaked into wheel"
     evidence = {"wheel": str(wheel.relative_to(ROOT)), "bytes": wheel.stat().st_size,
                 "sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
-                "binary_minimum_macos": binary_minimums, "linux_dependencies": linux_dependencies, "files": names, "manifest": manifest, "archive_checks_passed": True}
+                "binary_minimum_macos": binary_minimums, "linux_dependencies": linux_dependencies, "windows_dependencies": windows_dependencies, "files": names, "manifest": manifest, "archive_checks_passed": True}
 if args.ci_candidate:
     evidence.update(source_commit=commit, source_files_sha256=source_inventory(ROOT),
                     host_buildinfo=buildinfo)

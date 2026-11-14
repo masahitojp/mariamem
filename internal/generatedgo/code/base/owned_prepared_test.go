@@ -119,7 +119,7 @@ func TestOwnedPrivateViewsGrowthAndRelease(t *testing.T) {
 	// A second unmap must fail: syscall removes its mapping record only after
 	// a successful OS munmap. mincore is unsuitable here because an unrelated
 	// allocator can immediately reuse the virtual address.
-	if e = syscall.Munmap(view); e != syscall.EINVAL {
+	if e = unmapPreparedMemory(view); e != syscall.EINVAL {
 		t.Fatalf("view was not successfully unmapped: %v", e)
 	}
 	if e = mb.Close(); e != nil {
@@ -157,7 +157,7 @@ func TestOwnedMappedTruncateRenameUnlinkIdentity(t *testing.T) {
 	if err := os.WriteFile(name, original, 0600); err != nil {
 		t.Fatal(err)
 	}
-	f, err := os.Open(name)
+	f, err := openPreparedTestBacking(name)
 	if err != nil {
 		t.Fatal(err)
 	}

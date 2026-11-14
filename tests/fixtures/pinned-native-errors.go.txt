@@ -1,0 +1,70 @@
+func mapOSError(err error) int32 {
+	if err == nil {
+		return _wasiESUCCESS
+	}
+	switch {
+	case errors.Is(err, fs.ErrNotExist):
+		return _wasiENOENT
+	case errors.Is(err, fs.ErrExist):
+		return _wasiEEXIST
+	case errors.Is(err, fs.ErrPermission):
+		return _wasiEACCES
+	case errors.Is(err, syscall.ENOTDIR):
+		return _wasiENOTDIR
+	case errors.Is(err, syscall.EISDIR):
+		return _wasiEISDIR
+	case errors.Is(err, syscall.EINVAL):
+		return _wasiEINVAL
+	case errors.Is(err, syscall.EBADF):
+		return _wasiEBADF
+	case errors.Is(err, syscall.EAGAIN):
+		return _wasiEAGAIN
+	case errors.Is(err, syscall.EPIPE):
+		return _wasiEPIPE
+	}
+	return _wasiEIO
+}
+
+func (w *WasiStubs) Fd_allocate(m *Module, fd int32, offset, length int64) int32 {
+	w.mu.Lock()
+	op := w.fdTable[fd]
+	w.mu.Unlock()
+	if op == nil || op.f == nil {
+		return _wasiEBADF
+	}
+
+	start, count := uint64(offset), uint64(length)
+	if start > uint64(1<<63-1) || count > uint64(1<<63-1)-start {
+		return 27
+	}
+	end := int64(start + count)
+
+	if count == 0 {
+		end = 0
+	}
+	if allocator, ok := op.f.(interface{ Allocate(int64) error }); ok {
+		return mapOSError(allocator.Allocate(end))
+	}
+	if _, ok := op.f.(*os.File); !ok {
+		return _wasiENOTSUP
+	}
+	unlock := lockNativeFileResize(op.f)
+	defer unlock()
+
+	if _, err := op.f.Write(nil); err != nil {
+		return mapOSError(err)
+	}
+	info, err := op.f.Stat()
+	if err != nil {
+		return mapOSError(err)
+	}
+	if info.IsDir() {
+		return _wasiEISDIR
+	}
+	if end > info.Size() {
+		if err := op.f.Truncate(end); err != nil {
+			return mapOSError(err)
+		}
+	}
+	return _wasiESUCCESS
+}

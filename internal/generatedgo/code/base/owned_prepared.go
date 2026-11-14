@@ -4,7 +4,6 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
-	"syscall"
 
 	"github.com/masahitojp/mariamem/internal/prepared"
 )
@@ -38,7 +37,7 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		}
 		var data []byte
 		if entry.Size > 0 {
-			data, err = syscall.Mmap(entry.FD, 0, int(entry.Size), preparedProtection(fsys), syscall.MAP_PRIVATE)
+			data, err = mapPreparedMemory(entry.FD, int(entry.Size), fsys.blockStorage)
 			if err != nil {
 				return nil, err
 			}
@@ -65,11 +64,4 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		}
 	}
 	return p, nil
-}
-
-func preparedProtection(fs *MemFS) int {
-	if fs.blockStorage {
-		return syscall.PROT_READ
-	}
-	return syscall.PROT_READ | syscall.PROT_WRITE
 }

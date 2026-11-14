@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 import platform
+import sys
+import sysconfig
 
 NATIVE_ROOT = Path(__file__).parent / "_native"
 
@@ -34,6 +36,13 @@ def _os_release():
 
 def _platform_identity():
     detected = f"{platform.system()} / {platform.machine()}"
+    if platform.system() == "Windows":
+        process = sysconfig.get_platform()
+        if process in ("win-amd64", "win-arm64"):
+            build = sys.getwindowsversion().build
+            if build < 22000:
+                raise ArtifactError(f"Windows build {build} is unsupported; requires build 22000+", "unsupported_platform")
+            return "windows-arm64" if process == "win-arm64" else "windows-x86_64"
     if platform.system() == "Darwin" and platform.machine() == "arm64":
         return "darwin-arm64"
     if platform.system() == "Linux" and platform.machine() == "x86_64":
@@ -44,7 +53,7 @@ def _platform_identity():
         detected += f" (ID={release.get('ID')!r}, VERSION_ID={release.get('VERSION_ID')!r})"
         if release.get("ID") == "ubuntu" and release.get("VERSION_ID") == "24.04":
             return "ubuntu24.04-x86_64"
-    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64 or Ubuntu 24.04 x86_64. Run on a supported platform with its matching wheel.", "unsupported_platform")
+    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64, Ubuntu 24.04 x86_64, or Windows build 22000+ x86_64/arm64. Run on a supported platform with its matching wheel.", "unsupported_platform")
 
 
 def resolve(host_binary=None, runtime=None, module=None):
@@ -70,16 +79,22 @@ def resolve(host_binary=None, runtime=None, module=None):
             or manifest.get("architecture") != "x86_64"
         ):
             raise ValueError("expected Ubuntu 24.04 x86_64 wheel metadata")
+        if identity.startswith("windows-") and (
+            manifest.get("architecture") != ("arm64" if identity == "windows-arm64" else "x86_64")
+            or manifest.get("minimum_windows_build") != 22000
+        ):
+            raise ValueError("expected matching Windows CPU and minimum OS metadata")
         if identity == "darwin-arm64" and int(platform.mac_ver()[0].split(".")[0]) < manifest["minimum_macos"]:
             raise ArtifactError(f"detected macOS {platform.mac_ver()[0]}; this wheel requires macOS {manifest['minimum_macos']} or newer. Upgrade macOS or use another supported platform.", "unsupported_platform")
         if manifest.get("runtime_kind") != "generated-go":
             raise ArtifactError("this package requires a generated-Go host-only wheel; legacy runtime bundles are retired", "artifact_mismatch")
-        path = root / "mariamem-host"
+        host_name = "mariamem-host.exe" if identity.startswith("windows-") else "mariamem-host"
+        path = root / host_name
         digest = hashlib.sha256()
         with path.open("rb") as stream:
             for chunk in iter(lambda: stream.read(1024 * 1024), b""):
                 digest.update(chunk)
-        expected = manifest["sha256"]["mariamem-host"]
+        expected = manifest["sha256"][host_name]
         if digest.hexdigest() != expected:
             raise ArtifactError(f"artifact hash mismatch: {path}; expected SHA256 {expected}, got {digest.hexdigest()}. Reinstall the matching wheel; do not mix artifacts.", "artifact_mismatch")
         _available(path, True)

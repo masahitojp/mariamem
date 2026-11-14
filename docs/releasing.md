@@ -7,6 +7,22 @@ CI acceptance; preparation is not qualification or publication evidence.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
+## Additional 0.6.2 Windows wheel candidate
+
+[#171](https://github.com/masahitojp/mariamem/issues/171) builds from the0.6.2
+maintenance branch with OS-only changes. `scripts/build_alpha.py --ci-candidate`
+on native Windows creates one checksum-bound `mariamem-host.exe` and one
+`win_amd64` or `win_arm64` wheel. It validates the actual PE CPU and embedded Go
+source commit. `scripts/windows_wheel_acceptance.py` installs those same bytes
+in a fresh venv for native SQL/Snapshot/Fork/Close and changed OS boundaries.
+The CI records source, host/wheel hashes and representative environment details.
+
+These are candidate artifacts, not published release assets. The normal release
+inventory below remains unchanged. #169 owns all-target additional publication,
+matching corresponding source/provenance and seven-environment public smoke.
+Preserve the existing0.6.2 tag and files; do not dispatch a new-tag release or
+relabel current main as0.6.2. The published Go tag retains its original OS scope.
+
 ## Exact-source release boundary
 
 **Exact source commit → immutable artifacts → external acceptance evidence →

@@ -21,8 +21,8 @@ See the [release notes](release/NOTES-v0.6.2.md),
 
 ## Installation
 
-Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
-**Ubuntu 24.04 LTS / x86_64**. Other platforms are not supported.
+The published release supports **macOS 15+ / Apple Silicon (arm64)** and
+**Ubuntu 24.04 LTS / x86_64**. The Windows wheel candidate is described below.
 Release validation uses Go 1.26.10 and Python 3.14. Package minimums are
 Go 1.26.0 and Python 3.11; they are not a tested matrix of all later versions.
 Python3.9/3.10 are no longer supported.
@@ -33,8 +33,8 @@ Go 1.27.3. GO-2026-6809 affects Go <1.26.10 and 1.27.0–1.27.2. See
 the module minimum remains Go 1.26.0.
 
 To install the published release, create a virtual environment and install its platform wheel.
-PyPI publication remains unavailable pending account recovery; GitHub Release
-wheels are the supported installation path.
+The existing macOS arm64 wheel is also available from PyPI. The published Linux
+wheel remains available from GitHub Release; Windows wheels are not published yet.
 
 ```sh
 python3 -m venv .venv
@@ -49,6 +49,17 @@ python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/r
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
 Git source install: it includes the required platform executable.
+
+The additional `0.6.2` Windows wheel candidate targets **Windows build 22000+**
+(Windows 11 or newer) on x86_64 and arm64, with tags `win_amd64` and `win_arm64`.
+Python3.11+ remains the package minimum; initial acceptance uses native Python3.14
+on Windows Server2025 x86_64 and Windows11 arm64. These are representative test
+systems, not execution evidence for every Windows build. The candidate adds OS
+support to the original 0.6.2 source and excludes main's 0.7 product changes.
+See [#171](https://github.com/masahitojp/mariamem/issues/171) for acceptance status.
+Linux and Windows will be published together after all targets are ready (#169).
+The original Go `v0.6.2` tag and existing wheel files remain unchanged; this wheel
+work does not add Windows support to that published Go module tag.
 
 For the published Go module:
 
