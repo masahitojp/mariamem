@@ -64,6 +64,7 @@ TOOLING = {
     'release/baselines/v0.6.2.json',  # immutable publication identity; no runtime build input
     'scripts/ci_release_summary.py', 'scripts/check_release.py',
     'scripts/distribution_licenses.py', 'scripts/audit_generated_licenses.py',
+    'scripts/update_evidence_records.py', 'release/attribution-tolerance.json',
     'scripts/consumer_module.py', 'scripts/consumer_acceptance.py',
     '.agents/skills/release/SKILL.md',
     '.agents/skills/experiment-workspace/SKILL.md',
@@ -86,7 +87,7 @@ PURE_TESTS = {
     'tests/test_deployment.py',
     'tests/test_development_cleanup.py',
     'tests/test_development_scope.py',
-    'tests/test_distribution_licenses.py',
+    'tests/test_distribution_licenses.py', 'tests/test_update_evidence_records.py',
     'tests/test_experiment_workspace.py',
     'tests/test_final_latency.py',
     'tests/test_generated_default.py',

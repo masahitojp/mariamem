@@ -325,3 +325,13 @@ def test_actual_pytest_collection_excludes_optional_directories_but_allows_expli
     assert len(optional) == 2
     assert any('test_native' in line for line in optional)
     assert any('test_measurement' in line for line in optional)
+
+
+@pytest.mark.parametrize('path', [
+    'scripts/update_evidence_records.py', 'release/attribution-tolerance.json',
+    'tests/test_update_evidence_records.py',
+])
+def test_evidence_ledger_tooling_needs_python_checks(path):
+    selected = scope.select([path])
+    assert selected['check_scope'] == 'python'
+    assert not selected['integration']
