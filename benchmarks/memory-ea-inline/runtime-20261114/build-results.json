@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "build_seconds": 3.5610446660139132,
+    "bytes": 108590658,
+    "sha256": "c3c8ce5bebf0ff1f45d1f5b45b69a3de16d74b4a89df8db12c4db10c62f31449"
+  },
+  "candidate": {
+    "build_seconds": 6.6911521250149235,
+    "bytes": 191117538,
+    "sha256": "4840e4164b5c5a17c177d0bbc6d638926a3c8f539e946bcbeae23cdec2789fce"
+  }
+}
