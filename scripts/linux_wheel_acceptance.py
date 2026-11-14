@@ -15,6 +15,19 @@ from release_version import PYTHON_VERSION
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def native_member(archive, filename):
+    # Non-pure wheels may put Python packages under .data/purelib or platlib.
+    # All three layouts install to the same package location. Reject duplicates.
+    relative = 'mariamem/_native/' + filename
+    prefixes = ('', f'mariamem-{PYTHON_VERSION}.data/purelib/',
+                f'mariamem-{PYTHON_VERSION}.data/platlib/')
+    names = [name for name in archive.namelist()
+             if name in {prefix + relative for prefix in prefixes}]
+    if len(names) != 1:
+        raise ValueError('wheel must contain exactly one native member: ' + filename)
+    return archive.read(names[0])
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--target', choices=('linux-x86_64', 'linux-aarch64'), required=True)
@@ -35,8 +48,8 @@ def main():
     if path.name != expected_name or wheel['manifest']['platform'] != args.target:
         raise ValueError('wheel filename/target differs')
     with zipfile.ZipFile(path) as archive:
-        manifest = json.loads(archive.read('mariamem/_native/manifest.json'))
-        host_sha = hashlib.sha256(archive.read('mariamem/_native/mariamem-host')).hexdigest()
+        manifest = json.loads(native_member(archive, 'manifest.json'))
+        host_sha = hashlib.sha256(native_member(archive, 'mariamem-host')).hexdigest()
         if (manifest != wheel['manifest'] or manifest.get('package_version') != PYTHON_VERSION
                 or host_sha != manifest['sha256']['mariamem-host']):
             raise ValueError('wheel host/manifest differs from build receipt')

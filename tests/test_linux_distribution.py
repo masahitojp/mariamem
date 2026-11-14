@@ -167,5 +167,22 @@ def test_real_packager_preserves_both_linux_tags_and_description(tmp_path, arch)
         tags = archive.read('mariamem-0.6.2.dist-info/WHEEL').decode()
         for tag in meta['wheel_platform'].split('.'):
             assert 'Tag: py3-none-' + tag in tags
+        from linux_wheel_acceptance import native_member
+        assert native_member(archive, 'mariamem-host') == b'inert host fixture'
+        assert json.loads(native_member(archive, 'manifest.json'))['platform'] == 'linux-' + arch
         description = check_description(archive)
         assert description.get_payload().strip() == (project / 'README.md').read_text().strip()
+
+
+@pytest.mark.parametrize('prefix', ['', 'mariamem-0.6.2.data/purelib/', 'mariamem-0.6.2.data/platlib/'])
+def test_native_member_accepts_installed_layouts_and_rejects_duplicates(prefix):
+    from linux_wheel_acceptance import native_member
+    with zipfile.ZipFile(io.BytesIO(), 'w') as archive:
+        with pytest.raises(ValueError, match='exactly one native member'):
+            native_member(archive, 'manifest.json')
+        archive.writestr(prefix + 'mariamem/_native/manifest.json', b'expected')
+        assert native_member(archive, 'manifest.json') == b'expected'
+        other = 'mariamem-0.6.2.data/platlib/' if not prefix else ''
+        archive.writestr(other + 'mariamem/_native/manifest.json', b'ambiguous')
+        with pytest.raises(ValueError, match='exactly one native member'):
+            native_member(archive, 'manifest.json')
