@@ -79,7 +79,15 @@ def test_publication_job_gate_and_handoff():
     assert operation['options'] == ['verify', 'release', 'public-smoke-recovery']
     assert publication['if'] == "always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'"
     assert publication['permissions']['contents'] == 'write'
-    assert all(job.get('permissions', {}).get('contents') != 'write' for name, job in jobs.items() if name not in ('publication', 'public_smoke_recovery'))
+    writers = {name for name, job in jobs.items() if job.get('permissions', {}).get('contents') == 'write'}
+    assert writers == {'publication', 'additional_publication'}
+    additive = jobs['additional_publication']
+    assert additive['if'] == "inputs.additional_v062 && inputs.operation == 'release'"
+    assert additive['environment'] == 'pypi'
+    assert additive['permissions'] == {'contents': 'write', 'actions': 'read', 'id-token': 'write'}
+    assert additive['concurrency']['cancel-in-progress'] is False
+    assert 'environment' not in jobs['additional_verify']
+    assert jobs['additional_verify'].get('permissions', {}).get('contents') != 'write'
     assert publication['concurrency']['cancel-in-progress'] is False
     assert 'environment' not in publication
     assert 'release_generated_ci.py restore' not in normal
