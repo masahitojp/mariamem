@@ -65,7 +65,7 @@ REVIEW_LITERAL_OWNERS = {
 
 
 def review_input_references(text):
-    """Find literal Python review paths, excluding comments and docstrings.
+    """Find literal Python review paths, excluding prose, URLs and docstrings.
 
     This is a source-boundary lint, not dataflow analysis: dynamically constructed
     paths still require author review. Recognize both full and Path / fragments.
@@ -85,12 +85,21 @@ def review_input_references(text):
         if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Div, ast.Add)):
             left, right = literal(node.left), literal(node.right)
             return left + ("/" if isinstance(node.op, ast.Div) else "") + right
-        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "Path" and len(node.args) == 1:
-            return literal(node.args[0])
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "Path":
+            return "/".join(literal(arg) for arg in node.args)
         return ""
 
+    # A fixed historical URL is metadata, including a statically concatenated
+    # URL. Do not mistake its component string literals for local inputs.
+    url_nodes = set()
+    for node in ast.walk(tree):
+        if re.match(r"https?://", literal(node)):
+            url_nodes.update(id(child) for child in ast.walk(node))
+
     return sorted({node.lineno for node in ast.walk(tree)
-                   if id(node) not in docstrings and "docs/reviews" in literal(node).replace("\\", "/")})
+                   if id(node) not in docstrings | url_nodes
+                   and re.search(r"(?:^|/)docs/reviews(?:/|$)",
+                                 literal(node).replace("\\", "/"))})
 
 
 def check(root=None):
