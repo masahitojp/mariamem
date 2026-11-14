@@ -1,0 +1,1867 @@
+{
+  "sources": {
+    "mariamem": {
+      "object_sha": "863281767bc2b4f5e3c2a7da3a5f60c61a8937a8",
+      "object_type": "commit",
+      "source_commit": "863281767bc2b4f5e3c2a7da3a5f60c61a8937a8"
+    },
+    "pgmem": {
+      "object_sha": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "object_type": "commit",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+    }
+  },
+  "environment": {
+    "go": "1.27.4",
+    "os": "darwin",
+    "arch": "arm64",
+    "GOMAXPROCS": 8,
+    "GOGC": 100,
+    "CGO_ENABLED": 0,
+    "MARIA_AUDIT_OF": 1,
+    "REVENUE_PREAGG": 1
+  },
+  "binaries": {
+    "maria": {
+      "bytes": 110963490,
+      "sha256": "a98688db841d92336473513950d76c5665b78e394a4011fe5ad3495b3a30ef8a",
+      "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/modelcase-post-memoryea/temp/maria.test: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase/store.test\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/modelcase-post-memoryea/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    },
+    "pg": {
+      "bytes": 68174450,
+      "sha256": "03d742e8eac38a5568356c67f325211526184b852237fabe8061d3a17c811df9",
+      "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/modelcase-post-memoryea/temp/pg.test: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase/store.test\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.11.0\th1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.2\th1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=\n\tdep\tgithub.com/klauspost/compress\tv1.20.0\th1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=\n\tdep\tgithub.com/shibukawa/pgmem\tv1.18.2\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/modelcase-post-memoryea/temp/pgmem\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.42.0\th1:chiH31gIWm57EkTXpwnqf8qeuMUi0yekh6mT2AvFlqI=\n\tdep\tgolang.org/x/sync\tv0.17.0\th1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug=\n\tdep\tgolang.org/x/sys\tv0.44.0\th1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=\n\tdep\tgolang.org/x/text\tv0.29.0\th1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    }
+  },
+  "summary": {
+    "1": {
+      "maria": {
+        "elapsed_ms": 1221.341,
+        "wall_ms": 1263.9111669999998,
+        "cpu_ms": 1710.3359999999998,
+        "maxrss_bytes": 207798272,
+        "phases": {
+          "boot": 43.879000000000005,
+          "import": 27.073999999999998,
+          "snapshot": 5.2960000000000065,
+          "reader_fork": 15.655000000000001,
+          "fork": 14.614999999999995,
+          "sample": 33.946000000000026,
+          "test": 0.9705000000001291
+        }
+      },
+      "pg": {
+        "elapsed_ms": 793.968,
+        "wall_ms": 850.6176670000003,
+        "cpu_ms": 1017.3450000000006,
+        "maxrss_bytes": 1039908864,
+        "phases": {
+          "boot": 51.047000000000004,
+          "import": 64.691,
+          "snapshot": 16.980999999999995,
+          "reader_fork": 9.076999999999998,
+          "fork": 8.822499999999962,
+          "sample": 20.173999999999978,
+          "test": 0.23650000000003502
+        }
+      },
+      "paired_suite_percent": 54.06669167877403
+    },
+    "4": {
+      "maria": {
+        "elapsed_ms": 497.82,
+        "wall_ms": 556.7180000000001,
+        "cpu_ms": 1999.7240000000006,
+        "maxrss_bytes": 460865536,
+        "phases": {
+          "boot": 43.689,
+          "import": 26.602999999999994,
+          "snapshot": 5.334999999999994,
+          "reader_fork": 15.058999999999997,
+          "fork": 21.375000000000014,
+          "sample": 44.72599999999997,
+          "test": 1.2044999999999675
+        }
+      },
+      "pg": {
+        "elapsed_ms": 415.334,
+        "wall_ms": 506.4218750000009,
+        "cpu_ms": 1346.2229999999984,
+        "maxrss_bytes": 1100398592,
+        "phases": {
+          "boot": 51.546,
+          "import": 65.203,
+          "snapshot": 16.75099999999999,
+          "reader_fork": 9.310000000000002,
+          "fork": 15.56450000000001,
+          "sample": 28.992999999999995,
+          "test": 0.5979999999999848
+        }
+      },
+      "paired_suite_percent": 19.258235540552903
+    },
+    "8": {
+      "maria": {
+        "elapsed_ms": 422.82,
+        "wall_ms": 451.67304199999944,
+        "cpu_ms": 2161.3340000000035,
+        "maxrss_bytes": 666959872,
+        "phases": {
+          "boot": 42.730000000000004,
+          "import": 27.581000000000003,
+          "snapshot": 5.415999999999997,
+          "reader_fork": 15.75,
+          "fork": 25.796499999999995,
+          "sample": 69.52200000000005,
+          "test": 1.6744999999999948
+        }
+      },
+      "pg": {
+        "elapsed_ms": 381.198,
+        "wall_ms": 458.477000000002,
+        "cpu_ms": 1464.777000000005,
+        "maxrss_bytes": 1088307200,
+        "phases": {
+          "boot": 51.833,
+          "import": 66.237,
+          "snapshot": 16.272999999999996,
+          "reader_fork": 8.943999999999988,
+          "fork": 24.887,
+          "sample": 42.498999999999995,
+          "test": 0.9724999999999966
+        }
+      },
+      "paired_suite_percent": 6.844755548046932
+    }
+  },
+  "samples": [
+    {
+      "name": "p1-warm-maria",
+      "p": 1,
+      "iteration": "warm",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 1250.2839159999999,
+      "cpu_ms": 1665.334,
+      "maxrss_bytes": 207716352,
+      "elapsed_ms": 1208.033,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 41.97,
+          "p50_ms": 41.97
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.674,
+          "p50_ms": 27.674
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.439999999999998,
+          "p50_ms": 5.439999999999998
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 14.757000000000005,
+          "p50_ms": 14.757000000000005
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 290.7890000000002,
+          "p50_ms": 14.351500000000016
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 718.7339999999997,
+          "p50_ms": 33.98900000000003
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 65.40499999999979,
+          "p50_ms": 0.9605000000000246
+        }
+      }
+    },
+    {
+      "name": "p1-warm-pg",
+      "p": 1,
+      "iteration": "warm",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 905.8844589999999,
+      "cpu_ms": 1053.8180000000002,
+      "maxrss_bytes": 1057619968,
+      "elapsed_ms": 803.761,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.68,
+          "p50_ms": 51.68
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.551,
+          "p50_ms": 65.551
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 15.540999999999997,
+          "p50_ms": 15.540999999999997
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.95999999999998,
+          "p50_ms": 8.95999999999998
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 184.41400000000002,
+          "p50_ms": 8.529499999999985
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 438.42999999999984,
+          "p50_ms": 20.565999999999974
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 33.24300000000022,
+          "p50_ms": 0.2794999999999277
+        }
+      }
+    },
+    {
+      "name": "p1-0-maria",
+      "p": 1,
+      "iteration": "0",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 1251.0935830000003,
+      "cpu_ms": 1703.2289999999994,
+      "maxrss_bytes": 206602240,
+      "elapsed_ms": 1221.341,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 45.675000000000004,
+          "p50_ms": 45.675000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.574000000000005,
+          "p50_ms": 27.574000000000005
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.628,
+          "p50_ms": 5.628
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 16.132999999999996,
+          "p50_ms": 16.132999999999996
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 291.6410000000001,
+          "p50_ms": 14.477000000000004
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 724.7739999999998,
+          "p50_ms": 33.946000000000026
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 65.32100000000037,
+          "p50_ms": 0.9754999999998972
+        }
+      }
+    },
+    {
+      "name": "p1-0-pg",
+      "p": 1,
+      "iteration": "0",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 850.6176670000003,
+      "cpu_ms": 1017.3450000000006,
+      "maxrss_bytes": 1038991360,
+      "elapsed_ms": 799.777,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 65.225,
+          "p50_ms": 65.225
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.77400000000002,
+          "p50_ms": 65.77400000000002
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 18.201000000000022,
+          "p50_ms": 18.201000000000022
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.808999999999997,
+          "p50_ms": 8.808999999999997
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 181.87699999999978,
+          "p50_ms": 8.822499999999962
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 424.5450000000002,
+          "p50_ms": 20.156999999999925
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 30.9249999999997,
+          "p50_ms": 0.25750000000005
+        }
+      }
+    },
+    {
+      "name": "p1-1-pg",
+      "p": 1,
+      "iteration": "1",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 905.5474999999999,
+      "cpu_ms": 1009.2669999999995,
+      "maxrss_bytes": 1044185088,
+      "elapsed_ms": 794.282,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.047000000000004,
+          "p50_ms": 51.047000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 64.355,
+          "p50_ms": 64.355
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 18.583,
+          "p50_ms": 18.583
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.092000000000013,
+          "p50_ms": 9.092000000000013
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 191.06199999999995,
+          "p50_ms": 9.41500000000002
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 425.31300000000005,
+          "p50_ms": 20.173999999999978
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 30.382000000000687,
+          "p50_ms": 0.23650000000003502
+        }
+      }
+    },
+    {
+      "name": "p1-1-maria",
+      "p": 1,
+      "iteration": "1",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 1263.9111669999998,
+      "cpu_ms": 1710.3359999999998,
+      "maxrss_bytes": 207536128,
+      "elapsed_ms": 1223.724,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 43.879000000000005,
+          "p50_ms": 43.879000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 31.866,
+          "p50_ms": 31.866
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 6.3870000000000005,
+          "p50_ms": 6.3870000000000005
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 16.854,
+          "p50_ms": 16.854
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 293.00300000000004,
+          "p50_ms": 14.509500000000003
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 723.009,
+          "p50_ms": 33.88599999999997
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 65.36699999999891,
+          "p50_ms": 0.9649999999999181
+        }
+      }
+    },
+    {
+      "name": "p1-2-maria",
+      "p": 1,
+      "iteration": "2",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 1283.8731660000003,
+      "cpu_ms": 1697.8930000000005,
+      "maxrss_bytes": 207847424,
+      "elapsed_ms": 1219.344,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 42.784,
+          "p50_ms": 42.784
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.073999999999998,
+          "p50_ms": 27.073999999999998
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.2960000000000065,
+          "p50_ms": 5.2960000000000065
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.655000000000001,
+          "p50_ms": 15.655000000000001
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 294.5459999999996,
+          "p50_ms": 14.631500000000017
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 722.5809999999998,
+          "p50_ms": 33.855999999999995
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 66.62899999999945,
+          "p50_ms": 0.9705000000001291
+        }
+      }
+    },
+    {
+      "name": "p1-2-pg",
+      "p": 1,
+      "iteration": "2",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 881.4600829999995,
+      "cpu_ms": 1029.4319999999998,
+      "maxrss_bytes": 1051607040,
+      "elapsed_ms": 793.968,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 53.184000000000005,
+          "p50_ms": 53.184000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.98400000000001,
+          "p50_ms": 65.98400000000001
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.272000000000006,
+          "p50_ms": 16.272000000000006
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.076999999999998,
+          "p50_ms": 9.076999999999998
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 180.02300000000005,
+          "p50_ms": 8.837000000000018
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 433.7080000000001,
+          "p50_ms": 20.295000000000016
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 31.124999999999602,
+          "p50_ms": 0.27149999999994634
+        }
+      }
+    },
+    {
+      "name": "p1-3-pg",
+      "p": 1,
+      "iteration": "3",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 845.283499999999,
+      "cpu_ms": 1014.4739999999999,
+      "maxrss_bytes": 1039908864,
+      "elapsed_ms": 775.808,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 50.43,
+          "p50_ms": 50.43
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 64.452,
+          "p50_ms": 64.452
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.980999999999995,
+          "p50_ms": 16.980999999999995
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 10.110000000000014,
+          "p50_ms": 10.110000000000014
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 175.47000000000017,
+          "p50_ms": 8.647500000000008
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 423.35500000000013,
+          "p50_ms": 20.086000000000013
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 30.527999999999565,
+          "p50_ms": 0.22449999999997772
+        }
+      }
+    },
+    {
+      "name": "p1-3-maria",
+      "p": 1,
+      "iteration": "3",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 1262.7332500000002,
+      "cpu_ms": 1712.7429999999997,
+      "maxrss_bytes": 209076224,
+      "elapsed_ms": 1220.503,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 42.53,
+          "p50_ms": 42.53
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.340000000000003,
+          "p50_ms": 26.340000000000003
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 4.930000000000007,
+          "p50_ms": 4.930000000000007
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 14.578000000000003,
+          "p50_ms": 14.578000000000003
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 295.9349999999999,
+          "p50_ms": 14.735999999999962
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 725.7509999999996,
+          "p50_ms": 34.025999999999954
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 65.74200000000064,
+          "p50_ms": 0.9610000000000127
+        }
+      }
+    },
+    {
+      "name": "p1-4-maria",
+      "p": 1,
+      "iteration": "4",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 1295.2029169999992,
+      "cpu_ms": 1713.1559999999997,
+      "maxrss_bytes": 207798272,
+      "elapsed_ms": 1231.1,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 44.032000000000004,
+          "p50_ms": 44.032000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.291000000000004,
+          "p50_ms": 26.291000000000004
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.037999999999997,
+          "p50_ms": 5.037999999999997
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 14.650999999999996,
+          "p50_ms": 14.650999999999996
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 296.22999999999973,
+          "p50_ms": 14.614999999999995
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 729.1810000000004,
+          "p50_ms": 34.59
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 69.44299999999939,
+          "p50_ms": 0.9934999999999263
+        }
+      }
+    },
+    {
+      "name": "p1-4-pg",
+      "p": 1,
+      "iteration": "4",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 843.6267079999986,
+      "cpu_ms": 1018.6020000000032,
+      "maxrss_bytes": 1031225344,
+      "elapsed_ms": 779.088,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 50.288000000000004,
+          "p50_ms": 50.288000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 64.691,
+          "p50_ms": 64.691
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.10499999999999,
+          "p50_ms": 16.10499999999999
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.623999999999995,
+          "p50_ms": 8.623999999999995
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 179.05700000000002,
+          "p50_ms": 8.71599999999998
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 425.4419999999998,
+          "p50_ms": 20.331999999999994
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 30.197000000000173,
+          "p50_ms": 0.22950000000003
+        }
+      }
+    },
+    {
+      "name": "p4-warm-maria",
+      "p": 4,
+      "iteration": "warm",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 564.6445,
+      "cpu_ms": 2247.6299999999974,
+      "maxrss_bytes": 408436736,
+      "elapsed_ms": 533.185,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 49.711000000000006,
+          "p50_ms": 49.711000000000006
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.206999999999994,
+          "p50_ms": 27.206999999999994
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 4.954000000000008,
+          "p50_ms": 4.954000000000008
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.064000000000007,
+          "p50_ms": 15.064000000000007
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 362.08,
+          "p50_ms": 18.088500000000018
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1134.163,
+          "p50_ms": 51.90099999999998
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 91.51800000000009,
+          "p50_ms": 1.1899999999999693
+        }
+      }
+    },
+    {
+      "name": "p4-warm-pg",
+      "p": 4,
+      "iteration": "warm",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 488.2722079999997,
+      "cpu_ms": 1347.5859999999998,
+      "maxrss_bytes": 1091977216,
+      "elapsed_ms": 418.398,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 57.443000000000005,
+          "p50_ms": 57.443000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 66.31200000000001,
+          "p50_ms": 66.31200000000001
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 15.393000000000015,
+          "p50_ms": 15.393000000000015
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.551999999999992,
+          "p50_ms": 8.551999999999992
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 308.58900000000006,
+          "p50_ms": 15.209000000000003
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 590.6229999999998,
+          "p50_ms": 26.92500000000001
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 65.23999999999995,
+          "p50_ms": 0.588499999999982
+        }
+      }
+    },
+    {
+      "name": "p4-0-maria",
+      "p": 4,
+      "iteration": "0",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 556.7180000000001,
+      "cpu_ms": 2026.845999999999,
+      "maxrss_bytes": 407879680,
+      "elapsed_ms": 521.894,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 42.025000000000006,
+          "p50_ms": 42.025000000000006
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.602999999999994,
+          "p50_ms": 26.602999999999994
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.334999999999994,
+          "p50_ms": 5.334999999999994
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 14.733000000000004,
+          "p50_ms": 14.733000000000004
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 427.25,
+          "p50_ms": 21.6875
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1046.1109999999999,
+          "p50_ms": 49.18799999999999
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 87.08300000000008,
+          "p50_ms": 1.194500000000005
+        }
+      }
+    },
+    {
+      "name": "p4-0-pg",
+      "p": 4,
+      "iteration": "0",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 506.4218750000009,
+      "cpu_ms": 1327.713000000003,
+      "maxrss_bytes": 1083375616,
+      "elapsed_ms": 406.271,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.429,
+          "p50_ms": 51.429
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 64.973,
+          "p50_ms": 64.973
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 17.58099999999999,
+          "p50_ms": 17.58099999999999
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 12.137,
+          "p50_ms": 12.137
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 329.982,
+          "p50_ms": 15.306000000000012
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 557.613,
+          "p50_ms": 26.36500000000001
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 68.38099999999977,
+          "p50_ms": 0.6050000000000182
+        }
+      }
+    },
+    {
+      "name": "p4-1-pg",
+      "p": 4,
+      "iteration": "1",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 452.6834159999993,
+      "cpu_ms": 1341.708999999998,
+      "maxrss_bytes": 1099513856,
+      "elapsed_ms": 401.604,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.546,
+          "p50_ms": 51.546
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.003,
+          "p50_ms": 65.003
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.851000000000013,
+          "p50_ms": 16.851000000000013
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.311000000000007,
+          "p50_ms": 9.311000000000007
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 312.5150000000001,
+          "p50_ms": 15.56450000000001
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 565.0900000000001,
+          "p50_ms": 26.164000000000016
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 61.408000000000186,
+          "p50_ms": 0.603999999999985
+        }
+      }
+    },
+    {
+      "name": "p4-1-maria",
+      "p": 4,
+      "iteration": "1",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 562.434833000001,
+      "cpu_ms": 1999.7240000000006,
+      "maxrss_bytes": 483491840,
+      "elapsed_ms": 497.82,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 43.689,
+          "p50_ms": 43.689
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.549000000000007,
+          "p50_ms": 26.549000000000007
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.062000000000012,
+          "p50_ms": 5.062000000000012
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.701999999999998,
+          "p50_ms": 15.701999999999998
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 433.99500000000006,
+          "p50_ms": 20.735
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 942.0620000000001,
+          "p50_ms": 44.72599999999997
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 86.20599999999968,
+          "p50_ms": 1.2224999999999966
+        }
+      }
+    },
+    {
+      "name": "p4-2-maria",
+      "p": 4,
+      "iteration": "2",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 556.900958,
+      "cpu_ms": 2154.8450000000016,
+      "maxrss_bytes": 430817280,
+      "elapsed_ms": 513.884,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 44.223,
+          "p50_ms": 44.223
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.595000000000006,
+          "p50_ms": 26.595000000000006
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 4.858999999999995,
+          "p50_ms": 4.858999999999995
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.058999999999997,
+          "p50_ms": 15.058999999999997
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 377.1169999999999,
+          "p50_ms": 18.64500000000001
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1037.2069999999999,
+          "p50_ms": 48.01999999999998
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 98.26399999999992,
+          "p50_ms": 1.2485000000000213
+        }
+      }
+    },
+    {
+      "name": "p4-2-pg",
+      "p": 4,
+      "iteration": "2",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 638.4388749999985,
+      "cpu_ms": 1346.2229999999984,
+      "maxrss_bytes": 1126350848,
+      "elapsed_ms": 525.664,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.339999999999996,
+          "p50_ms": 51.339999999999996
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 66.344,
+          "p50_ms": 66.344
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.75099999999999,
+          "p50_ms": 16.75099999999999
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.105999999999995,
+          "p50_ms": 9.105999999999995
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 690.473,
+          "p50_ms": 20.270999999999987
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 592.3889999999999,
+          "p50_ms": 28.992999999999995
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 47.96799999999999,
+          "p50_ms": 0.31749999999999545
+        }
+      }
+    },
+    {
+      "name": "p4-3-pg",
+      "p": 4,
+      "iteration": "3",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 500.52591700000096,
+      "cpu_ms": 1400.344999999998,
+      "maxrss_bytes": 1108590592,
+      "elapsed_ms": 436.484,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 52.056000000000004,
+          "p50_ms": 52.056000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.203,
+          "p50_ms": 65.203
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.301000000000002,
+          "p50_ms": 16.301000000000002
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.568000000000012,
+          "p50_ms": 8.568000000000012
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 359.21700000000004,
+          "p50_ms": 18.01400000000001
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 660.7099999999999,
+          "p50_ms": 30.27199999999999
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 70.21399999999991,
+          "p50_ms": 0.5589999999999975
+        }
+      }
+    },
+    {
+      "name": "p4-3-maria",
+      "p": 4,
+      "iteration": "3",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 506.462625000001,
+      "cpu_ms": 1907.6689999999985,
+      "maxrss_bytes": 460865536,
+      "elapsed_ms": 476.41,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 45.065000000000005,
+          "p50_ms": 45.065000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 29.555,
+          "p50_ms": 29.555
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 6.150999999999996,
+          "p50_ms": 6.150999999999996
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 14.701999999999998,
+          "p50_ms": 14.701999999999998
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 406.60699999999997,
+          "p50_ms": 21.375000000000014
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 901.5119999999995,
+          "p50_ms": 43.101999999999975
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 79.4679999999997,
+          "p50_ms": 1.0439999999999827
+        }
+      }
+    },
+    {
+      "name": "p4-4-maria",
+      "p": 4,
+      "iteration": "4",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 532.0392500000004,
+      "cpu_ms": 1944.3809999999999,
+      "maxrss_bytes": 521568256,
+      "elapsed_ms": 495.32,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 43.644000000000005,
+          "p50_ms": 43.644000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.822000000000003,
+          "p50_ms": 27.822000000000003
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.507999999999996,
+          "p50_ms": 5.507999999999996
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.179000000000002,
+          "p50_ms": 15.179000000000002
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 432.842,
+          "p50_ms": 21.735499999999973
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 915.942,
+          "p50_ms": 43.22999999999999
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 84.98100000000025,
+          "p50_ms": 1.2044999999999675
+        }
+      }
+    },
+    {
+      "name": "p4-4-pg",
+      "p": 4,
+      "iteration": "4",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 509.7610830000008,
+      "cpu_ms": 1410.7500000000073,
+      "maxrss_bytes": 1100398592,
+      "elapsed_ms": 415.334,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.649,
+          "p50_ms": 51.649
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.364,
+          "p50_ms": 65.364
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 15.208999999999989,
+          "p50_ms": 15.208999999999989
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.310000000000002,
+          "p50_ms": 9.310000000000002
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 298.50999999999993,
+          "p50_ms": 15.194999999999993
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 628.7810000000001,
+          "p50_ms": 29.192000000000007
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 65.98299999999998,
+          "p50_ms": 0.5979999999999848
+        }
+      }
+    },
+    {
+      "name": "p8-warm-maria",
+      "p": 8,
+      "iteration": "warm",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 447.8003749999999,
+      "cpu_ms": 2193.2019999999993,
+      "maxrss_bytes": 717127680,
+      "elapsed_ms": 413.576,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 44.663000000000004,
+          "p50_ms": 44.663000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.634,
+          "p50_ms": 26.634
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.102999999999994,
+          "p50_ms": 5.102999999999994
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 14.912999999999997,
+          "p50_ms": 14.912999999999997
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 471.47,
+          "p50_ms": 22.593999999999987
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1614.4260000000004,
+          "p50_ms": 76.62799999999999
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 128.21700000000024,
+          "p50_ms": 1.578000000000003
+        }
+      }
+    },
+    {
+      "name": "p8-warm-pg",
+      "p": 8,
+      "iteration": "warm",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 470.33154200000024,
+      "cpu_ms": 1476.8939999999943,
+      "maxrss_bytes": 1129021440,
+      "elapsed_ms": 353.676,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.275000000000006,
+          "p50_ms": 51.275000000000006
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 67.62700000000001,
+          "p50_ms": 67.62700000000001
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 15.296000000000006,
+          "p50_ms": 15.296000000000006
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.115999999999985,
+          "p50_ms": 9.115999999999985
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 514.1909999999998,
+          "p50_ms": 25.126999999999995
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 777.406,
+          "p50_ms": 36.867999999999995
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 133.93700000000032,
+          "p50_ms": 0.7630000000000337
+        }
+      }
+    },
+    {
+      "name": "p8-0-maria",
+      "p": 8,
+      "iteration": "0",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 460.9117089999977,
+      "cpu_ms": 2161.3340000000035,
+      "maxrss_bytes": 657342464,
+      "elapsed_ms": 422.82,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 44.507000000000005,
+          "p50_ms": 44.507000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.581000000000003,
+          "p50_ms": 27.581000000000003
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.484000000000009,
+          "p50_ms": 5.484000000000009
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.801000000000002,
+          "p50_ms": 15.801000000000002
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 558.644,
+          "p50_ms": 26.599500000000006
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1429.0579999999998,
+          "p50_ms": 69.52200000000005
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 157.50899999999993,
+          "p50_ms": 1.4240000000000066
+        }
+      }
+    },
+    {
+      "name": "p8-0-pg",
+      "p": 8,
+      "iteration": "0",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 517.7657500000023,
+      "cpu_ms": 1411.6319999999973,
+      "maxrss_bytes": 1124384768,
+      "elapsed_ms": 430.727,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 52.248000000000005,
+          "p50_ms": 52.248000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 65.149,
+          "p50_ms": 65.149
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.222999999999985,
+          "p50_ms": 16.222999999999985
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.686999999999983,
+          "p50_ms": 8.686999999999983
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 855.5809999999999,
+          "p50_ms": 29.5895
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 895.731,
+          "p50_ms": 42.498999999999995
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 133.5720000000002,
+          "p50_ms": 0.6710000000000207
+        }
+      }
+    },
+    {
+      "name": "p8-1-pg",
+      "p": 8,
+      "iteration": "1",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 465.1602089999969,
+      "cpu_ms": 1493.392,
+      "maxrss_bytes": 1082933248,
+      "elapsed_ms": 370.923,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.069,
+          "p50_ms": 51.069
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 67.71799999999999,
+          "p50_ms": 67.71799999999999
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 15.22699999999999,
+          "p50_ms": 15.22699999999999
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 9.276999999999987,
+          "p50_ms": 9.276999999999987
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 498.2409999999998,
+          "p50_ms": 24.903499999999994
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 833.8510000000001,
+          "p50_ms": 38.831999999999994
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 118.2549999999998,
+          "p50_ms": 0.6484999999999843
+        }
+      }
+    },
+    {
+      "name": "p8-1-maria",
+      "p": 8,
+      "iteration": "1",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 451.67304199999944,
+      "cpu_ms": 2107.126000000008,
+      "maxrss_bytes": 666959872,
+      "elapsed_ms": 418.623,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 42.127,
+          "p50_ms": 42.127
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 27.615000000000002,
+          "p50_ms": 27.615000000000002
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.415999999999997,
+          "p50_ms": 5.415999999999997
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.75,
+          "p50_ms": 15.75
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 558.4750000000001,
+          "p50_ms": 26.872000000000014
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1322.833,
+          "p50_ms": 67.167
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 161.9379999999999,
+          "p50_ms": 2.015500000000003
+        }
+      }
+    },
+    {
+      "name": "p8-2-maria",
+      "p": 8,
+      "iteration": "2",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 444.1063750000005,
+      "cpu_ms": 2267.813999999987,
+      "maxrss_bytes": 796786688,
+      "elapsed_ms": 430.381,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 43.244,
+          "p50_ms": 43.244
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.535000000000004,
+          "p50_ms": 26.535000000000004
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 4.972999999999999,
+          "p50_ms": 4.972999999999999
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.38300000000001,
+          "p50_ms": 15.38300000000001
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 495.83500000000004,
+          "p50_ms": 23.092
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1648.2930000000003,
+          "p50_ms": 74.09700000000004
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 181.2439999999998,
+          "p50_ms": 1.7244999999999777
+        }
+      }
+    },
+    {
+      "name": "p8-2-pg",
+      "p": 8,
+      "iteration": "2",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 411.8089999999981,
+      "cpu_ms": 1510.7950000000017,
+      "maxrss_bytes": 1078034432,
+      "elapsed_ms": 356.421,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.02,
+          "p50_ms": 51.02
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 64.788,
+          "p50_ms": 64.788
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 17.204000000000008,
+          "p50_ms": 17.204000000000008
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.943999999999988,
+          "p50_ms": 8.943999999999988
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 473.8880000000001,
+          "p50_ms": 22.019499999999994
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 953.266,
+          "p50_ms": 44.230999999999995
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 125.4740000000001,
+          "p50_ms": 1.1425000000000125
+        }
+      }
+    },
+    {
+      "name": "p8-3-pg",
+      "p": 8,
+      "iteration": "3",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 458.477000000002,
+      "cpu_ms": 1464.777000000005,
+      "maxrss_bytes": 1092009984,
+      "elapsed_ms": 396.581,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 51.833,
+          "p50_ms": 51.833
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 66.237,
+          "p50_ms": 66.237
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 17.114000000000004,
+          "p50_ms": 17.114000000000004
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 10.47999999999999,
+          "p50_ms": 10.47999999999999
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 514.2560000000001,
+          "p50_ms": 24.887
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 944.9710000000001,
+          "p50_ms": 43.400000000000006
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 160.65399999999968,
+          "p50_ms": 0.9724999999999966
+        }
+      }
+    },
+    {
+      "name": "p8-3-maria",
+      "p": 8,
+      "iteration": "3",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 458.9923750000011,
+      "cpu_ms": 2210.7250000000035,
+      "maxrss_bytes": 794132480,
+      "elapsed_ms": 423.726,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 42.730000000000004,
+          "p50_ms": 42.730000000000004
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 28.632999999999996,
+          "p50_ms": 28.632999999999996
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.722999999999999,
+          "p50_ms": 5.722999999999999
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.932000000000002,
+          "p50_ms": 15.932000000000002
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 475.62600000000003,
+          "p50_ms": 22.610000000000014
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1708.518,
+          "p50_ms": 83.15899999999999
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 128.12699999999987,
+          "p50_ms": 1.3130000000000024
+        }
+      }
+    },
+    {
+      "name": "p8-4-maria",
+      "p": 8,
+      "iteration": "4",
+      "label": "maria",
+      "code": 0,
+      "wall_ms": 444.90941600000156,
+      "cpu_ms": 2121.7559999999908,
+      "maxrss_bytes": 645693440,
+      "elapsed_ms": 382.154,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 42.609,
+          "p50_ms": 42.609
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 26.476999999999997,
+          "p50_ms": 26.476999999999997
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 5.041000000000011,
+          "p50_ms": 5.041000000000011
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 15.212000000000003,
+          "p50_ms": 15.212000000000003
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 551.5290000000001,
+          "p50_ms": 25.796499999999995
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 1388.8890000000001,
+          "p50_ms": 64.8
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 154.8959999999999,
+          "p50_ms": 1.6744999999999948
+        }
+      }
+    },
+    {
+      "name": "p8-4-pg",
+      "p": 8,
+      "iteration": "4",
+      "label": "pg",
+      "code": 0,
+      "wall_ms": 435.9177079999981,
+      "cpu_ms": 1427.4360000000001,
+      "maxrss_bytes": 1088307200,
+      "elapsed_ms": 381.198,
+      "phases": {
+        "boot": {
+          "count": 1,
+          "sum_ms": 52.641000000000005,
+          "p50_ms": 52.641000000000005
+        },
+        "import": {
+          "count": 1,
+          "sum_ms": 66.28300000000002,
+          "p50_ms": 66.28300000000002
+        },
+        "snapshot": {
+          "count": 1,
+          "sum_ms": 16.272999999999996,
+          "p50_ms": 16.272999999999996
+        },
+        "reader_fork": {
+          "count": 1,
+          "sum_ms": 8.64700000000002,
+          "p50_ms": 8.64700000000002
+        },
+        "fork": {
+          "count": 20,
+          "sum_ms": 443.8980000000001,
+          "p50_ms": 21.400499999999994
+        },
+        "sample": {
+          "count": 21,
+          "sum_ms": 866.3689999999999,
+          "p50_ms": 40.679
+        },
+        "test": {
+          "count": 70,
+          "sum_ms": 116.12699999999981,
+          "p50_ms": 1.1589999999999918
+        }
+      }
+    }
+  ]
+}
