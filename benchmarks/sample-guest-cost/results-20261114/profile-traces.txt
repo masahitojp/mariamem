@@ -1,0 +1,732 @@
+File: probe
+Type: cpu
+Time: 2026-11-14 18:59:42 JST
+Duration: 3.53s, Total samples = 2.46s (69.77%)
+-----------+-------------------------------------------------------
+      30ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn781
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn20048
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14060
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14061
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+     170ms   syscall.rawsyscalln
+             syscall.syscalln
+             syscall.syscall
+             syscall.write
+             syscall.Write (inline)
+             internal/poll.ignoringEINTRIO (inline)
+             internal/poll.(*FD).Write
+             os.(*File).write (inline)
+             os.(*File).Write
+             github.com/masahitojp/mariamem/internal/guest.writeAll
+             github.com/masahitojp/mariamem/internal/guest.(*Process).write.func2
+-----------+-------------------------------------------------------
+     1.49s   syscall.rawsyscalln
+             syscall.syscalln
+             syscall.syscall
+             syscall.write
+             syscall.Write (inline)
+             internal/poll.ignoringEINTRIO (inline)
+             internal/poll.(*FD).Write
+             os.(*File).write (inline)
+             os.(*File).Write
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      50ms   runtime.kevent
+             runtime.netpoll
+             runtime.findRunnable
+             runtime.schedule
+             runtime.park_m
+             runtime.mcall
+-----------+-------------------------------------------------------
+      80ms   runtime.kevent
+             runtime.netpoll
+             runtime.findRunnable
+             runtime.schedule
+             runtime.park_m
+             runtime.mcall
+-----------+-------------------------------------------------------
+      60ms   runtime.pthread_cond_signal
+             runtime.semawakeup
+             runtime.notewakeup
+             runtime.startm
+             runtime.wakep
+             runtime.ready
+             _.goready.func1
+             runtime.systemstack
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn13507
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14958
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14957
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14589
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14573
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5850
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      50ms   runtime.madvise
+             runtime.sysUsedOS (inline)
+             runtime.sysUsed (inline)
+             runtime.(*mheap).allocSpan
+             runtime.(*mheap).alloc.func1
+             runtime.systemstack
+-----------+-------------------------------------------------------
+      10ms   runtime.memclrNoHeapPointers
+             github.com/masahitojp/mariamem/internal/prepared.Block.ReadAt (inline)
+             github.com/masahitojp/mariamem/internal/prepared.rootRead
+             github.com/masahitojp/mariamem/internal/prepared.(*FileStore).ReadAt
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).readAt (inline)
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).ReadAt
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pread
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn232
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18260
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18261
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18276
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16786
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16789
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18161
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17971
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18455
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7139
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15718
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13461
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13489
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13499
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14810
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14808
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.(*timers).cleanHead
+             runtime.(*timer).maybeAdd
+             runtime.blockTimerChan
+             runtime.selectgo
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At
+             github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16554
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16591
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16592
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16596
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      60ms   syscall.rawsyscalln
+             syscall.syscalln
+             syscall.syscall
+             syscall.read
+             syscall.Read (inline)
+             internal/poll.ignoringEINTRIO (inline)
+             internal/poll.(*FD).Read
+             os.(*File).read (inline)
+             os.(*File).Read
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn74
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn195
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn205
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21749
+             github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+             github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+             github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+-----------+-------------------------------------------------------
+      10ms   runtime.madvise
+             runtime.sysUsedOS (inline)
+             runtime.sysUsed (inline)
+             runtime.(*mheap).allocSpan
+             runtime.(*mheap).allocManual
+             runtime.stackalloc
+             runtime.copystack
+             runtime.newstack
+             runtime.morestack
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn781
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn782
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14984
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14961
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14975
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14270
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.(*spanInlineMarkBits).init
+             runtime.(*mspan).initInlineMarkBits (inline)
+             runtime.(*mspan).initHeapBits
+             runtime.(*mcentral).grow
+             runtime.(*mcentral).cacheSpan
+             runtime.(*mcache).refill
+             runtime.(*mcache).nextFree
+             runtime.mallocgcSmallNoScanSC5
+             runtime.mallocgc
+             runtime.makeslice
+             path.Join
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.OpenRelative
+             github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn165
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn229
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn945
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15698
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20943
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13461
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13489
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13498
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13525
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15342
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15345
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15344
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13498
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      30ms   syscall.rawsyscalln
+             syscall.syscalln
+             syscall.syscall
+             syscall.read
+             syscall.Read (inline)
+             internal/poll.ignoringEINTRIO (inline)
+             internal/poll.(*FD).Read
+             os.(*File).read (inline)
+             os.(*File).Read
+             io.ReadAtLeast
+             io.ReadFull (inline)
+             github.com/masahitojp/mariamem/internal/guest.(*Process).read
+             github.com/masahitojp/mariamem/internal/guest.connectWithFailure.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn779
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn15855
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13322
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14339
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn21538
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14603
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15532
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13461
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13489
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13499
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14810
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14808
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18558
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn7165
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18476
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn7237
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn15008
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14985
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14961
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14975
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14270
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+     110ms   runtime.pthread_cond_wait
+             runtime.semasleep
+             runtime.notesleep
+             runtime.mPark (inline)
+             runtime.stopm
+             runtime.findRunnable
+             runtime.schedule
+             runtime.park_m
+             runtime.mcall
+-----------+-------------------------------------------------------
+      10ms   net.(*pipe).SetReadDeadline
+             github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).read
+             github.com/masahitojp/mariamem/internal/mysqlwire.Serve
+             github.com/masahitojp/mariamem/internal/host.(*Server).attach.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.memmove
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryCopy
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18079
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18089
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18088
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17007
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18022
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18026
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17044
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn17041
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17166
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18477
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn7238
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn12971
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.(*gcBits).bytep (inline)
+             runtime.(*sweepLocked).sweep
+             runtime.sweepone
+             runtime.bgsweep
+-----------+-------------------------------------------------------
+      20ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn781
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn20048
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14060
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14061
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.memclrNoHeapPointers
+             github.com/masahitojp/mariamem/internal/prepared.Block.ReadAt (inline)
+             github.com/masahitojp/mariamem/internal/prepared.rootRead
+             github.com/masahitojp/mariamem/internal/prepared.(*FileStore).ReadAt
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).readAt (inline)
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).ReadAt
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pread
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn232
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18260
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18261
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18276
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16786
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16789
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18161
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn18007
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17708
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17707
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17736
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18455
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7139
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15718
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13461
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13489
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13499
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14810
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14808
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18278
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16583
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16592
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16596
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14985
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14961
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14975
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14270
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.memclrNoHeapPointers
+             runtime.mallocgcSmallNoscan
+             runtime.mallocgc
+             runtime.newobject
+             github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).receiveAhead
+             github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).monitoredCall.func2
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   syscall.rawsyscalln
+             syscall.syscalln
+             syscall.syscall
+             syscall.read
+             syscall.Read (inline)
+             internal/poll.ignoringEINTRIO (inline)
+             internal/poll.(*FD).Read
+             os.(*File).read (inline)
+             os.(*File).Read
+             io.ReadAtLeast
+             io.ReadFull (inline)
+             github.com/masahitojp/mariamem/internal/guest.(*Process).read
+             github.com/masahitojp/mariamem/internal/guest.connectWithFailure.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.memmove
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryCopy
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18122
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18127
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18555
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn7123
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn7122
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn19692
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14573
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5850
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      20ms   runtime.pthread_cond_signal
+             runtime.semawakeup
+             runtime.notewakeup
+             runtime.startm
+             runtime.wakep
+             runtime.newproc.func1
+             runtime.systemstack
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7743
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14580
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14836
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18424
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16855
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16599
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16583
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16592
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16596
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.usleep
+             runtime.runqgrab
+             runtime.runqsteal
+             runtime.stealWork
+             runtime.findRunnable
+             runtime.schedule
+             runtime.park_m
+             runtime.mcall
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn984
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn4063
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   syscall.rawsyscalln
+             syscall.syscalln
+             syscall.syscall
+             syscall.Mprotect
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn151
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn781
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn12740
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn12812
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12938
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn12777
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14984
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14961
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14975
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14270
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14996
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14985
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14961
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14975
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14270
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn19843
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn15594
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15613
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15182
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21293
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn21285
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21286
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn21290
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13338
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn15540
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14146
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14578
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14824
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn14823
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5570
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn21538
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14603
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15532
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13461
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13489
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13499
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14810
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14808
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+             github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+             github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+-----------+-------------------------------------------------------
+      10ms   runtime.kevent
+             runtime.wakeNetpoll
+             runtime.netpollBreak (inline)
+             runtime.findRunnable
+             runtime.schedule
+             runtime.park_m
+             runtime.mcall
+-----------+-------------------------------------------------------
+      10ms   runtime.scanObject
+             runtime.gcDrain
+             runtime.gcDrainMarkWorkerIdle (inline)
+             runtime.gcBgMarkWorker.func2
+             runtime.systemstack
+             runtime.gcBgMarkWorker
+-----------+-------------------------------------------------------

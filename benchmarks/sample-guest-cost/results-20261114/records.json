@@ -1,0 +1,473 @@
+[
+  {
+    "engine": "maria",
+    "name": "maria-plans",
+    "code": 0,
+    "seconds": 1.775265916,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^TestRevenuePlans$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "pg",
+    "name": "pg-plans",
+    "code": 0,
+    "seconds": 1.035019459,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^TestRevenuePlans$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "maria",
+    "name": "maria-query-0",
+    "code": 0,
+    "seconds": 0.45502820899999996,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^TestRevenueProbe$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "pg",
+    "name": "pg-query-0",
+    "code": 0,
+    "seconds": 0.28483970800000025,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^TestRevenueProbe$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "pg",
+    "name": "pg-query-1",
+    "code": 0,
+    "seconds": 0.29114862499999994,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^TestRevenueProbe$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "maria",
+    "name": "maria-query-1",
+    "code": 0,
+    "seconds": 0.49945737499999954,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^TestRevenueProbe$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "maria",
+    "name": "maria-query-2",
+    "code": 0,
+    "seconds": 0.4549475419999993,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^TestRevenueProbe$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "pg",
+    "name": "pg-query-2",
+    "code": 0,
+    "seconds": 0.28788262499999995,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^TestRevenueProbe$",
+      "-test.v"
+    ],
+    "env": {}
+  },
+  {
+    "engine": "maria",
+    "name": "sample-profile",
+    "code": 0,
+    "seconds": 5.076812166999999,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^TestSampleProfile$",
+      "-test.v"
+    ],
+    "env": {
+      "SAMPLE_PROFILE": "1",
+      "PROFILE_DIR": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p1-r0-a0",
+    "code": 0,
+    "seconds": 1.3649583750000005,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p1-r0-a0.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p1-r0-a1",
+    "code": 0,
+    "seconds": 1.3736223330000001,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p1-r0-a1.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p1-r0-a0",
+    "code": 0,
+    "seconds": 0.9290318749999997,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p1-r0-a0.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p1-r0-a1",
+    "code": 0,
+    "seconds": 0.8649435000000008,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p1-r0-a1.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p1-r1-a1",
+    "code": 0,
+    "seconds": 1.3432659170000019,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p1-r1-a1.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p1-r1-a0",
+    "code": 0,
+    "seconds": 1.3455276250000026,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p1-r1-a0.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p1-r1-a1",
+    "code": 0,
+    "seconds": 0.868548582999999,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p1-r1-a1.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p1-r1-a0",
+    "code": 0,
+    "seconds": 0.8643986669999997,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p1-r1-a0.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p1-r2-a0",
+    "code": 0,
+    "seconds": 1.3233548340000034,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p1-r2-a0.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p1-r2-a1",
+    "code": 0,
+    "seconds": 1.3270339999999976,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p1-r2-a1.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p1-r2-a0",
+    "code": 0,
+    "seconds": 0.8654348750000018,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p1-r2-a0.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p1-r2-a1",
+    "code": 0,
+    "seconds": 0.8684440420000001,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=1"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p1-r2-a1.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p8-r0-a0",
+    "code": 0,
+    "seconds": 0.564097333000003,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p8-r0-a0.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p8-r0-a1",
+    "code": 0,
+    "seconds": 0.49760537499999913,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p8-r0-a1.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p8-r0-a0",
+    "code": 0,
+    "seconds": 0.7224010829999976,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p8-r0-a0.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p8-r0-a1",
+    "code": 0,
+    "seconds": 0.4572439999999993,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p8-r0-a1.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p8-r1-a1",
+    "code": 0,
+    "seconds": 0.5063566670000021,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p8-r1-a1.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p8-r1-a0",
+    "code": 0,
+    "seconds": 0.4900081659999991,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p8-r1-a0.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p8-r1-a1",
+    "code": 0,
+    "seconds": 0.457780249999999,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p8-r1-a1.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p8-r1-a0",
+    "code": 0,
+    "seconds": 0.5033822910000012,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p8-r1-a0.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p8-r2-a0",
+    "code": 0,
+    "seconds": 0.5540777909999974,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p8-r2-a0.json"
+    }
+  },
+  {
+    "engine": "maria",
+    "name": "maria-p8-r2-a1",
+    "code": 0,
+    "seconds": 0.6972424579999981,
+    "binary_sha256": "d25f514d5233703de4f45d819e44367c5a90fde8438a2d4f071fe250407aac52",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/maria-p8-r2-a1.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p8-r2-a0",
+    "code": 0,
+    "seconds": 0.4510727500000016,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "0",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p8-r2-a0.json"
+    }
+  },
+  {
+    "engine": "pg",
+    "name": "pg-p8-r2-a1",
+    "code": 0,
+    "seconds": 0.46382537500000254,
+    "binary_sha256": "66a5af1c823c4909fe353c9c165c532ba5df52060c11202582b1ce41a88ddb0b",
+    "args": [
+      "-test.run=^Test(GetOrder|ListOrders|SearchProducts|TopProducts|RevenueByCategory|CreateOrder|ApplyDiscount|DeleteUser|ShipOrder|CancelOrder)$",
+      "-test.parallel=8"
+    ],
+    "env": {
+      "REVENUE_PREAGG": "1",
+      "MODELCASE_TRACE": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sample-guest-study/evidence/pg-p8-r2-a1.json"
+    }
+  }
+]

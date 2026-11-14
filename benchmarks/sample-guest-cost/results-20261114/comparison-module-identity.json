@@ -1,0 +1,10 @@
+{
+  "Version": "v1.18.2",
+  "Time": "2026-10-05T23:34:30Z",
+  "Origin": {
+    "VCS": "git",
+    "URL": "https://github.com/shibukawa/pgmem",
+    "Hash": "a61005d37d01e6671f814fe8ca828222e8147df4",
+    "Ref": "refs/tags/v1.18.2"
+  }
+}

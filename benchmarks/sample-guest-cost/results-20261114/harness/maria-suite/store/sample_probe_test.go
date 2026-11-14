@@ -1,0 +1,4 @@
+package store_test
+import("context";"database/sql";"testing";"os";"fmt";"runtime/pprof";"github.com/shibukawa/pgmem/bench/modelcase/store")
+func loadUnlessProbe(ctx context.Context,db *sql.DB)error{if os.Getenv("SAMPLE_PROFILE")=="1"{return nil};return store.LoadSample(ctx,db)}
+func TestSampleProfile(t *testing.T){if os.Getenv("SAMPLE_PROFILE")!="1"{t.Skip()};for wave:=0;wave<8;wave++{t.Run(fmt.Sprint(wave),func(t *testing.T){var dbs []*sql.DB;for i:=0;i<8;i++{dbs=append(dbs,fx.isolated(t))};f,err:=os.Create(fmt.Sprintf("%s/sample-%d.pprof",os.Getenv("PROFILE_DIR"),wave));if err!=nil{t.Fatal(err)};if err=pprof.StartCPUProfile(f);err!=nil{t.Fatal(err)};for _,db:=range dbs{if err:=store.LoadSample(context.Background(),db);err!=nil{pprof.StopCPUProfile();f.Close();t.Fatal(err)}};pprof.StopCPUProfile();f.Close();for _,db:=range dbs{var n int;if err:=db.QueryRow("SELECT COUNT(*) FROM order_items").Scan(&n);err!=nil||n!=100{t.Fatalf("count %d %v",n,err)}}})}}

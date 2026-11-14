@@ -1,0 +1,293 @@
+=== RUN   TestRevenuePlans
+PLAN 0 {
+  "query_optimization": {
+    "r_total_time_ms": 0.616
+  },
+  "query_block": {
+    "select_id": 1,
+    "cost": 0.664505016,
+    "r_loops": 1,
+    "r_total_time_ms": 1.994,
+    "const_condition": "1",
+    "filesort": {
+      "sort_key": "coalesce(sum(i.quantity * i.unit_price_cents),0) desc, c.`name`",
+      "r_loops": 1,
+      "r_total_time_ms": 0.035,
+      "r_used_priority_queue": false,
+      "r_output_rows": 20,
+      "r_buffer_size": "31KiB",
+      "r_sort_mode": "packed_sort_key,rowid",
+      "temporary_table": {
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "index",
+              "key": "name",
+              "key_length": "1022",
+              "used_key_parts": ["name"],
+              "loops": 1,
+              "r_loops": 1,
+              "rows": 20,
+              "r_rows": 20,
+              "cost": 0.01043442,
+              "r_table_time_ms": 0.018,
+              "r_other_time_ms": 0.026,
+              "r_engine_stats": {
+                "pages_accessed": 1
+              },
+              "filtered": 100,
+              "r_total_filtered": 100,
+              "r_filtered": 100,
+              "using_index": true
+            }
+          },
+          {
+            "table": {
+              "table_name": "p",
+              "access_type": "ref",
+              "possible_keys": ["PRIMARY", "products_category_id"],
+              "key": "products_category_id",
+              "key_length": "4",
+              "used_key_parts": ["category_id"],
+              "ref": ["test.c.id"],
+              "loops": 20,
+              "r_loops": 20,
+              "rows": 11,
+              "r_rows": 25,
+              "cost": 0.049679952,
+              "r_table_time_ms": 0.28,
+              "r_other_time_ms": 0.229,
+              "r_engine_stats": {
+                "pages_accessed": 20
+              },
+              "filtered": 100,
+              "r_total_filtered": 100,
+              "attached_condition": "trigcond(p.`id` is not null)",
+              "r_filtered": 100,
+              "using_index": true
+            }
+          },
+          {
+            "table": {
+              "table_name": "i",
+              "access_type": "ref",
+              "possible_keys": ["order_items_order_id", "order_items_product_id"],
+              "key": "order_items_product_id",
+              "key_length": "8",
+              "used_key_parts": ["product_id"],
+              "ref": ["test.p.id"],
+              "loops": 221.7391304,
+              "r_loops": 500,
+              "rows": 1,
+              "r_rows": 0.2,
+              "cost": 0.405239096,
+              "r_table_time_ms": 0.805,
+              "r_other_time_ms": 0.123,
+              "r_engine_stats": {
+                "pages_accessed": 600
+              },
+              "filtered": 100,
+              "r_total_filtered": 100,
+              "attached_condition": "trigcond(i.order_id is not null)",
+              "r_filtered": 100
+            }
+          },
+          {
+            "table": {
+              "table_name": "o",
+              "access_type": "eq_ref",
+              "possible_keys": ["PRIMARY", "orders_status"],
+              "key": "PRIMARY",
+              "key_length": "8",
+              "used_key_parts": ["id"],
+              "ref": ["test.i.order_id"],
+              "loops": 221.7391304,
+              "r_loops": 100,
+              "rows": 1,
+              "r_rows": 1,
+              "cost": 0.199151548,
+              "r_table_time_ms": 0.17,
+              "r_other_time_ms": 0.284,
+              "r_engine_stats": {
+                "pages_accessed": 102
+              },
+              "filtered": 75,
+              "r_total_filtered": 90,
+              "attached_condition": "trigcond(o.`status` in ('paid','shipped'))",
+              "r_filtered": 90
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+PLAN 1 {
+  "query_optimization": {
+    "r_total_time_ms": 0.196
+  },
+  "query_block": {
+    "select_id": 1,
+    "cost": 0.0158883,
+    "r_loops": 1,
+    "r_total_time_ms": 0.745,
+    "const_condition": "1",
+    "filesort": {
+      "sort_key": "coalesce(s.cents,0) desc, c.`name`",
+      "r_loops": 1,
+      "r_total_time_ms": 0.02,
+      "r_used_priority_queue": false,
+      "r_output_rows": 20,
+      "r_buffer_size": "30KiB",
+      "r_sort_mode": "packed_sort_key,rowid",
+      "temporary_table": {
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "index",
+              "key": "name",
+              "key_length": "1022",
+              "used_key_parts": ["name"],
+              "loops": 1,
+              "r_loops": 1,
+              "rows": 20,
+              "r_rows": 20,
+              "cost": 0.01043442,
+              "r_table_time_ms": 0.016,
+              "r_other_time_ms": 0.008,
+              "r_engine_stats": {
+                "pages_accessed": 1
+              },
+              "filtered": 100,
+              "r_total_filtered": 100,
+              "r_filtered": 100,
+              "using_index": true
+            }
+          },
+          {
+            "table": {
+              "table_name": "<derived2>",
+              "access_type": "ref",
+              "possible_keys": ["key0"],
+              "key": "key0",
+              "key_length": "5",
+              "used_key_parts": ["category_id"],
+              "ref": ["test.c.id"],
+              "loops": 20,
+              "r_loops": 20,
+              "rows": 1,
+              "r_rows": 1,
+              "cost": 0.00545388,
+              "r_table_time_ms": 0.016,
+              "r_other_time_ms": 0.037,
+              "filtered": 100,
+              "r_total_filtered": 100,
+              "r_filtered": 100,
+              "materialized": {
+                "query_block": {
+                  "select_id": 2,
+                  "cost": 0.113243944,
+                  "r_loops": 1,
+                  "r_total_time_ms": 0.656,
+                  "filesort": {
+                    "sort_key": "p.category_id",
+                    "r_loops": 1,
+                    "r_total_time_ms": 0.012,
+                    "r_used_priority_queue": false,
+                    "r_output_rows": 20,
+                    "r_buffer_size": "392",
+                    "r_sort_mode": "sort_key,rowid",
+                    "temporary_table": {
+                      "nested_loop": [
+                        {
+                          "table": {
+                            "table_name": "o",
+                            "access_type": "range",
+                            "possible_keys": ["PRIMARY", "orders_status"],
+                            "key": "orders_status",
+                            "key_length": "1",
+                            "used_key_parts": ["status"],
+                            "loops": 1,
+                            "r_loops": 1,
+                            "rows": 30,
+                            "r_rows": 30,
+                            "cost": 0.00766431,
+                            "r_table_time_ms": 0.02,
+                            "r_other_time_ms": 0.024,
+                            "r_engine_stats": {
+                              "pages_accessed": 4
+                            },
+                            "filtered": 100,
+                            "r_total_filtered": 100,
+                            "attached_condition": "o.`status` in ('paid','shipped')",
+                            "r_filtered": 100,
+                            "using_index": true
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "i",
+                            "access_type": "ref",
+                            "possible_keys": [
+                              "order_items_order_id",
+                              "order_items_product_id"
+                            ],
+                            "key": "order_items_order_id",
+                            "key_length": "8",
+                            "used_key_parts": ["order_id"],
+                            "ref": ["test.o.id"],
+                            "loops": 30,
+                            "r_loops": 30,
+                            "rows": 1,
+                            "r_rows": 3,
+                            "cost": 0.0562432,
+                            "r_table_time_ms": 0.21,
+                            "r_other_time_ms": 0.035,
+                            "r_engine_stats": {
+                              "pages_accessed": 120
+                            },
+                            "filtered": 100,
+                            "r_total_filtered": 100,
+                            "r_filtered": 100
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "p",
+                            "access_type": "eq_ref",
+                            "possible_keys": ["PRIMARY"],
+                            "key": "PRIMARY",
+                            "key_length": "8",
+                            "used_key_parts": ["id"],
+                            "ref": ["test.i.product_id"],
+                            "loops": 30,
+                            "r_loops": 90,
+                            "rows": 1,
+                            "r_rows": 1,
+                            "cost": 0.03011,
+                            "r_table_time_ms": 0.202,
+                            "r_other_time_ms": 0.11,
+                            "r_engine_stats": {
+                              "pages_accessed": 182
+                            },
+                            "filtered": 100,
+                            "r_total_filtered": 100,
+                            "r_filtered": 100
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+--- PASS: TestRevenuePlans (0.04s)
+PASS

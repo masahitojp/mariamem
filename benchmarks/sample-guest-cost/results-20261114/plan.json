@@ -1,0 +1,12 @@
+{
+  "source_commit": "bb1e937ae75b5788c8548a52987d9d42f78292d5",
+  "profile": "8 waves x8 pre-forked children; CPU recording only during sequential LoadSample, cleanup after StopCPUProfile",
+  "sql": "100 alternating paired queries x3 processes per engine; plans and result equality",
+  "suite": "P1/P8, 3 pairs per engine if probe supports candidate; original kept",
+  "budget_gib": 12,
+  "min_free_gib": 8,
+  "build_timeout_s": 1200,
+  "measurement_timeout_s": 180,
+  "scope": "investigation only",
+  "build_failure": "Initial harness duplicate os import and comparison module sum preflight fixed before any measurement"
+}

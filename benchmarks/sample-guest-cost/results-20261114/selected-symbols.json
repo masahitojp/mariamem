@@ -1,0 +1,30 @@
+{
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "map_source": "bb1e937a:benchmarks/forkcost/buffer-zero-candidate/validation/function-map.txt",
+  "selected": {
+    "152": "dlmalloc",
+    "14985": "_ZN4JOIN15optimize_stage2Ev",
+    "21538": "_Z10MYSQLparseP3THD",
+    "5561": "_ZL20emb_advanced_commandP8st_mysql19enum_server_commandPKhmS3_mcP13st_mysql_stmt",
+    "14578": "_Z21mysql_execute_commandP3THDb",
+    "14824": "_ZN18Prepared_statement12execute_loopEP6StringbP13select_resultPP18Server_side_cursorRK10InstrSlicePhSA_",
+    "14823": "_ZL25mysql_stmt_execute_commonP3THDmPhS1_mbbb",
+    "5570": "_ZL16emb_stmt_executeP13st_mysql_stmt",
+    "15594": "_ZN14Sql_cmd_update19update_single_tableEP3THD",
+    "13338": "_ZN7sp_head7executeEP3THDb",
+    "14146": "_ZN12Write_record12write_recordEv",
+    "21286": "_ZN13sp_lex_keeper26validate_lex_and_exec_coreEP3THDPjbP12sp_lex_instr",
+    "21290": "_ZN13sp_instr_stmt7executeEP3THDPj",
+    "15540": "_ZN19Table_triggers_list16process_triggersEP3THD14trg_event_type20trg_action_time_typebPbP4ListI4ItemE",
+    "15182": "_ZN11Sql_cmd_dml7executeEP3THD",
+    "15613": "_ZN14Sql_cmd_update13execute_innerEP3THD",
+    "21293": "_ZN13sp_instr_stmt9exec_coreEP3THDPj",
+    "214": "wasi_thread_start",
+    "267": "multi_worker",
+    "140": "__stdio_write",
+    "198": "fflush",
+    "265": "multi_reply",
+    "76": "__wasi_fd_write",
+    "21749": "_start"
+  }
+}

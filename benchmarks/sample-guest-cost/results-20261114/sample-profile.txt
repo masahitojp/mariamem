@@ -1,0 +1,19 @@
+=== RUN   TestSampleProfile
+=== RUN   TestSampleProfile/0
+=== RUN   TestSampleProfile/1
+=== RUN   TestSampleProfile/2
+=== RUN   TestSampleProfile/3
+=== RUN   TestSampleProfile/4
+=== RUN   TestSampleProfile/5
+=== RUN   TestSampleProfile/6
+=== RUN   TestSampleProfile/7
+--- PASS: TestSampleProfile (4.90s)
+    --- PASS: TestSampleProfile/0 (0.56s)
+    --- PASS: TestSampleProfile/1 (0.57s)
+    --- PASS: TestSampleProfile/2 (0.69s)
+    --- PASS: TestSampleProfile/3 (0.70s)
+    --- PASS: TestSampleProfile/4 (0.69s)
+    --- PASS: TestSampleProfile/5 (0.57s)
+    --- PASS: TestSampleProfile/6 (0.56s)
+    --- PASS: TestSampleProfile/7 (0.56s)
+PASS
