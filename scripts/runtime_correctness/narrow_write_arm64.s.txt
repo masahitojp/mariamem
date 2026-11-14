@@ -1,4 +1,4 @@
-//go:build darwin || windows
+//go:build darwin || linux || windows
 
 #include "textflag.h"
 TEXT ·atomicWrite8At(SB), NOSPLIT, $0-12

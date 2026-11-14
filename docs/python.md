@@ -7,6 +7,12 @@ managed host per root lineage. Public save/load APIs are removed. See
 
 Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
+The additional0.6.2 Linux wheel candidates target x86_64 and aarch64 on glibc2.28+
+or musl1.2+. The same CPU-specific static host is accepted in each libc family;
+manifest/ELF checks and native installed SQL, Snapshot/Fork and Close acceptance
+are tracked in [#169](https://github.com/masahitojp/mariamem/issues/169).
+These candidates are not yet published and exclude main's0.7 product changes.
+
 The Windows wheel candidate backports OS support to the original0.6.2 source;
 main's0.7 product changes are excluded. It targets Windows build22000+ on x86_64
 and arm64. Installed SQL, Snapshot/Fork independence, remote-host handoff,
