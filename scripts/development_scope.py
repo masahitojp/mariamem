@@ -11,6 +11,7 @@ from pathlib import Path
 import subprocess
 
 from git_identity import require_commit
+from check_benchmark_evidence import known_inert
 
 ROOT = Path(__file__).resolve().parents[1]
 # Every maintained workflow has a reviewed classification. New workflow paths
@@ -42,6 +43,7 @@ WORKFLOW_SCOPES = {
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
     "scripts/additional_v062.py",
+    "scripts/check_benchmark_evidence.py",
     "tests/workflow_model.py", "tests/workflow-requirements.txt",
     "tests/routing_acceptance/unit-requirements.txt",
     # Historical test relocation does not change current runtime behavior.
@@ -78,6 +80,7 @@ TOOLING = {
 # Only already-owned non-real-host suites are runtime-free. New test files are
 # unknown until deliberately assigned a responsibility, even if named .py.
 PURE_TESTS = {
+    "tests/test_benchmark_evidence.py",
     "tests/test_layout.py", "tests/test_evidence_retention.py",
     "tests/test_static_image_workflow.py", "tests/test_canonical_toolchain_pins.py",
 
@@ -134,6 +137,8 @@ PURE_TESTS = {
 
 
 def boundary(path):
+    if known_inert(path):
+        return 'docs'
     p = Path(path)
     if p.is_absolute() or '..' in p.parts:
         return 'runtime'

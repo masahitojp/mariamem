@@ -497,3 +497,17 @@ python3 benchmarks/modelcase/check_results.py --check --results benchmarks/model
 
 Reproduction uses each report's pinned source. A new run is a new cohort;
 historical observations do not qualify current main.
+
+## Retained evidence budget
+
+Normal source checks run `scripts/check_benchmark_evidence.py` for every scope.
+New or changed evidence is limited to 256 KiB per file, 1 MiB and 50 files per
+change, counting the complete changed files without subtracting deletions.
+Cumulative evidence counts and bytes cannot exceed the immutable Issue213
+migration baseline; `docs/reviews/` and `docs/benchmarks/` have separate caps so
+moving payloads there cannot evade review. Existing oversized blobs are allowed
+only at their original path and identity. Maintained baseline code/inputs are
+classified separately; unknown files count until reviewed. Preserve necessary
+samples and failures: an exceptional retention need requires an explicit policy
+change, not truncating observations. Lower caps after cleanup. See the script's
+fixed baseline SHA and constants; the baseline is Git history, not a new dump.
