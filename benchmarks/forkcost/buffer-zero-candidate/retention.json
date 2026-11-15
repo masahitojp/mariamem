@@ -1,0 +1,39 @@
+{
+  "source_commit": "80bd4332f757b5f72b2dcffc5a7f9a97d779e7f8",
+  "scope": "Storage-only reduction; historical raw identities are not hashes of current compact files. No measurement or acceptance outcome changed.",
+  "removed": [
+    {
+      "path": "build-evidence/guest-build.txt",
+      "bytes": 2693867,
+      "sha256": "cf1508fe5ed3ee1bd8c5467fe5729a1c7e865762a164dc7eac4449391537511d",
+      "reason": "recreatable build transcript or generated function listing"
+    },
+    {
+      "path": "validation/function-map.txt",
+      "bytes": 1109085,
+      "sha256": "ad4c0607efcb95328ebf49a21c09d5b3d4ff7c40c4fc2b9f1aa31fbed6c6704e",
+      "reason": "recreatable build transcript or generated function listing"
+    }
+  ],
+  "compacted": [
+    {
+      "path": "build-evidence/guest-guest.json",
+      "bytes": 1075348,
+      "sha256": "b8d9fa64cd7cc8560f117a0d5d210a8c7d531cfa761146a606a1e0419cb32905",
+      "fields": [
+        "source_identity"
+      ]
+    },
+    {
+      "path": "build-evidence/native-development.json",
+      "bytes": 3150424,
+      "sha256": "2270bdc7beb3e430322f3f311d53afff8cf7e02a1c94956f4e8b3a2852300b34",
+      "fields": [
+        "source_identity",
+        "host_source_identity",
+        "host_source_inventory"
+      ]
+    }
+  ],
+  "retained": "All measurements, failures, runtime/provenance inputs, CI harness and exact previous canonical record remain. SHA256SUMS covers current files; publication.json describes original publication only."
+}

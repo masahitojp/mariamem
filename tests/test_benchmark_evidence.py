@@ -14,9 +14,11 @@ def entry(n, identity='a'):
 
 
 def test_existing_main_and_compact_records():
-    baseline = guard.tree(str(guard.ROOT), guard.BASELINE)
-    result = guard.evaluate(baseline, baseline, baseline)
-    assert result['totals']['benchmarks/'] == {'files': 2027, 'bytes': 27364485}
+    result = guard.check()
+    for prefix, totals in result['totals'].items():
+        count_cap, byte_cap = guard.CAPS[prefix]
+        assert totals['files'] <= count_cap
+        assert totals['bytes'] <= byte_cap
     assert guard.evaluate({'benchmarks/sample.json': entry(100)}, {}, {})['passed']
 
 
@@ -122,3 +124,9 @@ def test_public_source_cli_wires_guard_before_inventory():
              if isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)
              and isinstance(node.value.func, ast.Name)]
     assert calls[0] == 'check_evidence'
+
+
+def test_removing_more_evidence_remains_valid(monkeypatch):
+    monkeypatch.setattr(guard, 'CAPS', {'benchmarks/': (2, 200)})
+    old = {'benchmarks/1.json': entry(100), 'benchmarks/2.json': entry(100)}
+    assert guard.evaluate({'benchmarks/1.json': entry(100)}, old, old)['passed']

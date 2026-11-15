@@ -45,6 +45,23 @@ The milestone and owning Issues track current work. The superseded 0.6.2
 planning PR183 was closed after its continuing conditions were checked against
 the completed additive publication documents.
 
+## Evidence storage and cleanup (#213)
+
+The storage guard introduced by PR214 runs in all normal source-check scopes.
+Per-change limits are 256 KiB per file and 1 MiB / 50 changed evidence files;
+reviewed cumulative caps live in `scripts/check_benchmark_evidence.py` and are
+lowered after cleanup. Necessary samples, failures, active fixtures and
+hash-bound provenance records remain protected. The [retention decision](decisions/evidence-retention.md)
+records the benchmark groups and continuing uses.
+
+Issue213 records local cleanup of the audited roots from 6.311 to 1.286 GiB and
+43 to two worktree registrations. This is a machine-specific historical result,
+not a product size claim. PR215 reduces tracked benchmark payload from 28,539,493
+to 20,560,797 bytes while preserving both complete buffer-zero measurement
+series and the exact previous canonical record. Its source-bound results and
+integration status belong to the Issue and PR; cleanup is not new runtime
+qualification or release approval.
+
 ## Release wheel size (#199, adoption approved 2026-11-15)
 
 The Human approved `-ldflags="-s -w"` for hosts bundled in release wheels only.
