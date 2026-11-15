@@ -9,7 +9,9 @@ old=temp/'old-snapshot.go';old.write_bytes(subprocess.check_output(['git','show'
 overlay=temp/'old.json';overlay.write_text(json.dumps({'Replace':{str(root/'snapshot.go'):str(old)}}))
 with (ev/'negative.txt').open('w') as log:
  q=subprocess.run(['go','test','-p','1','-overlay',str(overlay),'.','-run','^TestPublicCloseAsyncRetainsConsumedCaptureDebt$','-count=1'],cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT)
-assert q.returncode==1 and 'capture debt lost' in (ev/'negative.txt').read_text() or q.returncode==1 and 'false successful disposal' in (ev/'negative.txt').read_text() or q.returncode==1 and 'close_operation_test.go' in (ev/'negative.txt').read_text()
+negative=(ev/'negative.txt').read_text()
+assert q.returncode==1 and ('capture debt lost' in negative or 'cleanup failure missing from stop result' in negative),negative
+
 with (ev/'focused.txt').open('w') as log:subprocess.run(['go','test','-p','1','-count=1','.','./internal/guest','./internal/host','./mariamemtest'],cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
 with (ev/'actual.txt').open('w') as log:subprocess.run(['go','test','-p','1','-tags=integration','./tests/generatedmemory','-run','TestPublicAsyncCloseForkLifecycle|TestPureMemory32CRUDSessionsAndFork','-count=1'],cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
 binary=temp/'close.test'

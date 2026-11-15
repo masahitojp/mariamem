@@ -435,7 +435,7 @@ func TestPublicCloseAsyncRetainsConsumedCaptureDebt(t *testing.T) {
 			}
 			h, stopErr := db.CloseAsync(ctx)
 			if h == nil || !errors.Is(stopErr, syscall.EBADF) {
-				t.Fatal(h, stopErr)
+				t.Fatal("cleanup failure missing from stop result", h, stopErr)
 			}
 			first := h.Wait(ctx)
 			if !errors.Is(first, syscall.EBADF) || h.Disposed() {
