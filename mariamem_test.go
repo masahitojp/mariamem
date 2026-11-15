@@ -125,8 +125,8 @@ func TestSnapshotPhysicalOwnership(t *testing.T) {
 					if !db.Closed() {
 						t.Fatal("invalid source must report unusable")
 					}
-					if _, e := os.Stat(temp); e != nil {
-						t.Fatal("invalid source was already disposed", e)
+					if f.closes != 0 {
+						t.Fatal("invalid source was already disposed")
 					}
 					_ = owned.Close() // Capture was never entered; this is the test's unused backing.
 				} else if db.Closed() != consumed {

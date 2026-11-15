@@ -96,7 +96,8 @@ uses a failed greeting, late cleanup error, blocked release, and explicit retry;
 it preserves the original startup error and verifies eventual lease return.
 
 A1a removes the unused mariamem-go directory, its Database field/removal helper,
-and the obsolete runtime_directory_ready timing mark. Host transfer directories
+and replaces the obsolete runtime_directory_ready timing mark with host_starting.
+The stage summarizer accepts both current and historical traces. Host transfer directories
 remain. Snapshot still projects cleanup dependencies into its stable Close
 result without carrying a capture-only error. Tests observe cleanup ownership
 rather than a directory that production no longer owns.

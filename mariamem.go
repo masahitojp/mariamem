@@ -120,6 +120,7 @@ func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease
 	db := &Database{opts: opts, build: runtimekind.GuestSHA256, lease: lease}
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
+	timing.Mark(ctx, "host_starting")
 	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
 		return nil, hostError(err, "start", true)

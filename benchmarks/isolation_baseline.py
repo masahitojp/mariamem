@@ -154,8 +154,10 @@ def summarize_stages(samples):
             # Compare nested durations, never offsets from different clock origins.
             api = {e['name']: e['offset_ns'] for e in scopes['api_startup']}
             host_events = {e['name']: e['offset_ns'] for e in scopes['host']}
-            if all(k in api for k in ('runtime_directory_ready', 'host_returned')) and all(k in host_events for k in ('begin', 'end')):
-                residual = (api['host_returned'] - api['runtime_directory_ready']) - (host_events['end'] - host_events['begin'])
+            # Historical traces used the obsolete runtime-directory boundary.
+            start = 'host_starting' if 'host_starting' in api else 'runtime_directory_ready'
+            if all(k in api for k in (start, 'host_returned')) and all(k in host_events for k in ('begin', 'end')):
+                residual = (api['host_returned'] - api[start]) - (host_events['end'] - host_events['begin'])
                 grouped.setdefault((row['case'], row['workers'], 'api_host_handoff', 'outside_host_trace'), []).append(residual / 1e9)
             if scopes.get('guest'):
                 host = {event['name']: event['offset_ns'] for event in scopes['host']}

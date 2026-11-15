@@ -18,7 +18,7 @@ var libraryMode sync.Once
 // workers, descriptor cleanup, snapshot export and prepared mapping release.
 // It does not serialize execution or forcibly kill non-cooperative Go workers.
 // StartInstance reports a fatal worker trap before joining workers.
-// onFailure must not block. The returned channel still means complete cleanup;
+// onFailure must not block. The returned channel reports the cleanup attempt and any retained debt;
 // early failure never authorizes releasing memory owned by a running worker.
 func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), captures ...*prepared.Capture) <-chan error {
 	return startInstance(in, out, stderr, transfer, restore, guestTiming, onFailure, newMemoryModule, captures...)
