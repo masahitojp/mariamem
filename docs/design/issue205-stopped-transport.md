@@ -71,8 +71,10 @@ ordinary export callers still wait for full completion.
 Controlled tests gate worker exit, reader EOF and reclamation independently.
 They check no early success, all four native pipe endpoints closed, once-only
 peer retirement, construction failure, preserved trap result and host worker
-join before notification. Existing startup cancellation/retained-owner and
-worker-failure tests remain enabled.
+join before notification. A final-export test buffers the acknowledgement in a native pipe while its
+reader is gated: stopped must wait, then the reader drains the acknowledgement
+before cleanup completion. This also passes under race instrumentation.
+Existing startup cancellation/retained-owner and worker-failure tests remain enabled.
 
 The actual-guest gated test uses the production constructor and engine, sets
 innodb_fast_shutdown=2, then blocks the memory release closure. It observes a
