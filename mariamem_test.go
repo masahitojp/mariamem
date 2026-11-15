@@ -145,6 +145,10 @@ func TestSnapshotPhysicalOwnership(t *testing.T) {
 				if !errors.Is(closeErr, syscall.EIO) {
 					t.Fatal("source cleanup cause lost", closeErr)
 				}
+			} else if kind == "backing-close-error" {
+				if !errors.Is(closeErr, syscall.EBADF) {
+					t.Fatal("Close lost backing cleanup failure", closeErr)
+				}
 			} else if closeErr != nil {
 				t.Fatal(closeErr)
 			}
