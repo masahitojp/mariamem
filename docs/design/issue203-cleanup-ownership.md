@@ -82,3 +82,28 @@ For handoff, use this candidate's commit as the common base. #204 consumes
 RetryDisposal and keeps operation-result completion separate from disposal;
 #205 must preserve the existing Done/exitErr publication ordering while adding
 a separate stopped boundary. Do not weaken worker join or Snapshot/export.
+
+## Reproduction
+
+Use Go1.26.10. Run the affected Go packages with `go test -p 1`:
+`. ./mariamemtest ./internal/disposal ./internal/guest ./internal/host
+./internal/forklimit ./internal/generatedgo ./internal/generatedgo/code/base`.
+Use `go test -race -p 1 -count=1` for disposal, forklimit, guest and host.
+
+The focused Python set is test_generated_runtime_inventory,
+test_runtime_static_image, test_distribution_licenses,
+test_packaging_license_mirrors, test_update_evidence_records and
+test_upstream_translation (all under tests/). 92 tests pass on Python3.14.
+Their synthetic metadata-only audit fixtures explicitly start without source
+deltas; the separate exact-source-delta mutation oracle remains enabled.
+
+Actual guest smoke uses `go test -p 1 -tags=integration
+./tests/generatedmemory -run
+'TestPureMemory32CRUDSessionsAndFork|TestPureMemory32RepeatedClose' -count=1`.
+Both selected tests passed on macOS arm64.
+
+The selected generated file is reproduced by passing the canonical template
+through scripts/runtime_memfs.py apply_mapping and gofmt. Verify byte equality
+before updating its provenance inventory entry. Run layoutgen against the
+selected tree, then verify_generated_runtime.py and update_evidence_records.py
+--check. Do not refresh generated hashes to accept unexplained source edits.
