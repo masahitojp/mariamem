@@ -20,12 +20,30 @@ cleanup or weaker release guarantees. Adoption review and final release approval
 remain separate decisions.
 
 #199 is integrated; stripped final release artifacts still need platform
-qualification. The Human removed #103 from v0.7.0; it remains an unassigned
-future template proposal. #122 is limited to reconciling the candidate index and
-priorities, with no new performance implementation required for completion.
-#140 owns the residual PREPARE investigation. These scope decisions do not start
-additional experiments. The milestone and owning Issues track current work. The superseded 0.6.2 planning PR183 was closed after its continuing
-conditions were checked against the completed additive publication documents.
+qualification. The Human approved the #122 candidate disposition on 2026-11-15.
+The index task is complete; it does not wait for every future optimization.
+#119/#206 remain committed v0.7.0 work, with implementation adoption decided
+from integrated safety and final-drain-inclusive performance evidence.
+
+#103 template reuse, #84 prewarming and #144 explicit resource settings remain
+future, unassigned work; the default buffer pool remains 16 MiB. Additional
+zeroing and lazy initialization are not active tasks: retain the adopted
+buffer-pool/UCA/lexer/static-image improvements and the #64/#116 non-adoption
+decisions. Reconsider only with concrete current-source cost and a distinction
+from the already tested proposals, followed by a bounded plan.
+
+Check whether #162's long Close recurs during #119 acceptance, and fix it if
+feasible. Do not start a separate reproduction campaign. If repair is substantial
+or the cause cannot be isolated, return the evidence and required work to the
+Human. Timeout or unreleased resources cannot be counted as acceptance success;
+non-reproduction does not prove the historical cause resolved.
+#140 was closed after a bounded non-reproduction investigation and may reopen
+with new reproduction evidence. #143 remains on hold pending an explicit Human
+decision. These dispositions do not authorize additional experiments or release.
+
+The milestone and owning Issues track current work. The superseded 0.6.2
+planning PR183 was closed after its continuing conditions were checked against
+the completed additive publication documents.
 
 ## Release wheel size (#199, adoption approved 2026-11-15)
 
