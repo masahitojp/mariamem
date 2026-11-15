@@ -71,20 +71,20 @@ type backend interface {
 	Failure() error
 }
 
-// Database owns one isolated guest instance and its temporary directory.
+// Database owns one isolated guest instance.
 // Do not copy a Database; construct it with Start.
 type Database struct {
-	mu               sync.Mutex
-	server           backend
-	opts             Options
-	info             ConnectionInfo
-	build, temporary string
-	closed           bool
-	closeErr         error
-	failure          error
-	logs             logTail
-	lease            *forklimit.Lease
-	captureDebt      error
+	mu          sync.Mutex
+	server      backend
+	opts        Options
+	info        ConnectionInfo
+	build       string
+	closed      bool
+	closeErr    error
+	failure     error
+	logs        logTail
+	lease       *forklimit.Lease
+	captureDebt error
 }
 
 // Start creates one database. Its context governs startup, not the lifetime of a
@@ -117,17 +117,12 @@ func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease
 	if err = artifacts.ValidatePlatform(ctx); err != nil {
 		return nil, hostError(err, "platform", false)
 	}
-	temp, err := os.MkdirTemp("", "mariamem-go-")
-	if err != nil {
-		return nil, err
-	}
-	db := &Database{opts: opts, build: runtimekind.GuestSHA256, temporary: temp, lease: lease}
-	timing.Mark(ctx, "runtime_directory_ready")
+	db := &Database{opts: opts, build: runtimekind.GuestSHA256, lease: lease}
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
 	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
-		return nil, hostError(disposal.RemoveAfter(err, temp), "start", true)
+		return nil, hostError(err, "start", true)
 	}
 	timing.Mark(ctx, "host_returned")
 	db.server = s
@@ -204,7 +199,7 @@ func (db *Database) closeLocked() error {
 		err = db.server.Close(ctx)
 		cancel()
 	}
-	db.closeErr = hostError(errors.Join(err, db.removeTemporaryAfter(err), db.captureDebt), "close", true)
+	db.closeErr = hostError(errors.Join(err, db.captureDebt), "close", true)
 	db.settleFork(db.closeErr, db.disposalComplete())
 	return db.closeErr
 }
@@ -251,21 +246,6 @@ func settleStartupLease(lease *forklimit.Lease, err error) {
 	} else {
 		lease.Settle(nil)
 	}
-}
-
-// Capture the immutable path, not mutable DB fields, in a late cleanup owner.
-// The caller holds db.mu; the continuation never takes it or changes Close's
-// stored result. A later Live retry can harmlessly remove an already absent path.
-func (db *Database) removeTemporaryAfter(dependency error) error {
-	path := db.temporary
-	if path == "" {
-		return nil
-	}
-	err := disposal.CleanupAfter(dependency, func() error { return os.RemoveAll(path) })
-	if err == nil {
-		db.temporary = ""
-	}
-	return err
 }
 
 // WaitDisconnected waits for driver disconnect and host session cleanup.

@@ -216,7 +216,7 @@ func (p *Process) abortAndWait(err error, grace time.Duration) error {
 	case <-p.done:
 		return errors.Join(err, p.Err())
 	case <-timer.C:
-		owner := disposal.New(func(ctx context.Context) error { return disposal.Wait(ctx, p.done) })
+		owner := disposal.New(p.RetryDisposal)
 		return disposal.Retain(err, errors.New("guest cleanup timed out"), owner)
 	}
 }

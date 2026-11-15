@@ -33,7 +33,7 @@ later reclamation succeeds.
 | Logical descriptors | WasiStubs, after guest join, excluding caller-owned stdio | DescriptorReleaseError retains failed objects; no blind re-Close of an uncertain native FD; conservative unresolved debt |
 | Peer pipes and response reader | linked adapter | existing joined-completion boundary retained; early stop belongs to #205 |
 | Transfer directory | Server disposer | waits for runtime resource owners plus host workers; RemoveAll retry remains owned |
-| Database temporary directory | Database removeTemporaryAfter | depends on server cleanup; original result and owner retained |
+| Database cleanup result | Host/resource owners; no unused runtime directory | Snapshot preserves cleanup dependencies independently of the capture operation result |
 | Fork lease | Database / forklimit | retained through uncertain cleanup; returned after all dependency owners complete; existing admission recovery rules retained |
 
 Generic File/net.Conn/net.Listener Close errors do not provide a common proof
@@ -82,3 +82,26 @@ For handoff, use this candidate's commit as the common base. #204 consumes
 RetryDisposal and keeps operation-result completion separate from disposal;
 #205 must preserve the existing Done/exitErr publication ordering while adding
 a separate stopped boundary. Do not weaken worker join or Snapshot/export.
+
+## Product candidate follow-up (2026-11-15)
+
+The Human authorized finishing #203 plus A1a after review. This candidate starts
+from main40e3f3538fa8da46750bca7244cd414f3de9a216 and excludes #204/#205,
+the asynchronous API, A2 and mapping reset. Ordinary Close remains synchronous.
+
+A failed startup whose grace timer expires now retains Process.RetryDisposal,
+not merely Process.Done. Late runtime release debt must keep both the cleanup
+owner and Fork reservation unresolved until recovery. The controlled regression
+uses a failed greeting, late cleanup error, blocked release, and explicit retry;
+it preserves the original startup error and verifies eventual lease return.
+
+A1a removes the unused mariamem-go directory, its Database field/removal helper,
+and the obsolete runtime_directory_ready timing mark. Host transfer directories
+remain. Snapshot still projects cleanup dependencies into its stable Close
+result without carrying a capture-only error. Tests observe cleanup ownership
+rather than a directory that production no longer owns.
+
+This is correctness/unused-work cleanup, not a claimed speedup. The prior
+A1a report21e9927f retains all208runs, including the unexplained68.9second tail;
+this follow-up does not explain or erase that observation. Integration/release
+and non-synchronous Close adoption remain separate decisions.

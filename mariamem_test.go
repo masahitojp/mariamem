@@ -76,7 +76,6 @@ func TestSnapshotPhysicalOwnership(t *testing.T) {
 		t.Run(kind, func(t *testing.T) {
 			f := &fakeBackend{}
 			db := testDB(t, f)
-			temp := db.temporary
 			owned, fd := physicalBacking(t)
 			original := errors.New("injected capture failure")
 			consumed := kind == "consumed" || kind == "success" || kind == "backing-close-error"
@@ -153,9 +152,6 @@ func TestSnapshotPhysicalOwnership(t *testing.T) {
 			if f.closes != 1 {
 				t.Errorf("backend teardown repeated or missing: %d", f.closes)
 			}
-			if _, e := os.Stat(temp); !os.IsNotExist(e) {
-				t.Errorf("source temporary directory retained: %v", e)
-			}
 		})
 	}
 }
@@ -173,13 +169,12 @@ func TestConsumedCaptureRetainsCleanupAndStableCloseResult(t *testing.T) {
 		return nil, true, pending
 	}
 	db := testDB(t, f)
-	path := db.temporary
 	baseline, err := db.Snapshot(context.Background(), SnapshotOptions{})
 	if baseline != nil || !errors.Is(err, cause) || !db.Closed() {
 		t.Fatal(baseline, err)
 	}
-	if _, e := os.Stat(path); e != nil {
-		t.Fatal("removed before actual disposal", e)
+	if owner.Complete() || !cleanupPending(db.closeErr) {
+		t.Fatal("lost pending capture cleanup")
 	}
 	firstClose := db.Close()
 	if firstClose == nil || f.closes != 1 {
@@ -191,8 +186,8 @@ func TestConsumedCaptureRetainsCleanupAndStableCloseResult(t *testing.T) {
 	if e := disposal.Retry(ctx, err); e != nil {
 		t.Fatal(e)
 	}
-	if _, e := os.Stat(path); !os.IsNotExist(e) {
-		t.Fatal("late source cleanup retained", e)
+	if !owner.Complete() || cleanupPending(db.closeErr) {
+		t.Fatal("cleanup owner did not complete")
 	}
 	if db.Close() != firstClose || f.closes != 1 {
 		t.Fatal("Close result changed after disposal")
@@ -246,7 +241,7 @@ func testDB(t *testing.T, f *fakeBackend) *Database {
 	if err != nil {
 		t.Fatal(err)
 	}
-	return &Database{server: f, opts: opts, build: "test-build", temporary: t.TempDir(), info: ConnectionInfo{Host: "127.0.0.1", Port: 12345, User: "root", Database: "test"}}
+	return &Database{server: f, opts: opts, build: "test-build", info: ConnectionInfo{Host: "127.0.0.1", Port: 12345, User: "root", Database: "test"}}
 }
 func TestOptions(t *testing.T) {
 	if _, err := (Options{}).defaults(); err != nil {
@@ -304,7 +299,6 @@ func TestCloseIdempotent(t *testing.T) {
 	original := errors.New("shutdown failed")
 	f := &fakeBackend{closeErr: original}
 	db := testDB(t, f)
-	temp := db.temporary
 	var wg sync.WaitGroup
 	for i := 0; i < 8; i++ {
 		wg.Add(1)
@@ -318,9 +312,6 @@ func TestCloseIdempotent(t *testing.T) {
 	wg.Wait()
 	if f.closes != 1 || !db.Closed() {
 		t.Fatalf("closes=%d", f.closes)
-	}
-	if _, err := os.Stat(temp); !os.IsNotExist(err) {
-		t.Fatal("temporary directory remains")
 	}
 	if _, err := db.Snapshot(context.Background(), SnapshotOptions{}); !errors.Is(err, ErrClosed) {
 		t.Fatal(err)
@@ -443,7 +434,6 @@ func TestLogsBounded(t *testing.T) {
 func TestRuntimeExitCleanup(t *testing.T) {
 	f := &fakeBackend{failure: errors.New("guest exited")}
 	db := testDB(t, f)
-	temp := db.temporary
 	done := make(chan struct{})
 	close(done)
 	db.watch(done)
@@ -457,9 +447,6 @@ func TestRuntimeExitCleanup(t *testing.T) {
 	if err := db.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := os.Stat(temp); !os.IsNotExist(err) {
-		t.Fatal("runtime temp leaked")
-	}
 	db.watch(done)
 	if f.closes != 1 {
 		t.Fatal("double cleanup")
@@ -469,7 +456,6 @@ func TestRuntimeExitCleanup(t *testing.T) {
 func TestInvalidatedState(t *testing.T) {
 	f := &fakeBackend{failure: context.DeadlineExceeded}
 	db := testDB(t, f)
-	temp := db.temporary
 	if !db.Closed() || !errors.Is(db.Err(), ErrUnusable) || !errors.Is(db.Err(), context.DeadlineExceeded) {
 		t.Fatalf("invalid state: closed=%v err=%v", db.Closed(), db.Err())
 	}
@@ -487,9 +473,6 @@ func TestInvalidatedState(t *testing.T) {
 	}
 	if f.closes != 1 {
 		t.Fatalf("cleanup calls: %d", f.closes)
-	}
-	if _, err := os.Stat(temp); !os.IsNotExist(err) {
-		t.Fatalf("temporary directory remains: %v", err)
 	}
 }
 

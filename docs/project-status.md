@@ -8,6 +8,16 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Close ownership and unused-directory cleanup (2026-11-15)
+
+The Human authorized finishing the #203+A1a product candidate after review.
+Retain synchronous Close and separate this work from #204/#205 adoption.
+Fix late startup-cleanup failure ownership, remove the unused mariamem-go
+allocation/state, and preserve Snapshot/Live cleanup contracts with focused
+verification. This is candidate preparation, not main integration or release.
+The A1a benchmark's unexplained68.9second observation remains in #119 evidence;
+no speedup or tail-resolution claim is made.
+
 ## v0.7.0 remaining scope (Human decision, 2026-11-15)
 
 The Human included [#119](https://github.com/masahitojp/mariamem/issues/119)
