@@ -73,3 +73,34 @@ Evidence commands/exit codes/source identities and small logs are retained in
 the owned workspace evidence directory; code and this report are committed.
 Owned caches/build/venv/worktree are disposable after preservation. Existing
 user changes and unrelated worktrees are untouched.
+
+## Review correction and public-API comparison (2026-11-16)
+
+Preserve failed partial Snapshot backing cleanup for both root and Fork databases,
+including after Snapshot consumes the source. The shared Close result now carries
+that cleanup failure; CloseAsync and Wait cannot report success while ignoring
+capture debt. Existing synchronous backing-close-error expectations now require
+the same EBADF failure. The new controlled root/Fork regression checks stable
+Close/Wait results, Disposed=false, no repeated backend stop and occupied Fork
+capacity. Old snapshot.go fails this test semantically in both cases.
+
+[Fixed measurement and all raw observations](https://github.com/masahitojp/mariamem/blob/f42e9274724030521ca6d4c7f40a37a3d4bf803e/benchmarks/async-close-product/README.md).
+Measured source_commit `63d0e7b64e6c5c09631dab2efdfbd1a6a89fb849`. The three source/test files above are
+byte-identical to that measured candidate; the product PR excludes its tagged
+benchmark harness/raw evidence and retains the pre-existing CI mutation repair.
+
+Same Go1.26.10/macOS arm64 binary,480totalchildren, final drain included.
+4pairs/cell, sync-AA interleaved with sync/async-AB;8warmup+64main=72processes,
+34,560children. AllSQL/isolation/disposal/lease/mapping restoration checks pass.
+P/cap1/2 and2/4: paired wall−1.13%/−1.37% (−107.36/−81.11ms),4/4faster each;
+syncAA abs medians0.66%/0.31%, with overlapping extreme observations. Saturated
+1/1:+0.52%(1/4faster),2/2:approximately0%(2/4). Small,capacity-dependent value;
+no significance/universal guarantee or new CPU/RSS-saving claim. Four pairs are
+less than historical6paircohorts; do not combine percentages across cohorts.
+No comparable68.9second observation occurred; its cause remains unresolved.
+
+Focused root/guest/host/fixture plus actual public async/CRUD/Fork pass before
+measurement. Prior full/race/CI results remain pinned to their original source,
+not relabelled as testing this correction. No new race/otherOS campaign run.
+The first focused attempt caught the old nil-Close expectation; it is preserved
+separately from the passing measured cohort.
