@@ -71,9 +71,14 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	if e != nil {
 		cleanup := backing.Close()
 		e = errors.Join(e, cleanup)
-		if cleanup != nil && db.lease != nil {
+		if cleanup != nil {
 			db.captureDebt = errors.Join(db.captureDebt, cleanup)
-			db.lease.Settle(cleanup)
+			if db.lease != nil {
+				db.lease.Settle(cleanup)
+			}
+			if consumed {
+				db.closeErr = hostError(errors.Join(db.closeErr, cleanup), "close", true)
+			}
 		}
 		if consumed {
 			db.settleFork(e, cleanup == nil && db.disposalComplete())

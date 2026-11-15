@@ -6,8 +6,10 @@ import (
 	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/forklimit"
 	"github.com/masahitojp/mariamem/internal/host"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"sync"
 	"sync/atomic"
+	"syscall"
 	"testing"
 	"time"
 )
@@ -390,5 +392,66 @@ func TestPublicCloseAsyncHandle(t *testing.T) {
 	}
 	if b.calls.Load() != 1 {
 		t.Fatal("duplicate shutdown")
+	}
+}
+
+func TestPublicCloseAsyncRetainsConsumedCaptureDebt(t *testing.T) {
+	for _, withLease := range []bool{false, true} {
+		t.Run(map[bool]string{false: "root", true: "fork"}[withLease], func(t *testing.T) {
+			ctx := closeTestContext(t)
+			b := newStagedClose()
+			b.disposed.Store(true)
+			db := closeTestDB(b)
+			var pool *forklimit.Pool
+			if withLease {
+				var e error
+				pool, e = forklimit.New(1)
+				if e != nil {
+					t.Fatal(e)
+				}
+				db.lease, e = pool.Acquire(ctx)
+				if e != nil {
+					t.Fatal(e)
+				}
+				if e = db.lease.Activate(); e != nil {
+					t.Fatal(e)
+				}
+				defer db.lease.Settle(nil)
+			}
+			backing, fd := physicalBacking(t)
+			captureErr := errors.New("capture failed after consuming source")
+			b.snapshot = func(context.Context, bool) (*stored.Owned, bool, error) {
+				if e := syscall.Close(fd); e != nil {
+					t.Fatal(e)
+				}
+				return backing, true, captureErr
+			}
+			_, e := db.Snapshot(ctx, SnapshotOptions{})
+			if !errors.Is(e, captureErr) || !errors.Is(e, syscall.EBADF) {
+				t.Fatal(e)
+			}
+			if !errors.Is(db.captureDebt, syscall.EBADF) {
+				t.Fatal("capture debt lost", db.captureDebt)
+			}
+			h, stopErr := db.CloseAsync(ctx)
+			if h == nil || !errors.Is(stopErr, syscall.EBADF) {
+				t.Fatal(h, stopErr)
+			}
+			first := h.Wait(ctx)
+			if !errors.Is(first, syscall.EBADF) || h.Disposed() {
+				t.Fatal("false successful disposal", first)
+			}
+			if db.Close() != first {
+				t.Fatal("Close did not share stable cleanup result")
+			}
+			if b.calls.Load() != 0 {
+				t.Fatal("consumed source shut down twice")
+			}
+			if pool != nil {
+				if _, occupied := pool.Usage(); occupied != 1 {
+					t.Fatal("unresolved capture returned Fork slot")
+				}
+			}
+		})
 	}
 }
