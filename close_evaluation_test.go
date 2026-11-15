@@ -172,6 +172,7 @@ func TestCloseEvaluation(t *testing.T) {
 	errs := make(chan error, p)
 	start := time.Now()
 	cpuStart := evalCPU()
+ var runtimeDirs atomic.Int32
 	trace := &evalTrace{begin: start}
 	worker := func(w int) error {
 		for {
@@ -195,6 +196,7 @@ func TestCloseEvaluation(t *testing.T) {
 			if err != nil {
 				return err
 			}
+			if db.temporary != "" { runtimeDirs.Add(1) }
 			if evalDiagnostic {
 				trace.mark("fork_ready", id, w, 0)
 				db.mu.Lock()
@@ -291,7 +293,7 @@ func TestCloseEvaluation(t *testing.T) {
 	if after["active_mappings"] != before["active_mappings"] {
 		failures = append(failures, "linear mapping count did not return to baseline")
 	}
-	record := map[string]any{"mode": mode, "p": p, "cap": cap, "children": 48, "rows": 1000, "diagnostic": evalDiagnostic, "preparation_ms": preparationMS, "batch_drain_ms": float64(end.Sub(start)) / 1e6, "workers_ms": float64(workDone.Sub(start)) / 1e6, "drain_ms": float64(end.Sub(workDone)) / 1e6, "batch_cpu_ms": cpuEnd - cpuStart, "mappings_before": before, "mappings_after": after, "failures": failures}
+	record := map[string]any{"runtime_directory_count": runtimeDirs.Load(), "mode": mode, "p": p, "cap": cap, "children": 48, "rows": 1000, "diagnostic": evalDiagnostic, "preparation_ms": preparationMS, "batch_drain_ms": float64(end.Sub(start)) / 1e6, "workers_ms": float64(workDone.Sub(start)) / 1e6, "drain_ms": float64(end.Sub(workDone)) / 1e6, "batch_cpu_ms": cpuEnd - cpuStart, "mappings_before": before, "mappings_after": after, "failures": failures}
 	if evalDiagnostic {
 		record["events"] = trace.events
 		record["max_pending_backend_cleanup"] = trace.maxPending

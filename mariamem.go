@@ -118,17 +118,15 @@ func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease
 	if err = artifacts.ValidatePlatform(ctx); err != nil {
 		return nil, hostError(err, "platform", false)
 	}
-	temp, err := os.MkdirTemp("", "mariamem-go-")
-	if err != nil {
-		return nil, err
-	}
-	db := &Database{opts: opts, build: runtimekind.GuestSHA256, temporary: temp, lease: lease}
+	// Spike: no runtime directory is needed by generated-Go. Keep legacy
+	// cleanup fields/helpers unchanged to isolate allocation removal.
+	db := &Database{opts: opts, build: runtimekind.GuestSHA256, lease: lease}
 	timing.Mark(ctx, "runtime_directory_ready")
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
 	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
-		return nil, hostError(disposal.RemoveAfter(err, temp), "start", true)
+		return nil, hostError(err, "start", true)
 	}
 	timing.Mark(ctx, "host_returned")
 	db.server = s
