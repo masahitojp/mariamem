@@ -20,10 +20,11 @@ cleanup or weaker release guarantees. Adoption review and final release approval
 remain separate decisions.
 
 #199 is integrated; stripped final release artifacts still need platform
-qualification. #103 remains a template proposal, #122 a candidate index and
-#140 a residual PREPARE investigation; listing these does not make every proposed
-experiment a release requirement. The milestone and owning Issues track current
-work. The superseded 0.6.2 planning PR183 was closed after its continuing
+qualification. The Human removed #103 from v0.7.0; it remains an unassigned
+future template proposal. #122 is limited to reconciling the candidate index and
+priorities, with no new performance implementation required for completion.
+#140 owns the residual PREPARE investigation. These scope decisions do not start
+additional experiments. The milestone and owning Issues track current work. The superseded 0.6.2 planning PR183 was closed after its continuing
 conditions were checked against the completed additive publication documents.
 
 ## Release wheel size (#199, adoption approved 2026-11-15)
