@@ -1,0 +1,4 @@
+{
+  "sha256": "1da661dd52b58eeeabf983761f87e4dd498e467429663863cc20a7be513e35a3",
+  "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/close-aa/temp/close.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem.test\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=closeeval\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}

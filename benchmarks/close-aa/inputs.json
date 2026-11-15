@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "object_sha": "ed5fa339eb9f3b87488f6785da97053fae050073",
+    "object_type": "commit",
+    "source_commit": "ed5fa339eb9f3b87488f6785da97053fae050073"
+  },
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
+  "env": {
+    "GOTOOLCHAIN": "go1.26.10",
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "CGO_ENABLED": "0"
+  }
+}
