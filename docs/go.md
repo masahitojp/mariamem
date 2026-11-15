@@ -244,13 +244,13 @@ background. Keep every non-nil handle, including on error, and wait before endin
 the enclosing workload:
 
 ```go
-handle, stopErr := db.CloseAsync(ctx)
-if handle != nil {
-    cleanupErr := handle.Wait(context.Background())
-    // Report both stopErr and cleanupErr; do not discard cleanup failures.
-    _ = cleanupErr
+func stopAndReclaim(ctx context.Context, db *mariamem.Database) error {
+    handle, stopErr := db.CloseAsync(ctx)
+    if handle == nil {
+        return stopErr
+    }
+    return errors.Join(stopErr, handle.Wait(context.Background()))
 }
-_ = stopErr
 ```
 
 `Wait` returns the initial cleanup result; canceling a wait does not cancel
