@@ -1,7 +1,9 @@
 package generatedgo
 
 import (
+	"context"
 	"errors"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -189,5 +191,27 @@ func TestGuestEnvironmentIsPerInstance(t *testing.T) {
 				t.Fatal("guest context aliases another instance")
 			}
 		}
+	}
+}
+
+func TestReleaseFailureRetainsOwner(t *testing.T) {
+	var allowed atomic.Bool
+	failure := errors.New("release refused")
+	err := retainRelease(func() error {
+		if !allowed.Load() {
+			return failure
+		}
+		return nil
+	})
+	owners := disposal.Owners(err)
+	if len(owners) != 1 || owners[0].Complete() {
+		t.Fatal("lost ownership", err)
+	}
+	allowed.Store(true)
+	if e := disposal.Retry(context.Background(), err); e != nil {
+		t.Fatal(e)
+	}
+	if !owners[0].Complete() || !errors.Is(err, failure) {
+		t.Fatal("wrong completion/result", err)
 	}
 }

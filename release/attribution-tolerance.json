@@ -9,5 +9,13 @@
       "audit_field": "audited_image_metadata_sha256"
     }
   ],
-  "generated_file_deltas": []
+  "generated_file_deltas": [
+    {
+      "path": "code/base/prepared_files.go",
+      "before": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
+      "after": "0a33cc6234186d737d03900bbdddfe410cd0edd095ef18fcffaf1ca823790e34",
+      "reason": "Canonical mariamem prepared-file adapter retains failed munmap ownership and retries only unresolved mappings; no translated engine function changes.",
+      "approval": "Issue #203 implementation authorized by Human; exact helper delta remains subject to integration review."
+    }
+  ]
 }

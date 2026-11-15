@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"syscall"
+ "context"
+ "github.com/masahitojp/mariamem/internal/disposal"
 )
 
 // Each child owns its tree, descriptors, offsets and private writable views.
@@ -64,7 +66,7 @@ func MapPreparedFiles(fsys *MemFS, dir, prefix string) (*PreparedFiles, error) {
 		return err
 	})
 	if err != nil {
-		return nil, errors.Join(err, p.Close())
+		return nil, errors.Join(err, p.closeOwned())
 	}
 	return p, nil
 }
@@ -72,10 +74,26 @@ func (p *PreparedFiles) Close() error {
 	if p == nil {
 		return nil
 	}
-	var result error
-	for _, data := range p.mappings {
-		result = errors.Join(result, syscall.Munmap(data))
-	}
-	p.mappings = nil
+	return p.closeWith(syscall.Munmap)
+}
+func (p *PreparedFiles) closeWith(unmap func([]byte) error) error {
+ var result error
+	remaining := p.mappings[:0]
+ for _, data := range p.mappings {
+  if err := unmap(data); err != nil {
+   result = errors.Join(result, err)
+   remaining = append(remaining, data)
+  }
+ }
+ // Keep only failed mappings for a serialized explicit retry.
+ p.mappings = remaining
 	return result
+}
+
+func (p *PreparedFiles) closeOwned() error {
+ if err := p.Close(); err != nil {
+  owner := disposal.New(func(context.Context) error { return p.Close() })
+  return disposal.Retain(nil, err, owner)
+ }
+ return nil
 }

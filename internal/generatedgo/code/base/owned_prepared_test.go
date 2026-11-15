@@ -3,6 +3,7 @@ package base
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"os"
 	"os/exec"
@@ -231,5 +232,53 @@ func TestOwnedMappedTruncateRenameUnlinkIdentity(t *testing.T) {
 	got = make([]byte, len(original))
 	if _, err = f.ReadAt(got, 0); err != nil || !bytes.Equal(got, original) {
 		t.Fatal("owned backing changed", err)
+	}
+}
+
+func TestPreparedCleanupKeepsOnlyFailedMappings(t *testing.T) {
+	p := &PreparedFiles{mappings: [][]byte{{1}, {2}, {3}}}
+	failure := errors.New("unmap refused")
+	calls := map[byte]int{}
+	unmap := func(b []byte) error {
+		calls[b[0]]++
+		if b[0] == 2 && calls[2] == 1 {
+			return failure
+		}
+		return nil
+	}
+	if err := p.closeWith(unmap); !errors.Is(err, failure) {
+		t.Fatal(err)
+	}
+	if len(p.mappings) != 1 || p.mappings[0][0] != 2 {
+		t.Fatal("lost failed mapping")
+	}
+	if err := p.closeWith(unmap); err != nil {
+		t.Fatal(err)
+	}
+	if len(p.mappings) != 0 || calls[1] != 1 || calls[2] != 2 || calls[3] != 1 {
+		t.Fatal("retried released mapping", calls)
+	}
+}
+
+type refusedCloseFile struct {
+	File
+	calls int
+}
+
+func (f *refusedCloseFile) Close() error { f.calls++; return errors.New("close state unknown") }
+func TestDescriptorCleanupRetainsFailedObject(t *testing.T) {
+	w := DefaultWASI()
+	f := &refusedCloseFile{}
+	w.fdTable = map[int32]*wasiOpen{4: {f: f}}
+	err := w.CloseDescriptors()
+	var debt *DescriptorReleaseError
+	if !errors.As(err, &debt) || len(debt.resources) != 1 || debt.resources[0].f != f {
+		t.Fatal("lost descriptor owner", err)
+	}
+	if err := w.CloseDescriptors(); err != nil {
+		t.Fatal(err)
+	}
+	if f.calls != 1 {
+		t.Fatal("blind descriptor retry")
 	}
 }

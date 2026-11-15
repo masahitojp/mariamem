@@ -56,7 +56,7 @@ func startInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		w.SetStdout(out)
 		w.SetStderr(stderr)
 		var maps *base.PreparedFiles
-		defer func() { err = errors.Join(err, w.CloseDescriptors(), maps.Close()) }()
+		defer func() { err = errors.Join(err, closeDescriptors(w), retainRelease(maps.Close)) }()
 		if restore != nil {
 			maps, err = base.MapPreparedHandles(fs, restore, "mariadb")
 			if err != nil {

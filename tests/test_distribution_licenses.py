@@ -99,6 +99,8 @@ def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
     shutil.copyfile(ROOT/'release/attribution-tolerance.json', tmp_path/'release/attribution-tolerance.json')
     policy_path = tmp_path/'release/attribution-tolerance.json'
     policy = json.loads(policy_path.read_text())
+    # This fixture audits the current source as its own baseline.
+    policy['generated_file_deltas'] = []
     policy['metadata_files'][0]['before'] = None
     policy_path.write_text(json.dumps(policy, indent=2)+'\n')
     target = tmp_path/GENERATED
@@ -146,6 +148,8 @@ def test_replaced_image_binding_reconstructs_exact_audited_provenance(tmp_path):
     layout = target/'image/layout.json'
     policy_path = tmp_path/'release/attribution-tolerance.json'
     policy = json.loads(policy_path.read_text())
+    # This synthetic audit already includes all current source changes.
+    policy['generated_file_deltas'] = []
     for row in policy['metadata_files']:
         if row['path'] == 'image/layout.json':
             row['before'] = digest(layout)

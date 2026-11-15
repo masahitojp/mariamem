@@ -457,3 +457,12 @@ func (p *Process) TakeCapture() *prepared.Heap { return p.capture.TakeResult() }
 func (p *Process) DiscardCapture() { p.capture.Discard() }
 
 func (p *Process) TakeRoot(build string) (*prepared.Root, error) { return p.capture.TakeRoot(build) }
+
+// RetryDisposal waits for the cleanup attempt, then retries only retained
+// cleanup owners. An execution error alone is not outstanding resource debt.
+func (p *Process) RetryDisposal(ctx context.Context) error {
+	if err := disposal.Wait(ctx, p.done); err != nil {
+		return err
+	}
+	return disposal.Retry(ctx, p.exitErr)
+}
