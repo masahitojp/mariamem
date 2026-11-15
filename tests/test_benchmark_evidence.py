@@ -6,6 +6,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import check_benchmark_evidence as guard
+from layout import BENCHMARKS
 
 
 def entry(n, identity='a'):
@@ -78,7 +79,7 @@ def test_scope_keeps_code_and_provenance_conservative():
 def test_local_untracked_evidence_is_checked(tmp_path):
     import subprocess
     subprocess.run(['git', 'init', '-q', str(tmp_path)], check=True)
-    target = tmp_path / 'benchmarks/new.json'
+    target = tmp_path / BENCHMARKS / 'new.json'
     target.parent.mkdir()
     target.write_bytes(b'x' * (guard.FILE_BYTES + 1))
     with pytest.raises(ValueError, match='oversized'):
