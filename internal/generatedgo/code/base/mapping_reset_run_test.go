@@ -73,6 +73,10 @@ func TestResetSpikeCycle(t *testing.T) {
 	if e = json.Unmarshal(raw, &rs); e != nil {
 		t.Fatal(e)
 	}
+	cycles, err := strconv.Atoi(os.Getenv("AA_CYCLES"))
+	if err != nil || (cycles != 48 && cycles != 480) {
+		t.Fatal("AA cycles must be 48 or 480")
+	}
 	const initial = 256 << 20
 	const maximum = 2 << 30
 	const grown = 320 << 20
@@ -99,7 +103,7 @@ func TestResetSpikeCycle(t *testing.T) {
 					}
 				}()
 			}
-			for n := 0; n < 48; n++ {
+			for n := 0; n < cycles; n++ {
 				var b *MemoryMapping
 				var epoch uint64
 				var e error
@@ -151,6 +155,6 @@ func TestResetSpikeCycle(t *testing.T) {
 			t.Fatal("resource residue", k)
 		}
 	}
-	out, _ := json.Marshal(map[string]any{"arm": arm, "p": p, "dirty_mib": dirty, "cycles_per_worker": 48, "wall_ms": wall, "cpu_ms": cpu, "before": before, "after": after, "ranges": len(rs)})
+	out, _ := json.Marshal(map[string]any{"arm": arm, "p": p, "dirty_mib": dirty, "cycles_per_worker": cycles, "wall_ms": wall, "cpu_ms": cpu, "before": before, "after": after, "ranges": len(rs)})
 	fmt.Println("RESET_RESULT " + string(out))
 }
