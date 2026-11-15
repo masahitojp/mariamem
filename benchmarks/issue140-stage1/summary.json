@@ -1,0 +1,15 @@
+{
+  "result": "NOT_REPRODUCED",
+  "source_commit": "2ef14ee2de5c16ffff715cf12f275b8f1338c253",
+  "processes": 4,
+  "cases": 280,
+  "prepare_calls": 252,
+  "long_prepare": [],
+  "max_prepare_us": 18330,
+  "suite_elapsed_ms": [
+    697.835,
+    409.67,
+    501.857,
+    452.601
+  ]
+}
