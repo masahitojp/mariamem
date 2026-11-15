@@ -130,3 +130,16 @@ def test_removing_more_evidence_remains_valid(monkeypatch):
     monkeypatch.setattr(guard, 'CAPS', {'benchmarks/': (2, 200)})
     old = {'benchmarks/1.json': entry(100), 'benchmarks/2.json': entry(100)}
     assert guard.evaluate({'benchmarks/1.json': entry(100)}, old, old)['passed']
+
+
+def test_canonical_template_exemption_is_existing_and_exact():
+    template = 'benchmarks/spikes/generated-go-integration/prepared-files.go.txt'
+    old = {template: entry(100)}
+    changed = {template: entry(guard.FILE_BYTES + 1, 'changed-source')}
+    assert guard.evaluate(changed, old, old)['changed_files'] == 0
+    # A new file, copied template, or similarly named payload is still evidence.
+    for path in (template, template + '.backup', template.replace('prepared-', 'copied-')):
+        with pytest.raises(ValueError, match='oversized'):
+            guard.evaluate({path: entry(guard.FILE_BYTES + 1)}, {}, {})
+    import development_scope as scope
+    assert scope.boundary(template) == 'runtime'

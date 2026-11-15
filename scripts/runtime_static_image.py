@@ -38,7 +38,7 @@ def generate(runtime, go):
         for name in ('code', 'imagelayout', 'layoutgen'):
             shutil.copytree(runtime/name, staged/name)
         # Base ownership/types depend on these handwritten host helpers only.
-        for name in ('prepared', 'timing'):
+        for name in ('prepared', 'timing', 'disposal'):
             shutil.copytree(ROOT/'internal'/name, root/'internal'/name)
         (root/'go.mod').write_text('module github.com/masahitojp/mariamem\n\ngo 1.26.0\n')
         env = dict(os.environ, GOTOOLCHAIN='local', GOENV='off', GOWORK='off', GOFLAGS='', GOEXPERIMENT='', CGO_ENABLED='0')

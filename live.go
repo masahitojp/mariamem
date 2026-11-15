@@ -54,7 +54,7 @@ func (c liveChild) Close() error {
 		err = c.server.Close(ctx)
 		cancel()
 	}
-	err = hostError(errors.Join(err, c.removeTemporaryAfter(err), c.captureDebt), "close", true)
+	err = hostError(errors.Join(err, c.captureDebt), "close", true)
 	c.settleFork(err, c.disposalComplete())
 	return err
 }

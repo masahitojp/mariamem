@@ -23,7 +23,7 @@ func (s *Server) disposeAfter(cause error) error {
 	s.disposeOnce.Do(func() {
 		done := s.joinWorkers()
 		owner := disposal.New(func(ctx context.Context) error {
-			if err := disposal.Wait(ctx, s.Guest.Done()); err != nil {
+			if err := s.Guest.RetryDisposal(ctx); err != nil {
 				return err
 			}
 			if err := disposal.Wait(ctx, done); err != nil {

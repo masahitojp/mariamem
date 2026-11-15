@@ -174,11 +174,12 @@ def test_stage_report_preserves_unavailable_cost_and_sample_counts():
     assert 'not pure Wasmer time' in text
 
 
-def test_nested_api_host_handoff_uses_durations_not_clock_offsets():
+@pytest.mark.parametrize("start", ["host_starting", "runtime_directory_ready"])
+def test_nested_api_host_handoff_uses_durations_not_clock_offsets(start):
     def events(**offsets):
         return [{'name': name, 'offset_ns': value} for name, value in offsets.items()]
     trace = {
-        'api_startup': {'events': events(begin=0, runtime_directory_ready=100, host_returned=600, end=610)},
+        'api_startup': {'events': events(**{'begin': 0, start: 100, 'host_returned': 600, 'end': 610})},
         'fork': {'events': None},
         # Host origin is independent from API origin.
         'host': {'events': events(begin=3, metadata_snapshot_validated=103, end=403)},
@@ -186,7 +187,7 @@ def test_nested_api_host_handoff_uses_durations_not_clock_offsets():
     rows = baseline.summarize_stages([{'case': 'fork', 'workers': 1, 'phase': 'measurement', 'per_db': [{'stage_timings': trace}]}])
     handoff = next(row for row in rows if row['scope'] == 'api_host_handoff')
     assert handoff['p50_seconds'] == pytest.approx(100 / 1e9)
-    assert next(row for row in rows if row['scope'] == 'api_startup' and row['stage'] == 'runtime_directory_ready')['p50_seconds'] == pytest.approx(100 / 1e9)
+    assert next(row for row in rows if row['scope'] == 'api_startup' and row['stage'] == start)['p50_seconds'] == pytest.approx(100 / 1e9)
 
 
 def test_verification_scopes_and_logical_byte_reporting():

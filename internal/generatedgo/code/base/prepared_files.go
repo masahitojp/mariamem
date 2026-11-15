@@ -1,8 +1,10 @@
 package base
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"os"
 	"path/filepath"
 	"syscall"
@@ -64,7 +66,7 @@ func MapPreparedFiles(fsys *MemFS, dir, prefix string) (*PreparedFiles, error) {
 		return err
 	})
 	if err != nil {
-		return nil, errors.Join(err, p.Close())
+		return nil, errors.Join(err, p.closeOwned())
 	}
 	return p, nil
 }
@@ -72,10 +74,26 @@ func (p *PreparedFiles) Close() error {
 	if p == nil {
 		return nil
 	}
+	return p.closeWith(syscall.Munmap)
+}
+func (p *PreparedFiles) closeWith(unmap func([]byte) error) error {
 	var result error
+	remaining := p.mappings[:0]
 	for _, data := range p.mappings {
-		result = errors.Join(result, syscall.Munmap(data))
+		if err := unmap(data); err != nil {
+			result = errors.Join(result, err)
+			remaining = append(remaining, data)
+		}
 	}
-	p.mappings = nil
+	// Keep only failed mappings for a serialized explicit retry.
+	p.mappings = remaining
 	return result
+}
+
+func (p *PreparedFiles) closeOwned() error {
+	if err := p.Close(); err != nil {
+		owner := disposal.New(func(context.Context) error { return p.Close() })
+		return disposal.Retain(nil, err, owner)
+	}
+	return nil
 }

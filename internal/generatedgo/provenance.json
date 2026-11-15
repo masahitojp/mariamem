@@ -12,7 +12,7 @@
     "code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
     "code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
     "code/base/memfs_growth_test.go": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
-    "code/base/prepared_files.go": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
+    "code/base/prepared_files.go": "0a33cc6234186d737d03900bbdddfe410cd0edd095ef18fcffaf1ca823790e34",
     "code/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
     "code/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
     "code/base/relative.go": "a5c100e135a04b93b76b36b9c80cc14645950f6fab34abf6655b13cdf02ca15a",
@@ -65,6 +65,6 @@
     "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
     "guest_identity.go": "5778d44113a177d1e85e3fec5955b5f950b48321b3d13c08ebc6f6b398d8913c",
     "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
-    "image/layout.json": "fce8e67b61c97436263ad6488be6ad99af5eaa2742eae923f0c8e01ed82ecfdc"
+    "image/layout.json": "363be22a3ed1d440b7c62eae0e36671d51c00a79cf4f776f8664fba2ca138fd2"
   }
 }
