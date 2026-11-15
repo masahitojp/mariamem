@@ -70,6 +70,7 @@ def test_scope_keeps_code_and_provenance_conservative():
     assert scope.boundary('benchmarks/new.json') == 'runtime'
     assert scope.boundary('benchmarks/modelcase/app.go') == 'runtime'
     assert scope.boundary(guard.PROVENANCE) == 'runtime'
+    assert scope.boundary('benchmarks/main-product-evidence/results/matrix/basic.json') == 'runtime'
     assert scope.boundary('benchmarks/ucapreparedinput/input.json') == 'runtime'
     assert scope.select(['benchmarks/timer-product/summary.json'])['integration'] is False
 

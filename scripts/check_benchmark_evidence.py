@@ -21,6 +21,11 @@ CODE_SUFFIXES = {'.py', '.go', '.sh', '.c', '.h', '.cpp', '.js', '.mjs', '.ts', 
 CODE_NAMES = {'go.mod', 'go.sum', 'requirements.txt'}
 PROTECTED = ('benchmarks/ucapreparedinput/', 'benchmarks/lexerpreparedinput/')
 PROVENANCE = 'benchmarks/forkcost/buffer-zero-candidate/build-evidence/previous-canonical-build.json'
+# Only the A0 compact reports were reviewed for inert source-check selection.
+# C must review other consumers before expanding this list.
+INERT_PREFIXES = ('benchmarks/timer-product/', 'benchmarks/modelcase/results/',
+                  'benchmarks/modelcase/shared-read-results/',
+                  'benchmarks/prepared-output-20261114/', 'benchmarks/memoryea-product/')
 
 
 def git(root, *args):
@@ -112,7 +117,8 @@ def check(root=ROOT, *, candidate=None, base=None):
 
 def known_inert(path, root=ROOT):
     baseline = tree(str(Path(root).resolve()), BASELINE)
-    return (path in baseline and evidence(path, baseline) and path != PROVENANCE
+    return (path.startswith(INERT_PREFIXES) and path in baseline
+            and evidence(path, baseline) and path != PROVENANCE
             and not maintained(path))
 
 
