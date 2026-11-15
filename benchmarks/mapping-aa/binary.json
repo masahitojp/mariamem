@@ -1,0 +1,4 @@
+{
+  "sha256": "6685a847fa224848492ea52d9a7ce713f9f013db2faace9b51d586cf2b9ea7af",
+  "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/mapping-aa/temp/aa.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/internal/generatedgo/code/base.test\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=mappingspike\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}
