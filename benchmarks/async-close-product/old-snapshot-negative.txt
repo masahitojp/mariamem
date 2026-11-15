@@ -1,0 +1,8 @@
+--- FAIL: TestPublicCloseAsyncRetainsConsumedCaptureDebt (0.01s)
+    --- FAIL: TestPublicCloseAsyncRetainsConsumedCaptureDebt/root (0.00s)
+        close_operation_test.go:434: capture debt lost <nil>
+    --- FAIL: TestPublicCloseAsyncRetainsConsumedCaptureDebt/fork (0.00s)
+        close_operation_test.go:438: cleanup failure missing from stop result &{0x47d9ea346460} <nil>
+FAIL
+FAIL	github.com/masahitojp/mariamem	1.228s
+FAIL
