@@ -128,6 +128,10 @@ func TestCloseEvaluation(t *testing.T) {
 	if (p != 1 && p != 2) || (cap != p && cap != 2*p) || (mode != "sync" && mode != "stop") {
 		t.Fatal("invalid fixed campaign cell")
 	}
+	children, e := strconv.Atoi(os.Getenv("CLOSE_CHILDREN"))
+	if e != nil || (children != 48 && children != 480) {
+		t.Fatal("children must be 48 or 480")
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
 	defer cancel()
 	prep := time.Now()
@@ -166,7 +170,7 @@ func TestCloseEvaluation(t *testing.T) {
 	}
 	preparationMS := float64(time.Since(prep)) / 1e6
 	before := base.MemoryMappingStats()
-	handles := make([]*closeOperation, 48)
+	handles := make([]*closeOperation, children)
 	var next atomic.Int32
 	var wg sync.WaitGroup
 	errs := make(chan error, p)
@@ -176,7 +180,7 @@ func TestCloseEvaluation(t *testing.T) {
 	worker := func(w int) error {
 		for {
 			id := int(next.Add(1)) - 1
-			if id >= 48 {
+			if id >= children {
 				return nil
 			}
 			var db *Database
@@ -291,7 +295,7 @@ func TestCloseEvaluation(t *testing.T) {
 	if after["active_mappings"] != before["active_mappings"] {
 		failures = append(failures, "linear mapping count did not return to baseline")
 	}
-	record := map[string]any{"mode": mode, "p": p, "cap": cap, "children": 48, "rows": 1000, "diagnostic": evalDiagnostic, "preparation_ms": preparationMS, "batch_drain_ms": float64(end.Sub(start)) / 1e6, "workers_ms": float64(workDone.Sub(start)) / 1e6, "drain_ms": float64(end.Sub(workDone)) / 1e6, "batch_cpu_ms": cpuEnd - cpuStart, "mappings_before": before, "mappings_after": after, "failures": failures}
+	record := map[string]any{"mode": mode, "p": p, "cap": cap, "children": children, "rows": 1000, "diagnostic": evalDiagnostic, "preparation_ms": preparationMS, "batch_drain_ms": float64(end.Sub(start)) / 1e6, "workers_ms": float64(workDone.Sub(start)) / 1e6, "drain_ms": float64(end.Sub(workDone)) / 1e6, "batch_cpu_ms": cpuEnd - cpuStart, "mappings_before": before, "mappings_after": after, "failures": failures}
 	if evalDiagnostic {
 		record["events"] = trace.events
 		record["max_pending_backend_cleanup"] = trace.maxPending
