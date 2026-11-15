@@ -1,0 +1,112 @@
+{
+  "identity": {
+    "object_sha": "c5f4ad43f5a1de57f8b758f7bd8e13505d5451ed",
+    "object_type": "commit",
+    "source_commit": "c5f4ad43f5a1de57f8b758f7bd8e13505d5451ed"
+  },
+  "fixture": {
+    "initial_sha256": "cab8819c9f8f25760c374e776474f82bb3774dc1c194d9b6d93f8f7f8329d5e1",
+    "ranges": [
+      {
+        "Offset": 8388608,
+        "Length": 3293184
+      },
+      {
+        "Offset": 11730944,
+        "Length": 49152
+      },
+      {
+        "Offset": 11796480,
+        "Length": 802816
+      },
+      {
+        "Offset": 12664832,
+        "Length": 32768
+      },
+      {
+        "Offset": 12713984,
+        "Length": 802816
+      },
+      {
+        "Offset": 13582336,
+        "Length": 32768
+      },
+      {
+        "Offset": 13631488,
+        "Length": 163840
+      },
+      {
+        "Offset": 13844480,
+        "Length": 32768
+      },
+      {
+        "Offset": 13893632,
+        "Length": 114688
+      },
+      {
+        "Offset": 14024704,
+        "Length": 65536
+      },
+      {
+        "Offset": 14155776,
+        "Length": 65536
+      },
+      {
+        "Offset": 14286848,
+        "Length": 147456
+      },
+      {
+        "Offset": 14450688,
+        "Length": 114688
+      },
+      {
+        "Offset": 14581760,
+        "Length": 49152
+      },
+      {
+        "Offset": 14696448,
+        "Length": 65536
+      },
+      {
+        "Offset": 14827520,
+        "Length": 147456
+      },
+      {
+        "Offset": 14991360,
+        "Length": 49152
+      },
+      {
+        "Offset": 15056896,
+        "Length": 49152
+      },
+      {
+        "Offset": 15122432,
+        "Length": 458752
+      },
+      {
+        "Offset": 15630336,
+        "Length": 32768
+      },
+      {
+        "Offset": 15679488,
+        "Length": 114688
+      },
+      {
+        "Offset": 15826944,
+        "Length": 2949120
+      },
+      {
+        "Offset": 27738112,
+        "Length": 16384
+      }
+    ],
+    "page_bytes": 16384,
+    "recipe": "reconstruct Fn67 active segments and completion flag; verify complete initial-memory SHA256"
+  },
+  "env": {
+    "GOTOOLCHAIN": "go1.26.10",
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "CGO_ENABLED": "0"
+  }
+}

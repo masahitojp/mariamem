@@ -1,0 +1,23 @@
+=== RUN   TestResetSpikeProtection
+--- PASS: TestResetSpikeProtection (0.00s)
+=== RUN   TestResetSpikeCycle
+    mapping_reset_run_test.go:55: finite runner only
+--- SKIP: TestResetSpikeCycle (0.00s)
+=== RUN   TestResetSpikeSafety
+--- PASS: TestResetSpikeSafety (0.00s)
+=== RUN   TestResetSpikeFailures
+=== RUN   TestResetSpikeFailures/protect
+=== RUN   TestResetSpikeFailures/overlay
+=== RUN   TestResetSpikeFailures/after-reset
+--- PASS: TestResetSpikeFailures (0.00s)
+    --- PASS: TestResetSpikeFailures/protect (0.00s)
+    --- PASS: TestResetSpikeFailures/overlay (0.00s)
+    --- PASS: TestResetSpikeFailures/after-reset (0.00s)
+=== RUN   TestResetSpikeEpochConcurrency
+--- PASS: TestResetSpikeEpochConcurrency (0.00s)
+=== RUN   TestMappingFailureOwnership
+--- PASS: TestMappingFailureOwnership (0.00s)
+=== RUN   TestStaticPagesRangesOwnership
+--- PASS: TestStaticPagesRangesOwnership (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.291s
