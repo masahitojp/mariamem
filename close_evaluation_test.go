@@ -172,7 +172,7 @@ func TestCloseEvaluation(t *testing.T) {
 	errs := make(chan error, p)
 	start := time.Now()
 	cpuStart := evalCPU()
- var runtimeDirs atomic.Int32
+	var runtimeDirs atomic.Int32
 	trace := &evalTrace{begin: start}
 	worker := func(w int) error {
 		for {
@@ -196,7 +196,9 @@ func TestCloseEvaluation(t *testing.T) {
 			if err != nil {
 				return err
 			}
-			if db.temporary != "" { runtimeDirs.Add(1) }
+			if db.temporary != "" {
+				runtimeDirs.Add(1)
+			}
 			if evalDiagnostic {
 				trace.mark("fork_ready", id, w, 0)
 				db.mu.Lock()

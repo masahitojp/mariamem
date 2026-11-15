@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "sha256": "214383215cd29277fe8df84e79dd6d23cb9f27eefb9e67e505666c930771799e",
+    "bytes": 108670754,
+    "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/no-runtime-directory/temp/baseline.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem.test\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=closeeval\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "candidate": {
+    "sha256": "eb490301809a53f77cccac10dc05a3849c2b2e1c7b40e82a152d23dc0febcdd7",
+    "bytes": 108670754,
+    "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/no-runtime-directory/temp/candidate.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem.test\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=closeeval\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  }
+}
