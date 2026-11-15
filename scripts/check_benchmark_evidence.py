@@ -14,12 +14,15 @@ FILE_BYTES = 256 * 1024
 CHANGE_BYTES = 1024 * 1024
 CHANGE_FILES = 50
 # C lowers the A1 migration cap by removing inspected redundant payloads.
-CAPS = {'benchmarks/': (2026, 19386683),
+CAPS = {'benchmarks/': (2025, 19384753),
         'docs/reviews/': (2697, 16658019),
         'docs/benchmarks/': (487, 2954424)}
 CODE_SUFFIXES = {'.py', '.go', '.sh', '.c', '.h', '.cpp', '.js', '.mjs', '.ts', '.sql'}
 CODE_NAMES = {'go.mod', 'go.sum', 'requirements.txt'}
 PROTECTED = ('benchmarks/ucapreparedinput/', 'benchmarks/lexerpreparedinput/')
+# Canonical generator input, copied by setup_candidate.py and installed by
+# generate_runtime.py; not retained measurement evidence. Exact existing path only.
+MAINTAINED_INPUTS = {'benchmarks/spikes/generated-go-integration/prepared-files.go.txt'}
 PROVENANCE = 'benchmarks/forkcost/buffer-zero-candidate/build-evidence/previous-canonical-build.json'
 # Only the A0 compact reports were reviewed for inert source-check selection.
 # C must review other consumers before expanding this list.
@@ -49,7 +52,7 @@ def tree(root, ref):
 
 def maintained(path):
     p = Path(path)
-    return path.startswith(PROTECTED) or p.suffix in CODE_SUFFIXES or p.name in CODE_NAMES
+    return path in MAINTAINED_INPUTS or path.startswith(PROTECTED) or p.suffix in CODE_SUFFIXES or p.name in CODE_NAMES
 
 
 def evidence(path, baseline):
