@@ -19,11 +19,12 @@ import (
 
 	mysql "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/host"
 )
 
 // Diagnostic overlays change only this constant; the plain binary has no
 // per-stage clocks, observers or mapping samples in its child loop.
-const evalDiagnostic = false
+const evalDiagnostic = true
 
 type evalEvent struct {
 	NS      int64  `json:"ns"`
@@ -198,6 +199,7 @@ func TestCloseEvaluation(t *testing.T) {
 			if evalDiagnostic {
 				trace.mark("fork_ready", id, w, 0)
 				db.mu.Lock()
+				db.server.(*host.Server).StopTrace = func(kind string) { trace.mark(kind, id, w, 0) }
 				db.server = evalBackend{db.server, trace, id, w}
 				db.mu.Unlock()
 			}

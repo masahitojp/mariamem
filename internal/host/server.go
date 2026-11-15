@@ -22,6 +22,9 @@ import (
 )
 
 type Server struct {
+	// StopTrace is an experiment-only observer, installed before Close.
+	StopTrace func(string)
+
 	Guest             *guest.Process
 	listener          net.Listener
 	mu                sync.Mutex
@@ -246,6 +249,12 @@ func (s *Server) allocateSlotLocked() (uint32, bool) {
 	}
 	return 0, false
 }
+func (s *Server) stopMark(name string) {
+	if s.StopTrace != nil {
+		s.StopTrace(name)
+	}
+}
+
 func (s *Server) Close(ctx context.Context) error { return s.CloseWithStopped(ctx, nil) }
 
 // CloseWithStopped retains synchronous cleanup, but reports guest/transport and
@@ -255,6 +264,7 @@ func (s *Server) CloseWithStopped(ctx context.Context, notify func(error)) (err 
 	s.mu.Lock()
 	s.stopAccepting()
 	s.mu.Unlock()
+	s.stopMark("admission_stopped")
 	if notify != nil {
 		notified := make(chan struct{})
 		workers := s.joinWorkers()
@@ -263,6 +273,7 @@ func (s *Server) CloseWithStopped(ctx context.Context, notify func(error)) (err 
 			if stopErr == nil {
 				stopErr = disposal.Wait(ctx, workers)
 			}
+			s.stopMark("transport_workers_stopped")
 			notify(stopErr)
 			close(notified)
 		}()
@@ -349,7 +360,9 @@ func (s *Server) setShutdownMode(ctx context.Context, purpose shutdownPurpose) e
 		op  byte
 		sql string
 	}{{1, ""}, {2, "SET GLOBAL innodb_fast_shutdown=" + mode}, {3, ""}} {
+		s.stopMark(fmt.Sprintf("rpc_%d_begin", call.op))
 		result, err := s.Guest.Call(ctx, call.op, 0, []byte(call.sql))
+		s.stopMark(fmt.Sprintf("rpc_%d_end", call.op))
 		if err != nil {
 			return fmt.Errorf("configure guest shutdown: %w", err)
 		}
@@ -365,6 +378,7 @@ func (s *Server) finish(ctx context.Context, purpose shutdownPurpose) error {
 	var err error
 	select {
 	case <-done:
+		s.stopMark("sessions_joined")
 		if purpose == shutdownExport {
 			timing.Mark(ctx, "sessions_drained")
 		}
@@ -383,7 +397,9 @@ func (s *Server) finish(ctx context.Context, purpose shutdownPurpose) error {
 			err = s.Guest.Export(ctx)
 			timing.Mark(ctx, "export_acknowledged")
 		} else {
+			s.stopMark("shutdown_begin")
 			err = s.Guest.Shutdown(ctx)
+			s.stopMark("shutdown_complete")
 		}
 	case <-ctx.Done():
 		err = ctx.Err()
