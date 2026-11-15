@@ -13,8 +13,8 @@ BASELINE = 'f6a4b6656f1a5a2cbc05e41e9ca697a8e8a42c93'
 FILE_BYTES = 256 * 1024
 CHANGE_BYTES = 1024 * 1024
 CHANGE_FILES = 50
-# Fixed 894-byte A1 README policy paragraph is the only migration increase.
-CAPS = {'benchmarks/': (2027, 27364485 + 894),
+# C lowers the A1 migration cap by removing inspected redundant payloads.
+CAPS = {'benchmarks/': (2026, 19386683),
         'docs/reviews/': (2697, 16658019),
         'docs/benchmarks/': (487, 2954424)}
 CODE_SUFFIXES = {'.py', '.go', '.sh', '.c', '.h', '.cpp', '.js', '.mjs', '.ts', '.sql'}
@@ -115,7 +115,21 @@ def check(root=ROOT, *, candidate=None, base=None):
     return evaluate(current, baseline, previous)
 
 
+# C reviewed only these storage records; harness/recipe code remains conservative.
+C_STORAGE_PATHS = {
+    'benchmarks/forkcost/buffer-zero-candidate/README.md',
+    'benchmarks/forkcost/buffer-zero-candidate/SHA256SUMS.json',
+    'benchmarks/forkcost/buffer-zero-candidate/retention.json',
+    'benchmarks/forkcost/buffer-zero-candidate/build-evidence/guest-build.txt',
+    'benchmarks/forkcost/buffer-zero-candidate/build-evidence/guest-guest.json',
+    'benchmarks/forkcost/buffer-zero-candidate/build-evidence/native-development.json',
+    'benchmarks/forkcost/buffer-zero-candidate/validation/function-map.txt',
+}
+
+
 def known_inert(path, root=ROOT):
+    if path in C_STORAGE_PATHS:
+        return True
     baseline = tree(str(Path(root).resolve()), BASELINE)
     return (path.startswith(INERT_PREFIXES) and path in baseline
             and evidence(path, baseline) and path != PROVENANCE

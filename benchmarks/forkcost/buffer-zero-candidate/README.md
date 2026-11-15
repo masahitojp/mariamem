@@ -1,3 +1,17 @@
+## Current disposition and evidence retention
+
+Buffer-pool descriptor zeroing was adopted on main; the pending statements below
+are the original candidate context. Canonical CI43569024494 remains bound to
+candidate `2e1ecd315e4f85d5a7112112ad0858e8dc6765de`; cleanup is not new qualification.
+The two complete measurement series, all failures/limits, CI controls and the
+hash-bound previous canonical record remain. Issue213 removed the rebuildable
+successful guest build transcript and generated function listing, and reduced
+repeated source inventories to identities/counts/hashes. `retention.json` identifies
+the old records in fixed Git history; `publication.json` is historical publication
+metadata. `SHA256SUMS.json` describes the current retained files. The saved-result
+reducer still verifies all 64 processes and both summary/CSV series. No data
+samples, performance outcomes or error oracles were removed.
+
 # Buffer-pool descriptor-only zeroing product candidate — 2026-11-14
 
 結論：管理情報だけを初期ゼロ化する最小候補は、有限の正しさ対照と標準checkを通過した。1並列Forkは両計測系列で短縮したが、8並列Forkの安定した短縮は未確立。8並列suiteには短縮が見られ、1並列suiteは系列間で逆転する。独立再生成と両OSの候補CIへ進めることを推奨し、main採用は結果と交換条件を確認してHumanが判断する。最大の懸念は、補足系列の1並列suiteが12.6%遅く、並列Forkもほぼ同じであること。単一Mac・3process/セルの観測で、一般的な高速化を保証しない。

@@ -15,8 +15,8 @@ def entry(n, identity='a'):
 
 def test_existing_main_and_compact_records():
     baseline = guard.tree(str(guard.ROOT), guard.BASELINE)
-    result = guard.evaluate(baseline, baseline, baseline)
-    assert result['totals']['benchmarks/'] == {'files': 2027, 'bytes': 27364485}
+    result = guard.check()
+    assert result['totals']['benchmarks/'] == {'files': 2026, 'bytes': 19386683}
     assert guard.evaluate({'benchmarks/sample.json': entry(100)}, {}, {})['passed']
 
 
