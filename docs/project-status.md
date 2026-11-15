@@ -8,15 +8,23 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
-## Close ownership and unused-directory cleanup (2026-11-15)
+## Close ownership and unused-directory cleanup — adoption approved (2026-11-15)
 
-The Human authorized finishing the #203+A1a product candidate after review.
-Retain synchronous Close and separate this work from #204/#205 adoption.
-Fix late startup-cleanup failure ownership, remove the unused mariamem-go
-allocation/state, and preserve Snapshot/Live cleanup contracts with focused
-verification. This is candidate preparation, not main integration or release.
-The A1a benchmark's unexplained68.9second observation remains in #119 evidence;
-no speedup or tail-resolution claim is made.
+The Human approved proceeding with adoption of PR216's #203+A1a candidate
+following review. Retain synchronous Close; #204/#205 asynchronous adoption
+remains a separate decision. Candidate source_commit
+`4bc2b2499846a4f443a57eef73ae9fb52aa0a17d` passed source checks, integration,
+Live required gate and Linux x86_64/aarch64 wheel gates in
+[CI43715996347](https://github.com/masahitojp/mariamem/actions/runs/43715996347).
+This record does not relabel that CI as testing a later documentation SHA.
+
+The candidate retains late startup-cleanup failure ownership, removes the unused
+mariamem-go allocation/state, and preserves Snapshot/Live cleanup contracts.
+The prior A1a benchmark's unexplained68.9second observation remains recorded
+under #119. The Human directed that a recurrence be recorded as an Issue and
+investigated with its source, workload and phase evidence; no standalone
+reproduction campaign starts now. No speedup or tail-resolution claim is made.
+Main integration and release are not recorded as completed by this decision.
 
 ## v0.7.0 remaining scope (Human decision, 2026-11-15)
 
