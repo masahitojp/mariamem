@@ -182,7 +182,7 @@ jobs:
           python scripts/git_identity.py inspect HEAD
           python scripts/verify_generated_runtime.py
           python -m pip install setuptools==80.9.0 wheel==0.45.1
-          python scripts/build_alpha.py --ci-candidate
+          python scripts/build_alpha.py --ci-candidate --release-wheel
       - name: Restore authenticated frozen wheel without rebuild
         if: needs.resolve.outputs.mode != 'full'
         env:

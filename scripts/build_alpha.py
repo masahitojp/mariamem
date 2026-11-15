@@ -26,6 +26,8 @@ parser.add_argument("--runtime", type=Path, default=None)
 parser.add_argument("--module", type=Path, default=None)
 parser.add_argument("--ci-candidate", action="store_true",
                     help="build immutable candidate metadata without post-build review state")
+parser.add_argument("--release-wheel", action="store_true",
+                    help="omit host symbols/DWARF for release distribution only")
 args = parser.parse_args()
 target = target_metadata(args.target, ROOT) if args.target else current_target(ROOT)
 major = target.get("minimum_macos")
@@ -40,7 +42,8 @@ build_env = dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="go1.26.10",
                                                 if major is not None else {}))
 build_env = go_environment(build_env)
 build_env.setdefault('GOCACHE', str(ROOT/'build/gocache'))
-observed_run([str(args.go), "build", "-p", "1", "-trimpath", "-o", str(host), "./cmd/mariamem-host"],
+link_flags = ["-ldflags=-s -w"] if args.release_wheel else []
+observed_run([str(args.go), "build", "-p", "1", "-trimpath", *link_flags, "-o", str(host), "./cmd/mariamem-host"],
              cwd=ROOT, check=True, env=build_env, phase='wheel:go-host-build', outputs=[host],
              inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
                      ROOT/(GENERATED / 'provenance.json')])

@@ -8,6 +8,18 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Release wheel size (#199, adoption approved 2026-11-15)
+
+The Human approved `-ldflags="-s -w"` for hosts bundled in release wheels only.
+Ordinary Go/development and license-attribution audit builds retain symbols.
+The fixed main comparison on macOS arm64 reduced the wheel from 47.13 to 21.66 MiB;
+other platforms' reduction is not yet measured. Source stamping and installed
+SELECT1/Close passed in both variants. Panic function/line output survived in a
+small diagnostic probe; DWARF debugger information and named generated symbols
+are omitted. Reproduce attribution audits from the same fixed source SHA with a
+symbol-bearing build; do not feed stripped release hosts to the nm-based audit.
+Implementation/CI completion remains owned by #199; published 0.6.2 is unchanged.
+
 ## Additional 0.6.2 distribution (#169)
 
 The 0.6.2 Linux/Windows addition is published. [run 43622853054, attempt 2](https://github.com/masahitojp/mariamem/actions/runs/43622853054/attempts/2) completed qualification, additive publication and all seven public smoke cells.

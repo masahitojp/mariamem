@@ -503,3 +503,21 @@ script tests are not that evidence. Human-selected version/notes preparation,
 unused-tag checks, source/notices/provenance and **both-platform READY for that
 exact final-version candidate** remain required. The release skill owns only preparation/handoff;
 CI owns build, acceptance, guard, publication and public smoke.
+
+## Release host symbols
+
+Release CI calls `scripts/build_alpha.py --ci-candidate --release-wheel`.
+The explicit `--release-wheel` option adds `-ldflags="-s -w"` only to the
+host bundled in that wheel; ordinary `go build` and the default local wheel
+builder retain their existing symbol/debug settings. All release consumers
+verify the exact shared host, including its source identity and strip flags.
+Existing published 0.6.2 additional assets are unaffected.
+
+Stripping removes DWARF and ordinary generated-function symbols. A small Go
+panic probe retained function names and source lines; this does not establish
+all guest fault diagnostics. For debugger investigation or the nm-based
+`scripts/audit_generated_licenses.py`, check out the exact recorded source SHA
+in a clean normal clone and build with Go1.26.10, CGO_ENABLED=0 and `-trimpath`,
+without `-s -w` (and without inherited stripping GOFLAGS). Keep this diagnostic
+build distinct from the published wheel/hash; never relabel it as shipped bytes
+or remove positive-symbol checks from the attribution audit.

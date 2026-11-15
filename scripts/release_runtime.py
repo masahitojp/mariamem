@@ -33,6 +33,8 @@ def stage(root, commit):
     host.chmod(0o755)
     require(digest(host) == record['manifest']['sha256']['mariamem-host'], 'shared host hash differs')
     actual = verify_go_binary(root, host, commit)
+    require('\tbuild\t-ldflags="-s -w"' in actual.splitlines(),
+            'release host must omit symbols and DWARF (-s -w)')
     # The path on the first line differs between build and consuming runners.
     require(actual.splitlines()[1:] == record['host_buildinfo'].splitlines()[1:], 'shared host build info differs')
     return wheel, host
