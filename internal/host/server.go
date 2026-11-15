@@ -246,11 +246,28 @@ func (s *Server) allocateSlotLocked() (uint32, bool) {
 	}
 	return 0, false
 }
-func (s *Server) Close(ctx context.Context) (err error) {
+func (s *Server) Close(ctx context.Context) error { return s.CloseWithStopped(ctx, nil) }
+
+// CloseWithStopped retains synchronous cleanup, but reports guest/transport and
+// session retirement before memory reclamation completes. notify must not block.
+func (s *Server) CloseWithStopped(ctx context.Context, notify func(error)) (err error) {
 	defer func() { err = s.disposeAfter(err) }()
 	s.mu.Lock()
 	s.stopAccepting()
 	s.mu.Unlock()
+	if notify != nil {
+		notified := make(chan struct{})
+		workers := s.joinWorkers()
+		go func() {
+			stopErr := s.Guest.WaitStopped(ctx)
+			if stopErr == nil {
+				stopErr = disposal.Wait(ctx, workers)
+			}
+			notify(stopErr)
+			close(notified)
+		}()
+		defer func() { <-notified }()
+	}
 	return s.finish(ctx, shutdownDiscard)
 }
 

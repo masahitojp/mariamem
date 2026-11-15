@@ -24,16 +24,42 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 	return startInstance(in, out, stderr, transfer, restore, guestTiming, onFailure, newMemoryModule, captures...)
 }
 
+// StartInstanceWithStopped reports quiescence after all guest execution and
+// final output, before releasing instance resources. Both channels are buffered.
+// Stopped carries execution failure separately from the cleanup attempt result.
+func StartInstanceWithStopped(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), captures ...*prepared.Capture) (<-chan error, <-chan error) {
+	stopped := make(chan error, 1)
+	completed := startInstanceWithStopped(in, out, stderr, transfer, restore, guestTiming, onFailure, newMemoryModule, func(err error) { stopped <- err }, captures...)
+	return stopped, completed
+}
+
 func startInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), construct func(*host) (*base.Module, func() error, error), captures ...*prepared.Capture) <-chan error {
+	return startInstanceWithStopped(in, out, stderr, transfer, restore, guestTiming, onFailure, construct, nil, captures...)
+}
+
+func startInstanceWithStopped(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), construct func(*host) (*base.Module, func() error, error), onStopped func(error), captures ...*prepared.Capture) <-chan error {
+	return runInstance(in, out, stderr, transfer, restore, guestTiming, onFailure, construct, onStopped, generated.Start, captures...)
+}
+
+func runInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), construct func(*host) (*base.Module, func() error, error), onStopped func(error), start func(*base.Module), captures ...*prepared.Capture) <-chan error {
 	// CLI diagnostic entrypoints are separate command modes, not library calls.
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
 	go func() {
 		var err error
+		var stopOnce sync.Once
+		stopped := func() {
+			stopOnce.Do(func() {
+				if onStopped != nil {
+					onStopped(err)
+				}
+			})
+		}
 		defer func() {
 			if p := recover(); p != nil {
 				err = errors.Join(err, guestFailure(p))
 			}
+			stopped()
 			done <- err
 		}()
 		w := base.DefaultWASI()
@@ -56,7 +82,27 @@ func startInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		w.SetStdout(out)
 		w.SetStderr(stderr)
 		var maps *base.PreparedFiles
-		defer func() { err = errors.Join(err, closeDescriptors(w), retainRelease(maps.Close)) }()
+		var m *base.Module
+		var release func() error
+		defer func() {
+			// Preserve descriptor/mapping teardown even if memory teardown
+			// unexpectedly panics, as with the previous separate defers.
+			defer func() { err = errors.Join(err, closeDescriptors(w), retainRelease(maps.Close)) }()
+			if p := recover(); p != nil {
+				err = errors.Join(err, guestFailure(p))
+			}
+			if m != nil {
+				if p := m.Threads.WaitThreads(); p != nil && err == nil {
+					err = guestFailure(p)
+				}
+			}
+			// All final output/capture/export precedes this defer. A stuck
+			// worker keeps both the notification and reclamation pending.
+			stopped()
+			if m != nil {
+				releaseMemoryModule(m, release, &err)
+			}
+		}()
 		if restore != nil {
 			maps, err = base.MapPreparedHandles(fs, restore, "mariadb")
 			if err != nil {
@@ -64,18 +110,18 @@ func startInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			}
 		}
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
-		m, release, allocErr := construct(h)
+		created, ownedRelease, allocErr := construct(h)
 		if allocErr != nil {
 			err = allocErr
 			return
 		}
-		defer releaseMemoryModule(m, release, &err)
+		m, release = created, ownedRelease
 		m.Threads.NotifyWorkerFailure(func(cause any) {
 			if onFailure != nil {
 				onFailure(guestFailure(cause))
 			}
 		})
-		if err = executeGuest(m, generated.Start); err != nil {
+		if err = executeGuest(m, start); err != nil {
 			return
 		}
 		if len(captures) > 0 && captures[0] != nil && captures[0].Requested() {

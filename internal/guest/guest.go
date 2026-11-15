@@ -116,6 +116,10 @@ type response struct {
 	headerAt, decodedAt time.Time
 }
 type Process struct {
+	stopped            chan struct{}
+	stopErr            error
+	inputClose         sync.Once
+	outputClose        sync.Once
 	capture            *prepared.Capture
 	in                 io.WriteCloser
 	out                io.ReadCloser
@@ -199,8 +203,8 @@ func (p *Process) fail(err error) {
 func (p *Process) Abort(err error) {
 	p.abort.Do(func() {
 		p.fail(err)
-		p.in.Close()
-		p.out.Close()
+		p.closeInput()
+		p.closeOutput()
 	})
 }
 
@@ -397,7 +401,7 @@ func (p *Process) stop(ctx context.Context, export bool) error {
 		}
 		return err
 	}
-	p.in.Close()
+	p.closeInput()
 	if export {
 		select {
 		case r := <-saved:
@@ -465,4 +469,19 @@ func (p *Process) RetryDisposal(ctx context.Context) error {
 		return err
 	}
 	return disposal.Retry(ctx, p.exitErr)
+}
+
+func (p *Process) closeInput()  { p.inputClose.Do(func() { _ = p.in.Close() }) }
+func (p *Process) closeOutput() { p.outputClose.Do(func() { _ = p.out.Close() }) }
+
+// WaitStopped confirms guest quiescence and response-reader retirement. Done
+// still includes the later cleanup attempt; an error is not disposal permission.
+func (p *Process) WaitStopped(ctx context.Context) error {
+	if p.stopped == nil {
+		return disposal.Wait(ctx, p.done)
+	}
+	if err := disposal.Wait(ctx, p.stopped); err != nil {
+		return err
+	}
+	return p.stopErr
 }

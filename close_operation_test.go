@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/forklimit"
+	"github.com/masahitojp/mariamem/internal/host"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -351,3 +352,8 @@ func TestCloseResultSurvivesLateDisposal(t *testing.T) {
 		t.Fatal("late release rewrote saved result")
 	}
 }
+
+// Keep the real producer from silently falling back to synchronous-only Close.
+var _ interface {
+	CloseWithStopped(context.Context, func(error)) error
+} = (*host.Server)(nil)
