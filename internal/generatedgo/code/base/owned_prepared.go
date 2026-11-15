@@ -22,7 +22,7 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 	p := &PreparedFiles{}
 	defer func() {
 		if err != nil {
-			err = errors.Join(err, p.Close())
+			err = errors.Join(err, p.closeOwned())
 		}
 	}()
 	for _, entry := range entries {

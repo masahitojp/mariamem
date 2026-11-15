@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/disposal"
+	"github.com/masahitojp/mariamem/internal/forklimit"
 	"github.com/masahitojp/mariamem/internal/guest"
 )
 
@@ -82,5 +83,83 @@ func TestConsumedFailureKeepsTransferUntilGuestAndWorkersJoin(t *testing.T) {
 	}
 	if again := s.disposeAfter(cause); again != cause {
 		t.Fatal("cleanup state not reused", again)
+	}
+}
+
+// Completion of a runtime attempt is not proof that its resources were freed.
+func TestRuntimeCleanupDebtRetainsDisposal(t *testing.T) {
+	childIn, in := io.Pipe()
+	out, childOut := io.Pipe()
+	completed := make(chan error, 1)
+	go func() {
+		body := []byte(`{"request_id":0,"result":{"ready":true,"api_version":2,"max_sessions":16}}`)
+		binary.Write(childOut, binary.LittleEndian, uint32(len(body)))
+		childOut.Write(body)
+	}()
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	p, err := guest.Connect(ctx, in, out, completed, func() { childIn.Close(); childOut.Close() }, io.Discard)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var gate sync.Mutex
+	released := false
+	failure := errors.New("injected unmap failure")
+	runtimeOwner := disposal.New(func(context.Context) error {
+		gate.Lock()
+		defer gate.Unlock()
+		if !released {
+			return failure
+		}
+		return nil
+	})
+	debt := disposal.Retain(errors.New("original runtime failure"), failure, runtimeOwner)
+	completed <- debt
+	<-p.Done()
+	transfer := filepath.Join(t.TempDir(), "transfer")
+	os.Mkdir(transfer, 0700)
+	s := &Server{Guest: p, listener: unusedListener{}, transfer: transfer}
+	s.mu.Lock()
+	s.stopAccepting()
+	s.mu.Unlock()
+	pool, _ := forklimit.New(1)
+	lease, _ := pool.Acquire(ctx)
+	if err := lease.Activate(); err != nil {
+		t.Fatal(err)
+	}
+	result := s.disposeAfter(debt)
+	lease.TrackCleanup(result)
+	if _, occupied := pool.Usage(); occupied != 1 {
+		t.Fatal("returned unresolved lease")
+	}
+	if s.DisposalComplete() {
+		t.Fatal("failed runtime release reported disposed")
+	}
+	if _, err := os.Stat(transfer); err != nil {
+		t.Fatal("removed before runtime release", err)
+	}
+	gate.Lock()
+	released = true
+	gate.Unlock()
+	if err := disposal.Retry(ctx, result); err != nil {
+		t.Fatal(err)
+	}
+	if !s.DisposalComplete() {
+		t.Fatal("retry did not confirm disposal")
+	}
+	for {
+		_, occupied := pool.Usage()
+		if occupied == 0 {
+			break
+		}
+		select {
+		case <-ctx.Done():
+			t.Fatal("lease not returned", ctx.Err())
+		default:
+			time.Sleep(time.Millisecond)
+		}
+	}
+	if !errors.Is(result, failure) {
+		t.Fatal("lost original failure")
 	}
 }

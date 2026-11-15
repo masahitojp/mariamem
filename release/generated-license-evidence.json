@@ -599,5 +599,11 @@
     "linked_sha256": "267763a3a8fab4896a77cc15d3006318b5a61fc49f403d2d3c6c2109852545fc",
     "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
     "note": "Same guest bytes, map and translated engine definitions; no claim of a fresh linked-artifact or sysroot audit."
+  },
+  "attribution_continuity": {
+    "kind": "reviewed-generated-source-delta",
+    "audited_provenance_sha256": "bdf9e1d14457e90ccacd5d977d8ad81a2930890c88a64b158825fb22a9441f0e",
+    "current_provenance_sha256": "da7f50b93d4fd1cb22ab9f5b48454db3133f0c29b4349244b334223de7f3ebbc",
+    "policy_sha256": "443fa3e40f90e0be231b9511721462643702e461b1b939721e2d8414eef297c5"
   }
 }
