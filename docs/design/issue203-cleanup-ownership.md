@@ -106,3 +106,50 @@ This is correctness/unused-work cleanup, not a claimed speedup. The prior
 A1a report21e9927f retains all208runs, including the unexplained68.9second tail;
 this follow-up does not explain or erase that observation. Integration/release
 and non-synchronous Close adoption remain separate decisions.
+
+## Product candidate verification
+
+Runtime source_commit `21b056d26272d3bf329945761616556229017b20`: nine Go packages pass
+(root, mariamemtest, disposal, guest, host, forklimit, live, generatedgo,
+generatedgo/code/base). Race checks pass for root, disposal, forklimit, guest,
+host and live. Go1.26.10, macOS arm64. Selected actual-guest generatedmemory
+CRUD/Fork, repeated Close and independent roots/snapshots pass; the shutdown
+mode/snapshot/resnapshot integration test and Go Live source-smoke pass.
+
+The new late-release regression fails against the previous guest.go overlay
+(`e93be542`, same new test) with "late cleanup failure was ignored", and passes
+with the correction. This is controlled failure injection, not a real OS unmap
+failure reproduction. Original operation-error identity and delayed Fork-slot
+return are asserted.
+
+Tooling source_commit `5b90db2177035cc21925c9617c2690e63c863ed6` has identical runtime code and adds only
+canonical-template evidence classification/tests. Python3.14/pytest8.4.2:
+275 focused boundary, timing, evidence-retention and scope tests pass.
+verify_generated_runtime.py, update_evidence_records.py --check, check_public.py
+and diff checks pass. apply_mapping(template) plus gofmt reproduces
+code/base/prepared_files.go exactly. No guest/converter/input-manifest change.
+
+The prepared-files.go.txt generator input is an existing maintained source path,
+not a measurement log: setup_candidate.py copies it and generate_runtime.py
+installs it. The evidence guard exempts that exact existing path and reduces
+the cumulative cap by one file/1930 bytes. New/copied/lookalike payloads remain
+subject to evidence limits; runtime scope classification is unchanged.
+
+Commands: `go test -p 1 -count=1` with the nine packages above;
+`go test -race -p 1 -count=1` with the six race packages; integration tests use
+`-tags=integration -count=1`; `go run -p 1 ./tests/live_acceptance/go_consumer
+-source-smoke`. Python set: test_generated_runtime_inventory,
+test_runtime_static_image, test_distribution_licenses,
+test_packaging_license_mirrors, test_update_evidence_records,
+test_upstream_translation, test_isolation_baseline, test_benchmark_evidence,
+test_evidence_retention and test_development_scope.
+
+An earlier root test compilation found a leftover removed-directory variable;
+it was replaced by the backend-not-disposed assertion before the passing run.
+The first Python attempt stopped before tests because pytest was absent; the
+passing run uses an isolated venv. Neither attempt is relabelled PASS.
+No new performance campaign, Linux qualification, async API adoption, merge or
+release is claimed. Descriptor Close failures remain conservatively unresolved
+unless a safe typed recovery contract exists. The unexplained prior tail remains
+recorded under #119/#162. Owned build/cache/venv are disposable after evidence
+preservation; pre-existing user worktrees are untouched.
