@@ -979,3 +979,17 @@ replacing each ledger. An ordinary write error rolls back. After interruption,
 state, validates current inputs and retries. Keep the journal until recovery
 finishes. If a target was edited after interruption, recovery stops without
 overwriting that edit. A lock prevents concurrent updater invocations.
+
+### Evidence storage check
+
+Every `verify.py check` scope runs the evidence budget guard through the public
+source check. It compares the checkout against the exact PR event base in CI,
+or explicitly against the Issue213 migration baseline locally/manual runs.
+Use `python scripts/check_benchmark_evidence.py --base-sha COMMIT --candidate-sha COMMIT`
+for an exact committed diff. Full Git history containing the fixed baseline is
+required; an unavailable or invalid base fails rather than silently passing.
+Existing inert evidence paths can select documentation checks; code, new unknown
+paths, prepared generation inputs and the canonical provenance record retain
+conservative scopes. Storage checks do not approve deleting unique evidence or
+change release/runtime acceptance. Budgets and exceptions are reviewed changes
+owned by `scripts/check_benchmark_evidence.py`; see the benchmark README.

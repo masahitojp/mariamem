@@ -57,6 +57,9 @@ def public_files(root=None):
 
 # #158: these literals describe selection/test inputs, never load review files.
 REVIEW_LITERAL_OWNERS = {
+    "scripts/check_benchmark_evidence.py",  # storage inventory, never an executable review input
+    "tests/test_benchmark_evidence.py",  # synthetic evidence paths
+
     "scripts/check_public.py",  # this lint's own path vocabulary
     "scripts/development_scope.py",  # changed-path classification
     "tests/test_development_scope.py",  # synthetic changed-path cases
@@ -132,6 +135,8 @@ def check(root=None):
 
 
 if __name__ == "__main__":
+    from check_benchmark_evidence import main as check_evidence
+    check_evidence()
     result = check()
     (ROOT / "build").mkdir(exist_ok=True)
     (ROOT / "build/public-source-check.json").write_text(json.dumps(result, indent=2) + "\n")
