@@ -85,6 +85,7 @@ type Database struct {
 	logs        logTail
 	lease       *forklimit.Lease
 	captureDebt error
+	closing     *closeOperation
 }
 
 // Start creates one database. Its context governs startup, not the lifetime of a
@@ -149,7 +150,6 @@ func (db *Database) watch(done <-chan struct{}) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 	if !db.closed {
-		db.failure = db.invalidLocked()
 		_ = db.closeLocked()
 	}
 }
@@ -186,23 +186,75 @@ func (db *Database) Closed() bool {
 
 // Close is idempotent; repeated calls return the stored cleanup result.
 func (db *Database) Close() error { db.mu.Lock(); defer db.mu.Unlock(); return db.closeLocked() }
+
+// closeLocked returns with the caller's lock held, but never waits with it held.
 func (db *Database) closeLocked() error {
-	if db.closed {
-		return db.closeErr
+	op := db.beginCloseLocked()
+	db.mu.Unlock()
+	err := op.Wait(context.Background())
+	db.mu.Lock()
+	return err
+}
+
+// Publish both rejection of new work and the unique operation before unlocking.
+func (db *Database) beginCloseLocked() *closeOperation {
+	if db.closing != nil {
+		return db.closing
+	}
+	op := newCloseOperation()
+	op.confirm = func() bool { db.mu.Lock(); defer db.mu.Unlock(); return db.captureDebt == nil && db.disposalComplete() }
+	db.closing = op
+	if db.closed { // e.g. a consumed Snapshot already stored its close result
+		op.notifyStopped(db.closeErr)
+		op.err = db.closeErr
+
+		close(op.done)
+		return op
 	}
 	if failure := db.invalidLocked(); failure != nil {
 		db.failure = failure
 	}
 	db.closed = true
-	var err error
-	if db.server != nil {
-		ctx, cancel := context.WithTimeout(context.Background(), db.opts.ShutdownTimeout)
-		err = db.server.Close(ctx)
-		cancel()
+	server, debt, timeout := db.server, db.captureDebt, db.opts.ShutdownTimeout
+	go func() {
+		var err error
+		if server != nil {
+			ctx, cancel := context.WithTimeout(context.Background(), timeout)
+			if early, ok := server.(interface {
+				CloseWithStopped(context.Context, func(error)) error
+			}); ok {
+				err = early.CloseWithStopped(ctx, op.notifyStopped)
+			} else {
+				err = server.Close(ctx)
+			}
+			cancel()
+		}
+		// Fallback, and failure before a backend could publish its stopped result.
+		op.notifyStopped(err)
+		result := hostError(errors.Join(err, debt), "close", true)
+		db.mu.Lock()
+		defer db.mu.Unlock()
+		db.closeErr = result
+		db.settleFork(result, db.disposalComplete())
+		op.err = result
+
+		close(op.done)
+	}()
+	return op
+}
+
+// Only this wait is governed by ctx; the shared shutdown/cleanup continues.
+func (db *Database) stopForCleanup(ctx context.Context) (*closeOperation, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
 	}
-	db.closeErr = hostError(errors.Join(err, db.captureDebt), "close", true)
-	db.settleFork(db.closeErr, db.disposalComplete())
-	return db.closeErr
+	db.mu.Lock()
+	op := db.beginCloseLocked()
+	db.mu.Unlock()
+	if err := disposal.Wait(ctx, op.stopped); err != nil {
+		return op, err
+	}
+	return op, op.stopErr
 }
 
 func (db *Database) disposalComplete() bool {

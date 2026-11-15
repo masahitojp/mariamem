@@ -234,3 +234,33 @@ shutdown remain outside the guarantee; detailed resource characterization is def
 The implementation is adopted on main and unreleased. See the
 [initialization-image ownership reference](go-reference.md#process-local-initialization-image-unreleased)
 for lifetime, sharing and failure behavior.
+
+
+## Asynchronous cleanup
+
+`CloseAsync(ctx)` stops use of a database and waits for guest execution, readers
+and host sessions to stop. Memory and other cleanup then continue in the
+background. Keep every non-nil handle, including on error, and wait before ending
+the enclosing workload:
+
+```go
+handle, stopErr := db.CloseAsync(ctx)
+if handle != nil {
+    cleanupErr := handle.Wait(context.Background())
+    // Report both stopErr and cleanupErr; do not discard cleanup failures.
+    _ = cleanupErr
+}
+_ = stopErr
+```
+
+`Wait` returns the initial cleanup result; canceling a wait does not cancel
+cleanup. `Disposed()` reports confirmed reclamation. A cleanup error can retain
+resources and the Fork slot, even after guest execution stops. Ordinary `Close()`
+waits for the same operation and preserves its synchronous guarantee. Repeated
+calls share one shutdown. New operations are rejected once shutdown begins.
+
+Cleanup overlaps a later Fork only when capacity is available. With MaxForks
+fully occupied, the next Fork waits for reclamation. Prior measurements observed
+small workload-dependent gains; this API promises no speedup. Snapshot.Close
+does not implicitly drain its children. Python's process-host lifecycle is a
+separate interface; this API is currently Go-only.

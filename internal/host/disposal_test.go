@@ -163,3 +163,63 @@ func TestRuntimeCleanupDebtRetainsDisposal(t *testing.T) {
 		t.Fatal("lost original failure")
 	}
 }
+
+func TestCloseStoppedWaitsForSessionsButNotReclamation(t *testing.T) {
+	childIn, in := io.Pipe()
+	out, childOut := io.Pipe()
+	completed, stopped := make(chan error, 1), make(chan error, 1)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	go func() {
+		body := []byte(`{"request_id":0,"result":{"ready":true,"api_version":2,"max_sessions":16}}`)
+		binary.Write(childOut, binary.LittleEndian, uint32(len(body)))
+		childOut.Write(body)
+	}()
+	p, err := guest.ConnectWithStopped(ctx, in, out, completed, func() { childIn.Close(); childOut.Close() }, io.Discard, nil, stopped)
+	if err != nil {
+		t.Fatal(err)
+	}
+	stopped <- nil
+	if err := p.WaitStopped(ctx); err != nil {
+		t.Fatal(err)
+	}
+	transfer := t.TempDir()
+	s := &Server{Guest: p, listener: unusedListener{}, transfer: transfer}
+	s.workers.Add(1)
+	notified, result := make(chan error, 1), make(chan error, 1)
+	go func() { result <- s.CloseWithStopped(ctx, func(err error) { notified <- err }) }()
+	select {
+	case err := <-notified:
+		t.Fatal("notified with active host worker", err)
+	case <-time.After(20 * time.Millisecond):
+	}
+	s.workers.Done()
+	select {
+	case err := <-notified:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-ctx.Done():
+		t.Fatal(ctx.Err())
+	}
+	select {
+	case err := <-result:
+		t.Fatal("Close returned before reclamation", err)
+	default:
+	}
+	if s.DisposalComplete() {
+		t.Fatal("early disposal")
+	}
+	completed <- nil
+	select {
+	case err := <-result:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-ctx.Done():
+		t.Fatal(ctx.Err())
+	}
+	if !s.DisposalComplete() {
+		t.Fatal("missing final disposal")
+	}
+}

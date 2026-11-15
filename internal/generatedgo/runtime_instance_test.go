@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/masahitojp/mariamem/internal/disposal"
+	"io"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -213,5 +214,66 @@ func TestReleaseFailureRetainsOwner(t *testing.T) {
 	}
 	if !owners[0].Complete() || !errors.Is(err, failure) {
 		t.Fatal("wrong completion/result", err)
+	}
+}
+
+func TestStoppedWaitsForWorkersBeforeGatedRelease(t *testing.T) {
+	workerStarted := make(chan struct{})
+	workerRelease := make(chan struct{})
+	releaseEntered := make(chan struct{})
+	releaseGate := make(chan struct{})
+	stopped := make(chan error, 1)
+	failure := errors.New("root trapped")
+	done := runInstance(nil, io.Discard, io.Discard, "", nil, false, nil,
+		func(*host) (*base.Module, func() error, error) {
+			return trapTestModule(), func() error { close(releaseEntered); <-releaseGate; return nil }, nil
+		},
+		func(err error) { stopped <- err }, func(m *base.Module) {
+			base.ThreadLaunch(m, func(*base.Module, int32) { close(workerStarted); <-workerRelease })
+			<-workerStarted
+			panic(failure)
+		})
+	<-workerStarted
+	select {
+	case <-stopped:
+		t.Fatal("stopped before worker join")
+	case <-time.After(20 * time.Millisecond):
+	}
+	close(workerRelease)
+	select {
+	case err := <-stopped:
+		if !errors.Is(err, failure) {
+			t.Fatal(err)
+		}
+	case <-time.After(3 * time.Second):
+		t.Fatal("missing stop")
+	}
+	<-releaseEntered
+	select {
+	case <-done:
+		t.Fatal("completed before release")
+	default:
+	}
+	close(releaseGate)
+	if err := <-done; !errors.Is(err, failure) {
+		t.Fatal(err)
+	}
+}
+
+func TestStoppedReportsConstructionFailure(t *testing.T) {
+	failure := errors.New("construction failed")
+	stopped := make(chan error, 1)
+	done := startInstanceWithStopped(nil, io.Discard, io.Discard, "", nil, false, nil,
+		func(*host) (*base.Module, func() error, error) { return nil, nil, failure }, func(err error) { stopped <- err })
+	select {
+	case err := <-stopped:
+		if !errors.Is(err, failure) {
+			t.Fatal(err)
+		}
+	case <-time.After(3 * time.Second):
+		t.Fatal("missing stop on construction failure")
+	}
+	if err := <-done; !errors.Is(err, failure) {
+		t.Fatal(err)
 	}
 }
