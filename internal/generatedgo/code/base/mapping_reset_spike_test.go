@@ -168,3 +168,87 @@ func TestResetSpikeSafety(t *testing.T) {
 		}
 	}
 }
+
+func TestResetSpikeFailures(t *testing.T) {
+	for _, kind := range []string{"protect", "overlay", "after-reset"} {
+		t.Run(kind, func(t *testing.T) {
+			before := MemoryMappingStats()
+			b, e := NewMemoryMapping(0, 4*65536)
+			if e != nil {
+				t.Fatal(e)
+			}
+			s := &resetSlot{b: b, reset: replaceAnonymous}
+			defer s.close()
+			if kind == "protect" {
+				b.protect = func([]byte, int) error { return syscall.EACCES }
+			}
+			rs := []ImageRange(nil)
+			if kind == "overlay" {
+				rs = []ImageRange{{0, uint64(os.Getpagesize())}}
+			}
+			epoch, e := s.acquire(65536, -1, rs)
+			if kind == "after-reset" {
+				if e != nil {
+					t.Fatal(e)
+				}
+				s.reset = func(m []byte) error {
+					if e := replaceAnonymous(m); e != nil {
+						return e
+					}
+					return syscall.EIO
+				}
+				e = s.release(epoch)
+			}
+			if e == nil || !s.debt {
+				t.Fatal("failed operation admitted reuse")
+			}
+			if _, e = s.acquire(65536, -1, nil); e == nil {
+				t.Fatal("debt admitted")
+			}
+			if e = s.close(); e != nil {
+				t.Fatal(e)
+			}
+			for _, k := range []string{"active_mappings", "active_reserved_bytes", "active_rw_bytes"} {
+				if MemoryMappingStats()[k] != before[k] {
+					t.Fatal(k)
+				}
+			}
+		})
+	}
+}
+func TestResetSpikeEpochConcurrency(t *testing.T) {
+	b, e := NewMemoryMapping(0, 4*65536)
+	if e != nil {
+		t.Fatal(e)
+	}
+	s := &resetSlot{b: b, reset: replaceAnonymous}
+	defer s.close()
+	a, e := s.acquire(65536, -1, nil)
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = s.release(a); e != nil {
+		t.Fatal(e)
+	}
+	current, e := s.acquire(65536, -1, nil)
+	if e != nil {
+		t.Fatal(e)
+	}
+	var wg sync.WaitGroup
+	for i := 0; i < 8; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if !errors.Is(s.release(a), syscall.EINVAL) {
+				t.Error("stale owner released current")
+			}
+			if _, e := s.acquire(65536, -1, nil); !errors.Is(e, syscall.EBUSY) {
+				t.Error("concurrent acquisition")
+			}
+		}()
+	}
+	wg.Wait()
+	if e = s.release(current); e != nil {
+		t.Fatal(e)
+	}
+}
