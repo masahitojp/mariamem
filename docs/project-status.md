@@ -8,6 +8,25 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## v0.7.0 remaining scope (Human decision, 2026-11-15)
+
+The Human included [#119](https://github.com/masahitojp/mariamem/issues/119)
+in v0.7.0. Its work runs #203 ownership/release failures, then #204 shared Close
+completion and #205 guest/pipe/reader boundaries, then #206 integrated safety
+and finite performance comparison. All four children belong to the same
+milestone; do not count the parent and children as separate product features.
+The decision fixes the release scope, not acceptance of unverified asynchronous
+cleanup or weaker release guarantees. Adoption review and final release approval
+remain separate decisions.
+
+#199 is integrated; stripped final release artifacts still need platform
+qualification. The Human removed #103 from v0.7.0; it remains an unassigned
+future template proposal. #122 is limited to reconciling the candidate index and
+priorities, with no new performance implementation required for completion.
+#140 owns the residual PREPARE investigation. These scope decisions do not start
+additional experiments. The milestone and owning Issues track current work. The superseded 0.6.2 planning PR183 was closed after its continuing
+conditions were checked against the completed additive publication documents.
+
 ## Release wheel size (#199, adoption approved 2026-11-15)
 
 The Human approved `-ldflags="-s -w"` for hosts bundled in release wheels only.
