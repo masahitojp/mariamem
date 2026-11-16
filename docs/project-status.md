@@ -8,6 +8,19 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Startup buffer preload OFF productization approved (2026-11-17)
+
+The Human accepted local first-read/Fork latency tradeoffs to optimize the whole
+application and authorized productization, followed by a matched modelcase
+comparison. Every instance now disables startup buffer preload using its internal
+configuration before guest startup. Buffer capacity, SQL semantics and the guest
+binary are unchanged. Pages load on demand. No public resource-setting API is
+added. Effective settings across fresh/Fork/reSnapshot are integration-tested.
+[Bounded adoption evidence](https://github.com/masahitojp/mariamem/blob/89b79a51922c6502ac1915852c0621c9df02ae36/benchmarks/preload-adoption/README.md)
+records the benefit and local latency costs; rare-tail prevention is unproven.
+Candidate verification and the subsequent comparison are in progress. Main
+integration and publication remain separate decisions.
+
 ## Go asynchronous Close — adopted on main (2026-11-16)
 
 The Human approved integration of PR217. It merged as source_commit
