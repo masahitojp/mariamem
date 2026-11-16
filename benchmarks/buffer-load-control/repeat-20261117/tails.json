@@ -1,0 +1,518 @@
+{
+  "arms": {
+    "ON": {
+      "flagged": [
+        "p8-b4-s3-ON",
+        "p8-b8-s3-ON"
+      ],
+      "top_and_flagged": [
+        {
+          "name": "p8-b4-s3-ON",
+          "elapsed_ms": 572.435,
+          "wall_ms": 600.8107919999973,
+          "cpu_ms": 2170.3319999999985,
+          "partition": {
+            "setup_ms": 90.641,
+            "run_ms": 479.691,
+            "final_ms": 2.0439999999999827,
+            "other_ms": 0.05899999999996908
+          },
+          "sample_max_ms": 451.35,
+          "longest_spans": [
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_36",
+              "start_ms": 115.369,
+              "end_ms": 566.719,
+              "duration_ms": 451.35
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCancelOrder/shipped",
+              "start_ms": 220.821,
+              "end_ms": 299.246,
+              "duration_ms": 78.42499999999998
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestApplyDiscount/books_10",
+              "start_ms": 115.204,
+              "end_ms": 192.627,
+              "duration_ms": 77.42300000000002
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCancelOrder/paid",
+              "start_ms": 215.792,
+              "end_ms": 292.345,
+              "duration_ms": 76.55300000000003
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_15",
+              "start_ms": 115.908,
+              "end_ms": 187.523,
+              "duration_ms": 71.615
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_22",
+              "start_ms": 115.261,
+              "end_ms": 185.742,
+              "duration_ms": 70.481
+            }
+          ],
+          "final_cleanup": {
+            "name": "final_cleanup",
+            "kind": "aggregate",
+            "lane": "whole",
+            "start_ms": 570.332,
+            "end_ms": 572.376
+          },
+          "load_before": [
+            9.1015625,
+            11.63330078125,
+            9.51953125
+          ],
+          "load_after": [
+            9.1015625,
+            11.63330078125,
+            9.51953125
+          ],
+          "involuntary_switches": 15241
+        },
+        {
+          "name": "p8-b8-s3-ON",
+          "elapsed_ms": 572.418,
+          "wall_ms": 611.6321669999998,
+          "cpu_ms": 2248.624999999988,
+          "partition": {
+            "setup_ms": 91.897,
+            "run_ms": 478.319,
+            "final_ms": 2.1399999999999864,
+            "other_ms": 0.06200000000001182
+          },
+          "sample_max_ms": 449.68199999999996,
+          "longest_spans": [
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/one_line",
+              "start_ms": 117.171,
+              "end_ms": 566.853,
+              "duration_ms": 449.68199999999996
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_29",
+              "start_ms": 299.791,
+              "end_ms": 385.001,
+              "duration_ms": 85.20999999999998
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_36",
+              "start_ms": 308.95,
+              "end_ms": 388.759,
+              "duration_ms": 79.80900000000003
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_22",
+              "start_ms": 317.947,
+              "end_ms": 397.012,
+              "duration_ms": 79.065
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestApplyDiscount/games_0",
+              "start_ms": 222.705,
+              "end_ms": 300.072,
+              "duration_ms": 77.36699999999999
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/out_of_stock",
+              "start_ms": 124.539,
+              "end_ms": 201.278,
+              "duration_ms": 76.73899999999999
+            }
+          ],
+          "final_cleanup": {
+            "name": "final_cleanup",
+            "kind": "aggregate",
+            "lane": "whole",
+            "start_ms": 570.216,
+            "end_ms": 572.356
+          },
+          "load_before": [
+            9.20068359375,
+            11.57763671875,
+            9.5244140625
+          ],
+          "load_after": [
+            9.20068359375,
+            11.57763671875,
+            9.5244140625
+          ],
+          "involuntary_switches": 14684
+        },
+        {
+          "name": "p8-b9-s1-ON",
+          "elapsed_ms": 477.792,
+          "wall_ms": 501.9429580000008,
+          "cpu_ms": 2082.060999999996,
+          "partition": {
+            "setup_ms": 89.825,
+            "run_ms": 385.34000000000003,
+            "final_ms": 2.559000000000026,
+            "other_ms": 0.06799999999992679
+          },
+          "sample_max_ms": 124.31,
+          "longest_spans": [
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/out_of_stock",
+              "start_ms": 284.796,
+              "end_ms": 409.106,
+              "duration_ms": 124.31
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/five_lines",
+              "start_ms": 266.703,
+              "end_ms": 383.169,
+              "duration_ms": 116.46600000000001
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/one_line",
+              "start_ms": 292.144,
+              "end_ms": 403.115,
+              "duration_ms": 110.971
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_36",
+              "start_ms": 158.566,
+              "end_ms": 267.506,
+              "duration_ms": 108.93999999999997
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestApplyDiscount/movies_50",
+              "start_ms": 234.519,
+              "end_ms": 342.102,
+              "duration_ms": 107.58299999999997
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestApplyDiscount/books_10",
+              "start_ms": 159.405,
+              "end_ms": 260.878,
+              "duration_ms": 101.47299999999998
+            }
+          ],
+          "final_cleanup": {
+            "name": "final_cleanup",
+            "kind": "aggregate",
+            "lane": "whole",
+            "start_ms": 475.166,
+            "end_ms": 477.725
+          },
+          "load_before": [
+            10.1455078125,
+            11.73388671875,
+            9.59130859375
+          ],
+          "load_after": [
+            10.1455078125,
+            11.73388671875,
+            9.59130859375
+          ],
+          "involuntary_switches": 11522
+        }
+      ],
+      "sample_max_across_runs_ms": 451.35,
+      "whole_above500": 2,
+      "sample_above200": 2
+    },
+    "OFF": {
+      "flagged": [],
+      "top_and_flagged": [
+        {
+          "name": "p8-b9-s0-OFF",
+          "elapsed_ms": 477.64,
+          "wall_ms": 498.5745829999999,
+          "cpu_ms": 2187.075000000007,
+          "partition": {
+            "setup_ms": 92.717,
+            "run_ms": 382.502,
+            "final_ms": 2.3500000000000227,
+            "other_ms": 0.07099999999996953
+          },
+          "sample_max_ms": 103.511,
+          "longest_spans": [
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_36",
+              "start_ms": 160.371,
+              "end_ms": 263.882,
+              "duration_ms": 103.511
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/five_lines",
+              "start_ms": 294.988,
+              "end_ms": 397.599,
+              "duration_ms": 102.61099999999999
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/two_lines",
+              "start_ms": 210.624,
+              "end_ms": 308.381,
+              "duration_ms": 97.75699999999998
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/one_line",
+              "start_ms": 291.128,
+              "end_ms": 388.669,
+              "duration_ms": 97.541
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_29",
+              "start_ms": 168.654,
+              "end_ms": 265.126,
+              "duration_ms": 96.47199999999998
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/out_of_stock",
+              "start_ms": 294.763,
+              "end_ms": 389.025,
+              "duration_ms": 94.262
+            }
+          ],
+          "final_cleanup": {
+            "name": "final_cleanup",
+            "kind": "aggregate",
+            "lane": "whole",
+            "start_ms": 475.219,
+            "end_ms": 477.569
+          },
+          "load_before": [
+            9.20068359375,
+            11.57763671875,
+            9.5244140625
+          ],
+          "load_after": [
+            10.1455078125,
+            11.73388671875,
+            9.59130859375
+          ],
+          "involuntary_switches": 12947
+        },
+        {
+          "name": "p8-b8-s1-OFF",
+          "elapsed_ms": 448.308,
+          "wall_ms": 504.10441700000064,
+          "cpu_ms": 2126.0550000000007,
+          "partition": {
+            "setup_ms": 93.852,
+            "run_ms": 351.707,
+            "final_ms": 2.6779999999999973,
+            "other_ms": 0.07100000000002638
+          },
+          "sample_max_ms": 87.41999999999999,
+          "longest_spans": [
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestShipOrder/all_paid",
+              "start_ms": 230.196,
+              "end_ms": 317.616,
+              "duration_ms": 87.41999999999999
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCreateOrder/two_lines",
+              "start_ms": 123.325,
+              "end_ms": 208.099,
+              "duration_ms": 84.77399999999999
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_36",
+              "start_ms": 225.867,
+              "end_ms": 309.699,
+              "duration_ms": 83.83200000000002
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_29",
+              "start_ms": 235.991,
+              "end_ms": 316.425,
+              "duration_ms": 80.434
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCancelOrder/another_paid",
+              "start_ms": 238.444,
+              "end_ms": 318.818,
+              "duration_ms": 80.374
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCancelOrder/shipped",
+              "start_ms": 237.853,
+              "end_ms": 317.729,
+              "duration_ms": 79.87599999999998
+            }
+          ],
+          "final_cleanup": {
+            "name": "final_cleanup",
+            "kind": "aggregate",
+            "lane": "whole",
+            "start_ms": 445.56,
+            "end_ms": 448.238
+          },
+          "load_before": [
+            9.20068359375,
+            11.57763671875,
+            9.5244140625
+          ],
+          "load_after": [
+            9.20068359375,
+            11.57763671875,
+            9.5244140625
+          ],
+          "involuntary_switches": 12375
+        },
+        {
+          "name": "p8-b6-s1-OFF",
+          "elapsed_ms": 445.857,
+          "wall_ms": 494.14195800000016,
+          "cpu_ms": 2122.1999999999925,
+          "partition": {
+            "setup_ms": 89.423,
+            "run_ms": 353.954,
+            "final_ms": 2.408999999999992,
+            "other_ms": 0.07100000000002638
+          },
+          "sample_max_ms": 100.64099999999999,
+          "longest_spans": [
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestApplyDiscount/books_10",
+              "start_ms": 255.802,
+              "end_ms": 356.443,
+              "duration_ms": 100.64099999999999
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCancelOrder/paid",
+              "start_ms": 268.601,
+              "end_ms": 355.149,
+              "duration_ms": 86.548
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestCancelOrder/pending",
+              "start_ms": 277.791,
+              "end_ms": 361.226,
+              "duration_ms": 83.435
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestApplyDiscount/games_0",
+              "start_ms": 255.849,
+              "end_ms": 337.396,
+              "duration_ms": 81.54700000000003
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_15",
+              "start_ms": 117.318,
+              "end_ms": 198.131,
+              "duration_ms": 80.813
+            },
+            {
+              "name": "sample",
+              "kind": "sample",
+              "lane": "TestDeleteUser/user_29",
+              "start_ms": 126.096,
+              "end_ms": 202.768,
+              "duration_ms": 76.672
+            }
+          ],
+          "final_cleanup": {
+            "name": "final_cleanup",
+            "kind": "aggregate",
+            "lane": "whole",
+            "start_ms": 443.378,
+            "end_ms": 445.787
+          },
+          "load_before": [
+            9.65380859375,
+            11.70556640625,
+            9.55712890625
+          ],
+          "load_after": [
+            9.65380859375,
+            11.70556640625,
+            9.55712890625
+          ],
+          "involuntary_switches": 11973
+        }
+      ],
+      "sample_max_across_runs_ms": 110.30900000000003,
+      "whole_above500": 0,
+      "sample_above200": 0
+    }
+  },
+  "power_observations": {
+    "count": 84,
+    "ac": 84,
+    "errors": 0,
+    "different": [
+      "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n"
+    ]
+  },
+  "previous_campaign_power": "not recorded; user reports AC used in recent turns; do not infer battery baseline"
+}

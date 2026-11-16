@@ -1,6 +1,15 @@
 # Startup buffer loading — bounded value control
 
-## Decision
+## Independent repeat update
+
+The Human requested an independent repeat after reviewing the initial result.
+[The repeat](repeat-20261117/README.md) supports OFF more strongly: paired elapsed
+-3.35% (9/10), with two ~450ms sample tails in ON and none in OFF20 runs.
+AC was observed throughout. Tail prevention remains unproven; OFF remains a
+candidate for a bounded adoption check. Production unchanged. The first-campaign
+assessment below is preserved in its original evidence context.
+
+## First-campaign decision
 Disabling startup preload is possible without rebuilding the guest, using an experiment-only per-instance `/etc/my.cnf`. This campaign does **not establish a meaningful whole-lifecycle improvement or a remedy for the long tail**. Keep the product default. Do not resume pending/400ms tracing automatically. Further qualification is worthwhile only with a stronger workload-specific benefit or a natural long-wait reproduction; this report does not authorize it.
 
 ## Identity and method

@@ -11,12 +11,14 @@ Version themes and candidate adoption do not authorize a release.
 ## Performance investigation returned to whole-lifecycle value (2026-11-17)
 
 The Human approved pausing pending/400ms causal tracing and returning to small
-whole-lifecycle value controls. The startup buffer-loading ON/OFF control is
-complete: P8 paired elapsed median -1.17% (6/10), external wall +0.14% (5/10),
-with larger adjacent A/A variability and no long-tail recurrence in either arm.
-Keep the product default; no demonstrated tail remedy or adoption decision.
-See [fixed source, all observations and limits](../benchmarks/buffer-load-control/README.md).
-No further diagnostic campaign, integration or release is implied.
+whole-lifecycle value controls, then explicitly requested an independent repeat.
+Initial startup-preload OFF P8 paired elapsed was-1.17% (6/10); the fixed repeat
+was-3.35% (9/10), external wall-1.67% (6/10), CPU-3.12% (8/10). Two ON runs had
+~450ms sample tails; OFF had none in20 runs. AC was observed throughout the
+repeat; earlier power state is unknown, and tail prevention is unproven.
+OFF remains a candidate for a bounded adoption/workload check; production
+remains unchanged. No automatic trace campaign, integration or release.
+See [all observations and limits](../benchmarks/buffer-load-control/repeat-20261117/README.md).
 
 ## Asynchronous Close productization authorized (2026-11-15)
 

@@ -1,0 +1,7 @@
+# Independent repeat, fixed before measurement
+
+Repeat the prior P8 42-process campaign unchanged: two warmups plus ten ON/OFF/OFF/ON and OFF/ON/ON/OFF blocks, 20 observations per arm, 70 bodies per process, GOMAXPROCS8/GOGC100/CGO0, Go1.27.4, SUM+audit, preaggregated revenue, synchronous Close, MaxForks16. No product/harness code changes from dec0054edb856b4f74eafae96bad24d0ac01166c; build report SHA a0b61c8a05c4d81b8859e14cc08ef6c025c8ca6f whose differences are evidence/docs only. New binary rebuilt in disposable path, identical within this campaign (not promised byte-identical to earlier path/VCS build).
+
+User reports recent AC power use. Record pmset batt before/after each process, outside measurement clocks, and power policy/thermal availability before/after campaign. Do not change power mode or infer prior campaign used battery. Thermal command failure means unknown, not no throttling.
+
+Primary paired block elapsed, means/medians, external wall, CPU, adjacent A/A; all samples retained. Flag >1.2x own-arm median and additionally >500ms whole elapsed or >200ms single sample region, inspect all flagged spans and top3 runs per arm. These are diagnostic flags, not exclusions or proof of400ms cause. No runtime tracing, adaptive repetitions or outlier removal. Same counts even if no tail appears; absence in20/arm is weak evidence for rare-event frequency. Keep campaigns separate; descriptive combined results optional, no causal power comparison. Budget6GiB/freefloor8GiB, build900s, measurement900s; recursive disk scans between processes only.
