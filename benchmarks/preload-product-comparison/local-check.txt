@@ -1,0 +1,466 @@
++ /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-verify-venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-verify-venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-verify-venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+........................................................................ [ 81%]
+................                                                         [100%]
+88 passed in 20.56s
++ go test -p 1 -vet=off ./...
+ok  	github.com/masahitojp/mariamem	(cached)
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	(cached)
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	(cached)
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+ok  	github.com/masahitojp/mariamem/internal/control	(cached)
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	(cached)
+ok  	github.com/masahitojp/mariamem/internal/disposal	(cached)
+ok  	github.com/masahitojp/mariamem/internal/forklimit	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/layoutgen	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)
+ok  	github.com/masahitojp/mariamem/internal/host	(cached)
+ok  	github.com/masahitojp/mariamem/internal/live	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	(cached)
+ok  	github.com/masahitojp/mariamem/internal/prepared	(cached)
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	(cached)
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+ok  	github.com/masahitojp/mariamem/mariamemtest	(cached)
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
++ go vet -p 1 -vettool=/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/scripts/vet_generated.py ./...
++ /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-verify-venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py --ignore=tests/test_timer_source.py --ignore=tests/test_uca_copy_source.py --ignore=tests/test_dictionary_wait_source.py --ignore=tests/test_dictionary_wait_runtime.py -q
+.........................ssss........................................... [  3%]
+........................................................................ [  6%]
+.....................................................................s.. [  9%]
+........................................................................ [ 12%]
+........................................................................ [ 16%]
+......ssssssssssssssssssss....F.F................F......F............... [ 19%]
+........................................................................ [ 22%]
+.........................................................F........F..F.F [ 25%]
+........................................................................ [ 28%]
+........................................................................ [ 32%]
+........................................................................ [ 35%]
+........................FF.............................................. [ 38%]
+........................................................................ [ 41%]
+..................sss................................................... [ 44%]
+........................................................................ [ 48%]
+........................................................................ [ 51%]
+...............................F...................sssssssssssssss...... [ 54%]
+........................................................................ [ 57%]
+........................................................................ [ 60%]
+.............................sssssssss.................................. [ 64%]
+..........................F............................................. [ 67%]
+........................................................................ [ 70%]
+........................................................................ [ 73%]
+...................................................................sssss [ 76%]
+sssssssssssssssssssss................................................... [ 80%]
+........................................................................ [ 83%]
+.................................................sssssss................ [ 86%]
+........................................................................ [ 89%]
+........................................................................ [ 92%]
+............................sssssss..........................ss......... [ 96%]
+......................sss............................................... [ 99%]
+..............                                                           [100%]
+=================================== FAILURES ===================================
+_______ test_close_failure_blocks_admission_and_still_finalizes_siblings _______
+
+    def test_close_failure_blocks_admission_and_still_finalizes_siblings():
+        owners = Owners()
+        good = owners.own(Handle())
+        bad = owners.own(Handle(fail='close'))
+>       with pytest.raises(BaseExceptionGroup, match='owner cleanup'):
+E       NameError: name 'BaseExceptionGroup' is not defined
+
+tests/test_django_prepared_owners.py:70: NameError
+________________ test_primary_and_cleanup_errors_both_preserved ________________
+
+    def test_primary_and_cleanup_errors_both_preserved():
+        original, cleanup = ValueError('seed'), OSError('cleanup')
+        def close():
+            raise cleanup
+>       with pytest.raises(BaseExceptionGroup) as caught:
+E       NameError: name 'BaseExceptionGroup' is not defined
+
+tests/test_django_prepared_owners.py:96: NameError
+_________ test_cleanup_error_keeps_original_and_attempts_other_handles _________
+
+manager = (<mariamem.django._database.Manager object at 0x10a6d3040>, namespace(settings_dict={'NAME': 'mariamem_prepare', 'HOST...SER': 'root', 'PASSWORD': ''}, in_atomic_block=False), <mariamem.django._database.Configuration object at 0x10a6d3310>)
+
+    def test_cleanup_error_keeps_original_and_attempts_other_handles(manager):
+        m, connection, config = manager
+        m.prepare()
+        m.base.fail = 'close'
+        child = m.owners.fork(m.base)
+>       with pytest.raises(BaseExceptionGroup):
+E       NameError: name 'BaseExceptionGroup' is not defined
+
+tests/test_django_prepared_owners.py:261: NameError
+__ test_unconfirmed_child_cleanup_aborts_drop_and_still_retires_other_owners ___
+
+manager = (<mariamem.django._database.Manager object at 0x10bac7a30>, namespace(settings_dict={'NAME': 'original', 'HOST': 'old'}, in_atomic_block=False), <mariamem.django._database.Configuration object at 0x10bac77f0>)
+
+    def test_unconfirmed_child_cleanup_aborts_drop_and_still_retires_other_owners(manager):
+        from mariamem.django._database import Scope
+        m, config, _, forks = bounded_run(manager, 1)
+        m.prepare()
+        scope = Scope(m)
+        scope.source.fail = 'close'
+        try:
+>           with pytest.raises(BaseExceptionGroup, match='operation and cleanup'):
+E           NameError: name 'BaseExceptionGroup' is not defined
+
+tests/test_django_prepared_owners.py:372: NameError
+______________ TestEntry.test_cleanup_debt_and_interrupt_identity ______________
+
+self = <test_e2e_entry.TestEntry testMethod=test_cleanup_debt_and_interrupt_identity>
+
+    def test_cleanup_debt_and_interrupt_identity(self):
+        with self.opened() as (o, _, _, _, _, events):
+            b, _ = self.browser(events, fail_context=True)
+            interrupt = KeyboardInterrupt()
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with o.case(browser=b):
+>                   raise interrupt
+E                   KeyboardInterrupt
+
+tests/test_e2e_entry.py:188: KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+self = <test_e2e_entry.TestEntry testMethod=test_cleanup_debt_and_interrupt_identity>
+
+    def test_cleanup_debt_and_interrupt_identity(self):
+        with self.opened() as (o, _, _, _, _, events):
+            b, _ = self.browser(events, fail_context=True)
+            interrupt = KeyboardInterrupt()
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with o.case(browser=b):
+>                   raise interrupt
+
+tests/test_e2e_entry.py:188: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/mariamem/e2e.py:288: in __exit__
+    _raise(original, errors)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _raise(original, cleanups):
+        if not cleanups:
+            raise original
+>       group = BaseExceptionGroup("E2E cleanup failures", cleanups)
+E       NameError: name 'BaseExceptionGroup' is not defined
+
+python/mariamem/e2e.py:71: NameError
+______ TestEntry.test_live_creation_error_keeps_baseline_cleanup_failures ______
+
+self = <test_e2e_entry.TestEntry testMethod=test_live_creation_error_keeps_baseline_cleanup_failures>
+
+    def test_live_creation_error_keeps_baseline_cleanup_failures(self):
+        o, source, baseline, live, _, events = self.harness()
+        original = RuntimeError("Live creation failed after its own cleanup")
+        def failed_live():
+            raise original
+        baseline.live = failed_live
+        baseline.fail = source.fail = True
+        with patch("mariamem.start", return_value=source):
+>           with self.assertRaises(BaseExceptionGroup) as caught:
+E           NameError: name 'BaseExceptionGroup' is not defined
+
+tests/test_e2e_entry.py:238: NameError
+___________ TestEntry.test_owner_cleanup_interrupt_preserves_primary ___________
+
+self = <test_e2e_entry.TestEntry testMethod=test_owner_cleanup_interrupt_preserves_primary>
+
+    def test_owner_cleanup_interrupt_preserves_primary(self):
+        o, source, baseline, live, app, events = self.harness()
+        interrupt = KeyboardInterrupt()
+        app.fail_stop = True
+        with patch("mariamem.start", return_value=source):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with o:
+>                   raise interrupt
+E                   KeyboardInterrupt
+
+tests/test_e2e_entry.py:307: KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+self = <test_e2e_entry.TestEntry testMethod=test_owner_cleanup_interrupt_preserves_primary>
+
+    def test_owner_cleanup_interrupt_preserves_primary(self):
+        o, source, baseline, live, app, events = self.harness()
+        interrupt = KeyboardInterrupt()
+        app.fail_stop = True
+        with patch("mariamem.start", return_value=source):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                with o:
+>                   raise interrupt
+
+tests/test_e2e_entry.py:307: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/mariamem/e2e.py:196: in __exit__
+    _raise(original, errors)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _raise(original, cleanups):
+        if not cleanups:
+            raise original
+>       group = BaseExceptionGroup("E2E cleanup failures", cleanups)
+E       NameError: name 'BaseExceptionGroup' is not defined
+
+python/mariamem/e2e.py:71: NameError
+____________ TestEntry.test_partial_start_and_all_cleanup_attempts _____________
+
+self = <test_e2e_entry.TestEntry testMethod=test_partial_start_and_all_cleanup_attempts>
+
+    def test_partial_start_and_all_cleanup_attempts(self):
+        o, source, baseline, live, app, events = self.harness()
+        original = RuntimeError("readiness")
+        def broken(ctx, target, register):
+            register(app)
+            raise original
+        o.config = Config(prepare=lambda db: None, start_ready=broken, sole_work_source=True)
+        app.fail_stop = live.fail = baseline.fail = source.fail = True
+        with patch("mariamem.start", return_value=source):
+>           with self.assertRaises(BaseExceptionGroup) as caught:
+E           NameError: name 'BaseExceptionGroup' is not defined
+
+tests/test_e2e_entry.py:217: NameError
+_ test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate[http404] _
+
+actual = 'https://proxy.golang.org/example.com/!team/!database/v2/@v/v2.3.4-!preview.1.info'
+timeout = 5
+
+    def fetch(actual,timeout):
+        assert actual==url and timeout==5
+        if outcome.startswith('http'):
+>           raise HTTPError(url,int(outcome[4:]),'temporary HTTP error',{},None)
+E           urllib.error.HTTPError: HTTP Error 404: temporary HTTP error
+
+tests/test_generated_release.py:487: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-208/test_pkg_go_dev_discovery_reco1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c04f5b0>
+outcome = 'http404'
+
+    @pytest.mark.parametrize('outcome', ['success', 'http404', 'http503', 'timeout', 'invalid-json', 'wrong-version'])
+    def test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate(tmp_path,monkeypatch,outcome):
+        import generated_release_acceptance as acceptance
+        from urllib.error import HTTPError
+        module='example.com/Team/Database/v2'
+        tag='v2.3.4-Preview.1'
+        (tmp_path/'go.mod').write_text('// module comment\nmodule "'+module+'" // module path\n\ngo 1.26.0\n')
+        url='https://proxy.golang.org/example.com/!team/!database/v2/@v/v2.3.4-!preview.1.info'
+        class Response(io.BytesIO):
+            status=200
+        responses=[]
+        def fetch(actual,timeout):
+            assert actual==url and timeout==5
+            if outcome.startswith('http'):
+                raise HTTPError(url,int(outcome[4:]),'temporary HTTP error',{},None)
+            if outcome=='timeout': raise TimeoutError('timeout')
+            payload=b'not JSON' if outcome=='invalid-json' else json.dumps({'Version': 'v2.3.3' if outcome=='wrong-version' else tag}).encode()
+            response=Response(payload); responses.append(response); return response
+        monkeypatch.setattr(acceptance, 'urlopen', fetch)
+>       report=acceptance.request_pkg_go_dev_discovery(tmp_path,tag)
+
+tests/test_generated_release.py:492: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/generated_release_acceptance.py:53: in request_pkg_go_dev_discovery
+    exc.close()
+/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/tempfile.py:500: in close
+    self._closer.close()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTPError 404: 'temporary HTTP error'>, name = '_closer'
+
+    def __getattr__(self, name):
+        # Attribute lookups are delegated to the underlying file
+        # and cached for non-numeric results
+        # (i.e. methods are cached, closed and friends are not)
+>       file = self.__dict__['file']
+E       KeyError: 'file'
+
+/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/tempfile.py:468: KeyError
+_ test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate[http503] _
+
+actual = 'https://proxy.golang.org/example.com/!team/!database/v2/@v/v2.3.4-!preview.1.info'
+timeout = 5
+
+    def fetch(actual,timeout):
+        assert actual==url and timeout==5
+        if outcome.startswith('http'):
+>           raise HTTPError(url,int(outcome[4:]),'temporary HTTP error',{},None)
+E           urllib.error.HTTPError: HTTP Error 503: temporary HTTP error
+
+tests/test_generated_release.py:487: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-208/test_pkg_go_dev_discovery_reco2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c0f5df0>
+outcome = 'http503'
+
+    @pytest.mark.parametrize('outcome', ['success', 'http404', 'http503', 'timeout', 'invalid-json', 'wrong-version'])
+    def test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate(tmp_path,monkeypatch,outcome):
+        import generated_release_acceptance as acceptance
+        from urllib.error import HTTPError
+        module='example.com/Team/Database/v2'
+        tag='v2.3.4-Preview.1'
+        (tmp_path/'go.mod').write_text('// module comment\nmodule "'+module+'" // module path\n\ngo 1.26.0\n')
+        url='https://proxy.golang.org/example.com/!team/!database/v2/@v/v2.3.4-!preview.1.info'
+        class Response(io.BytesIO):
+            status=200
+        responses=[]
+        def fetch(actual,timeout):
+            assert actual==url and timeout==5
+            if outcome.startswith('http'):
+                raise HTTPError(url,int(outcome[4:]),'temporary HTTP error',{},None)
+            if outcome=='timeout': raise TimeoutError('timeout')
+            payload=b'not JSON' if outcome=='invalid-json' else json.dumps({'Version': 'v2.3.3' if outcome=='wrong-version' else tag}).encode()
+            response=Response(payload); responses.append(response); return response
+        monkeypatch.setattr(acceptance, 'urlopen', fetch)
+>       report=acceptance.request_pkg_go_dev_discovery(tmp_path,tag)
+
+tests/test_generated_release.py:492: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/generated_release_acceptance.py:53: in request_pkg_go_dev_discovery
+    exc.close()
+/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/tempfile.py:500: in close
+    self._closer.close()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <HTTPError 503: 'temporary HTTP error'>, name = '_closer'
+
+    def __getattr__(self, name):
+        # Attribute lookups are delegated to the underlying file
+        # and cached for non-numeric results
+        # (i.e. methods are cached, closed and friends are not)
+>       file = self.__dict__['file']
+E       KeyError: 'file'
+
+/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/tempfile.py:468: KeyError
+_____________ test_application_error_preserved_with_cleanup_error ______________
+
+live_host = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-208/test_application_error_preserv0/host')
+
+    def test_application_error_preserved_with_cleanup_error(live_host):
+        with prepared(live_host) as saved:
+            live=saved.live();saved._session.request('fail_live_close')
+>           with pytest.raises(ExceptionGroup) as caught:
+E           NameError: name 'ExceptionGroup' is not defined
+
+tests/test_live_unit.py:199: NameError
+_____________ test_output_is_continuously_drained_and_bounded[23] ______________
+
+tmp_path = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-208/test_output_is_continuously_dr1')
+exit_code = 23
+
+    @pytest.mark.parametrize('exit_code', [0, 23])
+    def test_output_is_continuously_drained_and_bounded(tmp_path, exit_code):
+        code = f'import sys;sys.stdout.buffer.write(b"o"*4194304+b"OUT_END");sys.stderr.buffer.write(b"e"*4194304+b"ERR_END");sys.exit({exit_code})'
+        if exit_code:
+            with pytest.raises(subprocess.CalledProcessError) as caught:
+                execute(tmp_path, code)
+            value = caught.value
+            assert value.returncode == 23
+            assert '4194304' not in str(value)  # No raw argv disclosure.
+        else:
+            value = execute(tmp_path, code)
+        assert value.stdout == value.output if exit_code else value.stdout.endswith(b'OUT_END')
+        for name, marker in [('stdout', b'OUT_END'), ('stderr', b'ERR_END')]:
+            assert len(getattr(value, name)) == 16384
+            assert getattr(value, name).endswith(marker)
+            assert getattr(value, name+'_truncated')
+            assert getattr(value, name+'_dropped_bytes') == 4194304 + len(marker) - 16384
+        if exit_code:
+>           assert any('application output; truncated;' in note for note in value.__notes__)
+E           AttributeError: '_CommandFailure' object has no attribute '__notes__'
+
+tests/test_prepare_command.py:101: AttributeError
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/test_routing.py:122: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    assert routes._target().database is b
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/test_routing.py:124: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    copied = contextvars.copy_context()
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/test_routing.py:141: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    assert error.value is original
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/test_routing.py:144: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    connect(routes, connection)
+
+tests/test_routing.py::test_slow_connection_is_closed_if_retirement_wins
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/test_routing.py:166: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    release.set()
+
+tests/test_routing.py::test_active_scope_prevents_registry_close
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/tests/test_routing.py:201: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    routes.close()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_django_prepared_owners.py::test_close_failure_blocks_admission_and_still_finalizes_siblings
+FAILED tests/test_django_prepared_owners.py::test_primary_and_cleanup_errors_both_preserved
+FAILED tests/test_django_prepared_owners.py::test_cleanup_error_keeps_original_and_attempts_other_handles
+FAILED tests/test_django_prepared_owners.py::test_unconfirmed_child_cleanup_aborts_drop_and_still_retires_other_owners
+FAILED tests/test_e2e_entry.py::TestEntry::test_cleanup_debt_and_interrupt_identity
+FAILED tests/test_e2e_entry.py::TestEntry::test_live_creation_error_keeps_baseline_cleanup_failures
+FAILED tests/test_e2e_entry.py::TestEntry::test_owner_cleanup_interrupt_preserves_primary
+FAILED tests/test_e2e_entry.py::TestEntry::test_partial_start_and_all_cleanup_attempts
+FAILED tests/test_generated_release.py::test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate[http404]
+FAILED tests/test_generated_release.py::test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate[http503]
+FAILED tests/test_live_unit.py::test_application_error_preserved_with_cleanup_error
+FAILED tests/test_prepare_command.py::test_output_is_continuously_drained_and_bounded[23]
+12 failed, 2137 passed, 99 skipped, 7 warnings in 163.57s (0:02:43)
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/scripts/verify.py", line 215, in <module>
+    main()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/scripts/verify.py", line 192, in main
+    check(args.scope, profile=args.profile)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/scripts/verify.py", line 88, in check
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/scripts/verify.py", line 37, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-product/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/masahito/src/mysqlmem/publish/mariamem/build/preload-verify-venv/bin/python', '-m', 'pytest', 'tests', '--ignore=tests/consumer', '--ignore=tests/historical', '--ignore=tests/test_generated_runtime_inventory.py', '--ignore=tests/test_distribution_licenses.py', '--ignore=tests/test_packaging_license_mirrors.py', '--ignore=tests/test_timer_source.py', '--ignore=tests/test_uca_copy_source.py', '--ignore=tests/test_dictionary_wait_source.py', '--ignore=tests/test_dictionary_wait_runtime.py', '-q']' returned non-zero exit status 1.
