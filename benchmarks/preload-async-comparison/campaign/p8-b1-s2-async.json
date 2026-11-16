@@ -1,0 +1,977 @@
+{
+  "meta": {
+    "model": "mariamem",
+    "runtime_metrics_end": "{\"/cpu/classes/gc/total:cpu-seconds\":0.038947734,\"/gc/cycles/total:gc-cycles\":10,\"/gc/heap/allocs:bytes\":136591368,\"/sched/latencies:seconds\":{\"buckets\":\"[-Inf 0 6.4e-08 1.28e-07 1.92e-07 2.56e-07 3.2e-07 3.84e-07 4.48e-07 5.12e-07 6.4e-07 7.68e-07 8.96e-07 1.024e-06 1.28e-06 1.536e-06 1.792e-06 2.048e-06 2.56e-06 3.072e-06 3.584e-06 4.096e-06 5.12e-06 6.144e-06 7.168e-06 8.192e-06 1.024e-05 1.2288e-05 1.4336e-05 1.6384e-05 2.048e-05 2.4576e-05 2.8672e-05 3.2768e-05 4.096e-05 4.9152e-05 5.7344e-05 6.5536e-05 8.192e-05 9.8304e-05 0.000114688 0.000131072 0.00016384 0.000196608 0.000229376 0.000262144 0.00032768 0.000393216 0.000458752 0.000524288 0.00065536 0.000786432 0.000917504 0.001048576 0.00131072 0.001572864 0.001835008 0.002097152 0.00262144 0.003145728 0.003670016 0.004194304 0.00524288 0.006291456 0.007340032 0.008388608 0.01048576 0.012582912 0.014680064 0.016777216 0.02097152 0.025165824 0.029360128 0.033554432 0.04194304 0.050331648 0.058720256 0.067108864 0.08388608 0.100663296 0.117440512 0.134217728 0.16777216 0.201326592 0.234881024 0.268435456 0.33554432 0.402653184 0.469762048 0.536870912 0.67108864 0.805306368 0.939524096 1.073741824 1.34217728 1.610612736 1.879048192 2.147483648 2.68435456 3.221225472 3.758096384 4.294967296 5.36870912 6.442450944 7.516192768 8.589934592 10.73741824 12.884901888 15.032385536 17.179869184 21.47483648 25.769803776 30.064771072 34.359738368 42.94967296 51.539607552 60.129542144 68.719476736 85.89934592 103.079215104 120.259084288 137.438953472 171.79869184 206.158430208 240.518168576 274.877906944 343.59738368 412.316860416 481.036337152 549.755813888 687.19476736 824.633720832 962.072674304 1099.511627776 1374.38953472 1649.267441664 1924.145348608 2199.023255552 2748.77906944 3298.534883328 3848.290697216 4398.046511104 5497.55813888 6597.069766656 7696.581394432 8796.093022208 10995.11627776 13194.139533312 15393.162788864 17592.186044416 21990.23255552 26388.279066624 30786.325577728 35184.372088832 43980.46511104 52776.558133248 61572.651155456 70368.744177664 87960.93022208 105553.116266496 123145.302310912 140737.488355328 +Inf]\",\"counts\":[0,1756,4853,1961,2429,562,1091,423,513,570,663,510,538,726,441,269,178,227,171,118,134,154,98,57,54,60,38,47,61,80,36,25,33,54,42,22,18,39,26,9,16,28,29,15,11,12,8,7,5,13,5,6,6,7,3,4,3,4,3,4,1,5,5,8,1,4,2,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}}",
+    "runtime_metrics_start": "{\"/cpu/classes/gc/total:cpu-seconds\":0,\"/gc/cycles/total:gc-cycles\":0,\"/gc/heap/allocs:bytes\":65408,\"/sched/latencies:seconds\":{\"buckets\":\"[-Inf 0 6.4e-08 1.28e-07 1.92e-07 2.56e-07 3.2e-07 3.84e-07 4.48e-07 5.12e-07 6.4e-07 7.68e-07 8.96e-07 1.024e-06 1.28e-06 1.536e-06 1.792e-06 2.048e-06 2.56e-06 3.072e-06 3.584e-06 4.096e-06 5.12e-06 6.144e-06 7.168e-06 8.192e-06 1.024e-05 1.2288e-05 1.4336e-05 1.6384e-05 2.048e-05 2.4576e-05 2.8672e-05 3.2768e-05 4.096e-05 4.9152e-05 5.7344e-05 6.5536e-05 8.192e-05 9.8304e-05 0.000114688 0.000131072 0.00016384 0.000196608 0.000229376 0.000262144 0.00032768 0.000393216 0.000458752 0.000524288 0.00065536 0.000786432 0.000917504 0.001048576 0.00131072 0.001572864 0.001835008 0.002097152 0.00262144 0.003145728 0.003670016 0.004194304 0.00524288 0.006291456 0.007340032 0.008388608 0.01048576 0.012582912 0.014680064 0.016777216 0.02097152 0.025165824 0.029360128 0.033554432 0.04194304 0.050331648 0.058720256 0.067108864 0.08388608 0.100663296 0.117440512 0.134217728 0.16777216 0.201326592 0.234881024 0.268435456 0.33554432 0.402653184 0.469762048 0.536870912 0.67108864 0.805306368 0.939524096 1.073741824 1.34217728 1.610612736 1.879048192 2.147483648 2.68435456 3.221225472 3.758096384 4.294967296 5.36870912 6.442450944 7.516192768 8.589934592 10.73741824 12.884901888 15.032385536 17.179869184 21.47483648 25.769803776 30.064771072 34.359738368 42.94967296 51.539607552 60.129542144 68.719476736 85.89934592 103.079215104 120.259084288 137.438953472 171.79869184 206.158430208 240.518168576 274.877906944 343.59738368 412.316860416 481.036337152 549.755813888 687.19476736 824.633720832 962.072674304 1099.511627776 1374.38953472 1649.267441664 1924.145348608 2199.023255552 2748.77906944 3298.534883328 3848.290697216 4398.046511104 5497.55813888 6597.069766656 7696.581394432 8796.093022208 10995.11627776 13194.139533312 15393.162788864 17592.186044416 21990.23255552 26388.279066624 30786.325577728 35184.372088832 43980.46511104 52776.558133248 61572.651155456 70368.744177664 87960.93022208 105553.116266496 123145.302310912 140737.488355328 +Inf]\",\"counts\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}}",
+    "server_version": "12.3.3-MariaDB-embedded"
+  },
+  "elapsed_ms": 472.554,
+  "spans": [
+    {
+      "name": "boot",
+      "kind": "boot",
+      "lane": "setup",
+      "start_ms": 0.067,
+      "end_ms": 44.533
+    },
+    {
+      "name": "import",
+      "kind": "import",
+      "lane": "setup",
+      "start_ms": 44.533,
+      "end_ms": 72.006
+    },
+    {
+      "name": "snapshot",
+      "kind": "snapshot",
+      "lane": "setup",
+      "start_ms": 72.006,
+      "end_ms": 77.34
+    },
+    {
+      "name": "reader_fork",
+      "kind": "fork",
+      "lane": "setup",
+      "start_ms": 77.342,
+      "end_ms": 92.296
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "shared",
+      "start_ms": 92.55,
+      "end_ms": 128.204
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_8",
+      "start_ms": 128.208,
+      "end_ms": 128.756
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_15",
+      "start_ms": 128.774,
+      "end_ms": 129.093
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_50",
+      "start_ms": 128.266,
+      "end_ms": 129.76
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_43",
+      "start_ms": 128.277,
+      "end_ms": 129.778
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_36",
+      "start_ms": 128.298,
+      "end_ms": 129.902
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_29",
+      "start_ms": 128.285,
+      "end_ms": 129.976
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_22",
+      "start_ms": 128.313,
+      "end_ms": 130.219
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_64",
+      "start_ms": 128.219,
+      "end_ms": 130.22
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_71",
+      "start_ms": 129.764,
+      "end_ms": 130.8
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestListOrders/user_57",
+      "start_ms": 128.232,
+      "end_ms": 133.299
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCreateOrder/two_lines",
+      "start_ms": 129.11,
+      "end_ms": 151.84
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCancelOrder/shipped",
+      "start_ms": 130.805,
+      "end_ms": 151.942
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCreateOrder/one_line",
+      "start_ms": 129.981,
+      "end_ms": 165.346
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCancelOrder/another_paid",
+      "start_ms": 130.223,
+      "end_ms": 165.42
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCreateOrder/five_lines",
+      "start_ms": 129.781,
+      "end_ms": 165.487
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCancelOrder/paid",
+      "start_ms": 130.239,
+      "end_ms": 167.476
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCancelOrder/pending",
+      "start_ms": 133.34,
+      "end_ms": 175.259
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestCreateOrder/out_of_stock",
+      "start_ms": 129.906,
+      "end_ms": 175.926
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/another_paid",
+      "start_ms": 165.425,
+      "end_ms": 235.624
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCancelOrder/another_paid",
+      "start_ms": 235.624,
+      "end_ms": 238.113
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCancelOrder/another_paid",
+      "start_ms": 238.114,
+      "end_ms": 240.381
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/shipped",
+      "start_ms": 151.95,
+      "end_ms": 242.058
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCancelOrder/shipped",
+      "start_ms": 242.058,
+      "end_ms": 242.559
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCreateOrder/five_lines",
+      "start_ms": 165.491,
+      "end_ms": 243.73
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCancelOrder/shipped",
+      "start_ms": 242.56,
+      "end_ms": 245.165
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCreateOrder/one_line",
+      "start_ms": 165.367,
+      "end_ms": 245.221
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCreateOrder/one_line",
+      "start_ms": 245.222,
+      "end_ms": 248.269
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/paid",
+      "start_ms": 167.488,
+      "end_ms": 249.341
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCreateOrder/five_lines",
+      "start_ms": 243.731,
+      "end_ms": 249.675
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCreateOrder/two_lines",
+      "start_ms": 151.867,
+      "end_ms": 250.706
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCreateOrder/one_line",
+      "start_ms": 248.27,
+      "end_ms": 250.77
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCancelOrder/paid",
+      "start_ms": 249.342,
+      "end_ms": 251.636
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCreateOrder/two_lines",
+      "start_ms": 250.706,
+      "end_ms": 252.823
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCreateOrder/five_lines",
+      "start_ms": 249.676,
+      "end_ms": 253.434
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCreateOrder/out_of_stock",
+      "start_ms": 175.94,
+      "end_ms": 254.515
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCreateOrder/two_lines",
+      "start_ms": 252.824,
+      "end_ms": 255.137
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/pending",
+      "start_ms": 175.274,
+      "end_ms": 256.616
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCreateOrder/out_of_stock",
+      "start_ms": 254.516,
+      "end_ms": 258.061
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestDeleteUser/user_15",
+      "start_ms": 240.418,
+      "end_ms": 259.548
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCancelOrder/paid",
+      "start_ms": 251.637,
+      "end_ms": 260.483
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCreateOrder/out_of_stock",
+      "start_ms": 258.063,
+      "end_ms": 265.277
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestCancelOrder/pending",
+      "start_ms": 256.617,
+      "end_ms": 267.31
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestDeleteUser/user_22",
+      "start_ms": 253.456,
+      "end_ms": 275.916
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestCancelOrder/pending",
+      "start_ms": 267.312,
+      "end_ms": 275.941
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestDeleteUser/user_29",
+      "start_ms": 250.781,
+      "end_ms": 278.594
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestDeleteUser/user_36",
+      "start_ms": 245.178,
+      "end_ms": 284.663
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestApplyDiscount/books_10",
+      "start_ms": 260.732,
+      "end_ms": 286.279
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestShipOrder/one_paid",
+      "start_ms": 255.515,
+      "end_ms": 288.69
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestShipOrder/all_paid",
+      "start_ms": 276.191,
+      "end_ms": 296.947
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestShipOrder/twice",
+      "start_ms": 265.382,
+      "end_ms": 302.403
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_15",
+      "start_ms": 259.566,
+      "end_ms": 357.811
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestDeleteUser/user_15",
+      "start_ms": 357.811,
+      "end_ms": 360.395
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/books_10",
+      "start_ms": 286.29,
+      "end_ms": 363.288
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestDeleteUser/user_15",
+      "start_ms": 360.397,
+      "end_ms": 363.551
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestApplyDiscount/books_10",
+      "start_ms": 363.288,
+      "end_ms": 364.333
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_22",
+      "start_ms": 275.931,
+      "end_ms": 365.462
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestApplyDiscount/books_10",
+      "start_ms": 364.334,
+      "end_ms": 366.559
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/all_paid",
+      "start_ms": 296.967,
+      "end_ms": 367.3
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_29",
+      "start_ms": 278.606,
+      "end_ms": 367.341
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestDeleteUser/user_22",
+      "start_ms": 365.462,
+      "end_ms": 367.651
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestDeleteUser/user_29",
+      "start_ms": 367.342,
+      "end_ms": 369.947
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestDeleteUser/user_29",
+      "start_ms": 369.948,
+      "end_ms": 371.489
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestDeleteUser/user_22",
+      "start_ms": 367.653,
+      "end_ms": 371.731
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/one_paid",
+      "start_ms": 288.701,
+      "end_ms": 373.294
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_36",
+      "start_ms": 284.677,
+      "end_ms": 373.588
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestDeleteUser/user_36",
+      "start_ms": 373.589,
+      "end_ms": 375.267
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestShipOrder/one_paid",
+      "start_ms": 373.295,
+      "end_ms": 376.221
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestShipOrder/all_paid",
+      "start_ms": 367.3,
+      "end_ms": 376.345
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestShipOrder/all_paid",
+      "start_ms": 376.346,
+      "end_ms": 377.593
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestDeleteUser/user_36",
+      "start_ms": 375.268,
+      "end_ms": 379.074
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_1_11_21_31",
+      "start_ms": 377.604,
+      "end_ms": 379.25
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestShipOrder/one_paid",
+      "start_ms": 376.223,
+      "end_ms": 381.568
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/twice",
+      "start_ms": 302.413,
+      "end_ms": 386.019
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_9_19_29_39",
+      "start_ms": 379.261,
+      "end_ms": 386.982
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_10_20_30_40",
+      "start_ms": 379.228,
+      "end_ms": 388.211
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestShipOrder/twice",
+      "start_ms": 386.019,
+      "end_ms": 389.133
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestApplyDiscount/movies_50",
+      "start_ms": 366.61,
+      "end_ms": 389.616
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestShipOrder/twice",
+      "start_ms": 389.135,
+      "end_ms": 392.604
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_7_17_27_37",
+      "start_ms": 386.998,
+      "end_ms": 394.222
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_6_16_26_36",
+      "start_ms": 388.222,
+      "end_ms": 394.537
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_8_18_28_38",
+      "start_ms": 381.78,
+      "end_ms": 394.546
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestShipOrder/pending_rejected",
+      "start_ms": 363.765,
+      "end_ms": 394.605
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestApplyDiscount/music_25",
+      "start_ms": 371.748,
+      "end_ms": 397.53
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_4_14_24_34",
+      "start_ms": 394.23,
+      "end_ms": 398.413
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_5_15_25_35",
+      "start_ms": 392.621,
+      "end_ms": 399.227
+    },
+    {
+      "name": "fork",
+      "kind": "fork",
+      "lane": "TestApplyDiscount/games_0",
+      "start_ms": 371.503,
+      "end_ms": 399.464
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_2_12_22_32",
+      "start_ms": 394.556,
+      "end_ms": 399.492
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_0",
+      "start_ms": 399.238,
+      "end_ms": 399.877
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_9",
+      "start_ms": 399.506,
+      "end_ms": 400.124
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_8",
+      "start_ms": 399.882,
+      "end_ms": 400.348
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_7",
+      "start_ms": 400.126,
+      "end_ms": 400.679
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_6",
+      "start_ms": 400.351,
+      "end_ms": 400.785
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_5",
+      "start_ms": 400.68,
+      "end_ms": 401.278
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestGetOrder/orders_3_13_23_33",
+      "start_ms": 394.545,
+      "end_ms": 401.707
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Books",
+      "start_ms": 398.427,
+      "end_ms": 401.844
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_4",
+      "start_ms": 400.787,
+      "end_ms": 402.164
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_3",
+      "start_ms": 401.28,
+      "end_ms": 402.86
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Kitchen",
+      "start_ms": 402.169,
+      "end_ms": 404.186
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_1",
+      "start_ms": 401.849,
+      "end_ms": 404.297
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestSearchProducts/product_2",
+      "start_ms": 401.713,
+      "end_ms": 404.557
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Outdoors",
+      "start_ms": 402.862,
+      "end_ms": 405.582
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Sports",
+      "start_ms": 404.194,
+      "end_ms": 406.154
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Garden",
+      "start_ms": 405.586,
+      "end_ms": 406.989
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Games",
+      "start_ms": 404.303,
+      "end_ms": 407.336
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Toys",
+      "start_ms": 406.157,
+      "end_ms": 407.34
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Tools",
+      "start_ms": 404.572,
+      "end_ms": 408.349
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_1",
+      "start_ms": 407.342,
+      "end_ms": 408.481
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_30",
+      "start_ms": 408.485,
+      "end_ms": 409.848
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_50",
+      "start_ms": 408.356,
+      "end_ms": 409.931
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Movies",
+      "start_ms": 406.998,
+      "end_ms": 410.423
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestRevenueByCategory/Music",
+      "start_ms": 407.338,
+      "end_ms": 410.96
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_15",
+      "start_ms": 409.933,
+      "end_ms": 411.143
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_20",
+      "start_ms": 409.85,
+      "end_ms": 411.333
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_5",
+      "start_ms": 411.146,
+      "end_ms": 412.495
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_3",
+      "start_ms": 411.338,
+      "end_ms": 412.515
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_10",
+      "start_ms": 410.431,
+      "end_ms": 412.644
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_2",
+      "start_ms": 412.497,
+      "end_ms": 413.555
+    },
+    {
+      "name": "test",
+      "kind": "read",
+      "lane": "TestTopProducts/top_8",
+      "start_ms": 410.989,
+      "end_ms": 415.071
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/movies_50",
+      "start_ms": 389.646,
+      "end_ms": 457.209
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestApplyDiscount/movies_50",
+      "start_ms": 457.209,
+      "end_ms": 458.395
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/games_0",
+      "start_ms": 399.471,
+      "end_ms": 459.174
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestApplyDiscount/movies_50",
+      "start_ms": 458.396,
+      "end_ms": 459.799
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestApplyDiscount/games_0",
+      "start_ms": 459.175,
+      "end_ms": 460.266
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestApplyDiscount/games_0",
+      "start_ms": 460.266,
+      "end_ms": 462.082
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/music_25",
+      "start_ms": 397.548,
+      "end_ms": 463.016
+    },
+    {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/pending_rejected",
+      "start_ms": 394.625,
+      "end_ms": 464.572
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestShipOrder/pending_rejected",
+      "start_ms": 464.572,
+      "end_ms": 465.307
+    },
+    {
+      "name": "test",
+      "kind": "write",
+      "lane": "TestApplyDiscount/music_25",
+      "start_ms": 463.016,
+      "end_ms": 465.503
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestApplyDiscount/music_25",
+      "start_ms": 465.504,
+      "end_ms": 467.705
+    },
+    {
+      "name": "writer_cleanup",
+      "kind": "cleanup",
+      "lane": "TestShipOrder/pending_rejected",
+      "start_ms": 465.308,
+      "end_ms": 467.725
+    },
+    {
+      "name": "suite_run",
+      "kind": "aggregate",
+      "lane": "whole",
+      "start_ms": 92.297,
+      "end_ms": 467.858
+    },
+    {
+      "name": "cleanup_drain",
+      "kind": "cleanup",
+      "lane": "final",
+      "start_ms": 467.936,
+      "end_ms": 469.411
+    },
+    {
+      "name": "final_cleanup",
+      "kind": "aggregate",
+      "lane": "whole",
+      "start_ms": 467.858,
+      "end_ms": 472.471
+    }
+  ]
+}
