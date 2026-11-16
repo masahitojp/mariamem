@@ -33,7 +33,7 @@ for p in (r/'internal/generatedgo/code').glob('p*/*pure.go'):
   m=re.search(r'^func Fn'+str(n)+r'\(.*?(?=^func |\Z)',s,re.M|re.S)
   if m:s=s[:m.start()]+edit(n,m[0])+s[m.end():]
  if s!=old:q=t/(p.parent.name+'.go');q.write_text(s);over[str(p)]=str(q)
-p=r/'internal/generatedgo/code/base/base.go';s=p.read_text().replace('import (','import (\n pooltrace "runtime/trace"')+'\n'+(d/'helper.go.txt').read_text();q=t/'base.go';q.write_text(s);over[str(p)]=str(q)
+p=r/'internal/generatedgo/code/base/base.go';s=p.read_text().replace('import (','import (\n pooltrace "runtime/trace"',1)+'\n'+(d/'helper.go.txt').read_text();q=t/'base.go';q.write_text(s);over[str(p)]=str(q)
 p=r/'internal/generatedgo/main.go';s=p.read_text();a='rc := base.AtomicWait32At(m, uint64(addr), expected, duration)';s=replace(s,a,'base.PoolWorkerWait(m,"futex_begin",addr)\n'+a+'\n base.PoolWorkerWait(m,"futex_end",addr)');q=t/'main.go';q.write_text(s);over[str(p)]=str(q)
 shutil.copytree(r/'benchmarks/comparison-variance/harness/maria-suite',t/'suite',dirs_exist_ok=True);p=t/'suite/go.mod';p.write_text(p.read_text().replace('<MARIAMEM_SOURCE>',str(r)))
 (t/'overlay.json').write_text(json.dumps({'Replace':over}));assert len(changes)==10
