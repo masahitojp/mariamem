@@ -8,15 +8,29 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
-## Asynchronous Close productization authorized (2026-11-15)
+## Go asynchronous Close — adopted on main (2026-11-16)
 
-The Human authorized productization of #204/#205 on the adopted #203+A1a main.
-Prepare a Go CloseAsync(ctx) API with a shared cleanup handle, Wait(ctx) and
-Disposed(), preserving synchronous Close and Fork capacity through disposal.
-Python process-host integration requires a separate interface and is not claimed
-by this Go candidate. Productization is authorized; integration/release remain
-separate gates. Keep the prior #119 tail observation and open an investigation
-Issue if it recurs; do not silently classify it as resolved.
+The Human approved integration of PR217. It merged as source_commit
+`6558ee8fb2211313a8aa0ea6070ac5256767811a`; CI43764098970 passed check,
+integration, Live and Linux x86_64/aarch64 wheel gates on exact PR head
+`01959447692a7cf8fbc04911fd02787d19791768`. Do not relabel that CI as a
+separate run on the merge or later documentation commit.
+
+Go CloseAsync(ctx), CloseHandle.Wait(ctx) and Disposed() are adopted.
+Synchronous Close and disposal-confirmed Fork capacity remain. Snapshot failure
+cleanup debt is retained across both Close interfaces. Issues119/204/205 record
+completion; release is separate. Python process-host async is a separate interface.
+
+The Human-requested matched official modelcase rerun is complete in
+[fixed evidence](https://github.com/masahitojp/mariamem/blob/7e6437656a3e1c4d555aacb367bc43275db6ee05/benchmarks/modelcase-current/README.md).
+P8 suite medians: Maria sync431.456ms, async447.954ms, PG369.333ms; process
+wall461.412/479.170/470.339ms. No consistent async suite gain was established
+(only3/5P8pairs improved), despite the earlier finite child-workload gains.
+This is a Go1.27.4 matched SQL/trigger adaptation, not published website numbers
+or new product qualification. Phase differences remain in sampleload/testbody.
+The prior68.9second observation remains unexplained; no comparable observation
+recurred in this campaign. On recurrence, record source/workload/phase evidence
+in an Issue and investigate, per Human direction. No extra experiment starts.
 
 ## Close ownership and unused-directory cleanup — adoption approved (2026-11-15)
 
