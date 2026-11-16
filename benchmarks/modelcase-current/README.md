@@ -1,96 +1,105 @@
-# Official modelcase adaptation after MemoryEA (2026-11-15)
+# Official modelcase adaptation after async Close integration (2026-11-16)
 
-Conclusion: at P8 mariamem suite median is 422.820ms versus pgmem381.198ms
-(+41.622ms, +10.92% ratio of independent medians). Paired suite ratio median is
-+6.84%; these statistics differ. Fork p50 is close; sample insertion and test
-bodies remain slower. Startup/import are faster. No universal speed or engine
-causality is established; this shared-host five-pair comparison is workload-bound.
+Conclusion: P8 independent suite medians Maria sync431.456ms / async447.954ms /
+PG369.333ms. Sync is+16.82% and async+21.29% versus PG (ratios of independent
+medians). Corresponding round-paired suite ratios are+16.85%/+17.93% (see
+summary for exact values). Process wall medians461.412/479.170/470.339ms.
+The different timers/statistics must not be interchanged.
 
-Sources: mariamem source_commit86328176 (full SHA in results.json), PR201 still
-pending at campaign start; this is the approved integration candidate, not a
-claim that main merged. pgmem source_commit a61005d37d01e6671f814fe8ca828222e8147df4,
-fetched official main, unmodified. Both built Go1.27.4, CGO0, GOMAXPROCS8/GOGC100,
-macOS arm64. This is a new cohort; don't subtract earlier Go1.26.10 or older
-pgmem release results as a measured improvement.
+This70testsuite does not establish a consistent async speedup: round-paired
+async/sync medians P1−0.58%(3/5faster),P4+2.86%(2/5),P8−0.67%(3/5). P8range
+−4.51..+12.28%. Independent P8async median is3.82% slower than sync although
+paired median is−0.67%, because sample ranks and execution variation differ.
+No A/A or inferential significance test in this cohort. Keep both statistics;
+do not discard slower observations or add gains from the480child workload.
 
-## Workload and adaptation
+## Fixed source and workload
 
-[Official website](https://shibukawa.github.io/pgmem/ja/) and its
-[modelcase source](https://github.com/shibukawa/pgmem/tree/a61005d37d01e6671f814fe8ca828222e8147df4/bench/modelcase)
-define 70 tests:50 reader/20 writer,20 categories/500 products/1000 users and
-40 sample orders. Official main store.go compared with our pg adapter differs
-only in the revenue query selector/import. Website numbers use a different
-machine/date/cohort and are not used as comparison measurements here.
+Maria product source_commit6558ee8fb2211313a8aa0ea6070ac5256767811a (PR217 merge).
+Harness source identity7d8e6938 (full in inputs.json). PG official main
+3433a40bd4167daea2d8e364666bd5fcf18ef654, clean and unmodified.
+Both built Go1.27.4, CGO0/GOMAXPROCS8/GOGC100, macOS27.2.1 arm64. This matches
+our prior comparison compiler, not release qualification's Go1.26.10. Same
+Maria binary for sync/async, hashes/buildinfo retained. No concurrent benchmark.
 
-The preserved Close-corrected adaptation comes from Git object
-523a8883d434af381f7a9d00a2c6ae571eefc172:benchmarks/memory-ea-inline/suite-20261115/harness.tar.gz
-SHA256 e10c2ba5ab3bd7a0185506904a4f3649c7e4be1dc0002946e774d23176b6de1c.
-Both arms close the parent then Fork a shared reader DB after Snapshot, and Fork
-20 writer DBs. Close errors fail. Maria uses its default parameter interpolation
-and in-process transport; PostgreSQL uses pgx and its native wire path. Different
-engine/driver/transport implementation remains part of the product comparison.
+Official site https://shibukawa.github.io/pgmem/benchmarks/ describes70tests:
+50read/20write,20categories/500products/1000users,40sampleorders. Official
+current read/write test sources are byte-identical to the preserved PG adapter.
+PG store.go differs only in the revenue selector/import. Website published
+numbers are another machine/date/cohort and are not comparison measurements.
 
-Both keep SUM total-recalculation triggers and audit. Maria enables
-`AFTER UPDATE OF status ON orders` via MARIA_AUDIT_OF=1, consistent with the
-[MariaDB12 trigger syntax](https://mariadb.com/docs/server/server-usage/triggers-events/triggers/create-trigger).
-The body also checks OLD/NEW status so unchanged status creates no audit row,
-matching PostgreSQL. Existing known MDEV-42129 is not re-investigated.
+Adaptations: both close the original parent after Snapshot and Fork a shared
+reader DB plus20writerDBs. MaxForks16explicit on both (one shared reader leaves
+spare capacity at P1/P4/P8). Maria uses default interpolation/in-process transport,
+PG uses pgx/nativewire. SUM recalculation and audit triggers remain. Maria uses
+AFTER UPDATE OF status plus unchanged-value guard. Both REVENUE_PREAGG=1 SQL
+preaggregate bycategory thenLEFTJOIN allcategories; original SQL remains in
+store.go. Both TestMatchedSemantics PASS: original/rewrite same results,
+non-status or status=status no audit, changed status exactlyone auditrow.
+This is a matched adaptation of the official workload, not byte-identical SQL.
 
-REVENUE_PREAGG=1 on both arms replaces joining raw item rows into outer categories
-and aggregating there with an inner SUM GROUP BY product.category_id, then LEFT
-JOINs the category totals. All categories, zero totals, filters and order remain.
-The original query remains in each store.go. Before timing, TestMatchedSemantics
-passed on both engines: original/rewrite results equal; non-status UPDATE and
-status=status create no audit; a changed status adds exactly one audit row.
-The full suite keeps expected total/order/isolation assertions. This is an
-adaptation using equivalent SQL, not unchanged official SQL benchmarking.
+Maria writer cleanup closes SQL pool and waits WaitDisconnected in BOTHmodes.
+Sync thenClose; async calls publicCloseAsync, retains allhandles and finally
+Wait/Disposed before snapshot/readersClose and trace end. A cleanup_drain span
+is recorded. No error ignored. PG uses the matched fixture's nativeClose path.
+The archived Maria fixture referenced an omitted diagnostic loadUnlessProbe;
+we replaced both references with ordinary store.LoadSample before timing.
+Original build failure is retained separately, not counted as a suite run.
 
-## Observations
+## Results
 
-One warmup per arm, then five alternating pairs at each P1/P4/P8. All36 processes
-PASS:2520 test bodies,720 writer Forks,756 sample loads including warmups.
-All observations retained in results.json. Builds completed before timings;
-capacity monitor active throughout; no profile hooks. No extra repetitions.
+One warmup plus5measured suites/arm/P, P1/P4/P8,3armorder cyclically rotated.
+All54processes PASS:3,780testbodies,1,080writerForks,1,134sampleloads including
+warmups. No exclusions/adaptive repetitions. Full traces/logs, timing nodes,
+processCPU/maxRSS and UTC retained. Internal suite elapsed includes explicit
+cleanup/drain. Process wall includes startup/exit and has a different boundary.
 
-|P|Maria suite ms|PG suite ms|Paired suite difference median|Maria process wall ms|PG process wall ms|
-|---|---:|---:|---:|---:|---:|
-|1|1221.341|793.968|+54.07%|1263.911|850.618|
-|4|497.820|415.334|+19.26%|556.718|506.422|
-|8|422.820|381.198|+6.84%|451.673|458.477|
+|P|Maria sync suite|Maria async suite|PG suite|sync process wall|async process wall|PG process wall|
+|---|---:|---:|---:|---:|---:|---:|
+|1|1205.159|1205.361|779.690|1250.423|1247.982|836.792|
+|4|508.485|507.449|410.803|553.834|560.540|507.115|
+|8|431.456|447.954|369.333|461.412|479.170|470.339|
 
-Process wall includes startup/exit; suite elapsed is the trace's internal timer.
-P8 independent process-wall medians are close (451.7/458.5ms), but their ratio
-is not the suite gap. CPU is2161/1465ms, maximum RSS667/1088MB respectively;
-wall proximity does not imply equal CPU or memory. RSS is the process's observed
-peak, not unique physical memory or a memory ceiling.
+P8CPU medians sync2238ms/async2267ms/PG1442ms; process maxRSS medians
+667/675/1121MB(decimal). RSS is observed process peak, not unique physical
+memory/ceiling; CPU is process-tree usage from the external runner.
 
-Phase values below are per-process p50, then median of five measured processes.
-Overlapping phases cannot be added into elapsed time.
+|P8 phase p50 ms|Maria sync|Maria async|PG|
+|---|---:|---:|---:|
+|boot|42.702|43.163|53.181|
+|import|28.272|27.882|68.060|
+|snapshot|5.243|5.078|16.451|
+|reader_fork|15.649|14.982|9.760|
+|fork|23.827|27.470|27.212|
+|sample|74.142|69.788|40.020|
+|test|1.656|1.608|0.688|
+|cleanup_drain|0.000|0.844|0.000|
 
-|P8 phase|Maria ms|PG ms|
-|---|---:|---:|
-|boot|42.730|51.833|
-|import|27.581|66.237|
-|snapshot|5.416|16.273|
-|reader_fork|15.750|8.944|
-|fork|25.796|24.887|
-|sample|69.522|42.499|
-|test|1.674|0.972|
+Phase statistic: perprocess p50, then median of5measured processes. Overlapping
+phase sums cannot be added into elapsed time. Remaining differences concentrate
+in sampleload and testbody; initialization/import are shorter on Maria. These
+observations do not isolate engine/driver/OS-lock causal contributions. The
+async drain is included, about0.844ms median atP8; zero syncdrain means no pending
+async handles rather than zero totalcleanup cost.
 
-Recommendation: the remaining sample-insertion cost is the next relevant target
-if further performance work is approved. This campaign does not identify a new
-root cause or authorize another optimization investigation.
+Recommendation: keep async as an optional capacity-dependent API; do not advertise
+this suite as a demonstrated async speedup. Compare new optimization hypotheses
+against sampleload and querycost only after approval. No new optimization task
+is started here. Prior69second observation did not recur: maximum54suite elapsed
+1,219.759ms,maximumprocess1,283.259ms. Different workload/finite observation,
+not proof that the prior cause is resolved. No recurrence Issue opened.
 
-## Reproduce
+## Reproduce and retention
 
-harness/ retains SQL, fixture, test and trace source, with module replacement
-placeholders. Resolve <MARIAMEM_SOURCE>/<PGMEM_SOURCE> to the pinned clean checkouts.
-Build each store package with GOTOOLCHAIN=go1.27.4 CGO_ENABLED=0 GOMAXPROCS=8
-`go test -c -p 1 -vet=off -o <workspace>/temp/{maria,pg}.test ./store`.
-Place resolved harnesses in temp/maria-suite and temp/pg-suite, run each binary
-with -test.run=^TestMatchedSemantics$ and the matched environment first.
-Then `python3 measure.py <workspace>` (temp/ and evidence/ must exist), under
-scripts/experiment_disk.py with budget6GiB/minfree6GiB/timeout900. The runner
-requires macOS /usr/bin/time -l and records all process/phase aggregates.
-Binary SHA/buildinfo and source identities are in results.json. No runtime
-changes, release or main adoption are introduced by this measurement.
+PLAN-async fixed before execution. Resolve committed module placeholders in temp
+copies. Verify both pinned git identities before compilation. run-current.py
+builds both store packages, semanticcontrols then54suites. The committed script
+expects its isolated workspace layout, caches/temp inside the budgeted workspace.
+Initial run script also preserved externally. Full raw data live on this evidence
+branch; no bulk evidence merge into main. summary.json/results.json/inputs.json,
+allspans/logs and checksums preserve this cohort. Priorresults were replaced only
+on this new experimentbranch; previous fixed evidence commits remain unchanged.
+Main integration of GoAPI is completed independently; no release is requested.
+Owned clonedsource/build/caches are deleted after remote/history verification
+and preserving source/harness identities. No large artifacts are needed to read
+or independently recompute this comparison.
