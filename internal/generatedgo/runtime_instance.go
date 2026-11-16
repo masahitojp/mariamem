@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
@@ -74,6 +75,18 @@ func runInstance(in io.Reader, out, stderr io.Writer, transfer string, restore [
 		}
 		if err = fs.MkdirAll("snapshot-out", 0755); err != nil {
 			return
+		}
+		// Experiment-only startup configuration; no public API change.
+		if mode := os.Getenv("EXPERIMENT_BUFFER_LOAD"); mode != "" {
+			if mode != "ON" && mode != "OFF" {
+				panic("invalid buffer load control")
+			}
+			if err = fs.MkdirAll("etc", 0755); err != nil {
+				return
+			}
+			if err = fs.WriteFile("etc/my.cnf", []byte("[server]\ninnodb-buffer-pool-load-at-startup="+mode+"\n[embedded]\ninnodb-buffer-pool-load-at-startup="+mode+"\n"), 0644); err != nil {
+				return
+			}
 		}
 		w.SetFS(entropyFS{fs})
 		w.SetArgs([]string{"mariamem"})
