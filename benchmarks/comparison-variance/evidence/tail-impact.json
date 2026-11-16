@@ -1,0 +1,63 @@
+{
+  "maria_mean": 463.952,
+  "pg_mean": 398.40495,
+  "mean_gap_percent": 16.45236837544313,
+  "replace_only_two_over_1_2median_with_median_hypothetical_mean": 427.12695,
+  "hypothetical_gap_percent": 7.209247776665428,
+  "actual_slow_names": [
+    "p8-b5-s1-maria",
+    "p8-b5-s2-maria"
+  ],
+  "tail_windows": [
+    {
+      "name": "p8-b5-s1-maria",
+      "last": {
+        "name": "writer_cleanup",
+        "kind": "cleanup",
+        "lane": "TestShipOrder/pending_rejected",
+        "start_ms": 769.205,
+        "end_ms": 771.738
+      },
+      "next_last": {
+        "name": "writer_cleanup",
+        "kind": "cleanup",
+        "lane": "TestApplyDiscount/music_25",
+        "start_ms": 425.954,
+        "end_ms": 427.797
+      },
+      "last_cleanup_end_gap": 343.94100000000003,
+      "last_sample": {
+        "name": "sample",
+        "kind": "sample",
+        "lane": "TestShipOrder/pending_rejected",
+        "start_ms": 282.101,
+        "end_ms": 768.934
+      }
+    },
+    {
+      "name": "p8-b5-s2-maria",
+      "last": {
+        "name": "writer_cleanup",
+        "kind": "cleanup",
+        "lane": "TestCancelOrder/pending",
+        "start_ms": 821.855,
+        "end_ms": 824.232
+      },
+      "next_last": {
+        "name": "writer_cleanup",
+        "kind": "cleanup",
+        "lane": "TestApplyDiscount/games_0",
+        "start_ms": 396.914,
+        "end_ms": 399.182
+      },
+      "last_cleanup_end_gap": 425.04999999999995,
+      "last_sample": {
+        "name": "sample",
+        "kind": "sample",
+        "lane": "TestCancelOrder/pending",
+        "start_ms": 332.289,
+        "end_ms": 820.011
+      }
+    }
+  ]
+}

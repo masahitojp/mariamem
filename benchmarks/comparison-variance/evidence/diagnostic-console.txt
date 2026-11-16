@@ -1,0 +1,9 @@
+0 678.614 {'name': 'sample', 'kind': 'sample', 'lane': 'TestShipOrder/twice', 'start_ms': 255.886, 'end_ms': 400.038}
+1 500.371 {'name': 'sample', 'kind': 'sample', 'lane': 'TestApplyDiscount/books_10', 'start_ms': 137.764, 'end_ms': 257.323}
+2 489.788 {'name': 'sample', 'kind': 'sample', 'lane': 'TestShipOrder/pending_rejected', 'start_ms': 182.034, 'end_ms': 280.367}
+3 552.379 {'name': 'sample', 'kind': 'sample', 'lane': 'TestApplyDiscount/books_10', 'start_ms': 113.676, 'end_ms': 232.552}
+4 509.716 {'name': 'sample', 'kind': 'sample', 'lane': 'TestApplyDiscount/music_25', 'start_ms': 214.664, 'end_ms': 316.758}
+5 495.895 {'name': 'sample', 'kind': 'sample', 'lane': 'TestApplyDiscount/movies_50', 'start_ms': 227.509, 'end_ms': 311.805}
+6 502.867 {'name': 'sample', 'kind': 'sample', 'lane': 'TestShipOrder/one_paid', 'start_ms': 229.661, 'end_ms': 315.949}
+7 824.6 {'name': 'sample', 'kind': 'sample', 'lane': 'TestDeleteUser/user_15', 'start_ms': 272.923, 'end_ms': 753.75}
+ALL8 DIAGNOSTIC SUITES PASS

@@ -1,0 +1,11 @@
+{
+  "source": {
+    "object_sha": "1977fff480c2f976bc23f4d2e1b8ff8db36ad128",
+    "object_type": "commit",
+    "source_commit": "1977fff480c2f976bc23f4d2e1b8ff8db36ad128"
+  },
+  "binary_sha256": "b77b67e437f72bcdfabc9c3524761cbc55d64277cdf0ffe2dd9a9f56cc655ca9",
+  "overlay_sha256": "c176880229ada183708fe6f97f4e10e6bdcb21d7813eef67dd3dbe433c132126",
+  "limit": "8 fixed P8 processes; no repetitions after non-reproduction; diagnostics not speed comparison",
+  "reason": "2 of20 natural P8 runs have single LoadSample around487ms; no call-level identity yet; #140/#143 not declared same cause"
+}
