@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-start-order/worktree/benchmarks/pool-start-order/run.py", line 21, in <module>
+    with(e/'build.txt').open('w')as f:subprocess.run(['clang++','-std=c++17','-O2','-pthread',str(t/'repro.cpp'),'-o',str(t/'repro')],stdout=f,stderr=f,check=True,timeout=60)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['clang++', '-std=c++17', '-O2', '-pthread', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-start-order/temp/repro.cpp', '-o', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-start-order/temp/repro']' returned non-zero exit status 1.

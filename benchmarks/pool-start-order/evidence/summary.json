@@ -1,0 +1,42 @@
+{
+  "pending_400": {
+    "n": 3,
+    "wait_min_ms": 400.154,
+    "wait_max_ms": 405.178,
+    "pending_blocks": [
+      1,
+      1,
+      1
+    ]
+  },
+  "after_start": {
+    "n": 3,
+    "wait_min_ms": 0.038792,
+    "wait_max_ms": 0.090166,
+    "pending_blocks": [
+      0,
+      0,
+      0
+    ]
+  },
+  "announced_wait": {
+    "n": 3,
+    "wait_min_ms": 0.030209,
+    "wait_max_ms": 0.040917,
+    "pending_blocks": [
+      1,
+      1,
+      1
+    ]
+  },
+  "pending_40": {
+    "n": 3,
+    "wait_min_ms": 45.0577,
+    "wait_max_ms": 45.1673,
+    "pending_blocks": [
+      1,
+      1,
+      1
+    ]
+  }
+}

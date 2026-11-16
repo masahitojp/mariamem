@@ -1,0 +1,1 @@
+{"mode":"announced_wait","pending_blocks":1,"max_blocks":0,"throttle_blocks":0,"queue_before_tick":0,"active_before_tick":0,"waiting_before_tick":0,"concurrency":16,"tick_ms":-1,"A_wait_ms":0.040917,"B_start_ms":0.033708,"workers":2,"clean":true}

@@ -1,0 +1,82 @@
+{
+  "source_identity": {
+    "object_sha": "c772f7d78e09f6b9c30cd4d3799cb23e1bbb6b89",
+    "object_type": "commit",
+    "source_commit": "c772f7d78e09f6b9c30cd4d3799cb23e1bbb6b89"
+  },
+  "upstream_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_sha256": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+  "methods": [
+    {
+      "method": "static int  throttling_interval_ms",
+      "source_sha256": "9703c2d8308baa4df9e5a6abc3c0081b68da5b182cb8383a4341b26bd39bb670",
+      "instrumented_sha256": "9703c2d8308baa4df9e5a6abc3c0081b68da5b182cb8383a4341b26bd39bb670",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "void thread_pool_generic::maybe_wake_or_create_thread",
+      "source_sha256": "2c427e43211449b4338c9ebbdb3f0dcee4b11533f9029d3022090c1bb5662e68",
+      "instrumented_sha256": "2c427e43211449b4338c9ebbdb3f0dcee4b11533f9029d3022090c1bb5662e68",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "bool thread_pool_generic::add_thread",
+      "source_sha256": "590112f8cc8b4a03d9a08c5782258f780c88a69210d083b1cfb3948c8618b3d7",
+      "instrumented_sha256": "13ef194b2e7aebf6a7488dfb34df5a6ca6b56b93c67a9af2ba11c22bd3dd6343",
+      "counter_hooks_only": true
+    },
+    {
+      "method": "void thread_pool_generic::submit_task",
+      "source_sha256": "8f11fe522186095a05dcb05562de366a3e9572985750bf6e003f83466340e02e",
+      "instrumented_sha256": "8f11fe522186095a05dcb05562de366a3e9572985750bf6e003f83466340e02e",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "void thread_pool_generic::worker_main",
+      "source_sha256": "e267854f1845fa8cce15377d796b88c9b63470381d84153741a8f9d29e01f57b",
+      "instrumented_sha256": "e267854f1845fa8cce15377d796b88c9b63470381d84153741a8f9d29e01f57b",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "void thread_pool_generic::maintenance()",
+      "source_sha256": "16d615eb5dcfb30883d745a20e9c07525af816fdb4eac6c428405e7850a40884",
+      "instrumented_sha256": "16d615eb5dcfb30883d745a20e9c07525af816fdb4eac6c428405e7850a40884",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "void thread_pool_generic::set_concurrency",
+      "source_sha256": "5e40c1cc1dcf50affbba19fb3c99cf641baa25f19c4035a6607c958365c39c5b",
+      "instrumented_sha256": "5e40c1cc1dcf50affbba19fb3c99cf641baa25f19c4035a6607c958365c39c5b",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "void thread_pool_generic::wait_begin",
+      "source_sha256": "74321238bc3f0d5c8f502bb6c4f3d2d97e632a0e21edb2d2530efb7fa8066610",
+      "instrumented_sha256": "74321238bc3f0d5c8f502bb6c4f3d2d97e632a0e21edb2d2530efb7fa8066610",
+      "counter_hooks_only": false
+    },
+    {
+      "method": "void thread_pool_generic::wait_end",
+      "source_sha256": "0f00b20331b0d2bb3c93d95328c1e52965c059693002b911a3e6f32cbc392d93",
+      "instrumented_sha256": "0f00b20331b0d2bb3c93d95328c1e52965c059693002b911a3e6f32cbc392d93",
+      "counter_hooks_only": false
+    }
+  ],
+  "generated_cpp_sha256": "353fada9c135e09fd73b5fcef8a7ea092a45b8f3be09e61ab78dd44af662b690",
+  "platform": "macOS-27.2.1-arm64-arm-64bit",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.4.1.1)\nTarget: arm64-apple-darwin27.2.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "command": [
+    "clang++",
+    "-std=c++17",
+    "-O2",
+    "-pthread",
+    "-isysroot",
+    "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+    "-isystem",
+    "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1",
+    "repro.cpp",
+    "-o",
+    "repro"
+  ],
+  "binary_sha256": "6bc1f2151c9a20a3989f1a826dce55d7cac7b53aa11fe1f027a2b00fda548858"
+}

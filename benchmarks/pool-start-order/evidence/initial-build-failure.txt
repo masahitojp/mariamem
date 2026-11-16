@@ -1,0 +1,4 @@
+/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-start-order/temp/repro.cpp:1:10: fatal error: 'atomic' file not found
+    1 | #include <atomic>
+      |          ^~~~~~~~
+1 error generated.
