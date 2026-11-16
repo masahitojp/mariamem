@@ -27,7 +27,7 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 	if err != nil {
 		return nil, err
 	}
-	out, childOut, err := os.Pipe()
+	out, childOut, err := experimentResponsePipe()
 	if err != nil {
 		childIn.Close()
 		in.Close()
@@ -36,8 +36,8 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 	timing.Mark(ctx, "linked_execution_begin")
 	capture := &prepared.Capture{}
 	failed := make(chan error, 1)
-	stopped, execution := generatedgo.StartInstanceWithStopped(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx), func(err error) { failed <- err }, capture)
-	p, e := ConnectWithStopped(ctx, in, out, execution, func() {
+	stopped, execution := generatedgo.StartInstanceWithStopped(experimentReader("guest_read", childIn), experimentWriter("guest_write", childOut), logs, transfer, restore, timing.Enabled(ctx), func(err error) { failed <- err }, capture)
+	p, e := ConnectWithStopped(ctx, experimentWriteCloser("host_write", in), experimentReadCloser("host_read", out), execution, func() {
 		childIn.Close()
 		childOut.Close()
 	}, tail, failed, stopped)

@@ -248,6 +248,7 @@ func (p *Process) read() {
 			headerAt = time.Now()
 		}
 		n := binary.LittleEndian.Uint32(h[:])
+		experimentCount("response_frame", int(n))
 		if n == 0 || n > 32<<20 {
 			p.Abort(errors.New("invalid guest frame"))
 			return
@@ -337,6 +338,9 @@ func (p *Process) Call(ctx context.Context, op byte, slot uint32, sql []byte) (R
 	id := p.next
 	p.pending[id] = ch
 	p.mu.Unlock()
+	if experimentEnabled.Load() {
+		experimentCount(fmt.Sprintf("request_op_%d", op), 13+len(sql))
+	}
 	packet := make([]byte, 13+len(sql))
 	binary.LittleEndian.PutUint32(packet, uint32(9+len(sql)))
 	packet[4] = op
