@@ -154,7 +154,7 @@ func (f *fixture) usePgmem(ctx context.Context) error {
 			}
 		})
 		done = f.rec.Start("sample", "sample", t.Name())
-		if err := loadUnlessProbe(ctx, db); err != nil {
+		if err := store.LoadSample(ctx, db); err != nil {
 			t.Fatal(err)
 		}
 		done()
@@ -210,7 +210,7 @@ func (f *fixture) useServer(ctx context.Context, dsn string) error {
 		}
 		done()
 		done = f.rec.Start("sample", "sample", lane)
-		if err := loadUnlessProbe(ctx, db); err != nil {
+		if err := store.LoadSample(ctx, db); err != nil {
 			return err
 		}
 		done()
