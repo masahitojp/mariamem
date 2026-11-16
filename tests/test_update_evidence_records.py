@@ -28,6 +28,8 @@ def ledger(tmp_path):
     # Synthetic audit below has no generated source delta. Test explicit
     # source approvals independently in test_explicit_source_delta_requires_exact_approved_hash.
     policy['generated_file_deltas']=[]
+    # This synthetic audit has no production input-manifest transition.
+    policy.pop('input_manifest_delta', None)
     policy['metadata_files'][0]['before']=None
     (tmp_path/'release/attribution-tolerance.json').write_text(json.dumps(policy,indent=2)+'\n')
     def write(name, value):
