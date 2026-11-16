@@ -12,7 +12,7 @@ for mode in ['ON','OFF']:
  with (e/('validate-'+mode+'.txt')).open('w')as f:subprocess.run([str(t/'maria.test'),'-test.run=^TestMatchedSemantics$','-test.timeout=150s'],cwd=t/'maria-suite',env=env|{'EXPERIMENT_BUFFER_LOAD':mode,'EXPERIMENT_VALIDATE_LOAD':'1'},stdout=f,stderr=f,check=True)
  print(mode,'VALIDATED',flush=True)
 
-with (e/'large-build.txt').open('w')as f:subprocess.run(['go','build','-p','1','-o',str(t/'large'),'./benchmarks/preload-adoption'],cwd=r,env=env,stdout=f,stderr=f,check=True)
+with (e/'large-build.txt').open('w')as f:subprocess.run(['go','build','-p','1','-o',str(t/'large'),'./preload-adoption'],cwd=r/'benchmarks',env=env,stdout=f,stderr=f,check=True)
 (e/'large-sha256.txt').write_text(hashlib.sha256((t/'large').read_bytes()).hexdigest())
 for arm in ['ON','OFF']:
  with (e/('acceptance-'+arm+'.txt')).open('w')as f:subprocess.run([str(t/'large'),'-rows=4096','-p=8','-acceptance','-out='+str(e/('acceptance-'+arm+'.json'))],cwd=r,env=env|{'EXPERIMENT_BUFFER_LOAD':arm},stdout=f,stderr=f,check=True)
