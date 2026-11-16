@@ -1,0 +1,15 @@
+{
+  "source_identity": {
+    "object_sha": "a7d284c1fd612278de4e50d0fee79933d2aca0b1",
+    "object_type": "commit",
+    "source_commit": "a7d284c1fd612278de4e50d0fee79933d2aca0b1"
+  },
+  "blocks": 5,
+  "parallel": [
+    1
+  ],
+  "order": "ON OFF OFF ON / OFF ON ON OFF alternating",
+  "recursive_scan": "only before and after processes, never concurrent",
+  "timer": "external process wall and internal suite",
+  "limit_seconds": 900
+}

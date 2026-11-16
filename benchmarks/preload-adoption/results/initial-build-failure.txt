@@ -1,0 +1,8 @@
+ON VALIDATED
+OFF VALIDATED
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/preload-adoption-check/worktree/../evidence/build.py", line 15, in <module>
+    with (e/'large-build.txt').open('w')as f:subprocess.run(['go','build','-p','1','-o',str(t/'large'),'./benchmarks/preload-adoption'],cwd=r,env=env,stdout=f,stderr=f,check=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['go', 'build', '-p', '1', '-o', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/preload-adoption-check/temp/large', './benchmarks/preload-adoption']' returned non-zero exit status 1.

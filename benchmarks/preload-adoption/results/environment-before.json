@@ -1,0 +1,17 @@
+{
+  "power": {
+    "code": 0,
+    "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "stderr": ""
+  },
+  "policy": {
+    "code": 0,
+    "stdout": "AC Power:\n Sleep On Power Button 1\n lowpowermode         0\n standby              0\n hibernatemode        0\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+    "stderr": ""
+  },
+  "thermal": {
+    "code": 0,
+    "stdout": "Error:Failed to get thermal warning level with error code 0xe00002bc\nError: Failed to get performance warning level with error code 0xe00002bc\nError: No CPU power status with error code 0xe00002bc\n",
+    "stderr": ""
+  }
+}

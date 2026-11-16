@@ -1,0 +1,92 @@
+{
+  "acceptance": false,
+  "arm": "ON",
+  "batch_ms": 185.293709,
+  "cpu_ms": 2554.06,
+  "elapsed_ms": 1475.728542,
+  "final_ms": 48.759834,
+  "go": "go1.27.4",
+  "gomaxprocs": 8,
+  "mapping_stats": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 11,
+    "grow_calls": 800,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 5703139328,
+    "release_failures": 0,
+    "releases": 11
+  },
+  "parallel": 8,
+  "physical_bytes": 28901376,
+  "prepare_ms": 1241.6675,
+  "rows": 24576,
+  "samples": [
+    {
+      "first_scan_ms": 55.151667,
+      "fork_ms": 37.462,
+      "lifecycle_ms": 154.413709,
+      "retire_ms": 2.885125,
+      "second_scan_ms": 56.584167,
+      "update_ms": 1.784
+    },
+    {
+      "first_scan_ms": 88.169958,
+      "fork_ms": 37.611958,
+      "lifecycle_ms": 180.532625,
+      "retire_ms": 2.749167,
+      "second_scan_ms": 51.192708,
+      "update_ms": 0.601125
+    },
+    {
+      "first_scan_ms": 84.302208,
+      "fork_ms": 37.499292,
+      "lifecycle_ms": 176.37975,
+      "retire_ms": 2.847416,
+      "second_scan_ms": 50.768667,
+      "update_ms": 0.761208
+    },
+    {
+      "first_scan_ms": 84.418083,
+      "fork_ms": 25.984084,
+      "lifecycle_ms": 173.067333,
+      "retire_ms": 2.7075,
+      "second_scan_ms": 58.880292,
+      "update_ms": 0.754625
+    },
+    {
+      "first_scan_ms": 95.961875,
+      "fork_ms": 37.114,
+      "lifecycle_ms": 185.046334,
+      "retire_ms": 2.649875,
+      "second_scan_ms": 48.634958,
+      "update_ms": 0.50875
+    },
+    {
+      "first_scan_ms": 49.375083,
+      "fork_ms": 37.376125,
+      "lifecycle_ms": 147.89175,
+      "retire_ms": 2.751,
+      "second_scan_ms": 57.542791,
+      "update_ms": 0.663
+    },
+    {
+      "first_scan_ms": 59.112167,
+      "fork_ms": 25.506417,
+      "lifecycle_ms": 148.346834,
+      "retire_ms": 2.864166,
+      "second_scan_ms": 60.305708,
+      "update_ms": 0.397292
+    },
+    {
+      "first_scan_ms": 66.273625,
+      "fork_ms": 37.3745,
+      "lifecycle_ms": 160.122791,
+      "retire_ms": 3.09125,
+      "second_scan_ms": 51.617125,
+      "update_ms": 1.194541
+    }
+  ],
+  "success": true
+}

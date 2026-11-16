@@ -8,6 +8,19 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Startup preload OFF adoption-value check (2026-11-17)
+
+The Human authorized a bounded representative-workload and lifecycle check after
+two modelcase P8 controls favored OFF. This check is complete: P1 modelcase paired
+elapsed-1.58% (4/5), CPU-13.18% (5/5); large-table whole time showed no consistent
+regression. SQL/audit, sibling isolation, reSnapshot and zero-mapping checks passed.
+Small-table first-read P1 latency (+7.08% paired, about0.3ms independent-median
+difference) and P8 Fork (+8.01% paired, about4.2ms) are material tradeoffs returned
+for Human judgment. Recommendation: accept these local costs for suite throughput
+and proceed to clean productization, subject to that decision. Production default
+remains unchanged; no CI, merge or release approval is inferred.
+See [all conditions and outcomes](../benchmarks/preload-adoption/README.md).
+
 ## Go asynchronous Close — adopted on main (2026-11-16)
 
 The Human approved integration of PR217. It merged as source_commit

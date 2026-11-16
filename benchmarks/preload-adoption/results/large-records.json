@@ -1,0 +1,5330 @@
+[
+  {
+    "name": "n4096-p1-pair-1-ON",
+    "n": 4096,
+    "p": 1,
+    "pair": -1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 594.2738330000001,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "load_after": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "acceptance": false,
+    "batch_ms": 235.169375,
+    "cpu_ms": 712.119,
+    "elapsed_ms": 524.94125,
+    "final_ms": 23.456167,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 807,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 764411904,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 266.311,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 5.7555,
+        "fork_ms": 15.625542,
+        "lifecycle_ms": 29.968125,
+        "retire_ms": 2.040416,
+        "second_scan_ms": 5.213167,
+        "update_ms": 1.137042
+      },
+      {
+        "first_scan_ms": 6.820416,
+        "fork_ms": 14.877083,
+        "lifecycle_ms": 29.802542,
+        "retire_ms": 1.986625,
+        "second_scan_ms": 5.497708,
+        "update_ms": 0.457417
+      },
+      {
+        "first_scan_ms": 5.667667,
+        "fork_ms": 15.077167,
+        "lifecycle_ms": 28.468959,
+        "retire_ms": 1.846209,
+        "second_scan_ms": 5.139666,
+        "update_ms": 0.515667
+      },
+      {
+        "first_scan_ms": 5.535416,
+        "fork_ms": 14.759791,
+        "lifecycle_ms": 28.13575,
+        "retire_ms": 2.007875,
+        "second_scan_ms": 5.205125,
+        "update_ms": 0.456708
+      },
+      {
+        "first_scan_ms": 6.448625,
+        "fork_ms": 15.001209,
+        "lifecycle_ms": 30.147042,
+        "retire_ms": 1.930209,
+        "second_scan_ms": 6.095417,
+        "update_ms": 0.485542
+      },
+      {
+        "first_scan_ms": 5.840917,
+        "fork_ms": 15.769292,
+        "lifecycle_ms": 29.457292,
+        "retire_ms": 1.892959,
+        "second_scan_ms": 5.294166,
+        "update_ms": 0.481292
+      },
+      {
+        "first_scan_ms": 6.536416,
+        "fork_ms": 15.804833,
+        "lifecycle_ms": 30.788125,
+        "retire_ms": 2.039917,
+        "second_scan_ms": 5.667458,
+        "update_ms": 0.524459
+      },
+      {
+        "first_scan_ms": 5.587083,
+        "fork_ms": 15.150584,
+        "lifecycle_ms": 28.392125,
+        "retire_ms": 1.951125,
+        "second_scan_ms": 5.095125,
+        "update_ms": 0.448333
+      }
+    ],
+    "success": true,
+    "rss_bytes": 144326656
+  },
+  {
+    "name": "n4096-p1-pair-1-OFF",
+    "n": 4096,
+    "p": 1,
+    "pair": -1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 544.1182500000001,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "load_after": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "acceptance": false,
+    "batch_ms": 237.173375,
+    "cpu_ms": 667.418,
+    "elapsed_ms": 500.381583,
+    "final_ms": 24.2505,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 801,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755236864,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 238.953833,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 7.090792,
+        "fork_ms": 15.330916,
+        "lifecycle_ms": 30.806,
+        "retire_ms": 2.005959,
+        "second_scan_ms": 5.516916,
+        "update_ms": 0.591834
+      },
+      {
+        "first_scan_ms": 6.990333,
+        "fork_ms": 15.126166,
+        "lifecycle_ms": 30.442375,
+        "retire_ms": 2.051375,
+        "second_scan_ms": 5.6025,
+        "update_ms": 0.509333
+      },
+      {
+        "first_scan_ms": 6.471084,
+        "fork_ms": 14.996708,
+        "lifecycle_ms": 29.435083,
+        "retire_ms": 1.942292,
+        "second_scan_ms": 5.368209,
+        "update_ms": 0.473709
+      },
+      {
+        "first_scan_ms": 6.300875,
+        "fork_ms": 15.041792,
+        "lifecycle_ms": 29.68075,
+        "retire_ms": 2.241417,
+        "second_scan_ms": 5.43075,
+        "update_ms": 0.492083
+      },
+      {
+        "first_scan_ms": 6.30725,
+        "fork_ms": 14.911458,
+        "lifecycle_ms": 28.878167,
+        "retire_ms": 1.952417,
+        "second_scan_ms": 5.057375,
+        "update_ms": 0.487666
+      },
+      {
+        "first_scan_ms": 6.162792,
+        "fork_ms": 15.270084,
+        "lifecycle_ms": 29.422458,
+        "retire_ms": 1.966542,
+        "second_scan_ms": 5.349834,
+        "update_ms": 0.491334
+      },
+      {
+        "first_scan_ms": 6.223,
+        "fork_ms": 15.155917,
+        "lifecycle_ms": 29.561625,
+        "retire_ms": 2.022083,
+        "second_scan_ms": 5.489417,
+        "update_ms": 0.487958
+      },
+      {
+        "first_scan_ms": 6.607375,
+        "fork_ms": 14.64425,
+        "lifecycle_ms": 28.93875,
+        "retire_ms": 2.005208,
+        "second_scan_ms": 5.078666,
+        "update_ms": 0.446458
+      }
+    ],
+    "success": true,
+    "rss_bytes": 142835712
+  },
+  {
+    "name": "n4096-p8-pair-1-ON",
+    "n": 4096,
+    "p": 8,
+    "pair": -1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 446.27945899999986,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "load_after": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "acceptance": false,
+    "batch_ms": 153.7155,
+    "cpu_ms": 756.725,
+    "elapsed_ms": 413.163459,
+    "final_ms": 23.231625,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 785,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5530255360,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 236.21175,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 37.689125,
+        "fork_ms": 94.428833,
+        "lifecycle_ms": 143.8545,
+        "retire_ms": 3.9875,
+        "second_scan_ms": 6.742792,
+        "update_ms": 0.809667
+      },
+      {
+        "first_scan_ms": 17.086917,
+        "fork_ms": 118.746083,
+        "lifecycle_ms": 147.198875,
+        "retire_ms": 3.343042,
+        "second_scan_ms": 7.055083,
+        "update_ms": 0.697416
+      },
+      {
+        "first_scan_ms": 26.012292,
+        "fork_ms": 107.039791,
+        "lifecycle_ms": 145.274125,
+        "retire_ms": 4.919667,
+        "second_scan_ms": 6.730417,
+        "update_ms": 0.38775
+      },
+      {
+        "first_scan_ms": 10.899958,
+        "fork_ms": 96.511292,
+        "lifecycle_ms": 131.901542,
+        "retire_ms": 6.066417,
+        "second_scan_ms": 17.616125,
+        "update_ms": 0.609333
+      },
+      {
+        "first_scan_ms": 34.787708,
+        "fork_ms": 108.436667,
+        "lifecycle_ms": 153.61975,
+        "retire_ms": 2.900625,
+        "second_scan_ms": 6.821625,
+        "update_ms": 0.495125
+      },
+      {
+        "first_scan_ms": 29.448,
+        "fork_ms": 80.990417,
+        "lifecycle_ms": 136.546209,
+        "retire_ms": 3.122292,
+        "second_scan_ms": 8.289917,
+        "update_ms": 14.219042
+      },
+      {
+        "first_scan_ms": 38.696791,
+        "fork_ms": 101.684041,
+        "lifecycle_ms": 151.184958,
+        "retire_ms": 3.298916,
+        "second_scan_ms": 6.751042,
+        "update_ms": 0.534792
+      },
+      {
+        "first_scan_ms": 14.469834,
+        "fork_ms": 108.237292,
+        "lifecycle_ms": 139.524083,
+        "retire_ms": 4.52475,
+        "second_scan_ms": 9.377084,
+        "update_ms": 1.581083
+      }
+    ],
+    "success": true,
+    "rss_bytes": 567017472
+  },
+  {
+    "name": "n4096-p8-pair-1-OFF",
+    "n": 4096,
+    "p": 8,
+    "pair": -1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 394.05933400000004,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "load_after": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "acceptance": false,
+    "batch_ms": 79.279666,
+    "cpu_ms": 739.119,
+    "elapsed_ms": 344.314084,
+    "final_ms": 23.483125,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 798,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5553389568,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 241.543792,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 15.528375,
+        "fork_ms": 33.095458,
+        "lifecycle_ms": 67.066375,
+        "retire_ms": 4.226084,
+        "second_scan_ms": 13.307875,
+        "update_ms": 0.564209
+      },
+      {
+        "first_scan_ms": 16.486959,
+        "fork_ms": 39.740167,
+        "lifecycle_ms": 68.820792,
+        "retire_ms": 3.546334,
+        "second_scan_ms": 8.284333,
+        "update_ms": 0.6065
+      },
+      {
+        "first_scan_ms": 24.186083,
+        "fork_ms": 40.847458,
+        "lifecycle_ms": 75.249791,
+        "retire_ms": 2.860542,
+        "second_scan_ms": 6.626541,
+        "update_ms": 0.523333
+      },
+      {
+        "first_scan_ms": 14.73425,
+        "fork_ms": 33.936333,
+        "lifecycle_ms": 66.489125,
+        "retire_ms": 3.556083,
+        "second_scan_ms": 13.189042,
+        "update_ms": 0.731917
+      },
+      {
+        "first_scan_ms": 33.360917,
+        "fork_ms": 33.747208,
+        "lifecycle_ms": 77.625833,
+        "retire_ms": 3.094084,
+        "second_scan_ms": 6.72375,
+        "update_ms": 0.512125
+      },
+      {
+        "first_scan_ms": 29.13775,
+        "fork_ms": 39.689791,
+        "lifecycle_ms": 79.189125,
+        "retire_ms": 4.080792,
+        "second_scan_ms": 5.7345,
+        "update_ms": 0.393042
+      },
+      {
+        "first_scan_ms": 15.039958,
+        "fork_ms": 33.528875,
+        "lifecycle_ms": 59.177042,
+        "retire_ms": 2.307208,
+        "second_scan_ms": 7.49,
+        "update_ms": 0.572208
+      },
+      {
+        "first_scan_ms": 22.17125,
+        "fork_ms": 33.985375,
+        "lifecycle_ms": 67.901709,
+        "retire_ms": 4.165042,
+        "second_scan_ms": 6.408875,
+        "update_ms": 0.910291
+      }
+    ],
+    "success": true,
+    "rss_bytes": 558678016
+  },
+  {
+    "name": "n24576-p1-pair-1-ON",
+    "n": 24576,
+    "p": 1,
+    "pair": -1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 2084.468959,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.27587890625,
+      8.61279296875,
+      10.85888671875
+    ],
+    "load_after": [
+      4.41357421875,
+      8.5693359375,
+      10.830078125
+    ],
+    "acceptance": false,
+    "batch_ms": 687.161333,
+    "cpu_ms": 2413.9260000000004,
+    "elapsed_ms": 2022.4635,
+    "final_ms": 49.441083,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 827,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 774963200,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1285.856542,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 29.305958,
+        "fork_ms": 15.943208,
+        "lifecycle_ms": 77.506667,
+        "retire_ms": 2.535959,
+        "second_scan_ms": 28.887458,
+        "update_ms": 0.623542
+      },
+      {
+        "first_scan_ms": 31.8995,
+        "fork_ms": 15.698834,
+        "lifecycle_ms": 83.02625,
+        "retire_ms": 2.158125,
+        "second_scan_ms": 32.502625,
+        "update_ms": 0.54325
+      },
+      {
+        "first_scan_ms": 31.124833,
+        "fork_ms": 15.473792,
+        "lifecycle_ms": 79.471583,
+        "retire_ms": 1.898541,
+        "second_scan_ms": 30.227,
+        "update_ms": 0.54225
+      },
+      {
+        "first_scan_ms": 29.408708,
+        "fork_ms": 15.065916,
+        "lifecycle_ms": 76.281417,
+        "retire_ms": 1.848167,
+        "second_scan_ms": 29.21675,
+        "update_ms": 0.523625
+      },
+      {
+        "first_scan_ms": 29.774375,
+        "fork_ms": 16.721208,
+        "lifecycle_ms": 77.951458,
+        "retire_ms": 1.919833,
+        "second_scan_ms": 28.781125,
+        "update_ms": 0.531458
+      },
+      {
+        "first_scan_ms": 30.87125,
+        "fork_ms": 15.017791,
+        "lifecycle_ms": 77.590417,
+        "retire_ms": 1.850709,
+        "second_scan_ms": 29.111709,
+        "update_ms": 0.539542
+      },
+      {
+        "first_scan_ms": 29.301459,
+        "fork_ms": 15.091125,
+        "lifecycle_ms": 123.137375,
+        "retire_ms": 8.302,
+        "second_scan_ms": 69.016,
+        "update_ms": 0.841083
+      },
+      {
+        "first_scan_ms": 37.549666,
+        "fork_ms": 20.449959,
+        "lifecycle_ms": 92.185875,
+        "retire_ms": 1.911375,
+        "second_scan_ms": 31.464083,
+        "update_ms": 0.587959
+      }
+    ],
+    "success": true,
+    "rss_bytes": 228098048
+  },
+  {
+    "name": "n24576-p1-pair-1-OFF",
+    "n": 24576,
+    "p": 1,
+    "pair": -1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1953.406042000001,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.41357421875,
+      8.5693359375,
+      10.830078125
+    ],
+    "load_after": [
+      4.41357421875,
+      8.5693359375,
+      10.830078125
+    ],
+    "acceptance": false,
+    "batch_ms": 648.537291,
+    "cpu_ms": 2335.3439999999996,
+    "elapsed_ms": 1908.020125,
+    "final_ms": 46.489292,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 804,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 756613120,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1212.989459,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 30.904083,
+        "fork_ms": 14.841375,
+        "lifecycle_ms": 78.838333,
+        "retire_ms": 2.136333,
+        "second_scan_ms": 30.137458,
+        "update_ms": 0.603833
+      },
+      {
+        "first_scan_ms": 29.930875,
+        "fork_ms": 17.742542,
+        "lifecycle_ms": 78.586,
+        "retire_ms": 1.870458,
+        "second_scan_ms": 28.325625,
+        "update_ms": 0.503166
+      },
+      {
+        "first_scan_ms": 31.265042,
+        "fork_ms": 14.531917,
+        "lifecycle_ms": 78.507416,
+        "retire_ms": 1.854167,
+        "second_scan_ms": 30.143291,
+        "update_ms": 0.500666
+      },
+      {
+        "first_scan_ms": 31.407917,
+        "fork_ms": 14.942375,
+        "lifecycle_ms": 91.659208,
+        "retire_ms": 2.271292,
+        "second_scan_ms": 42.291291,
+        "update_ms": 0.542042
+      },
+      {
+        "first_scan_ms": 29.65075,
+        "fork_ms": 15.968,
+        "lifecycle_ms": 76.688875,
+        "retire_ms": 1.989875,
+        "second_scan_ms": 28.362959,
+        "update_ms": 0.508666
+      },
+      {
+        "first_scan_ms": 38.82925,
+        "fork_ms": 16.832958,
+        "lifecycle_ms": 86.8925,
+        "retire_ms": 2.021041,
+        "second_scan_ms": 28.372875,
+        "update_ms": 0.612583
+      },
+      {
+        "first_scan_ms": 29.564458,
+        "fork_ms": 14.986666,
+        "lifecycle_ms": 77.594292,
+        "retire_ms": 1.919208,
+        "second_scan_ms": 30.33175,
+        "update_ms": 0.564458
+      },
+      {
+        "first_scan_ms": 31.482417,
+        "fork_ms": 15.338833,
+        "lifecycle_ms": 79.762334,
+        "retire_ms": 1.955167,
+        "second_scan_ms": 30.263916,
+        "update_ms": 0.531541
+      }
+    ],
+    "success": true,
+    "rss_bytes": 226803712
+  },
+  {
+    "name": "n24576-p8-pair-1-ON",
+    "n": 24576,
+    "p": 8,
+    "pair": -1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1490.5509170000003,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.41357421875,
+      8.5693359375,
+      10.830078125
+    ],
+    "load_after": [
+      4.41357421875,
+      8.5693359375,
+      10.830078125
+    ],
+    "acceptance": false,
+    "batch_ms": 219.571834,
+    "cpu_ms": 2354.812,
+    "elapsed_ms": 1474.448625,
+    "final_ms": 47.568791,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 821,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5997330432,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1207.303167,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 68.231,
+        "fork_ms": 97.365167,
+        "lifecycle_ms": 206.65175,
+        "retire_ms": 3.344167,
+        "second_scan_ms": 36.703208,
+        "update_ms": 0.745292
+      },
+      {
+        "first_scan_ms": 63.28675,
+        "fork_ms": 25.320291,
+        "lifecycle_ms": 148.26175,
+        "retire_ms": 3.381,
+        "second_scan_ms": 55.459209,
+        "update_ms": 0.631125
+      },
+      {
+        "first_scan_ms": 106.281709,
+        "fork_ms": 29.630583,
+        "lifecycle_ms": 188.750875,
+        "retire_ms": 4.882,
+        "second_scan_ms": 46.109167,
+        "update_ms": 1.705917
+      },
+      {
+        "first_scan_ms": 91.889542,
+        "fork_ms": 29.358209,
+        "lifecycle_ms": 194.749041,
+        "retire_ms": 4.109083,
+        "second_scan_ms": 67.997583,
+        "update_ms": 1.097167
+      },
+      {
+        "first_scan_ms": 106.375708,
+        "fork_ms": 29.086042,
+        "lifecycle_ms": 184.282666,
+        "retire_ms": 3.335208,
+        "second_scan_ms": 44.031542,
+        "update_ms": 0.672291
+      },
+      {
+        "first_scan_ms": 87.952958,
+        "fork_ms": 33.330208,
+        "lifecycle_ms": 175.752334,
+        "retire_ms": 3.232042,
+        "second_scan_ms": 44.189583,
+        "update_ms": 0.784875
+      },
+      {
+        "first_scan_ms": 88.5885,
+        "fork_ms": 57.349792,
+        "lifecycle_ms": 202.428709,
+        "retire_ms": 3.364958,
+        "second_scan_ms": 52.283625,
+        "update_ms": 0.595125
+      },
+      {
+        "first_scan_ms": 89.518292,
+        "fork_ms": 82.492083,
+        "lifecycle_ms": 219.533917,
+        "retire_ms": 2.936125,
+        "second_scan_ms": 43.852083,
+        "update_ms": 0.522166
+      }
+    ],
+    "success": true,
+    "rss_bytes": 656293888
+  },
+  {
+    "name": "n24576-p8-pair-1-OFF",
+    "n": 24576,
+    "p": 8,
+    "pair": -1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1475.1142080000009,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.41357421875,
+      8.5693359375,
+      10.830078125
+    ],
+    "load_after": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "acceptance": false,
+    "batch_ms": 172.765375,
+    "cpu_ms": 2481.5389999999998,
+    "elapsed_ms": 1446.224041,
+    "final_ms": 51.177,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 812,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5930221568,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1222.275833,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 74.503417,
+        "fork_ms": 21.941583,
+        "lifecycle_ms": 171.301417,
+        "retire_ms": 3.455833,
+        "second_scan_ms": 70.899375,
+        "update_ms": 0.370375
+      },
+      {
+        "first_scan_ms": 61.714666,
+        "fork_ms": 33.096917,
+        "lifecycle_ms": 160.482,
+        "retire_ms": 2.541083,
+        "second_scan_ms": 61.792958,
+        "update_ms": 0.84
+      },
+      {
+        "first_scan_ms": 53.689542,
+        "fork_ms": 32.951667,
+        "lifecycle_ms": 156.438458,
+        "retire_ms": 3.047,
+        "second_scan_ms": 65.414833,
+        "update_ms": 0.9515
+      },
+      {
+        "first_scan_ms": 58.25375,
+        "fork_ms": 40.664167,
+        "lifecycle_ms": 172.713125,
+        "retire_ms": 2.392333,
+        "second_scan_ms": 70.684209,
+        "update_ms": 0.527
+      },
+      {
+        "first_scan_ms": 66.305542,
+        "fork_ms": 32.806166,
+        "lifecycle_ms": 150.41725,
+        "retire_ms": 2.924708,
+        "second_scan_ms": 47.472208,
+        "update_ms": 0.704167
+      },
+      {
+        "first_scan_ms": 58.60375,
+        "fork_ms": 47.5005,
+        "lifecycle_ms": 145.084791,
+        "retire_ms": 3.321334,
+        "second_scan_ms": 34.860458,
+        "update_ms": 0.612292
+      },
+      {
+        "first_scan_ms": 67.415541,
+        "fork_ms": 37.206125,
+        "lifecycle_ms": 170.266417,
+        "retire_ms": 2.733583,
+        "second_scan_ms": 62.438208,
+        "update_ms": 0.3475
+      },
+      {
+        "first_scan_ms": 77.720208,
+        "fork_ms": 33.097125,
+        "lifecycle_ms": 169.605666,
+        "retire_ms": 2.31675,
+        "second_scan_ms": 55.747333,
+        "update_ms": 0.542792
+      }
+    ],
+    "success": true,
+    "rss_bytes": 652804096
+  },
+  {
+    "name": "n4096-p8-pair0-ON",
+    "n": 4096,
+    "p": 8,
+    "pair": 0,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 387.0585420000001,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "load_after": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "acceptance": false,
+    "batch_ms": 75.118416,
+    "cpu_ms": 760.4060000000001,
+    "elapsed_ms": 332.258542,
+    "final_ms": 22.881917,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 799,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5585829888,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 234.252334,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 31.783125,
+        "fork_ms": 23.8865,
+        "lifecycle_ms": 71.003125,
+        "retire_ms": 3.75625,
+        "second_scan_ms": 10.391917,
+        "update_ms": 0.839417
+      },
+      {
+        "first_scan_ms": 31.539125,
+        "fork_ms": 22.479792,
+        "lifecycle_ms": 70.099125,
+        "retire_ms": 4.107583,
+        "second_scan_ms": 11.213292,
+        "update_ms": 0.504541
+      },
+      {
+        "first_scan_ms": 27.688083,
+        "fork_ms": 37.365375,
+        "lifecycle_ms": 75.010208,
+        "retire_ms": 1.89675,
+        "second_scan_ms": 7.405125,
+        "update_ms": 0.491083
+      },
+      {
+        "first_scan_ms": 19.1145,
+        "fork_ms": 30.361125,
+        "lifecycle_ms": 67.022167,
+        "retire_ms": 10.691542,
+        "second_scan_ms": 5.745666,
+        "update_ms": 0.99175
+      },
+      {
+        "first_scan_ms": 24.503583,
+        "fork_ms": 37.365042,
+        "lifecycle_ms": 71.646583,
+        "retire_ms": 2.607458,
+        "second_scan_ms": 6.336917,
+        "update_ms": 0.507666
+      },
+      {
+        "first_scan_ms": 7.451625,
+        "fork_ms": 46.486125,
+        "lifecycle_ms": 69.109958,
+        "retire_ms": 6.42,
+        "second_scan_ms": 7.895958,
+        "update_ms": 0.381958
+      },
+      {
+        "first_scan_ms": 17.248291,
+        "fork_ms": 38.184667,
+        "lifecycle_ms": 67.946667,
+        "retire_ms": 5.452959,
+        "second_scan_ms": 6.356875,
+        "update_ms": 0.460209
+      },
+      {
+        "first_scan_ms": 25.738959,
+        "fork_ms": 22.420417,
+        "lifecycle_ms": 60.078,
+        "retire_ms": 3.791625,
+        "second_scan_ms": 5.627834,
+        "update_ms": 2.301417
+      }
+    ],
+    "success": true,
+    "rss_bytes": 568950784
+  },
+  {
+    "name": "n4096-p8-pair0-OFF",
+    "n": 4096,
+    "p": 8,
+    "pair": 0,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 348.3497920000005,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "load_after": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "acceptance": false,
+    "batch_ms": 74.253625,
+    "cpu_ms": 742.7579999999999,
+    "elapsed_ms": 332.124917,
+    "final_ms": 22.656625,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 804,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5569183744,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 235.210792,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 14.214375,
+        "fork_ms": 34.701167,
+        "lifecycle_ms": 57.742875,
+        "retire_ms": 3.008542,
+        "second_scan_ms": 5.060834,
+        "update_ms": 0.603416
+      },
+      {
+        "first_scan_ms": 17.31925,
+        "fork_ms": 45.248833,
+        "lifecycle_ms": 74.165834,
+        "retire_ms": 3.34675,
+        "second_scan_ms": 7.36975,
+        "update_ms": 0.73875
+      },
+      {
+        "first_scan_ms": 15.164208,
+        "fork_ms": 45.026209,
+        "lifecycle_ms": 72.297291,
+        "retire_ms": 2.954792,
+        "second_scan_ms": 8.209833,
+        "update_ms": 0.644916
+      },
+      {
+        "first_scan_ms": 33.57275,
+        "fork_ms": 27.942083,
+        "lifecycle_ms": 73.478292,
+        "retire_ms": 2.694958,
+        "second_scan_ms": 8.553375,
+        "update_ms": 0.578041
+      },
+      {
+        "first_scan_ms": 32.019875,
+        "fork_ms": 27.907666,
+        "lifecycle_ms": 71.96625,
+        "retire_ms": 2.903792,
+        "second_scan_ms": 7.436125,
+        "update_ms": 0.979708
+      },
+      {
+        "first_scan_ms": 26.329708,
+        "fork_ms": 27.980291,
+        "lifecycle_ms": 65.222167,
+        "retire_ms": 2.677,
+        "second_scan_ms": 6.043667,
+        "update_ms": 1.978792
+      },
+      {
+        "first_scan_ms": 22.766916,
+        "fork_ms": 36.036958,
+        "lifecycle_ms": 70.554542,
+        "retire_ms": 2.471959,
+        "second_scan_ms": 8.345917,
+        "update_ms": 0.692625
+      },
+      {
+        "first_scan_ms": 20.638791,
+        "fork_ms": 28.075333,
+        "lifecycle_ms": 62.948208,
+        "retire_ms": 7.61975,
+        "second_scan_ms": 4.897916,
+        "update_ms": 1.259167
+      }
+    ],
+    "success": true,
+    "rss_bytes": 559529984
+  },
+  {
+    "name": "n24576-p8-pair0-ON",
+    "n": 24576,
+    "p": 8,
+    "pair": 0,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1530.143959,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "load_after": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "acceptance": false,
+    "batch_ms": 193.5815,
+    "cpu_ms": 2394.393,
+    "elapsed_ms": 1463.703208,
+    "final_ms": 55.721583,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 830,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5904793600,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1214.393791,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 64.211708,
+        "fork_ms": 18.29075,
+        "lifecycle_ms": 153.650667,
+        "retire_ms": 4.457,
+        "second_scan_ms": 61.517791,
+        "update_ms": 1.667958
+      },
+      {
+        "first_scan_ms": 56.89475,
+        "fork_ms": 82.33475,
+        "lifecycle_ms": 191.581625,
+        "retire_ms": 2.762416,
+        "second_scan_ms": 48.713917,
+        "update_ms": 0.618125
+      },
+      {
+        "first_scan_ms": 87.435875,
+        "fork_ms": 55.995125,
+        "lifecycle_ms": 193.091041,
+        "retire_ms": 2.686083,
+        "second_scan_ms": 46.14875,
+        "update_ms": 0.590625
+      },
+      {
+        "first_scan_ms": 85.457958,
+        "fork_ms": 54.056167,
+        "lifecycle_ms": 188.117875,
+        "retire_ms": 2.557458,
+        "second_scan_ms": 45.052375,
+        "update_ms": 0.760417
+      },
+      {
+        "first_scan_ms": 114.018666,
+        "fork_ms": 18.079917,
+        "lifecycle_ms": 177.329959,
+        "retire_ms": 2.248,
+        "second_scan_ms": 42.07075,
+        "update_ms": 0.57875
+      },
+      {
+        "first_scan_ms": 88.772667,
+        "fork_ms": 35.373667,
+        "lifecycle_ms": 174.59925,
+        "retire_ms": 3.944084,
+        "second_scan_ms": 43.698208,
+        "update_ms": 1.174709
+      },
+      {
+        "first_scan_ms": 89.2945,
+        "fork_ms": 18.071667,
+        "lifecycle_ms": 172.088042,
+        "retire_ms": 10.992083,
+        "second_scan_ms": 52.819291,
+        "update_ms": 0.67175
+      },
+      {
+        "first_scan_ms": 51.992542,
+        "fork_ms": 35.567291,
+        "lifecycle_ms": 136.716417,
+        "retire_ms": 2.192625,
+        "second_scan_ms": 44.978292,
+        "update_ms": 1.572375
+      }
+    ],
+    "success": true,
+    "rss_bytes": 651755520
+  },
+  {
+    "name": "n24576-p8-pair0-OFF",
+    "n": 24576,
+    "p": 8,
+    "pair": 0,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1521.9896669999998,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.54052734375,
+      8.5263671875,
+      10.8017578125
+    ],
+    "load_after": [
+      4.3369140625,
+      8.41796875,
+      10.75
+    ],
+    "acceptance": false,
+    "batch_ms": 194.365416,
+    "cpu_ms": 2418.177,
+    "elapsed_ms": 1459.205292,
+    "final_ms": 50.063792,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 811,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5997395968,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1214.770708,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 53.795584,
+        "fork_ms": 39.338333,
+        "lifecycle_ms": 163.7955,
+        "retire_ms": 5.959834,
+        "second_scan_ms": 61.69625,
+        "update_ms": 1.447
+      },
+      {
+        "first_scan_ms": 93.77825,
+        "fork_ms": 39.405292,
+        "lifecycle_ms": 194.253542,
+        "retire_ms": 3.5075,
+        "second_scan_ms": 57.037292,
+        "update_ms": 0.371917
+      },
+      {
+        "first_scan_ms": 68.939542,
+        "fork_ms": 32.784959,
+        "lifecycle_ms": 167.846917,
+        "retire_ms": 4.043417,
+        "second_scan_ms": 59.239958,
+        "update_ms": 1.60325
+      },
+      {
+        "first_scan_ms": 93.001875,
+        "fork_ms": 39.400208,
+        "lifecycle_ms": 192.669875,
+        "retire_ms": 3.150166,
+        "second_scan_ms": 56.386875,
+        "update_ms": 0.53475
+      },
+      {
+        "first_scan_ms": 56.381875,
+        "fork_ms": 63.844125,
+        "lifecycle_ms": 174.235958,
+        "retire_ms": 3.054917,
+        "second_scan_ms": 50.083083,
+        "update_ms": 0.590917
+      },
+      {
+        "first_scan_ms": 75.165875,
+        "fork_ms": 32.9195,
+        "lifecycle_ms": 166.7585,
+        "retire_ms": 3.750958,
+        "second_scan_ms": 53.003708,
+        "update_ms": 1.132583
+      },
+      {
+        "first_scan_ms": 77.31025,
+        "fork_ms": 33.314041,
+        "lifecycle_ms": 165.2795,
+        "retire_ms": 6.434625,
+        "second_scan_ms": 45.566667,
+        "update_ms": 1.79
+      },
+      {
+        "first_scan_ms": 69.825916,
+        "fork_ms": 33.031625,
+        "lifecycle_ms": 175.64725,
+        "retire_ms": 3.2305,
+        "second_scan_ms": 68.842291,
+        "update_ms": 0.556167
+      }
+    ],
+    "success": true,
+    "rss_bytes": 653443072
+  },
+  {
+    "name": "n4096-p1-pair0-ON",
+    "n": 4096,
+    "p": 1,
+    "pair": 0,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 548.8310829999996,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3369140625,
+      8.41796875,
+      10.75
+    ],
+    "load_after": [
+      4.3369140625,
+      8.41796875,
+      10.75
+    ],
+    "acceptance": false,
+    "batch_ms": 236.514958,
+    "cpu_ms": 692.441,
+    "elapsed_ms": 499.987709,
+    "final_ms": 22.598333,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 811,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 772866048,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 240.870209,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 5.867458,
+        "fork_ms": 15.281333,
+        "lifecycle_ms": 29.327334,
+        "retire_ms": 1.879458,
+        "second_scan_ms": 5.559833,
+        "update_ms": 0.571667
+      },
+      {
+        "first_scan_ms": 7.078917,
+        "fork_ms": 16.810875,
+        "lifecycle_ms": 32.7605,
+        "retire_ms": 1.927417,
+        "second_scan_ms": 6.021875,
+        "update_ms": 0.670833
+      },
+      {
+        "first_scan_ms": 6.109208,
+        "fork_ms": 15.083083,
+        "lifecycle_ms": 29.4375,
+        "retire_ms": 2.005209,
+        "second_scan_ms": 5.603625,
+        "update_ms": 0.463542
+      },
+      {
+        "first_scan_ms": 6.184458,
+        "fork_ms": 15.144625,
+        "lifecycle_ms": 29.141292,
+        "retire_ms": 1.861375,
+        "second_scan_ms": 5.276833,
+        "update_ms": 0.499416
+      },
+      {
+        "first_scan_ms": 5.719041,
+        "fork_ms": 15.365209,
+        "lifecycle_ms": 28.917375,
+        "retire_ms": 1.957958,
+        "second_scan_ms": 5.167375,
+        "update_ms": 0.499958
+      },
+      {
+        "first_scan_ms": 5.806334,
+        "fork_ms": 14.910625,
+        "lifecycle_ms": 28.487083,
+        "retire_ms": 1.950666,
+        "second_scan_ms": 5.154125,
+        "update_ms": 0.493667
+      },
+      {
+        "first_scan_ms": 5.9535,
+        "fork_ms": 14.888291,
+        "lifecycle_ms": 28.837417,
+        "retire_ms": 1.862791,
+        "second_scan_ms": 5.499875,
+        "update_ms": 0.469542
+      },
+      {
+        "first_scan_ms": 5.900833,
+        "fork_ms": 15.71625,
+        "lifecycle_ms": 29.599791,
+        "retire_ms": 1.925,
+        "second_scan_ms": 5.415333,
+        "update_ms": 0.473625
+      }
+    ],
+    "success": true,
+    "rss_bytes": 142884864
+  },
+  {
+    "name": "n4096-p1-pair0-OFF",
+    "n": 4096,
+    "p": 1,
+    "pair": 0,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 543.6548330000015,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3369140625,
+      8.41796875,
+      10.75
+    ],
+    "load_after": [
+      4.3369140625,
+      8.41796875,
+      10.75
+    ],
+    "acceptance": false,
+    "batch_ms": 233.135541,
+    "cpu_ms": 663.1469999999999,
+    "elapsed_ms": 491.895125,
+    "final_ms": 22.22525,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 797,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 756547584,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 236.530084,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.670708,
+        "fork_ms": 15.0305,
+        "lifecycle_ms": 29.881459,
+        "retire_ms": 1.965166,
+        "second_scan_ms": 5.489,
+        "update_ms": 0.551083
+      },
+      {
+        "first_scan_ms": 6.123416,
+        "fork_ms": 15.152709,
+        "lifecycle_ms": 29.191583,
+        "retire_ms": 1.925958,
+        "second_scan_ms": 5.292333,
+        "update_ms": 0.504458
+      },
+      {
+        "first_scan_ms": 6.421709,
+        "fork_ms": 14.954917,
+        "lifecycle_ms": 29.071667,
+        "retire_ms": 1.91475,
+        "second_scan_ms": 5.136084,
+        "update_ms": 0.467167
+      },
+      {
+        "first_scan_ms": 7.022041,
+        "fork_ms": 14.543625,
+        "lifecycle_ms": 29.284208,
+        "retire_ms": 1.825125,
+        "second_scan_ms": 5.259625,
+        "update_ms": 0.455333
+      },
+      {
+        "first_scan_ms": 6.432583,
+        "fork_ms": 14.4315,
+        "lifecycle_ms": 28.766833,
+        "retire_ms": 1.867875,
+        "second_scan_ms": 5.3535,
+        "update_ms": 0.500875
+      },
+      {
+        "first_scan_ms": 6.046375,
+        "fork_ms": 14.725959,
+        "lifecycle_ms": 28.437167,
+        "retire_ms": 1.940834,
+        "second_scan_ms": 5.083708,
+        "update_ms": 0.462292
+      },
+      {
+        "first_scan_ms": 6.881833,
+        "fork_ms": 15.132292,
+        "lifecycle_ms": 29.636417,
+        "retire_ms": 1.832291,
+        "second_scan_ms": 5.167583,
+        "update_ms": 0.458458
+      },
+      {
+        "first_scan_ms": 6.354,
+        "fork_ms": 14.523041,
+        "lifecycle_ms": 28.859958,
+        "retire_ms": 1.822459,
+        "second_scan_ms": 5.482916,
+        "update_ms": 0.492542
+      }
+    ],
+    "success": true,
+    "rss_bytes": 141983744
+  },
+  {
+    "name": "n24576-p1-pair0-ON",
+    "n": 24576,
+    "p": 1,
+    "pair": 0,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1983.816417,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3369140625,
+      8.41796875,
+      10.75
+    ],
+    "load_after": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "acceptance": false,
+    "batch_ms": 636.731292,
+    "cpu_ms": 2388.884,
+    "elapsed_ms": 1921.727333,
+    "final_ms": 45.415959,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 823,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755695616,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1239.575666,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 30.705667,
+        "fork_ms": 15.553667,
+        "lifecycle_ms": 79.172208,
+        "retire_ms": 1.924375,
+        "second_scan_ms": 30.153208,
+        "update_ms": 0.622542
+      },
+      {
+        "first_scan_ms": 33.0975,
+        "fork_ms": 15.578584,
+        "lifecycle_ms": 82.127333,
+        "retire_ms": 1.956833,
+        "second_scan_ms": 30.734375,
+        "update_ms": 0.546167
+      },
+      {
+        "first_scan_ms": 31.0185,
+        "fork_ms": 15.256333,
+        "lifecycle_ms": 81.026208,
+        "retire_ms": 1.920625,
+        "second_scan_ms": 32.070375,
+        "update_ms": 0.544209
+      },
+      {
+        "first_scan_ms": 30.669375,
+        "fork_ms": 15.5115,
+        "lifecycle_ms": 77.697583,
+        "retire_ms": 1.889,
+        "second_scan_ms": 28.886291,
+        "update_ms": 0.525542
+      },
+      {
+        "first_scan_ms": 28.895875,
+        "fork_ms": 15.25325,
+        "lifecycle_ms": 75.461834,
+        "retire_ms": 1.96225,
+        "second_scan_ms": 28.615875,
+        "update_ms": 0.524667
+      },
+      {
+        "first_scan_ms": 31.589167,
+        "fork_ms": 15.578209,
+        "lifecycle_ms": 80.058875,
+        "retire_ms": 2.072792,
+        "second_scan_ms": 30.071791,
+        "update_ms": 0.538916
+      },
+      {
+        "first_scan_ms": 30.543084,
+        "fork_ms": 15.334459,
+        "lifecycle_ms": 78.792333,
+        "retire_ms": 1.993541,
+        "second_scan_ms": 30.223084,
+        "update_ms": 0.511417
+      },
+      {
+        "first_scan_ms": 32.736625,
+        "fork_ms": 15.51475,
+        "lifecycle_ms": 82.386208,
+        "retire_ms": 1.791084,
+        "second_scan_ms": 31.613958,
+        "update_ms": 0.519209
+      }
+    ],
+    "success": true,
+    "rss_bytes": 227639296
+  },
+  {
+    "name": "n24576-p1-pair0-OFF",
+    "n": 24576,
+    "p": 1,
+    "pair": 0,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1926.952332999999,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "load_after": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "acceptance": false,
+    "batch_ms": 635.719458,
+    "cpu_ms": 2338.337,
+    "elapsed_ms": 1899.543917,
+    "final_ms": 46.839958,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 804,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 756547584,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1216.979667,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 31.406542,
+        "fork_ms": 14.932875,
+        "lifecycle_ms": 80.256209,
+        "retire_ms": 1.930875,
+        "second_scan_ms": 31.170167,
+        "update_ms": 0.600333
+      },
+      {
+        "first_scan_ms": 31.074459,
+        "fork_ms": 15.338542,
+        "lifecycle_ms": 79.463542,
+        "retire_ms": 1.957917,
+        "second_scan_ms": 30.214084,
+        "update_ms": 0.6775
+      },
+      {
+        "first_scan_ms": 31.74525,
+        "fork_ms": 14.797417,
+        "lifecycle_ms": 82.775875,
+        "retire_ms": 1.989542,
+        "second_scan_ms": 33.465334,
+        "update_ms": 0.569792
+      },
+      {
+        "first_scan_ms": 30.35875,
+        "fork_ms": 17.158041,
+        "lifecycle_ms": 79.009875,
+        "retire_ms": 1.896708,
+        "second_scan_ms": 28.826917,
+        "update_ms": 0.555625
+      },
+      {
+        "first_scan_ms": 29.788291,
+        "fork_ms": 15.945041,
+        "lifecycle_ms": 78.162417,
+        "retire_ms": 1.938708,
+        "second_scan_ms": 29.767167,
+        "update_ms": 0.517667
+      },
+      {
+        "first_scan_ms": 30.356542,
+        "fork_ms": 15.300292,
+        "lifecycle_ms": 76.713125,
+        "retire_ms": 1.958458,
+        "second_scan_ms": 28.379375,
+        "update_ms": 0.508
+      },
+      {
+        "first_scan_ms": 31.442917,
+        "fork_ms": 15.383458,
+        "lifecycle_ms": 79.848833,
+        "retire_ms": 2.197834,
+        "second_scan_ms": 30.083792,
+        "update_ms": 0.529917
+      },
+      {
+        "first_scan_ms": 31.483125,
+        "fork_ms": 14.946875,
+        "lifecycle_ms": 79.482625,
+        "retire_ms": 1.941959,
+        "second_scan_ms": 30.400584,
+        "update_ms": 0.51975
+      }
+    ],
+    "success": true,
+    "rss_bytes": 234618880
+  },
+  {
+    "name": "n4096-p8-pair1-OFF",
+    "n": 4096,
+    "p": 8,
+    "pair": 1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 403.1214580000011,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "load_after": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "acceptance": false,
+    "batch_ms": 81.247959,
+    "cpu_ms": 749.6990000000001,
+    "elapsed_ms": 344.585125,
+    "final_ms": 24.479917,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 812,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5301927936,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 238.852,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 20.870166,
+        "fork_ms": 32.839958,
+        "lifecycle_ms": 73.749625,
+        "retire_ms": 2.543792,
+        "second_scan_ms": 16.407542,
+        "update_ms": 0.891
+      },
+      {
+        "first_scan_ms": 9.584709,
+        "fork_ms": 53.571292,
+        "lifecycle_ms": 78.0045,
+        "retire_ms": 3.5725,
+        "second_scan_ms": 10.48875,
+        "update_ms": 0.589
+      },
+      {
+        "first_scan_ms": 16.538,
+        "fork_ms": 40.48975,
+        "lifecycle_ms": 66.823292,
+        "retire_ms": 2.723125,
+        "second_scan_ms": 5.866,
+        "update_ms": 0.502541
+      },
+      {
+        "first_scan_ms": 8.366333,
+        "fork_ms": 32.384375,
+        "lifecycle_ms": 50.651916,
+        "retire_ms": 2.166,
+        "second_scan_ms": 6.674375,
+        "update_ms": 0.515958
+      },
+      {
+        "first_scan_ms": 21.950833,
+        "fork_ms": 40.973875,
+        "lifecycle_ms": 78.704375,
+        "retire_ms": 3.132459,
+        "second_scan_ms": 12.058667,
+        "update_ms": 0.445875
+      },
+      {
+        "first_scan_ms": 22.481417,
+        "fork_ms": 47.462041,
+        "lifecycle_ms": 81.141917,
+        "retire_ms": 2.269458,
+        "second_scan_ms": 8.099,
+        "update_ms": 0.630417
+      },
+      {
+        "first_scan_ms": 28.180792,
+        "fork_ms": 35.671791,
+        "lifecycle_ms": 77.245042,
+        "retire_ms": 2.533541,
+        "second_scan_ms": 9.431959,
+        "update_ms": 0.896375
+      },
+      {
+        "first_scan_ms": 14.6455,
+        "fork_ms": 32.837334,
+        "lifecycle_ms": 69.865333,
+        "retire_ms": 6.634292,
+        "second_scan_ms": 13.530334,
+        "update_ms": 1.797333
+      }
+    ],
+    "success": true,
+    "rss_bytes": 545210368
+  },
+  {
+    "name": "n4096-p8-pair1-ON",
+    "n": 4096,
+    "p": 8,
+    "pair": 1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 393.2879579999984,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "load_after": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "acceptance": false,
+    "batch_ms": 78.675375,
+    "cpu_ms": 760.854,
+    "elapsed_ms": 341.695834,
+    "final_ms": 23.530208,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 803,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5468323840,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 239.484625,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 21.551042,
+        "fork_ms": 44.955958,
+        "lifecycle_ms": 77.340708,
+        "retire_ms": 3.097792,
+        "second_scan_ms": 6.941709,
+        "update_ms": 0.584833
+      },
+      {
+        "first_scan_ms": 34.635792,
+        "fork_ms": 32.560583,
+        "lifecycle_ms": 78.611667,
+        "retire_ms": 4.143708,
+        "second_scan_ms": 6.720375,
+        "update_ms": 0.39325
+      },
+      {
+        "first_scan_ms": 11.343375,
+        "fork_ms": 44.707541,
+        "lifecycle_ms": 70.849542,
+        "retire_ms": 2.965125,
+        "second_scan_ms": 10.812416,
+        "update_ms": 0.720417
+      },
+      {
+        "first_scan_ms": 19.763875,
+        "fork_ms": 30.403,
+        "lifecycle_ms": 60.436291,
+        "retire_ms": 2.687083,
+        "second_scan_ms": 6.584667,
+        "update_ms": 0.609583
+      },
+      {
+        "first_scan_ms": 22.016333,
+        "fork_ms": 39.831625,
+        "lifecycle_ms": 74.529583,
+        "retire_ms": 3.674375,
+        "second_scan_ms": 7.620041,
+        "update_ms": 1.194875
+      },
+      {
+        "first_scan_ms": 10.107667,
+        "fork_ms": 44.566084,
+        "lifecycle_ms": 65.103625,
+        "retire_ms": 2.686,
+        "second_scan_ms": 6.655958,
+        "update_ms": 0.537125
+      },
+      {
+        "first_scan_ms": 9.439917,
+        "fork_ms": 30.242125,
+        "lifecycle_ms": 55.140291,
+        "retire_ms": 3.8075,
+        "second_scan_ms": 11.021708,
+        "update_ms": 0.51225
+      },
+      {
+        "first_scan_ms": 31.960208,
+        "fork_ms": 30.357333,
+        "lifecycle_ms": 73.469542,
+        "retire_ms": 2.289208,
+        "second_scan_ms": 8.129417,
+        "update_ms": 0.590583
+      }
+    ],
+    "success": true,
+    "rss_bytes": 572489728
+  },
+  {
+    "name": "n4096-p1-pair1-OFF",
+    "n": 4096,
+    "p": 1,
+    "pair": 1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 543.7218339999994,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.3896484375,
+      8.36083984375,
+      10.71630859375
+    ],
+    "load_after": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "acceptance": false,
+    "batch_ms": 243.635375,
+    "cpu_ms": 693.009,
+    "elapsed_ms": 502.631334,
+    "final_ms": 24.27575,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 809,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 756547584,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 234.7145,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 7.392708,
+        "fork_ms": 15.136666,
+        "lifecycle_ms": 30.861125,
+        "retire_ms": 2.004625,
+        "second_scan_ms": 5.451458,
+        "update_ms": 0.632541
+      },
+      {
+        "first_scan_ms": 6.833167,
+        "fork_ms": 15.561042,
+        "lifecycle_ms": 30.731667,
+        "retire_ms": 1.981625,
+        "second_scan_ms": 5.594959,
+        "update_ms": 0.55975
+      },
+      {
+        "first_scan_ms": 7.078167,
+        "fork_ms": 15.28375,
+        "lifecycle_ms": 31.03675,
+        "retire_ms": 2.03725,
+        "second_scan_ms": 5.818542,
+        "update_ms": 0.578042
+      },
+      {
+        "first_scan_ms": 6.2785,
+        "fork_ms": 16.463292,
+        "lifecycle_ms": 31.527792,
+        "retire_ms": 2.413167,
+        "second_scan_ms": 5.652084,
+        "update_ms": 0.525875
+      },
+      {
+        "first_scan_ms": 6.395959,
+        "fork_ms": 15.09975,
+        "lifecycle_ms": 30.07575,
+        "retire_ms": 1.93825,
+        "second_scan_ms": 5.904792,
+        "update_ms": 0.519542
+      },
+      {
+        "first_scan_ms": 6.791833,
+        "fork_ms": 15.103541,
+        "lifecycle_ms": 30.184958,
+        "retire_ms": 1.941417,
+        "second_scan_ms": 5.634416,
+        "update_ms": 0.519583
+      },
+      {
+        "first_scan_ms": 6.530334,
+        "fork_ms": 15.379792,
+        "lifecycle_ms": 30.275291,
+        "retire_ms": 2.242791,
+        "second_scan_ms": 5.480959,
+        "update_ms": 0.466917
+      },
+      {
+        "first_scan_ms": 6.029916,
+        "fork_ms": 15.100709,
+        "lifecycle_ms": 28.932958,
+        "retire_ms": 1.954292,
+        "second_scan_ms": 5.157583,
+        "update_ms": 0.519291
+      }
+    ],
+    "success": true,
+    "rss_bytes": 144228352
+  },
+  {
+    "name": "n4096-p1-pair1-ON",
+    "n": 4096,
+    "p": 1,
+    "pair": 1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 552.9857500000013,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "load_after": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "acceptance": false,
+    "batch_ms": 235.751,
+    "cpu_ms": 706.162,
+    "elapsed_ms": 500.802667,
+    "final_ms": 22.52725,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 814,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 774963200,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 242.519417,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.080334,
+        "fork_ms": 15.360792,
+        "lifecycle_ms": 29.9265,
+        "retire_ms": 1.906125,
+        "second_scan_ms": 5.811834,
+        "update_ms": 0.563584
+      },
+      {
+        "first_scan_ms": 6.339042,
+        "fork_ms": 15.16725,
+        "lifecycle_ms": 29.466584,
+        "retire_ms": 1.931,
+        "second_scan_ms": 5.246084,
+        "update_ms": 0.579875
+      },
+      {
+        "first_scan_ms": 5.685625,
+        "fork_ms": 15.145334,
+        "lifecycle_ms": 28.840209,
+        "retire_ms": 1.909541,
+        "second_scan_ms": 5.45725,
+        "update_ms": 0.4755
+      },
+      {
+        "first_scan_ms": 6.183917,
+        "fork_ms": 14.84,
+        "lifecycle_ms": 29.262459,
+        "retire_ms": 2.074167,
+        "second_scan_ms": 5.497,
+        "update_ms": 0.494042
+      },
+      {
+        "first_scan_ms": 6.138666,
+        "fork_ms": 15.073167,
+        "lifecycle_ms": 29.000541,
+        "retire_ms": 1.943916,
+        "second_scan_ms": 5.205042,
+        "update_ms": 0.466667
+      },
+      {
+        "first_scan_ms": 6.35825,
+        "fork_ms": 16.198167,
+        "lifecycle_ms": 30.331209,
+        "retire_ms": 1.947791,
+        "second_scan_ms": 5.1465,
+        "update_ms": 0.486417
+      },
+      {
+        "first_scan_ms": 6.30275,
+        "fork_ms": 14.888792,
+        "lifecycle_ms": 29.254041,
+        "retire_ms": 1.864458,
+        "second_scan_ms": 5.560833,
+        "update_ms": 0.460625
+      },
+      {
+        "first_scan_ms": 6.256958,
+        "fork_ms": 15.198541,
+        "lifecycle_ms": 29.661792,
+        "retire_ms": 1.81025,
+        "second_scan_ms": 5.693625,
+        "update_ms": 0.497458
+      }
+    ],
+    "success": true,
+    "rss_bytes": 144015360
+  },
+  {
+    "name": "n24576-p8-pair1-OFF",
+    "n": 24576,
+    "p": 8,
+    "pair": 1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1520.412041,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "load_after": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "acceptance": false,
+    "batch_ms": 201.880083,
+    "cpu_ms": 2470.807,
+    "elapsed_ms": 1465.999083,
+    "final_ms": 48.724375,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 802,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5572067328,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1215.388625,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 76.118042,
+        "fork_ms": 29.895791,
+        "lifecycle_ms": 151.799375,
+        "retire_ms": 4.163,
+        "second_scan_ms": 40.933334,
+        "update_ms": 0.529042
+      },
+      {
+        "first_scan_ms": 64.305916,
+        "fork_ms": 32.676958,
+        "lifecycle_ms": 136.066959,
+        "retire_ms": 3.914333,
+        "second_scan_ms": 34.290625,
+        "update_ms": 0.669666
+      },
+      {
+        "first_scan_ms": 67.338,
+        "fork_ms": 28.39925,
+        "lifecycle_ms": 155.425292,
+        "retire_ms": 6.0555,
+        "second_scan_ms": 51.898708,
+        "update_ms": 1.397334
+      },
+      {
+        "first_scan_ms": 120.736958,
+        "fork_ms": 32.30425,
+        "lifecycle_ms": 201.824916,
+        "retire_ms": 3.281666,
+        "second_scan_ms": 44.787458,
+        "update_ms": 0.521958
+      },
+      {
+        "first_scan_ms": 90.608167,
+        "fork_ms": 29.5645,
+        "lifecycle_ms": 167.612875,
+        "retire_ms": 7.413375,
+        "second_scan_ms": 38.878125,
+        "update_ms": 0.924833
+      },
+      {
+        "first_scan_ms": 53.088084,
+        "fork_ms": 46.875334,
+        "lifecycle_ms": 177.154666,
+        "retire_ms": 3.717125,
+        "second_scan_ms": 72.525875,
+        "update_ms": 0.639958
+      },
+      {
+        "first_scan_ms": 106.060458,
+        "fork_ms": 39.301375,
+        "lifecycle_ms": 190.911583,
+        "retire_ms": 3.125125,
+        "second_scan_ms": 41.444125,
+        "update_ms": 0.737583
+      },
+      {
+        "first_scan_ms": 112.961708,
+        "fork_ms": 34.788333,
+        "lifecycle_ms": 194.263375,
+        "retire_ms": 3.351959,
+        "second_scan_ms": 42.468625,
+        "update_ms": 0.529959
+      }
+    ],
+    "success": true,
+    "rss_bytes": 634732544
+  },
+  {
+    "name": "n24576-p8-pair1-ON",
+    "n": 24576,
+    "p": 8,
+    "pair": 1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1512.4831249999993,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "load_after": [
+      4.5185546875,
+      8.3212890625,
+      10.6884765625
+    ],
+    "acceptance": false,
+    "batch_ms": 181.967541,
+    "cpu_ms": 2490.4950000000003,
+    "elapsed_ms": 1454.636667,
+    "final_ms": 47.509167,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 793,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5778833408,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1225.155875,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 92.532,
+        "fork_ms": 29.497583,
+        "lifecycle_ms": 181.956834,
+        "retire_ms": 3.075166,
+        "second_scan_ms": 56.064667,
+        "update_ms": 0.5925
+      },
+      {
+        "first_scan_ms": 61.788709,
+        "fork_ms": 37.256708,
+        "lifecycle_ms": 171.329625,
+        "retire_ms": 2.678042,
+        "second_scan_ms": 68.118709,
+        "update_ms": 0.965709
+      },
+      {
+        "first_scan_ms": 78.148583,
+        "fork_ms": 43.770792,
+        "lifecycle_ms": 168.414958,
+        "retire_ms": 3.711541,
+        "second_scan_ms": 40.720458,
+        "update_ms": 1.60375
+      },
+      {
+        "first_scan_ms": 52.790167,
+        "fork_ms": 29.465375,
+        "lifecycle_ms": 166.601167,
+        "retire_ms": 3.2885,
+        "second_scan_ms": 78.132375,
+        "update_ms": 1.649417
+      },
+      {
+        "first_scan_ms": 82.890084,
+        "fork_ms": 38.249625,
+        "lifecycle_ms": 179.285916,
+        "retire_ms": 2.971541,
+        "second_scan_ms": 54.355209,
+        "update_ms": 0.604583
+      },
+      {
+        "first_scan_ms": 56.078667,
+        "fork_ms": 43.733209,
+        "lifecycle_ms": 164.424458,
+        "retire_ms": 3.503958,
+        "second_scan_ms": 58.714708,
+        "update_ms": 0.668583
+      },
+      {
+        "first_scan_ms": 60.13975,
+        "fork_ms": 43.758,
+        "lifecycle_ms": 162.239792,
+        "retire_ms": 9.8405,
+        "second_scan_ms": 47.676417,
+        "update_ms": 0.645958
+      },
+      {
+        "first_scan_ms": 66.07175,
+        "fork_ms": 29.380958,
+        "lifecycle_ms": 163.372083,
+        "retire_ms": 10.783125,
+        "second_scan_ms": 56.64975,
+        "update_ms": 0.349375
+      }
+    ],
+    "success": true,
+    "rss_bytes": 647282688
+  },
+  {
+    "name": "n24576-p1-pair1-OFF",
+    "n": 24576,
+    "p": 1,
+    "pair": 1,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1927.3042920000023,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.716796875,
+      8.29931640625,
+      10.66650390625
+    ],
+    "load_after": [
+      4.716796875,
+      8.29931640625,
+      10.66650390625
+    ],
+    "acceptance": false,
+    "batch_ms": 609.667208,
+    "cpu_ms": 2320.442,
+    "elapsed_ms": 1885.095625,
+    "final_ms": 47.99775,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 813,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 756613120,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1227.426417,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 31.255375,
+        "fork_ms": 15.415291,
+        "lifecycle_ms": 79.462042,
+        "retire_ms": 1.982333,
+        "second_scan_ms": 30.002916,
+        "update_ms": 0.593375
+      },
+      {
+        "first_scan_ms": 29.207625,
+        "fork_ms": 15.311375,
+        "lifecycle_ms": 75.654,
+        "retire_ms": 1.883625,
+        "second_scan_ms": 28.499541,
+        "update_ms": 0.540125
+      },
+      {
+        "first_scan_ms": 29.625208,
+        "fork_ms": 15.239958,
+        "lifecycle_ms": 75.963875,
+        "retire_ms": 1.938834,
+        "second_scan_ms": 28.383166,
+        "update_ms": 0.539875
+      },
+      {
+        "first_scan_ms": 29.194167,
+        "fork_ms": 14.835083,
+        "lifecycle_ms": 74.911584,
+        "retire_ms": 1.903125,
+        "second_scan_ms": 28.291334,
+        "update_ms": 0.498125
+      },
+      {
+        "first_scan_ms": 29.233167,
+        "fork_ms": 15.049416,
+        "lifecycle_ms": 75.768792,
+        "retire_ms": 1.994917,
+        "second_scan_ms": 28.757792,
+        "update_ms": 0.528709
+      },
+      {
+        "first_scan_ms": 28.961334,
+        "fork_ms": 14.699834,
+        "lifecycle_ms": 74.455708,
+        "retire_ms": 1.847167,
+        "second_scan_ms": 28.222959,
+        "update_ms": 0.519583
+      },
+      {
+        "first_scan_ms": 29.038209,
+        "fork_ms": 14.763541,
+        "lifecycle_ms": 74.423542,
+        "retire_ms": 1.84725,
+        "second_scan_ms": 28.047834,
+        "update_ms": 0.528583
+      },
+      {
+        "first_scan_ms": 31.186041,
+        "fork_ms": 14.81725,
+        "lifecycle_ms": 79.021041,
+        "retire_ms": 1.864041,
+        "second_scan_ms": 30.433708,
+        "update_ms": 0.52125
+      }
+    ],
+    "success": true,
+    "rss_bytes": 225837056
+  },
+  {
+    "name": "n24576-p1-pair1-ON",
+    "n": 24576,
+    "p": 1,
+    "pair": 1,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1930.955124999997,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.716796875,
+      8.29931640625,
+      10.66650390625
+    ],
+    "load_after": [
+      4.716796875,
+      8.29931640625,
+      10.66650390625
+    ],
+    "acceptance": false,
+    "batch_ms": 625.3125,
+    "cpu_ms": 2350.8309999999997,
+    "elapsed_ms": 1909.646958,
+    "final_ms": 46.358584,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 810,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755892224,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1237.97025,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 30.362292,
+        "fork_ms": 15.029,
+        "lifecycle_ms": 78.56575,
+        "retire_ms": 1.962791,
+        "second_scan_ms": 30.335833,
+        "update_ms": 0.651333
+      },
+      {
+        "first_scan_ms": 30.862583,
+        "fork_ms": 15.286833,
+        "lifecycle_ms": 79.138125,
+        "retire_ms": 1.990166,
+        "second_scan_ms": 30.255708,
+        "update_ms": 0.534708
+      },
+      {
+        "first_scan_ms": 30.572458,
+        "fork_ms": 15.228459,
+        "lifecycle_ms": 78.74675,
+        "retire_ms": 1.929334,
+        "second_scan_ms": 30.285125,
+        "update_ms": 0.528792
+      },
+      {
+        "first_scan_ms": 28.764666,
+        "fork_ms": 15.627416,
+        "lifecycle_ms": 75.183292,
+        "retire_ms": 2.018083,
+        "second_scan_ms": 28.075583,
+        "update_ms": 0.4975
+      },
+      {
+        "first_scan_ms": 28.894208,
+        "fork_ms": 15.320917,
+        "lifecycle_ms": 75.347458,
+        "retire_ms": 2.046709,
+        "second_scan_ms": 28.340875,
+        "update_ms": 0.5445
+      },
+      {
+        "first_scan_ms": 30.714291,
+        "fork_ms": 15.32425,
+        "lifecycle_ms": 78.985833,
+        "retire_ms": 1.93875,
+        "second_scan_ms": 30.285833,
+        "update_ms": 0.524292
+      },
+      {
+        "first_scan_ms": 31.302625,
+        "fork_ms": 16.622583,
+        "lifecycle_ms": 83.457458,
+        "retire_ms": 2.122125,
+        "second_scan_ms": 32.639166,
+        "update_ms": 0.537833
+      },
+      {
+        "first_scan_ms": 28.937875,
+        "fork_ms": 15.304917,
+        "lifecycle_ms": 75.88,
+        "retire_ms": 1.98325,
+        "second_scan_ms": 28.945958,
+        "update_ms": 0.500875
+      }
+    ],
+    "success": true,
+    "rss_bytes": 232357888
+  },
+  {
+    "name": "n24576-p1-pair2-ON",
+    "n": 24576,
+    "p": 1,
+    "pair": 2,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1979.2175000000043,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.716796875,
+      8.29931640625,
+      10.66650390625
+    ],
+    "load_after": [
+      4.4990234375,
+      8.1943359375,
+      10.61572265625
+    ],
+    "acceptance": false,
+    "batch_ms": 615.611375,
+    "cpu_ms": 2357.966,
+    "elapsed_ms": 1943.275,
+    "final_ms": 45.721333,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 810,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 764477440,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1281.938125,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 29.123917,
+        "fork_ms": 15.117083,
+        "lifecycle_ms": 75.488875,
+        "retire_ms": 2.0275,
+        "second_scan_ms": 28.39425,
+        "update_ms": 0.61
+      },
+      {
+        "first_scan_ms": 30.341625,
+        "fork_ms": 15.708458,
+        "lifecycle_ms": 77.842584,
+        "retire_ms": 2.061417,
+        "second_scan_ms": 28.938375,
+        "update_ms": 0.572792
+      },
+      {
+        "first_scan_ms": 28.971375,
+        "fork_ms": 15.347334,
+        "lifecycle_ms": 76.740208,
+        "retire_ms": 2.078167,
+        "second_scan_ms": 29.524834,
+        "update_ms": 0.59125
+      },
+      {
+        "first_scan_ms": 29.267834,
+        "fork_ms": 15.581167,
+        "lifecycle_ms": 76.028833,
+        "retire_ms": 2.017292,
+        "second_scan_ms": 28.444042,
+        "update_ms": 0.50825
+      },
+      {
+        "first_scan_ms": 31.602708,
+        "fork_ms": 15.247625,
+        "lifecycle_ms": 79.913959,
+        "retire_ms": 1.998125,
+        "second_scan_ms": 30.309375,
+        "update_ms": 0.550958
+      },
+      {
+        "first_scan_ms": 29.273416,
+        "fork_ms": 15.366416,
+        "lifecycle_ms": 75.815834,
+        "retire_ms": 2.039458,
+        "second_scan_ms": 28.409958,
+        "update_ms": 0.520375
+      },
+      {
+        "first_scan_ms": 29.395917,
+        "fork_ms": 14.969834,
+        "lifecycle_ms": 75.111958,
+        "retire_ms": 1.850583,
+        "second_scan_ms": 28.209291,
+        "update_ms": 0.490625
+      },
+      {
+        "first_scan_ms": 30.793125,
+        "fork_ms": 15.223875,
+        "lifecycle_ms": 78.661458,
+        "retire_ms": 1.909375,
+        "second_scan_ms": 30.004,
+        "update_ms": 0.531167
+      }
+    ],
+    "success": true,
+    "rss_bytes": 227262464
+  },
+  {
+    "name": "n24576-p1-pair2-OFF",
+    "n": 24576,
+    "p": 1,
+    "pair": 2,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1928.080666999996,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.4990234375,
+      8.1943359375,
+      10.61572265625
+    ],
+    "load_after": [
+      4.4990234375,
+      8.1943359375,
+      10.61572265625
+    ],
+    "acceptance": false,
+    "batch_ms": 618.27375,
+    "cpu_ms": 2346.544,
+    "elapsed_ms": 1901.254042,
+    "final_ms": 45.798209,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 811,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755499008,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1237.178,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 30.991834,
+        "fork_ms": 15.311792,
+        "lifecycle_ms": 78.239625,
+        "retire_ms": 2.04475,
+        "second_scan_ms": 28.986042,
+        "update_ms": 0.678542
+      },
+      {
+        "first_scan_ms": 31.235833,
+        "fork_ms": 14.951291,
+        "lifecycle_ms": 78.745,
+        "retire_ms": 1.8395,
+        "second_scan_ms": 29.992708,
+        "update_ms": 0.523625
+      },
+      {
+        "first_scan_ms": 30.004209,
+        "fork_ms": 15.194875,
+        "lifecycle_ms": 76.734,
+        "retire_ms": 1.947917,
+        "second_scan_ms": 28.825209,
+        "update_ms": 0.541458
+      },
+      {
+        "first_scan_ms": 30.081709,
+        "fork_ms": 14.822334,
+        "lifecycle_ms": 75.86725,
+        "retire_ms": 1.939792,
+        "second_scan_ms": 28.291084,
+        "update_ms": 0.51925
+      },
+      {
+        "first_scan_ms": 31.080667,
+        "fork_ms": 14.689667,
+        "lifecycle_ms": 78.387666,
+        "retire_ms": 1.861917,
+        "second_scan_ms": 30.028125,
+        "update_ms": 0.515875
+      },
+      {
+        "first_scan_ms": 31.185667,
+        "fork_ms": 15.639334,
+        "lifecycle_ms": 79.398791,
+        "retire_ms": 1.941208,
+        "second_scan_ms": 29.834584,
+        "update_ms": 0.584292
+      },
+      {
+        "first_scan_ms": 28.832959,
+        "fork_ms": 16.272667,
+        "lifecycle_ms": 76.097959,
+        "retire_ms": 2.152583,
+        "second_scan_ms": 28.091084,
+        "update_ms": 0.536042
+      },
+      {
+        "first_scan_ms": 29.098541,
+        "fork_ms": 14.856417,
+        "lifecycle_ms": 74.795959,
+        "retire_ms": 1.9415,
+        "second_scan_ms": 28.193583,
+        "update_ms": 0.51075
+      }
+    ],
+    "success": true,
+    "rss_bytes": 224870400
+  },
+  {
+    "name": "n24576-p8-pair2-ON",
+    "n": 24576,
+    "p": 8,
+    "pair": 2,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1574.859833000005,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.4990234375,
+      8.1943359375,
+      10.61572265625
+    ],
+    "load_after": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "acceptance": false,
+    "batch_ms": 226.244167,
+    "cpu_ms": 2510.107,
+    "elapsed_ms": 1531.883833,
+    "final_ms": 49.174166,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 819,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5854658560,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1256.461167,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 52.498375,
+        "fork_ms": 23.284209,
+        "lifecycle_ms": 164.9765,
+        "retire_ms": 3.880875,
+        "second_scan_ms": 83.504291,
+        "update_ms": 1.592542
+      },
+      {
+        "first_scan_ms": 52.776792,
+        "fork_ms": 22.951791,
+        "lifecycle_ms": 141.728042,
+        "retire_ms": 3.551666,
+        "second_scan_ms": 61.428209,
+        "update_ms": 0.686625
+      },
+      {
+        "first_scan_ms": 75.903833,
+        "fork_ms": 53.421917,
+        "lifecycle_ms": 194.219334,
+        "retire_ms": 8.222417,
+        "second_scan_ms": 51.3335,
+        "update_ms": 0.404834
+      },
+      {
+        "first_scan_ms": 78.111875,
+        "fork_ms": 81.118083,
+        "lifecycle_ms": 208.643083,
+        "retire_ms": 4.946542,
+        "second_scan_ms": 43.755958,
+        "update_ms": 0.540875
+      },
+      {
+        "first_scan_ms": 65.293084,
+        "fork_ms": 81.056791,
+        "lifecycle_ms": 195.92375,
+        "retire_ms": 5.179583,
+        "second_scan_ms": 39.694667,
+        "update_ms": 4.296917
+      },
+      {
+        "first_scan_ms": 137.232709,
+        "fork_ms": 45.662709,
+        "lifecycle_ms": 226.179458,
+        "retire_ms": 3.120084,
+        "second_scan_ms": 39.405917,
+        "update_ms": 0.549375
+      },
+      {
+        "first_scan_ms": 113.702958,
+        "fork_ms": 29.635333,
+        "lifecycle_ms": 206.656833,
+        "retire_ms": 3.778333,
+        "second_scan_ms": 58.552083,
+        "update_ms": 0.770458
+      },
+      {
+        "first_scan_ms": 108.876041,
+        "fork_ms": 28.398,
+        "lifecycle_ms": 189.984459,
+        "retire_ms": 3.901708,
+        "second_scan_ms": 47.877125,
+        "update_ms": 0.7445
+      }
+    ],
+    "success": true,
+    "rss_bytes": 668532736
+  },
+  {
+    "name": "n24576-p8-pair2-OFF",
+    "n": 24576,
+    "p": 8,
+    "pair": 2,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1473.5593750000007,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "load_after": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "acceptance": false,
+    "batch_ms": 177.97175,
+    "cpu_ms": 2492.453,
+    "elapsed_ms": 1450.046167,
+    "final_ms": 48.055625,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 794,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5518327808,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1224.015,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 67.4165,
+        "fork_ms": 26.628459,
+        "lifecycle_ms": 153.584958,
+        "retire_ms": 3.222375,
+        "second_scan_ms": 55.536208,
+        "update_ms": 0.564083
+      },
+      {
+        "first_scan_ms": 99.008667,
+        "fork_ms": 26.547125,
+        "lifecycle_ms": 174.537167,
+        "retire_ms": 2.939417,
+        "second_scan_ms": 45.55125,
+        "update_ms": 0.360417
+      },
+      {
+        "first_scan_ms": 63.41,
+        "fork_ms": 31.364083,
+        "lifecycle_ms": 159.345125,
+        "retire_ms": 3.503458,
+        "second_scan_ms": 59.1095,
+        "update_ms": 1.6605
+      },
+      {
+        "first_scan_ms": 75.121584,
+        "fork_ms": 44.213333,
+        "lifecycle_ms": 175.5355,
+        "retire_ms": 3.94875,
+        "second_scan_ms": 51.749708,
+        "update_ms": 0.365125
+      },
+      {
+        "first_scan_ms": 55.468708,
+        "fork_ms": 26.616791,
+        "lifecycle_ms": 162.202542,
+        "retire_ms": 2.829416,
+        "second_scan_ms": 74.37825,
+        "update_ms": 2.721292
+      },
+      {
+        "first_scan_ms": 77.034083,
+        "fork_ms": 26.678875,
+        "lifecycle_ms": 144.354416,
+        "retire_ms": 3.214125,
+        "second_scan_ms": 36.552291,
+        "update_ms": 0.67925
+      },
+      {
+        "first_scan_ms": 84.818416,
+        "fork_ms": 44.269542,
+        "lifecycle_ms": 173.842875,
+        "retire_ms": 2.726708,
+        "second_scan_ms": 41.134708,
+        "update_ms": 0.645916
+      },
+      {
+        "first_scan_ms": 61.452834,
+        "fork_ms": 44.382292,
+        "lifecycle_ms": 177.9345,
+        "retire_ms": 2.185167,
+        "second_scan_ms": 69.132875,
+        "update_ms": 0.543667
+      }
+    ],
+    "success": true,
+    "rss_bytes": 645791744
+  },
+  {
+    "name": "n4096-p8-pair2-ON",
+    "n": 4096,
+    "p": 8,
+    "pair": 2,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 391.75766700000025,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "load_after": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "acceptance": false,
+    "batch_ms": 91.266542,
+    "cpu_ms": 738.957,
+    "elapsed_ms": 356.680542,
+    "final_ms": 22.746208,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 784,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5682495488,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 242.663834,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 24.972583,
+        "fork_ms": 44.768833,
+        "lifecycle_ms": 81.125292,
+        "retire_ms": 2.222625,
+        "second_scan_ms": 8.036583,
+        "update_ms": 0.6275
+      },
+      {
+        "first_scan_ms": 20.177375,
+        "fork_ms": 24.441125,
+        "lifecycle_ms": 75.663791,
+        "retire_ms": 3.408958,
+        "second_scan_ms": 15.28475,
+        "update_ms": 10.400833
+      },
+      {
+        "first_scan_ms": 24.694583,
+        "fork_ms": 25.827792,
+        "lifecycle_ms": 71.173708,
+        "retire_ms": 4.304458,
+        "second_scan_ms": 13.640583,
+        "update_ms": 1.89175
+      },
+      {
+        "first_scan_ms": 32.980416,
+        "fork_ms": 30.697041,
+        "lifecycle_ms": 77.276167,
+        "retire_ms": 2.303375,
+        "second_scan_ms": 7.412542,
+        "update_ms": 2.839583
+      },
+      {
+        "first_scan_ms": 9.169208,
+        "fork_ms": 50.290458,
+        "lifecycle_ms": 74.263792,
+        "retire_ms": 6.643416,
+        "second_scan_ms": 7.348375,
+        "update_ms": 0.601375
+      },
+      {
+        "first_scan_ms": 16.457166,
+        "fork_ms": 44.719667,
+        "lifecycle_ms": 78.177375,
+        "retire_ms": 4.384167,
+        "second_scan_ms": 10.81275,
+        "update_ms": 1.155041
+      },
+      {
+        "first_scan_ms": 10.109584,
+        "fork_ms": 72.867,
+        "lifecycle_ms": 91.143625,
+        "retire_ms": 2.214292,
+        "second_scan_ms": 5.292792,
+        "update_ms": 0.4765
+      },
+      {
+        "first_scan_ms": 34.546125,
+        "fork_ms": 25.713667,
+        "lifecycle_ms": 74.363,
+        "retire_ms": 6.6805,
+        "second_scan_ms": 6.643917,
+        "update_ms": 0.611958
+      }
+    ],
+    "success": true,
+    "rss_bytes": 564150272
+  },
+  {
+    "name": "n4096-p8-pair2-OFF",
+    "n": 4096,
+    "p": 8,
+    "pair": 2,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 399.6675420000031,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "load_after": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "acceptance": false,
+    "batch_ms": 80.538167,
+    "cpu_ms": 729.3,
+    "elapsed_ms": 340.5095,
+    "final_ms": 23.112375,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 794,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5748817920,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 236.854209,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 39.355959,
+        "fork_ms": 27.28025,
+        "lifecycle_ms": 79.80525,
+        "retire_ms": 2.135792,
+        "second_scan_ms": 10.0185,
+        "update_ms": 0.794792
+      },
+      {
+        "first_scan_ms": 19.781708,
+        "fork_ms": 46.32575,
+        "lifecycle_ms": 77.070292,
+        "retire_ms": 2.639625,
+        "second_scan_ms": 6.92325,
+        "update_ms": 1.105
+      },
+      {
+        "first_scan_ms": 14.463084,
+        "fork_ms": 40.932416,
+        "lifecycle_ms": 72.939167,
+        "retire_ms": 6.131917,
+        "second_scan_ms": 6.363209,
+        "update_ms": 0.657209
+      },
+      {
+        "first_scan_ms": 13.408834,
+        "fork_ms": 50.640833,
+        "lifecycle_ms": 80.485792,
+        "retire_ms": 2.6775,
+        "second_scan_ms": 13.2295,
+        "update_ms": 0.347667
+      },
+      {
+        "first_scan_ms": 8.54475,
+        "fork_ms": 41.069917,
+        "lifecycle_ms": 71.897792,
+        "retire_ms": 10.123583,
+        "second_scan_ms": 8.672208,
+        "update_ms": 2.199333
+      },
+      {
+        "first_scan_ms": 32.395292,
+        "fork_ms": 27.16975,
+        "lifecycle_ms": 73.6125,
+        "retire_ms": 6.646916,
+        "second_scan_ms": 6.466084,
+        "update_ms": 0.355208
+      },
+      {
+        "first_scan_ms": 17.240583,
+        "fork_ms": 40.977041,
+        "lifecycle_ms": 78.91625,
+        "retire_ms": 3.238208,
+        "second_scan_ms": 16.027458,
+        "update_ms": 1.273083
+      },
+      {
+        "first_scan_ms": 30.4015,
+        "fork_ms": 37.7595,
+        "lifecycle_ms": 78.112167,
+        "retire_ms": 2.350875,
+        "second_scan_ms": 6.706459,
+        "update_ms": 0.593625
+      }
+    ],
+    "success": true,
+    "rss_bytes": 559235072
+  },
+  {
+    "name": "n4096-p1-pair2-ON",
+    "n": 4096,
+    "p": 1,
+    "pair": 2,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 550.8091250000007,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "load_after": [
+      4.779296875,
+      8.19091796875,
+      10.60009765625
+    ],
+    "acceptance": false,
+    "batch_ms": 242.020208,
+    "cpu_ms": 700.727,
+    "elapsed_ms": 504.4585,
+    "final_ms": 22.6835,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 808,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 772866048,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 239.749875,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.412,
+        "fork_ms": 14.920875,
+        "lifecycle_ms": 30.576416,
+        "retire_ms": 2.157334,
+        "second_scan_ms": 6.139458,
+        "update_ms": 0.713375
+      },
+      {
+        "first_scan_ms": 6.427166,
+        "fork_ms": 16.987417,
+        "lifecycle_ms": 32.416792,
+        "retire_ms": 2.075542,
+        "second_scan_ms": 6.144292,
+        "update_ms": 0.545625
+      },
+      {
+        "first_scan_ms": 6.491375,
+        "fork_ms": 15.839458,
+        "lifecycle_ms": 30.762375,
+        "retire_ms": 1.911542,
+        "second_scan_ms": 5.768334,
+        "update_ms": 0.546167
+      },
+      {
+        "first_scan_ms": 6.061,
+        "fork_ms": 15.247458,
+        "lifecycle_ms": 29.065833,
+        "retire_ms": 1.907666,
+        "second_scan_ms": 5.1815,
+        "update_ms": 0.496667
+      },
+      {
+        "first_scan_ms": 5.99275,
+        "fork_ms": 15.947709,
+        "lifecycle_ms": 30.251125,
+        "retire_ms": 1.984625,
+        "second_scan_ms": 5.671417,
+        "update_ms": 0.484625
+      },
+      {
+        "first_scan_ms": 5.799167,
+        "fork_ms": 15.209417,
+        "lifecycle_ms": 28.829375,
+        "retire_ms": 1.912791,
+        "second_scan_ms": 5.217583,
+        "update_ms": 0.498667
+      },
+      {
+        "first_scan_ms": 5.924709,
+        "fork_ms": 14.862167,
+        "lifecycle_ms": 28.693083,
+        "retire_ms": 1.8725,
+        "second_scan_ms": 5.364959,
+        "update_ms": 0.488542
+      },
+      {
+        "first_scan_ms": 5.897292,
+        "fork_ms": 17.002416,
+        "lifecycle_ms": 31.416875,
+        "retire_ms": 1.948917,
+        "second_scan_ms": 5.8215,
+        "update_ms": 0.528375
+      }
+    ],
+    "success": true,
+    "rss_bytes": 141688832
+  },
+  {
+    "name": "n4096-p1-pair2-OFF",
+    "n": 4096,
+    "p": 1,
+    "pair": 2,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 544.3404999999971,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "load_after": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "acceptance": false,
+    "batch_ms": 232.045666,
+    "cpu_ms": 663.759,
+    "elapsed_ms": 498.639625,
+    "final_ms": 22.560292,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 796,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755499008,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 244.029041,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.742917,
+        "fork_ms": 15.210959,
+        "lifecycle_ms": 30.044208,
+        "retire_ms": 2.020875,
+        "second_scan_ms": 5.313291,
+        "update_ms": 0.570334
+      },
+      {
+        "first_scan_ms": 6.405209,
+        "fork_ms": 14.836833,
+        "lifecycle_ms": 28.910083,
+        "retire_ms": 1.916375,
+        "second_scan_ms": 5.040292,
+        "update_ms": 0.509417
+      },
+      {
+        "first_scan_ms": 5.996167,
+        "fork_ms": 14.603375,
+        "lifecycle_ms": 28.384625,
+        "retire_ms": 1.970875,
+        "second_scan_ms": 5.131791,
+        "update_ms": 0.5055
+      },
+      {
+        "first_scan_ms": 6.484042,
+        "fork_ms": 14.687292,
+        "lifecycle_ms": 29.641708,
+        "retire_ms": 1.908667,
+        "second_scan_ms": 5.880166,
+        "update_ms": 0.487
+      },
+      {
+        "first_scan_ms": 6.164709,
+        "fork_ms": 14.552875,
+        "lifecycle_ms": 28.58775,
+        "retire_ms": 2.03525,
+        "second_scan_ms": 5.13375,
+        "update_ms": 0.521541
+      },
+      {
+        "first_scan_ms": 6.19625,
+        "fork_ms": 14.901375,
+        "lifecycle_ms": 29.02325,
+        "retire_ms": 1.85025,
+        "second_scan_ms": 5.43925,
+        "update_ms": 0.469916
+      },
+      {
+        "first_scan_ms": 6.337541,
+        "fork_ms": 14.505375,
+        "lifecycle_ms": 28.64975,
+        "retire_ms": 2.02725,
+        "second_scan_ms": 5.169375,
+        "update_ms": 0.449917
+      },
+      {
+        "first_scan_ms": 5.892541,
+        "fork_ms": 14.969875,
+        "lifecycle_ms": 28.797167,
+        "retire_ms": 1.892375,
+        "second_scan_ms": 5.304292,
+        "update_ms": 0.526208
+      }
+    ],
+    "success": true,
+    "rss_bytes": 142934016
+  },
+  {
+    "name": "n4096-p1-pair3-OFF",
+    "n": 4096,
+    "p": 1,
+    "pair": 3,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 545.8069590000036,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "load_after": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "acceptance": false,
+    "batch_ms": 233.84225,
+    "cpu_ms": 660.739,
+    "elapsed_ms": 491.778584,
+    "final_ms": 23.320875,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 811,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755171328,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 234.611917,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.491083,
+        "fork_ms": 14.859916,
+        "lifecycle_ms": 29.248208,
+        "retire_ms": 1.954375,
+        "second_scan_ms": 5.166375,
+        "update_ms": 0.574833
+      },
+      {
+        "first_scan_ms": 7.120125,
+        "fork_ms": 14.718417,
+        "lifecycle_ms": 29.931333,
+        "retire_ms": 1.932917,
+        "second_scan_ms": 5.48225,
+        "update_ms": 0.496042
+      },
+      {
+        "first_scan_ms": 6.224583,
+        "fork_ms": 14.857042,
+        "lifecycle_ms": 29.111917,
+        "retire_ms": 1.967333,
+        "second_scan_ms": 5.365708,
+        "update_ms": 0.503333
+      },
+      {
+        "first_scan_ms": 6.068417,
+        "fork_ms": 15.24125,
+        "lifecycle_ms": 28.902708,
+        "retire_ms": 1.857167,
+        "second_scan_ms": 5.101167,
+        "update_ms": 0.472666
+      },
+      {
+        "first_scan_ms": 6.239416,
+        "fork_ms": 14.686125,
+        "lifecycle_ms": 29.149834,
+        "retire_ms": 1.929208,
+        "second_scan_ms": 5.458958,
+        "update_ms": 0.62
+      },
+      {
+        "first_scan_ms": 6.377167,
+        "fork_ms": 15.092084,
+        "lifecycle_ms": 29.421833,
+        "retire_ms": 1.931625,
+        "second_scan_ms": 5.38775,
+        "update_ms": 0.468917
+      },
+      {
+        "first_scan_ms": 5.902792,
+        "fork_ms": 14.972792,
+        "lifecycle_ms": 28.804917,
+        "retire_ms": 1.924958,
+        "second_scan_ms": 5.263959,
+        "update_ms": 0.533958
+      },
+      {
+        "first_scan_ms": 6.858709,
+        "fork_ms": 14.646125,
+        "lifecycle_ms": 29.264333,
+        "retire_ms": 1.941333,
+        "second_scan_ms": 5.14725,
+        "update_ms": 0.497125
+      }
+    ],
+    "success": true,
+    "rss_bytes": 143851520
+  },
+  {
+    "name": "n4096-p1-pair3-ON",
+    "n": 4096,
+    "p": 1,
+    "pair": 3,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 548.4277500000019,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "load_after": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "acceptance": false,
+    "batch_ms": 229.718583,
+    "cpu_ms": 679.41,
+    "elapsed_ms": 496.929625,
+    "final_ms": 23.023875,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 798,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 764477440,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 244.182292,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 5.806667,
+        "fork_ms": 14.862209,
+        "lifecycle_ms": 28.793834,
+        "retire_ms": 1.830083,
+        "second_scan_ms": 5.35775,
+        "update_ms": 0.746875
+      },
+      {
+        "first_scan_ms": 6.704,
+        "fork_ms": 14.826541,
+        "lifecycle_ms": 29.781042,
+        "retire_ms": 1.86875,
+        "second_scan_ms": 5.662583,
+        "update_ms": 0.5095
+      },
+      {
+        "first_scan_ms": 5.745625,
+        "fork_ms": 14.584708,
+        "lifecycle_ms": 28.017458,
+        "retire_ms": 1.870375,
+        "second_scan_ms": 5.105084,
+        "update_ms": 0.533917
+      },
+      {
+        "first_scan_ms": 5.994708,
+        "fork_ms": 14.914167,
+        "lifecycle_ms": 28.900916,
+        "retire_ms": 1.851917,
+        "second_scan_ms": 5.509,
+        "update_ms": 0.45675
+      },
+      {
+        "first_scan_ms": 5.957833,
+        "fork_ms": 14.746167,
+        "lifecycle_ms": 28.959209,
+        "retire_ms": 1.826917,
+        "second_scan_ms": 5.524208,
+        "update_ms": 0.598958
+      },
+      {
+        "first_scan_ms": 5.636959,
+        "fork_ms": 14.68875,
+        "lifecycle_ms": 28.09625,
+        "retire_ms": 1.905166,
+        "second_scan_ms": 5.243334,
+        "update_ms": 0.457458
+      },
+      {
+        "first_scan_ms": 6.379292,
+        "fork_ms": 14.6555,
+        "lifecycle_ms": 28.962791,
+        "retire_ms": 1.778416,
+        "second_scan_ms": 5.539666,
+        "update_ms": 0.452958
+      },
+      {
+        "first_scan_ms": 5.595459,
+        "fork_ms": 14.783667,
+        "lifecycle_ms": 28.199458,
+        "retire_ms": 1.843208,
+        "second_scan_ms": 5.314042,
+        "update_ms": 0.478667
+      }
+    ],
+    "success": true,
+    "rss_bytes": 143360000
+  },
+  {
+    "name": "n4096-p8-pair3-OFF",
+    "n": 4096,
+    "p": 8,
+    "pair": 3,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 387.5555000000048,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "load_after": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "acceptance": false,
+    "batch_ms": 77.380209,
+    "cpu_ms": 777.6460000000001,
+    "elapsed_ms": 350.0845,
+    "final_ms": 22.946292,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 802,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5664800768,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 249.752625,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 15.079042,
+        "fork_ms": 35.299833,
+        "lifecycle_ms": 69.703042,
+        "retire_ms": 2.642625,
+        "second_scan_ms": 16.105,
+        "update_ms": 0.401167
+      },
+      {
+        "first_scan_ms": 24.216292,
+        "fork_ms": 39.0485,
+        "lifecycle_ms": 74.464083,
+        "retire_ms": 2.800833,
+        "second_scan_ms": 7.371458,
+        "update_ms": 0.711916
+      },
+      {
+        "first_scan_ms": 15.285041,
+        "fork_ms": 34.817167,
+        "lifecycle_ms": 62.165083,
+        "retire_ms": 5.227125,
+        "second_scan_ms": 6.0375,
+        "update_ms": 0.611834
+      },
+      {
+        "first_scan_ms": 24.838667,
+        "fork_ms": 42.482166,
+        "lifecycle_ms": 77.335458,
+        "retire_ms": 2.466542,
+        "second_scan_ms": 7.052667,
+        "update_ms": 0.367625
+      },
+      {
+        "first_scan_ms": 29.567625,
+        "fork_ms": 34.894917,
+        "lifecycle_ms": 76.563541,
+        "retire_ms": 2.141958,
+        "second_scan_ms": 9.242875,
+        "update_ms": 0.547125
+      },
+      {
+        "first_scan_ms": 15.026292,
+        "fork_ms": 35.182667,
+        "lifecycle_ms": 64.969,
+        "retire_ms": 5.885625,
+        "second_scan_ms": 8.190625,
+        "update_ms": 0.562958
+      },
+      {
+        "first_scan_ms": 16.542583,
+        "fork_ms": 34.986666,
+        "lifecycle_ms": 62.378875,
+        "retire_ms": 4.52375,
+        "second_scan_ms": 5.873375,
+        "update_ms": 0.340833
+      },
+      {
+        "first_scan_ms": 7.490625,
+        "fork_ms": 51.355833,
+        "lifecycle_ms": 70.496083,
+        "retire_ms": 3.556,
+        "second_scan_ms": 7.391458,
+        "update_ms": 0.548208
+      }
+    ],
+    "success": true,
+    "rss_bytes": 562544640
+  },
+  {
+    "name": "n4096-p8-pair3-ON",
+    "n": 4096,
+    "p": 8,
+    "pair": 3,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 390.3953749999971,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "load_after": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "acceptance": false,
+    "batch_ms": 79.735792,
+    "cpu_ms": 787.968,
+    "elapsed_ms": 351.503,
+    "final_ms": 23.762125,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 814,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5805834240,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 248.001875,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 18.785708,
+        "fork_ms": 29.587583,
+        "lifecycle_ms": 64.706458,
+        "retire_ms": 7.567292,
+        "second_scan_ms": 7.911125,
+        "update_ms": 0.713583
+      },
+      {
+        "first_scan_ms": 37.644125,
+        "fork_ms": 32.895834,
+        "lifecycle_ms": 79.642625,
+        "retire_ms": 2.154792,
+        "second_scan_ms": 6.410083,
+        "update_ms": 0.372416
+      },
+      {
+        "first_scan_ms": 19.351,
+        "fork_ms": 39.835416,
+        "lifecycle_ms": 73.18925,
+        "retire_ms": 2.640083,
+        "second_scan_ms": 10.406667,
+        "update_ms": 0.755
+      },
+      {
+        "first_scan_ms": 28.152875,
+        "fork_ms": 29.586625,
+        "lifecycle_ms": 70.65075,
+        "retire_ms": 4.6715,
+        "second_scan_ms": 6.499083,
+        "update_ms": 1.535166
+      },
+      {
+        "first_scan_ms": 14.097125,
+        "fork_ms": 50.95275,
+        "lifecycle_ms": 78.07975,
+        "retire_ms": 2.268375,
+        "second_scan_ms": 9.922875,
+        "update_ms": 0.5535
+      },
+      {
+        "first_scan_ms": 14.990625,
+        "fork_ms": 27.804375,
+        "lifecycle_ms": 65.870791,
+        "retire_ms": 9.371375,
+        "second_scan_ms": 10.606083,
+        "update_ms": 0.702959
+      },
+      {
+        "first_scan_ms": 36.026125,
+        "fork_ms": 32.357667,
+        "lifecycle_ms": 78.739709,
+        "retire_ms": 2.341708,
+        "second_scan_ms": 7.43075,
+        "update_ms": 0.450292
+      },
+      {
+        "first_scan_ms": 17.354042,
+        "fork_ms": 40.428625,
+        "lifecycle_ms": 69.481834,
+        "retire_ms": 3.549375,
+        "second_scan_ms": 6.484292,
+        "update_ms": 1.018375
+      }
+    ],
+    "success": true,
+    "rss_bytes": 564183040
+  },
+  {
+    "name": "n24576-p8-pair3-OFF",
+    "n": 24576,
+    "p": 8,
+    "pair": 3,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1558.8563330000013,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.037109375,
+      8.1875,
+      10.58447265625
+    ],
+    "load_after": [
+      5.83447265625,
+      8.30029296875,
+      10.60986328125
+    ],
+    "acceptance": false,
+    "batch_ms": 182.762333,
+    "cpu_ms": 2594.375,
+    "elapsed_ms": 1502.724375,
+    "final_ms": 53.238542,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 805,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5829427200,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1266.716792,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 57.897083,
+        "fork_ms": 25.085208,
+        "lifecycle_ms": 146.229375,
+        "retire_ms": 6.999083,
+        "second_scan_ms": 54.909916,
+        "update_ms": 1.083458
+      },
+      {
+        "first_scan_ms": 86.664583,
+        "fork_ms": 41.277458,
+        "lifecycle_ms": 180.306792,
+        "retire_ms": 2.674291,
+        "second_scan_ms": 48.797708,
+        "update_ms": 0.742542
+      },
+      {
+        "first_scan_ms": 83.633334,
+        "fork_ms": 33.050291,
+        "lifecycle_ms": 181.34225,
+        "retire_ms": 3.383625,
+        "second_scan_ms": 60.067458,
+        "update_ms": 0.820291
+      },
+      {
+        "first_scan_ms": 74.943125,
+        "fork_ms": 32.680959,
+        "lifecycle_ms": 182.70775,
+        "retire_ms": 2.084208,
+        "second_scan_ms": 72.14425,
+        "update_ms": 0.633541
+      },
+      {
+        "first_scan_ms": 49.293458,
+        "fork_ms": 32.261208,
+        "lifecycle_ms": 134.307375,
+        "retire_ms": 3.160875,
+        "second_scan_ms": 47.751291,
+        "update_ms": 1.437708
+      },
+      {
+        "first_scan_ms": 58.050334,
+        "fork_ms": 32.4315,
+        "lifecycle_ms": 154.438833,
+        "retire_ms": 2.89175,
+        "second_scan_ms": 59.000333,
+        "update_ms": 1.376959
+      },
+      {
+        "first_scan_ms": 100.563209,
+        "fork_ms": 32.301709,
+        "lifecycle_ms": 179.206208,
+        "retire_ms": 2.7085,
+        "second_scan_ms": 42.751667,
+        "update_ms": 0.6285
+      },
+      {
+        "first_scan_ms": 82.867166,
+        "fork_ms": 35.571917,
+        "lifecycle_ms": 169.983041,
+        "retire_ms": 5.005833,
+        "second_scan_ms": 45.265541,
+        "update_ms": 0.909542
+      }
+    ],
+    "success": true,
+    "rss_bytes": 648003584
+  },
+  {
+    "name": "n24576-p8-pair3-ON",
+    "n": 24576,
+    "p": 8,
+    "pair": 3,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1533.1812499999983,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.83447265625,
+      8.30029296875,
+      10.60986328125
+    ],
+    "load_after": [
+      5.83447265625,
+      8.30029296875,
+      10.60986328125
+    ],
+    "acceptance": false,
+    "batch_ms": 185.293709,
+    "cpu_ms": 2554.06,
+    "elapsed_ms": 1475.728542,
+    "final_ms": 48.759834,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 800,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5703139328,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1241.6675,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 55.151667,
+        "fork_ms": 37.462,
+        "lifecycle_ms": 154.413709,
+        "retire_ms": 2.885125,
+        "second_scan_ms": 56.584167,
+        "update_ms": 1.784
+      },
+      {
+        "first_scan_ms": 88.169958,
+        "fork_ms": 37.611958,
+        "lifecycle_ms": 180.532625,
+        "retire_ms": 2.749167,
+        "second_scan_ms": 51.192708,
+        "update_ms": 0.601125
+      },
+      {
+        "first_scan_ms": 84.302208,
+        "fork_ms": 37.499292,
+        "lifecycle_ms": 176.37975,
+        "retire_ms": 2.847416,
+        "second_scan_ms": 50.768667,
+        "update_ms": 0.761208
+      },
+      {
+        "first_scan_ms": 84.418083,
+        "fork_ms": 25.984084,
+        "lifecycle_ms": 173.067333,
+        "retire_ms": 2.7075,
+        "second_scan_ms": 58.880292,
+        "update_ms": 0.754625
+      },
+      {
+        "first_scan_ms": 95.961875,
+        "fork_ms": 37.114,
+        "lifecycle_ms": 185.046334,
+        "retire_ms": 2.649875,
+        "second_scan_ms": 48.634958,
+        "update_ms": 0.50875
+      },
+      {
+        "first_scan_ms": 49.375083,
+        "fork_ms": 37.376125,
+        "lifecycle_ms": 147.89175,
+        "retire_ms": 2.751,
+        "second_scan_ms": 57.542791,
+        "update_ms": 0.663
+      },
+      {
+        "first_scan_ms": 59.112167,
+        "fork_ms": 25.506417,
+        "lifecycle_ms": 148.346834,
+        "retire_ms": 2.864166,
+        "second_scan_ms": 60.305708,
+        "update_ms": 0.397292
+      },
+      {
+        "first_scan_ms": 66.273625,
+        "fork_ms": 37.3745,
+        "lifecycle_ms": 160.122791,
+        "retire_ms": 3.09125,
+        "second_scan_ms": 51.617125,
+        "update_ms": 1.194541
+      }
+    ],
+    "success": true,
+    "rss_bytes": 687570944
+  },
+  {
+    "name": "n24576-p1-pair3-OFF",
+    "n": 24576,
+    "p": 1,
+    "pair": 3,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1940.1962499999995,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.83447265625,
+      8.30029296875,
+      10.60986328125
+    ],
+    "load_after": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "acceptance": false,
+    "batch_ms": 613.994584,
+    "cpu_ms": 2339.083,
+    "elapsed_ms": 1915.944333,
+    "final_ms": 48.173083,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 803,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755826688,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1253.77175,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 29.954292,
+        "fork_ms": 15.021917,
+        "lifecycle_ms": 76.265042,
+        "retire_ms": 1.898792,
+        "second_scan_ms": 28.559125,
+        "update_ms": 0.606625
+      },
+      {
+        "first_scan_ms": 30.374334,
+        "fork_ms": 15.151417,
+        "lifecycle_ms": 76.749209,
+        "retire_ms": 2.178,
+        "second_scan_ms": 28.250667,
+        "update_ms": 0.577958
+      },
+      {
+        "first_scan_ms": 30.991792,
+        "fork_ms": 15.181916,
+        "lifecycle_ms": 79.335875,
+        "retire_ms": 1.955083,
+        "second_scan_ms": 30.477166,
+        "update_ms": 0.531916
+      },
+      {
+        "first_scan_ms": 29.541083,
+        "fork_ms": 15.61525,
+        "lifecycle_ms": 76.434125,
+        "retire_ms": 1.963833,
+        "second_scan_ms": 28.571958,
+        "update_ms": 0.536375
+      },
+      {
+        "first_scan_ms": 29.210792,
+        "fork_ms": 15.217792,
+        "lifecycle_ms": 75.563709,
+        "retire_ms": 1.978542,
+        "second_scan_ms": 28.39025,
+        "update_ms": 0.564875
+      },
+      {
+        "first_scan_ms": 29.257875,
+        "fork_ms": 15.213125,
+        "lifecycle_ms": 75.197292,
+        "retire_ms": 1.897584,
+        "second_scan_ms": 28.102,
+        "update_ms": 0.524
+      },
+      {
+        "first_scan_ms": 31.027958,
+        "fork_ms": 14.831041,
+        "lifecycle_ms": 79.081625,
+        "retire_ms": 1.885709,
+        "second_scan_ms": 30.610333,
+        "update_ms": 0.525875
+      },
+      {
+        "first_scan_ms": 28.843125,
+        "fork_ms": 15.778417,
+        "lifecycle_ms": 75.361583,
+        "retire_ms": 1.8955,
+        "second_scan_ms": 28.1125,
+        "update_ms": 0.525375
+      }
+    ],
+    "success": true,
+    "rss_bytes": 227770368
+  },
+  {
+    "name": "n24576-p1-pair3-ON",
+    "n": 24576,
+    "p": 1,
+    "pair": 3,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 2015.913290999997,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "load_after": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "acceptance": false,
+    "batch_ms": 625.4715,
+    "cpu_ms": 2428.52,
+    "elapsed_ms": 1958.446792,
+    "final_ms": 46.552,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 801,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 756023296,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1286.419375,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 31.195583,
+        "fork_ms": 15.744666,
+        "lifecycle_ms": 80.554333,
+        "retire_ms": 2.08325,
+        "second_scan_ms": 30.59225,
+        "update_ms": 0.705625
+      },
+      {
+        "first_scan_ms": 30.847625,
+        "fork_ms": 16.066166,
+        "lifecycle_ms": 78.306708,
+        "retire_ms": 1.964417,
+        "second_scan_ms": 28.65925,
+        "update_ms": 0.545708
+      },
+      {
+        "first_scan_ms": 31.007083,
+        "fork_ms": 15.406375,
+        "lifecycle_ms": 77.61625,
+        "retire_ms": 1.910209,
+        "second_scan_ms": 28.510541,
+        "update_ms": 0.533583
+      },
+      {
+        "first_scan_ms": 31.488583,
+        "fork_ms": 15.10925,
+        "lifecycle_ms": 79.694458,
+        "retire_ms": 1.965875,
+        "second_scan_ms": 30.388833,
+        "update_ms": 0.525583
+      },
+      {
+        "first_scan_ms": 29.201125,
+        "fork_ms": 15.293083,
+        "lifecycle_ms": 75.69175,
+        "retire_ms": 2.040625,
+        "second_scan_ms": 28.408042,
+        "update_ms": 0.541584
+      },
+      {
+        "first_scan_ms": 31.5985,
+        "fork_ms": 15.372166,
+        "lifecycle_ms": 81.499667,
+        "retire_ms": 2.18375,
+        "second_scan_ms": 31.577,
+        "update_ms": 0.556584
+      },
+      {
+        "first_scan_ms": 30.172792,
+        "fork_ms": 15.607,
+        "lifecycle_ms": 77.028875,
+        "retire_ms": 1.937541,
+        "second_scan_ms": 28.58375,
+        "update_ms": 0.528417
+      },
+      {
+        "first_scan_ms": 28.946042,
+        "fork_ms": 15.208875,
+        "lifecycle_ms": 75.071542,
+        "retire_ms": 1.86225,
+        "second_scan_ms": 28.265542,
+        "update_ms": 0.506792
+      }
+    ],
+    "success": true,
+    "rss_bytes": 221724672
+  },
+  {
+    "name": "n4096-p8-pair4-ON",
+    "n": 4096,
+    "p": 8,
+    "pair": 4,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 400.38841700000205,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "load_after": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "acceptance": false,
+    "batch_ms": 84.110667,
+    "cpu_ms": 758.362,
+    "elapsed_ms": 349.631583,
+    "final_ms": 23.617542,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 805,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5243535360,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 241.899208,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 15.638625,
+        "fork_ms": 40.873958,
+        "lifecycle_ms": 69.741167,
+        "retire_ms": 5.593334,
+        "second_scan_ms": 6.612625,
+        "update_ms": 0.806834
+      },
+      {
+        "first_scan_ms": 42.203083,
+        "fork_ms": 20.775917,
+        "lifecycle_ms": 74.40575,
+        "retire_ms": 2.751417,
+        "second_scan_ms": 8.009042,
+        "update_ms": 0.535583
+      },
+      {
+        "first_scan_ms": 15.552625,
+        "fork_ms": 25.054167,
+        "lifecycle_ms": 54.261,
+        "retire_ms": 6.386417,
+        "second_scan_ms": 6.664417,
+        "update_ms": 0.448958
+      },
+      {
+        "first_scan_ms": 12.423708,
+        "fork_ms": 63.037875,
+        "lifecycle_ms": 84.05725,
+        "retire_ms": 1.975125,
+        "second_scan_ms": 5.895791,
+        "update_ms": 0.53275
+      },
+      {
+        "first_scan_ms": 14.902083,
+        "fork_ms": 40.80575,
+        "lifecycle_ms": 69.413083,
+        "retire_ms": 4.533125,
+        "second_scan_ms": 7.233791,
+        "update_ms": 1.756417
+      },
+      {
+        "first_scan_ms": 30.381916,
+        "fork_ms": 26.999916,
+        "lifecycle_ms": 69.528333,
+        "retire_ms": 4.690542,
+        "second_scan_ms": 5.615292,
+        "update_ms": 1.504042
+      },
+      {
+        "first_scan_ms": 13.209375,
+        "fork_ms": 21.039375,
+        "lifecycle_ms": 54.378333,
+        "retire_ms": 10.987625,
+        "second_scan_ms": 6.3535,
+        "update_ms": 0.619708
+      },
+      {
+        "first_scan_ms": 22.825709,
+        "fork_ms": 47.704542,
+        "lifecycle_ms": 80.926208,
+        "retire_ms": 2.305209,
+        "second_scan_ms": 7.220625,
+        "update_ms": 0.610583
+      }
+    ],
+    "success": true,
+    "rss_bytes": 534003712
+  },
+  {
+    "name": "n4096-p8-pair4-OFF",
+    "n": 4096,
+    "p": 8,
+    "pair": 4,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 394.62274999999636,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "load_after": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "acceptance": false,
+    "batch_ms": 75.747167,
+    "cpu_ms": 749.989,
+    "elapsed_ms": 343.366875,
+    "final_ms": 22.836,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 794,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5553586176,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 5783552,
+    "prepare_ms": 244.779584,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 24.332041,
+        "fork_ms": 40.308583,
+        "lifecycle_ms": 75.740167,
+        "retire_ms": 3.683834,
+        "second_scan_ms": 6.948792,
+        "update_ms": 0.320792
+      },
+      {
+        "first_scan_ms": 11.782,
+        "fork_ms": 37.63075,
+        "lifecycle_ms": 61.041791,
+        "retire_ms": 5.268833,
+        "second_scan_ms": 5.873208,
+        "update_ms": 0.355042
+      },
+      {
+        "first_scan_ms": 23.836542,
+        "fork_ms": 40.164541,
+        "lifecycle_ms": 73.899208,
+        "retire_ms": 2.728417,
+        "second_scan_ms": 6.676291,
+        "update_ms": 0.36975
+      },
+      {
+        "first_scan_ms": 15.580833,
+        "fork_ms": 32.11375,
+        "lifecycle_ms": 61.628708,
+        "retire_ms": 5.476875,
+        "second_scan_ms": 5.99975,
+        "update_ms": 1.8755
+      },
+      {
+        "first_scan_ms": 17.997083,
+        "fork_ms": 38.742917,
+        "lifecycle_ms": 73.198541,
+        "retire_ms": 2.615708,
+        "second_scan_ms": 13.035625,
+        "update_ms": 0.546791
+      },
+      {
+        "first_scan_ms": 11.91825,
+        "fork_ms": 39.3595,
+        "lifecycle_ms": 67.50225,
+        "retire_ms": 2.618125,
+        "second_scan_ms": 12.247834,
+        "update_ms": 0.689917
+      },
+      {
+        "first_scan_ms": 22.822,
+        "fork_ms": 41.990334,
+        "lifecycle_ms": 74.814833,
+        "retire_ms": 2.931416,
+        "second_scan_ms": 6.473542,
+        "update_ms": 0.382458
+      },
+      {
+        "first_scan_ms": 19.8475,
+        "fork_ms": 27.790417,
+        "lifecycle_ms": 58.751708,
+        "retire_ms": 3.929209,
+        "second_scan_ms": 6.277542,
+        "update_ms": 0.566042
+      }
+    ],
+    "success": true,
+    "rss_bytes": 558448640
+  },
+  {
+    "name": "n4096-p1-pair4-ON",
+    "n": 4096,
+    "p": 1,
+    "pair": 4,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 542.5216669999954,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "load_after": [
+      5.767578125,
+      8.2451171875,
+      10.57666015625
+    ],
+    "acceptance": false,
+    "batch_ms": 236.038167,
+    "cpu_ms": 707.719,
+    "elapsed_ms": 514.167208,
+    "final_ms": 22.834958,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 809,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 772866048,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 255.289333,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.26125,
+        "fork_ms": 15.430709,
+        "lifecycle_ms": 29.950958,
+        "retire_ms": 1.935541,
+        "second_scan_ms": 5.564584,
+        "update_ms": 0.583167
+      },
+      {
+        "first_scan_ms": 5.921417,
+        "fork_ms": 15.660459,
+        "lifecycle_ms": 29.4815,
+        "retire_ms": 1.916167,
+        "second_scan_ms": 5.291416,
+        "update_ms": 0.508791
+      },
+      {
+        "first_scan_ms": 6.176,
+        "fork_ms": 14.886625,
+        "lifecycle_ms": 29.217417,
+        "retire_ms": 1.896458,
+        "second_scan_ms": 5.598417,
+        "update_ms": 0.478208
+      },
+      {
+        "first_scan_ms": 6.030625,
+        "fork_ms": 14.744292,
+        "lifecycle_ms": 28.998083,
+        "retire_ms": 1.892959,
+        "second_scan_ms": 5.630625,
+        "update_ms": 0.505
+      },
+      {
+        "first_scan_ms": 5.762334,
+        "fork_ms": 15.079375,
+        "lifecycle_ms": 28.720291,
+        "retire_ms": 2.02875,
+        "second_scan_ms": 5.191167,
+        "update_ms": 0.484834
+      },
+      {
+        "first_scan_ms": 6.136333,
+        "fork_ms": 14.857333,
+        "lifecycle_ms": 29.063042,
+        "retire_ms": 2.013875,
+        "second_scan_ms": 5.41225,
+        "update_ms": 0.477708
+      },
+      {
+        "first_scan_ms": 6.528792,
+        "fork_ms": 15.4325,
+        "lifecycle_ms": 30.424375,
+        "retire_ms": 1.973417,
+        "second_scan_ms": 5.749292,
+        "update_ms": 0.529084
+      },
+      {
+        "first_scan_ms": 6.472666,
+        "fork_ms": 15.664292,
+        "lifecycle_ms": 30.174708,
+        "retire_ms": 1.90275,
+        "second_scan_ms": 5.486542,
+        "update_ms": 0.471125
+      }
+    ],
+    "success": true,
+    "rss_bytes": 141213696
+  },
+  {
+    "name": "n4096-p1-pair4-OFF",
+    "n": 4096,
+    "p": 1,
+    "pair": 4,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 554.8407919999931,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.5458984375,
+      8.15771484375,
+      10.5322265625
+    ],
+    "load_after": [
+      5.5458984375,
+      8.15771484375,
+      10.5322265625
+    ],
+    "acceptance": false,
+    "batch_ms": 232.92225,
+    "cpu_ms": 665.537,
+    "elapsed_ms": 498.1035,
+    "final_ms": 23.187542,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 793,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 763297792,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 5783552,
+    "prepare_ms": 241.989,
+    "rows": 4096,
+    "samples": [
+      {
+        "first_scan_ms": 6.258833,
+        "fork_ms": 14.938166,
+        "lifecycle_ms": 29.114,
+        "retire_ms": 2.019458,
+        "second_scan_ms": 5.165416,
+        "update_ms": 0.544333
+      },
+      {
+        "first_scan_ms": 6.594,
+        "fork_ms": 14.784417,
+        "lifecycle_ms": 29.057625,
+        "retire_ms": 1.903292,
+        "second_scan_ms": 5.144792,
+        "update_ms": 0.45025
+      },
+      {
+        "first_scan_ms": 6.151375,
+        "fork_ms": 14.802791,
+        "lifecycle_ms": 28.706458,
+        "retire_ms": 1.901666,
+        "second_scan_ms": 5.191291,
+        "update_ms": 0.474625
+      },
+      {
+        "first_scan_ms": 6.055917,
+        "fork_ms": 14.521375,
+        "lifecycle_ms": 28.578375,
+        "retire_ms": 2.018625,
+        "second_scan_ms": 5.25225,
+        "update_ms": 0.518792
+      },
+      {
+        "first_scan_ms": 7.398292,
+        "fork_ms": 14.70975,
+        "lifecycle_ms": 30.460959,
+        "retire_ms": 2.026375,
+        "second_scan_ms": 5.596667,
+        "update_ms": 0.539625
+      },
+      {
+        "first_scan_ms": 5.985917,
+        "fork_ms": 14.661292,
+        "lifecycle_ms": 28.483875,
+        "retire_ms": 1.939083,
+        "second_scan_ms": 5.217542,
+        "update_ms": 0.507292
+      },
+      {
+        "first_scan_ms": 6.306209,
+        "fork_ms": 14.726959,
+        "lifecycle_ms": 28.901958,
+        "retire_ms": 1.907084,
+        "second_scan_ms": 5.300584,
+        "update_ms": 0.486792
+      },
+      {
+        "first_scan_ms": 6.766333,
+        "fork_ms": 14.957584,
+        "lifecycle_ms": 29.611416,
+        "retire_ms": 1.937458,
+        "second_scan_ms": 5.3345,
+        "update_ms": 0.458375
+      }
+    ],
+    "success": true,
+    "rss_bytes": 143130624
+  },
+  {
+    "name": "n24576-p1-pair4-ON",
+    "n": 24576,
+    "p": 1,
+    "pair": 4,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 2017.6044170000011,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.5458984375,
+      8.15771484375,
+      10.5322265625
+    ],
+    "load_after": [
+      5.5458984375,
+      8.15771484375,
+      10.5322265625
+    ],
+    "acceptance": false,
+    "batch_ms": 640.976375,
+    "cpu_ms": 2446.8450000000003,
+    "elapsed_ms": 1959.822084,
+    "final_ms": 48.013834,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 808,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755695616,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1270.82725,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 31.65375,
+        "fork_ms": 15.054834,
+        "lifecycle_ms": 81.391791,
+        "retire_ms": 1.89775,
+        "second_scan_ms": 31.948416,
+        "update_ms": 0.62
+      },
+      {
+        "first_scan_ms": 29.189333,
+        "fork_ms": 15.257,
+        "lifecycle_ms": 78.880833,
+        "retire_ms": 2.22075,
+        "second_scan_ms": 31.449958,
+        "update_ms": 0.530417
+      },
+      {
+        "first_scan_ms": 30.622417,
+        "fork_ms": 15.135625,
+        "lifecycle_ms": 76.988084,
+        "retire_ms": 1.932459,
+        "second_scan_ms": 28.547334,
+        "update_ms": 0.541875
+      },
+      {
+        "first_scan_ms": 29.156,
+        "fork_ms": 15.181083,
+        "lifecycle_ms": 75.304,
+        "retire_ms": 1.952208,
+        "second_scan_ms": 28.293125,
+        "update_ms": 0.522416
+      },
+      {
+        "first_scan_ms": 29.300917,
+        "fork_ms": 15.698041,
+        "lifecycle_ms": 76.318375,
+        "retire_ms": 2.017,
+        "second_scan_ms": 28.521292,
+        "update_ms": 0.561167
+      },
+      {
+        "first_scan_ms": 31.668625,
+        "fork_ms": 17.551375,
+        "lifecycle_ms": 82.770125,
+        "retire_ms": 2.146459,
+        "second_scan_ms": 30.652166,
+        "update_ms": 0.545209
+      },
+      {
+        "first_scan_ms": 34.700292,
+        "fork_ms": 15.337292,
+        "lifecycle_ms": 86.782875,
+        "retire_ms": 2.112709,
+        "second_scan_ms": 33.855334,
+        "update_ms": 0.556667
+      },
+      {
+        "first_scan_ms": 31.971458,
+        "fork_ms": 15.923125,
+        "lifecycle_ms": 82.533167,
+        "retire_ms": 2.003917,
+        "second_scan_ms": 31.83725,
+        "update_ms": 0.572667
+      }
+    ],
+    "success": true,
+    "rss_bytes": 223608832
+  },
+  {
+    "name": "n24576-p1-pair4-OFF",
+    "n": 24576,
+    "p": 1,
+    "pair": 4,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 2021.7488329999967,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.5458984375,
+      8.15771484375,
+      10.5322265625
+    ],
+    "load_after": [
+      5.501953125,
+      8.10498046875,
+      10.49951171875
+    ],
+    "acceptance": false,
+    "batch_ms": 657.551542,
+    "cpu_ms": 2376.939,
+    "elapsed_ms": 1970.739291,
+    "final_ms": 46.7645,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 808,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 755171328,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 1,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1266.4185,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 29.890125,
+        "fork_ms": 15.074708,
+        "lifecycle_ms": 76.029584,
+        "retire_ms": 1.964458,
+        "second_scan_ms": 28.293291,
+        "update_ms": 0.587208
+      },
+      {
+        "first_scan_ms": 32.350791,
+        "fork_ms": 15.763917,
+        "lifecycle_ms": 80.99475,
+        "retire_ms": 1.956292,
+        "second_scan_ms": 30.163667,
+        "update_ms": 0.543333
+      },
+      {
+        "first_scan_ms": 29.367,
+        "fork_ms": 14.921166,
+        "lifecycle_ms": 75.186125,
+        "retire_ms": 1.891125,
+        "second_scan_ms": 28.283084,
+        "update_ms": 0.51925
+      },
+      {
+        "first_scan_ms": 44.212833,
+        "fork_ms": 38.896416,
+        "lifecycle_ms": 116.790542,
+        "retire_ms": 1.882,
+        "second_scan_ms": 31.061292,
+        "update_ms": 0.5375
+      },
+      {
+        "first_scan_ms": 29.802125,
+        "fork_ms": 15.102584,
+        "lifecycle_ms": 75.552125,
+        "retire_ms": 1.837292,
+        "second_scan_ms": 28.08075,
+        "update_ms": 0.527459
+      },
+      {
+        "first_scan_ms": 31.043625,
+        "fork_ms": 14.832959,
+        "lifecycle_ms": 78.60375,
+        "retire_ms": 1.938542,
+        "second_scan_ms": 30.035375,
+        "update_ms": 0.546958
+      },
+      {
+        "first_scan_ms": 29.252334,
+        "fork_ms": 14.78225,
+        "lifecycle_ms": 75.035625,
+        "retire_ms": 1.970542,
+        "second_scan_ms": 28.303625,
+        "update_ms": 0.513959
+      },
+      {
+        "first_scan_ms": 31.289667,
+        "fork_ms": 15.164125,
+        "lifecycle_ms": 79.352708,
+        "retire_ms": 1.951042,
+        "second_scan_ms": 30.187625,
+        "update_ms": 0.549959
+      }
+    ],
+    "success": true,
+    "rss_bytes": 236830720
+  },
+  {
+    "name": "n24576-p8-pair4-ON",
+    "n": 24576,
+    "p": 8,
+    "pair": 4,
+    "arm": "ON",
+    "returncode": 0,
+    "wall_ms": 1562.9059170000091,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.501953125,
+      8.10498046875,
+      10.49951171875
+    ],
+    "load_after": [
+      5.501953125,
+      8.10498046875,
+      10.49951171875
+    ],
+    "acceptance": false,
+    "batch_ms": 181.312084,
+    "cpu_ms": 2605.565,
+    "elapsed_ms": 1502.380542,
+    "final_ms": 50.953166,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 809,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5510070272,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1270.111708,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 73.490125,
+        "fork_ms": 31.196042,
+        "lifecycle_ms": 175.952292,
+        "retire_ms": 2.460917,
+        "second_scan_ms": 68.054125,
+        "update_ms": 0.554833
+      },
+      {
+        "first_scan_ms": 54.505666,
+        "fork_ms": 35.1805,
+        "lifecycle_ms": 170.244916,
+        "retire_ms": 3.78025,
+        "second_scan_ms": 75.20675,
+        "update_ms": 0.723708
+      },
+      {
+        "first_scan_ms": 75.601083,
+        "fork_ms": 35.086666,
+        "lifecycle_ms": 169.377791,
+        "retire_ms": 2.902417,
+        "second_scan_ms": 55.01,
+        "update_ms": 0.464459
+      },
+      {
+        "first_scan_ms": 43.583625,
+        "fork_ms": 31.134875,
+        "lifecycle_ms": 139.944834,
+        "retire_ms": 7.118083,
+        "second_scan_ms": 57.245375,
+        "update_ms": 0.668291
+      },
+      {
+        "first_scan_ms": 65.171125,
+        "fork_ms": 35.168708,
+        "lifecycle_ms": 160.374125,
+        "retire_ms": 5.019625,
+        "second_scan_ms": 49.863292,
+        "update_ms": 3.875959
+      },
+      {
+        "first_scan_ms": 76.742583,
+        "fork_ms": 31.076375,
+        "lifecycle_ms": 159.706958,
+        "retire_ms": 3.757875,
+        "second_scan_ms": 47.302792,
+        "update_ms": 0.57575
+      },
+      {
+        "first_scan_ms": 72.741708,
+        "fork_ms": 30.903125,
+        "lifecycle_ms": 176.647584,
+        "retire_ms": 3.330959,
+        "second_scan_ms": 68.905458,
+        "update_ms": 0.551334
+      },
+      {
+        "first_scan_ms": 82.008333,
+        "fork_ms": 31.190334,
+        "lifecycle_ms": 181.27675,
+        "retire_ms": 2.16325,
+        "second_scan_ms": 65.11825,
+        "update_ms": 0.590667
+      }
+    ],
+    "success": true,
+    "rss_bytes": 643039232
+  },
+  {
+    "name": "n24576-p8-pair4-OFF",
+    "n": 24576,
+    "p": 8,
+    "pair": 4,
+    "arm": "OFF",
+    "returncode": 0,
+    "wall_ms": 1525.6985000000043,
+    "power_before": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "power_after": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=37421155)\t80%; AC attached; not charging present: true\n",
+    "load_before": [
+      5.501953125,
+      8.10498046875,
+      10.49951171875
+    ],
+    "load_after": [
+      5.501953125,
+      8.10498046875,
+      10.49951171875
+    ],
+    "acceptance": false,
+    "batch_ms": 185.234209,
+    "cpu_ms": 2598.911,
+    "elapsed_ms": 1510.136458,
+    "final_ms": 51.402292,
+    "go": "go1.27.4",
+    "gomaxprocs": 8,
+    "mapping_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 11,
+      "grow_calls": 801,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5551882240,
+      "release_failures": 0,
+      "releases": 11
+    },
+    "parallel": 8,
+    "physical_bytes": 28901376,
+    "prepare_ms": 1273.479167,
+    "rows": 24576,
+    "samples": [
+      {
+        "first_scan_ms": 62.326917,
+        "fork_ms": 38.389709,
+        "lifecycle_ms": 144.664458,
+        "retire_ms": 4.184041,
+        "second_scan_ms": 38.87925,
+        "update_ms": 0.676042
+      },
+      {
+        "first_scan_ms": 85.741333,
+        "fork_ms": 38.583542,
+        "lifecycle_ms": 185.202916,
+        "retire_ms": 3.444792,
+        "second_scan_ms": 56.732791,
+        "update_ms": 0.569334
+      },
+      {
+        "first_scan_ms": 64.814791,
+        "fork_ms": 38.084291,
+        "lifecycle_ms": 171.278583,
+        "retire_ms": 3.161459,
+        "second_scan_ms": 64.224583,
+        "update_ms": 0.783709
+      },
+      {
+        "first_scan_ms": 56.454541,
+        "fork_ms": 38.343334,
+        "lifecycle_ms": 156.928,
+        "retire_ms": 5.1025,
+        "second_scan_ms": 55.5445,
+        "update_ms": 1.293917
+      },
+      {
+        "first_scan_ms": 90.668666,
+        "fork_ms": 25.19975,
+        "lifecycle_ms": 184.087292,
+        "retire_ms": 2.498709,
+        "second_scan_ms": 64.870125,
+        "update_ms": 0.642792
+      },
+      {
+        "first_scan_ms": 90.379708,
+        "fork_ms": 22.3485,
+        "lifecycle_ms": 171.784291,
+        "retire_ms": 3.572834,
+        "second_scan_ms": 54.5865,
+        "update_ms": 0.500667
+      },
+      {
+        "first_scan_ms": 66.817667,
+        "fork_ms": 38.414917,
+        "lifecycle_ms": 161.643625,
+        "retire_ms": 4.272708,
+        "second_scan_ms": 51.0415,
+        "update_ms": 0.884542
+      },
+      {
+        "first_scan_ms": 73.797834,
+        "fork_ms": 25.33975,
+        "lifecycle_ms": 174.650083,
+        "retire_ms": 2.484333,
+        "second_scan_ms": 69.72725,
+        "update_ms": 0.853625
+      }
+    ],
+    "success": true,
+    "rss_bytes": 639582208
+  }
+]

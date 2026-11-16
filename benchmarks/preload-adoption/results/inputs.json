@@ -1,0 +1,16 @@
+{
+  "identity": {
+    "object_sha": "a7d284c1fd612278de4e50d0fee79933d2aca0b1",
+    "object_type": "commit",
+    "source_commit": "a7d284c1fd612278de4e50d0fee79933d2aca0b1"
+  },
+  "env": {
+    "GOTOOLCHAIN": "go1.27.4",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "MODELCASE_MATCHED": "1",
+    "MARIA_AUDIT_OF": "1",
+    "REVENUE_PREAGG": "1"
+  }
+}
