@@ -8,6 +8,16 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Asynchronous Close productization authorized (2026-11-15)
+
+The Human authorized productization of #204/#205 on the adopted #203+A1a main.
+Prepare a Go CloseAsync(ctx) API with a shared cleanup handle, Wait(ctx) and
+Disposed(), preserving synchronous Close and Fork capacity through disposal.
+Python process-host integration requires a separate interface and is not claimed
+by this Go candidate. Productization is authorized; integration/release remain
+separate gates. Keep the prior #119 tail observation and open an investigation
+Issue if it recurs; do not silently classify it as resolved.
+
 ## Close ownership and unused-directory cleanup — adoption approved (2026-11-15)
 
 The Human approved proceeding with adoption of PR216's #203+A1a candidate

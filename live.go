@@ -39,6 +39,13 @@ func (c liveChild) Failure() error { return c.Err() }
 func (c liveChild) Close() error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	if c.closing != nil {
+		select {
+		case <-c.closing.done:
+		default:
+			return c.closeLocked()
+		}
+	}
 	if !c.closed {
 		return c.closeLocked()
 	}

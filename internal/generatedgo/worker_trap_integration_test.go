@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -154,5 +155,87 @@ func TestWorkerTrapActualGuestNotifiesAndIsolatesPeer(t *testing.T) {
 	after := base.MemoryMappingStats()
 	if after["active_mappings"] != before["active_mappings"] || after["releases"] != before["releases"]+2 {
 		t.Fatal("instance mappings retained", before, after)
+	}
+}
+
+func TestActualGuestStoppedBeforeMemoryRelease(t *testing.T) {
+	warmProcessImage(t)
+	before := base.MemoryMappingStats()["active_mappings"]
+	childIn, in, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	out, childOut, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { in.Close(); out.Close(); childIn.Close(); childOut.Close() })
+	gate := make(chan struct{})
+	entered := make(chan struct{})
+	stopped := make(chan error, 1)
+	var once sync.Once
+	t.Cleanup(func() { once.Do(func() { close(gate) }) })
+	g := &trapGuest{in: in, out: out}
+	g.done = startInstanceWithStopped(childIn, childOut, io.Discard, "", nil, false, nil,
+		func(h *host) (*base.Module, func() error, error) {
+			m, release, err := newMemoryModule(h)
+			if err != nil {
+				return nil, nil, err
+			}
+			return m, func() error { close(entered); <-gate; return release() }, nil
+		}, func(err error) { stopped <- err })
+	ready := make(chan error, 1)
+	go func() { _, err := g.read(); ready <- err }()
+	select {
+	case err := <-ready:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(30 * time.Second):
+		t.Fatal("ready timeout")
+	}
+	for _, c := range []struct {
+		op  byte
+		sql string
+	}{{1, ""}, {2, "SET GLOBAL innodb_fast_shutdown=2"}, {3, ""}} {
+		if _, err := g.call(c.op, c.sql); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err := in.Write([]byte{0, 0, 0, 0}); err != nil {
+		t.Fatal(err)
+	}
+	in.Close()
+	select {
+	case err := <-stopped:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(30 * time.Second):
+		t.Fatal("missing actual guest stopped")
+	}
+	<-entered
+	if got := base.MemoryMappingStats()["active_mappings"]; got != before+1 {
+		t.Fatal("memory not retained at stopped", got, before)
+	}
+	select {
+	case <-g.done:
+		t.Fatal("cleanup completed while release gated")
+	default:
+	}
+	childIn.Close()
+	childOut.Close()
+	out.Close()
+	once.Do(func() { close(gate) })
+	select {
+	case err := <-g.done:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(30 * time.Second):
+		t.Fatal("cleanup timeout")
+	}
+	if got := base.MemoryMappingStats()["active_mappings"]; got != before {
+		t.Fatal("mapping leak", got, before)
 	}
 }
