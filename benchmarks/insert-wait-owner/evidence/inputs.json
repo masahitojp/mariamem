@@ -1,0 +1,21 @@
+{
+  "source_identity": {
+    "object_sha": "dc2dbf37ff5b70104d3c434cdfda612a0654ae9b",
+    "object_type": "commit",
+    "source_commit": "dc2dbf37ff5b70104d3c434cdfda612a0654ae9b"
+  },
+  "product_source_commit": "6558ee8fb2211313a8aa0ea6070ac5256767811a",
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "binary_sha256": "2cf4839257a3ba023979fda3fce3a8cfebb3e7bf3b8c88d215ab39b66c0888ef",
+  "sites": {
+    "16784": "page_wait",
+    "18171": "page_complete",
+    "18277": "read_callback",
+    "16602": "submit",
+    "16583": "task_execute",
+    "16600": "maintenance",
+    "16594": "add_thread"
+  },
+  "limit": "8 fixed P8 suites, no repeats, no performance claim",
+  "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/temp/observe.test: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase/store.test\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}

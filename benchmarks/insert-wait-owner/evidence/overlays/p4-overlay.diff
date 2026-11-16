@@ -1,0 +1,21 @@
+--- /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/worktree/internal/generatedgo/code/p4/p4_pure.go
++++ /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/temp/p4-overlay.go
+@@ -1,6 +1,8 @@
+ package p4
+ 
+ import (
++"context"
++"runtime/trace"
+ 	base "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+ 	_ "github.com/masahitojp/mariamem/internal/generatedgo/code/p3"
+ 	"math"
+@@ -831511,6 +831513,9 @@
+ 	goto L88
+ }
+ func Fn16594(m *base.Module, l0 int32) {
++ trace.Logf(context.Background(), "owner", "add_thread_begin module=%p l0=%d", m.M, l0)
++ defer trace.Logf(context.Background(), "owner", "add_thread_end module=%p l0=%d", m.M, l0)
++
+ 	mBase := m.M
+ 	_ = mBase
+ 	var v11 int32

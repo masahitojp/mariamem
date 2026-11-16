@@ -1,0 +1,11 @@
+{
+  "guest_sha256": "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450",
+  "artifact_id": 14103568702,
+  "artifact_zip_sha256": "4eb9e02f69f8e7889d71f6cdadf60cc43e40cba0ddee113887ac67f7d2b298a4",
+  "function_map_sha256": "ad4c0607efcb95328ebf49a21c09d5b3d4ff7c40c4fc2b9f1aa31fbed6c6704e",
+  "map_source_commit": "0dea912d774201903530e83e01a657189fc8bc97",
+  "map_path": "benchmarks/forkcost/buffer-zero-candidate/validation/function-map.txt",
+  "proof_path": "benchmarks/forkcost/buffer-zero-candidate/evidence/binding-review.json",
+  "canonical_wasm_has_name_section": false,
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+}

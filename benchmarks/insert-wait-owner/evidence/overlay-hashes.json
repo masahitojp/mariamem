@@ -1,0 +1,34 @@
+{
+  "internal/generatedgo/code/p4/p4_pure.go": {
+    "original_sha256": "5572ca5c8b027ab9a67d15606138d88a7baa04b0ee07db389ea2571aa5994463",
+    "overlay_sha256": "66de3b670cdd280be0c00913b3af54e7b810d62b97ccf4312f367a2692b2e027"
+  },
+  "internal/generatedgo/code/p2/p2_pure.go": {
+    "original_sha256": "c7858b8f3b3d9af99b620f4017c178a5c6ab5920a222c0d485326154616c3fa1",
+    "overlay_sha256": "4fa0b7813a1df93dbbb17c4678e9523d5382a8974b932112c80ea3f660e8fac9"
+  },
+  "internal/generatedgo/code/p5/p5_pure.go": {
+    "original_sha256": "0df63bc383454d1b5d518246fba5ceaff6b9d7ba180873e55b8c7fea41cde8d6",
+    "overlay_sha256": "27ebca27fa2213930c3eb4c6734bccadda6d6eab92769e3a75c7556ec197d8b5"
+  },
+  "internal/generatedgo/code/p7/p7_pure.go": {
+    "original_sha256": "1084c3469f268e208352003624a4ad88c95829e0e5b6934d1920e4c0a216c77a",
+    "overlay_sha256": "6e83d0c9e6272a1a92d37fe2b31c78bfd83aa3f050c23ca6e6f918b7bb4bb2e1"
+  },
+  "internal/generatedgo/code/p8/p8_pure.go": {
+    "original_sha256": "fde651a988022401460134c7eba1e94378faf286caa7d73a1e8566bd78606034",
+    "overlay_sha256": "6722d218bf8128e25f0f4564ae1c98c0870fe43c9ccb3fd26c2c43c028268d0b"
+  },
+  "internal/generatedgo/code/p6/p6_pure.go": {
+    "original_sha256": "5c276a253eca692ccce858462dec137e49fb5f249b4551380802a4e2c0a7bfb5",
+    "overlay_sha256": "7c21374376c940c7ce099a907a852c3d7cfe3631e3e23e474e50e5552f83f2f1"
+  },
+  "internal/generatedgo/main.go": {
+    "original_sha256": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
+    "overlay_sha256": "a273af7bfe322fb7257d1e1545dd18812955da7cb3b6930cec2cb7faa4098e6b"
+  },
+  "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/temp/suite/internal/trace/trace.go": {
+    "original_sha256": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+    "overlay_sha256": "7480f246c1d2acb78b560bc7f776cec15a654c1561e6b183a41f03e8ab061355"
+  }
+}

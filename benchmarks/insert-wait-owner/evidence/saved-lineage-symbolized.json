@@ -1,0 +1,199 @@
+[
+  {
+    "header": "M=6133559296 P=5 G=8429 StateTransition Time=323443535477568 GoID=8817 NotExist->Runnable Reason=\"\"",
+    "frames": [
+      {
+        "function": "Fn243",
+        "symbol": "__wrap_pthread_create"
+      },
+      {
+        "function": "Fn21749",
+        "symbol": "_start"
+      }
+    ]
+  },
+  {
+    "header": "M=6134132736 P=6 G=8432 StateTransition Time=323443931875712 GoID=17593 NotExist->Runnable Reason=\"\"",
+    "frames": [
+      {
+        "function": "Fn243",
+        "symbol": "__wrap_pthread_create"
+      },
+      {
+        "function": "Fn16595",
+        "symbol": "_ZNSt3__26threadC2IMN5tpool19thread_pool_genericEFvPNS2_11worker_dataEEJPS3_RS5_ETnNS_9enable_ifIXntsr7is_sameIu14__remove_cvrefIT_ES0_EE5valueEiE4typeELi0EEEOSB_DpOT0_"
+      },
+      {
+        "function": "Fn16594",
+        "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv"
+      },
+      {
+        "function": "Fn16593",
+        "symbol": "_ZN5tpool19thread_pool_generic27maybe_wake_or_create_threadEv"
+      },
+      {
+        "function": "Fn16600",
+        "symbol": "_ZN5tpool19thread_pool_generic16maintenance_funcEPv"
+      },
+      {
+        "function": "Fn16599",
+        "symbol": "_ZN5tpool19thread_pool_generic13timer_generic7executeEPv"
+      },
+      {
+        "function": "Fn5484",
+        "symbol": "timer_handler"
+      },
+      {
+        "function": "Fn214",
+        "symbol": "wasi_thread_start"
+      }
+    ]
+  },
+  {
+    "header": "M=6134132736 P=6 G=17593 StateTransition Time=323443932319872 GoID=17594 NotExist->Runnable Reason=\"\"",
+    "frames": [
+      {
+        "function": "Fn243",
+        "symbol": "__wrap_pthread_create"
+      },
+      {
+        "function": "Fn16595",
+        "symbol": "_ZNSt3__26threadC2IMN5tpool19thread_pool_genericEFvPNS2_11worker_dataEEJPS3_RS5_ETnNS_9enable_ifIXntsr7is_sameIu14__remove_cvrefIT_ES0_EE5valueEiE4typeELi0EEEOSB_DpOT0_"
+      },
+      {
+        "function": "Fn16594",
+        "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv"
+      },
+      {
+        "function": "Fn16593",
+        "symbol": "_ZN5tpool19thread_pool_generic27maybe_wake_or_create_threadEv"
+      },
+      {
+        "function": "Fn16603",
+        "symbol": "_ZN5tpool19thread_pool_generic10wait_beginEv"
+      },
+      {
+        "function": "Fn16580",
+        "symbol": "tpool_wait_begin"
+      },
+      {
+        "function": "Fn17741",
+        "symbol": "_ZN10dict_sys_t15evict_table_LRUEb"
+      },
+      {
+        "function": "Fn18233",
+        "symbol": "srv_master_callback"
+      },
+      {
+        "function": "Fn16599",
+        "symbol": "_ZN5tpool19thread_pool_generic13timer_generic7executeEPv"
+      },
+      {
+        "function": "Fn16583",
+        "symbol": "_ZN5tpool4task7executeEv"
+      },
+      {
+        "function": "Fn16592",
+        "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE"
+      },
+      {
+        "function": "Fn16596",
+        "symbol": "_ZNSt3__214__thread_proxyB8ne200100INS_5tupleIJNS_10unique_ptrINS_15__thread_structENS_14default_deleteIS3_EEEEMN5tpool19thread_pool_genericEFvPNS7_11worker_dataEEPS8_SA_EEEEEPvSF_"
+      },
+      {
+        "function": "Fn214",
+        "symbol": "wasi_thread_start"
+      }
+    ]
+  },
+  {
+    "header": "M=6134132736 P=6 G=17594 StateTransition Time=323443932398464 GoID=17595 NotExist->Runnable Reason=\"\"",
+    "frames": [
+      {
+        "function": "Fn243",
+        "symbol": "__wrap_pthread_create"
+      },
+      {
+        "function": "Fn16595",
+        "symbol": "_ZNSt3__26threadC2IMN5tpool19thread_pool_genericEFvPNS2_11worker_dataEEJPS3_RS5_ETnNS_9enable_ifIXntsr7is_sameIu14__remove_cvrefIT_ES0_EE5valueEiE4typeELi0EEEOSB_DpOT0_"
+      },
+      {
+        "function": "Fn16594",
+        "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv"
+      },
+      {
+        "function": "Fn16593",
+        "symbol": "_ZN5tpool19thread_pool_generic27maybe_wake_or_create_threadEv"
+      },
+      {
+        "function": "Fn16602",
+        "symbol": "_ZN5tpool19thread_pool_generic11submit_taskEPNS_4taskE"
+      },
+      {
+        "function": "Fn18239",
+        "symbol": "_ZN5tpool13simulated_aio22simulated_aio_callbackEPv"
+      },
+      {
+        "function": "Fn16583",
+        "symbol": "_ZN5tpool4task7executeEv"
+      },
+      {
+        "function": "Fn16592",
+        "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE"
+      },
+      {
+        "function": "Fn16596",
+        "symbol": "_ZNSt3__214__thread_proxyB8ne200100INS_5tupleIJNS_10unique_ptrINS_15__thread_structENS_14default_deleteIS3_EEEEMN5tpool19thread_pool_genericEFvPNS7_11worker_dataEEPS8_SA_EEEEEPvSF_"
+      },
+      {
+        "function": "Fn214",
+        "symbol": "wasi_thread_start"
+      }
+    ]
+  },
+  {
+    "header": "M=6134132736 P=6 G=17594 StateTransition Time=323443933101760 GoID=17598 NotExist->Runnable Reason=\"\"",
+    "frames": [
+      {
+        "function": "Fn243",
+        "symbol": "__wrap_pthread_create"
+      },
+      {
+        "function": "Fn16595",
+        "symbol": "_ZNSt3__26threadC2IMN5tpool19thread_pool_genericEFvPNS2_11worker_dataEEJPS3_RS5_ETnNS_9enable_ifIXntsr7is_sameIu14__remove_cvrefIT_ES0_EE5valueEiE4typeELi0EEEOSB_DpOT0_"
+      },
+      {
+        "function": "Fn16594",
+        "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv"
+      },
+      {
+        "function": "Fn16593",
+        "symbol": "_ZN5tpool19thread_pool_generic27maybe_wake_or_create_threadEv"
+      },
+      {
+        "function": "Fn16602",
+        "symbol": "_ZN5tpool19thread_pool_generic11submit_taskEPNS_4taskE"
+      },
+      {
+        "function": "Fn18239",
+        "symbol": "_ZN5tpool13simulated_aio22simulated_aio_callbackEPv"
+      },
+      {
+        "function": "Fn16583",
+        "symbol": "_ZN5tpool4task7executeEv"
+      },
+      {
+        "function": "Fn16592",
+        "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE"
+      },
+      {
+        "function": "Fn16596",
+        "symbol": "_ZNSt3__214__thread_proxyB8ne200100INS_5tupleIJNS_10unique_ptrINS_15__thread_structENS_14default_deleteIS3_EEEEMN5tpool19thread_pool_genericEFvPNS7_11worker_dataEEPS8_SA_EEEEEPvSF_"
+      },
+      {
+        "function": "Fn214",
+        "symbol": "wasi_thread_start"
+      }
+    ]
+  }
+]

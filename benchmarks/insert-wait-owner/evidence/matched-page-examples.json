@@ -1,0 +1,547 @@
+[
+  {
+    "run": 0,
+    "page_wait_start": {
+      "gid": 386,
+      "ns": 325538602379520,
+      "event": "page_wait_begin",
+      "module": "0x78fa000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 386,
+      "ns": 325538627571072,
+      "event": "page_wait_end",
+      "module": "0x78fa000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 254,
+        "ns": 325538624622400,
+        "event": "page_complete_begin",
+        "module": "0x78fa000000",
+        "l0": "415260456",
+        "l1": "413851664",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 386,
+        "ns": 325538602389376,
+        "event": "futex_wait_begin",
+        "module": "0x78fa000000",
+        "addr": "620407876",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 254,
+      "ns": 325538604656384,
+      "event": "task_execute_begin",
+      "module": "0x78fa000000",
+      "l0": "413516140"
+    },
+    "submit_end": {
+      "gid": 159,
+      "ns": 325538601301696,
+      "event": "submit_end",
+      "module": "0x78fa000000",
+      "l0": "268563520",
+      "l1": "413516140"
+    },
+    "submit_return_to_execute_ms": 3.354688,
+    "matching_wakes": [
+      {
+        "gid": 254,
+        "ns": 325538624631360,
+        "event": "futex_wake",
+        "module": "0x78fa000000",
+        "addr": "620407876",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 1,
+    "page_wait_start": {
+      "gid": 8503,
+      "ns": 325539633246528,
+      "event": "page_wait_begin",
+      "module": "0x7080000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 8503,
+      "ns": 325539653383104,
+      "event": "page_wait_end",
+      "module": "0x7080000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 8361,
+        "ns": 325539648467904,
+        "event": "page_complete_begin",
+        "module": "0x7080000000",
+        "l0": "415260456",
+        "l1": "413851664",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 8503,
+        "ns": 325539633248640,
+        "event": "futex_wait_begin",
+        "module": "0x7080000000",
+        "addr": "620407876",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 8361,
+      "ns": 325539648467072,
+      "event": "task_execute_begin",
+      "module": "0x7080000000",
+      "l0": "413521100"
+    },
+    "submit_end": {
+      "gid": 8360,
+      "ns": 325539640201792,
+      "event": "submit_end",
+      "module": "0x7080000000",
+      "l0": "268563520",
+      "l1": "413521100"
+    },
+    "submit_return_to_execute_ms": 8.26528,
+    "matching_wakes": [
+      {
+        "gid": 8361,
+        "ns": 325539648473920,
+        "event": "futex_wake",
+        "module": "0x7080000000",
+        "addr": "620407876",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 2,
+    "page_wait_start": {
+      "gid": 4713,
+      "ns": 325540409569472,
+      "event": "page_wait_begin",
+      "module": "0x7280000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 4713,
+      "ns": 325540429768000,
+      "event": "page_wait_end",
+      "module": "0x7280000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 4650,
+        "ns": 325540425213568,
+        "event": "page_complete_begin",
+        "module": "0x7280000000",
+        "l0": "415260456",
+        "l1": "413895952",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 4713,
+        "ns": 325540409581120,
+        "event": "futex_wait_begin",
+        "module": "0x7280000000",
+        "addr": "670728852",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 4650,
+      "ns": 325540408923457,
+      "event": "task_execute_begin",
+      "module": "0x7280000000",
+      "l0": "413525420"
+    },
+    "submit_end": {
+      "gid": 4589,
+      "ns": 325540405531648,
+      "event": "submit_end",
+      "module": "0x7280000000",
+      "l0": "268563744",
+      "l1": "413525420"
+    },
+    "submit_return_to_execute_ms": 3.391809,
+    "matching_wakes": [
+      {
+        "gid": 4650,
+        "ns": 325540425450688,
+        "event": "futex_wake",
+        "module": "0x7280000000",
+        "addr": "670728852",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 3,
+    "page_wait_start": {
+      "gid": 375,
+      "ns": 325541172143616,
+      "event": "page_wait_begin",
+      "module": "0x7380000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 375,
+      "ns": 325541183579328,
+      "event": "page_wait_end",
+      "module": "0x7380000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 438,
+        "ns": 325541182415744,
+        "event": "page_complete_begin",
+        "module": "0x7380000000",
+        "l0": "415260456",
+        "l1": "413851664",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 375,
+        "ns": 325541172158720,
+        "event": "futex_wait_begin",
+        "module": "0x7380000000",
+        "addr": "628808788",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 438,
+      "ns": 325541182052800,
+      "event": "task_execute_begin",
+      "module": "0x7380000000",
+      "l0": "413519260"
+    },
+    "submit_end": {
+      "gid": 374,
+      "ns": 325541176510784,
+      "event": "submit_end",
+      "module": "0x7380000000",
+      "l0": "268563520",
+      "l1": "413519260"
+    },
+    "submit_return_to_execute_ms": 5.542016,
+    "matching_wakes": [
+      {
+        "gid": 438,
+        "ns": 325541182418752,
+        "event": "futex_wake",
+        "module": "0x7380000000",
+        "addr": "628808788",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 4,
+    "page_wait_start": {
+      "gid": 477,
+      "ns": 325542016304000,
+      "event": "page_wait_begin",
+      "module": "0x7080000000",
+      "l0": "417333248",
+      "l1": "0"
+    },
+    "page_wait_end": {
+      "gid": 477,
+      "ns": 325542040246656,
+      "event": "page_wait_end",
+      "module": "0x7080000000",
+      "l0": "417333248",
+      "l1": "0"
+    },
+    "page_complete": [
+      {
+        "gid": 342,
+        "ns": 325542040199744,
+        "event": "page_complete_begin",
+        "module": "0x7080000000",
+        "l0": "417333248",
+        "l1": "413895952",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 477,
+        "ns": 325542016304896,
+        "event": "futex_wait_begin",
+        "module": "0x7080000000",
+        "addr": "637210244",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 342,
+      "ns": 325542040199040,
+      "event": "task_execute_begin",
+      "module": "0x7080000000",
+      "l0": "413516780"
+    },
+    "submit_end": {
+      "gid": 342,
+      "ns": 325542034534849,
+      "event": "submit_end",
+      "module": "0x7080000000",
+      "l0": "268563520",
+      "l1": "413516780"
+    },
+    "submit_return_to_execute_ms": 5.664191,
+    "matching_wakes": [
+      {
+        "gid": 342,
+        "ns": 325542040202880,
+        "event": "futex_wake",
+        "module": "0x7080000000",
+        "addr": "637210244",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 5,
+    "page_wait_start": {
+      "gid": 6444,
+      "ns": 325542945680320,
+      "event": "page_wait_begin",
+      "module": "0x7180000000",
+      "l0": "419442000",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 6444,
+      "ns": 325542961481152,
+      "event": "page_wait_end",
+      "module": "0x7180000000",
+      "l0": "419442000",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 6445,
+        "ns": 325542959859520,
+        "event": "page_complete_begin",
+        "module": "0x7180000000",
+        "l0": "419442000",
+        "l1": "413895952",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 6444,
+        "ns": 325542945683776,
+        "event": "futex_wait_begin",
+        "module": "0x7180000000",
+        "addr": "628738932",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 6445,
+      "ns": 325542959857600,
+      "event": "task_execute_begin",
+      "module": "0x7180000000",
+      "l0": "413516300"
+    },
+    "submit_end": {
+      "gid": 6445,
+      "ns": 325542956496384,
+      "event": "submit_end",
+      "module": "0x7180000000",
+      "l0": "268563520",
+      "l1": "413516300"
+    },
+    "submit_return_to_execute_ms": 3.361216,
+    "matching_wakes": [
+      {
+        "gid": 6445,
+        "ns": 325542959865536,
+        "event": "futex_wake",
+        "module": "0x7180000000",
+        "addr": "628738932",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 6,
+    "page_wait_start": {
+      "gid": 7125,
+      "ns": 325543834458624,
+      "event": "page_wait_begin",
+      "module": "0x7180000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 7125,
+      "ns": 325543850042944,
+      "event": "page_wait_end",
+      "module": "0x7180000000",
+      "l0": "415260456",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 7181,
+        "ns": 325543847817024,
+        "event": "page_complete_begin",
+        "module": "0x7180000000",
+        "l0": "415260456",
+        "l1": "413851664",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 7125,
+        "ns": 325543834460032,
+        "event": "futex_wait_begin",
+        "module": "0x7180000000",
+        "addr": "268563708",
+        "expected": "-2147483638",
+        "timeout": "-1"
+      },
+      {
+        "gid": 7125,
+        "ns": 325543838123264,
+        "event": "futex_wait_begin",
+        "module": "0x7180000000",
+        "addr": "620407876",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 7181,
+      "ns": 325543847227776,
+      "event": "task_execute_begin",
+      "module": "0x7180000000",
+      "l0": "413516860"
+    },
+    "submit_end": {
+      "gid": 7180,
+      "ns": 325543839220416,
+      "event": "submit_end",
+      "module": "0x7180000000",
+      "l0": "268563520",
+      "l1": "413516860"
+    },
+    "submit_return_to_execute_ms": 8.00736,
+    "matching_wakes": [
+      {
+        "gid": 7181,
+        "ns": 325543847820224,
+        "event": "futex_wake",
+        "module": "0x7180000000",
+        "addr": "620407876",
+        "count": "1"
+      }
+    ]
+  },
+  {
+    "run": 7,
+    "page_wait_start": {
+      "gid": 7900,
+      "ns": 325544673104000,
+      "event": "page_wait_begin",
+      "module": "0x7300000000",
+      "l0": "419448728",
+      "l1": "409252928"
+    },
+    "page_wait_end": {
+      "gid": 7900,
+      "ns": 325544686794496,
+      "event": "page_wait_end",
+      "module": "0x7300000000",
+      "l0": "419448728",
+      "l1": "409252928"
+    },
+    "page_complete": [
+      {
+        "gid": 7902,
+        "ns": 325544673684480,
+        "event": "page_complete_begin",
+        "module": "0x7300000000",
+        "l0": "419448728",
+        "l1": "611855280",
+        "l2": "0"
+      }
+    ],
+    "futex_waits": [
+      {
+        "gid": 7900,
+        "ns": 325544673106432,
+        "event": "futex_wait_begin",
+        "module": "0x7300000000",
+        "addr": "620298692",
+        "expected": "2",
+        "timeout": "-1"
+      }
+    ],
+    "execute": {
+      "gid": 7902,
+      "ns": 325544673681984,
+      "event": "task_execute_begin",
+      "module": "0x7300000000",
+      "l0": "413518060"
+    },
+    "submit_end": {
+      "gid": 7902,
+      "ns": 325544673241280,
+      "event": "submit_end",
+      "module": "0x7300000000",
+      "l0": "268563744",
+      "l1": "413518060"
+    },
+    "submit_return_to_execute_ms": 0.440704,
+    "matching_wakes": [
+      {
+        "gid": 7902,
+        "ns": 325544673689856,
+        "event": "futex_wake",
+        "module": "0x7300000000",
+        "addr": "620298692",
+        "count": "1"
+      }
+    ]
+  }
+]

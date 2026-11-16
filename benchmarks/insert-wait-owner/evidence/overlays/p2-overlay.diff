@@ -1,0 +1,21 @@
+--- /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/worktree/internal/generatedgo/code/p2/p2_pure.go
++++ /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/insert-wait-owner/temp/p2-overlay.go
+@@ -1,6 +1,8 @@
+ package p2
+ 
+ import (
++"context"
++"runtime/trace"
+ 	base "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+ 	_ "github.com/masahitojp/mariamem/internal/generatedgo/code/p1"
+ 	"sync/atomic"
+@@ -961899,6 +961901,9 @@
+ 	goto L319
+ }
+ func Fn18171(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
++ trace.Logf(context.Background(), "owner", "page_complete_begin module=%p l0=%d l1=%d l2=%d", m.M, l0, l1, l2)
++ defer trace.Logf(context.Background(), "owner", "page_complete_end module=%p l0=%d l1=%d l2=%d", m.M, l0, l1, l2)
++
+ 	mBase := m.M
+ 	_ = mBase
+ 	var v25 int32

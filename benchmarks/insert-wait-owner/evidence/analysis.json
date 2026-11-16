@@ -1,0 +1,2482 @@
+[
+  {
+    "run": 0,
+    "events": 153157,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 56,
+          "ns": 325538572500416,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "458402564",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 56,
+          "ns": 325538687346816,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "458402564",
+          "rc": "0"
+        },
+        "ms": 114.8464
+      },
+      {
+        "start": {
+          "gid": 323,
+          "ns": 325538585371776,
+          "event": "futex_wait_begin",
+          "module": "0x7a1e400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 323,
+          "ns": 325538690582656,
+          "event": "futex_wait_end",
+          "module": "0x7a1e400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 105.21088
+      },
+      {
+        "start": {
+          "gid": 385,
+          "ns": 325538591998208,
+          "event": "futex_wait_begin",
+          "module": "0x78fa000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 385,
+          "ns": 325538694863104,
+          "event": "futex_wait_end",
+          "module": "0x78fa000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 102.864896
+      },
+      {
+        "start": {
+          "gid": 339,
+          "ns": 325538590772160,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 339,
+          "ns": 325538695126080,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.35392
+      },
+      {
+        "start": {
+          "gid": 160,
+          "ns": 325538586403072,
+          "event": "futex_wait_begin",
+          "module": "0x78fa000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 160,
+          "ns": 325538695155776,
+          "event": "futex_wait_end",
+          "module": "0x78fa000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 108.752704
+      },
+      {
+        "start": {
+          "gid": 353,
+          "ns": 325538591103040,
+          "event": "futex_wait_begin",
+          "module": "0x797a000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 353,
+          "ns": 325538700445440,
+          "event": "futex_wait_end",
+          "module": "0x797a000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 109.3424
+      },
+      {
+        "start": {
+          "gid": 304,
+          "ns": 325538585690368,
+          "event": "futex_wait_begin",
+          "module": "0x797a000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 304,
+          "ns": 325538700808704,
+          "event": "futex_wait_end",
+          "module": "0x797a000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 115.118336
+      },
+      {
+        "start": {
+          "gid": 7212,
+          "ns": 325538707852544,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "729230148",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 7212,
+          "ns": 325538809025154,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "729230148",
+          "rc": "0"
+        },
+        "ms": 101.17261
+      },
+      {
+        "start": {
+          "gid": 7266,
+          "ns": 325538702832832,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7266,
+          "ns": 325538809312128,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 106.479296
+      },
+      {
+        "start": {
+          "gid": 8661,
+          "ns": 325538751812480,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8661,
+          "ns": 325538858609536,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 106.797056
+      },
+      {
+        "start": {
+          "gid": 8486,
+          "ns": 325538754719232,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "764039236",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8486,
+          "ns": 325538861832448,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "764039236",
+          "rc": "0"
+        },
+        "ms": 107.113216
+      },
+      {
+        "start": {
+          "gid": 8617,
+          "ns": 325538750493120,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8617,
+          "ns": 325538862611328,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 112.118208
+      },
+      {
+        "start": {
+          "gid": 7733,
+          "ns": 325538747947648,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "772444244",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7733,
+          "ns": 325538863114944,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "772444244",
+          "rc": "0"
+        },
+        "ms": 115.167296
+      },
+      {
+        "start": {
+          "gid": 5959,
+          "ns": 325538745355648,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "755051572",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 5959,
+          "ns": 325538864185408,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "755051572",
+          "rc": "0"
+        },
+        "ms": 118.82976
+      },
+      {
+        "start": {
+          "gid": 7735,
+          "ns": 325538752197120,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "789254260",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7735,
+          "ns": 325538869988608,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "789254260",
+          "rc": "0"
+        },
+        "ms": 117.791488
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 25.191552,
+    "max_submit_to_execute_ms": 25.072192
+  },
+  {
+    "run": 1,
+    "events": 144499,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 323,
+          "ns": 325539454450496,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 323,
+          "ns": 325539561270784,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 106.820288
+      },
+      {
+        "start": {
+          "gid": 59,
+          "ns": 325539442858944,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "695626516",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 59,
+          "ns": 325539561639360,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "695626516",
+          "rc": "0"
+        },
+        "ms": 118.780416
+      },
+      {
+        "start": {
+          "gid": 298,
+          "ns": 325539457325632,
+          "event": "futex_wait_begin",
+          "module": "0x72e2400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 298,
+          "ns": 325539562316288,
+          "event": "futex_wait_end",
+          "module": "0x72e2400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.990656
+      },
+      {
+        "start": {
+          "gid": 7046,
+          "ns": 325539574076864,
+          "event": "futex_wait_begin",
+          "module": "0x7262400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7046,
+          "ns": 325539674664000,
+          "event": "futex_wait_end",
+          "module": "0x7262400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 100.587136
+      },
+      {
+        "start": {
+          "gid": 8222,
+          "ns": 325539619675840,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 8222,
+          "ns": 325539720077440,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 100.4016
+      },
+      {
+        "start": {
+          "gid": 8221,
+          "ns": 325539613395904,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8221,
+          "ns": 325539721044224,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 107.64832
+      },
+      {
+        "start": {
+          "gid": 8357,
+          "ns": 325539620385664,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8357,
+          "ns": 325539723149696,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 102.764032
+      },
+      {
+        "start": {
+          "gid": 6914,
+          "ns": 325539602228736,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "763445284",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6914,
+          "ns": 325539726798400,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "763445284",
+          "rc": "0"
+        },
+        "ms": 124.569664
+      },
+      {
+        "start": {
+          "gid": 8391,
+          "ns": 325539620785152,
+          "event": "futex_wait_begin",
+          "module": "0x72e2400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8391,
+          "ns": 325539728721728,
+          "event": "futex_wait_end",
+          "module": "0x72e2400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 107.936576
+      },
+      {
+        "start": {
+          "gid": 8112,
+          "ns": 325539604039041,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "772444388",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8112,
+          "ns": 325539731000576,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "772444388",
+          "rc": "0"
+        },
+        "ms": 126.961535
+      },
+      {
+        "start": {
+          "gid": 8450,
+          "ns": 325539624479808,
+          "event": "futex_wait_begin",
+          "module": "0x7362400000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 8450,
+          "ns": 325539732166144,
+          "event": "futex_wait_end",
+          "module": "0x7362400000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 107.686336
+      },
+      {
+        "start": {
+          "gid": 8449,
+          "ns": 325539618975168,
+          "event": "futex_wait_begin",
+          "module": "0x7362400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8449,
+          "ns": 325539732584384,
+          "event": "futex_wait_end",
+          "module": "0x7362400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 113.609216
+      },
+      {
+        "start": {
+          "gid": 8171,
+          "ns": 325539603816384,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "780849396",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8171,
+          "ns": 325539735111808,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "780849396",
+          "rc": "0"
+        },
+        "ms": 131.295424
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 20.136576,
+    "max_submit_to_execute_ms": 21.998592
+  },
+  {
+    "run": 2,
+    "events": 145442,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 482,
+          "ns": 325540337629696,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "664087396",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 482,
+          "ns": 325540441653056,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "664087396",
+          "rc": "0"
+        },
+        "ms": 104.02336
+      },
+      {
+        "start": {
+          "gid": 311,
+          "ns": 325540328901568,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 311,
+          "ns": 325540441979456,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 113.077888
+      },
+      {
+        "start": {
+          "gid": 4122,
+          "ns": 325540407668864,
+          "event": "futex_wait_begin",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 4122,
+          "ns": 325540510526400,
+          "event": "futex_wait_end",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 102.857536
+      },
+      {
+        "start": {
+          "gid": 157,
+          "ns": 325540390257921,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "763465860",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 157,
+          "ns": 325540512587968,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "763465860",
+          "rc": "0"
+        },
+        "ms": 122.330047
+      },
+      {
+        "start": {
+          "gid": 3312,
+          "ns": 325540390284672,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "772449604",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 3312,
+          "ns": 325540513179648,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "772449604",
+          "rc": "0"
+        },
+        "ms": 122.894976
+      },
+      {
+        "start": {
+          "gid": 3362,
+          "ns": 325540391556736,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "789259620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 3362,
+          "ns": 325540523390849,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "789259620",
+          "rc": "0"
+        },
+        "ms": 131.834113
+      },
+      {
+        "start": {
+          "gid": 4690,
+          "ns": 325540407641024,
+          "event": "futex_wait_begin",
+          "module": "0x7380000000",
+          "addr": "638905172",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 4690,
+          "ns": 325540523737729,
+          "event": "futex_wait_end",
+          "module": "0x7380000000",
+          "addr": "638905172",
+          "rc": "0"
+        },
+        "ms": 116.096705
+      },
+      {
+        "start": {
+          "gid": 4175,
+          "ns": 325540402976192,
+          "event": "futex_wait_begin",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 4175,
+          "ns": 325540524076864,
+          "event": "futex_wait_end",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 121.100672
+      },
+      {
+        "start": {
+          "gid": 4996,
+          "ns": 325540437831040,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 4996,
+          "ns": 325540538974272,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 101.143232
+      },
+      {
+        "start": {
+          "gid": 5892,
+          "ns": 325540463611712,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "664103796",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 5892,
+          "ns": 325540571872064,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "664103796",
+          "rc": "0"
+        },
+        "ms": 108.260352
+      },
+      {
+        "start": {
+          "gid": 5777,
+          "ns": 325540455831232,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 5777,
+          "ns": 325540572596416,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 116.765184
+      },
+      {
+        "start": {
+          "gid": 11574,
+          "ns": 325540539692608,
+          "event": "futex_wait_begin",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 11574,
+          "ns": 325540641141312,
+          "event": "futex_wait_end",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 101.448704
+      },
+      {
+        "start": {
+          "gid": 11549,
+          "ns": 325540537405056,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 11549,
+          "ns": 325540642170112,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.765056
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 20.198528,
+    "max_submit_to_execute_ms": 16.44704
+  },
+  {
+    "run": 3,
+    "events": 141636,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 355,
+          "ns": 325541140125824,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 355,
+          "ns": 325541249096000,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 108.970176
+      },
+      {
+        "start": {
+          "gid": 100,
+          "ns": 325541136671104,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "737602420",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 100,
+          "ns": 325541355097793,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "737602420",
+          "rc": "0"
+        },
+        "ms": 218.426689
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 11.435712,
+    "max_submit_to_execute_ms": 17.881728
+  },
+  {
+    "run": 4,
+    "events": 140360,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 223,
+          "ns": 325542008981312,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 223,
+          "ns": 325542115261824,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 106.280512
+      },
+      {
+        "start": {
+          "gid": 309,
+          "ns": 325542015028864,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "628370180",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 309,
+          "ns": 325542123798080,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "628370180",
+          "rc": "0"
+        },
+        "ms": 108.769216
+      },
+      {
+        "start": {
+          "gid": 386,
+          "ns": 325542007337856,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 386,
+          "ns": 325542124154817,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 116.816961
+      },
+      {
+        "start": {
+          "gid": 334,
+          "ns": 325542022126400,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 334,
+          "ns": 325542127689536,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 105.563136
+      },
+      {
+        "start": {
+          "gid": 333,
+          "ns": 325542016416704,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 333,
+          "ns": 325542128808192,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 112.391488
+      },
+      {
+        "start": {
+          "gid": 3789,
+          "ns": 325542089467200,
+          "event": "futex_wait_begin",
+          "module": "0x7400000000",
+          "addr": "628402980",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 3789,
+          "ns": 325542190275776,
+          "event": "futex_wait_end",
+          "module": "0x7400000000",
+          "addr": "628402980",
+          "rc": "0"
+        },
+        "ms": 100.808576
+      },
+      {
+        "start": {
+          "gid": 3788,
+          "ns": 325542086041856,
+          "event": "futex_wait_begin",
+          "module": "0x7400000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 3788,
+          "ns": 325542190595008,
+          "event": "futex_wait_end",
+          "module": "0x7400000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.553152
+      },
+      {
+        "start": {
+          "gid": 4455,
+          "ns": 325542087288768,
+          "event": "futex_wait_begin",
+          "module": "0x7380000000",
+          "addr": "655715188",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 4455,
+          "ns": 325542194257984,
+          "event": "futex_wait_end",
+          "module": "0x7380000000",
+          "addr": "655715188",
+          "rc": "0"
+        },
+        "ms": 106.969216
+      },
+      {
+        "start": {
+          "gid": 4402,
+          "ns": 325542082769664,
+          "event": "futex_wait_begin",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 4402,
+          "ns": 325542195355520,
+          "event": "futex_wait_end",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 112.585856
+      },
+      {
+        "start": {
+          "gid": 5610,
+          "ns": 325542117966336,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 5610,
+          "ns": 325542225575488,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 107.609152
+      },
+      {
+        "start": {
+          "gid": 6817,
+          "ns": 325542128132288,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6817,
+          "ns": 325542228817728,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 100.68544
+      },
+      {
+        "start": {
+          "gid": 6479,
+          "ns": 325542139640513,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6479,
+          "ns": 325542239898112,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 100.257599
+      },
+      {
+        "start": {
+          "gid": 73,
+          "ns": 325542072543104,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "771860148",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 73,
+          "ns": 325542241705024,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "771860148",
+          "rc": "0"
+        },
+        "ms": 169.16192
+      },
+      {
+        "start": {
+          "gid": 6711,
+          "ns": 325542146657152,
+          "event": "futex_wait_begin",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6711,
+          "ns": 325542247475328,
+          "event": "futex_wait_end",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 100.818176
+      },
+      {
+        "start": {
+          "gid": 6774,
+          "ns": 325542153124672,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "622095156",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 6774,
+          "ns": 325542264848448,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "622095156",
+          "rc": "0"
+        },
+        "ms": 111.723776
+      },
+      {
+        "start": {
+          "gid": 6773,
+          "ns": 325542146031169,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6773,
+          "ns": 325542265208576,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 119.177407
+      },
+      {
+        "start": {
+          "gid": 8441,
+          "ns": 325542180856897,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8441,
+          "ns": 325542284921408,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.064511
+      },
+      {
+        "start": {
+          "gid": 10028,
+          "ns": 325542210004096,
+          "event": "futex_wait_begin",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 10028,
+          "ns": 325542312186816,
+          "event": "futex_wait_end",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 102.18272
+      },
+      {
+        "start": {
+          "gid": 10288,
+          "ns": 325542212798464,
+          "event": "futex_wait_begin",
+          "module": "0x7400000000",
+          "addr": "638888772",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 10288,
+          "ns": 325542315961024,
+          "event": "futex_wait_end",
+          "module": "0x7400000000",
+          "addr": "638888772",
+          "rc": "0"
+        },
+        "ms": 103.16256
+      },
+      {
+        "start": {
+          "gid": 10287,
+          "ns": 325542209452864,
+          "event": "futex_wait_begin",
+          "module": "0x7400000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 10287,
+          "ns": 325542316276224,
+          "event": "futex_wait_end",
+          "module": "0x7400000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 106.82336
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 23.942656,
+    "max_submit_to_execute_ms": 27.748032
+  },
+  {
+    "run": 5,
+    "events": 125147,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 233,
+          "ns": 325542813436608,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 233,
+          "ns": 325542918040896,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.604288
+      },
+      {
+        "start": {
+          "gid": 281,
+          "ns": 325542820189952,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 281,
+          "ns": 325542925654272,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 105.46432
+      },
+      {
+        "start": {
+          "gid": 325,
+          "ns": 325542826154688,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "440412948",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 325,
+          "ns": 325542926931008,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "440412948",
+          "rc": "0"
+        },
+        "ms": 100.77632
+      },
+      {
+        "start": {
+          "gid": 280,
+          "ns": 325542814337728,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 280,
+          "ns": 325542926960768,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 112.62304
+      },
+      {
+        "start": {
+          "gid": 302,
+          "ns": 325542826793664,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 302,
+          "ns": 325542931407488,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 104.613824
+      },
+      {
+        "start": {
+          "gid": 301,
+          "ns": 325542821028865,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 301,
+          "ns": 325542932317120,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 111.288255
+      },
+      {
+        "start": {
+          "gid": 406,
+          "ns": 325542840053761,
+          "event": "futex_wait_begin",
+          "module": "0x73dc400000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 406,
+          "ns": 325542941978368,
+          "event": "futex_wait_end",
+          "module": "0x73dc400000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 101.924607
+      },
+      {
+        "start": {
+          "gid": 405,
+          "ns": 325542834751360,
+          "event": "futex_wait_begin",
+          "module": "0x73dc400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 405,
+          "ns": 325542942308160,
+          "event": "futex_wait_end",
+          "module": "0x73dc400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 107.5568
+      },
+      {
+        "start": {
+          "gid": 6860,
+          "ns": 325542934311488,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6860,
+          "ns": 325543035504320,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 101.192832
+      },
+      {
+        "start": {
+          "gid": 6376,
+          "ns": 325542933193920,
+          "event": "futex_wait_begin",
+          "module": "0x72dc400000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6376,
+          "ns": 325543037060096,
+          "event": "futex_wait_end",
+          "module": "0x72dc400000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 103.866176
+      },
+      {
+        "start": {
+          "gid": 225,
+          "ns": 325542802009536,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "703998788",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 225,
+          "ns": 325543039734656,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "703998788",
+          "rc": "0"
+        },
+        "ms": 237.72512
+      },
+      {
+        "start": {
+          "gid": 6441,
+          "ns": 325542933539904,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6441,
+          "ns": 325543041896448,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 108.356544
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 15.800832,
+    "max_submit_to_execute_ms": 19.49024
+  },
+  {
+    "run": 6,
+    "events": 151484,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 283,
+          "ns": 325543690822464,
+          "event": "futex_wait_begin",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 283,
+          "ns": 325543791247361,
+          "event": "futex_wait_end",
+          "module": "0x7080000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 100.424897
+      },
+      {
+        "start": {
+          "gid": 108,
+          "ns": 325543689801536,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 108,
+          "ns": 325543801395328,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 111.593792
+      },
+      {
+        "start": {
+          "gid": 370,
+          "ns": 325543705833088,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 370,
+          "ns": 325543811846208,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 106.01312
+      },
+      {
+        "start": {
+          "gid": 303,
+          "ns": 325543715374272,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 303,
+          "ns": 325543841151040,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 125.776768
+      },
+      {
+        "start": {
+          "gid": 300,
+          "ns": 325543735414592,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "440412948",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 300,
+          "ns": 325543841913856,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "440412948",
+          "rc": "0"
+        },
+        "ms": 106.499264
+      },
+      {
+        "start": {
+          "gid": 302,
+          "ns": 325543706084736,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 302,
+          "ns": 325543841949312,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 135.864576
+      },
+      {
+        "start": {
+          "gid": 1039,
+          "ns": 325543735090944,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "763301412",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 1039,
+          "ns": 325543842133312,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "763301412",
+          "rc": "0"
+        },
+        "ms": 107.042368
+      },
+      {
+        "start": {
+          "gid": 301,
+          "ns": 325543739820992,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "458402564",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 301,
+          "ns": 325543842146624,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "458402564",
+          "rc": "0"
+        },
+        "ms": 102.325632
+      },
+      {
+        "start": {
+          "gid": 320,
+          "ns": 325543739817984,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "628813028",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 320,
+          "ns": 325543842153600,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "628813028",
+          "rc": "0"
+        },
+        "ms": 102.335616
+      },
+      {
+        "start": {
+          "gid": 375,
+          "ns": 325543735660160,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "662433060",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 375,
+          "ns": 325543842157952,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "662433060",
+          "rc": "0"
+        },
+        "ms": 106.497792
+      },
+      {
+        "start": {
+          "gid": 461,
+          "ns": 325543735495616,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "738082260",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 461,
+          "ns": 325543842164928,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "738082260",
+          "rc": "0"
+        },
+        "ms": 106.669312
+      },
+      {
+        "start": {
+          "gid": 929,
+          "ns": 325543735493888,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "746487268",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 929,
+          "ns": 325543842172416,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "746487268",
+          "rc": "0"
+        },
+        "ms": 106.678528
+      },
+      {
+        "start": {
+          "gid": 526,
+          "ns": 325543735491904,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "687648084",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 526,
+          "ns": 325543842178241,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "687648084",
+          "rc": "0"
+        },
+        "ms": 106.686337
+      },
+      {
+        "start": {
+          "gid": 1038,
+          "ns": 325543735489985,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "754896404",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 1038,
+          "ns": 325543842183808,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "754896404",
+          "rc": "0"
+        },
+        "ms": 106.693823
+      },
+      {
+        "start": {
+          "gid": 381,
+          "ns": 325543735471808,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "712867236",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 381,
+          "ns": 325543842187712,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "712867236",
+          "rc": "0"
+        },
+        "ms": 106.715904
+      },
+      {
+        "start": {
+          "gid": 666,
+          "ns": 325543735464768,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "729677252",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 666,
+          "ns": 325543842191488,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "729677252",
+          "rc": "0"
+        },
+        "ms": 106.72672
+      },
+      {
+        "start": {
+          "gid": 665,
+          "ns": 325543735213504,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "721272244",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 665,
+          "ns": 325543842195329,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "721272244",
+          "rc": "0"
+        },
+        "ms": 106.981825
+      },
+      {
+        "start": {
+          "gid": 374,
+          "ns": 325543735211008,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "654028052",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 374,
+          "ns": 325543842201408,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "654028052",
+          "rc": "0"
+        },
+        "ms": 106.9904
+      },
+      {
+        "start": {
+          "gid": 364,
+          "ns": 325543735105536,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "670838068",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 364,
+          "ns": 325543842205312,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "670838068",
+          "rc": "0"
+        },
+        "ms": 107.099776
+      },
+      {
+        "start": {
+          "gid": 363,
+          "ns": 325543735103360,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "645623044",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 363,
+          "ns": 325543842210497,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "645623044",
+          "rc": "0"
+        },
+        "ms": 107.107137
+      },
+      {
+        "start": {
+          "gid": 664,
+          "ns": 325543735098496,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "704462228",
+          "expected": "2",
+          "timeout": "60000000000"
+        },
+        "end": {
+          "gid": 664,
+          "ns": 325543842214784,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "704462228",
+          "rc": "0"
+        },
+        "ms": 107.116288
+      },
+      {
+        "start": {
+          "gid": 376,
+          "ns": 325543735096257,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "679243076",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 376,
+          "ns": 325543842220160,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "679243076",
+          "rc": "0"
+        },
+        "ms": 107.123903
+      },
+      {
+        "start": {
+          "gid": 380,
+          "ns": 325543735094080,
+          "event": "futex_wait_begin",
+          "module": "0x79ee000000",
+          "addr": "696057220",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 380,
+          "ns": 325543842225792,
+          "event": "futex_wait_end",
+          "module": "0x79ee000000",
+          "addr": "696057220",
+          "rc": "0"
+        },
+        "ms": 107.131712
+      },
+      {
+        "start": {
+          "gid": 6925,
+          "ns": 325543820027904,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6925,
+          "ns": 325543922416832,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 102.388928
+      },
+      {
+        "start": {
+          "gid": 7027,
+          "ns": 325543814594240,
+          "event": "futex_wait_begin",
+          "module": "0x7300000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 7027,
+          "ns": 325543923321728,
+          "event": "futex_wait_end",
+          "module": "0x7300000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 108.727488
+      },
+      {
+        "start": {
+          "gid": 7026,
+          "ns": 325543809065600,
+          "event": "futex_wait_begin",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7026,
+          "ns": 325543923812160,
+          "event": "futex_wait_end",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 114.74656
+      },
+      {
+        "start": {
+          "gid": 6391,
+          "ns": 325543819618688,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "611592964",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 6391,
+          "ns": 325543930439040,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "611592964",
+          "rc": "0"
+        },
+        "ms": 110.820352
+      },
+      {
+        "start": {
+          "gid": 6390,
+          "ns": 325543813548992,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 6390,
+          "ns": 325543930768256,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 117.219264
+      },
+      {
+        "start": {
+          "gid": 7095,
+          "ns": 325543830559168,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7095,
+          "ns": 325543934667072,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.107904
+      },
+      {
+        "start": {
+          "gid": 83,
+          "ns": 325543680108800,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "687172372",
+          "expected": "2",
+          "timeout": "59999999000"
+        },
+        "end": {
+          "gid": 83,
+          "ns": 325543934914560,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "687172372",
+          "rc": "0"
+        },
+        "ms": 254.80576
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 15.58432,
+    "max_submit_to_execute_ms": 15.875584
+  },
+  {
+    "run": 7,
+    "events": 136788,
+    "long_pages": [],
+    "long_waits": [
+      {
+        "start": {
+          "gid": 1250,
+          "ns": 325544549617728,
+          "event": "futex_wait_begin",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1250,
+          "ns": 325544655350464,
+          "event": "futex_wait_end",
+          "module": "0x7100000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 105.732736
+      },
+      {
+        "start": {
+          "gid": 1190,
+          "ns": 325544550600000,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1190,
+          "ns": 325544655933056,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 105.333056
+      },
+      {
+        "start": {
+          "gid": 1235,
+          "ns": 325544552573376,
+          "event": "futex_wait_begin",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1235,
+          "ns": 325544658532160,
+          "event": "futex_wait_end",
+          "module": "0x7200000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 105.958784
+      },
+      {
+        "start": {
+          "gid": 1089,
+          "ns": 325544537446208,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "823765908",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1089,
+          "ns": 325544662763200,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "823765908",
+          "rc": "0"
+        },
+        "ms": 125.316992
+      },
+      {
+        "start": {
+          "gid": 208,
+          "ns": 325544537005440,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "764930852",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 208,
+          "ns": 325544663661440,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "764930852",
+          "rc": "0"
+        },
+        "ms": 126.656
+      },
+      {
+        "start": {
+          "gid": 1048,
+          "ns": 325544539711424,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "773335860",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1048,
+          "ns": 325544671025088,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "773335860",
+          "rc": "0"
+        },
+        "ms": 131.313664
+      },
+      {
+        "start": {
+          "gid": 1215,
+          "ns": 325544574612672,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1215,
+          "ns": 325544676257280,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 101.644608
+      },
+      {
+        "start": {
+          "gid": 1049,
+          "ns": 325544538732864,
+          "event": "futex_wait_begin",
+          "module": "0x7000000000",
+          "addr": "781740868",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 1049,
+          "ns": 325544680015488,
+          "event": "futex_wait_end",
+          "module": "0x7000000000",
+          "addr": "781740868",
+          "rc": "0"
+        },
+        "ms": 141.282624
+      },
+      {
+        "start": {
+          "gid": 7764,
+          "ns": 325544665168577,
+          "event": "futex_wait_begin",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7764,
+          "ns": 325544767575488,
+          "event": "futex_wait_end",
+          "module": "0x7300000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 102.406911
+      },
+      {
+        "start": {
+          "gid": 7663,
+          "ns": 325544665154496,
+          "event": "futex_wait_begin",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 7663,
+          "ns": 325544769190144,
+          "event": "futex_wait_end",
+          "module": "0x7380000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.035648
+      },
+      {
+        "start": {
+          "gid": 9121,
+          "ns": 325544708526144,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "622095156",
+          "expected": "2",
+          "timeout": "28999999000"
+        },
+        "end": {
+          "gid": 9121,
+          "ns": 325544808689344,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "622095156",
+          "rc": "0"
+        },
+        "ms": 100.1632
+      },
+      {
+        "start": {
+          "gid": 8544,
+          "ns": 325544704761600,
+          "event": "futex_wait_begin",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8544,
+          "ns": 325544809001088,
+          "event": "futex_wait_end",
+          "module": "0x7180000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.239488
+      },
+      {
+        "start": {
+          "gid": 8648,
+          "ns": 325544706482880,
+          "event": "futex_wait_begin",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8648,
+          "ns": 325544813990784,
+          "event": "futex_wait_end",
+          "module": "0x7280000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 107.507904
+      },
+      {
+        "start": {
+          "gid": 8733,
+          "ns": 325544720797568,
+          "event": "futex_wait_begin",
+          "module": "0x7400000000",
+          "addr": "619997972",
+          "expected": "2",
+          "timeout": "29000000000"
+        },
+        "end": {
+          "gid": 8733,
+          "ns": 325544821568320,
+          "event": "futex_wait_end",
+          "module": "0x7400000000",
+          "addr": "619997972",
+          "rc": "0"
+        },
+        "ms": 100.770752
+      },
+      {
+        "start": {
+          "gid": 8732,
+          "ns": 325544716940288,
+          "event": "futex_wait_begin",
+          "module": "0x7400000000",
+          "addr": "466807620",
+          "expected": "2",
+          "timeout": "-1"
+        },
+        "end": {
+          "gid": 8732,
+          "ns": 325544821875776,
+          "event": "futex_wait_end",
+          "module": "0x7400000000",
+          "addr": "466807620",
+          "rc": "0"
+        },
+        "ms": 104.935488
+      }
+    ],
+    "long_tasks": [],
+    "max_page_ms": 13.690496,
+    "max_submit_to_execute_ms": 19.666816
+  }
+]

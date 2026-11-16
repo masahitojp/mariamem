@@ -1,0 +1,90 @@
+[
+  {
+    "run": 0,
+    "elapsed_ms": 590.298,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/games_0",
+      "start_ms": 162.724,
+      "end_ms": 257.789
+    }
+  },
+  {
+    "run": 1,
+    "elapsed_ms": 546.423,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/one_paid",
+      "start_ms": 275.768,
+      "end_ms": 368.822
+    }
+  },
+  {
+    "run": 2,
+    "elapsed_ms": 522.942,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCreateOrder/one_line",
+      "start_ms": 247.238,
+      "end_ms": 347.143
+    }
+  },
+  {
+    "run": 3,
+    "elapsed_ms": 546.11,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/shipped",
+      "start_ms": 236.992,
+      "end_ms": 323.668
+    }
+  },
+  {
+    "run": 4,
+    "elapsed_ms": 530.597,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/paid",
+      "start_ms": 252.417,
+      "end_ms": 357.332
+    }
+  },
+  {
+    "run": 5,
+    "elapsed_ms": 564.355,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCancelOrder/another_paid",
+      "start_ms": 132.339,
+      "end_ms": 231.064
+    }
+  },
+  {
+    "run": 6,
+    "elapsed_ms": 515.736,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/all_paid",
+      "start_ms": 132.625,
+      "end_ms": 245.173
+    }
+  },
+  {
+    "run": 7,
+    "elapsed_ms": 550.676,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestShipOrder/one_paid",
+      "start_ms": 304.363,
+      "end_ms": 400.149
+    }
+  }
+]
