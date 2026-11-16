@@ -1,0 +1,5 @@
+{
+  "temp/base.go": "cd80ef2da679d540f7147c23015127ba2760b277af98d59a9c6d3dee802cd99b",
+  "worktree/internal/generatedgo/code/base/base.go": "f52336d29336eb160cbc530840b801fcb22e92e1e09305aa975514d4c3eeed42",
+  "worktree/benchmarks/response-empty-write/experiment_empty_write_test.go.txt": "6486f64fbfb81270d01e54a283e97c3fcec924efc750ddfe8f099e7b59b145a4"
+}

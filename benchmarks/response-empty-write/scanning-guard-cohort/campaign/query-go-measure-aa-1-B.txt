@@ -1,0 +1,20 @@
+GETORDER4000_MS 1312.125
+PASS
+        1.46 real         1.39 user         0.28 sys
+           136577024  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               13829  page reclaims
+                   1  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                 113  signals received
+                  64  voluntary context switches
+               78844  involuntary context switches
+         15549598738  instructions retired
+          4420140929  cycles elapsed
+            84509680  peak memory footprint

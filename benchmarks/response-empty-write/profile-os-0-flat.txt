@@ -1,0 +1,82 @@
+File: transport.test
+Type: cpu
+Time: 2026-11-16 23:01:52 JST
+Duration: 1.30s, Total samples = 1.29s (99.04%)
+Showing nodes accounting for 1.29s, 100% of 1.29s total
+      flat  flat%   sum%        cum   cum%
+     0.87s 67.44% 67.44%      0.87s 67.44%  syscall.rawsyscalln
+     0.21s 16.28% 83.72%      0.21s 16.28%  runtime.pthread_cond_signal
+     0.09s  6.98% 90.70%      0.09s  6.98%  runtime.kevent
+     0.09s  6.98% 97.67%      0.09s  6.98%  runtime.pthread_cond_wait
+     0.01s  0.78% 98.45%      0.01s  0.78%  runtime.madvise
+     0.01s  0.78% 99.22%      0.01s  0.78%  runtime.typePointers.next
+     0.01s  0.78%   100%      0.01s  0.78%  runtime.usleep
+         0     0%   100%      0.17s 13.18%  _.goready.func1
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo.runInstance.func2
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21749
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn195
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn205
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn74
+         0     0%   100%      0.69s 53.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/guest.(*Process).read
+         0     0%   100%      0.10s  7.75%  github.com/masahitojp/mariamem/internal/guest.(*Process).write.func2
+         0     0%   100%      0.04s  3.10%  github.com/masahitojp/mariamem/internal/guest.connectLifecycle.func1
+         0     0%   100%      0.10s  7.75%  github.com/masahitojp/mariamem/internal/guest.writeAll
+         0     0%   100%      0.08s  6.20%  internal/poll.(*FD).Read
+         0     0%   100%      0.79s 61.24%  internal/poll.(*FD).Write
+         0     0%   100%      0.87s 67.44%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.04s  3.10%  io.ReadAtLeast
+         0     0%   100%      0.04s  3.10%  io.ReadFull (inline)
+         0     0%   100%      0.08s  6.20%  os.(*File).Read
+         0     0%   100%      0.79s 61.24%  os.(*File).Write
+         0     0%   100%      0.08s  6.20%  os.(*File).read (inline)
+         0     0%   100%      0.79s 61.24%  os.(*File).write (inline)
+         0     0%   100%      0.01s  0.78%  runtime.(*gcControllerState).enlistWorker
+         0     0%   100%      0.01s  0.78%  runtime.(*mheap).alloc.func1
+         0     0%   100%      0.01s  0.78%  runtime.(*mheap).allocSpan
+         0     0%   100%      0.19s 14.73%  runtime.findRunnable
+         0     0%   100%      0.01s  0.78%  runtime.gcBgMarkWorker
+         0     0%   100%      0.02s  1.55%  runtime.gcBgMarkWorker.func2
+         0     0%   100%      0.02s  1.55%  runtime.gcDrain
+         0     0%   100%      0.02s  1.55%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%      0.09s  6.98%  runtime.mPark (inline)
+         0     0%   100%      0.19s 14.73%  runtime.mcall
+         0     0%   100%      0.09s  6.98%  runtime.netpoll
+         0     0%   100%      0.03s  2.33%  runtime.newproc.func1
+         0     0%   100%      0.09s  6.98%  runtime.notesleep
+         0     0%   100%      0.21s 16.28%  runtime.notewakeup
+         0     0%   100%      0.19s 14.73%  runtime.park_m
+         0     0%   100%      0.17s 13.18%  runtime.ready
+         0     0%   100%      0.01s  0.78%  runtime.runqgrab
+         0     0%   100%      0.01s  0.78%  runtime.runqsteal
+         0     0%   100%      0.01s  0.78%  runtime.scanObject
+         0     0%   100%      0.19s 14.73%  runtime.schedule
+         0     0%   100%      0.09s  6.98%  runtime.semasleep
+         0     0%   100%      0.21s 16.28%  runtime.semawakeup
+         0     0%   100%      0.21s 16.28%  runtime.startm
+         0     0%   100%      0.01s  0.78%  runtime.stealWork
+         0     0%   100%      0.09s  6.98%  runtime.stopm
+         0     0%   100%      0.01s  0.78%  runtime.sysUsed (inline)
+         0     0%   100%      0.01s  0.78%  runtime.sysUsedOS (inline)
+         0     0%   100%      0.23s 17.83%  runtime.systemstack
+         0     0%   100%      0.21s 16.28%  runtime.wakep
+         0     0%   100%      0.08s  6.20%  syscall.Read (inline)
+         0     0%   100%      0.79s 61.24%  syscall.Write (inline)
+         0     0%   100%      0.08s  6.20%  syscall.read
+         0     0%   100%      0.87s 67.44%  syscall.syscall
+         0     0%   100%      0.87s 67.44%  syscall.syscalln
+         0     0%   100%      0.79s 61.24%  syscall.write

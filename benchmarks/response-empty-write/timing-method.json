@@ -1,0 +1,12 @@
+{
+  "correction": "no concurrent recursive workspace scan; capacity checks before/after each timed process",
+  "old_guard": "run_guarded default0.5s recursive check; retained scanning-guard-cohort",
+  "source_identity": {
+    "object_sha": "aa2cfda3ca9d265a996bd5a2398b659ccab769fe",
+    "object_type": "commit",
+    "source_commit": "aa2cfda3ca9d265a996bd5a2398b659ccab769fe"
+  },
+  "binary_sha256": "45fbced471df3995f1bee4c314a1af14d612a9d322ee0eb7133c0f658175219d",
+  "fixed_timing_processes": 88,
+  "wall_budget_seconds": 900
+}

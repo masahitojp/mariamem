@@ -1,0 +1,21 @@
+{
+  "identity": {
+    "object_sha": "aa2cfda3ca9d265a996bd5a2398b659ccab769fe",
+    "object_type": "commit",
+    "source_commit": "aa2cfda3ca9d265a996bd5a2398b659ccab769fe"
+  },
+  "product_source_commit": "6558ee8fb2211313a8aa0ea6070ac5256767811a",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
+  "env": {
+    "GOTOOLCHAIN": "go1.27.4",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "MODELCASE_MATCHED": "1",
+    "MARIA_AUDIT_OF": "1",
+    "REVENUE_PREAGG": "1",
+    "MARIA_ASYNC_CLOSE": "0",
+    "TRANSPORT_DIAG": "0",
+    "SKIP_READ_BODY": "0"
+  }
+}

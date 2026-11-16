@@ -1,0 +1,23 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "response-empty-write",
+  "repo": "/Users/masahito/src/mysqlmem/publish/mariamem",
+  "state": "completed",
+  "base_sha": "4cf4393d1a9193b5b3a2d074e51f792164ecf7bd",
+  "created": 1794837407.777719,
+  "min_free_gib": 8.0,
+  "budget_gib": 6.0,
+  "disposable": [
+    "temp",
+    "worktree"
+  ],
+  "evidence": "evidence",
+  "branch": "experiment/response-empty-write",
+  "command": [
+    "/opt/homebrew/bin/python3.14",
+    "../evidence/run.py"
+  ],
+  "returncode": 0,
+  "peak_owned_bytes": 1492652032,
+  "minimum_free_bytes": 60117688320
+}

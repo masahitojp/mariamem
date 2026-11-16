@@ -1,0 +1,19 @@
+PASS
+        0.50 real         1.98 user         0.33 sys
+           662749184  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               89696  page reclaims
+                   1  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                 322  signals received
+                 300  voluntary context switches
+               11807  involuntary context switches
+         17711780371  instructions retired
+          5326527190  cycles elapsed
+           583453480  peak memory footprint
