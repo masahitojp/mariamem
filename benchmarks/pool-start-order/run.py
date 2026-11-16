@@ -17,8 +17,10 @@ for name in names:
   for a,b in pairs:assert instrumented.count(a)==1,(name,a);instrumented=instrumented.replace(a,b)
  records.append({'method':name,'source_sha256':hashlib.sha256(original.encode()).hexdigest(),'instrumented_sha256':hashlib.sha256(instrumented.encode()).hexdigest(),'counter_hooks_only':original!=instrumented});bodies.append(instrumented)
 cpp=(d/'support.cpp').read_text().replace('// EXTRACTED_METHODS','\n\n'.join(bodies));(t/'repro.cpp').write_text(cpp)
-meta={'source_identity':id,'upstream_commit':'83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e','upstream_sha256':hashlib.sha256(src.encode()).hexdigest(),'methods':records,'generated_cpp_sha256':hashlib.sha256(cpp.encode()).hexdigest(),'platform':platform.platform(),'compiler':subprocess.check_output(['clang++','--version'],text=True),'command':['clang++','-std=c++17','-O2','-pthread','repro.cpp','-o','repro']};(e/'inputs.json').write_text(json.dumps(meta,indent=2))
-with(e/'build.txt').open('w')as f:subprocess.run(['clang++','-std=c++17','-O2','-pthread',str(t/'repro.cpp'),'-o',str(t/'repro')],stdout=f,stderr=f,check=True,timeout=60)
+sdk=subprocess.check_output(['xcrun','--show-sdk-path'],text=True).strip()
+flags=['-std=c++17','-O2','-pthread','-isysroot',sdk,'-isystem',sdk+'/usr/include/c++/v1']
+meta={'source_identity':id,'upstream_commit':'83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e','upstream_sha256':hashlib.sha256(src.encode()).hexdigest(),'methods':records,'generated_cpp_sha256':hashlib.sha256(cpp.encode()).hexdigest(),'platform':platform.platform(),'compiler':subprocess.check_output(['clang++','--version'],text=True),'command':['clang++']+flags+['repro.cpp','-o','repro']};(e/'inputs.json').write_text(json.dumps(meta,indent=2))
+with(e/'build.txt').open('w')as f:subprocess.run(['clang++']+flags+[str(t/'repro.cpp'),'-o',str(t/'repro')],stdout=f,stderr=f,check=True,timeout=60)
 meta['binary_sha256']=hashlib.sha256((t/'repro').read_bytes()).hexdigest();(e/'inputs.json').write_text(json.dumps(meta,indent=2));rows=[]
 for rep in range(3):
  for mode in ['pending_400','after_start','announced_wait','pending_40']:
