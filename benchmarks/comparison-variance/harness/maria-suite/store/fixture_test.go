@@ -276,7 +276,15 @@ func openInProcess(s *pgmem.Database) *sql.DB {
 	if err != nil {
 		panic(err)
 	}
-	return sql.OpenDB(c)
+	db := sql.OpenDB(c)
+    if os.Getenv("EXPERIMENT_VALIDATE_LOAD") == "1" {
+        var value int
+        if err := db.QueryRow("SELECT @@global.innodb_buffer_pool_load_at_startup").Scan(&value); err != nil { panic(err) }
+        want := 1; if os.Getenv("EXPERIMENT_BUFFER_LOAD") == "OFF" { want = 0 }
+        if value != want { panic(fmt.Sprintf("startup load setting got %d want %d", value, want)) }
+        fmt.Printf("STARTUP_LOAD_VALIDATED %d\n", value)
+    }
+    return db
 }
 
 // Group is the entry point of a scenario, a top-level test whose cases are
