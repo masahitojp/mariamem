@@ -1,0 +1,22 @@
+// Diagnostic only. Snapshot reads occur only while guest already holds pool mutex.
+func PoolObserve(m *Module, kind string, pool, task int32) {
+ get := func(off uint64) uint32 { return *(*uint32)(unsafe.Add(m.M, MemoryEA(m,uint64(uint32(pool)),off,4))) }
+ cap,tail,head:=get(136),get(152),get(156)
+ q:=uint32(0);if cap!=0 {q=(tail+cap-head)%cap}
+ pooltrace.Logf(context.Background(),"pool", "%s instance=%p pool=%d task=%d q=%d active=%d standby=%d long=%d waiting=%d concurrency=%d",kind,m.Threads,pool,task,q,get(180),get(168),get(368),get(372),get(344))
+}
+func PoolMark(m *Module, kind string, pool, task int32) {
+ pooltrace.Logf(context.Background(),"pool","%s instance=%p pool=%d task=%d",kind,m.Threads,pool,task)
+}
+var poolGateOnce sync.Map
+func PoolGate(m *Module, pool int32) {
+ if os.Getenv("GUEST_POOL_HOLD")!="20" {return}
+ key:=struct {p *ThreadPool; addr int32}{m.Threads,pool}
+ if _,old:=poolGateOnce.LoadOrStore(key,true);old{return}
+ PoolMark(m,"hold_begin",pool,0);time.Sleep(20*time.Millisecond);PoolMark(m,"hold_end",pool,0)
+}
+func PoolWorkerWait(m *Module, kind string, addr int32) {
+ tls:=uint64(uint32(m.G1));if tls+400>m.MemSize.Load(){return}
+ pool:=*(*int32)(unsafe.Add(m.M,tls+392));worker:=*(*int32)(unsafe.Add(m.M,tls+396));if pool==0||worker==0{return}
+ pooltrace.Logf(context.Background(),"pool","%s instance=%p pool=%d worker=%d addr=%d",kind,m.Threads,pool,worker,addr)
+}
