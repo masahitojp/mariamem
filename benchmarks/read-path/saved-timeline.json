@@ -1,0 +1,122 @@
+[
+  {
+    "arm": "maria-sync",
+    "rep": 0,
+    "suite_ms": 419.596,
+    "read_end_ms": 339.845,
+    "write_end_ms": 414.126,
+    "last_writer": "TestDeleteUser/user_36"
+  },
+  {
+    "arm": "maria-sync",
+    "rep": 1,
+    "suite_ms": 431.856,
+    "read_end_ms": 387.464,
+    "write_end_ms": 426.781,
+    "last_writer": "TestCancelOrder/pending"
+  },
+  {
+    "arm": "maria-sync",
+    "rep": 2,
+    "suite_ms": 422.366,
+    "read_end_ms": 369.002,
+    "write_end_ms": 418.399,
+    "last_writer": "TestCancelOrder/pending"
+  },
+  {
+    "arm": "maria-sync",
+    "rep": 3,
+    "suite_ms": 431.456,
+    "read_end_ms": 336.14,
+    "write_end_ms": 427.08,
+    "last_writer": "TestCancelOrder/pending"
+  },
+  {
+    "arm": "maria-sync",
+    "rep": 4,
+    "suite_ms": 471.522,
+    "read_end_ms": 419.125,
+    "write_end_ms": 467.027,
+    "last_writer": "TestCreateOrder/five_lines"
+  },
+  {
+    "arm": "maria-async",
+    "rep": 0,
+    "suite_ms": 416.804,
+    "read_end_ms": 331.103,
+    "write_end_ms": 412.514,
+    "last_writer": "TestCancelOrder/shipped"
+  },
+  {
+    "arm": "maria-async",
+    "rep": 1,
+    "suite_ms": 447.954,
+    "read_end_ms": 429.669,
+    "write_end_ms": 443.878,
+    "last_writer": "TestCreateOrder/one_line"
+  },
+  {
+    "arm": "maria-async",
+    "rep": 2,
+    "suite_ms": 474.246,
+    "read_end_ms": 443.518,
+    "write_end_ms": 470.285,
+    "last_writer": "TestDeleteUser/user_22"
+  },
+  {
+    "arm": "maria-async",
+    "rep": 3,
+    "suite_ms": 423.786,
+    "read_end_ms": 365.472,
+    "write_end_ms": 418.776,
+    "last_writer": "TestCancelOrder/another_paid"
+  },
+  {
+    "arm": "maria-async",
+    "rep": 4,
+    "suite_ms": 450.275,
+    "read_end_ms": 387.062,
+    "write_end_ms": 446.095,
+    "last_writer": "TestCreateOrder/five_lines"
+  },
+  {
+    "arm": "pg",
+    "rep": 0,
+    "suite_ms": 363.506,
+    "read_end_ms": 327.514,
+    "write_end_ms": 363.27,
+    "last_writer": "TestCreateOrder/five_lines"
+  },
+  {
+    "arm": "pg",
+    "rep": 1,
+    "suite_ms": 369.333,
+    "read_end_ms": 355.95,
+    "write_end_ms": 368.952,
+    "last_writer": "TestShipOrder/all_paid"
+  },
+  {
+    "arm": "pg",
+    "rep": 2,
+    "suite_ms": 396.334,
+    "read_end_ms": 352.887,
+    "write_end_ms": 395.508,
+    "last_writer": "TestCancelOrder/another_paid"
+  },
+  {
+    "arm": "pg",
+    "rep": 3,
+    "suite_ms": 369.238,
+    "read_end_ms": 351.533,
+    "write_end_ms": 368.926,
+    "last_writer": "TestApplyDiscount/music_25"
+  },
+  {
+    "arm": "pg",
+    "rep": 4,
+    "suite_ms": 381.817,
+    "read_end_ms": 309.779,
+    "write_end_ms": 372.127,
+    "last_writer": "TestDeleteUser/user_29"
+  }
+]

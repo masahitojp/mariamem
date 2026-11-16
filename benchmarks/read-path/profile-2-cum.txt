@@ -1,0 +1,89 @@
+File: read.test
+Type: cpu
+Time: 2026-11-16 22:18:10 JST
+Duration: 1.20s, Total samples = 1.12s (92.97%)
+Showing nodes accounting for 1.12s, 100% of 1.12s total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      0.72s 64.29%  internal/poll.ignoringEINTRIO (inline)
+     0.72s 64.29% 64.29%      0.72s 64.29%  syscall.rawsyscalln
+         0     0% 64.29%      0.72s 64.29%  syscall.syscall
+         0     0% 64.29%      0.72s 64.29%  syscall.syscalln
+         0     0% 64.29%      0.69s 61.61%  internal/poll.(*FD).Write
+         0     0% 64.29%      0.69s 61.61%  os.(*File).Write
+         0     0% 64.29%      0.69s 61.61%  os.(*File).write (inline)
+         0     0% 64.29%      0.69s 61.61%  syscall.Write (inline)
+         0     0% 64.29%      0.69s 61.61%  syscall.write
+         0     0% 64.29%      0.66s 58.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+         0     0% 64.29%      0.66s 58.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0% 64.29%      0.66s 58.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0% 64.29%      0.66s 58.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+         0     0% 64.29%      0.66s 58.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0% 64.29%      0.65s 58.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0% 64.29%      0.65s 58.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+         0     0% 64.29%      0.65s 58.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+         0     0% 64.29%      0.65s 58.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+         0     0% 64.29%      0.65s 58.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+         0     0% 64.29%      0.65s 58.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76
+         0     0% 64.29%      0.20s 17.86%  runtime.systemstack
+         0     0% 64.29%      0.19s 16.96%  runtime.findRunnable
+         0     0% 64.29%      0.19s 16.96%  runtime.mcall
+         0     0% 64.29%      0.19s 16.96%  runtime.park_m
+         0     0% 64.29%      0.19s 16.96%  runtime.schedule
+         0     0% 64.29%      0.18s 16.07%  runtime.notewakeup
+     0.18s 16.07% 80.36%      0.18s 16.07%  runtime.pthread_cond_signal
+         0     0% 80.36%      0.18s 16.07%  runtime.semawakeup
+         0     0% 80.36%      0.18s 16.07%  runtime.startm
+         0     0% 80.36%      0.18s 16.07%  runtime.wakep
+         0     0% 80.36%      0.10s  8.93%  _.goready.func1
+         0     0% 80.36%      0.10s  8.93%  runtime.ready
+         0     0% 80.36%      0.08s  7.14%  runtime.newproc.func1
+     0.07s  6.25% 86.61%      0.07s  6.25%  runtime.kevent
+         0     0% 86.61%      0.07s  6.25%  runtime.mPark (inline)
+         0     0% 86.61%      0.07s  6.25%  runtime.netpoll
+         0     0% 86.61%      0.07s  6.25%  runtime.notesleep
+     0.07s  6.25% 92.86%      0.07s  6.25%  runtime.pthread_cond_wait
+         0     0% 92.86%      0.07s  6.25%  runtime.semasleep
+         0     0% 92.86%      0.07s  6.25%  runtime.stopm
+         0     0% 92.86%      0.04s  3.57%  github.com/masahitojp/mariamem/internal/guest.(*Process).write.func2
+         0     0% 92.86%      0.04s  3.57%  github.com/masahitojp/mariamem/internal/guest.writeAll
+         0     0% 92.86%      0.04s  3.57%  runtime.runqgrab
+         0     0% 92.86%      0.04s  3.57%  runtime.runqsteal
+         0     0% 92.86%      0.04s  3.57%  runtime.stealWork
+     0.04s  3.57% 96.43%      0.04s  3.57%  runtime.usleep
+         0     0% 96.43%      0.03s  2.68%  internal/poll.(*FD).Read
+         0     0% 96.43%      0.03s  2.68%  os.(*File).Read
+         0     0% 96.43%      0.03s  2.68%  os.(*File).read (inline)
+         0     0% 96.43%      0.03s  2.68%  syscall.Read (inline)
+         0     0% 96.43%      0.03s  2.68%  syscall.read
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo.runInstance.func2
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21749
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn195
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn205
+         0     0% 96.43%      0.02s  1.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn74
+         0     0% 96.43%      0.02s  1.79%  runtime.nanotime (inline)
+     0.02s  1.79% 98.21%      0.02s  1.79%  runtime.nanotime1
+     0.01s  0.89% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_fx83
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn21538
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14573
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5850
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/guest.(*Process).read
+         0     0% 99.11%      0.01s  0.89%  github.com/masahitojp/mariamem/internal/guest.connectLifecycle.func1
+         0     0% 99.11%      0.01s  0.89%  io.ReadAtLeast
+         0     0% 99.11%      0.01s  0.89%  io.ReadFull (inline)
+         0     0% 99.11%      0.01s  0.89%  runtime.(*gcControllerState).enlistWorker
+         0     0% 99.11%      0.01s  0.89%  runtime.(*timers).check
+         0     0% 99.11%      0.01s  0.89%  runtime.gcBgMarkWorker.func2
+         0     0% 99.11%      0.01s  0.89%  runtime.gcDrain
+         0     0% 99.11%      0.01s  0.89%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0% 99.11%      0.01s  0.89%  runtime.gcStart.func2
+         0     0% 99.11%      0.01s  0.89%  runtime.preemptM
+         0     0% 99.11%      0.01s  0.89%  runtime.preemptone
+     0.01s  0.89%   100%      0.01s  0.89%  runtime.pthread_kill
+         0     0%   100%      0.01s  0.89%  runtime.signalM (inline)
+         0     0%   100%      0.01s  0.89%  runtime.stopTheWorldWithSema

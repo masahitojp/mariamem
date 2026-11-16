@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "object_sha": "25dfdf98d2dd7b5700b557b2b805a5530b292828",
+    "object_type": "commit",
+    "source_commit": "25dfdf98d2dd7b5700b557b2b805a5530b292828"
+  },
+  "product_source_commit": "6558ee8fb2211313a8aa0ea6070ac5256767811a",
+  "env": {
+    "GOTOOLCHAIN": "go1.27.4",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "8",
+    "GOGC": "100"
+  }
+}
