@@ -1,0 +1,9 @@
+{
+  "discarded_reproducible": [
+    "sandbox-attempt/temp/go-cache",
+    "sandbox-attempt/temp/suite",
+    "temp-checksums.json"
+  ],
+  "reason": "Failed sandbox build cache fragments and resolved harness copy; source fixed in 94123a47, runner records replacement. Failure stdout, identity and binary hash retained.",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O"
+}

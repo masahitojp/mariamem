@@ -1,0 +1,20 @@
+{
+  "identity": {
+    "object_sha": "94123a47952b5550a67e8055be4be86f654ad255",
+    "object_type": "commit",
+    "source_commit": "94123a47952b5550a67e8055be4be86f654ad255"
+  },
+  "product_source_commit": "6558ee8fb2211313a8aa0ea6070ac5256767811a",
+  "env": {
+    "GOTOOLCHAIN": "go1.27.4",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "MODELCASE_MATCHED": "1",
+    "MARIA_AUDIT_OF": "1",
+    "REVENUE_PREAGG": "1",
+    "MARIA_ASYNC_CLOSE": "0",
+    "TRANSPORT_DIAG": "0",
+    "SKIP_READ_BODY": "0"
+  }
+}
