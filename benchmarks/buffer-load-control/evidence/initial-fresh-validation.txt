@@ -1,0 +1,11 @@
+panic: startup load setting got 0 want 1
+
+goroutine 1 [running]:
+github.com/shibukawa/pgmem/bench/modelcase/store_test.openInProcess(0x7b316a20a000)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/buffer-load-control/temp/maria-suite/store/fixture_test.go:284 +0x230
+github.com/shibukawa/pgmem/bench/modelcase/store_test.(*fixture).usePgmem(0x7b316a1de050, {0x108af2f48, 0x7b316a1a2ea0})
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/buffer-load-control/temp/maria-suite/store/fixture_test.go:111 +0xec
+github.com/shibukawa/pgmem/bench/modelcase/store_test.TestMain(0x7b316a19a280)
+	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/buffer-load-control/temp/maria-suite/store/fixture_test.go:72 +0x17c
+main.main()
+	_testmain.go:70 +0x88

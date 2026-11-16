@@ -8,6 +8,16 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Performance investigation returned to whole-lifecycle value (2026-11-17)
+
+The Human approved pausing pending/400ms causal tracing and returning to small
+whole-lifecycle value controls. The startup buffer-loading ON/OFF control is
+complete: P8 paired elapsed median -1.17% (6/10), external wall +0.14% (5/10),
+with larger adjacent A/A variability and no long-tail recurrence in either arm.
+Keep the product default; no demonstrated tail remedy or adoption decision.
+See [fixed source, all observations and limits](../benchmarks/buffer-load-control/README.md).
+No further diagnostic campaign, integration or release is implied.
+
 ## Asynchronous Close productization authorized (2026-11-15)
 
 The Human authorized productization of #204/#205 on the adopted #203+A1a main.

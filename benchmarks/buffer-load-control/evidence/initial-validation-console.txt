@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/buffer-load-control/worktree/../evidence/build.py", line 12, in <module>
+    with (e/('validate-'+mode+'.txt')).open('w')as f:subprocess.run([str(t/'maria.test'),'-test.run=^TestMatchedSemantics$','-test.timeout=150s'],cwd=t/'maria-suite',env=env|{'EXPERIMENT_BUFFER_LOAD':mode,'EXPERIMENT_VALIDATE_LOAD':'1'},stdout=f,stderr=f,check=True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/buffer-load-control/temp/maria.test', '-test.run=^TestMatchedSemantics$', '-test.timeout=150s']' returned non-zero exit status 2.
