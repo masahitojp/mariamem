@@ -24,6 +24,7 @@ def shared(host_wheel, monkeypatch):
     data['host_buildinfo'] = 'original-host: go1.26.10\n\tbuild\t-ldflags="-s -w"\n'+data['host_buildinfo']
     write(record, data)
     monkeypatch.setattr(runtime, 'require_commit', lambda *args: None)
+    monkeypatch.setattr(runtime, 'require_stripped', lambda *args: None)
     monkeypatch.setattr(runtime, 'current_target', lambda root: {'platform': 'darwin-arm64'})
     monkeypatch.setattr(runtime, 'verify_go_binary', lambda *args: data['host_buildinfo'])
     return root, wheel, record
@@ -215,10 +216,9 @@ def test_final_join_rejects_unknown_modes_and_extra_dependencies():
 
 def test_release_rejects_unstripped_host_even_with_matching_receipt(shared, monkeypatch):
     root, _, receipt = shared
-    record = read(receipt)
-    record['host_buildinfo'] = record['host_buildinfo'].replace('\tbuild\t-ldflags="-s -w"\n', '')
-    write(receipt, record)
-    monkeypatch.setattr(runtime, 'verify_go_binary', lambda *args: record['host_buildinfo'])
+    def reject(path):
+        raise ValueError('release host must omit symbols and DWARF (-s -w)')
+    monkeypatch.setattr(runtime, 'require_stripped', reject)
     with pytest.raises(ValueError, match='release host must omit'):
         runtime.stage(root, 'a'*40)
 

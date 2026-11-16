@@ -93,9 +93,16 @@ def attribution_tolerance(root):
     """Explicit policy; changes require review, never automatic ledger updates."""
     value = json.loads((Path(root)/'release/attribution-tolerance.json').read_text())
     if (not isinstance(value, dict) or
-            set(value) != {'version', 'metadata_files', 'generated_file_deltas'} or
+            set(value) not in ({'version', 'metadata_files', 'generated_file_deltas'}, {'version', 'metadata_files', 'generated_file_deltas', 'input_manifest_delta'}) or
             type(value['version']) is not int or value['version'] != 1):
         raise ValueError('unknown attribution tolerance contract')
+    delta = value.get('input_manifest_delta')
+    if delta is not None:
+        if (not isinstance(delta, dict) or set(delta) != {'before', 'after', 'reason', 'approval'} or
+                not _sha256(delta['before']) or not _sha256(delta['after']) or
+                delta['before'] == delta['after'] or
+                any(not isinstance(delta[k], str) or not delta[k].strip() for k in ('reason', 'approval'))):
+            raise ValueError('invalid input manifest attribution delta')
     paths = set()
     for group in ('metadata_files', 'generated_file_deltas'):
         if not isinstance(value[group], list):
@@ -145,6 +152,15 @@ def verify_generated_attribution(root, evidence):
     if digest(path) == expected:
         return 'exact'
     record = json.loads(path.read_text())
+    delta = policy.get('input_manifest_delta')
+    if delta is not None:
+        current = record.get('input_manifest_sha256')
+        if current not in (delta['before'], delta['after']):
+            raise ValueError('unapproved input manifest attribution delta')
+        if current == delta['after']:
+            if digest(root/'release/generated-go-inputs.json') != current:
+                raise ValueError('input manifest attribution mismatch')
+            record['input_manifest_sha256'] = delta['before']
     files = record['files_sha256']
     source_changed = False
     for group in ('generated_file_deltas', 'metadata_files'):
