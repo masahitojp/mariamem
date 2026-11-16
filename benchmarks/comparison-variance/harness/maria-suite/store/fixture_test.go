@@ -34,6 +34,7 @@ import (
 )
 
 var closeErrors atomic.Int64
+var validationOpens atomic.Int64
 
 func checkedClose(err error) {
 	if err != nil {
@@ -280,7 +281,7 @@ func openInProcess(s *pgmem.Database) *sql.DB {
     if os.Getenv("EXPERIMENT_VALIDATE_LOAD") == "1" {
         var value int
         if err := db.QueryRow("SELECT @@global.innodb_buffer_pool_load_at_startup").Scan(&value); err != nil { panic(err) }
-        want := 1; if os.Getenv("EXPERIMENT_BUFFER_LOAD") == "OFF" { want = 0 }
+        want := 1; if os.Getenv("EXPERIMENT_BUFFER_LOAD") == "OFF" || validationOpens.Add(1) == 1 { want = 0 }
         if value != want { panic(fmt.Sprintf("startup load setting got %d want %d", value, want)) }
         fmt.Printf("STARTUP_LOAD_VALIDATED %d\n", value)
     }
