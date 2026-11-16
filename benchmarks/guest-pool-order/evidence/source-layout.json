@@ -1,0 +1,32 @@
+{
+  "upstream_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "files": {
+    "os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+    "buf0dump.cc": "ec2c958d91a49126f2fd960f2260d11428c4bd5c7e72f1dd6f65c2ef83da12fe"
+  },
+  "buffer_load_wait": "buf0dump.cc:662 calls os_aio_wait_until_no_pending_reads(true)",
+  "notification_condition": "os0file.cc:3236 notify_wait = declare && read_slots->pending_io_count(); wait_begin/end conditional; no absence inferred from a blocked stack",
+  "layout": {
+    "pool_mutex": 184,
+    "queue_capacity": 136,
+    "queue_tail": 152,
+    "queue_head": 156,
+    "standby_count": 168,
+    "active_count": 180,
+    "concurrency": 344,
+    "long_count": 368,
+    "waiting_count": 372,
+    "minimum": 384,
+    "maximum": 388,
+    "creation_pending": 408,
+    "TLS_pool": 392,
+    "TLS_worker": 396
+  },
+  "layout_basis": {
+    "queue": "Fn16602 enqueue and Fn16591 dequeue",
+    "counts": "Fn16593 branch active-(long+waiting)>concurrency",
+    "pending": "Fn16594 atomic exchange8 at408 / Fn16592 clear8 at408",
+    "TLS": "Fn16592 own-thread writesG1+392/396"
+  },
+  "unlocked_shared_reads": "none: state snapshot only enqueue/dequeue/maybe/add_thread/accounting under existing pool mutex; worker clear emits identity only; futex helper reads own thread TLS only"
+}

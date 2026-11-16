@@ -1,0 +1,12 @@
+# github.com/masahitojp/mariamem/internal/generatedgo/code/base
+../../temp/base.go:12070:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:12187:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:12222:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:12292:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:13271:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:13297:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:13353:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:13377:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:14064:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:14084:2: syntax error: non-declaration statement outside function body
+../../temp/base.go:14084:2: too many errors

@@ -1,0 +1,98 @@
+[
+  {
+    "run": 0,
+    "mode": "natural",
+    "elapsed_ms": 657.322,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_22",
+      "start_ms": 409.368,
+      "end_ms": 527.605
+    }
+  },
+  {
+    "run": 1,
+    "mode": "hold20",
+    "elapsed_ms": 520.193,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_29",
+      "start_ms": 269.909,
+      "end_ms": 371.274
+    }
+  },
+  {
+    "run": 2,
+    "mode": "natural",
+    "elapsed_ms": 552.615,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestCreateOrder/one_line",
+      "start_ms": 227.809,
+      "end_ms": 372.029
+    }
+  },
+  {
+    "run": 3,
+    "mode": "hold20",
+    "elapsed_ms": 526.561,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/music_25",
+      "start_ms": 130.982,
+      "end_ms": 239.906
+    }
+  },
+  {
+    "run": 4,
+    "mode": "natural",
+    "elapsed_ms": 531.871,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/books_10",
+      "start_ms": 158.166,
+      "end_ms": 254.191
+    }
+  },
+  {
+    "run": 5,
+    "mode": "hold20",
+    "elapsed_ms": 576.906,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/books_10",
+      "start_ms": 135.066,
+      "end_ms": 231.248
+    }
+  },
+  {
+    "run": 6,
+    "mode": "natural",
+    "elapsed_ms": 521.8,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestApplyDiscount/games_0",
+      "start_ms": 248.99,
+      "end_ms": 363.816
+    }
+  },
+  {
+    "run": 7,
+    "mode": "hold20",
+    "elapsed_ms": 558.001,
+    "max_sample": {
+      "name": "sample",
+      "kind": "sample",
+      "lane": "TestDeleteUser/user_22",
+      "start_ms": 313.458,
+      "end_ms": 418.533
+    }
+  }
+]

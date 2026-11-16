@@ -1,0 +1,57 @@
+func Fn16604(m *base.Module, l0 int32) {
+	mBase := m.M
+	_ = mBase
+	var v4 int32
+	_ = v4
+	var v6 int32
+	_ = v6
+	var v7 int32
+	_ = v7
+	var v10 int32
+	_ = v10
+	var v16 int32
+	_ = v16
+	var v18 int32
+	_ = v18
+	var v19 int32
+	_ = v19
+	var v20 int32
+	_ = v20
+	var v24 int32
+	_ = v24
+	var v29 int32
+	_ = v29
+	v4 = m.G1
+	v6 = v4 + int32(396)
+	v7 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v6)), 0, 4)))
+	if v7 == int32(0) {
+		return
+	} else {
+		v10 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 64, 1))))
+		if v10&int32(4) == int32(0) {
+			return
+		} else {
+			v16 = l0 + int32(184)
+			Fn16556(m, v16)
+			mBase = m.M
+			v18 = m.ExcPending
+			if v18 != 0 {
+				return
+			} else {
+				v19 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v6)), 0, 4)))
+				v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 64, 4)))
+				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19)), 64, 4))) = v20 & int32(-5)
+				v24 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 372, 4)))
+				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 372, 4))) = v24 - int32(1)
+				Fn16558(m, v16)
+				mBase = m.M
+				v29 = m.ExcPending
+				if v29 != 0 {
+					return
+				} else {
+					return
+				}
+			}
+		}
+	}
+}

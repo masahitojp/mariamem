@@ -1,0 +1,96 @@
+{
+  "source_identity": {
+    "object_sha": "252ce7be506f3d2d48fbaf5e895aa6e0cb233090",
+    "object_type": "commit",
+    "source_commit": "252ce7be506f3d2d48fbaf5e895aa6e0cb233090"
+  },
+  "product_source_commit": "6558ee8fb2211313a8aa0ea6070ac5256767811a",
+  "methods": [
+    {
+      "function": 16594,
+      "original_sha256": "c6841ff99115d3d84264d3b912195ee1c21460b8f711ac2c2ae77859924c9c87",
+      "overlay_sha256": "3e1eabac118f337a3d0be42ecfa180f62df2c1a304e520f263ceaeac183efbd3"
+    },
+    {
+      "function": 16591,
+      "original_sha256": "fbc7fd5d61d2cb8c4235ff8155ee2ef5169efe528977d2cc88bf7ad2dbcfba08",
+      "overlay_sha256": "2a2d5b8749d0b726bbc15fe7f5bf1ce2f2a99d6c9bf09650a8e3e8508aeaaa3c"
+    },
+    {
+      "function": 18171,
+      "original_sha256": "cd9cfd992df36f9838fc33e1bc161218392622031b5696029f2d755db560ae5c",
+      "overlay_sha256": "4e43f04c3257ff79e5069e6501163a3bb8bc2b5d3439476223a70a96c617cd49"
+    },
+    {
+      "function": 16600,
+      "original_sha256": "dae0abc9da4f391794bb522a98278db2d6786f416be22a40c30fe33ed5570b22",
+      "overlay_sha256": "4d9f75f71146ed20be9338f59657a42f4b182ae7082ab74214cc4915ebddd1be"
+    },
+    {
+      "function": 16593,
+      "original_sha256": "7a31ff91005741f1aebe4cec539eb3dae1272fe44d73b533c30c7996fd05e298",
+      "overlay_sha256": "ec1723ec5681369b5964516dff9a7163c7affabfab1b949d6e309f6f2586b14a"
+    },
+    {
+      "function": 16602,
+      "original_sha256": "3c6e7d9ae542b98859f38b2173080f28b1472faa5e484315a3e2f69a82572d66",
+      "overlay_sha256": "5b19753ad069f22857d836837fd3403c01176aeb2718ed9b96375bb8c919438d"
+    },
+    {
+      "function": 16603,
+      "original_sha256": "21c9fda0926dce821a468e19c2f1988990afa858e10b84a02184836b5b409c82",
+      "overlay_sha256": "3673de41df2884e1d1dd6400beebf99ebdfeee7dc3d195ed7c26a905cb5c3288"
+    },
+    {
+      "function": 16604,
+      "original_sha256": "2a6bcb422b147c0a7b41bce0d21972721da526460faf431776a97aecab3bb237",
+      "overlay_sha256": "099154bf970a0e7f8cb74842a060a709d27eac132e85ccce3fcfa01587c87043"
+    },
+    {
+      "function": 16784,
+      "original_sha256": "946c1ef39fe1d8b1cc82de6c23170f00c354bd31367e6f87d8a7cb0ff0c79e2d",
+      "overlay_sha256": "32c9dd2bc5511c0284248ce1de8dac113b33fbf21c23b580f36e684ed63815eb"
+    },
+    {
+      "function": 16592,
+      "original_sha256": "6b6cff9c8f41f75a502e19dcd918ea6378616d94a4a7e6e4c59d7961190236cb",
+      "overlay_sha256": "e3e87ce03064a9b2b1f98f9d2b0c9704775feb732a42e92d38f5fed6f3f3ac11"
+    }
+  ],
+  "overlays": {
+    "internal/generatedgo/code/p4/p4_pure.go": {
+      "original": "5572ca5c8b027ab9a67d15606138d88a7baa04b0ee07db389ea2571aa5994463",
+      "overlay": "8df4ed93cf8788f6897ac5a9226915f411de1da295cbcd8822db6abb6483cbd1"
+    },
+    "internal/generatedgo/code/p2/p2_pure.go": {
+      "original": "c7858b8f3b3d9af99b620f4017c178a5c6ab5920a222c0d485326154616c3fa1",
+      "overlay": "e1613db7dee941334b37dd3af8985929eeec027e6b5b0e0aa5b334dc01f519f9"
+    },
+    "internal/generatedgo/code/p5/p5_pure.go": {
+      "original": "0df63bc383454d1b5d518246fba5ceaff6b9d7ba180873e55b8c7fea41cde8d6",
+      "overlay": "637d45173acf9131449bb4df857523cb9ba7713acbd3e1eea6696ba155061c9b"
+    },
+    "internal/generatedgo/code/p7/p7_pure.go": {
+      "original": "1084c3469f268e208352003624a4ad88c95829e0e5b6934d1920e4c0a216c77a",
+      "overlay": "dde7120657f23dedec31ef7198bc21bc9ac4290a24b5c7efbbf9b77a213becde"
+    },
+    "internal/generatedgo/code/p8/p8_pure.go": {
+      "original": "fde651a988022401460134c7eba1e94378faf286caa7d73a1e8566bd78606034",
+      "overlay": "2e52991b36202709913a489d384f76932e58ff3095fb2b2c5b96f6267a22e2c2"
+    },
+    "internal/generatedgo/code/p6/p6_pure.go": {
+      "original": "5c276a253eca692ccce858462dec137e49fb5f249b4551380802a4e2c0a7bfb5",
+      "overlay": "67c02e5a52e7c3929497e8e999c39f9eba7245cd0d3532c8d801010c5a47f978"
+    },
+    "internal/generatedgo/code/base/base.go": {
+      "original": "f52336d29336eb160cbc530840b801fcb22e92e1e09305aa975514d4c3eeed42",
+      "overlay": "07b0792a54776401936ef52f7ff4f3082e738fd2197f4bf9bf1c89ee1fbd0db7"
+    },
+    "internal/generatedgo/main.go": {
+      "original": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
+      "overlay": "5552329685ef32fa96134877ee6078efd89c5a8c2cc66e36c9fca8f1243be22a"
+    }
+  },
+  "binary_sha256": "c85cd5884b00dedd40a9cd95e4f3d93135eb1a351cb83c23ff1e63860b296670",
+  "buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-pool-order/temp/suite.test: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase/store.test\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-pool-order/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}

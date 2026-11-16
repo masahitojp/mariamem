@@ -1,0 +1,12 @@
+{
+  "processes": 8,
+  "test_cases": 560,
+  "matched_tasks": 112673,
+  "unmatched_enqueues": 0,
+  "pending_rejections": 102615,
+  "long_queues": 0,
+  "long_page_waits": 0,
+  "read_drain_futex": 181,
+  "read_drain_accounted": 180,
+  "hold_count": 80
+}
