@@ -18,8 +18,15 @@ binary are unchanged. Pages load on demand. No public resource-setting API is
 added. Effective settings across fresh/Fork/reSnapshot are integration-tested.
 [Bounded adoption evidence](https://github.com/masahitojp/mariamem/blob/89b79a51922c6502ac1915852c0621c9df02ae36/benchmarks/preload-adoption/README.md)
 records the benefit and local latency costs; rare-tail prevention is unproven.
-Candidate verification and the subsequent comparison are in progress. Main
-integration and publication remain separate decisions.
+Candidate `d8d28ebdaa5b749a976b9820c7438ae832e3d2ca` completed
+[both-platform verification](https://github.com/masahitojp/mariamem/actions/runs/43972642469)
+with an exact-SHA READY receipt. The [fixed product comparison](https://github.com/masahitojp/mariamem/blob/97b674e8/benchmarks/preload-product-comparison/README.md)
+and [same-cohort async comparison](https://github.com/masahitojp/mariamem/blob/8fac4fb0/benchmarks/preload-async-comparison/README.md)
+are complete. Product comparison P8 paired gap was+10.20%; the separate
+sync/async cohort found a small mixed async benefit. These are shared-host
+observations, not a stable10% guarantee or proof of tail elimination.
+The Human approved main integration after review. Publication remains a
+separate decision; READY evidence belongs to the exact candidate above.
 
 ## Go asynchronous Close — adopted on main (2026-11-16)
 
