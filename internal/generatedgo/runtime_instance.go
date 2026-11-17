@@ -75,6 +75,14 @@ func runInstance(in io.Reader, out, stderr io.Writer, transfer string, restore [
 		if err = fs.MkdirAll("snapshot-out", 0755); err != nil {
 			return
 		}
+		// Reload pages on demand: startup preload competes with first-use SQL
+		// in short-lived forks. Keep this per-instance, before guest startup.
+		if err = fs.MkdirAll("etc", 0755); err != nil {
+			return
+		}
+		if err = fs.WriteFile("etc/my.cnf", []byte("[server]\ninnodb-buffer-pool-load-at-startup=OFF\n[embedded]\ninnodb-buffer-pool-load-at-startup=OFF\n"), 0644); err != nil {
+			return
+		}
 		w.SetFS(entropyFS{fs})
 		w.SetArgs([]string{"mariamem"})
 		w.SetEnv(guestEnvironment(restore != nil, guestTiming))

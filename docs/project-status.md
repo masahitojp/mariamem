@@ -8,6 +8,26 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Startup buffer preload OFF productization approved (2026-11-17)
+
+The Human accepted local first-read/Fork latency tradeoffs to optimize the whole
+application and authorized productization, followed by a matched modelcase
+comparison. Every instance now disables startup buffer preload using its internal
+configuration before guest startup. Buffer capacity, SQL semantics and the guest
+binary are unchanged. Pages load on demand. No public resource-setting API is
+added. Effective settings across fresh/Fork/reSnapshot are integration-tested.
+[Bounded adoption evidence](https://github.com/masahitojp/mariamem/blob/89b79a51922c6502ac1915852c0621c9df02ae36/benchmarks/preload-adoption/README.md)
+records the benefit and local latency costs; rare-tail prevention is unproven.
+Candidate `d8d28ebdaa5b749a976b9820c7438ae832e3d2ca` completed
+[both-platform verification](https://github.com/masahitojp/mariamem/actions/runs/43972642469)
+with an exact-SHA READY receipt. The [fixed product comparison](https://github.com/masahitojp/mariamem/blob/97b674e8/benchmarks/preload-product-comparison/README.md)
+and [same-cohort async comparison](https://github.com/masahitojp/mariamem/blob/8fac4fb0/benchmarks/preload-async-comparison/README.md)
+are complete. Product comparison P8 paired gap was+10.20%; the separate
+sync/async cohort found a small mixed async benefit. These are shared-host
+observations, not a stable10% guarantee or proof of tail elimination.
+The Human approved main integration after review. Publication remains a
+separate decision; READY evidence belongs to the exact candidate above.
+
 ## Go asynchronous Close — adopted on main (2026-11-16)
 
 The Human approved integration of PR217. It merged as source_commit

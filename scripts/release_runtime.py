@@ -8,6 +8,7 @@ from common import ROOT, digest
 from generated_release import checkout, read, require, verify_wheel, version, wheel_name
 from git_identity import require_commit, verify_go_binary
 from native_target import current_target
+from release_symbols import require_stripped
 
 
 def stage(root, commit):
@@ -33,8 +34,7 @@ def stage(root, commit):
     host.chmod(0o755)
     require(digest(host) == record['manifest']['sha256']['mariamem-host'], 'shared host hash differs')
     actual = verify_go_binary(root, host, commit)
-    require('\tbuild\t-ldflags="-s -w"' in actual.splitlines(),
-            'release host must omit symbols and DWARF (-s -w)')
+    require_stripped(host)
     # The path on the first line differs between build and consuming runners.
     require(actual.splitlines()[1:] == record['host_buildinfo'].splitlines()[1:], 'shared host build info differs')
     return wheel, host
