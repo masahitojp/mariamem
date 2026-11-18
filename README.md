@@ -6,27 +6,13 @@ Connect with an ordinary MySQL driver, commit normally, and discard the database
 when the test ends. For expensive migrations or fixtures, prepare once and give
 each test an independent database from that initial state.
 
-Current release: Python `0.6.2` / Go `v0.6.2` ([release notes](release/NOTES-v0.6.2.md)).
+Current release: Python `0.7.0` / Go `v0.7.0` ([release notes](release/NOTES-v0.7.0.md)).
 
 ## Installation
 
-Python **0.6.2** is available on PyPI for the following hosts (Python **3.11+**):
-
-| Host | CPU | Minimum condition |
-| --- | --- | --- |
-| macOS | arm64 | macOS 15+ |
-| Linux | x86_64 / aarch64 | glibc 2.28+ or musl 1.2+ |
-| Windows | x86_64 / arm64 | Windows build 22000+ |
-
-Public installation, wheel/hash checks, SELECT 1 and successful host exit passed
-in seven representative environments: macOS, both Linux CPUs on both libc
-families, and both Windows CPUs. These runs do not test every OS/Python version
-above the minimum. Linux containers share the runner kernel, so no old-kernel
-execution is claimed.
-
-Go **v0.6.2** remains supported on **macOS 15+ arm64** and
-**Ubuntu 24.04 x86_64**, with Go **1.26.0+**. The added Python wheels do not
-expand the original Go tag's platform support. See [publication details](docs/releasing.md#additional-linuxwindows-wheels-for-published-062).
+Python **0.7.0** targets Python **3.11+** on **macOS 15+ arm64** and
+**Ubuntu 24.04 x86_64**. Go **v0.7.0** targets the same platforms and requires
+Go **1.26.0+**.
 
 ### Python
 
@@ -34,10 +20,10 @@ expand the original Go tag's platform support. See [publication details](docs/re
 python3 -m venv .venv
 source .venv/bin/activate
 # Windows PowerShell: .venv\Scripts\Activate.ps1
-python -m pip install 'mariamem[test]==0.6.2'
+python -m pip install 'mariamem[test]==0.7.0'
 ```
 
-For library use without pytest tools, use `python -m pip install mariamem==0.6.2`.
+For library use without pytest tools, use `python -m pip install mariamem==0.7.0`.
 
 Save this as `test_database.py`:
 
@@ -62,7 +48,7 @@ In a new directory:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.6.2
+go get github.com/masahitojp/mariamem@v0.7.0
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -141,14 +127,12 @@ including failure paths that require a fresh lineage.
 <summary>Release audit files</summary>
 
 ```sh
-gh release download v0.6.2 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.2-corresponding-source.tar.gz'
+gh release download v0.7.0 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.7.0-corresponding-source.tar.gz'
 ```
 
-For a manual wheel audit, the Windows x86_64 asset is
-`mariamem-0.6.2-py3-none-win_amd64.whl`; match the CPU/platform filename and
-its hash against the additional provenance described in
-[publication details](docs/releasing.md#additional-linuxwindows-wheels-for-published-062).
+For a manual wheel audit, match the platform-specific asset, such as
+`mariamem-0.7.0-py3-none-macosx_15_0_arm64.whl`, against `SHA256SUMS`.
 
 Build/forward-compatibility pins and historical results are in
 [Go compatibility](docs/go-compatibility.md).

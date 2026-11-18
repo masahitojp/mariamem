@@ -1,8 +1,8 @@
 """Canonical mariamem release version and ecosystem-specific spellings."""
 
 MAJOR = 0
-MINOR = 6
-PATCH = 2
+MINOR = 7
+PATCH = 0
 STAGE = ""
 SERIAL = 0
 
