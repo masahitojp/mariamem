@@ -5,7 +5,8 @@ connect with a MySQL client, and close it when the test finishes. Snapshot and
 Fork support independent test databases from a prepared state.
 
 ```sh
-pip install mariamem PyMySQL
+# macOS arm64
+python -m pip install mariamem PyMySQL
 ```
 
 ```python
@@ -19,15 +20,15 @@ with mariamem.start() as db:
             assert cursor.fetchone() == (1,)
 ```
 
-The published 0.6.2 PyPI wheel supports macOS 15 or newer on arm64.
-Portable Linux wheels for x86_64 and aarch64 (glibc 2.28+ or musl 1.2+) are in
-preparation for a later release; availability depends on the selected version.
-Windows wheels are planned. Do not assume these platforms are already published.
+For the platforms and installation commands for the current release, see the
+[installation guide](https://github.com/masahitojp/mariamem#installation).
+The macOS arm64 wheel is published on PyPI. For Ubuntu 24.04 x86_64, download
+the matching wheel from GitHub Releases.
 The wheel includes the generated-Go host; Go and a separate MariaDB server are
 not required at runtime. Python 3.11 or newer is required.
 
 See the [Python guide](https://github.com/masahitojp/mariamem/blob/main/docs/python.md),
-[API reference](https://github.com/masahitojp/mariamem/blob/main/docs/python.md)
+[API reference](https://github.com/masahitojp/mariamem/blob/main/docs/python-reference.md)
 and [releases](https://github.com/masahitojp/mariamem/releases).
 
 mariamem is distributed under GPL-2.0-only. Distribution includes license notices;
