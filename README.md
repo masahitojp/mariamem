@@ -6,7 +6,7 @@ Connect with an ordinary MySQL driver, commit normally, and discard the database
 when the test ends. For expensive migrations or fixtures, prepare once and give
 each test an independent database from that initial state.
 
-Current release: Python `0.7.0` / Go `v0.7.0` ([release notes](release/NOTES-v0.7.0.md)).
+Version documented here: Python `0.7.0` / Go `v0.7.0` ([release notes](release/NOTES-v0.7.0.md)).
 
 ## Installation
 
@@ -19,11 +19,23 @@ Go **1.26.0+**.
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-# Windows PowerShell: .venv\Scripts\Activate.ps1
+```
+
+On macOS arm64, install from PyPI:
+
+```sh
 python -m pip install 'mariamem[test]==0.7.0'
 ```
 
-For library use without pytest tools, use `python -m pip install mariamem==0.7.0`.
+On Ubuntu 24.04 x86_64, download and install the wheel from GitHub Release:
+
+```sh
+gh release download v0.7.0 --repo masahitojp/mariamem \
+  --pattern 'mariamem-0.7.0-py3-none-linux_x86_64.whl'
+python -m pip install './mariamem-0.7.0-py3-none-linux_x86_64.whl[test]'
+```
+
+For library use without pytest tools, omit the `[test]` extra.
 
 Save this as `test_database.py`:
 

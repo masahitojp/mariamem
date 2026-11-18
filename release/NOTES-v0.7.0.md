@@ -34,6 +34,8 @@ with other work. Fork capacity is returned after resource release is confirmed.
 
 Go requires Go 1.26.0 or later. Python requires Python 3.11 or later. This
 release targets macOS 15+ arm64 and Ubuntu 24.04 x86_64.
+The macOS Python wheel is distributed through PyPI. The Ubuntu Python wheel
+is a GitHub Release asset.
 
 The host executable bundled in each release wheel is stripped to reduce
 download size. Release assets include corresponding source, provenance,
