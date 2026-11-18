@@ -1,10 +1,10 @@
 # Python usage
 
-Use Python `0.6.2` on a [supported platform](../README.md#installation).
+Use Python `0.7.0` on a [supported platform](../README.md#installation).
 PyPI wheels are available for macOS 15+ arm64, Linux x86_64/aarch64 with
 glibc 2.28+ or musl 1.2+, and Windows build 22000+ x86_64/arm64.
 Python 3.11+ is required. Install with
-`python -m pip install "mariamem[test]==0.6.2"`; pip selects the platform wheel.
+`python -m pip install "mariamem[test]==0.7.0"`; pip selects the platform wheel.
 Start with one database, then share preparation when setup becomes expensive.
 For Django, use the [dedicated guide](django-prepared.md).
 
@@ -314,7 +314,7 @@ allows metadata, or retained through the cause chain for read-only exceptions;
 source/baseline/test teardown still attempts remaining finalizers.
 Explicitly overriding a supplied fixture transfers that boundary's ownership to
 your implementation, including admission and cleanup. See the
-[release notes](../release/NOTES-v0.6.2.md).
+[release notes](../release/NOTES-v0.7.0.md).
 
 ## Share preparation, isolate mutations
 

@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-The current published release is `v0.6.2`; Python spelling is `0.6.2`.
-Its [versioned notes](../release/NOTES-v0.6.2.md) describe shipped scope and
+The current published release is `v0.7.0`; Python spelling is `0.7.0`.
+Its [versioned notes](../release/NOTES-v0.7.0.md) describe shipped scope and
 limitations; [project status](project-status.md#additional-062-distribution-169) records
 its successful Release CI and public smoke. The procedure below applies to
 the next human-selected candidate; preparation alone is not qualification.
