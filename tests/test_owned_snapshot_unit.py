@@ -63,8 +63,11 @@ def call(r):
   if r.get('log_path'):open(r['log_path'],'x').write('db log\n')
   out['database']={'handle':h,'id':str(h).zfill(32),'host':'127.0.0.1','port':3000+h,'user':'root','password':'','database':'test','pid':os.getpid(),'runtime_pid':os.getpid(),'capabilities':['snapshot','fork'],'max_connections':16}
  elif op in ('snapshot','late_snapshot'):
-  with lock:seq+=1;h=seq;handles[h]='snapshot';handles.pop(r.get('handle'),None);parents.pop(r.get('handle'),None);caps[h]=r.get('max_forks') or 2
-  out.update(snapshot=h,closed=True,disposed=True,max_forks=caps[h])
+  keep=r.get('keep_database',False)
+  with lock:
+   seq+=1;h=seq;handles[h]='snapshot';caps[h]=r.get('max_forks') or 2
+   if not keep:handles.pop(r.get('handle'),None);parents.pop(r.get('handle'),None)
+  out.update(snapshot=h,closed=not keep,disposed=not keep,max_forks=caps[h])
  elif op in ('db_close','snapshot_close'):
   with lock:
    close_calls.append({'op':op,'handle':r['handle']});handles.pop(r['handle'],None);parents.pop(r['handle'],None)
@@ -115,6 +118,36 @@ def test_ownership_consumption_and_last_owner_reaps(fake_host):
     baseline.close()
     with pytest.raises(ValueError, match="closed"):
         baseline.fork()
+
+
+def test_keep_database_rejects_an_older_host_without_closing_it(fake_host):
+    with mariamem.start(host_binary=fake_host) as root:
+        with pytest.raises(mariamem.HostError, match="keep-database-v1") as caught:
+            root.snapshot(keep_database=True)
+        assert caught.value.code == "unsupported"
+        assert not caught.value.closed
+        assert root.status()["state"] == "ready"
+
+
+def test_keep_database_preserves_source_and_disposes_unadopted_baseline(fake_host, monkeypatch):
+    source = fake_host.read_text().replace(
+        "'capabilities':['fork-limit-v1']", "'capabilities':['fork-limit-v1','keep-database-v1']")
+    fake_host.write_text(source)
+    with mariamem.start(host_binary=fake_host) as root:
+        with root.snapshot(keep_database=True, max_forks=1) as baseline:
+            assert not root.closed
+            assert baseline.max_forks == 1
+            assert root._session.request("stats")["handles"] == 2
+        assert root.status()["state"] == "ready"
+
+        def reject(*args):
+            raise ValueError("baseline adoption failed")
+
+        monkeypatch.setattr(mariamem.Snapshot, "_from_host", reject)
+        with pytest.raises(ValueError, match="baseline adoption failed"):
+            root.snapshot(keep_database=True)
+        assert root._session.request("stats")["handles"] == 1
+        assert root.status()["state"] == "ready"
 
 
 def test_independent_roots_own_independent_hosts(fake_host):

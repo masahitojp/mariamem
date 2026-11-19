@@ -13,13 +13,28 @@ artifact/platform error before host use; install the matching wheel rather than
 copying a host from another platform. Published wheel OS adapters come from the
 0.6.2 maintenance source; current main source is a separate development product.
 
+## Keep database
+
+With a matching host, `db.snapshot(keep_database=True)` preserves the source and
+its idle SQL sessions. It needs one free connection slot and an existing default
+database. It rejects `rollback=True`, active transactions including prepared XA,
+and sessions holding `LOCK TABLES ... WRITE` on persistent tables.
+
+`timeout` bounds the wait for in-flight SQL, handshakes and session cleanup.
+Once capture is accepted, new SQL waits and capture and cleanup run to
+completion. Forks start with empty MEMORY tables and without temporary tables.
+The source retains both. If release of the capture lock and closure of the
+internal session are both unconfirmed, the source becomes unusable and the
+capture raises `HostError` with `code="unusable"` and `closed=True`. A host
+without this capability rejects the option and leaves the source open.
+
 ## Snapshot ownership and host lifetime
 
 `snapshot()` fixes a baseline with private immutable blocks in Go memory.
 Ownership and immutability are enforced without rescanning every byte during
 ordinary heap capture. Internal imports, transfers and copies from borrowed
 file mappings retain their content checks.
-It ends the source DB and retains the baseline in the automatically managed host.
+By default, capture ends the source DB and retains the baseline in the automatically managed host.
 Fork creates a
 fresh MariaDB runtime and private changes; it does not copy running threads.
 One independent `start()` owns one host lineage. Its baseline, children and

@@ -19,6 +19,44 @@ HOST = os.environ.get("MARIAMEM_TEST_HOST")
 pytestmark = pytest.mark.skipif(not HOST, reason="requires explicit real host")
 
 
+def test_keep_database_preserves_connection_and_fork_state():
+    with mariamem.start(host_binary=HOST) as parent:
+        with pymysql.connect(**parent.connection_info(), autocommit=True) as conn, conn.cursor() as cursor:
+            cursor.execute("CREATE TABLE kept(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cursor.execute("INSERT INTO kept VALUES (1)")
+            cursor.execute("SET @marker = 'kept'")
+            cursor.execute("SELECT CONNECTION_ID(), @marker")
+            session = cursor.fetchone()
+
+            with pytest.raises(ValueError, match="rollback cannot be combined"):
+                parent.snapshot(keep_database=True, rollback=True)
+            conn.begin()
+            with pytest.raises(mariamem.TransactionActive) as caught:
+                parent.snapshot(keep_database=True)
+            assert not caught.value.closed
+            conn.rollback()
+
+            with parent.snapshot(keep_database=True, max_forks=2) as baseline:
+                assert not parent.closed
+                assert baseline.max_forks == 2
+                cursor.execute("SELECT CONNECTION_ID(), @marker")
+                assert cursor.fetchone() == session
+                cursor.execute("INSERT INTO kept VALUES (2)")
+                with baseline.fork() as child:
+                    assert sql(child, "SELECT id FROM kept") == ((1,),)
+                    sql(child, "INSERT INTO kept VALUES (3)")
+                with baseline.fork() as sibling:
+                    assert sql(sibling, "SELECT id FROM kept") == ((1,),)
+            cursor.execute("SELECT id FROM kept ORDER BY id")
+            assert cursor.fetchall() == ((1,), (2,))
+
+        parent.wait_disconnected()
+        with parent.snapshot() as baseline:
+            assert parent.closed
+            with baseline.fork() as child:
+                assert sql(child, "SELECT id FROM kept ORDER BY id") == ((1,), (2,))
+
+
 def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
     alternate = tmp_path / "other-host"
     shutil.copy2(HOST, alternate)
@@ -34,6 +72,14 @@ def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
                     baseline.fork(timeout=.04)
                 assert error.value.code == "pool_timeout"
                 assert "max_forks=1, occupied_slots=1" in str(error.value)
+                assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
+                with remote.snapshot(keep_database=True) as kept:
+                    assert not remote._remote.done
+                    with pytest.raises(mariamem.HostError) as error:
+                        baseline.fork(timeout=.04)
+                    assert error.value.code == "pool_timeout"
+                    with kept.fork() as grandchild:
+                        assert sql(grandchild, "SELECT * FROM cap_seed") == ((7,),)
                 assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
                 remote.wait_disconnected()
                 with remote.snapshot(max_forks=1) as next_baseline:
