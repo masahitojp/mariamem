@@ -68,6 +68,19 @@ func runInstance(in io.Reader, out, stderr io.Writer, transfer string, restore [
 			if err = captures[0].BindRootSource(fs.RootSource(), GuestSHA256); err != nil {
 				return
 			}
+			// A non-consuming cut uses its own capture binding on the same
+			// root source; the consuming capture above remains unchanged.
+			captures[0].SetKeep(func() (*prepared.Root, error) {
+				c := new(prepared.Capture)
+				if e := c.BindRootSource(fs.RootSource(), GuestSHA256); e != nil {
+					return nil, e
+				}
+				c.Request()
+				if e := fs.CutRoot(GuestSHA256, c); e != nil {
+					return nil, e
+				}
+				return c.TakeRoot(GuestSHA256)
+			})
 		}
 		if err = fs.MkdirAll("dev", 0755); err != nil {
 			return

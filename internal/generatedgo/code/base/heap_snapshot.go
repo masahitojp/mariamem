@@ -129,7 +129,25 @@ var _ io.ReaderAt = (*prepared.HeapFile)(nil)
 
 // FreezeRoot runs after joined guest completion, under the same namespace lock as every mutation.
 func (fs *MemFS) FreezeRoot(build string, capture *prepared.Capture) error {
-	ctx, finish := timing.Begin(context.Background(), "snapshot_freeze")
+	return fs.sealRoot(build, capture, false)
+}
+
+// CutRoot seals the current datadir files of a running instance under the
+// namespace lock that serializes every file operation, so the cut is one
+// crash-consistent point. Each sealed file is immediately replaced in the
+// source by a writable copy-on-write fork of the same blocks; the source never
+// retains a sealed store, even when a later file fails. The caller owns quiescing
+// SQL admission and engine checkpointing; this layer only guarantees atomicity.
+func (fs *MemFS) CutRoot(build string, capture *prepared.Capture) error {
+	return fs.sealRoot(build, capture, true)
+}
+
+func (fs *MemFS) sealRoot(build string, capture *prepared.Capture, keep bool) error {
+	name := "snapshot_freeze"
+	if keep {
+		name = "snapshot_cut"
+	}
+	ctx, finish := timing.Begin(context.Background(), name)
 	defer finish()
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
@@ -161,6 +179,9 @@ func (fs *MemFS) FreezeRoot(build string, capture *prepared.Capture) error {
 		f, e := n.blocks.file.Seal()
 		if e != nil {
 			return e
+		}
+		if keep {
+			n.blocks = &blockStorage{file: f.Fork(fs.rootSource)}
 		}
 		files[name] = f
 		return nil

@@ -177,6 +177,28 @@ type Capture struct {
 	build                  string
 	native, expectedNative *Root
 	taken                  bool
+	keep                   func() (*Root, error)
+}
+
+// SetKeep registers the running instance's non-consuming root cut before the
+// guest advertises readiness. The cut owns its own Capture binding.
+func (c *Capture) SetKeep(cut func() (*Root, error)) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.keep = cut
+}
+
+// KeepRoot cuts the running instance's current files into an independent Root
+// while the source keeps a private writable copy. It does not use or change
+// this consuming capture's request state.
+func (c *Capture) KeepRoot() (*Root, error) {
+	c.mu.Lock()
+	cut := c.keep
+	c.mu.Unlock()
+	if cut == nil {
+		return nil, errors.New("running root cut is unsupported")
+	}
+	return cut()
 }
 
 func (c *Capture) Request()        { c.mu.Lock(); defer c.mu.Unlock(); c.requested = true }

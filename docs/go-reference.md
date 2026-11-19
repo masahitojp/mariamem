@@ -19,6 +19,28 @@ state in each test process. No user-managed file or daemon is required.
 Closing a handle releases its ownership; other children may still own blocks.
 Go memory reclamation and OS RSS reduction have different timing.
 
+### KeepDatabase
+
+Set `SnapshotOptions{KeepDatabase: true}` to keep the source running with the
+same idle connections, connection IDs, and session variables. The source and
+Forks can be written independently. The default remains a consuming Snapshot.
+
+KeepDatabase needs one free connection slot and an existing default database.
+It rejects `Rollback: true`, open transactions, attached or detached prepared
+XA transactions, and sessions holding `LOCK TABLES ... WRITE` on persistent
+tables. The caller's context bounds the wait for in-flight SQL, handshakes, and
+session cleanup. Once capture is accepted, new SQL waits and the capture and
+its cleanup run to completion even if the context expires.
+
+Temporary tables and MEMORY rows stay in the source. Forks have no temporary
+tables and start with empty MEMORY tables. If capture cannot confirm either
+release of its global read lock or closure of its internal session, it makes the
+source unusable. The capture returns `ErrUnusable` with `HostError.Closed=true`.
+Existing connections may be lost. Close the unusable source with `Database.Close`.
+
+Adding `KeepDatabase` changes the field count of `SnapshotOptions`. Use keyed
+struct literals in external Go code.
+
 ### Per-Snapshot Fork limits
 
 Since 0.6.1, Go exposes `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`.
@@ -97,8 +119,8 @@ is usable.
 
 Snapshot forwards its context without adding a default timeout. The shutdown
 deadline does not make freeze/content validation context-interruptible; cleanup can
-outlast it. Successful Snapshot consumes its source; precondition rejection
-leaves it running. Failure after acceptance can consume it as well
+outlast it. A successful consuming Snapshot closes its source; precondition
+rejection leaves it running. Failure after acceptance can consume it as well
 (`HostError.Closed`). Use `errors.Is` with `ErrBusy`,
 `ErrTransactionActive`, `ErrClosed`, and `errors.As` with `*HostError`.
 

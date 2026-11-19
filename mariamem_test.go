@@ -426,6 +426,56 @@ func TestSnapshotFailures(t *testing.T) {
 		t.Fatal(e)
 	}
 }
+
+type fakeKeepBackend struct {
+	*fakeBackend
+	capture func() (*stored.Owned, error)
+}
+
+func (f fakeKeepBackend) SnapshotKeep(context.Context) (*stored.Owned, error) {
+	return f.capture()
+}
+
+func TestSnapshotKeepReportsUnusableOnFailClosed(t *testing.T) {
+	backend := &fakeBackend{}
+	db := testDB(t, backend)
+	defer db.Close()
+	unlockErr := errors.New("unlock failed")
+	closeErr := errors.New("session closure unconfirmed")
+	captures := 0
+	var backed *stored.Owned
+	db.server = fakeKeepBackend{backend, func() (*stored.Owned, error) {
+		captures++
+		if captures == 1 {
+			return goodBacking(t), unlockErr
+		}
+		backend.failure = errors.Join(unlockErr, closeErr)
+		backed = goodBacking(t)
+		return backed, backend.failure
+	}}
+	opts := SnapshotOptions{KeepDatabase: true}
+	ctx := context.Background()
+
+	snap, err := db.Snapshot(ctx, opts)
+	var detail *HostError
+	if snap != nil || !errors.Is(err, unlockErr) || !errors.As(err, &detail) || detail.Closed || db.Closed() {
+		t.Fatalf("unlock failure with successful close: snapshot=%v err=%v", snap, err)
+	}
+	snap, err = db.Snapshot(ctx, opts)
+	if snap != nil || !errors.Is(err, ErrUnusable) || !errors.Is(err, unlockErr) ||
+		!errors.Is(err, closeErr) || !errors.As(err, &detail) || detail.Code != "unusable" || !detail.Closed ||
+		!db.Closed() || !errors.Is(db.Err(), ErrUnusable) {
+		t.Fatalf("double failure: snapshot=%v err=%v db.Err()=%v", snap, err, db.Err())
+	}
+	if _, release, err := backed.Acquire("test-build"); err == nil {
+		release()
+		t.Fatal("failed capture left its baseline owned")
+	}
+	if retry, err := db.Snapshot(ctx, opts); retry != nil || !errors.Is(err, ErrUnusable) || captures != 2 {
+		t.Fatalf("snapshot retried against unusable parent: snapshot=%v err=%v captures=%d", retry, err, captures)
+	}
+}
+
 func TestLogsBounded(t *testing.T) {
 	var db Database
 	db.logs.Write([]byte(strings.Repeat("a", 20000)))
