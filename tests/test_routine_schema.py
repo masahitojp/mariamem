@@ -18,6 +18,14 @@ schema = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(schema)
 
 
+def write_source_version(source, version):
+    parts = version.split('.')
+    (source/'VERSION').write_text(''.join(
+        f'MYSQL_VERSION_{key}={number}\n'
+        for key, number in zip(('MAJOR', 'MINOR', 'PATCH'), parts, strict=True)
+    ))
+
+
 @pytest.fixture
 def inputs(tmp_path):
     source, root = tmp_path/'source', tmp_path/'root'
@@ -27,7 +35,9 @@ def inputs(tmp_path):
     # Lossless encoding preserves upstream whitespace and GPL notice; no network fixture.
     raw = base64.decodebytes((ROOT/(FIXTURES / 'mariadb-proc-source.sql.base64')).read_bytes())
     (source/'scripts/mariadb_system_tables.sql').write_bytes(raw)
-    (source/'VERSION').write_text('MYSQL_VERSION_MAJOR=12\nMYSQL_VERSION_MINOR=3\nMYSQL_VERSION_PATCH=3\n')
+    lock = json.loads((ROOT/'release/inputs.lock.json').read_text())
+    version = next(entry['version'] for entry in lock['inputs'] if entry['name'] == 'mariadb')
+    write_source_version(source, version)
     for name in ['guest/routine_schema.json', 'release/inputs.lock.json']:
         shutil.copy2(ROOT/name, root/name)
     return source, root
@@ -88,7 +98,9 @@ def test_expected_signature_cannot_drift_from_ddl(inputs, mutation):
 
 def test_table_version_is_actual_source_version(inputs):
     source, root=inputs
-    (source/'VERSION').write_text('MYSQL_VERSION_MAJOR=12\nMYSQL_VERSION_MINOR=3\nMYSQL_VERSION_PATCH=4\n')
+    version = json.loads((root/'guest/routine_schema.json').read_text())['server_version']
+    series, patch = version.rsplit('.', 1)
+    write_source_version(source, f'{series}.{int(patch) + 1}')
     with pytest.raises(ValueError,match='source version'):
         schema.prepare(source,root=root)
 
