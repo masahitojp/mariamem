@@ -3,11 +3,14 @@ import sys as _layout_sys
 from pathlib import Path as _LayoutPath
 _layout_sys.path.insert(0, str(_LayoutPath(__file__).resolve().parents[1] / 'scripts'))
 from layout import FIXTURES
+from contextlib import nullcontext
 import copy
 import importlib.util
 import json
 from pathlib import Path
+from types import SimpleNamespace
 import pytest
+import v06_prepared_consumers as consumers
 from v06_prepared_consumers import compare_reference
 from v06_prepared_p5_compare import compare_observations, verify_cext_profile
 
@@ -16,6 +19,47 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def native():
     return json.loads((ROOT/(FIXTURES / 'prepared-p5-native-observation.json')).read_text())
+
+
+@pytest.mark.parametrize('guest_version,actual,accepted', [
+    ('12.3.4', '12.3.4-MariaDB-embedded', True),
+    ('12.3.5', '12.3.5-MariaDB-embedded', True),
+    ('12.3.4', '12.3.3-MariaDB-embedded', False),
+    ('12.3.4', '12.3.4-MariaDB-ubu2404', False),
+    (None, '12.3.3-MariaDB-ubu2404', True),
+    (None, '12.3.4-MariaDB-ubu2404', False),
+    (None, '12.3.30-MariaDB-ubu2404', False),
+])
+def test_consumer_checks_version_before_other_probes(tmp_path, monkeypatch, guest_version, actual, accepted):
+    class ProbeReached(Exception):
+        pass
+
+    def stop_at_first_probe(_connection):
+        raise ProbeReached()
+
+    monkeypatch.setattr(consumers, 'ROOT', tmp_path)
+    if guest_version is not None:
+        manifest = tmp_path / 'guest/input.json'
+        manifest.parent.mkdir()
+        manifest.write_text(json.dumps({'version': guest_version}))
+        db = SimpleNamespace(connection_info=dict, log_path=tmp_path / 'removed/log',
+                             logs=[], close=lambda: None)
+        monkeypatch.setitem(_layout_sys.modules, 'mariamem', SimpleNamespace(start=lambda **kwargs: db))
+    monkeypatch.setattr(consumers, 'connection', lambda info: nullcontext())
+    monkeypatch.setattr(consumers, 'query', lambda connection, sql: [(actual,)])
+    monkeypatch.setattr(consumers, 'drained', stop_at_first_probe)
+
+    result = consumers.exercise(info={}, host='host' if guest_version is not None else None)
+    modes = {*consumers.MODES, 'go'}
+    assert result['engine_versions'] == dict.fromkeys(modes, actual)
+    assert set(result['failures']) == modes
+    if accepted:
+        assert set(result['failures'].values()) == {'ProbeReached()'}
+    else:
+        expected = f'{guest_version}-MariaDB-embedded' if guest_version is not None else '12.3.3-MariaDB'
+        for error in result['failures'].values():
+            assert 'AssertionError' in error
+            assert actual in error and expected in error
 
 
 def test_failed_native_fixture_cannot_satisfy_functional_acceptance():
