@@ -366,7 +366,7 @@
   "linked_guest_sha256": "673549bd7c74e87e3a18d2807fd936a1711de30bd449457fd06ce9efddd08d12",
   "repetitions": 2,
   "completed": true,
-  "full_guest_regeneration": "Two independent local Linux arm64 source builds produced identical linked and optimized WASM. Full platform CI pending.",
+  "full_guest_regeneration": "PASS: two independent Linux arm64 builds and byte-identical generated-Go replay on macOS arm64. Platform qualification pending.",
   "ci_evidence": null,
   "previous_canonical_evidence": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
@@ -400,5 +400,14 @@
     ],
     "status": "PASS: canonical regeneration, normal check/integration and focused buffer controls; main adoption pending",
     "receipt": "docs/reviews/buffer-zero-ci-43569024494/README.md"
+  },
+  "local_generated_go_replay": {
+    "result": "PASS",
+    "generated_and_owned_files": 120,
+    "inventory_sha256": "15a8eea3c20d585c3c67c69f3b2f8af5dd99707bccc4cbb36025fdadddfeed6b",
+    "generated_provenance_sha256": "d232c06333da7b552353515bd54daaae0e7723bbcb4ee686697f9e8457cecb86",
+    "second_converter_manifest_sha256": "9cb7a86cee31f2a591694af73c19f00647da2fffb91e7c1cd896a90d26df82cf",
+    "memory32_cases": 2472,
+    "memory32_expected_traps": 1693
   }
 }
