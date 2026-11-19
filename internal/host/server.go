@@ -27,6 +27,7 @@ type Server struct {
 	mu                sync.Mutex
 	clients           map[net.Conn]*session
 	disconnectChanged chan struct{}
+	activityChanged   chan struct{} // allocated only while a keep-capture waits
 	slots             []bool
 	closing           bool
 	workers           sync.WaitGroup
@@ -139,6 +140,14 @@ func (s *Server) notifyDisconnectLocked() {
 	}
 }
 
+// notifyActivityLocked wakes a keep-capture waiting for sessions to become idle.
+func (s *Server) notifyActivityLocked() {
+	if s.activityChanged != nil {
+		close(s.activityChanged)
+		s.activityChanged = nil
+	}
+}
+
 func (s *Server) Capacity() int  { return len(s.slots) }
 func (s *Server) Failure() error { return s.Guest.Err() }
 func (s *Server) Busy() bool {
@@ -214,6 +223,7 @@ func (s *Server) attach(conn net.Conn) error {
 			delete(s.clients, conn)
 			s.slots[state.slot] = false
 			s.notifyDisconnectLocked()
+			s.notifyActivityLocked()
 		}()
 		activity := mysqlwire.Activity{
 			Begin: func() bool {
@@ -225,7 +235,13 @@ func (s *Server) attach(conn net.Conn) error {
 				state.busy = true
 				return true
 			},
-			Idle:    func(status uint16) { s.mu.Lock(); defer s.mu.Unlock(); state.status = status; state.busy = false },
+			Idle: func(status uint16) {
+				s.mu.Lock()
+				defer s.mu.Unlock()
+				state.status = status
+				state.busy = false
+				s.notifyActivityLocked()
+			},
 			Cleanup: func() { s.mu.Lock(); defer s.mu.Unlock(); state.busy = true },
 		}
 		if err := mysqlwire.Serve(conn, s.Guest, state.slot, s.queryTimeout, s.Closing, activity); err != nil {
@@ -275,6 +291,7 @@ func (s *Server) CloseWithStopped(ctx context.Context, notify func(error)) (err 
 func (s *Server) stopAccepting() {
 	s.closing = true
 	s.notifyDisconnectLocked()
+	s.notifyActivityLocked()
 	s.listener.Close()
 	for conn := range s.clients {
 		conn.Close()

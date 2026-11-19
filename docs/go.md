@@ -124,6 +124,22 @@ close each Fork before releasing the baseline. Successful capture consumes the
 source. These APIs remain available; ordinary tests above delegate ownership
 to `mariamemtest`.
 
+To keep the source and its idle connections, commit preparation work and opt in
+from a function that returns an error:
+
+```go
+baseline, err := db.Snapshot(ctx, mariamem.SnapshotOptions{KeepDatabase: true})
+if err != nil {
+    return err
+}
+defer baseline.Close()
+```
+
+Continue using the same database and connections. Forks start from the captured
+baseline, independently of later writes on the source. See the
+[KeepDatabase reference](go-reference.md#keepdatabase) for capture requirements
+and error handling.
+
 When application code accepts `*sql.DB`, pass `fixture.DB(t)` through that
 construction seam, including to GORM's MySQL configuration. Keep distinct pools
 for distinct children; never switch an existing pool to another endpoint. An

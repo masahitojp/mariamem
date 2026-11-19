@@ -485,3 +485,12 @@ func (p *Process) WaitStopped(ctx context.Context) error {
 	}
 	return p.stopErr
 }
+
+// KeepRoot cuts the running instance's datadir without stopping it. The host
+// must quiesce SQL admission and checkpoint the engine before calling it.
+func (p *Process) KeepRoot() (*prepared.Root, error) {
+	if p.capture == nil {
+		return nil, errors.New("running root cut is unsupported")
+	}
+	return p.capture.KeepRoot()
+}
