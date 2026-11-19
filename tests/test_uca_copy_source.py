@@ -19,12 +19,14 @@ class UCACopySourceTests(unittest.TestCase):
     def test_source_and_profile_mutations_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            for name in ('guest/source.patch', 'guest/versions/12.3.3/legacy-full.json'):
+            profile = 'guest/versions/12.3.3/legacy-full.json'
+            recorded = json.loads((ROOT/profile).read_text())['files']['guest/source.patch']['file']
+            for name in (recorded, profile):
                 target = root/name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes((ROOT/name).read_bytes())
             guard.source(root)
-            path = root/'guest/source.patch'
+            path = root/recorded
             original = path.read_bytes()
             for index in (10, len(original)-10):
                 damaged = bytearray(original); damaged[index] ^= 1

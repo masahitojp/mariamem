@@ -7,13 +7,13 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-# Exact prepared-lexer guest binding, preserving the reviewed P6/J1 ownership
+# Exact MariaDB 12.3.4 guest binding, preserving the reviewed P6/J1 ownership
 # transforms. Full bodies/data are checked against pinned fixtures; the prior
 # guest is not an alternate accepted identity. No fuzzy matching is permitted.
-GUEST_SHA256 = "77b2ab49a9927f15c899ad34f9f40e5f06ac42589b1d4f926fd0c5b0f1f19450"
+GUEST_SHA256 = "869ffee51c519e4ef725bbc0c0049dd7f121e1070166ad43a5f356094891164a"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "81315492ae9cc91bab7555df2015a1de3922496804cd95e8faf37b08e8c87cfe"),
-    "code/p5/p5_pure.go": ("Fn214", "fb9047e999ed96ef1ae1bfb43bbc5e166161803f665a2b53c5d60567435a27a0"),
+    "code/p3/p3_pure.go": ("Fn153", "fe4f656ccda58125ffd21a564e946e11e0501f17f6c6c482c34699e29158ff28"),
+    "code/p5/p5_pure.go": ("Fn214", "16a84310226cbac1d053c69f2dd779964a42a9393a92ef10bac4b52216434994"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
 }
 
