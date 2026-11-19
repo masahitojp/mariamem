@@ -250,9 +250,6 @@ class RemoteLease:
                 self._after_exit(self.target)
 
     def late_capture(self, reply):
-        # A precondition rejection preserves the target and its source lease.
-        if isinstance(reply, dict) and not reply.get("closed"):
-            return
         with self._lock:
             if isinstance(reply, dict) and "snapshot" in reply:
                 self.pending_snapshot = reply["snapshot"]
@@ -264,4 +261,7 @@ class RemoteLease:
                     self._block(exc)
                     self._after_exit(self.target)
                     return
+            # A kept target still owns its source lease after late baseline cleanup.
+            if isinstance(reply, dict) and not reply.get("closed"):
+                return
             self.late_close(reply)

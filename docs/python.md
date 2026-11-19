@@ -349,7 +349,7 @@ with mariamem.start() as setup_db:
                     assert cur.fetchall() == ((1,),)
 ```
 
-Successful `snapshot()` ends the source DB. Close all SQL clients, then call
+By default, successful `snapshot()` ends the source DB. Close all SQL clients, then call
 `wait_disconnected()` to wait for session cleanup. Active query/handshake/cleanup
 is rejected with `Busy`; an active transaction is rejected with
 `TransactionActive` unless `rollback=True` is explicit. These precondition
@@ -370,6 +370,32 @@ Snapshot content stays in memory; no user-managed filesystem artifact is needed.
 overrides. `mariamem.start(snapshot=baseline, ...)` also creates a child from the
 owned baseline, using the supplied start options. These are alternative
 creation routes, not successive steps.
+
+### Keep the source and its connections
+
+With a matching development host, opt in with `keep_database=True`. Commit
+preparation work before capture. Idle connections can stay open, so there is
+no need to call `wait_disconnected()` for this mode.
+
+```python
+import mariamem
+import pymysql
+
+with mariamem.start() as parent:
+    with pymysql.connect(**parent.connection_info(), autocommit=True) as conn:
+        with conn.cursor() as cursor:
+            cursor.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cursor.execute("INSERT INTO users VALUES (1)")
+            with parent.snapshot(keep_database=True) as baseline:
+                cursor.execute("INSERT INTO users VALUES (2)")
+                with baseline.fork() as child:
+                    with pymysql.connect(**child.connection_info()) as isolated:
+                        with isolated.cursor() as reader:
+                            reader.execute("SELECT id FROM users")
+                            assert reader.fetchall() == ((1,),)
+```
+
+See the [capture requirements and failure behavior](python-reference.md#keep-database).
 
 ## Parallel Forks in one process
 

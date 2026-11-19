@@ -26,9 +26,9 @@ running-runtime cloning semantics.
 
 ## Lifecycle and persistence
 
-The default Snapshot ends the source DB on success. In Go, callers can opt in to
-[`KeepDatabase`](../go-reference.md#keepdatabase) to preserve the source and its
-idle sessions. Precondition rejection keeps the source available. If the
+The default Snapshot ends the source DB on success. To preserve the source and
+its idle sessions, opt in with [Go `KeepDatabase`](../go-reference.md#keepdatabase)
+or [Python `keep_database=True`](../python-reference.md#keep-database). Precondition rejection keeps the source available. If the
 non-consuming capture can confirm neither lock release nor internal session
 closure, it marks the source unusable. Closing the baseline prevents new Forks;
 successfully started children own their lifetimes and remain usable until

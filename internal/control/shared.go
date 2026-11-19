@@ -36,6 +36,7 @@ type Request struct {
 	Handle          uint64          `json:"handle"`
 	Target          uint64          `json:"target"`
 	Rollback        bool            `json:"rollback"`
+	KeepDatabase    bool            `json:"keep_database,omitempty"`
 	Timeout         string          `json:"timeout"`
 	DrainTimeout    string          `json:"drain_timeout"`
 	QueryTimeout    string          `json:"query_timeout"`
@@ -212,6 +213,9 @@ func (m *manager) create(ctx context.Context, r Request, base *baseline, lease *
 }
 func (m *manager) call(ctx context.Context, r Request) (result map[string]any, err error) {
 	if r.Op == "snapshot" {
+		if r.KeepDatabase && r.Rollback {
+			return invalid("snapshot_options", errors.New("rollback cannot be combined with keep_database"))
+		}
 		if _, e := forklimit.DecodeCapacity(r.MaxForks); e != nil {
 			return invalid("snapshot_options", e)
 		}
@@ -295,7 +299,13 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 		}
 		capture, cancel := context.WithTimeout(ctx, timeout)
 		defer cancel()
-		owned, consumed, e := d.server.SnapshotHeap(capture, r.Rollback)
+		var owned *snapshot.Owned
+		var consumed bool
+		if r.KeepDatabase {
+			owned, e = d.server.SnapshotKeep(capture)
+		} else {
+			owned, consumed, e = d.server.SnapshotHeap(capture, r.Rollback)
+		}
 		result = map[string]any{"closed": consumed, "logs": d.logs()}
 		if consumed {
 			d.closed = true
@@ -318,6 +328,13 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 			}
 			if consumed {
 				m.finishConsumed(d, r.Handle, result, e)
+			} else if r.KeepDatabase {
+				if cause := d.server.Failure(); cause != nil {
+					closeErr := d.close()
+					result["closed"] = true
+					m.finishConsumed(d, r.Handle, result, closeErr)
+					e = diagnostic.Wrap("unusable", "host_control", errors.Join(e, cause, closeErr))
+				}
 			}
 			return result, e
 		}
@@ -423,7 +440,7 @@ func replyError(r map[string]any, e error) {
 		code, stage = detail.Code, detail.Stage
 	}
 	var reject *host.Rejected
-	if errors.As(e, &reject) {
+	if errors.As(e, &reject) && (detail == nil || detail.Code != "unusable") {
 		code = reject.Code
 	}
 	code = diagnostic.ControlCode(e, code)
@@ -446,7 +463,7 @@ func runWith(parent context.Context, in io.Reader, out io.Writer, m *manager, op
 	var encMu sync.Mutex
 	enc := json.NewEncoder(out)
 	send := func(v any) error { encMu.Lock(); defer encMu.Unlock(); return enc.Encode(v) }
-	if e := send(map[string]any{"event": "ready", "protocol": 2, "capabilities": []string{"live-v1", "fork-limit-v1"}, "pid": os.Getpid(), "guest_sha256": runtimekind.GuestSHA256}); e != nil {
+	if e := send(map[string]any{"event": "ready", "protocol": 2, "capabilities": []string{"live-v1", "fork-limit-v1", "keep-database-v1"}, "pid": os.Getpid(), "guest_sha256": runtimekind.GuestSHA256}); e != nil {
 		return e
 	}
 	messages := make(chan Request)
