@@ -25,7 +25,7 @@
     "internal/generatedgo/code/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
     "internal/generatedgo/code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
     "internal/generatedgo/code/base/crc32c.go": "c98c2d747348b81eb090b1b9c30c023b402dc999c0f350ef678bf9b7fd101e4b",
-    "internal/generatedgo/code/base/heap_snapshot.go": "b0ee33871d4e750b5ec1bc65023a5c0fd6640bfcfd3a8bf2a16ac9d62b632bef",
+    "internal/generatedgo/code/base/heap_snapshot.go": "a2eb9cf3b829c09cbc266d8b993fbb1c9961d01136a440f46026317501a5a8a5",
     "internal/generatedgo/code/base/memfs.go": "9f837926d070c66947be82ee8aecc35ac724fcdc245cd42814e39e85d3c234ed",
     "internal/generatedgo/code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
     "internal/generatedgo/code/base/memory_mapping.go": "42374acc3bc7a7d5dcd58d208b7ff0b9650d195f4ea6b9270fba8bc4d4abcf78",

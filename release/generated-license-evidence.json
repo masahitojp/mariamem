@@ -603,7 +603,7 @@
   "attribution_continuity": {
     "kind": "reviewed-generated-source-delta",
     "audited_provenance_sha256": "bdf9e1d14457e90ccacd5d977d8ad81a2930890c88a64b158825fb22a9441f0e",
-    "current_provenance_sha256": "7cfcfdaeb65229e5d4a71078423e44584c6352be1126e35820a6851d3c3113eb",
+    "current_provenance_sha256": "62aa868af10e234740f5248eed2ba807e64d1de92c22b22a67dfe0cc11090f57",
     "policy_sha256": "8c236e2218986078f36a9228285a89646676fd26869b4c39f27ef105b1438713"
   }
 }
