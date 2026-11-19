@@ -9,7 +9,8 @@ separate control. Neither reuse route preserves SQL sessions across reset.
 
 input-manifest.json pins the new Go variant and owner. native-input-pins.json
 keeps every original native app/migration/UI file byte-identical to its reviewed
-source. Native reference events in native-reference.json retain original3446b5c;
+source. The shared readiness helper accepts an explicit guest version and
+keeps the MariaDB 12.3.3 check for native callers. Native reference events in native-reference.json retain original3446b5c;
 the new variant also requires fresh native MariaDB12.3.3 execution on the exact
 candidate. native.py records both source and platform-specific binary identity.
 Mac guest results can use the Ubuntu native observation: source identity must

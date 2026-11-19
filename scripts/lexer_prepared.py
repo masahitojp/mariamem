@@ -18,15 +18,15 @@ def validate(root, source=None):
     bundle = root / BUNDLE
     raw = (bundle / 'input.json').read_bytes()
     guest = json.loads((root / 'guest/input.json').read_text())
-    expected = LEGACY_INPUT_SHA256 if guest['version'] == '12.3.3' else INPUT_SHA256
-    if digest(raw) != expected:
+    expected_input = LEGACY_INPUT_SHA256 if guest['version'] == '12.3.3' else INPUT_SHA256
+    if digest(raw) != expected_input:
         raise ValueError('lexer input identity changed')
     value = json.loads(raw)
     if value['schema'] != 1 or value['mariadb_source_commit'] != guest['source_commit']:
         raise ValueError('lexer MariaDB source mismatch')
     if source is not None:
-        for name, expected in value['pristine_sha256'].items():
-            if not (Path(source) / name).is_file() or digest((Path(source) / name).read_bytes()) != expected:
+        for name, expected_source in value['pristine_sha256'].items():
+            if not (Path(source) / name).is_file() or digest((Path(source) / name).read_bytes()) != expected_source:
                 raise ValueError('lexer pristine source changed: ' + name)
     data = bytes.fromhex(value['data_hex'])
     bindings = value['bindings']
@@ -48,7 +48,7 @@ def validate(root, source=None):
     parts.append('    default: return NULL;\n  }\n}\n\n')
     parts.append(wrapper.decode())
     header = ''.join(parts).encode()
-    record = {'contract': 'prepared-lexer-v1', 'input_sha256': expected,
+    record = {'contract': 'prepared-lexer-v1', 'input_sha256': expected_input,
               'generator_sha256': digest((root / 'scripts/lexer_prepared.py').read_bytes()),
               'wrapper_sha256': value['wrapper_sha256'], 'header': HEADER,
               'header_sha256': digest(header), 'descriptors': 638, 'numeric_bytes': len(data)}
