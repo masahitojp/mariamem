@@ -7,13 +7,32 @@ import (
 	"sync"
 
 	"github.com/masahitojp/mariamem/internal/forklimit"
+	"github.com/masahitojp/mariamem/internal/host"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 // SnapshotOptions configures cold snapshot creation.
 type SnapshotOptions struct {
+	// Rollback lets a consuming Snapshot roll back open transactions.
+	// It cannot be combined with KeepDatabase.
 	Rollback bool
+	// KeepDatabase keeps the source Database open after a successful Snapshot.
+	// Idle connections stay connected to the same sessions, including their
+	// CONNECTION_ID() and session variables. The Snapshot holds only committed
+	// state; later source changes are not visible to Forks, and Fork changes are
+	// not visible to the source. In-flight handshakes, commands and connection
+	// cleanup are waited for (bounded by ctx). An open transaction, including a
+	// prepared XA transaction left by a disconnected client, is rejected with
+	// ErrTransactionActive, and a session holding LOCK TABLES ... WRITE with
+	// ErrBusy; LOCK TABLES READ and HANDLER are allowed and kept.
+	// New commands wait during capture, which cannot be interrupted once accepted.
+	// Forks from either snapshot mode start with empty MEMORY tables and without
+	// temporary tables. The source keeps its own tables.
+	// The capture needs one free connection slot and the default database.
+	// If neither the capture lock release nor the internal session closure can
+	// be confirmed, the source becomes unusable (ErrUnusable).
+	KeepDatabase bool
 	// MaxForks limits reserved, starting, live and cleaning-up children.
 	// Zero resolves a finite memory-based default once at capture. Positive
 	// values through 2147483647 override it; there is no unlimited sentinel.
@@ -32,7 +51,8 @@ type Snapshot struct {
 	limit     *forklimit.Pool
 }
 
-// Snapshot consumes the DB on success, or on failure after host acceptance.
+// Snapshot consumes the DB on success, or on failure after host acceptance,
+// unless KeepDatabase is set.
 // It forwards ctx unchanged: no default snapshot timeout is imposed. The existing
 // sealing phase is not context-interruptible; borrowed mappings also require
 // copying and validation. Precondition rejection leaves DB alive.
@@ -57,6 +77,9 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	}
 	if err := ctx.Err(); err != nil {
 		return nil, err
+	}
+	if opts.KeepDatabase {
+		return db.snapshotKeepLocked(ctx, opts, limit)
 	}
 	backing, consumed, e := db.server.SnapshotHeap(ctx, opts.Rollback)
 	if consumed {
@@ -87,6 +110,36 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	}
 	if consumed {
 		db.settleFork(db.closeErr, db.disposalComplete())
+	}
+	return &Snapshot{opts: db.opts, backing: backing, limit: limit}, nil
+}
+
+// snapshotKeepLocked requires db.mu. An unusable guest is reported on the
+// failing capture itself.
+func (db *Database) snapshotKeepLocked(ctx context.Context, opts SnapshotOptions, limit *forklimit.Pool) (*Snapshot, error) {
+	if opts.Rollback {
+		return nil, &HostError{Code: "invalid_options", Stage: "snapshot_options", Err: errors.New("Rollback cannot be combined with KeepDatabase")}
+	}
+	keeper, ok := db.server.(interface {
+		SnapshotKeep(context.Context) (*stored.Owned, error)
+	})
+	if !ok {
+		return nil, hostError(&host.Rejected{Code: "unsupported", Message: "database does not support KeepDatabase"}, "unsupported", false)
+	}
+	backing, e := keeper.SnapshotKeep(ctx)
+	if e == nil && backing == nil {
+		e = errors.New("missing verified snapshot backing")
+	}
+	if e != nil {
+		cleanup := backing.Close()
+		if cleanup != nil {
+			e = errors.Join(e, cleanup)
+			db.captureDebt = errors.Join(db.captureDebt, cleanup)
+		}
+		if cause := db.server.Failure(); cause != nil {
+			return nil, &HostError{Code: "unusable", Closed: true, Err: errors.Join(ErrUnusable, e, cause)}
+		}
+		return nil, hostError(e, "snapshot_failed", false)
 	}
 	return &Snapshot{opts: db.opts, backing: backing, limit: limit}, nil
 }

@@ -612,5 +612,11 @@
       "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261114170813-434712e8edbb\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=434712e8edbbf367b7436592b08356645b950493\n\tbuild\tvcs.time=2026-11-14T17:08:13Z\n\tbuild\tvcs.modified=false\n",
       "note": "Product-verification attribution audit; no publication approval."
     }
+  },
+  "attribution_continuity": {
+    "kind": "unchanged-generated-code; image-metadata-only",
+    "audited_provenance_sha256": "d232c06333da7b552353515bd54daaae0e7723bbcb4ee686697f9e8457cecb86",
+    "current_provenance_sha256": "a32d16a2afa5159962056d1f2d18c263855f45bf3f341ed50fffd3356a7493ae",
+    "policy_sha256": "d544eff6bfbd9e3fca9950bc188eab346231d60c75d010ef85ce6f2d21f47b6d"
   }
 }

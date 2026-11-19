@@ -248,13 +248,21 @@ class Database:
             finally:
                 self._dispose()
 
-    def snapshot(self, *, max_forks=None, rollback=False, timeout=120):
-        """Consume this DB and own a fixed in-memory baseline for independent Forks."""
+    def snapshot(self, *, max_forks=None, rollback=False, timeout=120, keep_database=False):
+        """Capture a baseline for independent Forks, optionally preserving this DB."""
         _positive(timeout)
         from ._forklimit import capacity
         limit = capacity(max_forks)
         if not isinstance(rollback, bool):
             raise ValueError("rollback must be a bool")
+        if not isinstance(keep_database, bool):
+            raise ValueError("keep_database must be a bool")
+        if keep_database and rollback:
+            raise ValueError("rollback cannot be combined with keep_database")
+        if keep_database and "keep-database-v1" not in self._session.capabilities:
+            raise HostError("Host lacks keep-database-v1; use the matching new host binary/wheel",
+                            code="unsupported", stage="snapshot_options", closed=False)
+        fields = {"keep_database": True} if keep_database else {}
         if "fork-limit-v1" not in self._session.capabilities:
             raise HostError("Host lacks fork-limit-v1; use the matching new host binary/wheel",
                             code="unsupported", stage="fork_capability", closed=False)
@@ -262,7 +270,7 @@ class Database:
             try:
                 reply = self._request("snapshot", response_timeout=None, rollback=rollback, timeout=f"{timeout}s", max_forks=limit,
                                       _cleanup=None if self._remote is None else self._remote.late_capture,
-                                      _cleanup_errors=False)
+                                      _cleanup_errors=False, **fields)
             except HostError as exc:
                 if exc.closed:
                     try:
@@ -272,10 +280,11 @@ class Database:
                         self._dispose()
                 raise
             self._logs = reply.get("logs", self._logs)
+            closed = reply.get("closed", not keep_database)
             baseline = None
             try:
                 baseline = Snapshot._from_host(self._session, reply["snapshot"], self._options, reply["max_forks"])
-                if self._remote is not None:
+                if closed and self._remote is not None:
                     self._remote.finish(reply)
             except BaseException:
                 try:
@@ -284,9 +293,11 @@ class Database:
                     else:
                         self._session.request("snapshot_close", handle=reply["snapshot"], response_timeout=60, _cleanup=False)
                 finally:
-                    self._dispose()
+                    if closed:
+                        self._dispose()
                 raise
-            self._dispose()
+            if closed:
+                self._dispose()
             return baseline
 
     def _dispose(self):

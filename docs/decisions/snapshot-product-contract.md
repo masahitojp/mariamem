@@ -26,9 +26,13 @@ running-runtime cloning semantics.
 
 ## Lifecycle and persistence
 
-Successful Snapshot creation ends the source DB. Precondition rejection keeps it
-available. Closing the baseline prevents new Forks; successfully started
-children own their lifetimes and remain usable until separately closed.
+The default Snapshot ends the source DB on success. To preserve the source and
+its idle sessions, opt in with [Go `KeepDatabase`](../go-reference.md#keepdatabase)
+or [Python `keep_database=True`](../python-reference.md#keep-database). Precondition rejection keeps the source available. If the
+non-consuming capture can confirm neither lock release nor internal session
+closure, it marks the source unusable. Closing the baseline prevents new Forks;
+successfully started children own their lifetimes and remain usable until
+separately closed.
 
 `snapshot()` fixes the current DB state in a process-local immutable baseline.
 The maintainer approved removing persistence and loading during the D/shared-host
@@ -53,6 +57,11 @@ the source/guest identity, completed capture, inventory, layout and seal state;
 it does not reconstruct or rescan the file contents. Fork creates independent
 metadata and copies inherited blocks before writing. Parent and sibling content
 remains unchanged; children retain their own lifetime after baseline Close.
+
+KeepDatabase quiesces SQL admission, takes a global read lock, checkpoints
+InnoDB, and seals a consistent file cut. The source keeps writable copy-on-write
+blocks and continues serving its existing sessions after cleanup. Forks start
+from the fixed cut with independent sessions.
 
 The heap ownership path does not promise post hoc detection, by a full content
 scan, of faults that directly alter private process-memory bytes. This detection
