@@ -156,11 +156,11 @@
       "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
     },
     "guest/source.patch": {
-      "file": "guest/source.patch",
+      "file": "guest/versions/12.3.3/frozen/guest/source.patch",
       "sha256": "413cd50b28c4cb4242c11795275670ac63ae23eee8dc4ac4b3a00be2eec6d1f9"
     },
     "guest/prepared_source_patch.json": {
-      "file": "guest/prepared_source_patch.json",
+      "file": "guest/versions/12.3.3/frozen/guest/prepared_source_patch.json",
       "sha256": "81ed80aa085cfced8f3446af3fda6a3b7dfe6f02553d3fbbce2146a3467ccb26"
     },
     "tests/fixtures/prepared-p2-source-functions.json": {
@@ -172,7 +172,7 @@
       "sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065"
     },
     "guest/routine_schema.json": {
-      "file": "guest/routine_schema.json",
+      "file": "guest/versions/12.3.3/frozen/guest/routine_schema.json",
       "sha256": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd"
     },
     "guest/wire_core.inc": {
@@ -224,7 +224,7 @@
       "sha256": "9243e3977c9f7b0a5e0f6c075cf7d06079157280d8d95a31fdee724b927b7584"
     },
     "benchmarks/ucapreparedinput/input.json": {
-      "file": "benchmarks/ucapreparedinput/input.json",
+      "file": "guest/versions/12.3.3/frozen/benchmarks/ucapreparedinput/input.json",
       "sha256": "5965bca79c0d1c508a0932d0477972727a4c1d19c23ab95d26069ce0a12029dc"
     },
     "benchmarks/ucapreparedinput/level0.u16le.json": {
@@ -240,7 +240,7 @@
       "sha256": "e38bc9436e591fa5e4dbc80fdad48ee694b6dac17a529fae64f2ccd929f44ff4"
     },
     "benchmarks/lexerpreparedinput/input.json": {
-      "file": "benchmarks/lexerpreparedinput/input.json",
+      "file": "guest/versions/12.3.3/frozen/benchmarks/lexerpreparedinput/input.json",
       "sha256": "ee25a76714132ace3a28a10bc2a1083dc1f839c87a6966da56f7585a14757078"
     },
     "benchmarks/lexerpreparedinput/wrapper.c.inc": {
@@ -248,7 +248,7 @@
       "sha256": "cba4c1a02e848b764f170c4b548dbf0c8ad39ec50c7335afde66d2164aff7e2d"
     },
     "scripts/lexer_prepared.py": {
-      "file": "scripts/lexer_prepared.py",
+      "file": "guest/versions/12.3.3/frozen/scripts/lexer_prepared.py",
       "sha256": "419414c23c74f279a82c959ab3de0c93077597dcffc966a83c9b6e5adaebace1"
     }
   },

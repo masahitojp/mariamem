@@ -26,7 +26,7 @@ def inputs(root=ROOT):
     source = json.loads((root / 'guest/input.json').read_text())
     patch_file = pin.get('patch_file', 'guest/experimental.patch')
     profile = source.get('prepared_profile')
-    engine = source.get('version')
+    engine = source.get('version', '12.3.3')
     profiles = {'legacy-full': f'guest/patches/{engine}-prepared.patch'}
     explicit = ('prepared_profile' in source or 'profile' in pin)
     if explicit:
@@ -34,7 +34,7 @@ def inputs(root=ROOT):
             raise ValueError('missing or mismatched explicit prepared profile')
         if (profile == 'native-text') != ('native_overlay' in source):
             raise ValueError('prepared profile differs from guest route')
-    elif patch_file not in ('guest/experimental.patch', 'guest/patches/12.3.3-prepared.patch'):
+    elif patch_file not in ('guest/experimental.patch', profiles['legacy-full']):
         raise ValueError('unregistered prepared source patch')
     patch = root / patch_file
     changed = [i for i in pin['files'] if i['before_sha256'] != i['after_sha256']]
@@ -47,7 +47,8 @@ def inputs(root=ROOT):
     names = [item['file'] for item in pin['files']]
     expected_names = ['sql/sql_prepare.cc', 'libmysqld/libmysql.c', 'libmysqld/lib_sql.cc']
     portability = next((item for item in source.get('patches', [])
-                        if item['file'] == 'guest/patches/common-portability.patch'), {})
+                        if item['file'] == ('guest/patches/12.3.4-portability.patch'
+                                           if engine == '12.3.4' else 'guest/patches/common-portability.patch')), {})
     if (pin['source_commit'] != source['source_commit'] or
             names != expected_names or
             pin['files'][1]['before_sha256'] != portability.get('after_sha256', {}).get('libmysqld/libmysql.c') or

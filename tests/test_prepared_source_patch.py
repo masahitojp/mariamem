@@ -92,12 +92,14 @@ def test_command_failure_not_hidden(tree, monkeypatch):
 
 
 def test_repository_binding_and_time_repair_preserved():
-    pin = patch.inputs(ROOT)
+    patch.inputs(ROOT)
+    history = ROOT/'guest/versions/12.3.3/frozen/guest/prepared_source_patch.json'
+    pin = json.loads(history.read_text())
     old = json.loads((ROOT / (FIXTURES / 'prepared-time-source-history.json')).read_text())
     assert pin['files'][0]['file']==old['file']
     assert pin['files'][0]['before_sha256']==old['before_sha256']
     assert pin['time_only_intermediate_sha256']==old['after_sha256']
-    text=(ROOT/patch.inputs(ROOT)['patch_file']).read_text()
+    text=(ROOT/pin['patch_file']).read_text()
     start=text.index('\n@@')
     end=text.index('\n@@',start+3)
     assert sha(text[:end+1].encode())==old['patch_sha256']

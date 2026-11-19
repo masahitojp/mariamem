@@ -1,0 +1,27 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "patch_sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+  "files": [
+    {
+      "file": "sql/sql_prepare.cc",
+      "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+      "after_sha256": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5"
+    },
+    {
+      "file": "libmysqld/libmysql.c",
+      "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+      "after_sha256": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67"
+    },
+    {
+      "file": "libmysqld/lib_sql.cc",
+      "before_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+      "after_sha256": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9"
+    }
+  ],
+  "purpose": "Canonical prepared API repairs adopted from approved P1-P5: TIME full width, raw parameter attributes, single-execution result metadata and WASIX-only embedded parameter metadata. Public API/engine semantics retained.",
+  "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
+  "application_stage": "guest/input.json ordered series, after portability/redo and before recipe source.patch",
+  "parameter_fixture_sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065",
+  "time_only_intermediate_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1",
+  "patch_file": "guest/patches/12.3.3-prepared.patch"
+}
