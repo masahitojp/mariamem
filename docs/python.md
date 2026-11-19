@@ -1,10 +1,9 @@
 # Python usage
 
 Use Python `0.7.0` on a [supported platform](../README.md#installation).
-PyPI wheels are available for macOS 15+ arm64, Linux x86_64/aarch64 with
-glibc 2.28+ or musl 1.2+, and Windows build 22000+ x86_64/arm64.
-Python 3.11+ is required. Install with
-`python -m pip install "mariamem[test]==0.7.0"`; pip selects the platform wheel.
+Python 3.11+ is required. Use the [installation commands](../README.md#python)
+for your host. The macOS arm64 wheel is distributed through PyPI. The Ubuntu
+24.04 x86_64 wheel is a GitHub Release asset.
 Start with one database, then share preparation when setup becomes expensive.
 For Django, use the [dedicated guide](django-prepared.md).
 
@@ -455,8 +454,8 @@ shutdown remain outside the guarantee; detailed resource characterization is def
 - [Fixture options, Fork limits and cleanup failures](python-reference.md)
 - [SQL, driver exceptions and wire limits](compatibility.md)
 
-### Process-local initialization image (v0.7.0 candidate)
+### Process-local initialization image (v0.7.0)
 
-The implementation is adopted on main and unreleased. See the
-[initialization-image ownership reference](python-reference.md#process-local-initialization-image-unreleased)
+The initial memory image is reused within the process. See the
+[initialization-image ownership reference](python-reference.md#process-local-initialization-image)
 for lifetime, sharing and failure behavior.

@@ -151,10 +151,10 @@ context; causes remain unwrap-able. Startup failures return no usable DB.
 `Logs()` retains bounded diagnostics. Stage names are not a stable list of
 internal mechanisms.
 
-## Process-local initialization image (unreleased)
+## Process-local initialization image
 
 
-The adopted, unreleased implementation builds an immutable initialization image on first use and keeps
+The implementation builds an immutable initialization image on first use and keeps
 one shared backing file until the host process exits. Closing a DB still releases
 its own workers, connections and writable memory. The shared image contains
 engine initialization bytes, not your schema or data. Its size is fixed per

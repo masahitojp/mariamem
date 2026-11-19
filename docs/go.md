@@ -245,10 +245,10 @@ shutdown remain outside the guarantee; detailed resource characterization is def
 - [Snapshot ownership, Fork limits, cancellation and errors](go-reference.md)
 - [SQL, driver exceptions and wire limits](compatibility.md)
 
-### Process-local initialization image (v0.7.0 candidate)
+### Process-local initialization image (v0.7.0)
 
-The implementation is adopted on main and unreleased. See the
-[initialization-image ownership reference](go-reference.md#process-local-initialization-image-unreleased)
+The initial memory image is reused within the process. See the
+[initialization-image ownership reference](go-reference.md#process-local-initialization-image)
 for lifetime, sharing and failure behavior.
 
 
