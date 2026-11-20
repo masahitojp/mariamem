@@ -8,6 +8,7 @@ import (
 	"errors"
 	"net"
 	"strconv"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -37,6 +38,70 @@ func endpoint(db *mariamem.Database) string {
 	i := db.ConnectionInfo()
 	return net.JoinHostPort(i.Host, strconv.Itoa(i.Port))
 }
+
+func TestInProcessAndTCPClientFoundRows(t *testing.T) {
+	ctx := t.Context()
+	db, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err := db.Close(); err != nil {
+			t.Error(err)
+		}
+	})
+
+	for _, tc := range []struct {
+		name        string
+		pipe        bool
+		clientFound bool
+		want        int64
+	}{
+		{name: "tcp_default"},
+		{name: "tcp_found_rows", clientFound: true, want: 25},
+		{name: "pipe_default", pipe: true},
+		{name: "pipe_found_rows", pipe: true, clientFound: true, want: 25},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			cfg, err := mysql.ParseDSN(db.DSN())
+			if err != nil {
+				t.Fatal(err)
+			}
+			cfg.ClientFoundRows = tc.clientFound
+			if tc.pipe {
+				cfg.DialFunc = db.DialContext
+			}
+			connector, err := mysql.NewConnector(cfg)
+			if err != nil {
+				t.Fatal(err)
+			}
+			pool := sql.OpenDB(connector)
+			t.Cleanup(func() { pool.Close() })
+			conn, err := pool.Conn(ctx)
+			if err != nil {
+				t.Fatal(err)
+			}
+			t.Cleanup(func() { conn.Close() })
+
+			for _, query := range []string{
+				"CREATE TEMPORARY TABLE found_rows_probe (value INT)",
+				"INSERT INTO found_rows_probe VALUES " + strings.Repeat("(7),", 24) + "(7)",
+			} {
+				if _, err := conn.ExecContext(ctx, query); err != nil {
+					t.Fatal(err)
+				}
+			}
+			result, err := conn.ExecContext(ctx, "UPDATE found_rows_probe SET value=value WHERE value=7")
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got, err := result.RowsAffected(); err != nil || got != tc.want {
+				t.Fatalf("RowsAffected() = %d, %v; want %d, nil", got, err, tc.want)
+			}
+		})
+	}
+}
+
 func TestInProcessConnectionLifecycle(t *testing.T) {
 	ctx := t.Context()
 	db, e := mariamem.Start(ctx, mariamem.Options{})

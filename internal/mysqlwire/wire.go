@@ -18,13 +18,13 @@ import (
 	"github.com/masahitojp/mariamem/internal/guest"
 )
 
-const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
+const clientFoundRows uint32 = 2
+const capabilities uint32 = 1 | clientFoundRows | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
 const maxPacket = 0xffffff - 1
 const maxCommandPayload = (1 << 20) + 1
 
 // Bound pending input per physical connection to one maximum command frame.
 const maxReadAhead = maxCommandPayload + 4
-const clientFoundRows uint32 = 2
 const clientPSMultiResults uint32 = 1 << 18
 
 func preparedCapabilities(s *preparedSession) uint32 {
