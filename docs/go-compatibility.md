@@ -1,6 +1,8 @@
 # Go toolchain compatibility
 
-For 0.6.2, build and release validation uses **Go 1.26.10**. This picks up the
+Current build and release validation uses **Go 1.26.11**.
+
+For 0.6.2, build and release validation used **Go 1.26.10**. This picks up the
 [GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) (`crypto/x509.Certificate.Verify`) fix, which affects Go <1.26.10
 and 1.27.0–1.27.2. The current forward-compat check uses **Go 1.27.3**. The
 module minimum remains **Go 1.26.0**. The results below are historical records

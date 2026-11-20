@@ -8,7 +8,7 @@ def test_static_image_candidate_boundaries():
     model = load(root/'.github/workflows/issue123-layout.yml')
     text = commands(model)
     assert any(job.get('strategy', {}).get('matrix', {}).get('runner') == ['macos-15', 'ubuntu-24.04'] for job in model['jobs'].values())
-    assert any(action(step, 'actions/setup-go') and step['with']['go-version'] == '1.26.10' for step in steps(model))
+    assert any(action(step, 'actions/setup-go') and step['with']['go-version'] == '1.26.11' for step in steps(model))
     assert any(step.get('with', {}).get('if-no-files-found') == 'error' for step in steps(model))
     for contract in (
         'scripts/git_identity.py inspect HEAD', 'os.environ["GITHUB_SHA"]',

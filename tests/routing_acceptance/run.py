@@ -91,7 +91,7 @@ def main():
     assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==identity.source_commit
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()
     guest = guest_identity(root)
-    env=dict(os.environ,GOTOOLCHAIN='go1.26.10',CGO_ENABLED='0',GOCACHE=str(temp/'gocache'),GOMODCACHE=str(temp/'modcache'),GOPATH=str(temp/'gopath'),GOTMPDIR=str(temp/'go-tmp'),TMPDIR=str(temp/'os-tmp'),PYTHONPATH=str(root/'python'),PYTHONDONTWRITEBYTECODE='1')
+    env=dict(os.environ,GOTOOLCHAIN='go1.26.11',CGO_ENABLED='0',GOCACHE=str(temp/'gocache'),GOMODCACHE=str(temp/'modcache'),GOPATH=str(temp/'gopath'),GOTMPDIR=str(temp/'go-tmp'),TMPDIR=str(temp/'os-tmp'),PYTHONPATH=str(root/'python'),PYTHONDONTWRITEBYTECODE='1')
     host=a.host.resolve() if a.host else temp/'mariamem-host'
     go=a.go_consumer.resolve() if a.go_consumer else temp/'go-consumer'
     def command(argv,log,cwd=root):

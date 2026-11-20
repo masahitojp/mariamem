@@ -166,7 +166,7 @@ def go_consumer(work, output, app):
     env.update(GOWORK='off', GOENV='off', GOTOOLCHAIN='local', GOFLAGS='-p=1 -trimpath',
                CGO_ENABLED='0', GOPROXY=proxy.as_uri() + ',https://proxy.golang.org',
                GONOSUMDB=MODULE, GOSUMDB='sum.golang.org', E2E_OWNED_RUNTIME='1', E2E_GO_APP=str(app))
-    need(subprocess.check_output([compiler, 'version'], env=env, text=True).split()[2] == 'go1.26.10', 'wrong consumer compiler')
+    need(subprocess.check_output([compiler, 'version'], env=env, text=True).split()[2] == 'go1.26.11', 'wrong consumer compiler')
     command([compiler, 'mod', 'download', MODULE + '@' + tag], project,
             dict(env, GOPROXY=proxy.as_uri()), output / 'go-download.txt')
     command([compiler, 'mod', 'tidy'], project, env, output / 'go-tidy.txt')
