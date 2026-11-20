@@ -173,7 +173,7 @@ def external_consumer(output):
         env.update(GOWORK='off', GOENV='off', GOTOOLCHAIN='local', GOFLAGS='-p=1 -trimpath', CGO_ENABLED='0',
                    GOPROXY=proxy.as_uri() + ',https://proxy.golang.org', GONOSUMDB=MODULE, GOSUMDB='sum.golang.org')
         version = subprocess.check_output([compiler, 'version'], env=env, text=True).split()[2]
-        need(version == 'go1.26.10', 'external compiler must be Go1.26.10')
+        need(version == 'go1.26.11', 'external compiler must be Go1.26.11')
         runtime_tmp = work / 'runtime-tmp'; runtime_tmp.mkdir(); env['TMPDIR'] = str(runtime_tmp)
         command([compiler, 'mod', 'download', MODULE + '@' + tag], project, output / 'module-download.txt',
                 {**env, 'GOPROXY': proxy.as_uri()})
@@ -207,7 +207,7 @@ def validate(directory, expected, expected_host=None):
     directory = Path(directory)
     data = json.loads((directory / 'result.json').read_text())
     need(data['result'] == 'PASS' and data['source_commit'] == expected, 'completion source/result mismatch')
-    need(data['toolchain'] == 'go1.26.10', 'fault-control compiler mismatch')
+    need(data['toolchain'] == 'go1.26.11', 'fault-control compiler mismatch')
     profile = data['host']
     need((profile['system'],profile['architecture']) in HOSTS.values(), 'completion host unsupported')
     if expected_host:
@@ -232,7 +232,7 @@ def validate(directory, expected, expected_host=None):
     consumer = data['consumer']
     need(consumer['result'] == 'PASS' and not consumer['replace'] and consumer['outside_repository']
          and consumer['temporary_cleanup'] == 'complete', 'consumer isolation/cleanup incomplete')
-    need(consumer['toolchain'] == 'go1.26.10' and consumer['GOWORK'] == 'off'
+    need(consumer['toolchain'] == 'go1.26.11' and consumer['GOWORK'] == 'off'
          and consumer['GOTOOLCHAIN'] == 'local', 'consumer toolchain/workspace mismatch')
     need(consumer['module_path'] == MODULE
          and consumer['private_module_version'] == 'v0.0.0-g1.' + source_identity(ROOT)[:16]
@@ -261,7 +261,7 @@ def run(expected, output):
          and not subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT), 'completion requires exact clean source')
     output = Path(output).resolve(); output.mkdir(parents=True, exist_ok=False)
     toolchain = subprocess.check_output(['go', 'version'], text=True).split()[2]
-    need(toolchain == 'go1.26.10', 'requires Go1.26.10 before fault controls')
+    need(toolchain == 'go1.26.11', 'requires Go1.26.11 before fault controls')
     profile = host_profile()
     target = dict(zip(('goos','goarch'), subprocess.check_output(['go','env','GOOS','GOARCH'], text=True).split()))
     need(target == go_target(profile), 'fault controls must execute on native target')

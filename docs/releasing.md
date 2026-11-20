@@ -243,7 +243,7 @@ to equal the accepted canonical identities. No local Docker image or hidden
 SDK/download is accepted. `regenerate_release_guest.py` applies the pinned
 converter patches (including memory32 bounds, controlled traps and memory
 ownership) and bounded filesystem adaptations automatically, uses pinned
-Go1.26.10 formatting, and compares **all** regenerated files (including handwritten
+Go1.26.11 formatting, and compares **all** regenerated files (including handwritten
 ownership glue) with committed generated source. A mismatch fails; it does not
 update accepted hashes.
 
@@ -494,7 +494,7 @@ heap and OS accounting still differ from live allocations. The exact combined
 source's external Go1.27.2 consumers passed on both native platforms in
 [final Qualification](reviews/main-storage-qualification.md); that historical
 qualification used Go1.26.8. Current build/forward-compatibility
-pins are Go1.26.10/1.27.3, and minimum Go remains 1.26.0. See
+pins are Go1.26.11/1.27.3, and minimum Go remains 1.26.0. See
 [historical compiler compatibility scope](go-compatibility.md).
 
 For each release, submit its exact pushed SHA once with `operation=release`.

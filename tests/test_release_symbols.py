@@ -10,7 +10,7 @@ from release_symbols import require_stripped
 @pytest.mark.parametrize('target', ['darwin', 'linux'])
 def test_actual_go_strip_with_trimpath(tmp_path, target):
     source=tmp_path/'main.go';source.write_text('package main\nfunc main(){}\n')
-    env=dict(os.environ,GOTOOLCHAIN='go1.26.10',CGO_ENABLED='0',GOOS=target,GOARCH='arm64')
+    env=dict(os.environ,GOTOOLCHAIN='go1.26.11',CGO_ENABLED='0',GOOS=target,GOARCH='arm64')
     for flags in [[], ['-ldflags=-s -w'], ['-ldflags=-w']]:
         binary=tmp_path/'host'
         subprocess.run(['go','build','-trimpath',*flags,'-o',str(binary),str(source)],env=env,check=True,capture_output=True)

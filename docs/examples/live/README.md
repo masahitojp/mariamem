@@ -5,7 +5,7 @@ below build a matching host from the checkout for source verification; ordinary
 users can install the [published packages](../../../README.md#installation).
 For entry-owned lifecycle sequencing instead of manual composition, use
 [BrowserEntry / NewHTTP](../e2e_owned/README.md). Run commands from this repository root with
-Go 1.26.10 and Python 3.11 or 3.14 on a supported host. They reuse the maintained
+Go 1.26.11 and Python 3.11 or 3.14 on a supported host. They reuse the maintained
 orders applications, Django migrations and seed data from the bounded E2E work.
 The examples use public APIs and do not use the experimental owner/fault probe.
 

@@ -22,7 +22,7 @@ as one transaction. Do not ask for a second publication approval.
 
 Use a Python environment with `pytest` and `PyMySQL` for preparation commands.
 Check these before submit; create an ignored or temporary venv if needed. Do not
-modify the global Python installation. Release CI owns Go1.26.10 compilation and
+modify the global Python installation. Release CI owns Go1.26.11 compilation and
 runtime qualification; local preparation does not require a Go build.
 
 1. Before edits, run `python scripts/release_prepare.py preflight <version>`.

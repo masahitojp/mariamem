@@ -31,7 +31,7 @@ routing APIs; observation wrappers and SQL failure injection are test-only.
    populated scenario directory: the runner rejects stale event output.
 
 The dedicated [workflow](../../.github/workflows/preparation-migration.yml) runs
-both interpreter boundaries per OS, builds one Go1.26.10 host per OS and reuses
+both interpreter boundaries per OS, builds one Go1.26.11 host per OS and reuses
 it across Python environments. It covers macOS15 arm64 and Ubuntu24.04 x86_64.
 Its main trigger retains these tests after adoption; it is not Qualification.
 

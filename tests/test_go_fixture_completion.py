@@ -73,14 +73,14 @@ def populate(root, output):
         (output / (name + '.jsonl.txt')).write_text(json.dumps({'Action': 'fail', 'Test': target}) + '\n' + marker)
     consumer = dict(result='PASS', replace=False, outside_repository=True, temporary_cleanup='complete',
                     runtime_target=dict(goos='darwin',goarch='arm64'),
-                    toolchain='go1.26.10', GOWORK='off', GOTOOLCHAIN='local', module_path=completion.MODULE,
+                    toolchain='go1.26.11', GOWORK='off', GOTOOLCHAIN='local', module_path=completion.MODULE,
                     private_module_version='v0.0.0-g1.'+source_identity(root)[:16], module_sum='h1:test',
                     module_files={p.relative_to(root).as_posix(): completion.digest(p) for p in source_files(root)},
                     runs=[dict(mode=mode, result='PASS', cases=list(completion.EXTERNAL_CASES)) for mode in ('normal','shuffle')])
     text = ''.join('--- PASS: ' + name + ' (0.01s)\n' for name in completion.EXTERNAL_CASES)
     text += json.dumps(dict(result='PASS_EXTERNAL_FIXTURE', prepares=1, goos='darwin',goarch='arm64')) + '\n'
     for mode in ('normal','shuffle'): (output / ('consumer-'+mode+'.txt')).write_text(text)
-    report = dict(result='PASS', source_commit=expected, toolchain='go1.26.10', source_inventory_sha256=source_identity(root),
+    report = dict(result='PASS', source_commit=expected, toolchain='go1.26.11', source_inventory_sha256=source_identity(root),
                   host=dict(system='Darwin',architecture='arm64',version='15.7'), fault_target=dict(goos='darwin',goarch='arm64'),
                   inputs_sha256=inputs, faults=faults, consumer=consumer)
     return report

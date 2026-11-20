@@ -96,7 +96,7 @@ def execute(args, command, reference_path, evidence, temp):
     require(hashlib.sha256(host.read_bytes()).hexdigest() == manifest['sha256']['mariamem-host'],
             'installed wheel host hash mismatch')
     (temp/'os-tmp').mkdir()
-    env = dict(os.environ, GOTOOLCHAIN='go1.26.10',
+    env = dict(os.environ, GOTOOLCHAIN='go1.26.11',
         TMPDIR=str(temp/'os-tmp'), PYTHONPATH=str(HERE), PYTHONDONTWRITEBYTECODE='1')
     os.environ['TMPDIR'] = str(temp/'os-tmp')
     tempfile.tempdir = str(temp/'os-tmp')
