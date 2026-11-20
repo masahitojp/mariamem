@@ -3,14 +3,14 @@ module github.com/masahitojp/mariamem/benchmarks/competitive
 go 1.26.0
 
 require (
-	github.com/go-sql-driver/mysql v1.9.3
+	github.com/go-sql-driver/mysql v1.10.1
 	github.com/masahitojp/mariamem v0.2.0-alpha.1
 	github.com/testcontainers/testcontainers-go/modules/mariadb v0.40.0
 )
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
-	filippo.io/edwards25519 v1.1.0 // indirect
+	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect

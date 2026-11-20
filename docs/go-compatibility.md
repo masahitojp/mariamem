@@ -11,7 +11,7 @@ Since 0.5.1, the public API no longer includes `LoadSnapshot`; see
 [migration from 0.5.0](changes-since-v050.md). Earlier compiler
 checks do not qualify changed runtime/artifact bytes on main.
 
-The module minimum remains **Go 1.26.0**. `go-sql-driver/mysql v1.9.3`
+The module minimum remains **Go 1.26.0**. `go-sql-driver/mysql v1.10.1`
 is a development/test client dependency; the production library does not import
 it or require it to serve the MySQL wire protocol. Applications choose their
 own compatible client driver. v0.4.6 made no dependency upgrade.
