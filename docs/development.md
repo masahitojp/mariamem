@@ -1,7 +1,7 @@
 # Building and testing
 
 Generated-Go is the only supported runtime since the published v0.4.3 release.
-Build products and downloaded inputs live under ignored `build/`. Use Go1.26.10
+Build products and downloaded inputs live under ignored `build/`. Use Go1.26.11
 and Python with pytest/PyMySQL. Prepared runtime integration additionally requires
 mysql-connector-python26.7.0 (the release integration consumer pin). macOS arm64
 external consumers also passed with Go1.27.0/1.27.1/1.27.2 historically;
@@ -471,7 +471,7 @@ python3 scripts/experiment_workspace.py prepare guest-feedback \
 cd build/experiment-work/guest-feedback/worktree
 export MARIAMEM_DEV_WORKSPACE="$(cd .. && pwd -P)"
 export MARIAMEM_PHASE_TRACE="$MARIAMEM_DEV_WORKSPACE/evidence/phases.jsonl"
-export GOTOOLCHAIN=go1.26.10
+export GOTOOLCHAIN=go1.26.11
 export GOCACHE="$MARIAMEM_DEV_WORKSPACE/temp/gocache"
 export GOPATH="$MARIAMEM_DEV_WORKSPACE/temp/gopath"
 export GOMODCACHE="$MARIAMEM_DEV_WORKSPACE/temp/modcache"
@@ -527,7 +527,7 @@ The two metadata-only jobs install nothing and check out no repository. Tests
 execute their actual inline scripts against successful and incomplete outcomes.
 
 The single Development setup-go cache is keyed by runner platform/architecture,
-Go1.26.10 and `go.mod`/`go.sum`. Workflow or test-script edits no longer invalidate
+Go1.26.11 and `go.mod`/`go.sum`. Workflow or test-script edits no longer invalidate
 that namespace. Go's input-based compiler cache still rebuilds changed packages;
 `go clean -testcache` invalidates restored test PASS before any test execution.
 Both source checks and smoke inherit the exported `GOCACHE`; no artifact transfer
@@ -736,7 +736,7 @@ The dev output contains observed WASM, linked WASM and `guest.json` marked
 identities. Matching the accepted hash does not qualify a single build.
 
 Copy/preserve those bound files and the exact clean source checkout. On a
-supported native product platform, activate pytest/PyMySQL, choose Go1.26.10 and
+supported native product platform, activate pytest/PyMySQL, choose Go1.26.11 and
 set the task cache environment documented above:
 
 ```sh
@@ -810,8 +810,8 @@ Do not use them for runtime-affecting inputs. New files default conservatively i
 `scripts/development_scope.py` until their responsibility is assigned.
 
 ```sh
-GOTOOLCHAIN=go1.26.10 python3 scripts/verify.py check
-GOTOOLCHAIN=go1.26.10 python3 scripts/verify.py integration
+GOTOOLCHAIN=go1.26.11 python3 scripts/verify.py check
+GOTOOLCHAIN=go1.26.11 python3 scripts/verify.py integration
 ```
 
 `check` defaults to the complete source check: Go tests/vet, checkout Python tests, generated identity,
@@ -852,7 +852,7 @@ validator, native AOT compilation or external runtime is used in that path.
 ## Packaging / release dry runs
 
 ```sh
-GOTOOLCHAIN=go1.26.10 python3 scripts/build_alpha.py
+GOTOOLCHAIN=go1.26.11 python3 scripts/build_alpha.py
 python3 scripts/verify.py release-check --ci-candidate-sha <full-sha> --candidate-root <clean-checkout>
 ```
 
@@ -866,7 +866,7 @@ candidate approval. Do not wait/poll after successful submission.
 ## Benchmark / experiment mechanics
 
 ```sh
-GOTOOLCHAIN=go1.26.10 python3 scripts/verify.py bench go-isolation --runs 3 --warmup 1 --workers 1
+GOTOOLCHAIN=go1.26.11 python3 scripts/verify.py bench go-isolation --runs 3 --warmup 1 --workers 1
 ```
 
 No native directory is needed. Measurements remain manual and run alone on the

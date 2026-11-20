@@ -20,7 +20,7 @@ The numeric loopback HTTP-bind harness adjustment avoids the observed macOS
 reverse-DNS startup stall. It does not change the application, SQL or readiness
 timeout. Opt-in stack diagnostics remain available in child app logs.
 
-Build Go1.26.10 executables for cmd/mariamem-host, e2e_native_control/goapp,
+Build Go1.26.11 executables for cmd/mariamem-host, e2e_native_control/goapp,
 live_acceptance/goapp and live_acceptance/go_owner. Use a clean exact checkout;
 linked worktrees may receive incorrect Go VCS identity. Install the fixed browser
 requirements and Chromium with a dedicated PLAYWRIGHT_BROWSERS_PATH. Run:

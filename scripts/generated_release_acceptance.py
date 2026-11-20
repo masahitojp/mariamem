@@ -129,7 +129,7 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
             env=isolated_env(work)
             env={k:v for k,v in env.items() if not k.startswith(('MARIAMEM_','MYSQLMEM_','PYTHON','PYTEST','DOGFOOD_'))}
             require(go_build_jobs is None or go_build_jobs > 0,'Go build jobs must be positive')
-            env.update(GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='' if go_build_jobs is None else f'-p={go_build_jobs}',GOEXPERIMENT='',CGO_ENABLED='0')
+            env.update(GOTOOLCHAIN='go1.26.11',GOWORK='off',GOENV='off',GOFLAGS='' if go_build_jobs is None else f'-p={go_build_jobs}',GOEXPERIMENT='',CGO_ENABLED='0')
             report['go_build_jobs']=go_build_jobs
             home=work/'home'; home.mkdir(); cache=work/'runtime-cache'; cache.mkdir()
             # pip downloads are build/test tooling, not mariamem runtime cache.

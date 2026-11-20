@@ -264,7 +264,7 @@ def validate_host(directory, expected, expected_host=None, profile="measurement"
     need(report.get('profile', 'measurement') == profile, 'host campaign profile differs')
     need(report['source_commit'] == expected, 'source SHA mismatch')
     need(report['source_inventory_sha256'] == source_identity(ROOT), 'source bytes mismatch')
-    need(report['toolchain'] == 'go1.26.10', 'wrong Go toolchain')
+    need(report['toolchain'] == 'go1.26.11', 'wrong Go toolchain')
     resources = json.loads((ROOT / (FIXTURES / 'fixture-entry/acceptance.json')).read_text())['resources']
     need(set(report['inputs_sha256']) == set(input_paths(resources)), 'input identity inventory missing')
     for path, sha in report['inputs_sha256'].items():
@@ -335,7 +335,7 @@ def run(expected, output, profile="measurement"):
     resources = plan['resources']
     host = host_profile()
     version = subprocess.check_output(['go', 'version'], text=True).split()[2]
-    need(version == 'go1.26.10', 'requires Go1.26.10')
+    need(version == 'go1.26.11', 'requires Go1.26.11')
     inputs = input_paths(resources)
     need(digest(ROOT / resources['retention_input']['path']) == resources['retention_input']['sha256'], 'SQL fixture changed')
     report = {'profile': profile, 'result': 'RUNNING', 'source_commit': expected, 'source_inventory_sha256': source_identity(ROOT),

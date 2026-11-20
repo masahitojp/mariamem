@@ -13,10 +13,18 @@ ORIGIN = '6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149'
 PARKED = '03cad716fd3a0a44558ef0133566b85f6ec8b1ba'
 DUMP_SHA256 = '081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c'
 ORIGIN_MANIFEST_SHA256 = '2850011163620f3a9e6c8dd0b343e54835c6d8b475706b0671302121de8a0b10'
+MIGRATION_RUNNER = 'tests/preparation_migration_acceptance/run.py'
+# The runner's Go toolchain pin moved to 1.26.11. The original producer
+# manifest stays byte-for-byte bound to the runner used at ORIGIN.
+CANDIDATE_MIGRATION_RUNNER_SHA256 = '290b3951386f948526b6b09ef1b10fc155150e4102ea9b991c0542505a552715'
 
 
 def digest(raw):
     return hashlib.sha256(raw).hexdigest()
+
+
+def expected_migration_owner(origin):
+    return {**origin['migration_owner'], MIGRATION_RUNNER: CANDIDATE_MIGRATION_RUNNER_SHA256}
 
 
 def current_source(expected_source):
@@ -34,7 +42,7 @@ def validate_inputs(root=ROOT, here=HERE):
     require(manifest['source_commit'] == ORIGIN and manifest['result'] == 'PASS', 'origin identity changed')
     require(digest(manifest_raw) == ORIGIN_MANIFEST_SHA256, 'original manifest bytes changed')
     inputs = {}
-    for name, expected in manifest['migration_owner'].items():
+    for name, expected in expected_migration_owner(manifest).items():
         actual = digest((root/name).read_bytes())
         require(actual == expected, 'migration/seed input changed: '+name)
         inputs[name] = actual
@@ -65,7 +73,9 @@ def producer_receipt(directory, expected_source):
             'candidate producer execution/source mismatch')
     require(digest(raw) == manifest['dump_sha256'] == DUMP_SHA256 and raw == (HERE/'input/application.sql').read_bytes(),
             'candidate producer did not reproduce exact canonical dump bytes')
-    for key in ['migration_owner', 'base_users', 'base_addresses', 'revision', 'extension_sql',
+    require(manifest['migration_owner'] == expected_migration_owner(origin),
+            'candidate producer inputs differ: migration_owner')
+    for key in ['base_users', 'base_addresses', 'revision', 'extension_sql',
                 'extension_values_decimal_strings_binary_hex', 'producer_options', 'server',
                 'sql_mode', 'timezone', 'charset', 'collation', 'definer', 'sql_security', 'excluded']:
         require(manifest[key] == origin[key], 'candidate producer inputs differ: '+key)

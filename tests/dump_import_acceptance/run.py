@@ -99,7 +99,7 @@ def main():
     binding = check_binding(args.binding, identity.source_commit)
     original = dict(os.environ)
     try:
-        os.environ['GOTOOLCHAIN'] = 'go1.26.10'
+        os.environ['GOTOOLCHAIN'] = 'go1.26.11'
         buildinfo = verify_go_binary(ROOT, args.host.resolve(), identity.source_commit)
     finally:
         os.environ.clear()

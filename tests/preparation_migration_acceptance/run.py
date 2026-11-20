@@ -111,7 +111,7 @@ def main():
     identity=require_commit(root,a.source_commit)
     assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==identity.source_commit
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()
-    env=dict(os.environ,GOTOOLCHAIN='go1.26.10',CGO_ENABLED='0',
+    env=dict(os.environ,GOTOOLCHAIN='go1.26.11',CGO_ENABLED='0',
              GOCACHE=str(temp/'gocache'),GOMODCACHE=str(temp/'modcache'),GOPATH=str(temp/'gopath'),
              GOTMPDIR=str(temp/'go-tmp'),TMPDIR=str(temp/'os-tmp'),
              PYTHONPATH=os.pathsep.join([str(root/'python'),str(code)]),

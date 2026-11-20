@@ -8,7 +8,7 @@ partway through DDL, leaving the parent owner's context also discards that whole
 server. The example has no Django backend replacement or test lifecycle adapter.
 
 The standard-runner recipe is available since 0.6.0. These source-verification
-commands use Go1.26.10 and Python3.11 or3.14 with a matching checkout/host.
+commands use Go1.26.11 and Python3.11 or3.14 with a matching checkout/host.
 Ordinary applications can use the [published wheel](../../../README.md#installation).
 The repository example uses the authored orders app/migrations.
 

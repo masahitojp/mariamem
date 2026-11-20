@@ -32,6 +32,7 @@ def test_changed_artifact_bytes_are_rejected(target, tmp_path):
 
 @pytest.mark.parametrize('name', ['tests/preparation_migration_acceptance/application.py',
                                  'tests/preparation_migration_acceptance/conftest.py',
+                                 'tests/preparation_migration_acceptance/run.py',
                                  'tests/dump_import_acceptance/producer.py'])
 def test_changed_source_input_is_rejected(name):
     original = Path.read_bytes
@@ -55,12 +56,19 @@ def test_fresh_producer_receipt_requires_exact_candidate_and_bytes(tmp_path):
     origin = json.loads((bind_input.HERE/'input/input-manifest.json').read_text())
     candidate = '1'*40
     origin['source_commit'] = candidate
+    runner = bind_input.MIGRATION_RUNNER
+    original_runner_pin = origin['migration_owner'][runner]
+    origin['migration_owner'][runner] = bind_input.digest((bind_input.ROOT/runner).read_bytes())
     (tmp_path/'input-manifest.json').write_text(json.dumps(origin))
     shutil.copy2(bind_input.HERE/'input/application.sql', tmp_path/'application.sql')
     receipt = bind_input.producer_receipt(tmp_path, candidate)
     assert receipt['source_commit'] == candidate and receipt['reproduced_exact_canonical_bytes'] is True
     with pytest.raises(ValueError, match='execution/source mismatch'):
         bind_input.producer_receipt(tmp_path, '2'*40)
+    origin['migration_owner'][runner] = original_runner_pin
+    (tmp_path/'input-manifest.json').write_text(json.dumps(origin))
+    with pytest.raises(ValueError, match='producer inputs differ: migration_owner'):
+        bind_input.producer_receipt(tmp_path, candidate)
     (tmp_path/'application.sql').write_bytes(b'changed dump')
     with pytest.raises(ValueError, match='exact canonical dump bytes'):
         bind_input.producer_receipt(tmp_path, candidate)

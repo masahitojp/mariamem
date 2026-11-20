@@ -183,7 +183,7 @@ def test_missing_or_bad_observation_is_rejected(mutation):
 def receipt(tmp_path, monkeypatch):
     monkeypatch.setattr(campaign, 'source_identity', lambda root: 'source-inventory')
     report = dict(result='PASS', source_commit='a' * 40, source_inventory_sha256='source-inventory',
-                  toolchain='go1.26.10', host=dict(system='Darwin', architecture='arm64', version='15.7'),
+                  toolchain='go1.26.11', host=dict(system='Darwin', architecture='arm64', version='15.7'),
                   guard_probe='PRE_ADMISSION_FD_STOP_CONFIRMED',
                   inputs_sha256={p: campaign.digest(ROOT / p) for p in campaign.input_paths(RESOURCES)}, modes=[],
                   three_time_outcomes=dict(first_test_setup=dict(elapsed_seconds=1, authored_lines=30,
@@ -342,7 +342,7 @@ def test_release_run_executes_four_modes_and_negative_guard_without_sampler(tmp_
     monkeypatch.setattr(campaign, 'source_identity', lambda *args: 'source-inventory')
     monkeypatch.setattr(campaign, 'host_profile', lambda: dict(system='Darwin', architecture='arm64', version='15.7'))
     def output(command, **kwargs):
-        return 'go version go1.26.10 darwin/arm64' if command == ['go', 'version'] else ('a'*40 if command[1:3] == ['rev-parse', 'HEAD'] else '')
+        return 'go version go1.26.11 darwin/arm64' if command == ['go', 'version'] else ('a'*40 if command[1:3] == ['rev-parse', 'HEAD'] else '')
     monkeypatch.setattr(campaign.subprocess, 'check_output', output)
     monkeypatch.setattr(campaign, 'observe', lambda *args: pytest.fail('Release must not run resource sampler'))
     modes = []
