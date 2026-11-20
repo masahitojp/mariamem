@@ -1,11 +1,11 @@
 {
-  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-  "patch_sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+  "source_commit": "e4549ea60c98a8743ed4743d7f92174d8a0005d9",
+  "patch_sha256": "7330b8b7ebf79a9ba6799027d3ba7fed9cf420a56f01e2982c53db7bd4050bab",
   "files": [
     {
       "file": "sql/sql_prepare.cc",
-      "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
-      "after_sha256": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5"
+      "before_sha256": "4c72557460ee57732b689a51af2315b8bf386a77c19b2e3a129210a7c46f2076",
+      "after_sha256": "1838ecbfc909040ad19816382799096a1574806058e2091ba0abebf40a2f3ea2"
     },
     {
       "file": "libmysqld/libmysql.c",
@@ -14,14 +14,14 @@
     },
     {
       "file": "libmysqld/lib_sql.cc",
-      "before_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
-      "after_sha256": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9"
+      "before_sha256": "a0e1ab7b788f3af9622304ab814a59982ab15bc06f9f6c4d64563430b841bac3",
+      "after_sha256": "dff0da5b9344ce2e0f13520910261b4161313368ee1834abb38b6d140c464bd2"
     }
   ],
   "purpose": "Canonical prepared API repairs adopted from approved P1-P5: TIME full width, raw parameter attributes, single-execution result metadata and WASIX-only embedded parameter metadata. Public API/engine semantics retained.",
   "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
   "application_stage": "guest/input.json ordered series, after portability/redo and before recipe source.patch",
   "parameter_fixture_sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065",
-  "time_only_intermediate_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1",
-  "patch_file": "guest/patches/12.3.3-prepared.patch"
+  "time_only_intermediate_sha256": "52b5cb39f5906a10ae7cc1fc2b7bae83cd869016d6ecffe3ce45613d1db5ebaa",
+  "patch_file": "guest/patches/12.3.4-prepared.patch"
 }

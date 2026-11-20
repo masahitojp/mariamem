@@ -29,7 +29,9 @@ def require(condition, message):
 def source(root):
     root = Path(root)
     require(not (root/'guest/experimental.patch').exists(), 'experimental patch remains')
-    patch = (root/'guest/source.patch').read_bytes()
+    profile = json.loads((root/'guest/versions/12.3.3/legacy-full.json').read_text())
+    reference = profile['files']['guest/source.patch']
+    patch = (root/reference['file']).read_bytes()
     # Preserve the historical UCA/dictionary sections byte-for-byte while
     # separately pinning the buffer-pool-only candidate suffix.
     boundary = b'--- a/storage/innobase/buf/buf0buf.cc\n'
@@ -44,8 +46,7 @@ def source(root):
     uca = patch[:UCA_END]
     require(sha(uca[:-DELTA_BYTES]) == BASE_PATCH, 'canonical base patch changed')
     require(sha(uca[-DELTA_BYTES:]) == DELTA_PATCH, 'accepted private-copy delta changed')
-    profile = json.loads((root/'guest/versions/12.3.3/legacy-full.json').read_text())
-    require(profile['files']['guest/source.patch']['sha256'] == sha(complete_patch),
+    require(reference['sha256'] == sha(complete_patch),
             'selected12.3.3 source pin differs')
     return {'base_patch_sha256': BASE_PATCH, 'accepted_delta_sha256': DELTA_PATCH,
             'canonical_patch_sha256': sha(complete_patch), 'experimental_origin': ORIGIN}

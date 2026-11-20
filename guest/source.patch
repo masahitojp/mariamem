@@ -108,7 +108,7 @@
      if (!(finfo.name= strdup_root(&dirh->root, dp->d_name)))
 --- a/storage/innobase/buf/buf0flu.cc
 +++ b/storage/innobase/buf/buf0flu.cc
-@@ -2593,18 +2593,23 @@
+@@ -2610,18 +2610,23 @@
        if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
          break;
  
@@ -144,7 +144,7 @@
  
 --- a/include/m_ctype.h
 +++ b/include/m_ctype.h
-@@ -216,7 +216,7 @@
+@@ -222,7 +222,7 @@
    MY_CONTRACTIONS contractions;
    uint    levelno;
    MY_UCA_CONTRACTION_HASH contraction_hash;
@@ -165,7 +165,7 @@
  
  typedef struct
  {
-@@ -34288,12 +34291,36 @@
+@@ -34320,12 +34323,36 @@
  }
  
  
@@ -203,93 +203,11 @@
    if (!(res= my_uca_level_booster_alloc(loader)))
      return NULL;
    my_uca_level_booster_populate(res, level, cs);
---- a/mysys/charset.c
-+++ b/mysys/charset.c
-@@ -120,0 +121,4 @@
+@@ -34487,6 +34514,73 @@
+   return 0;
+ }
+ 
 +
-+#if defined(__wasi__)
-+#include "mariamem_lexer_prepared.h"
-+#endif
-@@ -733,0 +738,3 @@
-+#if defined(__wasi__)
-+        if (mariamem_init_compiled_state_maps(*cs))
-+#else
-@@ -734,0 +742 @@
-+#endif
---- a/storage/innobase/buf/buf0dump.cc
-+++ b/storage/innobase/buf/buf0dump.cc
-@@ -705,7 +705,9 @@
- #ifdef WITH_WSREP
- 		if (!get_wsrep_recovery()) {
- #endif /* WITH_WSREP */
--			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
-+			/* mariamem: keep normal global concurrency; the read task
-+			group already bounds read I/O. */
-+			srv_thread_pool->set_concurrency();
- 			buf_load();
- 			srv_thread_pool->set_concurrency();
- #ifdef WITH_WSREP
---- a/storage/innobase/srv/srv0start.cc
-+++ b/storage/innobase/srv/srv0start.cc
-@@ -1611,11 +1611,11 @@
- 			/* Apply the hashed log records to the
- 			respective file pages, for the last batch of
- 			recv_group_scan_log_recs().
--			Since it may generate huge batch of threadpool tasks,
--			for read io task group, scale down thread creation rate
--			by temporarily restricting tpool concurrency.
-+			mariamem: keep normal global concurrency during recovery.
-+			The read task group already bounds read I/O; restricting the
-+			whole pool also delays tasks needed to complete those reads.
- 			*/
--			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
-+			srv_thread_pool->set_concurrency();
- 
- 			mysql_mutex_lock(&recv_sys.mutex);
- 			recv_sys.apply(true);
---- a/sql/sql_analyze_stmt.h
-+++ b/sql/sql_analyze_stmt.h
-@@ -41,7 +41,7 @@
- 
- static inline double timer_tracker_frequency()
- {
--#if (MY_TIMER_ROUTINE_CYCLES)
-+#if (MY_TIMER_ROUTINE_CYCLES) && !defined(__wasi__)
-   return static_cast<double>(sys_timer_info.cycles.frequency);
- #else
-   return static_cast<double>(sys_timer_info.microseconds.frequency);
-@@ -65,7 +65,7 @@
- 
-   ulonglong measure() const
-   {
--#if (MY_TIMER_ROUTINE_CYCLES)
-+#if (MY_TIMER_ROUTINE_CYCLES) && !defined(__wasi__)
-     return my_timer_cycles();
- #else
-     return my_timer_microseconds();
---- a/mysys/my_rdtsc.c
-+++ b/mysys/my_rdtsc.c
-@@ -534,6 +534,17 @@
-   {
-     if (mti->milliseconds.routine == MY_TIMER_ROUTINE_TIME)
-       mti->milliseconds.resolution= 1000;
-+#if defined(__wasi__) && !defined(HAVE_PSI_INTERFACE) && \
-+    defined(MY_CLOCK_ID) && defined(CLOCK_MONOTONIC) && \
-+    MY_CLOCK_ID == CLOCK_MONOTONIC
-+    else if (!mti->cycles.routine &&
-+             mti->milliseconds.routine == MY_TIMER_ROUTINE_CLOCK_GETTIME)
-+      /* Bounded embedded WASI profile: nominal integer-millisecond unit,
-+         not a measured host/scheduler resolution. No PFS consumer is built,
-+         and without cycles the frequency-calibration paths below are off.
-+         Keep discovery, frequencies, overhead and real clock reads intact. */
-+      mti->milliseconds.resolution= 1;
-+#endif
-     else
-       mti->milliseconds.resolution=
-       my_timer_init_resolution(&my_timer_milliseconds, 0);
---- a/strings/ctype-uca.c
-+++ b/strings/ctype-uca.c
-@@ -34485,0 +34486,67 @@
 +#if defined(__wasi__)
 +#include "mariamem_uca_copy_prepared.h"
 +/* Experimental UCA1400 default data copy. Kept private to this source file. */
@@ -356,8 +274,13 @@
 +  return 1;
 +}
 +#endif
-+
-@@ -34548,0 +34616,10 @@
+ 
+ static my_bool
+ init_weight_level(MY_CHARSET_LOADER *loader, CHARSET_INFO *cs,
+@@ -34551,6 +34645,16 @@
+   if ((my_uca_generate_pages(loader, dst, rules->uca, src, (uint)npages)))
+     return TRUE;
+ 
 +#if defined(__wasi__)
 +  {
 +    int copied= mariamem_uca_copy_default(loader, cs, rules, dst, src);
@@ -368,27 +291,150 @@
 +  }
 +#endif
 +
-@@ -34594,0 +34672,3 @@
+   if (ncontractions)
+   {
+     if (my_uca_alloc_contractions(&dst->contractions, loader, ncontractions))
+@@ -34597,6 +34701,9 @@
+     }
+   }
+ 
 +#if defined(__wasi__)
 +mariamem_uca_copy_ready:
 +#endif
-@@ -34737,0 +34818,4 @@
+   if (cs->mbminlen == 1)
+     dst->booster= my_uca_level_booster_new(loader, cs, dst);
+ 
+@@ -34740,7 +34847,12 @@
+   if (!dst_uca->level[0].weights/*Check if already initialized*/ &&
+      (my_uca_info_init(loader, dst_uca, rules, cs, src_uca,
+                        (1<<MY_UCA_WEIGHT_LEVELS)-1)))
 +  {
 +    /* Partial once_alloc buffers remain arena-owned. Do not publish a partial
 +       level[0].weights readiness sentinel to a later initialization attempt. */
 +    bzero(dst_uca, sizeof(*dst_uca));
-@@ -34738,0 +34823 @@
+     return NULL; /* EOM or an error in rules */
 +  }
-@@ -34817,0 +34903,2 @@
+   return dst_uca;
+ }
+ 
+@@ -34828,7 +34940,10 @@
+                                                                    &rules,
+                                                                    src_uca,
+                                                                    id1400)))
 +    {
 +      rc= 1;
-@@ -34818,0 +34906 @@
+       goto ex;
 +    }
-@@ -34825,0 +34914,2 @@
+   }
+   else if (my_collation_id_is_uca1400(cs->number))
+   {
+@@ -34836,7 +34951,10 @@
+                                                                    &rules,
+                                                                    src_uca,
+                                                                    cs->number)))
 +    {
 +      rc= 1;
-@@ -34826,0 +34917 @@
+       goto ex;
 +    }
+   }
+   else
+   {
+--- a/mysys/charset.c
++++ b/mysys/charset.c
+@@ -118,6 +118,10 @@
+   return 0;
+ }
+ 
++
++#if defined(__wasi__)
++#include "mariamem_lexer_prepared.h"
++#endif
+ 
+ static MY_COLLATION_HANDLER *get_simple_collation_handler_by_flags(uint flags)
+ {
+@@ -734,7 +738,11 @@
+     {
+       DBUG_ASSERT(cs[0]->mbmaxlen <= MY_CS_MBMAXLEN);
+       if (cs[0]->m_ctype && !cs[0]->state_map)
++#if defined(__wasi__)
++        if (mariamem_init_compiled_state_maps(*cs))
++#else
+         if (init_state_maps(*cs))
++#endif
+           *cs= NULL;
+     }
+   }
+--- a/storage/innobase/buf/buf0dump.cc
++++ b/storage/innobase/buf/buf0dump.cc
+@@ -706,7 +706,9 @@
+ #ifdef WITH_WSREP
+ 		if (!get_wsrep_recovery()) {
+ #endif /* WITH_WSREP */
+-			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
++			/* mariamem: keep normal global concurrency; the read task
++			group already bounds read I/O. */
++			srv_thread_pool->set_concurrency();
+ 			buf_load();
+ 			srv_thread_pool->set_concurrency();
+ #ifdef WITH_WSREP
+--- a/storage/innobase/srv/srv0start.cc
++++ b/storage/innobase/srv/srv0start.cc
+@@ -1617,11 +1617,11 @@
+ 			/* Apply the hashed log records to the
+ 			respective file pages, for the last batch of
+ 			recv_group_scan_log_recs().
+-			Since it may generate huge batch of threadpool tasks,
+-			for read io task group, scale down thread creation rate
+-			by temporarily restricting tpool concurrency.
++			mariamem: keep normal global concurrency during recovery.
++			The read task group already bounds read I/O; restricting the
++			whole pool also delays tasks needed to complete those reads.
+ 			*/
+-			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
++			srv_thread_pool->set_concurrency();
+ 
+ 			mysql_mutex_lock(&recv_sys.mutex);
+ 			recv_sys.apply(true);
+--- a/sql/sql_analyze_stmt.h
++++ b/sql/sql_analyze_stmt.h
+@@ -41,7 +41,7 @@
+ 
+ static inline double timer_tracker_frequency()
+ {
+-#if (MY_TIMER_ROUTINE_CYCLES)
++#if (MY_TIMER_ROUTINE_CYCLES) && !defined(__wasi__)
+   return static_cast<double>(sys_timer_info.cycles.frequency);
+ #else
+   return static_cast<double>(sys_timer_info.microseconds.frequency);
+@@ -65,7 +65,7 @@
+ 
+   ulonglong measure() const
+   {
+-#if (MY_TIMER_ROUTINE_CYCLES)
++#if (MY_TIMER_ROUTINE_CYCLES) && !defined(__wasi__)
+     return my_timer_cycles();
+ #else
+     return my_timer_microseconds();
+--- a/mysys/my_rdtsc.c
++++ b/mysys/my_rdtsc.c
+@@ -534,6 +534,17 @@
+   {
+     if (mti->milliseconds.routine == MY_TIMER_ROUTINE_TIME)
+       mti->milliseconds.resolution= 1000;
++#if defined(__wasi__) && !defined(HAVE_PSI_INTERFACE) && \
++    defined(MY_CLOCK_ID) && defined(CLOCK_MONOTONIC) && \
++    MY_CLOCK_ID == CLOCK_MONOTONIC
++    else if (!mti->cycles.routine &&
++             mti->milliseconds.routine == MY_TIMER_ROUTINE_CLOCK_GETTIME)
++      /* Bounded embedded WASI profile: nominal integer-millisecond unit,
++         not a measured host/scheduler resolution. No PFS consumer is built,
++         and without cycles the frequency-calibration paths below are off.
++         Keep discovery, frequencies, overhead and real clock reads intact. */
++      mti->milliseconds.resolution= 1;
++#endif
+     else
+       mti->milliseconds.resolution=
+       my_timer_init_resolution(&my_timer_milliseconds, 0);
 --- /dev/null
 +++ b/strings/mariamem_uca_copy_prepared.h
 @@ -0,0 +1,2833 @@
@@ -3235,7 +3281,7 @@
  
  /** the dictionary system */
  dict_sys_t	dict_sys;
-@@ -1314,7 +1315,12 @@
+@@ -1315,7 +1316,12 @@
  #endif
  	ulint n_evicted = 0;
  
@@ -3251,7 +3297,7 @@
  	const ulint len = UT_LIST_GET_LEN(table_LRU);
 --- a/storage/innobase/buf/buf0buf.cc
 +++ b/storage/innobase/buf/buf0buf.cc
-@@ -1375,8 +1375,12 @@
+@@ -1386,8 +1386,12 @@
    {
      NUMA_MEMPOLICY_INTERLEAVE_IN_SCOPE;
  #if defined(__EMSCRIPTEN__) || defined(__wasi__)
@@ -3264,9 +3310,9 @@
 +    memory_unaligned= posix_memalign(&p, innodb_buffer_pool_extent_size, size)
 +      ? nullptr : static_cast<char*>(p);
  #else
-     memory_unaligned= my_virtual_mem_reserve(&size);
+     memory_unaligned= my_virtual_mem_reserve(&size, my_large_pages_flag);
  #endif
-@@ -1482,6 +1486,11 @@
+@@ -1493,6 +1497,11 @@
      const buf_block_t *extent_end= block + pages_in_extent[ssize];
      if (reinterpret_cast<const char*>(extent_end) > end)
        extent_end= reinterpret_cast<buf_block_t*>(end);

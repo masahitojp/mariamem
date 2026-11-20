@@ -47,3 +47,19 @@ def test_python_rejects_process_restart_or_missing_reset():
     assert not runner.assess('python',**bad)
     bad=copy.deepcopy(good);bad['events']=[e for e in bad['events'] if e['event']!='native_reset']
     assert not runner.assess('python',**bad)
+
+
+def test_readiness_checks_native_and_guest_versions():
+    path = Path(__file__).parent / 'e2e_native_control/conftest.py'
+    spec = importlib.util.spec_from_file_location('e2e_native_readiness', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    check = module.assert_database_version
+    native = '12.3.3-MariaDB-ubu2404'
+    embedded = '12.3.4-MariaDB-embedded'
+
+    check(native)
+    check(embedded, embedded)
+    for actual, expected in ((native, embedded), (embedded, None), (embedded + '-other', embedded)):
+        with pytest.raises(AssertionError):
+            check(actual, expected)

@@ -5,7 +5,8 @@ from pathlib import Path
 
 BUNDLE = 'benchmarks/lexerpreparedinput'
 HEADER = 'mysys/mariamem_lexer_prepared.h'
-INPUT_SHA256 = 'ee25a76714132ace3a28a10bc2a1083dc1f839c87a6966da56f7585a14757078'
+INPUT_SHA256 = 'ad8144c28abcbba742807aa09884d6f345021b9c3554df22ddf926062681efb7'
+LEGACY_INPUT_SHA256 = 'ee25a76714132ace3a28a10bc2a1083dc1f839c87a6966da56f7585a14757078'
 
 
 def digest(data):
@@ -16,15 +17,16 @@ def validate(root, source=None):
     root = Path(root)
     bundle = root / BUNDLE
     raw = (bundle / 'input.json').read_bytes()
-    if digest(raw) != INPUT_SHA256:
+    guest = json.loads((root / 'guest/input.json').read_text())
+    expected_input = LEGACY_INPUT_SHA256 if guest['version'] == '12.3.3' else INPUT_SHA256
+    if digest(raw) != expected_input:
         raise ValueError('lexer input identity changed')
     value = json.loads(raw)
-    guest = json.loads((root / 'guest/input.json').read_text())
     if value['schema'] != 1 or value['mariadb_source_commit'] != guest['source_commit']:
         raise ValueError('lexer MariaDB source mismatch')
     if source is not None:
-        for name, expected in value['pristine_sha256'].items():
-            if not (Path(source) / name).is_file() or digest((Path(source) / name).read_bytes()) != expected:
+        for name, expected_source in value['pristine_sha256'].items():
+            if not (Path(source) / name).is_file() or digest((Path(source) / name).read_bytes()) != expected_source:
                 raise ValueError('lexer pristine source changed: ' + name)
     data = bytes.fromhex(value['data_hex'])
     bindings = value['bindings']
@@ -46,7 +48,7 @@ def validate(root, source=None):
     parts.append('    default: return NULL;\n  }\n}\n\n')
     parts.append(wrapper.decode())
     header = ''.join(parts).encode()
-    record = {'contract': 'prepared-lexer-v1', 'input_sha256': INPUT_SHA256,
+    record = {'contract': 'prepared-lexer-v1', 'input_sha256': expected_input,
               'generator_sha256': digest((root / 'scripts/lexer_prepared.py').read_bytes()),
               'wrapper_sha256': value['wrapper_sha256'], 'header': HEADER,
               'header_sha256': digest(header), 'descriptors': 638, 'numeric_bytes': len(data)}

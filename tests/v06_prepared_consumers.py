@@ -18,6 +18,8 @@ from v06_prepared_p4_lifetime import connection, packet, drained
 from v06_prepared_p2_matrix import query
 
 MODES=('pure','default','cext')
+ROOT = Path(__file__).resolve().parents[1]
+NATIVE_VERSION_PREFIX = '12.3.3-MariaDB'
 
 
 def scalar(value):
@@ -125,7 +127,22 @@ def compare_reference(result,reference):
     return differences
 
 
+def assert_database_version(actual, embedded_version):
+    if embedded_version is None:
+        assert actual.startswith(NATIVE_VERSION_PREFIX), (
+            f'expected native version starting with {NATIVE_VERSION_PREFIX!r}, got {actual!r}'
+        )
+    else:
+        assert actual == embedded_version, (
+            f'expected embedded version {embedded_version!r}, got {actual!r}'
+        )
+
+
 def exercise(info=None,host=None,consumer=None):
+    embedded_version = None
+    if host:
+        version = json.loads((ROOT / 'guest/input.json').read_text())['version']
+        embedded_version = f'{version}-MariaDB-embedded'
     result={'scope':'P5 fixed real Go/Python consumers, not full P5 or Qualification','environment':{
         'python':sys.version,'openssl':ssl.OPENSSL_VERSION,'os':platform.system(),'arch':platform.machine()},'cases':{},'failures':{}}
     for mode in (*MODES,'go'):
@@ -137,8 +154,8 @@ def exercise(info=None,host=None,consumer=None):
             else:current=info
             with connection(current) as c:
                 version=query(c,'SELECT VERSION()')[0][0]
-                assert version.startswith('12.3.3')
                 result.setdefault('engine_versions',{})[mode]=version
+                assert_database_version(version, embedded_version)
                 assert drained(c)==0
                 raw=packet(c,22,b'SELEC invalid')
                 assert raw[0]==255 and int.from_bytes(raw[1:3],'little')==1064 and raw[4:9]==b'42000'

@@ -16,10 +16,12 @@ def safe_relative(name):
 def descriptor(root, lock):
     root = Path(root)
     value = json.loads((root / 'guest/input.json').read_text())
-    if value['schema'] != 1 or value['version'] != '12.3.3':
+    if value['schema'] != 1 or value['version'] not in ('12.3.3', '12.3.4'):
         raise ValueError('unregistered guest input')
     entries = {e['name']: e for e in lock['inputs']}
     source, recipe = entries[value['source_input']], entries[value['recipe_input']]
+    if source['version'] != value['version']:
+        raise ValueError('guest source version mismatch')
     for entry, key in ((source, 'source'), (recipe, 'recipe')):
         if entry['revision'] != value[key + '_source_commit' if key == 'recipe' else 'source_commit']:
             raise ValueError('guest source commit mismatch: ' + key)

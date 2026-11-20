@@ -1,6 +1,7 @@
 """Real public Go/Python Live and unchanged native business/browser inputs."""
 import contextlib
 import importlib.util
+import json
 import os
 from pathlib import Path
 import sys
@@ -14,6 +15,8 @@ spec=importlib.util.spec_from_file_location('native_live_helpers',NATIVE/'confte
 native=importlib.util.module_from_spec(spec);spec.loader.exec_module(native)
 record=native.record
 SCHEMA='e2e_app'
+GUEST_INPUT = HERE.parents[1] / 'guest/input.json'
+GUEST_DB_VERSION = json.loads(GUEST_INPUT.read_text())['version'] + '-MariaDB-embedded'
 
 
 def info_env(info):
@@ -102,7 +105,8 @@ def application(lineage):
         info=live.connection_info();env=info_env(info)
         appkind='python' if kind=='python' else 'go'
         if appkind=='go':env['E2E_MYSQL_DSN']='root@tcp('+info['host']+':'+str(info['port'])+')/'+SCHEMA+'?charset=utf8mb4&parseTime=true'
-        with native.server(SCHEMA,env,appkind) as app:yield app,live,env
+        with native.server(SCHEMA, env, appkind, expected_db_version=GUEST_DB_VERSION) as app:
+            yield app, live, env
     finally:live.close()
 
 
@@ -122,14 +126,17 @@ def browser_page(request,lineage,application,browser):
             stack.callback(close)
             info=child.connection_info();env=info_env(info)
             env['E2E_MYSQL_DSN']='root@tcp('+info['host']+':'+str(info['port'])+')/'+SCHEMA+'?charset=utf8mb4&parseTime=true'
-            url,health=stack.enter_context(native.server(SCHEMA,env,'go'))
+            url,health=stack.enter_context(native.server(
+                SCHEMA, env, 'go', expected_db_version=GUEST_DB_VERSION))
             generation=child.id
         else:
             (url,health),live,env=application
             if os.environ.get('E2E_MUTATE_SKIP_RESET')!='1':live.reset()
             assert live.status()['state']=='ready','no next test admission after reset failure'
             info=live.connection_info();generation=live.status()['generation']
-            if os.environ.get('E2E_MUTATE_RESTART_APP')=='1':url,health=stack.enter_context(native.server(SCHEMA,env,'python' if kind=='python' else 'go'))
+            if os.environ.get('E2E_MUTATE_RESTART_APP') == '1':
+                url,health=stack.enter_context(native.server(
+                    SCHEMA, env, 'python' if kind == 'python' else 'go', expected_db_version=GUEST_DB_VERSION))
         actual=rows(info);record('baseline_checked',name=request.node.name,rows=actual)
         assert actual==[['SEED',2,'ready']]
         record('case_before',name=request.node.name,pid=health['pid'],http_url=url,rows=actual,generation=generation,db_port=info['port'])

@@ -5,23 +5,9 @@
       "path": "image/layout.json",
       "reason": "Derived image layout metadata; restore its audited hash when reconstructing provenance.",
       "approval": "Existing metadata-only attribution contract; issue #179",
-      "before": "fce8e67b61c97436263ad6488be6ad99af5eaa2742eae923f0c8e01ed82ecfdc",
+      "before": "39a9b9014bfb7237063a29f479697e751cc62f8a96c3e1def2d7c6b6d47b8423",
       "audit_field": "audited_image_metadata_sha256"
     }
   ],
-  "generated_file_deltas": [
-    {
-      "path": "code/base/prepared_files.go",
-      "before": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
-      "after": "0a33cc6234186d737d03900bbdddfe410cd0edd095ef18fcffaf1ca823790e34",
-      "reason": "Canonical mariamem prepared-file adapter retains failed munmap ownership and retries only unresolved mappings; no translated engine function changes.",
-      "approval": "Issue #203 implementation authorized by Human; exact helper delta remains subject to integration review."
-    }
-  ],
-  "input_manifest_delta": {
-    "before": "97513a66fa5691fddcfa53befe420d849fb351ab86d362dca52da1a0c119587d",
-    "after": "7f0a951945cf27806e681ca67629b51b05a67694cfdb4bae136aeab5f80ce13b",
-    "reason": "Correct prepared_files candidate pin to pre-install source. Independent regeneration confirms all installed code/image bytes unchanged; only provenance input hash changes.",
-    "approval": "Human authorized CI repair for PR219; exact input correction and unchanged generated inventory verified locally."
-  }
+  "generated_file_deltas": []
 }

@@ -1,6 +1,7 @@
 """Candidate pins describe source before the installation adapter."""
 import hashlib
 import json
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -28,7 +29,19 @@ def test_unreviewed_input_manifest_change_rejected(tmp_path):
     (tmp_path/'release').mkdir()
     (tmp_path/GENERATED).mkdir(parents=True)
     (tmp_path/'release/attribution-tolerance.json').write_text(json.dumps(policy))
-    provenance['input_manifest_sha256']='0'*64
-    (tmp_path/GENERATED/'provenance.json').write_text(json.dumps(provenance))
-    with pytest.raises(ValueError,match='unapproved input manifest'):
-        verify_generated_attribution(tmp_path,evidence)
+    for entry in policy['metadata_files'] + policy['generated_file_deltas']:
+        relative = GENERATED / entry['path']
+        if (ROOT/relative).is_file():
+            (tmp_path/relative).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT/relative, tmp_path/relative)
+    shutil.copyfile(ROOT/'release/generated-go-inputs.json', tmp_path/'release/generated-go-inputs.json')
+    staged = tmp_path/GENERATED/'provenance.json'
+    shutil.copyfile(ROOT/GENERATED/'provenance.json', staged)
+    assert verify_generated_attribution(tmp_path, evidence) == verify_generated_attribution(ROOT, evidence)
+
+    provenance['input_manifest_sha256'] = '0'*64
+    staged.write_text(json.dumps(provenance, indent=2) + '\n')
+    error = ('unapproved input manifest' if 'input_manifest_delta' in policy
+             else 'generated attribution source changed beyond')
+    with pytest.raises(ValueError, match=error):
+        verify_generated_attribution(tmp_path, evidence)

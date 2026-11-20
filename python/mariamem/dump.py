@@ -9,6 +9,7 @@ MAX_FILE_BYTES = 16 * 1024 * 1024
 # Match the text SQL budget in mysqlwire and host-to-guest requests.
 MAX_STATEMENT_BYTES = 1024 * 1024
 MAX_STATEMENTS = 10000
+_SUPPORTED_TARGET_VERSIONS = ('12.3.3-MariaDB', '12.3.4-MariaDB')
 _MODE = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
 _INIT = ("SET time_zone='+00:00', sql_mode='"+_MODE+"', "
          "collation_connection='utf8mb4_unicode_ci', foreign_key_checks=1, "
@@ -347,7 +348,7 @@ def import_dump(db, path, *, database=None):
                 read_timeout=60, write_timeout=60) as connection:
             with connection.cursor() as cursor:
                 cursor.execute('SELECT VERSION()')
-                if not cursor.fetchone()[0].startswith('12.3.3-MariaDB'):
+                if not cursor.fetchone()[0].startswith(_SUPPORTED_TARGET_VERSIONS):
                     raise DumpImportError('unsupported_server_version', stage=stage)
                 stage = 'target'
                 cursor.execute('SELECT (SELECT COUNT(*) FROM information_schema.tables WHERE TABLE_SCHEMA=%s) + '

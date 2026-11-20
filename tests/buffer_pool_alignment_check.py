@@ -105,8 +105,9 @@ def main():
     assert pool.count(clear) == 1
     assert pool.index(clear) < pool.index('MEM_MAKE_DEFINED(block, (extent_end - block) * sizeof *block);')
     assert pool.index(clear) < pool.index('ut_ad(!memcmp(block, field_ref_zero, sizeof *block));')
-    assert '#else\n    memory_unaligned= my_virtual_mem_reserve(&size);\n#endif' in pool
-    assert 'return my_large_virtual_alloc(size);' in sources[names[3]]
+    assert re.search(r'#else\n    memory_unaligned= my_virtual_mem_reserve\(&size'
+                     r'(?:, my_large_pages_flag)?\);\n#endif', pool)
+    assert re.search(r'return my_large_virtual_alloc\(size(?:, my_flags)?\);', sources[names[3]])
     assert 'free(ptr);' in sources[names[3]]
     cc = ['cc', '-std=c11', '-D_POSIX_C_SOURCE=200112L', '-Wall', '-Wextra', '-Werror']
     results = []

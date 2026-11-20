@@ -24,9 +24,9 @@
     },
     {
       "name": "pcre2",
-      "file": "pcre2-10.47.zip",
-      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.zip",
-      "sha256": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784"
+      "file": "pcre2-10.49.zip",
+      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.zip",
+      "sha256": "40fa9173e167648fb872beaaeab667c8778eb37fabeefffa99a7753edb1a9479"
     },
     {
       "name": "libfmt",
@@ -125,11 +125,11 @@
     },
     {
       "name": "mariadb",
-      "file": "mariadb-12.3.3-source.tar.gz",
-      "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-      "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-      "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
-      "version": "12.3.3"
+      "file": "mariadb-12.3.4-source.tar.gz",
+      "url": "https://codeload.github.com/MariaDB/server/tar.gz/e4549ea60c98a8743ed4743d7f92174d8a0005d9",
+      "revision": "e4549ea60c98a8743ed4743d7f92174d8a0005d9",
+      "sha256": "628eef6d789b563e46f362b4a98dd32ff3dd86050929215fb4cf773ec0549ff6",
+      "version": "12.3.4"
     }
   ],
   "pristine_files": {

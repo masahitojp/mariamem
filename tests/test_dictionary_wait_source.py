@@ -20,7 +20,7 @@ spec.loader.exec_module(guard)
 
 class DictionarySourceTests(unittest.TestCase):
     def test_accepted_exact_delta(self):
-        self.assertEqual(guard.source(ROOT)['dictionary_delta_sha256'], guard.DELTA_SHA)
+        self.assertEqual(guard.source(ROOT)['dictionary_delta_sha256'], guard.PORT_DELTA_SHA)
 
     def test_source_mutations(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -28,7 +28,9 @@ class DictionarySourceTests(unittest.TestCase):
             for name in ('guest/source.patch', 'guest/versions/12.3.3/legacy-full.json'):
                 p = root/name
                 p.parent.mkdir(parents=True, exist_ok=True)
-                p.write_bytes((ROOT/name).read_bytes())
+                original = ('guest/versions/12.3.3/frozen/guest/source.patch'
+                            if name == 'guest/source.patch' else name)
+                p.write_bytes((ROOT/original).read_bytes())
             patch = root/'guest/source.patch'
             original = patch.read_bytes()
             guard.source(root)

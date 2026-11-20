@@ -26,7 +26,7 @@ import (
 
 // Init completion flag written to 2 by the pinned generated p7.Fn67.
 // Keep this test-only address bound to the constructor when guest data relocates.
-const initialMemoryFlagOffset = 27744624
+const initialMemoryFlagOffset = 27753328
 
 func assertInitialMemoryFlag(t *testing.T, m *base.Module) {
 	t.Helper()

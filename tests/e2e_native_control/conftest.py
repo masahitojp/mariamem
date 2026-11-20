@@ -59,8 +59,15 @@ def rows(name):
     return [list(row) for row in query('SELECT sku,quantity,status FROM orders_order ORDER BY id',schema=name)]
 
 
+def assert_database_version(actual, expected=None):
+    if expected is None:
+        assert actual.startswith('12.3.3-MariaDB'), actual
+    else:
+        assert actual == expected, (actual, expected)
+
+
 @contextlib.contextmanager
-def server(name,env,kind):
+def server(name,env,kind,*,expected_db_version=None):
     out=Path(os.environ['E2E_OUTPUT']);path=out/('server-'+name+'-'+uuid.uuid4().hex[:6]+'.txt')
     if kind=='python':
         with socket.socket() as s:
@@ -83,7 +90,7 @@ def server(name,env,kind):
                 try:
                     with urlopen(f'http://127.0.0.1:{port}/healthz',timeout=.5) as r:health=json.load(r)
                     assert health['pid']==process.pid and health['db_name']==name
-                    assert health['db_version'].startswith('12.3.3-MariaDB')
+                    assert_database_version(health['db_version'], expected_db_version)
                     break
                 except OSError:time.sleep(.05)
             record('app_ready',**health,http_port=port)
