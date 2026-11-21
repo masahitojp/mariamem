@@ -43,6 +43,20 @@ and is an allowed SKIP, not C-mode compatibility PASS; required default/pure mod
 have their own executed evidence. No driver mode is silently substituted.
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
+### CSV files and LOAD DATA
+
+`LOAD DATA INFILE` resolves its path in the embedded database's filesystem.
+Host paths such as `/var/lib/mysql-files/data.csv` are outside that filesystem,
+even when the file exists on the machine running the tests. A missing directory
+can produce error 1290 mentioning `--secure-file-priv`.
+
+mariamem's MySQL protocol does not transfer client files for
+`LOAD DATA LOCAL INFILE`. When switching an existing test to mariamem, replace
+any `LOAD DATA INFILE` or `LOAD DATA LOCAL INFILE` step that reads a host CSV.
+Read the CSV in the test client with a CSV parser and insert the rows using
+parameterized `INSERT` statements. If the load statement is shared with
+production code, replace the data-loading step in the test fixture.
+
 <a id="wire-scope-for-current-source-builds"></a>
 
 ### Wire scope
@@ -53,9 +67,10 @@ DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
 are outside0.6.2 support. Multi-packet continuation is also outside this profile.
-SQL-file import is not LOCAL INFILE; metadata SQL is not an administrative wire
-command. Per-entry uncaptured paths remain unverified;
-passing application/Release tests is not evidence of additional protocol coverage.
+See [CSV files and LOAD DATA](#csv-files-and-load-data) for file-loading limits.
+Metadata SQL is not an administrative wire command. Per-entry uncaptured paths
+remain unverified. Passing application and release tests covers only the
+protocol paths they exercise.
 See the [bounded wire contract and reopening rule](decisions/v060-wire-contract.md).
 
 
