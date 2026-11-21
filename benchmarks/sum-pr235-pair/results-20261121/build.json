@@ -1,0 +1,12 @@
+{
+  "os": {
+    "source_commit": "be12aeb6ebed61f291d98ffa08b872a03695900b",
+    "sha256": "48d75cac2067fb362374620e20e3420ff541dd2daa15cd12b6cfcb2277196787",
+    "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sum-pr235-pair/temp/os: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.10.1\th1:arlSnNLq6a5yxGxV7qg9lF4j0C+KwD6NbQyKr9QL6ME=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sum-pr235-pair/temp/parent\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "ring": {
+    "source_commit": "a1ce4a7d568fbf6eac7bee032a7fdfbe464544fb",
+    "sha256": "a6d84f40796dec354399712423c42a1ca1c6ed64433d7f2766ba786b7804caab",
+    "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sum-pr235-pair/temp/ring: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.10.1\th1:arlSnNLq6a5yxGxV7qg9lF4j0C+KwD6NbQyKr9QL6ME=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/sum-pr235-pair/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  }
+}
