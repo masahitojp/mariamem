@@ -1,0 +1,5 @@
+phase,arm,rounds,requests,starts_low,cpu_ms_s,irq_s,pkg_s,ticks_s,barrier_median_ms,barrier_p95_ms,barrier_max_ms,request_max_ms,select_max_ms,update_max_ms,slow_requests,slow_rounds,overlap,max_start_spread_ms
+short,current,32,256,32,5.60423,129.50978,0.85536,18.8412,5.32777,6.37362,6.89238,6.78429,6.78429,6.23538,0,0,32,1.74333
+short,split,32,256,31,9.54277,159.50838,0.86704,138.84391,5.25356,6.15875,6.37608,6.37171,6.37171,6.02621,0,0,32,1.52967
+long,current,4,32,32,2.77095,60.66391,0.39356,2.03471,5.58306,5.66558,5.66558,5.61992,5.61992,5.54362,0,0,4,0.29988
+long,split,4,32,31,2.57493,57.2188,0.32843,1.89214,4.16479,6.53433,6.53433,6.50204,6.50204,6.20133,0,0,4,0.54825

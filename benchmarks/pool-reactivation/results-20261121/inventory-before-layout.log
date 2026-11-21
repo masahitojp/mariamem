@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-reactivation/worktree/scripts/verify_generated_runtime.py", line 49, in <module>
+    main()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-reactivation/worktree/scripts/verify_generated_runtime.py", line 44, in main
+    verify_sources(source)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-reactivation/worktree/scripts/runtime_static_image.py", line 24, in verify_sources
+    raise ValueError('static image layout source drift; regenerate selected runtime image/layout.json')
+ValueError: static image layout source drift; regenerate selected runtime image/layout.json

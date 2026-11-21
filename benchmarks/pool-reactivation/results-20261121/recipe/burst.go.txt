@@ -1,0 +1,251 @@
+package store_test
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"errors"
+	"fmt"
+	mm "github.com/masahitojp/mariamem"
+	"github.com/shibukawa/pgmem/bench/modelcase/period"
+	"github.com/shibukawa/pgmem/bench/modelcase/store"
+	"os"
+	"sync"
+	"time"
+)
+
+type wave struct {
+	IdleSeconds           float64
+	BeforeIdle, AfterIdle period.Reading
+	Wakes                 []wakeResult
+	AllResponsesMS        float64
+}
+type heldResult struct {
+	Period, Armed              int64
+	Expected                   []int64
+	After                      [][]int64
+	InitialStocks, FinalStocks []int
+	Waves                      []wave
+	LowWrites                  uint64
+}
+type wakeResult struct {
+	ID                                        int
+	Write                                     bool
+	Before, Connected                         period.State
+	StartMS, ConnectMS, SQLMS, TotalMS, EndMS float64
+}
+
+const readStock = "SELECT stock FROM products WHERE id=1"
+
+func wakeDB(ctx context.Context, d *mm.Database, id int, write bool, stock int, release time.Time) (resultWake wakeResult, resultErr error) {
+	r := wakeResult{ID: id, Write: write, Before: period.Inspect(id)}
+	begin := time.Now()
+	r.StartMS = float64(begin.Sub(release)) / 1e6
+	handle := openInProcess(d)
+	defer func() { resultErr = errors.Join(resultErr, handle.Close()) }()
+	conn, err := handle.Conn(ctx)
+	if err != nil {
+		return r, err
+	}
+	defer func() { resultErr = errors.Join(resultErr, conn.Close()) }()
+	connected := time.Now()
+	r.ConnectMS = float64(connected.Sub(begin)) / 1e6
+	r.Connected = period.Inspect(id)
+	sqlStart := time.Now()
+	if write {
+		result, err := conn.ExecContext(ctx, "UPDATE products SET stock=stock+1 WHERE id=1")
+		if err != nil {
+			return r, err
+		}
+		rows, err := result.RowsAffected()
+		if err != nil || rows != 1 {
+			return r, fmt.Errorf("update affected %d rows: %v", rows, err)
+		}
+	} else {
+		var value int
+		if err := conn.QueryRowContext(ctx, readStock).Scan(&value); err != nil {
+			return r, err
+		}
+		if value != stock {
+			return r, fmt.Errorf("stock %d, want %d", value, stock)
+		}
+	}
+	end := time.Now()
+	r.SQLMS = float64(end.Sub(sqlStart)) / 1e6
+	r.TotalMS = float64(end.Sub(begin)) / 1e6
+	r.EndMS = float64(end.Sub(release)) / 1e6
+	return r, nil
+}
+func orderTotals(ctx context.Context, db *sql.DB) ([]int64, error) {
+	values := make([]int64, 4)
+	err := db.QueryRowContext(ctx, "SELECT (SELECT COUNT(*) FROM orders), (SELECT COUNT(*) FROM order_items), (SELECT SUM(total_cents) FROM orders), (SELECT SUM(quantity*unit_price_cents) FROM order_items)").Scan(&values[0], &values[1], &values[2], &values[3])
+	return values, err
+}
+func fire(ctx context.Context, dbs []*mm.Database, ids, stocks []int, flip bool) ([]wakeResult, error) {
+	var ready, done sync.WaitGroup
+	ready.Add(len(dbs))
+	done.Add(len(dbs))
+	gate := make(chan struct{})
+	var release time.Time
+	wakes := make([]wakeResult, len(dbs))
+	errs := make([]error, len(dbs))
+	for i := range dbs {
+		go func(i int) {
+			defer done.Done()
+			ready.Done()
+			<-gate
+			write := (i%2 == 1) != flip
+			wakes[i], errs[i] = wakeDB(ctx, dbs[i], ids[i], write, stocks[i], release)
+		}(i)
+	}
+	ready.Wait()
+	release = time.Now()
+	close(gate)
+	done.Wait()
+	for i, d := range dbs {
+		if errs[i] != nil {
+			return nil, errs[i]
+		}
+		if err := d.WaitDisconnected(ctx); err != nil {
+			return nil, err
+		}
+		if wakes[i].Write {
+			stocks[i]++
+		}
+	}
+	return wakes, nil
+}
+func burstStudy() error {
+	const n = 8
+	ctx, cancel := context.WithTimeout(context.Background(), 175*time.Second)
+	defer cancel()
+	root, err := mm.Start(ctx, mm.Options{})
+	if err != nil {
+		return err
+	}
+	sqlRoot := openInProcess(root)
+	if err = prepare(ctx, sqlRoot); err != nil {
+		return err
+	}
+	if err = sqlRoot.Close(); err != nil {
+		return err
+	}
+	if err = root.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	snap, err := root.Snapshot(ctx, mm.SnapshotOptions{MaxForks: 16})
+	if err != nil {
+		return err
+	}
+	if err = root.Close(); err != nil {
+		return err
+	}
+	var dbs []*mm.Database
+	var ids, stocks []int
+	var total int64
+	for _, order := range store.SampleOrders() {
+		for _, it := range order.Items {
+			total += int64(it.Quantity) * int64(it.UnitPriceCents)
+		}
+	}
+	result := heldResult{Period: period.Milliseconds, Expected: []int64{40, 100, total, total}}
+	check := func(s *mm.Database, load bool) ([]int64, error) {
+		d := openInProcess(s)
+		if load {
+			if err := store.LoadSample(ctx, d); err != nil {
+				return nil, err
+			}
+		}
+		v, err := orderTotals(ctx, d)
+		if err != nil {
+			return nil, err
+		}
+		for i, x := range v {
+			if result.Expected[i] != x {
+				return nil, fmt.Errorf("order checks %v; expected %v", v, result.Expected)
+			}
+		}
+		var stock int
+		if err = d.QueryRowContext(ctx, readStock).Scan(&stock); err != nil {
+			return nil, err
+		}
+		if load {
+			stocks = append(stocks, stock)
+		} else {
+			index := len(result.After)
+			want := stocks[index]
+			result.FinalStocks = append(result.FinalStocks, stock)
+			if stock != want {
+				return nil, fmt.Errorf("stock after wake %d, want %d", stock, want)
+			}
+		}
+		if err = d.Close(); err != nil {
+			return nil, err
+		}
+		return v, s.WaitDisconnected(ctx)
+	}
+	for i := 0; i < n; i++ {
+		s, err := snap.Fork(ctx)
+		if err != nil {
+			return err
+		}
+		ids = append(ids, period.LatestID())
+		if ids[i] != i+2 {
+			return fmt.Errorf("unexpected pool identity %v", ids)
+		}
+		dbs = append(dbs, s)
+		if _, err = check(s, true); err != nil {
+			return err
+		}
+	}
+	if err = snap.Close(); err != nil {
+		return err
+	}
+	result.Armed = period.ArmCount()
+	if result.Armed != int64(n+1) {
+		return fmt.Errorf("active DBs %d, arms %d", n, result.Armed)
+	}
+	result.InitialStocks = append([]int(nil), stocks...)
+	origin := time.Now()
+	pilot := os.Getenv("BURST_PILOT") == "1"
+	reverse := os.Getenv("BURST_REVERSE") == "1"
+	pause, err := time.ParseDuration(os.Getenv("BURST_LONG"))
+	if err != nil {
+		return err
+	}
+	holds := []time.Duration{8 * time.Second, 8 * time.Second, 8 * time.Second, 8 * time.Second, 8 * time.Second, 8 * time.Second, 8 * time.Second, 8 * time.Second, pause}
+	if pilot {
+		holds = []time.Duration{100 * time.Millisecond, 200 * time.Millisecond}
+	}
+	for i, length := range holds {
+		v := wave{IdleSeconds: length.Seconds(), BeforeIdle: period.Read(origin)}
+		time.Sleep(length)
+		v.AfterIdle = period.Read(origin)
+		v.Wakes, err = fire(ctx, dbs, ids, stocks, (i%2 == 1) != reverse)
+		if err != nil {
+			return err
+		}
+		for _, w := range v.Wakes {
+			if w.EndMS > v.AllResponsesMS {
+				v.AllResponsesMS = w.EndMS
+			}
+		}
+		result.Waves = append(result.Waves, v)
+	}
+	result.LowWrites = period.LowWrites()
+	for _, d := range dbs {
+		v, err := check(d, false)
+		if err != nil {
+			return err
+		}
+		result.After = append(result.After, v)
+		if err = d.Close(); err != nil {
+			return err
+		}
+	}
+	encoded, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(os.Getenv("BURST_REPORT"), encoded, 0644)
+}

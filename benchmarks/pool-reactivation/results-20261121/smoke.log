@@ -1,0 +1,5 @@
+=== RUN   TestMatchedSemantics
+--- PASS: TestMatchedSemantics (0.04s)
+PASS
+
+peak owned bytes 3700719616 minimum free bytes 73100447744

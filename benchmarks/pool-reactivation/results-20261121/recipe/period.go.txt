@@ -1,0 +1,9 @@
+package period
+import "sync/atomic"
+const Milliseconds = ACTIVE_PERIOD
+var arms atomic.Int64
+func IdleMS() int64 { return 4000 }
+func Armed(value int32) {
+	if value != Milliseconds { panic("initial pool interval mismatch") }
+	arms.Add(1)
+}

@@ -1,0 +1,102 @@
+package period
+
+/*
+#include <libproc.h>
+#include <sys/resource.h>
+#include <unistd.h>
+static int wake_counts(uint64_t *interrupts, uint64_t *package_idle) {
+    struct rusage_info_v0 usage = {0};
+    int rc = proc_pid_rusage(getpid(), RUSAGE_INFO_V0, (rusage_info_t *)&usage);
+    if (rc == 0) {
+        *interrupts = usage.ri_interrupt_wkups;
+        *package_idle = usage.ri_pkg_idle_wkups;
+    }
+    return rc;
+}
+*/
+import "C"
+import (
+	"fmt"
+	"sync"
+	"sync/atomic"
+	"syscall"
+	"time"
+)
+
+var callbacks, low, high, workers atomic.Uint64
+var registry sync.Map
+var poolMutex sync.Mutex
+var pools []*pool
+var clockStart = time.Now()
+var lowWrites atomic.Uint64
+
+type pool struct {
+	low        atomic.Bool
+	lastTickNS atomic.Int64
+}
+type State struct {
+	Low         bool
+	SinceTickMS float64
+}
+
+func Register(key uintptr) {
+	p := new(pool)
+	poolMutex.Lock()
+	pools = append(pools, p)
+	registry.Store(key, p)
+	poolMutex.Unlock()
+}
+func poolByKey(key uintptr) *pool {
+	value, ok := registry.Load(key)
+	if !ok {
+		panic("unregistered timer")
+	}
+	return value.(*pool)
+}
+func Tick(key uintptr) {
+	poolByKey(key).lastTickNS.Store(time.Since(clockStart).Nanoseconds())
+	callbacks.Add(1)
+}
+func Low(key uintptr)  { poolByKey(key).low.Store(true); low.Add(1) }
+func High(key uintptr) { poolByKey(key).low.Store(false); high.Add(1) }
+func CheckLow(actual int64) {
+	if actual != IdleMS() {
+		panic(fmt.Sprintf("timer period %d, expected %d", actual, IdleMS()))
+	}
+	lowWrites.Add(1)
+}
+func LowWrites() uint64 { return lowWrites.Load() }
+func LatestID() int     { poolMutex.Lock(); defer poolMutex.Unlock(); return len(pools) }
+func Inspect(id int) State {
+	poolMutex.Lock()
+	p := pools[id-1]
+	poolMutex.Unlock()
+	last := p.lastTickNS.Load()
+	age := -1.0
+	if last > 0 {
+		age = float64(time.Since(clockStart).Nanoseconds()-last) / 1e6
+	}
+	return State{Low: p.low.Load(), SinceTickMS: age}
+}
+func StartWorker() { workers.Add(1) }
+
+type Reading struct {
+	Seconds                                                 float64
+	UserUS, SystemUS                                        int64
+	Interrupts, PackageIdle, Ticks, SetLow, SetHigh, Starts uint64
+	Voluntary, Involuntary                                  int64
+}
+
+func Read(origin time.Time) Reading {
+	var u syscall.Rusage
+	if err := syscall.Getrusage(syscall.RUSAGE_SELF, &u); err != nil {
+		panic(err)
+	}
+	var irq, pkg C.uint64_t
+	if rc := C.wake_counts(&irq, &pkg); rc != 0 {
+		panic("proc_pid_rusage failed")
+	}
+	return Reading{time.Since(origin).Seconds(), u.Utime.Sec*1e6 + int64(u.Utime.Usec), u.Stime.Sec*1e6 + int64(u.Stime.Usec),
+		uint64(irq), uint64(pkg), callbacks.Load(), low.Load(), high.Load(), workers.Load(), u.Nvcsw, u.Nivcsw}
+}
+func ArmCount() int64 { return arms.Load() }
