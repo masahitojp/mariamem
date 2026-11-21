@@ -1,0 +1,4 @@
+setting,suites,loads,tail_suites,tail_loads,io_tail_loads,page_tail_loads,suite_median_ms,cpu_median_ms,paired_wall_pct,paired_cpu_pct,base_only,arm_only,mcnemar_exact_p,max_load_ms
+capacity,96,2016,5,5,5,5,407.99,2172.75,0.26,0.56,3,5,0.72656,461.552
+default,96,2016,3,3,3,3,403.515,2168.45,0.0,0.0,0,0,1,467.551
+early,96,2016,3,3,3,3,415.31100000000004,2207.47,1.82,1.49,3,3,1,478.222

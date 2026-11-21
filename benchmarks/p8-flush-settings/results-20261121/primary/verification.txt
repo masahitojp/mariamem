@@ -1,0 +1,1 @@
+PASS: 3 settings, 288 measured processes, 6048 loads, 11 threshold crossings; SQL readback, case counts, block order and matched callback identity verified.

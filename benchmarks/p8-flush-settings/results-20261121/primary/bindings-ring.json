@@ -1,0 +1,62 @@
+{
+  "worktree/internal/guest/linked.go": [
+    "f3fe7b8182f31ca42e95488bd0d92a365489c0943ebdbf725295042fc3c5ad8b",
+    "c52431e30677af82f4d42ccbfe1929c502386634e070d53e8c427a77ad244dd4"
+  ],
+  "worktree/internal/guest/guest.go": [
+    "cc27b1729369ced6318fb326636e715c2b67a18845624c00b835ee97d6c662ab",
+    "59ed9c7f2cc069065591d3b75eadcabefad39ba67a2751e4fc1e8d47551a10d7"
+  ],
+  "worktree/internal/generatedgo/runtime_instance.go": [
+    "a321c9f5b2d8c79c0acb5a3d0e92433ee547195378c39b9e9b3a546c4019b2ae",
+    "538ed11ef2fb51dbd2f1f3f43565ed467a16d0a7392248b301992e1222b43ac5"
+  ],
+  "worktree/internal/generatedgo/code/base/base.go": [
+    "79bda5bca722d14f21763d56a16e18bd56d06cf23baa71888859224a73a589cd",
+    "cfc51e74cf433c29e38a863f3275fb830deb912aef49333ba4503c9697574c2d"
+  ],
+  "worktree/internal/generatedgo/code/p1/p1_pure.go": [
+    "aa18c344f908269b7e4e1bcb60be2ada5c504d09e4816f54174080b7294f4b40",
+    "cc926d157a2254bca86077e3a80681426331e1c40255cc0c7147f2eae28dfef6"
+  ],
+  "worktree/internal/generatedgo/code/p6/p6_pure.go": [
+    "e413d9f71a4eaf6958acf7775ab2128f715de0056eaec63bcbef78fa91c58a82",
+    "2581490ddd12c28585325b60addf4aba61df2c97998131d4ee3d95750b9303c7"
+  ],
+  "worktree/internal/generatedgo/code/p7/p7_pure.go": [
+    "5de8e0fe8c110f244ffc616e67382e3286fb27baa70d81e9327fca0dcc30befa",
+    "7920f054088bedc81f5a4af4a4eff52a35cae4cc51dea88e21242fccd8611927"
+  ],
+  "worktree/internal/generatedgo/code/p3/p3_pure.go": [
+    "3ced860376addabc59a118238e33405202d1c28e6cecdfcdcd5725be91fc64d7",
+    "71689cf5bcd0b7e00cab0886006ca5ef40dad633937ebdd4cc6084d52c4d04c6"
+  ],
+  "temp/diag/internal/trace/trace.go": [
+    "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+    "56752d7ec579f65412f43dc1ad43827d4a2bf9090fe7100beb427550678da9f1"
+  ],
+  "temp/diag/store/fixture_test.go": [
+    "f3c086b742ceebd49c867889d24a527424c9abe148ddbe7fd07825814bda9d5d",
+    "2f92ae13c8af33c8cd1fc60b811c66a3ec90f784d141df935a914fe0e1022c3f"
+  ],
+  "temp/diag/store/seed.go": [
+    "c7d52e55833aee7b7c95c3834144bc36e39a7b2d2d76745f161da22a1a0ff03f",
+    "5ff28766c30558498591afc9d3bb046fb4ccd49f0d58a91287c2c22643f0179d"
+  ],
+  "worktree/internal/generatedgo/code/p2/p2_pure.go": [
+    "7f988577ac9c15c596e36026e3579758b65d460dc09fdddbd38789328d5f518a",
+    "b669f7e83a98ff48b7b5f0251f3a07e1713b9ddea780c6a21d93dade01b33557"
+  ],
+  "worktree/internal/generatedgo/code/p4/p4_pure.go": [
+    "fab0e0b6e7b235b6d748029e29be0711286ed91a813b8eba38fb6a94262e0ec4",
+    "aee11b125a5fdb70c72f435331532e2ea75274fb6f01641b4dc3bbfcacd41511"
+  ],
+  "worktree/internal/generatedgo/code/p5/p5_pure.go": [
+    "95ca1fe099f1b12645a636f9eb81586b909b9918435e456d5a90f85834617d53",
+    "27741aa0d86a1181d4cd3d01bff3883854afd58a5ae4ce9aa04ebf1d2ac5295f"
+  ],
+  "worktree/internal/generatedgo/code/p8/p8_pure.go": [
+    "5d8c8d2ef7a12668ef44580fa653f94fb41bb56149e7e0e186898690e426778d",
+    "81ea532ff4fc5c5ec8d71cfb1f360e6a58ec89f5b3c1c6fc8ca60cbae02ba88a"
+  ]
+}

@@ -1,0 +1,10 @@
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0', '200', '2000', '1', 'ON', '16777216', '16384']}}
+meaning-000-0-default PASS
+warm-000-0-default 712.1 ['TestCancelOrder/paid']
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0.001', '200', '2000', '1', 'ON', '16777216', '16384']}}
+meaning-000-0-early PASS
+warm-000-0-early 359.7 []
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0', '1000', '2000', '1', 'ON', '16777216', '16384']}}
+meaning-000-0-capacity PASS
+warm-000-0-capacity 353.3 []
+peak owned bytes 1747283968 minimum free bytes 76055334912
