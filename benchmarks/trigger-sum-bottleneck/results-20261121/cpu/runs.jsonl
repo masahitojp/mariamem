@@ -1,0 +1,12 @@
+{"name": "validate-A", "arm": "A", "rc": 0, "elapsed_s": 1.242521125}
+{"name": "validate-B", "arm": "B", "rc": 0, "elapsed_s": 0.143302708}
+{"name": "validate-C", "arm": "C", "rc": 0, "elapsed_s": 0.14052583299999988}
+{"name": "1-A", "arm": "A", "rc": 0, "elapsed_s": 97.35724008300001}
+{"name": "1-B", "arm": "B", "rc": 0, "elapsed_s": 98.3497905}
+{"name": "1-C", "arm": "C", "rc": 0, "elapsed_s": 98.31459104099997}
+{"name": "2-B", "arm": "B", "rc": 0, "elapsed_s": 98.29716216699995}
+{"name": "2-C", "arm": "C", "rc": 0, "elapsed_s": 98.33274916699997}
+{"name": "2-A", "arm": "A", "rc": 0, "elapsed_s": 98.34782558399996}
+{"name": "3-C", "arm": "C", "rc": 0, "elapsed_s": 98.339452875}
+{"name": "3-A", "arm": "A", "rc": 0, "elapsed_s": 98.37518791599996}
+{"name": "3-B", "arm": "B", "rc": 0, "elapsed_s": 98.30590633300005}

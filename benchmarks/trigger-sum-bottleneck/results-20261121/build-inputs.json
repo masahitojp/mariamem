@@ -1,0 +1,30 @@
+{
+  "product": {
+    "object_sha": "5a7ec57bba4c4021c0bc1d3f34f00eed892bf19c",
+    "object_type": "commit",
+    "source_commit": "5a7ec57bba4c4021c0bc1d3f34f00eed892bf19c"
+  },
+  "product_tree": "884447ced891856d7d1adcacc88325fcd2d1e36e",
+  "product_status": [],
+  "module": {
+    "Path": "github.com/masahitojp/mariamem",
+    "Version": "v0.0.0",
+    "Replace": {
+      "Path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-bottleneck/worktree",
+      "Dir": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-bottleneck/worktree",
+      "GoMod": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-bottleneck/worktree/go.mod",
+      "GoVersion": "1.26.0"
+    },
+    "Dir": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-bottleneck/worktree",
+    "GoMod": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-bottleneck/worktree/go.mod",
+    "GoVersion": "1.26.0"
+  },
+  "harness_files": {
+    "go.mod": "f3a7393df61f575bee35f21777ce39b1ad16f50c4c3b161e4b3921b28e831d2e",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+    "main.go": "1f38f80d4a90e2b2a831343c98f0ae67d1318a95ba17084d26b4313bc53e0212",
+    "store/migrations/0001_all.sql": "886a29ff569962ab2e89377422d4d427ce36fb44c4620705b949c14d16d0283b",
+    "store/seed.go": "eedfc468c65edda0e0bdd45fd26c9e445a256e43cfa6fb76dcda291f2e98077b",
+    "store/store.go": "a85935742b5efc6677a9223a7896c0ae71978f35be46f424a6627043ab0d475d"
+  }
+}

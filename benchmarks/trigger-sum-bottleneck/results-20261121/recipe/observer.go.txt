@@ -1,0 +1,128 @@
+package base
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"runtime/metrics"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+var origin = time.Now()
+
+func ProbeNow() int64 { return time.Since(origin).Nanoseconds() }
+
+type ProbeRequest struct {
+	DB, Insert                               int
+	ThreadGroup                              string
+	ClientBegin, SQLBegin, SQLEnd, ClientEnd int64
+	Calls, TriggerCalls, TimesNS             map[string]int64
+	Depth, SQLCalls                          int
+}
+type ProbeWait struct {
+	ThreadGroup                    string
+	DB, Insert                     int
+	Begin, End, ParkBegin, ParkEnd int64
+	Result                         int32
+	Agent                          string
+}
+
+var activeProbe atomic.Pointer[ProbeRequest]
+var requests []*ProbeRequest
+var waitMu sync.Mutex
+var waits []ProbeWait
+var stackSample = [1]metrics.Sample{{Name: "/memory/classes/heap/stacks:bytes"}}
+var stackBytes [2]uint64
+
+func ProbeClient(db, i int) {
+	if len(requests) == 0 {
+		metrics.Read(stackSample[:])
+		stackBytes[0] = stackSample[0].Value.Uint64()
+	}
+	r := &ProbeRequest{DB: db, Insert: i, Calls: map[string]int64{}, TriggerCalls: map[string]int64{}, TimesNS: map[string]int64{}}
+	requests = append(requests, r)
+	r.ClientBegin = ProbeNow()
+	if activeProbe.Swap(r) != nil {
+		panic("overlapping clients")
+	}
+}
+func ProbeReply() {
+	r := activeProbe.Swap(nil)
+	r.ClientEnd = ProbeNow()
+	if r.SQLCalls != 1 || r.Depth != 0 || !(r.ClientBegin <= r.SQLBegin && r.SQLBegin <= r.SQLEnd && r.SQLEnd <= r.ClientEnd) {
+		panic("request/SQL interval mismatch")
+	}
+}
+func ProbeSQL(m *Module) func() {
+	r := activeProbe.Load()
+	if r == nil {
+		panic("prepared execution outside target")
+	}
+	if m.ProbeRecord != nil {
+		panic("nested prepared executions")
+	}
+	m.ProbeRecord = r
+	r.ThreadGroup = fmt.Sprintf("%p", m.Threads)
+	r.SQLCalls++
+	r.SQLBegin = ProbeNow()
+	return func() { r.SQLEnd = ProbeNow(); m.ProbeRecord = nil }
+}
+func ProbeAdd(m *Module, key string, v int64) {
+	if r := m.ProbeRecord; r != nil {
+		r.Calls[key] += v
+		if r.Depth > 0 {
+			r.TriggerCalls[key] += v
+		}
+	}
+}
+func ProbeTrigger(m *Module) func() {
+	r := m.ProbeRecord
+	if r == nil {
+		return func() {}
+	}
+	r.Depth++
+	ProbeAdd(m, "process_triggers", 1)
+	return func() { r.Depth-- }
+}
+func ProbeWASI(m *Module, key string) func() {
+	r := m.ProbeRecord
+	if r == nil {
+		return func() {}
+	}
+	ProbeAdd(m, key, 1)
+	start := ProbeNow()
+	return func() { r.TimesNS[key] += ProbeNow() - start }
+}
+func ProbeWaitEnd(m *Module, start, parkBegin, parkEnd int64, result int32) {
+	end := ProbeNow()
+	w := ProbeWait{ThreadGroup: fmt.Sprintf("%p", m.Threads), DB: -1, Insert: -1, Begin: start, End: end, ParkBegin: parkBegin, ParkEnd: parkEnd, Result: result, Agent: "outside target SQL"}
+	if r := m.ProbeRecord; r != nil {
+		w.DB = r.DB
+		w.Insert = r.Insert
+		w.Agent = "target"
+		ProbeAdd(m, "AtomicWait", 1)
+		r.TimesNS["AtomicWait"] += end - start
+	}
+	waitMu.Lock()
+	waits = append(waits, w)
+	waitMu.Unlock()
+}
+func ProbeSave(path string) {
+	metrics.Read(stackSample[:])
+	stackBytes[1] = stackSample[0].Value.Uint64()
+	waitMu.Lock()
+	defer waitMu.Unlock()
+	data, err := json.Marshal(struct {
+		Requests       []*ProbeRequest
+		Waits          []ProbeWait
+		HeapStackBytes [2]uint64
+	}{requests, waits, stackBytes})
+	if err != nil {
+		panic(err)
+	}
+	if err = os.WriteFile(path, data, 0644); err != nil {
+		panic(err)
+	}
+}

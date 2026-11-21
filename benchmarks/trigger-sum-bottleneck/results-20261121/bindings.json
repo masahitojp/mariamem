@@ -1,0 +1,186 @@
+{
+  "functions": {
+    "target": {
+      "index": 5581,
+      "symbol": "_ZL16emb_stmt_executeP13st_mysql_stmt"
+    },
+    "trigger": {
+      "index": 15566,
+      "symbol": "_ZN19Table_triggers_list16process_triggersEP3THD14trg_event_type20trg_action_time_typebPbP4ListI4ItemE"
+    },
+    "dlmalloc": {
+      "index": 152,
+      "symbol": "dlmalloc"
+    },
+    "dlfree": {
+      "index": 153,
+      "symbol": "dlfree"
+    },
+    "__wrap_malloc": {
+      "index": 236,
+      "symbol": "__wrap_malloc"
+    },
+    "__wrap_calloc": {
+      "index": 237,
+      "symbol": "__wrap_calloc"
+    },
+    "__wrap_realloc": {
+      "index": 242,
+      "symbol": "__wrap_realloc"
+    },
+    "__wrap_posix_memalign": {
+      "index": 239,
+      "symbol": "__wrap_posix_memalign"
+    },
+    "__wrap_free": {
+      "index": 238,
+      "symbol": "__wrap_free"
+    },
+    "JOIN.optimize": {
+      "index": 14986,
+      "symbol": "_ZN4JOIN8optimizeEv"
+    },
+    "Prepared_statement.reprepare": {
+      "index": 14862,
+      "symbol": "_ZN18Prepared_statement9reprepareEv"
+    },
+    "sp.validate": {
+      "index": 21328,
+      "symbol": "_ZN13sp_lex_keeper26validate_lex_and_exec_coreEP3THDPjbP12sp_lex_instr"
+    },
+    "handler.ha_index_read_map": {
+      "index": 7167,
+      "symbol": "_ZN7handler17ha_index_read_mapEPhPKhj16ha_rkey_function"
+    },
+    "ha_innobase.index_read": {
+      "index": 18522,
+      "symbol": "_ZN11ha_innobase10index_readEPhPKhj16ha_rkey_function"
+    },
+    "row_search_mvcc": {
+      "index": 17329,
+      "symbol": "_Z15row_search_mvccPh15page_cur_mode_tP14row_prebuilt_tmm"
+    }
+  },
+  "indirect_sites": 24131,
+  "wasi_sites": {
+    "Wasi_snapshot_preview1.Fd_prestat_get": 1,
+    "Wasi_snapshot_preview1.Fd_prestat_dir_name": 1,
+    "Wasi_snapshot_preview1.Args_get": 1,
+    "Wasi_snapshot_preview1.Args_sizes_get": 1,
+    "Wasix_32v1.Proc_exit2": 2,
+    "Wasix_32v1.Proc_signals_get": 1,
+    "Wasix_32v1.Proc_signals_sizes_get": 1,
+    "Wasix_32v1.Sock_send_to": 1,
+    "Wasix_32v1.Resolve": 1,
+    "Wasix_32v1.Fd_dup": 1,
+    "Wasix_32v1.Sock_addr_peer": 1,
+    "Wasi_snapshot_preview1.Fd_allocate": 1,
+    "Wasix_32v1.Sock_get_opt_size": 1,
+    "Wasi_snapshot_preview1.Environ_get": 1,
+    "Wasi_snapshot_preview1.Environ_sizes_get": 1,
+    "Wasi_snapshot_preview1.Fd_filestat_get": 1,
+    "Wasi_snapshot_preview1.Fd_pread": 1,
+    "Wasi_snapshot_preview1.Fd_pwrite": 1,
+    "Wasi_snapshot_preview1.Path_filestat_set_times": 3,
+    "Wasi_snapshot_preview1.Sock_recv": 1,
+    "Wasix_32v1.Fd_dup2": 1,
+    "Wasix_32v1.Fd_fdflags_get": 1,
+    "Wasix_32v1.Sock_set_opt_flag": 2,
+    "Wasix_32v1.Sock_set_opt_size": 2,
+    "Wasix_32v1.Sock_connect": 7,
+    "Wasi_snapshot_preview1.Fd_close": 1,
+    "Wasi_snapshot_preview1.Fd_filestat_set_size": 1,
+    "Wasi_snapshot_preview1.Fd_renumber": 1,
+    "Wasi_snapshot_preview1.Fd_tell": 1,
+    "Wasi_snapshot_preview1.Path_create_directory": 1,
+    "Wasi_snapshot_preview1.Path_readlink": 1,
+    "Wasi_snapshot_preview1.Path_rename": 1,
+    "Wasi_snapshot_preview1.Path_symlink": 1,
+    "Wasix_32v1.Thread_parallelism": 1,
+    "Wasix_32v1.Futex_wait": 1,
+    "Wasix_32v1.Path_open2": 2,
+    "Wasix_32v1.Sock_open": 1,
+    "Wasix_32v1.Sock_bind": 2,
+    "Wasi_snapshot_preview1.Clock_time_get": 1,
+    "Wasi_snapshot_preview1.Fd_advise": 1,
+    "Wasi_snapshot_preview1.Fd_datasync": 1,
+    "Wasi_snapshot_preview1.Fd_fdstat_get": 1,
+    "Wasi_snapshot_preview1.Fd_fdstat_set_flags": 1,
+    "Wasi_snapshot_preview1.Fd_read": 1,
+    "Wasi_snapshot_preview1.Fd_readdir": 1,
+    "Wasi_snapshot_preview1.Fd_seek": 1,
+    "Wasi_snapshot_preview1.Fd_write": 1,
+    "Wasi_snapshot_preview1.Path_filestat_get": 1,
+    "Wasi_snapshot_preview1.Path_remove_directory": 1,
+    "Wasi_snapshot_preview1.Path_unlink_file": 1,
+    "Wasi_snapshot_preview1.Poll_oneoff": 1,
+    "Wasi_snapshot_preview1.Sched_yield": 1,
+    "Wasi_snapshot_preview1.Sock_send": 1,
+    "Wasi_snapshot_preview1.Sock_shutdown": 1,
+    "Wasix_32v1.Getcwd": 1,
+    "Wasix_32v1.Callback_signal": 1,
+    "Wasix_32v1.Thread_signal": 1,
+    "Wasix_32v1.Futex_wake": 1,
+    "Wasix_32v1.Futex_wake_all": 1,
+    "Wasix_32v1.Thread_exit": 1,
+    "Wasix_32v1.Fd_fdflags_set": 1,
+    "Wasix_32v1.Proc_id": 1,
+    "Wasix_32v1.Sock_addr_local": 1,
+    "Wasix_32v1.Sock_set_opt_time": 1
+  },
+  "sp_reparse_sites": [
+    {
+      "caller": 21328,
+      "callee": 14626,
+      "statement": "v514 = Fn14626(m, l1, v158+int32(20), int32(0))"
+    }
+  ],
+  "atomic_helpers": [
+    "AtomicPtr32At",
+    "AtomicPtr64At",
+    "AtomicsContended",
+    "AtomicSubword32",
+    "AtomicStore32At",
+    "AtomicRmw32At",
+    "AtomicRmw64At",
+    "AtomicRmwAdd32At",
+    "AtomicRmwSub32At",
+    "AtomicRmwXchg32At",
+    "AtomicRmwCmpxchg32At",
+    "AtomicRmwAdd64At",
+    "AtomicRmwSub64At",
+    "AtomicRmwCmpxchg64At",
+    "AtomicLoad32_8u",
+    "AtomicLoad32_16u",
+    "AtomicLoad64_32u",
+    "AtomicStore32_8",
+    "AtomicStore32_16",
+    "AtomicStore64_16",
+    "AtomicStore64_32",
+    "AtomicRmwAdd32",
+    "AtomicRmwSub32",
+    "AtomicRmwAnd32",
+    "AtomicRmwOr32",
+    "AtomicRmwXchg32",
+    "AtomicRmwCmpxchg32",
+    "AtomicRmwAdd64",
+    "AtomicRmwSub64",
+    "AtomicRmwOr64",
+    "AtomicRmwCmpxchg64",
+    "AtomicRmwAdd32_8u",
+    "AtomicRmwAdd32_16u",
+    "AtomicRmwSub32_16u",
+    "AtomicRmwAnd32_16u",
+    "AtomicRmwOr32_16u",
+    "AtomicRmwXchg32_8u",
+    "AtomicNotify",
+    "AtomicWait32At",
+    "AtomicWait32"
+  ],
+  "atomic_inline": [
+    "LoadUint32",
+    "LoadUint64",
+    "StoreUint32",
+    "StoreUint64"
+  ]
+}

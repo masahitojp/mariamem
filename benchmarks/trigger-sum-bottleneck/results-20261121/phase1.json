@@ -1,0 +1,30 @@
+{
+  "source_commit": "5a7ec57bba4c4021c0bc1d3f34f00eed892bf19c",
+  "audited_commit": "ff1749a698be3fbd687b463aa2d9d5e369f94b24",
+  "guest_sha256": "869ffee51c519e4ef725bbc0c0049dd7f121e1070166ad43a5f356094891164a",
+  "symbol_map_sha256": "1f8dcd20057090cde400f1439d0cc9d1c933b16490ba8ecd22269d909f1fe475",
+  "entries": 21791,
+  "definitions": {
+    "emb_stmt_execute": {
+      "index": 5581,
+      "named_symbol": "_ZL16emb_stmt_executeP13st_mysql_stmt",
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "line": 337027,
+      "signature": "func Fn5581(m *base.Module, l0 int32) int32 {"
+    },
+    "process_triggers": {
+      "index": 15566,
+      "named_symbol": "_ZN19Table_triggers_list16process_triggersEP3THD14trg_event_type20trg_action_time_typebPbP4ListI4ItemE",
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "line": 798790,
+      "signature": "func Fn15566(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32) int32 {"
+    },
+    "dlmalloc": {
+      "index": 152,
+      "named_symbol": "dlmalloc",
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "line": 9715,
+      "signature": "func Fn152(m *base.Module, l0 int32) int32 {"
+    }
+  }
+}
