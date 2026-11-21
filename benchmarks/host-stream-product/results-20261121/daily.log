@@ -1,0 +1,112 @@
++ /private/tmp/issue220-ci-venv/bin/python scripts/check_version.py
+Release version: Python 0.7.0; Git/Go v0.7.0
++ /private/tmp/issue220-ci-venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ /private/tmp/issue220-ci-venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py tests/test_timer_source.py tests/test_uca_copy_source.py tests/test_dictionary_wait_source.py tests/test_dictionary_wait_runtime.py -q
+........................................................................ [ 81%]
+................                                  [100%]
+88 passed, 23 subtests passed in 26.19s
++ go test -p 1 -vet=off . ./cmd/... ./internal/... ./mariamemtest/...
+ok  	github.com/masahitojp/mariamem	0.839s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.228s
+ok  	github.com/masahitojp/mariamem/internal/control	0.788s
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	0.215s
+ok  	github.com/masahitojp/mariamem/internal/disposal	0.209s
+ok  	github.com/masahitojp/mariamem/internal/forklimit	0.224s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.926s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.494s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	0.413s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/image	2.153s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/imagelayout	0.250s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/layoutgen	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.924s
+ok  	github.com/masahitojp/mariamem/internal/host	0.296s
+ok  	github.com/masahitojp/mariamem/internal/live	0.262s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.756s
+ok  	github.com/masahitojp/mariamem/internal/prepared	0.275s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	0.275s
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.491s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.239s
+ok  	github.com/masahitojp/mariamem/mariamemtest	0.939s
++ go vet -p 1 -vettool=/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/scripts/vet_generated.py . ./cmd/... ./internal/... ./mariamemtest/...
++ /private/tmp/issue220-ci-venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py --ignore=tests/test_timer_source.py --ignore=tests/test_uca_copy_source.py --ignore=tests/test_dictionary_wait_source.py --ignore=tests/test_dictionary_wait_runtime.py -q
+.........................ssss.................. [  2%]
+........................................................................ [  5%]
+........................................................................ [  8%]
+......................s................................................. [ 11%]
+........................................................................ [ 14%]
+...............................ssssssssssssssssssss..................... [ 17%]
+........................................................................ [ 21%]
+........................................................................ [ 24%]
+........................................................ [ 26%]
+........................................................................ [ 29%]
+........................................................................ [ 33%]
+........................................................................ [ 36%]
+............................................................ [ 39%]
+........................................................................ [ 42%]
+.sss............................................................... [ 45%]
+................................................................... [ 48%]
+........................................................................ [ 51%]
+.............................................sssssssssssss [ 53%]
+sss..................................................................... [ 57%]
+........................................................................ [ 60%]
+........................................sssssssss....................... [ 63%]
+........................................................................ [ 66%]
+........................................................................ [ 69%]
+........................................................................ [ 72%]
+........................................................................ [ 76%]
+...............ssssssssssssssssssssssssss............................... [ 79%]
+........................................................................ [ 82%]
+........................................................................ [ 85%]
+sssssss................................................................. [ 88%]
+............................................... [ 90%]
+............................................................. [ 93%]
+...............sssssss..........................ss................ [ 96%]
+...............sss...................................................... [ 99%]
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/test_routing.py:121: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", b):
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/test_routing.py:119: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", a):
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/test_routing.py:138: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()):
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/test_routing.py:142: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB("B")):
+
+tests/test_routing.py::test_slow_connection_is_closed_if_retirement_wins
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/test_routing.py:159: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()) as lease:
+
+tests/test_routing.py::test_active_scope_prevents_registry_close
+  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/tests/test_routing.py:199: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2166 passed, 100 skipped, 7 warnings, 119 subtests passed in 142.56s (0:02:22)
++ /private/tmp/issue220-ci-venv/bin/python scripts/check_public.py
+{"changed_bytes": 125645, "changed_files": 6, "passed": true, "totals": {"benchmarks/": {"bytes": 19384753, "files": 2025}, "docs/benchmarks/": {"bytes": 2954424, "files": 487}, "docs/reviews/": {"bytes": 16658019, "files": 2697}}}
+Public source check passed: 6566 files

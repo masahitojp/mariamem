@@ -1,0 +1,20 @@
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport= query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.08s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport= query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport= query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport= query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.04s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport= query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.03s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport= query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.03s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/host	0.985s

@@ -1,0 +1,11 @@
++ go build -p 1 -o /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/temp/gotmp/mariamem-smoke-r97a04us/mariamem-host ./cmd/mariamem-host
++ /private/tmp/issue220-ci-venv/bin/python scripts/pypi_smoke.py 0.7.0 darwin-arm64 --host /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/temp/gotmp/mariamem-smoke-r97a04us/mariamem-host
+{"result": "PASS", "version": "0.7.0", "python": "3.14.10", "os": "27.2.1", "machine": "arm64", "host_exit": 0}
++ /private/tmp/issue220-ci-venv/bin/python tests/live_acceptance/smoke.py --host /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/temp/gotmp/mariamem-smoke-r97a04us/mariamem-host
+{"result": "PASS_SOURCE_PYTHON_LIVE", "module": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-product/worktree/python/mariamem/__init__.py", "source_consumed": true, "host_reaped": true, "directory_removed": true, "max_forks": 2, "capacity_timeout_preserved": true, "live_capacity_busy_preserved": true}
++ go run ./tests/live_acceptance/go_consumer -source-smoke
+{"busy_refused":true,"closed_parent_refused":true,"result":"PASS_SOURCE_GO_LIVE","source_consumed":true,"sum_after_reset":1}
++ go test -p 1 -vet=off -tags integration ./tests/godefault -run ^TestInProcess -count=1
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.115s
++ go test -p 1 -vet=off -tags integration ./tests/gointegration -run ^(TestShutdownModeSnapshotAndResnapshot|TestAnalyzeTimerFreshAndFork)$ -count=1
+ok  	github.com/masahitojp/mariamem/tests/gointegration	1.602s
