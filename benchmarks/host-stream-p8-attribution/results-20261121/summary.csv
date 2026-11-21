@@ -1,0 +1,9 @@
+series,arm,runs,tail_runs,tail_samples,suite_median_ms,median_max_sample_ms,max_sample_ms
+primary,diag-os,24,1,1,473.68,87.64,451.889
+primary,diag-ring,24,0,0,447.44,90.7,122.795
+primary,raw-os,24,2,2,400.59,85.04,475.634
+primary,raw-ring,24,1,1,371.87,85.85,435.806
+warm,diag-os,1,0,0,470.05,80.46,80.457
+warm,diag-ring,1,0,0,434.7,93.79,93.792
+warm,raw-os,1,0,0,370.51,74.26,74.256
+warm,raw-ring,1,0,0,361.64,82.83,82.833

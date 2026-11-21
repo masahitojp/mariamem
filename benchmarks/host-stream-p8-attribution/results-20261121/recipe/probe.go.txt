@@ -1,0 +1,130 @@
+// Package probe records diagnostic-only timestamps in a monotonic clock domain.
+package probe
+
+import (
+    "context"
+    "encoding/binary"
+    "encoding/json"
+    "fmt"
+    "io"
+    "os"
+    "runtime/trace"
+    "sync"
+    "time"
+)
+
+var epoch=time.Now()
+func Stamp(t time.Time) int64 {return t.Sub(epoch).Nanoseconds()}
+func Now() int64 {return time.Since(epoch).Nanoseconds()}
+var registry struct{sync.Mutex; links map[string]*Link}
+var pools sync.Map
+
+type Row struct{
+    ID,Slot uint32
+    Op byte
+    N int
+    Call, Queue, Write, Input, Worker, Reply, Output, Header, Body, Notify, Resume int64
+}
+type Link struct{
+    Name string
+    mu sync.Mutex
+    Rows map[uint32]*Row
+    Frames []Frame
+    decoded int
+}
+type Frame struct{ N int; At int64 }
+type key struct{}
+func New(ctx context.Context)(context.Context,*Link){
+    name,_:=ctx.Value("mariamem_benchmark_label").(string)
+    if name=="reader" {name="shared"}
+    if name=="" {panic("missing DB identity")}
+    l:=&Link{Name:name,Rows:map[uint32]*Row{}}
+    registry.Lock();defer registry.Unlock()
+    if registry.links==nil{registry.links=map[string]*Link{}}
+    if registry.links[name]!=nil{panic("duplicate DB identity: "+name)}
+    registry.links[name]=l
+    return context.WithValue(ctx,key{},l),l
+}
+func From(ctx context.Context)*Link{return ctx.Value(key{}).(*Link)}
+func(l *Link) Begin(id,slot uint32,op byte,n int,at int64)*Row{
+    r:=&Row{ID:id,Slot:slot,Op:op,N:n,Call:at}
+    l.mu.Lock();defer l.mu.Unlock()
+    if l.Rows[id]!=nil{panic("duplicate request")}
+    l.Rows[id]=r
+    return r
+}
+func(l *Link) row(id uint32)*Row{l.mu.Lock();defer l.mu.Unlock();return l.Rows[id]}
+func(l *Link) log(id uint32,phase string){if trace.IsEnabled(){trace.Logf(context.Background(),"p8req","%s %d %s",l.Name,id,phase)}}
+func Register(pool any,reader io.Reader){if in,ok:=reader.(*Reader);ok{pools.Store(pool,in.L)}}
+func Worker(pool any,id uint32) {
+    if l,ok:=pools.Load(pool);ok && id!=0 {
+        link:=l.(*Link);if r:=link.row(id);r!=nil && r.Worker==0 {r.Worker=Now();link.log(id,"worker")}
+    }
+}
+func Reply(pool any,id,slot uint32){
+    if l,ok:=pools.Load(pool);ok && id!=0 {
+        link:=l.(*Link);r:=link.row(id);if r==nil || r.Slot!=slot || r.Reply!=0 {panic(fmt.Sprintf("invalid reply identity %v/%v/%v",link.Name,id,slot))}
+        r.Reply=Now();link.log(id,"reply")
+    }
+}
+type Reader struct{ Source io.Reader; L *Link; hdr [13]byte; seen,total int }
+func(x *Reader) Read(dst []byte)(int,error){
+    n,err:=x.Source.Read(dst)
+    for b:=dst[:n];len(b)>0;{
+        if x.seen<4 {
+            k:=copy(x.hdr[x.seen:4],b);x.seen+=k;b=b[k:]
+            if x.seen<4 {break}
+            size:=binary.LittleEndian.Uint32(x.hdr[:])
+            if size==0 || size==0xfffffffe{x.seen=0;continue}
+            if size<9 || size>32<<20 {panic("bad input size")}
+            x.total=4+int(size)
+        }
+        k:=min(len(b),x.total-x.seen)
+        if x.seen<13{copy(x.hdr[x.seen:],b[:k])}
+        x.seen+=k;b=b[k:]
+        if x.seen==x.total{
+            id:=binary.LittleEndian.Uint32(x.hdr[5:])
+            r:=x.L.row(id);if r==nil || r.N!=x.total || r.Op!=x.hdr[4] || r.Slot!=binary.LittleEndian.Uint32(x.hdr[9:]) {panic("input identity mismatch")}
+            r.Input=Now();x.L.log(id,"input");x.seen=0
+        }
+    }
+    return n,err
+}
+// The writer is a byte stream. Save the start time of each length prefix,
+// including split/coalesced frames. The host decoder consumes this queue in order.
+type Writer struct{Target io.Writer; L *Link; hdr [4]byte; used,remaining int; at int64}
+func(x *Writer)Write(src []byte)(int,error){
+    for b:=src;len(b)>0;{
+        if x.remaining==0 {
+            if x.used==0{x.at=Now()}
+            k:=copy(x.hdr[x.used:],b);x.used+=k;b=b[k:]
+            if x.used<4{break}
+            x.used=0;x.remaining=int(binary.LittleEndian.Uint32(x.hdr[:]))
+            if x.remaining<=0 || x.remaining>32<<20{panic("bad response size")}
+            x.L.mu.Lock();x.L.Frames=append(x.L.Frames,Frame{x.remaining,x.at});x.L.mu.Unlock()
+        }
+        k:=min(len(b),x.remaining);x.remaining-=k;b=b[k:]
+    }
+    n,e:=x.Target.Write(src)
+    if e==nil && n!=len(src){panic("short successful write")}
+    return n,e
+}
+func(l *Link) Received(id uint32,n int,header,body int64)*Row{
+    l.mu.Lock();defer l.mu.Unlock()
+    f:=l.Frames[l.decoded];l.decoded++
+    if f.N!=n{panic("unmatched response size")}
+    if id==0{return nil}
+    r:=l.Rows[id];if r==nil{panic("response without request")}
+    r.Output=f.At;r.Header=header;r.Body=body
+    return r
+}
+func Save(){
+    table:=map[string]map[uint32]*Row{}
+    for name,l:=range registry.links{
+        if len(l.Frames)!=l.decoded{panic("undecoded response")}
+        table[name]=l.Rows
+    }
+    f,e:=os.Create(os.Getenv("P8_REQUESTS"));if e!=nil{panic(e)}
+    if e=json.NewEncoder(f).Encode(table);e!=nil{panic(e)}
+    if e=f.Close();e!=nil{panic(e)}
+}

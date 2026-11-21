@@ -1,0 +1,346 @@
+[
+  {
+    "file": "primary-14-1-diag-os",
+    "lane": "TestCreateOrder/one_line",
+    "id": 8,
+    "goroutine": 427,
+    "states_ms": {
+      "Running": 0.950784,
+      "Waiting": 392.178368,
+      "Runnable": 0.043328,
+      "Syscall": 0.00896
+    },
+    "worker_start": "M=6097088512 P=1 G=427 Log Time=206756477834624 Task=0 Category=\"p8req\" Message=\"TestCreateOrder/one_line 8 worker\"",
+    "reply": "M=6102249472 P=3 G=427 Log Time=206756871016064 Task=0 Category=\"p8req\" Message=\"TestCreateOrder/one_line 8 reply\"",
+    "longest_wait": {
+      "state": "Waiting",
+      "duration_ms": 392.166528,
+      "begin": {
+        "time": 206756477926784,
+        "g": 427,
+        "event": "M=6097088512 P=1 G=427 StateTransition Time=206756477926784 GoID=427 Running->Waiting Reason=\"select\"",
+        "stacks": {
+          "TransitionStack": [
+            "runtime.selectgo",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At",
+            "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88 (__wasilibc_futex_wait_wasix)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216 (__pthread_cond_timedwait)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16647 (srw_mutex_impl<true>::wait_and_lock())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18179 (buf_page_get_gen(page_id_t, unsigned long, rw_lock_type_t, buf_block_t*, unsigned long, mtr_t*, dberr_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17594 (fseg_n_reserved_pages(buf_block_t const&, unsigned char const*, unsigned int*, mtr_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17211 (dict_stats_update_transient_for_index(trx_t*, dict_index_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17210 (dict_stats_update_transient(trx_t*, dict_table_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18490 (ha_innobase::statistics_init(dict_table_t*, bool))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18496 (ha_innobase::info_low(unsigned int, bool))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18491 (ha_innobase::open(char const*, int, unsigned int))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7151 (handler::ha_open(TABLE*, char const*, int, unsigned int, st_mem_root*, List<String>*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15745 (open_table_from_share(THD*, TABLE_SHARE*, st_mysql_const_lex_string const*, unsigned int, unsigned int, unsigned int, TABLE*, bool, List<String>*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13477 (open_table(THD*, TABLE_LIST*, Open_table_context*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13505 (open_tables(THD*, DDL_options_st const&, TABLE_LIST**, unsigned int*, unsigned int, Prelocking_strategy*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13515 (open_normal_and_derived_tables(THD*, TABLE_LIST*, unsigned int, unsigned int))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14834 (mysql_test_insert_common(Prepared_statement*, TABLE_LIST*, List<Item>&, List<List<Item>>&, List<Item>&, List<Item>&, enum_duplicates, bool))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14832 (Prepared_statement::prepare(char const*, unsigned int))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5572 (emb_advanced_command(st_mysql*, enum_server_command, unsigned char const*, unsigned long, unsigned char const*, unsigned long, char, st_mysql_stmt*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267 (multi_worker)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "runtime.selectgo",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At",
+            "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88 (__wasilibc_futex_wait_wasix)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216 (__pthread_cond_timedwait)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16647 (srw_mutex_impl<true>::wait_and_lock())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18179 (buf_page_get_gen(page_id_t, unsigned long, rw_lock_type_t, buf_block_t*, unsigned long, mtr_t*, dberr_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17594 (fseg_n_reserved_pages(buf_block_t const&, unsigned char const*, unsigned int*, mtr_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17211 (dict_stats_update_transient_for_index(trx_t*, dict_index_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17210 (dict_stats_update_transient(trx_t*, dict_table_t*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18490 (ha_innobase::statistics_init(dict_table_t*, bool))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18496 (ha_innobase::info_low(unsigned int, bool))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18491 (ha_innobase::open(char const*, int, unsigned int))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7151 (handler::ha_open(TABLE*, char const*, int, unsigned int, st_mem_root*, List<String>*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15745 (open_table_from_share(THD*, TABLE_SHARE*, st_mysql_const_lex_string const*, unsigned int, unsigned int, unsigned int, TABLE*, bool, List<String>*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13477 (open_table(THD*, TABLE_LIST*, Open_table_context*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13505 (open_tables(THD*, DDL_options_st const&, TABLE_LIST**, unsigned int*, unsigned int, Prelocking_strategy*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13515 (open_normal_and_derived_tables(THD*, TABLE_LIST*, unsigned int, unsigned int))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14834 (mysql_test_insert_common(Prepared_statement*, TABLE_LIST*, List<Item>&, List<List<Item>>&, List<Item>&, List<Item>&, enum_duplicates, bool))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14832 (Prepared_statement::prepare(char const*, unsigned int))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5572 (emb_advanced_command(st_mysql*, enum_server_command, unsigned char const*, unsigned long, unsigned char const*, unsigned long, char, st_mysql_stmt*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267 (multi_worker)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      },
+      "end": {
+        "time": 206756870093312,
+        "g": 17484,
+        "event": "M=6102249472 P=3 G=17484 StateTransition Time=206756870093312 GoID=427 Waiting->Runnable Reason=\"\"",
+        "stacks": {
+          "Stack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*ThreadPool).wake",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicNotify",
+            "github.com/masahitojp/mariamem/internal/generatedgo.(*host).futexWake",
+            "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wake",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn89 (__wasilibc_futex_wake_wasix)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn217 (__private_cond_signal)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16645 (srw_mutex_impl<true>::wake())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17914 (write_io_callback(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16608 (tpool::task::execute())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16617 (tpool::thread_pool_generic::worker_main(tpool::worker_data*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16621 (void* std::__2::__thread_proxy[abi:ne200100]<std::__2::tuple<std::__2::unique_ptr<std::__2::__thread_struct, std::__2::default_delete<std::__2::__thread_struct>>, void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*>>(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      }
+    },
+    "creation_chain": [
+      {
+        "time": 206756869675840,
+        "g": 17587,
+        "event": "M=6098808832 P=0 G=17587 StateTransition Time=206756869675840 GoID=17484 NotExist->Runnable Reason=\"\"",
+        "stacks": {
+          "TransitionStack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16620 (std::__2::thread::thread<void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*&, 0>(void (tpool::thread_pool_generic::*&&)(tpool::worker_data*), tpool::thread_pool_generic*&&, tpool::worker_data*&))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16619 (tpool::thread_pool_generic::add_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16618 (tpool::thread_pool_generic::maybe_wake_or_create_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16628 (tpool::thread_pool_generic::submit_task(tpool::task*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17875 (tpool::simulated_aio::simulated_aio_callback(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16608 (tpool::task::execute())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16617 (tpool::thread_pool_generic::worker_main(tpool::worker_data*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16621 (void* std::__2::__thread_proxy[abi:ne200100]<std::__2::tuple<std::__2::unique_ptr<std::__2::__thread_struct, std::__2::default_delete<std::__2::__thread_struct>>, void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*>>(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      },
+      {
+        "time": 206756869392128,
+        "g": 17576,
+        "event": "M=6097088512 P=5 G=17576 StateTransition Time=206756869392128 GoID=17587 NotExist->Runnable Reason=\"\"",
+        "stacks": {
+          "TransitionStack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16620 (std::__2::thread::thread<void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*&, 0>(void (tpool::thread_pool_generic::*&&)(tpool::worker_data*), tpool::thread_pool_generic*&&, tpool::worker_data*&))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16619 (tpool::thread_pool_generic::add_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16618 (tpool::thread_pool_generic::maybe_wake_or_create_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16628 (tpool::thread_pool_generic::submit_task(tpool::task*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17875 (tpool::simulated_aio::simulated_aio_callback(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16608 (tpool::task::execute())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16617 (tpool::thread_pool_generic::worker_main(tpool::worker_data*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16621 (void* std::__2::__thread_proxy[abi:ne200100]<std::__2::tuple<std::__2::unique_ptr<std::__2::__thread_struct, std::__2::default_delete<std::__2::__thread_struct>>, void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*>>(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      },
+      {
+        "time": 206756869287488,
+        "g": 17573,
+        "event": "M=8581747456 P=2 G=17573 StateTransition Time=206756869287488 GoID=17576 NotExist->Runnable Reason=\"\"",
+        "stacks": {
+          "TransitionStack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16620 (std::__2::thread::thread<void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*&, 0>(void (tpool::thread_pool_generic::*&&)(tpool::worker_data*), tpool::thread_pool_generic*&&, tpool::worker_data*&))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16619 (tpool::thread_pool_generic::add_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16618 (tpool::thread_pool_generic::maybe_wake_or_create_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16628 (tpool::thread_pool_generic::submit_task(tpool::task*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17875 (tpool::simulated_aio::simulated_aio_callback(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16608 (tpool::task::execute())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16617 (tpool::thread_pool_generic::worker_main(tpool::worker_data*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16621 (void* std::__2::__thread_proxy[abi:ne200100]<std::__2::tuple<std::__2::unique_ptr<std::__2::__thread_struct, std::__2::default_delete<std::__2::__thread_struct>>, void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*>>(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      },
+      {
+        "time": 206756869149824,
+        "g": 270,
+        "event": "M=8581747456 P=2 G=270 StateTransition Time=206756869149824 GoID=17573 NotExist->Runnable Reason=\"\"",
+        "stacks": {
+          "TransitionStack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16620 (std::__2::thread::thread<void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*&, 0>(void (tpool::thread_pool_generic::*&&)(tpool::worker_data*), tpool::thread_pool_generic*&&, tpool::worker_data*&))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16619 (tpool::thread_pool_generic::add_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16618 (tpool::thread_pool_generic::maybe_wake_or_create_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16626 (tpool::thread_pool_generic::maintenance_func(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16625 (tpool::thread_pool_generic::timer_generic::execute(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5495 (timer_handler)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      }
+    ],
+    "ancestor": 270,
+    "ancestor_states": [
+      {
+        "time": 206756444852608,
+        "g": 267,
+        "event": "M=6097661952 P=0 G=267 StateTransition Time=206756444852608 GoID=270 NotExist->Runnable Reason=\"\"",
+        "stacks": {
+          "TransitionStack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5583 (init_embedded_server)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5749 (mysql_server_init)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244 (l4m_open)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21790 (_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code.Start",
+            "github.com/masahitojp/mariamem/internal/generatedgo.executeGuest",
+            "github.com/masahitojp/mariamem/internal/generatedgo.runInstance.func2"
+          ]
+        }
+      },
+      {
+        "time": 206756466040064,
+        "g": -1,
+        "event": "M=6097661952 P=0 G=-1 StateTransition Time=206756466040064 GoID=270 Runnable->Running Reason=\"\"",
+        "stacks": {}
+      },
+      {
+        "time": 206756466056512,
+        "g": 270,
+        "event": "M=6097661952 P=0 G=270 StateTransition Time=206756466056512 GoID=270 Running->Waiting Reason=\"select\"",
+        "stacks": {
+          "TransitionStack": [
+            "runtime.selectgo",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At",
+            "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88 (__wasilibc_futex_wait_wasix)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216 (__pthread_cond_timedwait)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5495 (timer_handler)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "runtime.selectgo",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At",
+            "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88 (__wasilibc_futex_wait_wasix)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216 (__pthread_cond_timedwait)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5495 (timer_handler)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      },
+      {
+        "time": 206756869078528,
+        "g": -1,
+        "event": "M=8581747456 P=2 G=-1 StateTransition Time=206756869078528 GoID=270 Waiting->Runnable Reason=\"\"",
+        "stacks": {}
+      },
+      {
+        "time": 206756869080896,
+        "g": -1,
+        "event": "M=8581747456 P=2 G=-1 StateTransition Time=206756869080896 GoID=270 Runnable->Running Reason=\"\"",
+        "stacks": {}
+      },
+      {
+        "time": 206756869123712,
+        "g": 270,
+        "event": "M=8581747456 P=2 G=270 StateTransition Time=206756869123712 GoID=270 Running->Syscall Reason=\"\"",
+        "stacks": {
+          "TransitionStack": [
+            "syscall.syscall",
+            "syscall.Mprotect",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn151 (sbrk)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152 (dlmalloc)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236 (__wrap_malloc)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16620 (std::__2::thread::thread<void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*&, 0>(void (tpool::thread_pool_generic::*&&)(tpool::worker_data*), tpool::thread_pool_generic*&&, tpool::worker_data*&))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16619 (tpool::thread_pool_generic::add_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16618 (tpool::thread_pool_generic::maybe_wake_or_create_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16626 (tpool::thread_pool_generic::maintenance_func(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16625 (tpool::thread_pool_generic::timer_generic::execute(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5495 (timer_handler)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ],
+          "Stack": [
+            "syscall.syscall",
+            "syscall.Mprotect",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn151 (sbrk)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152 (dlmalloc)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236 (__wrap_malloc)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243 (__wrap_pthread_create)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16620 (std::__2::thread::thread<void (tpool::thread_pool_generic::*)(tpool::worker_data*), tpool::thread_pool_generic*, tpool::worker_data*&, 0>(void (tpool::thread_pool_generic::*&&)(tpool::worker_data*), tpool::thread_pool_generic*&&, tpool::worker_data*&))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16619 (tpool::thread_pool_generic::add_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16618 (tpool::thread_pool_generic::maybe_wake_or_create_thread())",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16626 (tpool::thread_pool_generic::maintenance_func(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16625 (tpool::thread_pool_generic::timer_generic::execute(void*))",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5495 (timer_handler)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 (wasi_thread_start)",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1",
+            "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          ]
+        }
+      },
+      {
+        "time": 206756869137280,
+        "g": 270,
+        "event": "M=8581747456 P=2 G=270 StateTransition Time=206756869137280 GoID=270 Syscall->Running Reason=\"\"",
+        "stacks": {}
+      }
+    ]
+  }
+]
