@@ -8,6 +8,14 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## Bounded linked-guest streams (2026-11-21)
+
+The Human approved productizing a 16 KiB in-process ring in each direction of
+the linked guest transport. The [matched modelcase](https://github.com/masahitojp/mariamem/blob/7744ca2d63424a5c4b2c430b40100063b7c5ede0/benchmarks/host-stream-modelcase/results-20261121/README.md)
+reduced serial and parallel suite time. The product comparison tracks CPU under
+sustained 256 KiB responses and termination while a stream is full.
+[Issue 233](https://github.com/masahitojp/mariamem/issues/233) owns that decision.
+
 ## Startup buffer preload OFF productization approved (2026-11-17)
 
 The Human accepted local first-read/Fork latency tradeoffs to optimize the whole
