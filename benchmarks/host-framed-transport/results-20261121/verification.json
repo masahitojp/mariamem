@@ -1,0 +1,19 @@
+{
+  "totals": {
+    "processes": 150,
+    "databases": 1536,
+    "inserts": 153600,
+    "traced": 44400,
+    "raw_steady": 90000,
+    "trace_steady": 36000
+  },
+  "request_bytes": 97,
+  "response_min": 214,
+  "response_max": 217,
+  "equal_frame_length_and_slot_by_ordinal": true,
+  "registered_sql_conditions": [
+    "A",
+    "B",
+    "C"
+  ]
+}

@@ -1,0 +1,13 @@
+{"arm":"C","registered":{"order_items_total_delete":"UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=OLD.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=OLD.order_id","order_items_total_update":"UPDATE orders SET total_cents=(SELECT COALESCE(SUM(quantity*unit_price_cents),0) FROM order_items WHERE order_id=NEW.order_id),updated_at=CURRENT_TIMESTAMP(6) WHERE id=NEW.order_id","orders_audit_insert":"INSERT INTO audit_log(order_id,old_status,new_status) VALUES(NEW.id,NULL,NEW.status)","orders_audit_update":"BEGIN IF NOT(NEW.status \u003c=\u003e OLD.status) THEN INSERT INTO audit_log(order_id,old_status,new_status) VALUES(NEW.id,OLD.status,NEW.status); END IF; END"}}
+{"close":"pass","db":0,"inserts":100,"process_cpu_ns":6376000,"raw_ns":6004584}
+{"close":"pass","db":1,"inserts":100,"process_cpu_ns":6736000,"raw_ns":6199208}
+{"close":"pass","db":2,"inserts":100,"process_cpu_ns":6190000,"raw_ns":5823333}
+{"close":"pass","db":3,"inserts":100,"process_cpu_ns":7576000,"raw_ns":6304625}
+{"close":"pass","db":4,"inserts":100,"process_cpu_ns":6183000,"raw_ns":5813750}
+{"close":"pass","db":5,"inserts":100,"process_cpu_ns":6197000,"raw_ns":5815666}
+{"close":"pass","db":6,"inserts":100,"process_cpu_ns":6221000,"raw_ns":5852375}
+{"close":"pass","db":7,"inserts":100,"process_cpu_ns":6217000,"raw_ns":5831084}
+{"close":"pass","db":8,"inserts":100,"process_cpu_ns":6296000,"raw_ns":5907666}
+{"close":"pass","db":9,"inserts":100,"process_cpu_ns":6144000,"raw_ns":5752833}
+{"close":"pass","db":10,"inserts":100,"process_cpu_ns":6290000,"raw_ns":5909542}
+{"close":"pass","db":11,"inserts":100,"process_cpu_ns":6192000,"raw_ns":5813167}

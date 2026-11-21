@@ -1,0 +1,12 @@
+{
+  "temp/harness/main.go": "19ccee43fbf495314f81fc378cce8f30287f8df83667226765e272bfb28b2553",
+  "worktree/internal/guest/linked.go": "d1d9c1ae5a968b2d3474fd3c6ed097b4bb54426069722ede4ca6667b1ddacb66",
+  "worktree/internal/guest/guest.go": "b4607fe69e86305c066491e4df6ed803a33a93f1171cd3fa9b1136fbaed2bc5a",
+  "worktree/internal/mysqlwire/wire.go": "4e29ec39a32a593ebdcd3f5ca73604ef0f66f6e51814187cb7d2b039d2f803ce",
+  "worktree/internal/mysqlwire/prepared_execute.go": "c763b66a438929657238aa7edfc301e1e55e2415813ab1296a8a8bc91409f1f2",
+  "worktree/internal/generatedgo/code/p1/p1_pure.go": "9e89f5e4a47ce6df59087d41ba9d470a011b94c5e7ec8da9f63ad0560cbaa4ef",
+  "worktree/internal/generatedgo/code/p7/p7_pure.go": "c2e9bd96f2638056034e738440f970f04b044b423b17db1c236dc06e207a95ac",
+  "worktree/internal/generatedgo/code/p4/p4_pure.go": "acd8b9937731a352cbf963af4568040f9379e4cf81dfccdf5c46fad9f718d41f",
+  "worktree/internal/generatedgo/code/p6/p6_pure.go": "921e1a9a771ec5c3cd5c687093c3340447e4727357679145d9a38db7b56946f0",
+  "worktree/internal/guest/experiment_stream.go": "f0080f3c3a7f110caafbfeb00718c95c35212b0e9c563e8656d08d84e834dd62"
+}

@@ -1,0 +1,17 @@
+{
+  "host": "macOS-27.2.1-arm64-arm-64bit",
+  "cpu": "Apple M1",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "concurrent_DBs": 1,
+  "binaries": {
+    "raw": {
+      "sha256": "2f02967d0c13f04920fa2571fa9a998c3d462f0de8a3bfba84e1b1a8b12f2226",
+      "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-framed-transport/temp/raw: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-framed-transport/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    },
+    "trace": {
+      "sha256": "049acdaf71089baed42ac8269d3fd06f20cd06427371990239a2411047c22f42",
+      "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-framed-transport/temp/trace: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-framed-transport/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    }
+  }
+}
