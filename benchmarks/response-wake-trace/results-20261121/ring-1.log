@@ -1,0 +1,6 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/masahitojp/mariamem/tests/gointegration
+cpu: Apple M1
+BenchmarkLargeResponseBatch-8   	       1	 243393833 ns/op	1429346000 cpu-ns/op
+PASS

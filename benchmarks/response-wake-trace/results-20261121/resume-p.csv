@@ -1,0 +1,17 @@
+block,resume_P_role,overlap_ns
+1,gc,218625
+1,other,985856
+1,reader,4328816
+1,unassigned,11832444
+1,writer,2118335
+2,gc,51328
+2,guest,211200
+2,other,288576
+2,reader,3604917
+2,unassigned,6235138
+2,writer,2382272
+3,gc,110592
+3,other,1043584
+3,reader,2654571
+3,unassigned,6013056
+3,writer,3074560
