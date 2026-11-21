@@ -1,0 +1,109 @@
+package timeline
+
+import "unsafe"
+
+const phases = 14
+const memory = 6
+
+type Costs struct {
+	NS           [phases][memory]int64
+	PhaseCalls   [phases]int
+	MemCalls     [phases][memory]int
+	MallocBytes  [phases]int64
+	ArenaRefills [phases]int
+	// A union follows the live stack, even when a deeper phase owns the interval.
+	SubtreeMem            [3][memory]int64
+	SubtreeNS             [3]int64 // subquery/JOIN, UPDATE, both
+	phase, mem            int
+	subDepth, updateDepth int
+	rootDepth             int
+	last                  int64
+}
+type Frame struct {
+	phase, mem         int
+	sub, update, arena bool
+}
+
+func InnerRequest(m unsafe.Pointer) *Row {
+	r := Current()
+	// Only the goroutine running this exact foreground module can inspect its nesting depth.
+	if r == nil || r.module.Load() != (*byte)(m) || r.depth == 0 {
+		return nil
+	}
+	return r
+}
+func (c *Costs) start(at int64) {
+	if c.last != 0 || c.phase != 0 || c.mem != 0 {
+		panic("unclean trigger entry")
+	}
+	c.last = at
+}
+func (c *Costs) charge(at int64) {
+	ns := at - c.last
+	if c.last == 0 || ns < 0 {
+		panic("nonmonotonic interval")
+	}
+	c.NS[c.phase][c.mem] += ns
+	if c.subDepth > 0 {
+		c.SubtreeNS[0] += ns
+		c.SubtreeMem[0][c.mem] += ns
+	}
+	if c.updateDepth > 0 {
+		c.SubtreeNS[1] += ns
+		c.SubtreeMem[1][c.mem] += ns
+	}
+	if c.subDepth > 0 && c.updateDepth > 0 {
+		c.SubtreeNS[2] += ns
+		c.SubtreeMem[2][c.mem] += ns
+	}
+	c.last = at
+}
+func (c *Costs) finish(at int64) {
+	c.charge(at)
+	if c.phase != 0 || c.mem != 0 || c.subDepth != 0 || c.updateDepth != 0 || c.rootDepth != 0 {
+		panic("unbalanced trigger")
+	}
+	c.last = 0
+}
+func (c *Costs) EnterPhase(k int) Frame {
+	c.charge(Now())
+	f := Frame{phase: c.phase, mem: c.mem, sub: k >= 7 && k <= 11, update: k >= 4 && k <= 6}
+	if f.sub {
+		c.subDepth++
+	}
+	if f.update {
+		c.updateDepth++
+	}
+	c.PhaseCalls[k]++
+	c.phase = k
+	return f
+}
+func (c *Costs) EnterMem(k int, bytes int64) Frame {
+	c.charge(Now())
+	f := Frame{phase: c.phase, mem: c.mem, arena: k == 2}
+	if f.arena {
+		c.rootDepth++
+	}
+	c.MemCalls[c.phase][k]++
+	if k == 4 {
+		c.MallocBytes[c.phase] += bytes
+		if c.rootDepth > 0 {
+			c.ArenaRefills[c.phase]++
+		}
+	}
+	c.mem = k
+	return f
+}
+func (c *Costs) Leave(f Frame) {
+	c.charge(Now())
+	if f.sub {
+		c.subDepth--
+	}
+	if f.update {
+		c.updateDepth--
+	}
+	if f.arena {
+		c.rootDepth--
+	}
+	c.phase, c.mem = f.phase, f.mem
+}

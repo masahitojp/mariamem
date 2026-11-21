@@ -1,0 +1,38 @@
+{
+  "temp/harness/main.go": {
+    "before": "516eb71ac5c956aa557d6e8d3f79e7a7838e2d8a33989fd642f15936442eae03",
+    "after": "19ccee43fbf495314f81fc378cce8f30287f8df83667226765e272bfb28b2553"
+  },
+  "worktree/internal/guest/linked.go": {
+    "before": "380f5cc43d2c92bf4ef84958c7a2c36962c63d2d005684e6e7f4675c827a9881",
+    "after": "398442148ecb02dab37542076273c9abe6acb1f92cfc062a9f863c8a2353cb16"
+  },
+  "worktree/internal/guest/guest.go": {
+    "before": "cc27b1729369ced6318fb326636e715c2b67a18845624c00b835ee97d6c662ab",
+    "after": "b4607fe69e86305c066491e4df6ed803a33a93f1171cd3fa9b1136fbaed2bc5a"
+  },
+  "worktree/internal/mysqlwire/wire.go": {
+    "before": "88aa8ea922677a1d07dc071ae61f0cc6235e1b2da73b39e2d68fbf6fad39e2b4",
+    "after": "4e29ec39a32a593ebdcd3f5ca73604ef0f66f6e51814187cb7d2b039d2f803ce"
+  },
+  "worktree/internal/mysqlwire/prepared_execute.go": {
+    "before": "576baad1020b8ee5a93e2dc55d63cb10d54e7450ce73f3aa0ae4849723fbd21d",
+    "after": "c763b66a438929657238aa7edfc301e1e55e2415813ab1296a8a8bc91409f1f2"
+  },
+  "worktree/internal/generatedgo/code/p1/p1_pure.go": {
+    "before": "aa18c344f908269b7e4e1bcb60be2ada5c504d09e4816f54174080b7294f4b40",
+    "after": "9e89f5e4a47ce6df59087d41ba9d470a011b94c5e7ec8da9f63ad0560cbaa4ef"
+  },
+  "worktree/internal/generatedgo/code/p7/p7_pure.go": {
+    "before": "5de8e0fe8c110f244ffc616e67382e3286fb27baa70d81e9327fca0dcc30befa",
+    "after": "c2e9bd96f2638056034e738440f970f04b044b423b17db1c236dc06e207a95ac"
+  },
+  "worktree/internal/generatedgo/code/p4/p4_pure.go": {
+    "before": "fab0e0b6e7b235b6d748029e29be0711286ed91a813b8eba38fb6a94262e0ec4",
+    "after": "acd8b9937731a352cbf963af4568040f9379e4cf81dfccdf5c46fad9f718d41f"
+  },
+  "worktree/internal/generatedgo/code/p6/p6_pure.go": {
+    "before": "e413d9f71a4eaf6958acf7775ab2128f715de0056eaec63bcbef78fa91c58a82",
+    "after": "921e1a9a771ec5c3cd5c687093c3340447e4727357679145d9a38db7b56946f0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "totals": {
+    "processes": 60,
+    "DBs": 588,
+    "inserts": 58800,
+    "timed_inserts": 44100,
+    "steady_inserts": 48000,
+    "steady_inner": 24000
+  },
+  "rejected_corrupt_traces": 5,
+  "verified_modes": [
+    "base",
+    "outer",
+    "phase",
+    "detail"
+  ]
+}

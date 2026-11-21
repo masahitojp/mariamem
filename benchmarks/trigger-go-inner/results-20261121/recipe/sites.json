@@ -1,0 +1,172 @@
+[
+  {
+    "kind": "phase",
+    "index": 1,
+    "label": "program",
+    "functions": {
+      "13353": "_ZN7sp_head7executeEP3THDb",
+      "21332": "_ZN13sp_instr_stmt7executeEP3THDPj",
+      "21335": "_ZN13sp_instr_stmt9exec_coreEP3THDPj",
+      "21327": "_ZN13sp_lex_keeper23reset_lex_and_exec_coreEP3THDPjbP8sp_instrb",
+      "21328": "_ZN13sp_lex_keeper26validate_lex_and_exec_coreEP3THDPjbP12sp_lex_instr"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 2,
+    "label": "command",
+    "functions": {
+      "14601": "_Z21mysql_execute_commandP3THDb",
+      "15207": "_ZN11Sql_cmd_dml7executeEP3THD"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 3,
+    "label": "tables",
+    "functions": {
+      "13505": "_Z11open_tablesP3THDRK14DDL_options_stPP10TABLE_LISTPjjP19Prelocking_strategy",
+      "13514": "_Z20open_and_lock_tablesP3THDRK14DDL_options_stP10TABLE_LISTbjP19Prelocking_strategy",
+      "13517": "_Z21open_tables_for_queryP3THDP10TABLE_LISTPjjP23DML_prelocking_strategy",
+      "12431": "_Z17mysql_lock_tablesP3THDPP5TABLEjj",
+      "12433": "_Z17mysql_lock_tablesP3THDP13st_mysql_lockj",
+      "12434": "_Z19mysql_unlock_tablesP3THDP13st_mysql_lockb",
+      "12435": "_Z19mysql_unlock_tablesP3THDP13st_mysql_lock",
+      "13481": "_Z29close_thread_tables_for_queryP3THD",
+      "13482": "_Z19close_thread_tablesP3THD"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 4,
+    "label": "update_prepare",
+    "functions": {
+      "15206": "_ZN11Sql_cmd_dml7prepareEP3THD",
+      "15638": "_ZN14Sql_cmd_update8precheckEP3THD",
+      "15639": "_ZN14Sql_cmd_update13prepare_innerEP3THD"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 5,
+    "label": "update",
+    "functions": {
+      "15640": "_ZN14Sql_cmd_update13execute_innerEP3THD",
+      "15621": "_ZN14Sql_cmd_update19update_single_tableEP3THD"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 6,
+    "label": "update_plan",
+    "functions": {
+      "14080": "_ZN11Update_plan24save_explain_update_dataEP3THDP11st_mem_root",
+      "14079": "_ZN11Update_plan24save_explain_data_internEP3THDP11st_mem_rootP14Explain_updateb"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 7,
+    "label": "sub_prepare",
+    "functions": {
+      "13630": "_ZN14Item_subselect10fix_fieldsEP3THDPP4Item",
+      "13727": "_ZN30subselect_single_select_engine7prepareEP3THD",
+      "14985": "_ZN4JOIN7prepareEP10TABLE_LISTP4ItemjP8st_orderbS5_S3_S5_P13st_select_lexP18st_select_lex_unit"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 8,
+    "label": "join_optimize",
+    "functions": {
+      "14986": "_ZN4JOIN8optimizeEv"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 9,
+    "label": "sub_execute",
+    "functions": {
+      "13642": "_ZN14Item_subselect4execEv",
+      "13734": "_ZN30subselect_single_select_engine4execEv"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 10,
+    "label": "join_execute",
+    "functions": {
+      "15087": "_ZN4JOIN4execEv",
+      "14987": "_ZN4JOIN10exec_innerEv"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 11,
+    "label": "sum_add",
+    "functions": {
+      "11318": "_ZN12Item_sum_sum10add_helperEb"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 12,
+    "label": "row_update",
+    "functions": {
+      "7250": "_ZN7handler13ha_update_rowEPKhS1_",
+      "16849": "_Z20row_update_for_mysqlP14row_prebuilt_t"
+    }
+  },
+  {
+    "kind": "phase",
+    "index": 13,
+    "label": "select_cleanup",
+    "functions": {
+      "13626": "_ZN14Item_subselect7cleanupEv",
+      "13627": "_ZN24Item_singlerow_subselect7cleanupEv",
+      "13722": "_ZN30subselect_single_select_engine7cleanupEv",
+      "15090": "_ZN4JOIN7cleanupEb",
+      "15576": "_ZN18st_select_lex_unit7cleanupEv"
+    }
+  },
+  {
+    "kind": "mem",
+    "index": 1,
+    "label": "arena_init",
+    "functions": {
+      "781": "init_alloc_root"
+    }
+  },
+  {
+    "kind": "mem",
+    "index": 2,
+    "label": "arena_alloc",
+    "functions": {
+      "783": "alloc_root"
+    }
+  },
+  {
+    "kind": "mem",
+    "index": 3,
+    "label": "arena_free",
+    "functions": {
+      "785": "free_root"
+    }
+  },
+  {
+    "kind": "mem",
+    "index": 4,
+    "label": "dlmalloc",
+    "functions": {
+      "152": "dlmalloc"
+    }
+  },
+  {
+    "kind": "mem",
+    "index": 5,
+    "label": "dlfree",
+    "functions": {
+      "153": "dlfree"
+    }
+  }
+]
