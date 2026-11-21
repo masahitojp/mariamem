@@ -1,0 +1,33 @@
+package timeline
+
+import (
+	"encoding/binary"
+	"testing"
+)
+
+func TestSplitInputAndControlFrames(t *testing.T) {
+	const payload = 91
+	const total = 13 + payload
+	packet := make([]byte, total)
+	binary.LittleEndian.PutUint32(packet, uint32(total-4))
+	packet[4] = 5
+	binary.LittleEndian.PutUint32(packet[5:], 9)
+	binary.LittleEndian.PutUint32(packet[9:], 2)
+	// Identical request IDs can recur in independent DBs. Only the
+	// currently selected client and slot may own this particular frame.
+	for _, split := range []int{1, 3, 4, 6, 13, 23, 4096} {
+		r := &Row{ID: 9, Slot: 2, RequestBytes: total}
+		active.Store(r)
+		var parser Reader
+		stream := append([]byte{0, 0, 0, 0, 0xfe, 0xff, 0xff, 0xff}, packet...)
+		for len(stream) > 0 {
+			n := min(len(stream), split)
+			parser.feed(stream[:n])
+			stream = stream[n:]
+		}
+		active.Store(nil)
+		if parser.seen != 0 || r.T[Input] == 0 {
+			t.Fatal("missing completed frame", split)
+		}
+	}
+}

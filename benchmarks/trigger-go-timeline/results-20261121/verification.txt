@@ -1,0 +1,5 @@
+All 24 processes, 222 DBs, 22200 INSERTs passed; 11100 timed, 9000 retained for stage averages. Four damaged traces rejected.
+=== RUN   TestSplitInputAndControlFrames
+--- PASS: TestSplitInputAndControlFrames (0.00s)
+PASS
+ok  	github.com/shibukawa/pgmem/bench/modelcase/timeline	0.298s

@@ -1,0 +1,239 @@
+package timeline
+
+import (
+	"encoding/binary"
+	"encoding/json"
+	"io"
+	"os"
+	"sync/atomic"
+	"time"
+	"unsafe"
+)
+
+const (
+	Client = iota
+	Wire
+	Monitor
+	Call
+	QueueAcquired
+	Write
+	Input
+	Worker
+	SQL
+	SQLEnd
+	Reply
+	Output
+	Header
+	Body
+	Decoded
+	Notify
+	Resume
+	MonitorResume
+	MonitorEnd
+	WireSend
+	ClientEnd
+	Count
+)
+
+type Row struct {
+	DB, Ordinal                 int
+	ID, Slot                    uint32
+	RequestBytes, ResponseBytes int
+	T                           [Count]int64
+	TriggerNS                   int64
+	TriggerCalls                int
+	depth                       int
+	module                      atomic.Pointer[byte]
+	owner                       any
+	outLength                   uint32
+}
+
+var origin = time.Now()
+var active atomic.Pointer[Row]
+var all [][]Row
+
+func Now() int64    { return time.Since(origin).Nanoseconds() }
+func Current() *Row { return active.Load() }
+func Batch(db int) []Row {
+	rows := make([]Row, 100)
+	for i := range rows {
+		rows[i].DB = db
+		rows[i].Ordinal = i
+	}
+	all = append(all, rows)
+	return rows
+}
+func (r *Row) At(k int, t int64) {
+	if !atomic.CompareAndSwapInt64(&r.T[k], 0, t) {
+		panic("duplicate timeline marker")
+	}
+}
+func (r *Row) Mark(k int) { r.At(k, Now()) }
+func Mark(k int) {
+	if r := Current(); r != nil {
+		r.Mark(k)
+	}
+}
+func Begin(r *Row) {
+	if active.Swap(r) != nil {
+		panic("overlap")
+	}
+	r.Mark(Client)
+}
+func End(r *Row) {
+	r.Mark(ClientEnd)
+	if active.Swap(nil) != r || r.depth != 0 || r.module.Load() != nil {
+		panic("unfinished request")
+	}
+	for i := 1; i < Count; i++ {
+		if r.T[i] < r.T[i-1] || r.T[i-1] == 0 {
+			panic("missing/unordered stage " + string(rune('A'+i)))
+		}
+	}
+	if r.ID == 0 || r.RequestBytes < 13 || r.ResponseBytes <= 0 || uint32(r.ResponseBytes) != r.outLength {
+		panic("frame mismatch")
+	}
+	r.owner = nil
+}
+func Save() {
+	f, err := os.Create(os.Getenv("TIMELINE_OUT"))
+	if err != nil {
+		panic(err)
+	}
+	if err := json.NewEncoder(f).Encode(all); err != nil {
+		panic(err)
+	}
+	if err := f.Close(); err != nil {
+		panic(err)
+	}
+}
+func Bind(owner any, id, slot uint32, n int, callAt int64) {
+	if r := Current(); r != nil {
+		r.owner = owner
+		r.Slot = slot
+		r.RequestBytes = n
+		atomic.StoreUint32(&r.ID, id)
+		r.At(Call, callAt)
+	}
+}
+func Matches(id uint32) *Row {
+	if r := Current(); r != nil && id != 0 && atomic.LoadUint32(&r.ID) == id {
+		return r
+	}
+	return nil
+}
+func OnSQL(m unsafe.Pointer) func() {
+	r := Current()
+	if r == nil {
+		return func() {}
+	}
+	if !r.module.CompareAndSwap(nil, (*byte)(m)) {
+		panic("nested SQL")
+	}
+	r.Mark(SQL)
+	return func() { r.Mark(SQLEnd); r.module.Store(nil) }
+}
+func OnTrigger(m unsafe.Pointer) func() {
+	r := Current()
+	if r == nil || r.module.Load() != (*byte)(m) {
+		return func() {}
+	}
+	outer := r.depth == 0
+	var start int64
+	if outer {
+		start = Now()
+	}
+	r.depth++
+	r.TriggerCalls++
+	return func() {
+		r.depth--
+		if outer {
+			r.TriggerNS += Now() - start
+		}
+	}
+}
+func OnReply(id, slot uint32) {
+	if r := Matches(id); r != nil {
+		if r.Slot != slot {
+			panic("reply slot")
+		}
+		r.Mark(Reply)
+	}
+}
+func GotFrame(owner any, id uint32, n int, header, body, decoded int64) {
+	if r := Matches(id); r != nil {
+		if owner != r.owner {
+			panic("response owner")
+		}
+		r.ResponseBytes = n
+		r.At(Header, header)
+		r.At(Body, body)
+		r.At(Decoded, decoded)
+	}
+}
+
+// P1 has one foreground command. Verify the complete input frame before
+// assigning it to that command, even when reads split its header or payload.
+type Reader struct {
+	Source      io.Reader
+	header      [13]byte
+	seen, total int
+}
+
+func (s *Reader) Read(p []byte) (int, error) {
+	n, err := s.Source.Read(p)
+	s.feed(p[:n])
+	return n, err
+}
+func (s *Reader) feed(p []byte) {
+	for len(p) > 0 {
+		if s.seen < 4 {
+			take := min(4-s.seen, len(p))
+			copy(s.header[s.seen:], p[:take])
+			s.seen += take
+			p = p[take:]
+			if s.seen < 4 {
+				return
+			}
+			size := binary.LittleEndian.Uint32(s.header[:4])
+			if size == 0 || size == 0xfffffffe {
+				s.seen = 0
+				continue
+			}
+			if size < 9 || size > (32<<20)+9 {
+				panic("invalid input frame size")
+			}
+			s.total = 4 + int(size)
+		}
+		take := min(len(p), s.total-s.seen)
+		if s.seen < 13 {
+			copy(s.header[s.seen:], p[:min(take, 13-s.seen)])
+		}
+		s.seen += take
+		p = p[take:]
+		if s.seen == s.total {
+			id := binary.LittleEndian.Uint32(s.header[5:9])
+			if r := Matches(id); r != nil {
+				if s.header[4] != 5 || binary.LittleEndian.Uint32(s.header[9:13]) != r.Slot || s.total != r.RequestBytes {
+					panic("input mismatch")
+				}
+				r.Mark(Input)
+			}
+			s.seen = 0
+			s.total = 0
+		}
+	}
+}
+
+type Writer struct{ Target io.Writer }
+
+func (s *Writer) Write(p []byte) (int, error) {
+	if r := Current(); r != nil && len(p) > 0 && atomic.LoadInt64(&r.T[Reply]) > 0 && atomic.LoadInt64(&r.T[Output]) == 0 {
+		if len(p) < 4 {
+			panic("short output prefix")
+		}
+		r.outLength = binary.LittleEndian.Uint32(p[:4])
+		r.Mark(Output)
+	}
+	return s.Target.Write(p)
+}
