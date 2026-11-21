@@ -1,0 +1,9 @@
+idle-01-0-1-400 PASS 120.0
+idle-01-1-1-50 PASS 120.0
+idle-01-2-8-50 PASS 120.0
+idle-01-3-8-400 PASS 120.0
+idle-02-0-8-400 PASS 120.0
+idle-02-1-8-50 PASS 120.0
+idle-02-2-1-50 PASS 120.0
+idle-02-3-1-400 PASS 120.0
+peak owned bytes 1658580992 minimum free bytes 75538661376

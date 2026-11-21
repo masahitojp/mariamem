@@ -1,0 +1,22 @@
+{
+  "p3_pure.go": [
+    "3ced860376addabc59a118238e33405202d1c28e6cecdfcdcd5725be91fc64d7",
+    "6b4224c04eae07729c0612fc04150b436885aafd6bb160aa4e2d16e578b6fb01"
+  ],
+  "fixture_test.go": [
+    "f3c086b742ceebd49c867889d24a527424c9abe148ddbe7fd07825814bda9d5d",
+    "02f7cbc17f8d9ffc6ddea4d548480c01c09af99026a003eb7aa2bac8ee44b803"
+  ],
+  "p5_pure.go": [
+    "1f0e0476513330ccd8f1cff75a72a1a912919a080e53fb8e07c4461db69531cf",
+    "33eae6962d71e70c75541bda24b98a00b8377be2680abf648cd6b7dce89f1f76"
+  ],
+  "p4_pure.go": [
+    "fab0e0b6e7b235b6d748029e29be0711286ed91a813b8eba38fb6a94262e0ec4",
+    "35fc63ed98eab225c7dc028dca146b5cc24d30b8ed8dfea57a4d9946f228415a"
+  ],
+  "p6_pure.go": [
+    "e413d9f71a4eaf6958acf7775ab2128f715de0056eaec63bcbef78fa91c58a82",
+    "f2e95444f230c3ba0bbc12a6656ed77ed7f603c361f6fbba623aea2070ac9301"
+  ]
+}

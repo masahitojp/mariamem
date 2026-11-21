@@ -1,0 +1,75 @@
+{
+  "DBs": 1,
+  "Period": 400,
+  "Armed": 2,
+  "Readings": [
+    {
+      "Seconds": 1.0625e-05,
+      "UserUS": 114633,
+      "SystemUS": 37347,
+      "Interrupts": 931,
+      "PackageIdle": 1,
+      "Ticks": 2,
+      "SetLow": 0,
+      "SetHigh": 0,
+      "Starts": 13,
+      "Voluntary": 54,
+      "Involuntary": 2095
+    },
+    {
+      "Seconds": 30.002091458,
+      "UserUS": 132593,
+      "SystemUS": 47403,
+      "Interrupts": 1502,
+      "PackageIdle": 8,
+      "Ticks": 76,
+      "SetLow": 0,
+      "SetHigh": 0,
+      "Starts": 13,
+      "Voluntary": 54,
+      "Involuntary": 2896
+    },
+    {
+      "Seconds": 70.002172291,
+      "UserUS": 152012,
+      "SystemUS": 59254,
+      "Interrupts": 2206,
+      "PackageIdle": 15,
+      "Ticks": 155,
+      "SetLow": 1,
+      "SetHigh": 0,
+      "Starts": 13,
+      "Voluntary": 54,
+      "Involuntary": 3873
+    },
+    {
+      "Seconds": 120.002140041,
+      "UserUS": 168417,
+      "SystemUS": 68089,
+      "Interrupts": 2703,
+      "PackageIdle": 15,
+      "Ticks": 167,
+      "SetLow": 1,
+      "SetHigh": 0,
+      "Starts": 13,
+      "Voluntary": 54,
+      "Involuntary": 4599
+    }
+  ],
+  "Expected": [
+    40,
+    100,
+    1888173,
+    1888173
+  ],
+  "After": [
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ]
+  ],
+  "block": 2,
+  "position": 3
+}

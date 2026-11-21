@@ -1,0 +1,73 @@
+package store_test
+
+import (
+    "context"
+    "database/sql"
+    "encoding/json"
+    "fmt"
+    "os"
+    "strconv"
+    "time"
+    mm "github.com/masahitojp/mariamem"
+    "github.com/shibukawa/pgmem/bench/modelcase/period"
+    "github.com/shibukawa/pgmem/bench/modelcase/store"
+)
+
+type heldResult struct {
+    DBs int
+    Period,Armed int64
+    Readings []period.Reading
+    Expected []int64
+    After [][]int64
+}
+func orderTotals(ctx context.Context, db *sql.DB)([]int64,error) {
+    values:=make([]int64,4)
+    err:=db.QueryRowContext(ctx,"SELECT (SELECT COUNT(*) FROM orders), (SELECT COUNT(*) FROM order_items), (SELECT SUM(total_cents) FROM orders), (SELECT SUM(quantity*unit_price_cents) FROM order_items)").Scan(&values[0],&values[1],&values[2],&values[3])
+    return values,err
+}
+func holdIdle() error {
+    n,err:=strconv.Atoi(os.Getenv("IDLE_DBS"));if err!=nil||n!=1&&n!=8{return fmt.Errorf("invalid idle size")}
+    ctx:=context.Background()
+    root,err:=mm.Start(ctx,mm.Options{});if err!=nil{return err}
+    sqlRoot:=openInProcess(root)
+    if err=prepare(ctx,sqlRoot);err!=nil{return err}
+    if err=sqlRoot.Close();err!=nil{return err}
+    if err=root.WaitDisconnected(ctx);err!=nil{return err}
+    snap,err:=root.Snapshot(ctx,mm.SnapshotOptions{MaxForks:16});if err!=nil{return err}
+    if err=root.Close();err!=nil{return err}
+    var dbs []*mm.Database
+    var total int64
+    for _,order:=range store.SampleOrders(){for _,it:=range order.Items{total+=int64(it.Quantity)*int64(it.UnitPriceCents)}}
+    result:=heldResult{DBs:n,Period:period.Milliseconds,Expected:[]int64{40,100,total,total}}
+    check:=func(s *mm.Database,load bool)([]int64,error){
+        d:=openInProcess(s)
+        if load {if err:=store.LoadSample(ctx,d);err!=nil{return nil,err}}
+        v,err:=orderTotals(ctx,d);if err!=nil{return nil,err}
+        for i,x:=range v{if result.Expected[i]!=x{return nil,fmt.Errorf("order checks %v; expected %v",v,result.Expected)}}
+        if err=d.Close();err!=nil{return nil,err}
+        return v,s.WaitDisconnected(ctx)
+    }
+    for i:=0;i<n;i++{
+        s,err:=snap.Fork(ctx);if err!=nil{return err}
+        dbs=append(dbs,s)
+        if _,err=check(s,true);err!=nil{return err}
+    }
+    if err=snap.Close();err!=nil{return err}
+    result.Armed=period.ArmCount()
+    if result.Armed!=int64(n+1){return fmt.Errorf("active DBs %d, arms %d",n,result.Armed)}
+    origin:=time.Now()
+    stops:=[]int{0,30,70,120}
+    if os.Getenv("IDLE_PILOT")=="1"{stops=[]int{0,1,2,3}}
+    result.Readings=make([]period.Reading,0,len(stops))
+    for _,sec:=range stops {
+        time.Sleep(time.Until(origin.Add(time.Duration(sec)*time.Second)))
+        result.Readings=append(result.Readings,period.Read(origin))
+    }
+    for _,d:=range dbs{
+        v,err:=check(d,false);if err!=nil{return err}
+        result.After=append(result.After,v)
+        if err=d.Close();err!=nil{return err}
+    }
+    encoded,err:=json.MarshalIndent(result,"","  ");if err!=nil{return err}
+    return os.WriteFile(os.Getenv("IDLE_REPORT"),encoded,0644)
+}

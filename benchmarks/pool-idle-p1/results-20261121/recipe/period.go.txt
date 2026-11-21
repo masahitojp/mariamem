@@ -1,0 +1,25 @@
+package period
+
+import (
+    "fmt"
+    "os"
+    "sync/atomic"
+)
+
+var Milliseconds = func() int64 {
+    switch os.Getenv("POOL_PERIOD_MS") {
+    case "", "400":
+        return 400
+    case "50":
+        return 50
+    default:
+        panic("unexpected pool period")
+    }
+}()
+var arms atomic.Int64
+
+func Armed(actual int32) {
+    if int64(actual) != Milliseconds { panic("incorrect initial maintenance interval") }
+    arms.Add(1)
+}
+func Report() { fmt.Printf("POOL_PERIOD %d %d\n", Milliseconds, arms.Load()) }

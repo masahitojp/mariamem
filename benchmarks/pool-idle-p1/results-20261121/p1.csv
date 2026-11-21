@@ -1,0 +1,3 @@
+period,suites,loads,cpu_med_ms,wall_med_ms,max_load_ms,tail_loads
+400,48,1008,1232.989,1628.8755,50.087,0
+50,48,1008,1200.806,1247.6745,50.643,0
