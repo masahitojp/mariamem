@@ -1,0 +1,30 @@
+0-A-base pass
+0-A-parent pass
+0-A-branch pass
+0-A-deep pass
+0-B-base pass
+0-B-parent pass
+0-B-branch pass
+0-B-deep pass
+0-C-base pass
+0-C-parent pass
+0-C-branch pass
+0-C-deep pass
+1-A-base pass
+1-A-parent pass
+1-A-deep pass
+1-A-branch pass
+1-B-base pass
+1-B-parent pass
+1-B-deep pass
+1-B-branch pass
+1-C-base pass
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/join-optimize-go/evidence/published/recipe/campaign.py", line 68, in <module>
+    if __name__=='__main__':main()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/join-optimize-go/evidence/published/recipe/campaign.py", line 64, in main
+    validate(json.loads(data),rows[1:],sql,mode)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/join-optimize-go/evidence/published/recipe/campaign.py", line 26, in validate
+    assert r['TriggerCalls']==(2 if sql=='C' else 4) and 0<ns<=ts[9]-ts[8]
+AssertionError
+peak owned bytes 2636627968 minimum free bytes 75263414272

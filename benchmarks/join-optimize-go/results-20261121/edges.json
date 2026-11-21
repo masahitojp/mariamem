@@ -1,0 +1,4201 @@
+{
+  "parents": {
+    "14986": "_ZN4JOIN8optimizeEv",
+    "15000": "_ZN4JOIN14optimize_innerEv",
+    "14999": "_ZN4JOIN13build_explainEv",
+    "15004": "_ZL13optimize_condP4JOINP4ItemP4ListI10TABLE_LISTEbPNS1_11cond_resultEPP10COND_EQUALi",
+    "15009": "_ZL20make_join_statisticsP4JOINR4ListI10TABLE_LISTEP16st_dynamic_array",
+    "15010": "_ZN4JOIN15optimize_stage2Ev",
+    "12791": "_ZN10SQL_SELECT17test_quick_selectEP3THD6BitmapILj64EEyybbbbN9Item_func6BitmapE",
+    "15037": "_Z11choose_planP4JOINyP10TABLE_LIST",
+    "14993": "_ZN4JOIN14prepare_stage2Ev"
+  },
+  "edges": [
+    {
+      "id": 0,
+      "caller": "root",
+      "target": "14986",
+      "symbol": "_ZN4JOIN8optimizeEv",
+      "level": 0
+    },
+    {
+      "id": 1,
+      "caller": "14986",
+      "target": "14999",
+      "symbol": "_ZN4JOIN13build_explainEv",
+      "level": 1
+    },
+    {
+      "id": 2,
+      "caller": "14986",
+      "target": "15000",
+      "symbol": "_ZN4JOIN14optimize_innerEv",
+      "level": 1
+    },
+    {
+      "id": 3,
+      "caller": "14986",
+      "target": "indirect@77",
+      "symbol": "indirect@77",
+      "level": 1
+    },
+    {
+      "id": 4,
+      "caller": "15000",
+      "target": "15024",
+      "symbol": "_ZL32process_direct_rownum_comparisonP3THDP18st_select_lex_unitP4Item",
+      "level": 1
+    },
+    {
+      "id": 5,
+      "caller": "15000",
+      "target": "7577",
+      "symbol": "_ZN18Json_writer_objectD2Ev",
+      "level": 1
+    },
+    {
+      "id": 6,
+      "caller": "15000",
+      "target": "20007",
+      "symbol": "_ZN11Json_writer12start_objectEv",
+      "level": 1
+    },
+    {
+      "id": 7,
+      "caller": "15000",
+      "target": "20013",
+      "symbol": "_ZN11Json_writer10add_memberEPKc",
+      "level": 1
+    },
+    {
+      "id": 8,
+      "caller": "15000",
+      "target": "20023",
+      "symbol": "_ZN11Json_writer7add_strEPKc",
+      "level": 1
+    },
+    {
+      "id": 9,
+      "caller": "15000",
+      "target": "20015",
+      "symbol": "_ZN11Json_writer6add_llEx",
+      "level": 1
+    },
+    {
+      "id": 10,
+      "caller": "15000",
+      "target": "20010",
+      "symbol": "_ZN11Json_writer11start_arrayEv",
+      "level": 1
+    },
+    {
+      "id": 11,
+      "caller": "15000",
+      "target": "12780",
+      "symbol": "_ZN17Json_writer_arrayD2Ev",
+      "level": 1
+    },
+    {
+      "id": 12,
+      "caller": "15000",
+      "target": "21536",
+      "symbol": "_ZN9Opt_hints5printEP3THDP6String",
+      "level": 1
+    },
+    {
+      "id": 13,
+      "caller": "15000",
+      "target": "7181",
+      "symbol": "_ZN13Binary_string10c_ptr_safeEv",
+      "level": 1
+    },
+    {
+      "id": 14,
+      "caller": "15000",
+      "target": "12776",
+      "symbol": "_ZN18Json_writer_object3addEPKcS1_",
+      "level": 1
+    },
+    {
+      "id": 15,
+      "caller": "15000",
+      "target": "988",
+      "symbol": "my_free",
+      "level": 1
+    },
+    {
+      "id": 16,
+      "caller": "15000",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 1
+    },
+    {
+      "id": 17,
+      "caller": "15000",
+      "target": "14292",
+      "symbol": "_ZN13st_select_lex18update_used_tablesEv",
+      "level": 1
+    },
+    {
+      "id": 18,
+      "caller": "15000",
+      "target": "14296",
+      "symbol": "_ZN13st_select_lex14handle_derivedEP3LEXj",
+      "level": 1
+    },
+    {
+      "id": 19,
+      "caller": "15000",
+      "target": "21218",
+      "symbol": "_ZN4JOIN36transform_in_predicates_into_in_subqEP3THD",
+      "level": 1
+    },
+    {
+      "id": 20,
+      "caller": "15000",
+      "target": "783",
+      "symbol": "alloc_root",
+      "level": 1
+    },
+    {
+      "id": 21,
+      "caller": "15000",
+      "target": "7998",
+      "symbol": "_ZN4ItemC2EP3THD",
+      "level": 1
+    },
+    {
+      "id": 22,
+      "caller": "15000",
+      "target": "13654",
+      "symbol": "_ZN14Item_subselectD2Ev",
+      "level": 1
+    },
+    {
+      "id": 23,
+      "caller": "15000",
+      "target": "13697",
+      "symbol": "_ZN12Item_sum_minC2EP3THDP4Item",
+      "level": 1
+    },
+    {
+      "id": 24,
+      "caller": "15000",
+      "target": "13698",
+      "symbol": "_ZN12Item_sum_maxC2EP3THDP4Item",
+      "level": 1
+    },
+    {
+      "id": 25,
+      "caller": "15000",
+      "target": "13889",
+      "symbol": "_ZN16Item_change_list33nocheck_register_item_tree_changeEPP4ItemS1_P11st_mem_root",
+      "level": 1
+    },
+    {
+      "id": 26,
+      "caller": "15000",
+      "target": "14996",
+      "symbol": "_Z17count_field_typesP13st_select_lexP15TMP_TABLE_PARAMR4ListI4ItemEb",
+      "level": 1
+    },
+    {
+      "id": 27,
+      "caller": "15000",
+      "target": "14993",
+      "symbol": "_ZN4JOIN14prepare_stage2Ev",
+      "level": 1
+    },
+    {
+      "id": 28,
+      "caller": "15000",
+      "target": "13653",
+      "symbol": "_ZN24Item_singlerow_subselectC2EP3THDP13st_select_lex",
+      "level": 1
+    },
+    {
+      "id": 29,
+      "caller": "15000",
+      "target": "19858",
+      "symbol": "_Z36convert_join_subqueries_to_semijoinsP4JOIN",
+      "level": 1
+    },
+    {
+      "id": 30,
+      "caller": "15000",
+      "target": "13538",
+      "symbol": "_Z13setup_ftfuncsP13st_select_lex",
+      "level": 1
+    },
+    {
+      "id": 31,
+      "caller": "15000",
+      "target": "15166",
+      "symbol": "_Z21instantiate_tmp_tableP5TABLEP6st_keyP18st_maria_columndefPS4_y",
+      "level": 1
+    },
+    {
+      "id": 32,
+      "caller": "15000",
+      "target": "20096",
+      "symbol": "_Z34create_explain_query_if_not_existsP3LEXP11st_mem_root",
+      "level": 1
+    },
+    {
+      "id": 33,
+      "caller": "15000",
+      "target": "15001",
+      "symbol": "_ZL14simplify_joinsP4JOINP4ListI10TABLE_LISTEP4Itembb",
+      "level": 1
+    },
+    {
+      "id": 34,
+      "caller": "15000",
+      "target": "21298",
+      "symbol": "_Z31add_table_function_dependenciesP4ListI10TABLE_LISTEyPb",
+      "level": 1
+    },
+    {
+      "id": 35,
+      "caller": "15000",
+      "target": "14299",
+      "symbol": "_ZN13st_select_lex16save_leaf_tablesEP3THD",
+      "level": 1
+    },
+    {
+      "id": 36,
+      "caller": "15000",
+      "target": "15002",
+      "symbol": "_ZL29build_bitmap_for_nested_joinsP4ListI10TABLE_LISTEj",
+      "level": 1
+    },
+    {
+      "id": 37,
+      "caller": "15000",
+      "target": "19881",
+      "symbol": "_ZN13st_select_lex28optimize_constant_subqueriesEv",
+      "level": 1
+    },
+    {
+      "id": 38,
+      "caller": "15000",
+      "target": "19886",
+      "symbol": "_Z32setup_degenerate_jtbm_semi_joinsP4JOINP4ListI10TABLE_LISTERS1_I4ItemE",
+      "level": 1
+    },
+    {
+      "id": 39,
+      "caller": "15000",
+      "target": "14110",
+      "symbol": "_Z9and_itemsP3THDP4ItemS2_",
+      "level": 1
+    },
+    {
+      "id": 40,
+      "caller": "15000",
+      "target": "15003",
+      "symbol": "_Z9and_condsP3THDP4ItemS2_",
+      "level": 1
+    },
+    {
+      "id": 41,
+      "caller": "15000",
+      "target": "15025",
+      "symbol": "_ZN4JOIN45transform_all_conds_and_on_exprs_in_join_listEP3THDP4ListI10TABLE_LISTEM4ItemFPS6_S1_PhE",
+      "level": 1
+    },
+    {
+      "id": 42,
+      "caller": "15000",
+      "target": "12980",
+      "symbol": "_ZL31collect_indexed_vcols_for_tableP5TABLEP4ListI5FieldE",
+      "level": 1
+    },
+    {
+      "id": 43,
+      "caller": "15000",
+      "target": "21258",
+      "symbol": "_Z15trace_conditionP3THDPKcS2_P4ItemS2_",
+      "level": 1
+    },
+    {
+      "id": 44,
+      "caller": "15000",
+      "target": "12982",
+      "symbol": "_ZL24subst_vcols_in_join_listP18Vcol_subst_contextP4ListI10TABLE_LISTE",
+      "level": 1
+    },
+    {
+      "id": 45,
+      "caller": "15000",
+      "target": "12983",
+      "symbol": "_ZL20subst_vcols_in_orderP18Vcol_subst_contextP8st_orderP4JOINb",
+      "level": 1
+    },
+    {
+      "id": 46,
+      "caller": "15000",
+      "target": "15004",
+      "symbol": "_ZL13optimize_condP4JOINP4ItemP4ListI10TABLE_LISTEbPNS1_11cond_resultEPP10COND_EQUALi",
+      "level": 1
+    },
+    {
+      "id": 47,
+      "caller": "15000",
+      "target": "15005",
+      "symbol": "_ZL15optimize_rownumP3THDP18st_select_lex_unitP4Item",
+      "level": 1
+    },
+    {
+      "id": 48,
+      "caller": "15000",
+      "target": "13838",
+      "symbol": "thd_alloc",
+      "level": 1
+    },
+    {
+      "id": 49,
+      "caller": "15000",
+      "target": "14415",
+      "symbol": "_ZN13st_select_lex41check_cond_extraction_for_grouping_fieldsEP3THDP4Item",
+      "level": 1
+    },
+    {
+      "id": 50,
+      "caller": "15000",
+      "target": "8319",
+      "symbol": "_ZN4Item19build_pushable_condEP3THDMS_FbPhES2_",
+      "level": 1
+    },
+    {
+      "id": 51,
+      "caller": "15000",
+      "target": "724",
+      "symbol": "my_error",
+      "level": 1
+    },
+    {
+      "id": 52,
+      "caller": "15000",
+      "target": "19884",
+      "symbol": "_Z36and_new_conditions_to_optimized_condP3THDP4ItemPP10COND_EQUALR4ListIS1_EPNS1_11cond_resultE",
+      "level": 1
+    },
+    {
+      "id": 53,
+      "caller": "15000",
+      "target": "12785",
+      "symbol": "_ZN18Json_writer_objectC2EP3THDPKc",
+      "level": 1
+    },
+    {
+      "id": 54,
+      "caller": "15000",
+      "target": "12815",
+      "symbol": "_ZN18Json_writer_object3addEPKcP4Item",
+      "level": 1
+    },
+    {
+      "id": 55,
+      "caller": "15000",
+      "target": "19887",
+      "symbol": "_Z21setup_jtbm_semi_joinsP4JOINP4ListI10TABLE_LISTERS1_I4ItemE",
+      "level": 1
+    },
+    {
+      "id": 56,
+      "caller": "15000",
+      "target": "8318",
+      "symbol": "_ZN4Item19check_pushable_condEMS_FbPhES0_",
+      "level": 1
+    },
+    {
+      "id": 57,
+      "caller": "15000",
+      "target": "14471",
+      "symbol": "_ZN13st_select_lex31pushdown_cond_into_where_clauseEP3THDP4ItemPS3_MS2_FS3_S1_PhES5_",
+      "level": 1
+    },
+    {
+      "id": 58,
+      "caller": "15000",
+      "target": "19900",
+      "symbol": "_Z40grouping_fields_in_the_in_subq_left_partP3THDP13st_select_lexP4ListI10Field_pairEP8st_order",
+      "level": 1
+    },
+    {
+      "id": 59,
+      "caller": "15000",
+      "target": "21070",
+      "symbol": "_ZN13st_select_lex40find_common_window_func_partition_fieldsEP3THD",
+      "level": 1
+    },
+    {
+      "id": 60,
+      "caller": "15000",
+      "target": "14472",
+      "symbol": "_Z31mark_or_conds_to_avoid_pushdownP4Item",
+      "level": 1
+    },
+    {
+      "id": 61,
+      "caller": "15000",
+      "target": "15840",
+      "symbol": "_ZN10TABLE_LIST14handle_derivedEP3LEXj",
+      "level": 1
+    },
+    {
+      "id": 62,
+      "caller": "15000",
+      "target": "14121",
+      "symbol": "_Z27mysql_handle_single_derivedP3LEXP10TABLE_LISTj",
+      "level": 1
+    },
+    {
+      "id": 63,
+      "caller": "15000",
+      "target": "14474",
+      "symbol": "_ZN13st_select_lex20save_item_list_namesEP3THD",
+      "level": 1
+    },
+    {
+      "id": 64,
+      "caller": "15000",
+      "target": "12817",
+      "symbol": "_Z16prune_partitionsP3THDP5TABLEP4Item",
+      "level": 1
+    },
+    {
+      "id": 65,
+      "caller": "15000",
+      "target": "11280",
+      "symbol": "_ZN8Item_sum14set_aggregatorEP3THDN10Aggregator15Aggregator_typeE",
+      "level": 1
+    },
+    {
+      "id": 66,
+      "caller": "15000",
+      "target": "12423",
+      "symbol": "_Z15key_cmp_if_sameP5TABLEPKhjj",
+      "level": 1
+    },
+    {
+      "id": 67,
+      "caller": "15000",
+      "target": "7166",
+      "symbol": "_ZN7handler13ha_index_initEjb",
+      "level": 1
+    },
+    {
+      "id": 68,
+      "caller": "15000",
+      "target": "12977",
+      "symbol": "_ZL13matching_condbP12st_table_refP6st_keyP16st_key_part_infoP4ItemPjS7_S7_",
+      "level": 1
+    },
+    {
+      "id": 69,
+      "caller": "15000",
+      "target": "7167",
+      "symbol": "_ZN7handler17ha_index_read_mapEPhPKhj16ha_rkey_function",
+      "level": 1
+    },
+    {
+      "id": 70,
+      "caller": "15000",
+      "target": "7171",
+      "symbol": "_ZN7handler14ha_index_firstEPh",
+      "level": 1
+    },
+    {
+      "id": 71,
+      "caller": "15000",
+      "target": "7172",
+      "symbol": "_ZN7handler13ha_index_lastEPh",
+      "level": 1
+    },
+    {
+      "id": 72,
+      "caller": "15000",
+      "target": "12978",
+      "symbol": "_ZL15maxmin_in_rangebP5FieldP4Item",
+      "level": 1
+    },
+    {
+      "id": 73,
+      "caller": "15000",
+      "target": "15007",
+      "symbol": "_Z29make_cond_for_table_from_predP3THDP4ItemS2_yyibbb",
+      "level": 1
+    },
+    {
+      "id": 74,
+      "caller": "15000",
+      "target": "15008",
+      "symbol": "_ZL12remove_constP4JOINP8st_orderP4ItembPb",
+      "level": 1
+    },
+    {
+      "id": 75,
+      "caller": "15000",
+      "target": "15009",
+      "symbol": "_ZL20make_join_statisticsP4JOINR4ListI10TABLE_LISTEP16st_dynamic_array",
+      "level": 1
+    },
+    {
+      "id": 76,
+      "caller": "15000",
+      "target": "793",
+      "symbol": "init_dynamic_array2",
+      "level": 1
+    },
+    {
+      "id": 77,
+      "caller": "15000",
+      "target": "794",
+      "symbol": "insert_dynamic",
+      "level": 1
+    },
+    {
+      "id": 78,
+      "caller": "15000",
+      "target": "12781",
+      "symbol": "_ZN17Json_writer_arrayC2EP3THDPKc",
+      "level": 1
+    },
+    {
+      "id": 79,
+      "caller": "15000",
+      "target": "21259",
+      "symbol": "_ZN11Json_writer7add_strEP4Item",
+      "level": 1
+    },
+    {
+      "id": 80,
+      "caller": "15000",
+      "target": "800",
+      "symbol": "delete_dynamic",
+      "level": 1
+    },
+    {
+      "id": 81,
+      "caller": "15000",
+      "target": "15010",
+      "symbol": "_ZN4JOIN15optimize_stage2Ev",
+      "level": 1
+    },
+    {
+      "id": 82,
+      "caller": "15000",
+      "target": "20012",
+      "symbol": "_ZN11Json_writer9end_arrayEv",
+      "level": 1
+    },
+    {
+      "id": 83,
+      "caller": "15000",
+      "target": "20011",
+      "symbol": "_ZN11Json_writer10end_objectEv",
+      "level": 1
+    },
+    {
+      "id": 84,
+      "caller": "15000",
+      "target": "indirect@5085",
+      "symbol": "indirect@5085",
+      "level": 1
+    },
+    {
+      "id": 85,
+      "caller": "15000",
+      "target": "indirect@5897",
+      "symbol": "indirect@5897",
+      "level": 1
+    },
+    {
+      "id": 86,
+      "caller": "15000",
+      "target": "indirect@5932",
+      "symbol": "indirect@5932",
+      "level": 1
+    },
+    {
+      "id": 87,
+      "caller": "15000",
+      "target": "indirect@5952",
+      "symbol": "indirect@5952",
+      "level": 1
+    },
+    {
+      "id": 88,
+      "caller": "15000",
+      "target": "indirect@6012",
+      "symbol": "indirect@6012",
+      "level": 1
+    },
+    {
+      "id": 89,
+      "caller": "15000",
+      "target": "indirect@6090",
+      "symbol": "indirect@6090",
+      "level": 1
+    },
+    {
+      "id": 90,
+      "caller": "15000",
+      "target": "indirect@6107",
+      "symbol": "indirect@6107",
+      "level": 1
+    },
+    {
+      "id": 91,
+      "caller": "15000",
+      "target": "indirect@6215",
+      "symbol": "indirect@6215",
+      "level": 1
+    },
+    {
+      "id": 92,
+      "caller": "15000",
+      "target": "indirect@6342",
+      "symbol": "indirect@6342",
+      "level": 1
+    },
+    {
+      "id": 93,
+      "caller": "15000",
+      "target": "indirect@6357",
+      "symbol": "indirect@6357",
+      "level": 1
+    },
+    {
+      "id": 94,
+      "caller": "15000",
+      "target": "indirect@6388",
+      "symbol": "indirect@6388",
+      "level": 1
+    },
+    {
+      "id": 95,
+      "caller": "15000",
+      "target": "indirect@6571",
+      "symbol": "indirect@6571",
+      "level": 1
+    },
+    {
+      "id": 96,
+      "caller": "15000",
+      "target": "indirect@6720",
+      "symbol": "indirect@6720",
+      "level": 1
+    },
+    {
+      "id": 97,
+      "caller": "15000",
+      "target": "indirect@6828",
+      "symbol": "indirect@6828",
+      "level": 1
+    },
+    {
+      "id": 98,
+      "caller": "15000",
+      "target": "indirect@6874",
+      "symbol": "indirect@6874",
+      "level": 1
+    },
+    {
+      "id": 99,
+      "caller": "15000",
+      "target": "indirect@7071",
+      "symbol": "indirect@7071",
+      "level": 1
+    },
+    {
+      "id": 100,
+      "caller": "15000",
+      "target": "indirect@7143",
+      "symbol": "indirect@7143",
+      "level": 1
+    },
+    {
+      "id": 101,
+      "caller": "15000",
+      "target": "indirect@7674",
+      "symbol": "indirect@7674",
+      "level": 1
+    },
+    {
+      "id": 102,
+      "caller": "15000",
+      "target": "indirect@7938",
+      "symbol": "indirect@7938",
+      "level": 1
+    },
+    {
+      "id": 103,
+      "caller": "15000",
+      "target": "indirect@7982",
+      "symbol": "indirect@7982",
+      "level": 1
+    },
+    {
+      "id": 104,
+      "caller": "15000",
+      "target": "indirect@8038",
+      "symbol": "indirect@8038",
+      "level": 1
+    },
+    {
+      "id": 105,
+      "caller": "15000",
+      "target": "indirect@8232",
+      "symbol": "indirect@8232",
+      "level": 1
+    },
+    {
+      "id": 106,
+      "caller": "15000",
+      "target": "indirect@8286",
+      "symbol": "indirect@8286",
+      "level": 1
+    },
+    {
+      "id": 107,
+      "caller": "15000",
+      "target": "indirect@8351",
+      "symbol": "indirect@8351",
+      "level": 1
+    },
+    {
+      "id": 108,
+      "caller": "15000",
+      "target": "indirect@8483",
+      "symbol": "indirect@8483",
+      "level": 1
+    },
+    {
+      "id": 109,
+      "caller": "15000",
+      "target": "indirect@8568",
+      "symbol": "indirect@8568",
+      "level": 1
+    },
+    {
+      "id": 110,
+      "caller": "15000",
+      "target": "indirect@8668",
+      "symbol": "indirect@8668",
+      "level": 1
+    },
+    {
+      "id": 111,
+      "caller": "15000",
+      "target": "indirect@8808",
+      "symbol": "indirect@8808",
+      "level": 1
+    },
+    {
+      "id": 112,
+      "caller": "15000",
+      "target": "indirect@9299",
+      "symbol": "indirect@9299",
+      "level": 1
+    },
+    {
+      "id": 113,
+      "caller": "15000",
+      "target": "indirect@9335",
+      "symbol": "indirect@9335",
+      "level": 1
+    },
+    {
+      "id": 114,
+      "caller": "15000",
+      "target": "indirect@9354",
+      "symbol": "indirect@9354",
+      "level": 1
+    },
+    {
+      "id": 115,
+      "caller": "15000",
+      "target": "indirect@9373",
+      "symbol": "indirect@9373",
+      "level": 1
+    },
+    {
+      "id": 116,
+      "caller": "15000",
+      "target": "indirect@9392",
+      "symbol": "indirect@9392",
+      "level": 1
+    },
+    {
+      "id": 117,
+      "caller": "15000",
+      "target": "indirect@9456",
+      "symbol": "indirect@9456",
+      "level": 1
+    },
+    {
+      "id": 118,
+      "caller": "15000",
+      "target": "indirect@9633",
+      "symbol": "indirect@9633",
+      "level": 1
+    },
+    {
+      "id": 119,
+      "caller": "15000",
+      "target": "indirect@9709",
+      "symbol": "indirect@9709",
+      "level": 1
+    },
+    {
+      "id": 120,
+      "caller": "15000",
+      "target": "indirect@9797",
+      "symbol": "indirect@9797",
+      "level": 1
+    },
+    {
+      "id": 121,
+      "caller": "15000",
+      "target": "indirect@9899",
+      "symbol": "indirect@9899",
+      "level": 1
+    },
+    {
+      "id": 122,
+      "caller": "15000",
+      "target": "indirect@9939",
+      "symbol": "indirect@9939",
+      "level": 1
+    },
+    {
+      "id": 123,
+      "caller": "15000",
+      "target": "indirect@9957",
+      "symbol": "indirect@9957",
+      "level": 1
+    },
+    {
+      "id": 124,
+      "caller": "15000",
+      "target": "indirect@9990",
+      "symbol": "indirect@9990",
+      "level": 1
+    },
+    {
+      "id": 125,
+      "caller": "15000",
+      "target": "indirect@10019",
+      "symbol": "indirect@10019",
+      "level": 1
+    },
+    {
+      "id": 126,
+      "caller": "15000",
+      "target": "indirect@10038",
+      "symbol": "indirect@10038",
+      "level": 1
+    },
+    {
+      "id": 127,
+      "caller": "15000",
+      "target": "indirect@10157",
+      "symbol": "indirect@10157",
+      "level": 1
+    },
+    {
+      "id": 128,
+      "caller": "15000",
+      "target": "indirect@10256",
+      "symbol": "indirect@10256",
+      "level": 1
+    },
+    {
+      "id": 129,
+      "caller": "15000",
+      "target": "indirect@10301",
+      "symbol": "indirect@10301",
+      "level": 1
+    },
+    {
+      "id": 130,
+      "caller": "15000",
+      "target": "indirect@10366",
+      "symbol": "indirect@10366",
+      "level": 1
+    },
+    {
+      "id": 131,
+      "caller": "15000",
+      "target": "indirect@10389",
+      "symbol": "indirect@10389",
+      "level": 1
+    },
+    {
+      "id": 132,
+      "caller": "15000",
+      "target": "indirect@10408",
+      "symbol": "indirect@10408",
+      "level": 1
+    },
+    {
+      "id": 133,
+      "caller": "15000",
+      "target": "indirect@10712",
+      "symbol": "indirect@10712",
+      "level": 1
+    },
+    {
+      "id": 134,
+      "caller": "15000",
+      "target": "indirect@10745",
+      "symbol": "indirect@10745",
+      "level": 1
+    },
+    {
+      "id": 135,
+      "caller": "15000",
+      "target": "indirect@10772",
+      "symbol": "indirect@10772",
+      "level": 1
+    },
+    {
+      "id": 136,
+      "caller": "15000",
+      "target": "indirect@10801",
+      "symbol": "indirect@10801",
+      "level": 1
+    },
+    {
+      "id": 137,
+      "caller": "15000",
+      "target": "indirect@10831",
+      "symbol": "indirect@10831",
+      "level": 1
+    },
+    {
+      "id": 138,
+      "caller": "15000",
+      "target": "indirect@10868",
+      "symbol": "indirect@10868",
+      "level": 1
+    },
+    {
+      "id": 139,
+      "caller": "15000",
+      "target": "indirect@10918",
+      "symbol": "indirect@10918",
+      "level": 1
+    },
+    {
+      "id": 140,
+      "caller": "15000",
+      "target": "indirect@10945",
+      "symbol": "indirect@10945",
+      "level": 1
+    },
+    {
+      "id": 141,
+      "caller": "15000",
+      "target": "indirect@10972",
+      "symbol": "indirect@10972",
+      "level": 1
+    },
+    {
+      "id": 142,
+      "caller": "15000",
+      "target": "indirect@11005",
+      "symbol": "indirect@11005",
+      "level": 1
+    },
+    {
+      "id": 143,
+      "caller": "15000",
+      "target": "indirect@11036",
+      "symbol": "indirect@11036",
+      "level": 1
+    },
+    {
+      "id": 144,
+      "caller": "15000",
+      "target": "indirect@11055",
+      "symbol": "indirect@11055",
+      "level": 1
+    },
+    {
+      "id": 145,
+      "caller": "15000",
+      "target": "indirect@11074",
+      "symbol": "indirect@11074",
+      "level": 1
+    },
+    {
+      "id": 146,
+      "caller": "15000",
+      "target": "indirect@11170",
+      "symbol": "indirect@11170",
+      "level": 1
+    },
+    {
+      "id": 147,
+      "caller": "15000",
+      "target": "indirect@11190",
+      "symbol": "indirect@11190",
+      "level": 1
+    },
+    {
+      "id": 148,
+      "caller": "15000",
+      "target": "indirect@11209",
+      "symbol": "indirect@11209",
+      "level": 1
+    },
+    {
+      "id": 149,
+      "caller": "15000",
+      "target": "indirect@11270",
+      "symbol": "indirect@11270",
+      "level": 1
+    },
+    {
+      "id": 150,
+      "caller": "15000",
+      "target": "indirect@11383",
+      "symbol": "indirect@11383",
+      "level": 1
+    },
+    {
+      "id": 151,
+      "caller": "15000",
+      "target": "indirect@11412",
+      "symbol": "indirect@11412",
+      "level": 1
+    },
+    {
+      "id": 152,
+      "caller": "15000",
+      "target": "indirect@11458",
+      "symbol": "indirect@11458",
+      "level": 1
+    },
+    {
+      "id": 153,
+      "caller": "15000",
+      "target": "indirect@11488",
+      "symbol": "indirect@11488",
+      "level": 1
+    },
+    {
+      "id": 154,
+      "caller": "15000",
+      "target": "indirect@11507",
+      "symbol": "indirect@11507",
+      "level": 1
+    },
+    {
+      "id": 155,
+      "caller": "15000",
+      "target": "indirect@11867",
+      "symbol": "indirect@11867",
+      "level": 1
+    },
+    {
+      "id": 156,
+      "caller": "15000",
+      "target": "indirect@11914",
+      "symbol": "indirect@11914",
+      "level": 1
+    },
+    {
+      "id": 157,
+      "caller": "15000",
+      "target": "indirect@11930",
+      "symbol": "indirect@11930",
+      "level": 1
+    },
+    {
+      "id": 158,
+      "caller": "15000",
+      "target": "indirect@11943",
+      "symbol": "indirect@11943",
+      "level": 1
+    },
+    {
+      "id": 159,
+      "caller": "15000",
+      "target": "indirect@11971",
+      "symbol": "indirect@11971",
+      "level": 1
+    },
+    {
+      "id": 160,
+      "caller": "15000",
+      "target": "indirect@12027",
+      "symbol": "indirect@12027",
+      "level": 1
+    },
+    {
+      "id": 161,
+      "caller": "15000",
+      "target": "indirect@12274",
+      "symbol": "indirect@12274",
+      "level": 1
+    },
+    {
+      "id": 162,
+      "caller": "15000",
+      "target": "indirect@12299",
+      "symbol": "indirect@12299",
+      "level": 1
+    },
+    {
+      "id": 163,
+      "caller": "15000",
+      "target": "indirect@12902",
+      "symbol": "indirect@12902",
+      "level": 1
+    },
+    {
+      "id": 164,
+      "caller": "15000",
+      "target": "indirect@13103",
+      "symbol": "indirect@13103",
+      "level": 1
+    },
+    {
+      "id": 165,
+      "caller": "15000",
+      "target": "indirect@13289",
+      "symbol": "indirect@13289",
+      "level": 1
+    },
+    {
+      "id": 166,
+      "caller": "15000",
+      "target": "indirect@13314",
+      "symbol": "indirect@13314",
+      "level": 1
+    },
+    {
+      "id": 167,
+      "caller": "15000",
+      "target": "indirect@13805",
+      "symbol": "indirect@13805",
+      "level": 1
+    },
+    {
+      "id": 168,
+      "caller": "15000",
+      "target": "indirect@14015",
+      "symbol": "indirect@14015",
+      "level": 1
+    },
+    {
+      "id": 169,
+      "caller": "15000",
+      "target": "indirect@14037",
+      "symbol": "indirect@14037",
+      "level": 1
+    },
+    {
+      "id": 170,
+      "caller": "15000",
+      "target": "indirect@14130",
+      "symbol": "indirect@14130",
+      "level": 1
+    },
+    {
+      "id": 171,
+      "caller": "15000",
+      "target": "indirect@14150",
+      "symbol": "indirect@14150",
+      "level": 1
+    },
+    {
+      "id": 172,
+      "caller": "15000",
+      "target": "indirect@14185",
+      "symbol": "indirect@14185",
+      "level": 1
+    },
+    {
+      "id": 173,
+      "caller": "15000",
+      "target": "indirect@14219",
+      "symbol": "indirect@14219",
+      "level": 1
+    },
+    {
+      "id": 174,
+      "caller": "15000",
+      "target": "indirect@14255",
+      "symbol": "indirect@14255",
+      "level": 1
+    },
+    {
+      "id": 175,
+      "caller": "15000",
+      "target": "indirect@14289",
+      "symbol": "indirect@14289",
+      "level": 1
+    },
+    {
+      "id": 176,
+      "caller": "15000",
+      "target": "indirect@14327",
+      "symbol": "indirect@14327",
+      "level": 1
+    },
+    {
+      "id": 177,
+      "caller": "15000",
+      "target": "indirect@14393",
+      "symbol": "indirect@14393",
+      "level": 1
+    },
+    {
+      "id": 178,
+      "caller": "15000",
+      "target": "indirect@14472",
+      "symbol": "indirect@14472",
+      "level": 1
+    },
+    {
+      "id": 179,
+      "caller": "15000",
+      "target": "indirect@14533",
+      "symbol": "indirect@14533",
+      "level": 1
+    },
+    {
+      "id": 180,
+      "caller": "15000",
+      "target": "indirect@14549",
+      "symbol": "indirect@14549",
+      "level": 1
+    },
+    {
+      "id": 181,
+      "caller": "15000",
+      "target": "indirect@14584",
+      "symbol": "indirect@14584",
+      "level": 1
+    },
+    {
+      "id": 182,
+      "caller": "15000",
+      "target": "indirect@14608",
+      "symbol": "indirect@14608",
+      "level": 1
+    },
+    {
+      "id": 183,
+      "caller": "15000",
+      "target": "indirect@14661",
+      "symbol": "indirect@14661",
+      "level": 1
+    },
+    {
+      "id": 184,
+      "caller": "15000",
+      "target": "indirect@14681",
+      "symbol": "indirect@14681",
+      "level": 1
+    },
+    {
+      "id": 185,
+      "caller": "15000",
+      "target": "indirect@14694",
+      "symbol": "indirect@14694",
+      "level": 1
+    },
+    {
+      "id": 186,
+      "caller": "15000",
+      "target": "indirect@14715",
+      "symbol": "indirect@14715",
+      "level": 1
+    },
+    {
+      "id": 187,
+      "caller": "15000",
+      "target": "indirect@14878",
+      "symbol": "indirect@14878",
+      "level": 1
+    },
+    {
+      "id": 188,
+      "caller": "15000",
+      "target": "indirect@14913",
+      "symbol": "indirect@14913",
+      "level": 1
+    },
+    {
+      "id": 189,
+      "caller": "15000",
+      "target": "indirect@14934",
+      "symbol": "indirect@14934",
+      "level": 1
+    },
+    {
+      "id": 190,
+      "caller": "15000",
+      "target": "indirect@15041",
+      "symbol": "indirect@15041",
+      "level": 1
+    },
+    {
+      "id": 191,
+      "caller": "15000",
+      "target": "indirect@15060",
+      "symbol": "indirect@15060",
+      "level": 1
+    },
+    {
+      "id": 192,
+      "caller": "15000",
+      "target": "indirect@15609",
+      "symbol": "indirect@15609",
+      "level": 1
+    },
+    {
+      "id": 193,
+      "caller": "15000",
+      "target": "indirect@15623",
+      "symbol": "indirect@15623",
+      "level": 1
+    },
+    {
+      "id": 194,
+      "caller": "15000",
+      "target": "indirect@15645",
+      "symbol": "indirect@15645",
+      "level": 1
+    },
+    {
+      "id": 195,
+      "caller": "15000",
+      "target": "indirect@15682",
+      "symbol": "indirect@15682",
+      "level": 1
+    },
+    {
+      "id": 196,
+      "caller": "15000",
+      "target": "indirect@15736",
+      "symbol": "indirect@15736",
+      "level": 1
+    },
+    {
+      "id": 197,
+      "caller": "15000",
+      "target": "indirect@15757",
+      "symbol": "indirect@15757",
+      "level": 1
+    },
+    {
+      "id": 198,
+      "caller": "15000",
+      "target": "indirect@16145",
+      "symbol": "indirect@16145",
+      "level": 1
+    },
+    {
+      "id": 199,
+      "caller": "15000",
+      "target": "indirect@17150",
+      "symbol": "indirect@17150",
+      "level": 1
+    },
+    {
+      "id": 200,
+      "caller": "15000",
+      "target": "indirect@17173",
+      "symbol": "indirect@17173",
+      "level": 1
+    },
+    {
+      "id": 201,
+      "caller": "15000",
+      "target": "indirect@17193",
+      "symbol": "indirect@17193",
+      "level": 1
+    },
+    {
+      "id": 202,
+      "caller": "15000",
+      "target": "indirect@17254",
+      "symbol": "indirect@17254",
+      "level": 1
+    },
+    {
+      "id": 203,
+      "caller": "15010",
+      "target": "15018",
+      "symbol": "_Z17calc_group_bufferP15TMP_TABLE_PARAMP8st_order",
+      "level": 2
+    },
+    {
+      "id": 204,
+      "caller": "15010",
+      "target": "6830",
+      "symbol": "_ZN3THD17send_kill_messageEv",
+      "level": 2
+    },
+    {
+      "id": 205,
+      "caller": "15010",
+      "target": "20006",
+      "symbol": "_ZN10Apc_target20process_apc_requestsEb",
+      "level": 2
+    },
+    {
+      "id": 206,
+      "caller": "15010",
+      "target": "19875",
+      "symbol": "_Z45fix_semijoin_strategies_for_picked_join_orderP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 207,
+      "caller": "15010",
+      "target": "783",
+      "symbol": "alloc_root",
+      "level": 2
+    },
+    {
+      "id": 208,
+      "caller": "15010",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 209,
+      "caller": "15010",
+      "target": "7998",
+      "symbol": "_ZN4ItemC2EP3THD",
+      "level": 2
+    },
+    {
+      "id": 210,
+      "caller": "15010",
+      "target": "7591",
+      "symbol": "_ZN9Item_condC2EP3THDP4ItemS3_",
+      "level": 2
+    },
+    {
+      "id": 211,
+      "caller": "15010",
+      "target": "13889",
+      "symbol": "_ZN16Item_change_list33nocheck_register_item_tree_changeEPP4ItemS1_P11st_mem_root",
+      "level": 2
+    },
+    {
+      "id": 212,
+      "caller": "15010",
+      "target": "13838",
+      "symbol": "thd_alloc",
+      "level": 2
+    },
+    {
+      "id": 213,
+      "caller": "15010",
+      "target": "15033",
+      "symbol": "_ZL18create_ref_for_keyP4JOINP13st_join_tableP8keyuse_tby",
+      "level": 2
+    },
+    {
+      "id": 214,
+      "caller": "15010",
+      "target": "21262",
+      "symbol": "_Z22print_final_join_orderP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 215,
+      "caller": "15010",
+      "target": "12750",
+      "symbol": "_Z11make_selectP5TABLEyyP4ItemP9SORT_INFObPi",
+      "level": 2
+    },
+    {
+      "id": 216,
+      "caller": "15010",
+      "target": "12791",
+      "symbol": "_ZN10SQL_SELECT17test_quick_selectEP3THD6BitmapILj64EEyybbbbN9Item_func6BitmapE",
+      "level": 2
+    },
+    {
+      "id": 217,
+      "caller": "15010",
+      "target": "12753",
+      "symbol": "_ZN10SQL_SELECTD2Ev",
+      "level": 2
+    },
+    {
+      "id": 218,
+      "caller": "15010",
+      "target": "14296",
+      "symbol": "_ZN13st_select_lex14handle_derivedEP3LEXj",
+      "level": 2
+    },
+    {
+      "id": 219,
+      "caller": "15010",
+      "target": "9203",
+      "symbol": "_ZN9Item_func10fix_fieldsEP3THDPP4Item",
+      "level": 2
+    },
+    {
+      "id": 220,
+      "caller": "15010",
+      "target": "727",
+      "symbol": "my_message",
+      "level": 2
+    },
+    {
+      "id": 221,
+      "caller": "15010",
+      "target": "12432",
+      "symbol": "_Z13get_lock_dataP3THDPP5TABLEjj",
+      "level": 2
+    },
+    {
+      "id": 222,
+      "caller": "15010",
+      "target": "12434",
+      "symbol": "_Z19mysql_unlock_tablesP3THDP13st_mysql_lockb",
+      "level": 2
+    },
+    {
+      "id": 223,
+      "caller": "15010",
+      "target": "15011",
+      "symbol": "_ZL17reset_nj_countersP4JOINP4ListI10TABLE_LISTE",
+      "level": 2
+    },
+    {
+      "id": 224,
+      "caller": "15010",
+      "target": "15070",
+      "symbol": "_Z16create_tmp_tableP3THDP15TMP_TABLE_PARAMR4ListI4ItemEP8st_orderbbyyPK25st_mysql_const_lex_stringbb",
+      "level": 2
+    },
+    {
+      "id": 225,
+      "caller": "15010",
+      "target": "15012",
+      "symbol": "_ZL31substitute_for_best_equal_fieldP3THDP13st_join_tableP4ItemP10COND_EQUALPvb",
+      "level": 2
+    },
+    {
+      "id": 226,
+      "caller": "15010",
+      "target": "21258",
+      "symbol": "_Z15trace_conditionP3THDPKcS2_P4ItemS2_",
+      "level": 2
+    },
+    {
+      "id": 227,
+      "caller": "15010",
+      "target": "7184",
+      "symbol": "_ZN13Binary_string5c_ptrEv",
+      "level": 2
+    },
+    {
+      "id": 228,
+      "caller": "15010",
+      "target": "6750",
+      "symbol": "_ZN10Copy_field3setEP5FieldS1_b",
+      "level": 2
+    },
+    {
+      "id": 229,
+      "caller": "15010",
+      "target": "15013",
+      "symbol": "_ZL16make_join_selectP4JOINP10SQL_SELECTP4Item",
+      "level": 2
+    },
+    {
+      "id": 230,
+      "caller": "15010",
+      "target": "15008",
+      "symbol": "_ZL12remove_constP4JOINP8st_orderP4ItembPb",
+      "level": 2
+    },
+    {
+      "id": 231,
+      "caller": "15010",
+      "target": "15015",
+      "symbol": "_ZL26list_contains_unique_indexP5TABLEPFbP5FieldPvES3_",
+      "level": 2
+    },
+    {
+      "id": 232,
+      "caller": "15010",
+      "target": "14992",
+      "symbol": "_ZL15test_if_subpartP8st_orderS0_",
+      "level": 2
+    },
+    {
+      "id": 233,
+      "caller": "15010",
+      "target": "15017",
+      "symbol": "_ZL23test_if_skip_sort_orderP13st_join_tableP8st_orderybPK6BitmapILj64EEPb",
+      "level": 2
+    },
+    {
+      "id": 234,
+      "caller": "15010",
+      "target": "790",
+      "symbol": "memdup_root",
+      "level": 2
+    },
+    {
+      "id": 235,
+      "caller": "15010",
+      "target": "14996",
+      "symbol": "_Z17count_field_typesP13st_select_lexP15TMP_TABLE_PARAMR4ListI4ItemEb",
+      "level": 2
+    },
+    {
+      "id": 236,
+      "caller": "15010",
+      "target": "15254",
+      "symbol": "_Z23get_lookup_field_valuesP3THDP4ItembP10TABLE_LISTP22st_lookup_field_values",
+      "level": 2
+    },
+    {
+      "id": 237,
+      "caller": "15010",
+      "target": "15288",
+      "symbol": "_Z25make_cond_for_info_schemaP3THDP4ItemP10TABLE_LIST",
+      "level": 2
+    },
+    {
+      "id": 238,
+      "caller": "15010",
+      "target": "15019",
+      "symbol": "_ZL18make_join_readinfoP4JOINyj",
+      "level": 2
+    },
+    {
+      "id": 239,
+      "caller": "15010",
+      "target": "13539",
+      "symbol": "_Z12init_ftfuncsP3THDP13st_select_lexb",
+      "level": 2
+    },
+    {
+      "id": 240,
+      "caller": "15010",
+      "target": "19880",
+      "symbol": "_ZN4JOIN31optimize_unflattened_subqueriesEv",
+      "level": 2
+    },
+    {
+      "id": 241,
+      "caller": "15010",
+      "target": "19878",
+      "symbol": "_ZL29remove_subq_pushed_predicatesP4JOINPP4Item",
+      "level": 2
+    },
+    {
+      "id": 242,
+      "caller": "15010",
+      "target": "12741",
+      "symbol": "_ZN9Sql_allocnwEm",
+      "level": 2
+    },
+    {
+      "id": 243,
+      "caller": "15010",
+      "target": "15798",
+      "symbol": "_ZN5TABLE20prepare_for_positionEv",
+      "level": 2
+    },
+    {
+      "id": 244,
+      "caller": "15010",
+      "target": "5612",
+      "symbol": "_ZN16Item_basic_valueD2Ev",
+      "level": 2
+    },
+    {
+      "id": 245,
+      "caller": "15010",
+      "target": "8121",
+      "symbol": "_ZN10Item_fieldC2EP3THDP5Field",
+      "level": 2
+    },
+    {
+      "id": 246,
+      "caller": "15010",
+      "target": "7593",
+      "symbol": "_ZN9Item_cond10fix_fieldsEP3THDPP4Item",
+      "level": 2
+    },
+    {
+      "id": 247,
+      "caller": "15010",
+      "target": "7592",
+      "symbol": "_ZN13Item_cond_and20copy_andor_structureEP3THD",
+      "level": 2
+    },
+    {
+      "id": 248,
+      "caller": "15010",
+      "target": "15021",
+      "symbol": "_ZN4JOIN21make_aggr_tables_infoEv",
+      "level": 2
+    },
+    {
+      "id": 249,
+      "caller": "15010",
+      "target": "15020",
+      "symbol": "_ZN13st_join_table29is_using_agg_loose_index_scanEv",
+      "level": 2
+    },
+    {
+      "id": 250,
+      "caller": "15010",
+      "target": "15799",
+      "symbol": "_ZL21do_mark_index_columnsP5TABLEjP9st_bitmapb",
+      "level": 2
+    },
+    {
+      "id": 251,
+      "caller": "15010",
+      "target": "15071",
+      "symbol": "_ZN4JOIN17get_examined_rowsEv",
+      "level": 2
+    },
+    {
+      "id": 252,
+      "caller": "15010",
+      "target": "15072",
+      "symbol": "_ZL18revise_cache_usageP13st_join_table",
+      "level": 2
+    },
+    {
+      "id": 253,
+      "caller": "15010",
+      "target": "9204",
+      "symbol": "_ZN9Item_func15quick_fix_fieldEv",
+      "level": 2
+    },
+    {
+      "id": 254,
+      "caller": "15010",
+      "target": "13705",
+      "symbol": "_ZN17Item_in_subselect24create_in_to_exists_condEP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 255,
+      "caller": "15010",
+      "target": "13706",
+      "symbol": "_ZN17Item_in_subselect24inject_in_to_exists_condEP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 256,
+      "caller": "15010",
+      "target": "indirect@5466",
+      "symbol": "indirect@5466",
+      "level": 2
+    },
+    {
+      "id": 257,
+      "caller": "15010",
+      "target": "indirect@5569",
+      "symbol": "indirect@5569",
+      "level": 2
+    },
+    {
+      "id": 258,
+      "caller": "15010",
+      "target": "indirect@5708",
+      "symbol": "indirect@5708",
+      "level": 2
+    },
+    {
+      "id": 259,
+      "caller": "15010",
+      "target": "indirect@5756",
+      "symbol": "indirect@5756",
+      "level": 2
+    },
+    {
+      "id": 260,
+      "caller": "15010",
+      "target": "indirect@5794",
+      "symbol": "indirect@5794",
+      "level": 2
+    },
+    {
+      "id": 261,
+      "caller": "15010",
+      "target": "indirect@5940",
+      "symbol": "indirect@5940",
+      "level": 2
+    },
+    {
+      "id": 262,
+      "caller": "15010",
+      "target": "indirect@5998",
+      "symbol": "indirect@5998",
+      "level": 2
+    },
+    {
+      "id": 263,
+      "caller": "15010",
+      "target": "indirect@6854",
+      "symbol": "indirect@6854",
+      "level": 2
+    },
+    {
+      "id": 264,
+      "caller": "15010",
+      "target": "indirect@7995",
+      "symbol": "indirect@7995",
+      "level": 2
+    },
+    {
+      "id": 265,
+      "caller": "15010",
+      "target": "indirect@8047",
+      "symbol": "indirect@8047",
+      "level": 2
+    },
+    {
+      "id": 266,
+      "caller": "15010",
+      "target": "indirect@8933",
+      "symbol": "indirect@8933",
+      "level": 2
+    },
+    {
+      "id": 267,
+      "caller": "15010",
+      "target": "indirect@9052",
+      "symbol": "indirect@9052",
+      "level": 2
+    },
+    {
+      "id": 268,
+      "caller": "15010",
+      "target": "indirect@9066",
+      "symbol": "indirect@9066",
+      "level": 2
+    },
+    {
+      "id": 269,
+      "caller": "15010",
+      "target": "indirect@9637",
+      "symbol": "indirect@9637",
+      "level": 2
+    },
+    {
+      "id": 270,
+      "caller": "15010",
+      "target": "indirect@9729",
+      "symbol": "indirect@9729",
+      "level": 2
+    },
+    {
+      "id": 271,
+      "caller": "15010",
+      "target": "indirect@9859",
+      "symbol": "indirect@9859",
+      "level": 2
+    },
+    {
+      "id": 272,
+      "caller": "15010",
+      "target": "indirect@10035",
+      "symbol": "indirect@10035",
+      "level": 2
+    },
+    {
+      "id": 273,
+      "caller": "15010",
+      "target": "indirect@10092",
+      "symbol": "indirect@10092",
+      "level": 2
+    },
+    {
+      "id": 274,
+      "caller": "15010",
+      "target": "indirect@10177",
+      "symbol": "indirect@10177",
+      "level": 2
+    },
+    {
+      "id": 275,
+      "caller": "15010",
+      "target": "indirect@10192",
+      "symbol": "indirect@10192",
+      "level": 2
+    },
+    {
+      "id": 276,
+      "caller": "15010",
+      "target": "indirect@10211",
+      "symbol": "indirect@10211",
+      "level": 2
+    },
+    {
+      "id": 277,
+      "caller": "15010",
+      "target": "indirect@10243",
+      "symbol": "indirect@10243",
+      "level": 2
+    },
+    {
+      "id": 278,
+      "caller": "15010",
+      "target": "indirect@10357",
+      "symbol": "indirect@10357",
+      "level": 2
+    },
+    {
+      "id": 279,
+      "caller": "15010",
+      "target": "indirect@10373",
+      "symbol": "indirect@10373",
+      "level": 2
+    },
+    {
+      "id": 280,
+      "caller": "15010",
+      "target": "indirect@10385",
+      "symbol": "indirect@10385",
+      "level": 2
+    },
+    {
+      "id": 281,
+      "caller": "15010",
+      "target": "indirect@10610",
+      "symbol": "indirect@10610",
+      "level": 2
+    },
+    {
+      "id": 282,
+      "caller": "15010",
+      "target": "indirect@10648",
+      "symbol": "indirect@10648",
+      "level": 2
+    },
+    {
+      "id": 283,
+      "caller": "15010",
+      "target": "indirect@10735",
+      "symbol": "indirect@10735",
+      "level": 2
+    },
+    {
+      "id": 284,
+      "caller": "15010",
+      "target": "indirect@10904",
+      "symbol": "indirect@10904",
+      "level": 2
+    },
+    {
+      "id": 285,
+      "caller": "15010",
+      "target": "indirect@11375",
+      "symbol": "indirect@11375",
+      "level": 2
+    },
+    {
+      "id": 286,
+      "caller": "15010",
+      "target": "indirect@11919",
+      "symbol": "indirect@11919",
+      "level": 2
+    },
+    {
+      "id": 287,
+      "caller": "15010",
+      "target": "indirect@12004",
+      "symbol": "indirect@12004",
+      "level": 2
+    },
+    {
+      "id": 288,
+      "caller": "15010",
+      "target": "indirect@12043",
+      "symbol": "indirect@12043",
+      "level": 2
+    },
+    {
+      "id": 289,
+      "caller": "15010",
+      "target": "indirect@12082",
+      "symbol": "indirect@12082",
+      "level": 2
+    },
+    {
+      "id": 290,
+      "caller": "15010",
+      "target": "indirect@12094",
+      "symbol": "indirect@12094",
+      "level": 2
+    },
+    {
+      "id": 291,
+      "caller": "15010",
+      "target": "indirect@12720",
+      "symbol": "indirect@12720",
+      "level": 2
+    },
+    {
+      "id": 292,
+      "caller": "15010",
+      "target": "indirect@13639",
+      "symbol": "indirect@13639",
+      "level": 2
+    },
+    {
+      "id": 293,
+      "caller": "15010",
+      "target": "indirect@13652",
+      "symbol": "indirect@13652",
+      "level": 2
+    },
+    {
+      "id": 294,
+      "caller": "15010",
+      "target": "indirect@13672",
+      "symbol": "indirect@13672",
+      "level": 2
+    },
+    {
+      "id": 295,
+      "caller": "15010",
+      "target": "indirect@13692",
+      "symbol": "indirect@13692",
+      "level": 2
+    },
+    {
+      "id": 296,
+      "caller": "15010",
+      "target": "indirect@13896",
+      "symbol": "indirect@13896",
+      "level": 2
+    },
+    {
+      "id": 297,
+      "caller": "15010",
+      "target": "indirect@14168",
+      "symbol": "indirect@14168",
+      "level": 2
+    },
+    {
+      "id": 298,
+      "caller": "15010",
+      "target": "indirect@14326",
+      "symbol": "indirect@14326",
+      "level": 2
+    },
+    {
+      "id": 299,
+      "caller": "15010",
+      "target": "indirect@14404",
+      "symbol": "indirect@14404",
+      "level": 2
+    },
+    {
+      "id": 300,
+      "caller": "15010",
+      "target": "indirect@14604",
+      "symbol": "indirect@14604",
+      "level": 2
+    },
+    {
+      "id": 301,
+      "caller": "15010",
+      "target": "indirect@14721",
+      "symbol": "indirect@14721",
+      "level": 2
+    },
+    {
+      "id": 302,
+      "caller": "15010",
+      "target": "indirect@14789",
+      "symbol": "indirect@14789",
+      "level": 2
+    },
+    {
+      "id": 303,
+      "caller": "15010",
+      "target": "indirect@14833",
+      "symbol": "indirect@14833",
+      "level": 2
+    },
+    {
+      "id": 304,
+      "caller": "15010",
+      "target": "indirect@14949",
+      "symbol": "indirect@14949",
+      "level": 2
+    },
+    {
+      "id": 305,
+      "caller": "15010",
+      "target": "indirect@14977",
+      "symbol": "indirect@14977",
+      "level": 2
+    },
+    {
+      "id": 306,
+      "caller": "15010",
+      "target": "indirect@15047",
+      "symbol": "indirect@15047",
+      "level": 2
+    },
+    {
+      "id": 307,
+      "caller": "15010",
+      "target": "indirect@15160",
+      "symbol": "indirect@15160",
+      "level": 2
+    },
+    {
+      "id": 308,
+      "caller": "15010",
+      "target": "indirect@15217",
+      "symbol": "indirect@15217",
+      "level": 2
+    },
+    {
+      "id": 309,
+      "caller": "15010",
+      "target": "indirect@15455",
+      "symbol": "indirect@15455",
+      "level": 2
+    },
+    {
+      "id": 310,
+      "caller": "15010",
+      "target": "indirect@15638",
+      "symbol": "indirect@15638",
+      "level": 2
+    },
+    {
+      "id": 311,
+      "caller": "15010",
+      "target": "indirect@16241",
+      "symbol": "indirect@16241",
+      "level": 2
+    },
+    {
+      "id": 312,
+      "caller": "15010",
+      "target": "indirect@16362",
+      "symbol": "indirect@16362",
+      "level": 2
+    },
+    {
+      "id": 313,
+      "caller": "15010",
+      "target": "indirect@16506",
+      "symbol": "indirect@16506",
+      "level": 2
+    },
+    {
+      "id": 314,
+      "caller": "15010",
+      "target": "indirect@16591",
+      "symbol": "indirect@16591",
+      "level": 2
+    },
+    {
+      "id": 315,
+      "caller": "15010",
+      "target": "indirect@16705",
+      "symbol": "indirect@16705",
+      "level": 2
+    },
+    {
+      "id": 316,
+      "caller": "15010",
+      "target": "indirect@17014",
+      "symbol": "indirect@17014",
+      "level": 2
+    },
+    {
+      "id": 317,
+      "caller": "15010",
+      "target": "indirect@17066",
+      "symbol": "indirect@17066",
+      "level": 2
+    },
+    {
+      "id": 318,
+      "caller": "15010",
+      "target": "indirect@17086",
+      "symbol": "indirect@17086",
+      "level": 2
+    },
+    {
+      "id": 319,
+      "caller": "15010",
+      "target": "indirect@17131",
+      "symbol": "indirect@17131",
+      "level": 2
+    },
+    {
+      "id": 320,
+      "caller": "15010",
+      "target": "indirect@17168",
+      "symbol": "indirect@17168",
+      "level": 2
+    },
+    {
+      "id": 321,
+      "caller": "15010",
+      "target": "indirect@17187",
+      "symbol": "indirect@17187",
+      "level": 2
+    },
+    {
+      "id": 322,
+      "caller": "15010",
+      "target": "indirect@17292",
+      "symbol": "indirect@17292",
+      "level": 2
+    },
+    {
+      "id": 323,
+      "caller": "15010",
+      "target": "indirect@17315",
+      "symbol": "indirect@17315",
+      "level": 2
+    },
+    {
+      "id": 324,
+      "caller": "15010",
+      "target": "indirect@17387",
+      "symbol": "indirect@17387",
+      "level": 2
+    },
+    {
+      "id": 325,
+      "caller": "15010",
+      "target": "indirect@17455",
+      "symbol": "indirect@17455",
+      "level": 2
+    },
+    {
+      "id": 326,
+      "caller": "15010",
+      "target": "indirect@17557",
+      "symbol": "indirect@17557",
+      "level": 2
+    },
+    {
+      "id": 327,
+      "caller": "15010",
+      "target": "indirect@17823",
+      "symbol": "indirect@17823",
+      "level": 2
+    },
+    {
+      "id": 328,
+      "caller": "15010",
+      "target": "indirect@17856",
+      "symbol": "indirect@17856",
+      "level": 2
+    },
+    {
+      "id": 329,
+      "caller": "15010",
+      "target": "indirect@17868",
+      "symbol": "indirect@17868",
+      "level": 2
+    },
+    {
+      "id": 330,
+      "caller": "15010",
+      "target": "indirect@18113",
+      "symbol": "indirect@18113",
+      "level": 2
+    },
+    {
+      "id": 331,
+      "caller": "15010",
+      "target": "indirect@18153",
+      "symbol": "indirect@18153",
+      "level": 2
+    },
+    {
+      "id": 332,
+      "caller": "15037",
+      "target": "4387",
+      "symbol": "my_qsort2",
+      "level": 2
+    },
+    {
+      "id": 333,
+      "caller": "15037",
+      "target": "7577",
+      "symbol": "_ZN18Json_writer_objectD2Ev",
+      "level": 2
+    },
+    {
+      "id": 334,
+      "caller": "15037",
+      "target": "20007",
+      "symbol": "_ZN11Json_writer12start_objectEv",
+      "level": 2
+    },
+    {
+      "id": 335,
+      "caller": "15037",
+      "target": "20013",
+      "symbol": "_ZN11Json_writer10add_memberEPKc",
+      "level": 2
+    },
+    {
+      "id": 336,
+      "caller": "15037",
+      "target": "20010",
+      "symbol": "_ZN11Json_writer11start_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 337,
+      "caller": "15037",
+      "target": "12780",
+      "symbol": "_ZN17Json_writer_arrayD2Ev",
+      "level": 2
+    },
+    {
+      "id": 338,
+      "caller": "15037",
+      "target": "15011",
+      "symbol": "_ZL17reset_nj_countersP4JOINP4ListI10TABLE_LISTE",
+      "level": 2
+    },
+    {
+      "id": 339,
+      "caller": "15037",
+      "target": "15114",
+      "symbol": "_Z16best_access_pathP4JOINP13st_join_tableyPK8POSITIONjbdPS3_S6_",
+      "level": 2
+    },
+    {
+      "id": 340,
+      "caller": "15037",
+      "target": "21261",
+      "symbol": "_Z17trace_plan_prefixP18Json_writer_objectP4JOINjy",
+      "level": 2
+    },
+    {
+      "id": 341,
+      "caller": "15037",
+      "target": "19865",
+      "symbol": "_Z19optimize_semi_joinsP4JOINyjPdS1_P8POSITION",
+      "level": 2
+    },
+    {
+      "id": 342,
+      "caller": "15037",
+      "target": "12790",
+      "symbol": "_ZN18Json_writer_object3addEPKcd",
+      "level": 2
+    },
+    {
+      "id": 343,
+      "caller": "15037",
+      "target": "15120",
+      "symbol": "_ZL28table_after_join_selectivityP4JOINjP13st_join_tableyPd",
+      "level": 2
+    },
+    {
+      "id": 344,
+      "caller": "15037",
+      "target": "20011",
+      "symbol": "_ZN11Json_writer10end_objectEv",
+      "level": 2
+    },
+    {
+      "id": 345,
+      "caller": "15037",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 346,
+      "caller": "15037",
+      "target": "15121",
+      "symbol": "_ZL13greedy_searchP4JOINyjj",
+      "level": 2
+    },
+    {
+      "id": 347,
+      "caller": "15037",
+      "target": "15122",
+      "symbol": "_Z33join_limit_shortcut_finalize_planP4JOINPd",
+      "level": 2
+    },
+    {
+      "id": 348,
+      "caller": "15037",
+      "target": "6814",
+      "symbol": "log2",
+      "level": 2
+    },
+    {
+      "id": 349,
+      "caller": "15037",
+      "target": "20012",
+      "symbol": "_ZN11Json_writer9end_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 350,
+      "caller": "12791",
+      "target": "15127",
+      "symbol": "_ZN10TABLE_LIST13is_active_sjmEv",
+      "level": 2
+    },
+    {
+      "id": 351,
+      "caller": "12791",
+      "target": "7577",
+      "symbol": "_ZN18Json_writer_objectD2Ev",
+      "level": 2
+    },
+    {
+      "id": 352,
+      "caller": "12791",
+      "target": "20007",
+      "symbol": "_ZN11Json_writer12start_objectEv",
+      "level": 2
+    },
+    {
+      "id": 353,
+      "caller": "12791",
+      "target": "20013",
+      "symbol": "_ZN11Json_writer10add_memberEPKc",
+      "level": 2
+    },
+    {
+      "id": 354,
+      "caller": "12791",
+      "target": "21257",
+      "symbol": "_ZN11Json_writer14add_table_nameEPK5TABLE",
+      "level": 2
+    },
+    {
+      "id": 355,
+      "caller": "12791",
+      "target": "12785",
+      "symbol": "_ZN18Json_writer_objectC2EP3THDPKc",
+      "level": 2
+    },
+    {
+      "id": 356,
+      "caller": "12791",
+      "target": "12778",
+      "symbol": "_ZN18Json_writer_object3addEPKcy",
+      "level": 2
+    },
+    {
+      "id": 357,
+      "caller": "12791",
+      "target": "12790",
+      "symbol": "_ZN18Json_writer_object3addEPKcd",
+      "level": 2
+    },
+    {
+      "id": 358,
+      "caller": "12791",
+      "target": "14619",
+      "symbol": "_Z19check_stack_overrunP3THDlPh",
+      "level": 2
+    },
+    {
+      "id": 359,
+      "caller": "12791",
+      "target": "15882",
+      "symbol": "_Z14init_sql_allocjP11st_mem_rootjjm",
+      "level": 2
+    },
+    {
+      "id": 360,
+      "caller": "12791",
+      "target": "783",
+      "symbol": "alloc_root",
+      "level": 2
+    },
+    {
+      "id": 361,
+      "caller": "12791",
+      "target": "785",
+      "symbol": "free_root",
+      "level": 2
+    },
+    {
+      "id": 362,
+      "caller": "12791",
+      "target": "4081",
+      "symbol": "my_bitmap_init",
+      "level": 2
+    },
+    {
+      "id": 363,
+      "caller": "12791",
+      "target": "12781",
+      "symbol": "_ZN17Json_writer_arrayC2EP3THDPKc",
+      "level": 2
+    },
+    {
+      "id": 364,
+      "caller": "12791",
+      "target": "12780",
+      "symbol": "_ZN17Json_writer_arrayD2Ev",
+      "level": 2
+    },
+    {
+      "id": 365,
+      "caller": "12791",
+      "target": "20012",
+      "symbol": "_ZN11Json_writer9end_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 366,
+      "caller": "12791",
+      "target": "20019",
+      "symbol": "_ZN11Json_writer7add_strEPKcm",
+      "level": 2
+    },
+    {
+      "id": 367,
+      "caller": "12791",
+      "target": "21546",
+      "symbol": "_Z14hint_key_statePK3THDPK5TABLEj14opt_hints_enumb",
+      "level": 2
+    },
+    {
+      "id": 368,
+      "caller": "12791",
+      "target": "12789",
+      "symbol": "_ZN18Json_writer_object3addEPKcb",
+      "level": 2
+    },
+    {
+      "id": 369,
+      "caller": "12791",
+      "target": "12776",
+      "symbol": "_ZN18Json_writer_object3addEPKcS1_",
+      "level": 2
+    },
+    {
+      "id": 370,
+      "caller": "12791",
+      "target": "20021",
+      "symbol": "_ZN11Json_writer8add_boolEb",
+      "level": 2
+    },
+    {
+      "id": 371,
+      "caller": "12791",
+      "target": "20023",
+      "symbol": "_ZN11Json_writer7add_strEPKc",
+      "level": 2
+    },
+    {
+      "id": 372,
+      "caller": "12791",
+      "target": "20010",
+      "symbol": "_ZN11Json_writer11start_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 373,
+      "caller": "12791",
+      "target": "12777",
+      "symbol": "_ZN18Json_writer_object3addEPKcRK25st_mysql_const_lex_string",
+      "level": 2
+    },
+    {
+      "id": 374,
+      "caller": "12791",
+      "target": "12799",
+      "symbol": "_ZL22get_best_group_min_maxP5PARAMP8SEL_TREEd",
+      "level": 2
+    },
+    {
+      "id": 375,
+      "caller": "12791",
+      "target": "12792",
+      "symbol": "_ZL8tree_andP15RANGE_OPT_PARAMP8SEL_TREES2_",
+      "level": 2
+    },
+    {
+      "id": 376,
+      "caller": "12791",
+      "target": "12793",
+      "symbol": "_ZN18Json_writer_object3addIjvEERS_PKcT_",
+      "level": 2
+    },
+    {
+      "id": 377,
+      "caller": "12791",
+      "target": "12795",
+      "symbol": "_ZL20get_key_scans_paramsP5PARAMP8SEL_TREEbbdyb",
+      "level": 2
+    },
+    {
+      "id": 378,
+      "caller": "12791",
+      "target": "12796",
+      "symbol": "_ZL22get_best_ror_intersectPK5PARAMP8SEL_TREEdPbb",
+      "level": 2
+    },
+    {
+      "id": 379,
+      "caller": "12791",
+      "target": "945",
+      "symbol": "my_qsort",
+      "level": 2
+    },
+    {
+      "id": 380,
+      "caller": "12791",
+      "target": "3389",
+      "symbol": "log",
+      "level": 2
+    },
+    {
+      "id": 381,
+      "caller": "12791",
+      "target": "12797",
+      "symbol": "_ZL24get_best_index_intersectP5PARAMP8SEL_TREEd",
+      "level": 2
+    },
+    {
+      "id": 382,
+      "caller": "12791",
+      "target": "12798",
+      "symbol": "_ZL23get_best_disjunct_quickP5PARAMbbP10SEL_IMERGEdybb",
+      "level": 2
+    },
+    {
+      "id": 383,
+      "caller": "12791",
+      "target": "20011",
+      "symbol": "_ZN11Json_writer10end_objectEv",
+      "level": 2
+    },
+    {
+      "id": 384,
+      "caller": "12791",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 385,
+      "caller": "12791",
+      "target": "indirect@2051",
+      "symbol": "indirect@2051",
+      "level": 2
+    },
+    {
+      "id": 386,
+      "caller": "12791",
+      "target": "indirect@2159",
+      "symbol": "indirect@2159",
+      "level": 2
+    },
+    {
+      "id": 387,
+      "caller": "12791",
+      "target": "indirect@4123",
+      "symbol": "indirect@4123",
+      "level": 2
+    },
+    {
+      "id": 388,
+      "caller": "12791",
+      "target": "indirect@4458",
+      "symbol": "indirect@4458",
+      "level": 2
+    },
+    {
+      "id": 389,
+      "caller": "12791",
+      "target": "indirect@4678",
+      "symbol": "indirect@4678",
+      "level": 2
+    },
+    {
+      "id": 390,
+      "caller": "12791",
+      "target": "indirect@6738",
+      "symbol": "indirect@6738",
+      "level": 2
+    },
+    {
+      "id": 391,
+      "caller": "12791",
+      "target": "indirect@6969",
+      "symbol": "indirect@6969",
+      "level": 2
+    },
+    {
+      "id": 392,
+      "caller": "12791",
+      "target": "indirect@7020",
+      "symbol": "indirect@7020",
+      "level": 2
+    },
+    {
+      "id": 393,
+      "caller": "12791",
+      "target": "indirect@7053",
+      "symbol": "indirect@7053",
+      "level": 2
+    },
+    {
+      "id": 394,
+      "caller": "12791",
+      "target": "indirect@7166",
+      "symbol": "indirect@7166",
+      "level": 2
+    },
+    {
+      "id": 395,
+      "caller": "12791",
+      "target": "indirect@7332",
+      "symbol": "indirect@7332",
+      "level": 2
+    },
+    {
+      "id": 396,
+      "caller": "14999",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 397,
+      "caller": "14999",
+      "target": "13838",
+      "symbol": "thd_alloc",
+      "level": 2
+    },
+    {
+      "id": 398,
+      "caller": "14999",
+      "target": "20053",
+      "symbol": "_ZN13Explain_query8add_nodeEP12Explain_node",
+      "level": 2
+    },
+    {
+      "id": 399,
+      "caller": "14999",
+      "target": "783",
+      "symbol": "alloc_root",
+      "level": 2
+    },
+    {
+      "id": 400,
+      "caller": "14999",
+      "target": "793",
+      "symbol": "init_dynamic_array2",
+      "level": 2
+    },
+    {
+      "id": 401,
+      "caller": "14999",
+      "target": "14291",
+      "symbol": "_ZN13st_select_lex16set_explain_typeEb",
+      "level": 2
+    },
+    {
+      "id": 402,
+      "caller": "14999",
+      "target": "15086",
+      "symbol": "_Z21save_agg_explain_dataP4JOINP14Explain_select",
+      "level": 2
+    },
+    {
+      "id": 403,
+      "caller": "14999",
+      "target": "5537",
+      "symbol": "_ZN6StringD2Ev",
+      "level": 2
+    },
+    {
+      "id": 404,
+      "caller": "14999",
+      "target": "13682",
+      "symbol": "_ZN17Item_in_subselect14get_identifierEv",
+      "level": 2
+    },
+    {
+      "id": 405,
+      "caller": "14999",
+      "target": "20079",
+      "symbol": "_ZN21Explain_aggr_filesortC2EP11st_mem_rootbP8Filesort",
+      "level": 2
+    },
+    {
+      "id": 406,
+      "caller": "14999",
+      "target": "1067",
+      "symbol": "my_snprintf",
+      "level": 2
+    },
+    {
+      "id": 407,
+      "caller": "14999",
+      "target": "15400",
+      "symbol": "_ZN13Binary_string4copyEPKcm",
+      "level": 2
+    },
+    {
+      "id": 408,
+      "caller": "14999",
+      "target": "14733",
+      "symbol": "_Z24make_used_partitions_strP11st_mem_rootP14partition_infoP6StringR11String_list",
+      "level": 2
+    },
+    {
+      "id": 409,
+      "caller": "14999",
+      "target": "20087",
+      "symbol": "_ZN11String_list10append_strEP11st_mem_rootPKc",
+      "level": 2
+    },
+    {
+      "id": 410,
+      "caller": "14999",
+      "target": "20086",
+      "symbol": "_ZN17Explain_index_use3setEP11st_mem_rootP6st_keyj",
+      "level": 2
+    },
+    {
+      "id": 411,
+      "caller": "14999",
+      "target": "15411",
+      "symbol": "_ZN6String6appendEPKcmPK15charset_info_st",
+      "level": 2
+    },
+    {
+      "id": 412,
+      "caller": "14999",
+      "target": "15407",
+      "symbol": "_ZN6String6appendEPKcm",
+      "level": 2
+    },
+    {
+      "id": 413,
+      "caller": "14999",
+      "target": "7181",
+      "symbol": "_ZN13Binary_string10c_ptr_safeEv",
+      "level": 2
+    },
+    {
+      "id": 414,
+      "caller": "14999",
+      "target": "788",
+      "symbol": "strdup_root",
+      "level": 2
+    },
+    {
+      "id": 415,
+      "caller": "14999",
+      "target": "988",
+      "symbol": "my_free",
+      "level": 2
+    },
+    {
+      "id": 416,
+      "caller": "14999",
+      "target": "15127",
+      "symbol": "_ZN10TABLE_LIST13is_active_sjmEv",
+      "level": 2
+    },
+    {
+      "id": 417,
+      "caller": "14999",
+      "target": "20083",
+      "symbol": "_ZN20Explain_table_access10push_extraE17explain_extra_tag",
+      "level": 2
+    },
+    {
+      "id": 418,
+      "caller": "14999",
+      "target": "784",
+      "symbol": "multi_alloc_root",
+      "level": 2
+    },
+    {
+      "id": 419,
+      "caller": "14999",
+      "target": "70",
+      "symbol": "strlen",
+      "level": 2
+    },
+    {
+      "id": 420,
+      "caller": "14999",
+      "target": "15186",
+      "symbol": "_Z23explain_append_mrr_infoP18QUICK_RANGE_SELECTP6String",
+      "level": 2
+    },
+    {
+      "id": 421,
+      "caller": "14999",
+      "target": "794",
+      "symbol": "insert_dynamic",
+      "level": 2
+    },
+    {
+      "id": 422,
+      "caller": "14999",
+      "target": "5508",
+      "symbol": "my_timer_microseconds",
+      "level": 2
+    },
+    {
+      "id": 423,
+      "caller": "14999",
+      "target": "20107",
+      "symbol": "_Z24process_gap_time_trackerP3THDy",
+      "level": 2
+    },
+    {
+      "id": 424,
+      "caller": "14999",
+      "target": "20106",
+      "symbol": "_Z23attach_gap_time_trackerP3THDP16Gap_time_trackery",
+      "level": 2
+    },
+    {
+      "id": 425,
+      "caller": "14999",
+      "target": "indirect@3423",
+      "symbol": "indirect@3423",
+      "level": 2
+    },
+    {
+      "id": 426,
+      "caller": "14999",
+      "target": "indirect@3593",
+      "symbol": "indirect@3593",
+      "level": 2
+    },
+    {
+      "id": 427,
+      "caller": "14999",
+      "target": "indirect@3791",
+      "symbol": "indirect@3791",
+      "level": 2
+    },
+    {
+      "id": 428,
+      "caller": "14999",
+      "target": "indirect@3901",
+      "symbol": "indirect@3901",
+      "level": 2
+    },
+    {
+      "id": 429,
+      "caller": "14999",
+      "target": "indirect@5766",
+      "symbol": "indirect@5766",
+      "level": 2
+    },
+    {
+      "id": 430,
+      "caller": "14999",
+      "target": "indirect@6600",
+      "symbol": "indirect@6600",
+      "level": 2
+    },
+    {
+      "id": 431,
+      "caller": "14999",
+      "target": "indirect@6621",
+      "symbol": "indirect@6621",
+      "level": 2
+    },
+    {
+      "id": 432,
+      "caller": "15009",
+      "target": "784",
+      "symbol": "multi_alloc_root",
+      "level": 2
+    },
+    {
+      "id": 433,
+      "caller": "15009",
+      "target": "15127",
+      "symbol": "_ZN10TABLE_LIST13is_active_sjmEv",
+      "level": 2
+    },
+    {
+      "id": 434,
+      "caller": "15009",
+      "target": "727",
+      "symbol": "my_message",
+      "level": 2
+    },
+    {
+      "id": 435,
+      "caller": "15009",
+      "target": "15030",
+      "symbol": "_ZL19update_ref_and_keysP3THDP16st_dynamic_arrayP13st_join_tablejP4ItemyP13st_select_lexPP14SARGABLE_PARAM",
+      "level": 2
+    },
+    {
+      "id": 436,
+      "caller": "15009",
+      "target": "15031",
+      "symbol": "_Z22sort_and_filter_keyuseP4JOINP16st_dynamic_arraybb",
+      "level": 2
+    },
+    {
+      "id": 437,
+      "caller": "15009",
+      "target": "15492",
+      "symbol": "_Z28print_keyuse_array_for_traceP3THDP16st_dynamic_array",
+      "level": 2
+    },
+    {
+      "id": 438,
+      "caller": "15009",
+      "target": "20007",
+      "symbol": "_ZN11Json_writer12start_objectEv",
+      "level": 2
+    },
+    {
+      "id": 439,
+      "caller": "15009",
+      "target": "7577",
+      "symbol": "_ZN18Json_writer_objectD2Ev",
+      "level": 2
+    },
+    {
+      "id": 440,
+      "caller": "15009",
+      "target": "20013",
+      "symbol": "_ZN11Json_writer10add_memberEPKc",
+      "level": 2
+    },
+    {
+      "id": 441,
+      "caller": "15009",
+      "target": "20010",
+      "symbol": "_ZN11Json_writer11start_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 442,
+      "caller": "15009",
+      "target": "14957",
+      "symbol": "_ZL25eliminate_tables_for_listP4JOINP4ListI10TABLE_LISTEyP4ItemyP17Json_writer_array",
+      "level": 2
+    },
+    {
+      "id": 443,
+      "caller": "15009",
+      "target": "12780",
+      "symbol": "_ZN17Json_writer_arrayD2Ev",
+      "level": 2
+    },
+    {
+      "id": 444,
+      "caller": "15009",
+      "target": "14958",
+      "symbol": "_ZL30unmark_live_on_expr_subqueriesP4JOINP4ListI10TABLE_LISTE",
+      "level": 2
+    },
+    {
+      "id": 445,
+      "caller": "15009",
+      "target": "20012",
+      "symbol": "_ZN11Json_writer9end_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 446,
+      "caller": "15009",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 447,
+      "caller": "15009",
+      "target": "20011",
+      "symbol": "_ZN11Json_writer10end_objectEv",
+      "level": 2
+    },
+    {
+      "id": 448,
+      "caller": "15009",
+      "target": "15032",
+      "symbol": "_ZL21join_read_const_tableP3THDP13st_join_tableP8POSITION",
+      "level": 2
+    },
+    {
+      "id": 449,
+      "caller": "15009",
+      "target": "15033",
+      "symbol": "_ZL18create_ref_for_keyP4JOINP13st_join_tableP8keyuse_tby",
+      "level": 2
+    },
+    {
+      "id": 450,
+      "caller": "15009",
+      "target": "12785",
+      "symbol": "_ZN18Json_writer_objectC2EP3THDPKc",
+      "level": 2
+    },
+    {
+      "id": 451,
+      "caller": "15009",
+      "target": "12814",
+      "symbol": "_ZN18Json_writer_object3addIivEERS_PKcT_",
+      "level": 2
+    },
+    {
+      "id": 452,
+      "caller": "15009",
+      "target": "12741",
+      "symbol": "_ZN9Sql_allocnwEm",
+      "level": 2
+    },
+    {
+      "id": 453,
+      "caller": "15009",
+      "target": "8249",
+      "symbol": "_ZN4ListI10Item_fieldE9push_backEPKS0_P11st_mem_root",
+      "level": 2
+    },
+    {
+      "id": 454,
+      "caller": "15009",
+      "target": "15201",
+      "symbol": "_ZL35build_notnull_conds_for_range_scansP4JOINP4Itemy",
+      "level": 2
+    },
+    {
+      "id": 455,
+      "caller": "15009",
+      "target": "15202",
+      "symbol": "_ZL48build_notnull_conds_for_inner_nest_of_outer_joinP4JOINP10TABLE_LIST",
+      "level": 2
+    },
+    {
+      "id": 456,
+      "caller": "15009",
+      "target": "12781",
+      "symbol": "_ZN17Json_writer_arrayC2EP3THDPKc",
+      "level": 2
+    },
+    {
+      "id": 457,
+      "caller": "15009",
+      "target": "21256",
+      "symbol": "_ZN11Json_writer14add_table_nameEPK13st_join_table",
+      "level": 2
+    },
+    {
+      "id": 458,
+      "caller": "15009",
+      "target": "20017",
+      "symbol": "_ZN11Json_writer7add_ullEy",
+      "level": 2
+    },
+    {
+      "id": 459,
+      "caller": "15009",
+      "target": "20020",
+      "symbol": "_ZN11Json_writer10add_doubleEd",
+      "level": 2
+    },
+    {
+      "id": 460,
+      "caller": "15009",
+      "target": "20023",
+      "symbol": "_ZN11Json_writer7add_strEPKc",
+      "level": 2
+    },
+    {
+      "id": 461,
+      "caller": "15009",
+      "target": "7114",
+      "symbol": "_Z15get_new_handlerP11TABLE_SHAREP11st_mem_rootP10handlerton",
+      "level": 2
+    },
+    {
+      "id": 462,
+      "caller": "15009",
+      "target": "21219",
+      "symbol": "_ZN4JOIN25add_keyuses_for_splittingEv",
+      "level": 2
+    },
+    {
+      "id": 463,
+      "caller": "15009",
+      "target": "15034",
+      "symbol": "_Z23is_indexed_agg_distinctP4JOINP4ListI10Item_fieldE",
+      "level": 2
+    },
+    {
+      "id": 464,
+      "caller": "15009",
+      "target": "19860",
+      "symbol": "_Z24pull_out_semijoin_tablesP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 465,
+      "caller": "15009",
+      "target": "21531",
+      "symbol": "_Z10print_warnP3THDj14opt_hints_enumbPK13Lex_ident_sysS4_S4_PK21Printable_parser_rule",
+      "level": 2
+    },
+    {
+      "id": 466,
+      "caller": "15009",
+      "target": "783",
+      "symbol": "alloc_root",
+      "level": 2
+    },
+    {
+      "id": 467,
+      "caller": "15009",
+      "target": "15407",
+      "symbol": "_ZN6String6appendEPKcm",
+      "level": 2
+    },
+    {
+      "id": 468,
+      "caller": "15009",
+      "target": "15261",
+      "symbol": "_Z17append_identifierP3THDP6StringPKcm",
+      "level": 2
+    },
+    {
+      "id": 469,
+      "caller": "15009",
+      "target": "15392",
+      "symbol": "_ZN13Binary_string11realloc_rawEm",
+      "level": 2
+    },
+    {
+      "id": 470,
+      "caller": "15009",
+      "target": "21530",
+      "symbol": "_Z17push_warning_safeP3THDN21Sql_state_errno_level18enum_warning_levelEjPKcz",
+      "level": 2
+    },
+    {
+      "id": 471,
+      "caller": "15009",
+      "target": "988",
+      "symbol": "my_free",
+      "level": 2
+    },
+    {
+      "id": 472,
+      "caller": "15009",
+      "target": "15035",
+      "symbol": "_ZL24trace_table_dependenciesP3THDP13st_join_tablej",
+      "level": 2
+    },
+    {
+      "id": 473,
+      "caller": "15009",
+      "target": "19862",
+      "symbol": "_Z23optimize_semijoin_nestsP4JOINy",
+      "level": 2
+    },
+    {
+      "id": 474,
+      "caller": "15009",
+      "target": "15037",
+      "symbol": "_Z11choose_planP4JOINyP10TABLE_LIST",
+      "level": 2
+    },
+    {
+      "id": 475,
+      "caller": "15009",
+      "target": "14975",
+      "symbol": "_Z31estimate_post_group_cardinalityP4JOINd",
+      "level": 2
+    },
+    {
+      "id": 476,
+      "caller": "15009",
+      "target": "13705",
+      "symbol": "_ZN17Item_in_subselect24create_in_to_exists_condEP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 477,
+      "caller": "15009",
+      "target": "4189",
+      "symbol": "my_multi_malloc",
+      "level": 2
+    },
+    {
+      "id": 478,
+      "caller": "15009",
+      "target": "19889",
+      "symbol": "_ZN4JOIN15Join_plan_stateD2Ev",
+      "level": 2
+    },
+    {
+      "id": 479,
+      "caller": "15009",
+      "target": "19863",
+      "symbol": "_ZL24get_tmp_table_rec_length20Bounds_checked_arrayIP4ItemEjPb",
+      "level": 2
+    },
+    {
+      "id": 480,
+      "caller": "15009",
+      "target": "15197",
+      "symbol": "_ZN4JOIN10reoptimizeEP4ItemyPNS_15Join_plan_stateE",
+      "level": 2
+    },
+    {
+      "id": 481,
+      "caller": "15009",
+      "target": "12790",
+      "symbol": "_ZN18Json_writer_object3addEPKcd",
+      "level": 2
+    },
+    {
+      "id": 482,
+      "caller": "15009",
+      "target": "12776",
+      "symbol": "_ZN18Json_writer_object3addEPKcS1_",
+      "level": 2
+    },
+    {
+      "id": 483,
+      "caller": "15009",
+      "target": "4081",
+      "symbol": "my_bitmap_init",
+      "level": 2
+    },
+    {
+      "id": 484,
+      "caller": "15009",
+      "target": "1067",
+      "symbol": "my_snprintf",
+      "level": 2
+    },
+    {
+      "id": 485,
+      "caller": "15009",
+      "target": "790",
+      "symbol": "memdup_root",
+      "level": 2
+    },
+    {
+      "id": 486,
+      "caller": "15009",
+      "target": "15075",
+      "symbol": "_Z14free_tmp_tableP3THDP5TABLE",
+      "level": 2
+    },
+    {
+      "id": 487,
+      "caller": "15009",
+      "target": "7998",
+      "symbol": "_ZN4ItemC2EP3THD",
+      "level": 2
+    },
+    {
+      "id": 488,
+      "caller": "15009",
+      "target": "5612",
+      "symbol": "_ZN16Item_basic_valueD2Ev",
+      "level": 2
+    },
+    {
+      "id": 489,
+      "caller": "15009",
+      "target": "19687",
+      "symbol": "_ZN11MDL_request16init_with_sourceEN7MDL_key18enum_mdl_namespaceEPKcS3_13enum_mdl_type17enum_mdl_durationS3_j",
+      "level": 2
+    },
+    {
+      "id": 490,
+      "caller": "15009",
+      "target": "13838",
+      "symbol": "thd_alloc",
+      "level": 2
+    },
+    {
+      "id": 491,
+      "caller": "15009",
+      "target": "7593",
+      "symbol": "_ZN9Item_cond10fix_fieldsEP3THDPP4Item",
+      "level": 2
+    },
+    {
+      "id": 492,
+      "caller": "15009",
+      "target": "8123",
+      "symbol": "_ZN10Item_fieldC2EP3THDP23Name_resolution_contextP5Field",
+      "level": 2
+    },
+    {
+      "id": 493,
+      "caller": "15009",
+      "target": "15134",
+      "symbol": "_ZN12st_table_ref27tmp_table_index_lookup_initEP3THDP6st_keyR13Item_iteratorbj",
+      "level": 2
+    },
+    {
+      "id": 494,
+      "caller": "15009",
+      "target": "15195",
+      "symbol": "_ZN4JOIN13change_resultEP13select_resultS1_",
+      "level": 2
+    },
+    {
+      "id": 495,
+      "caller": "15009",
+      "target": "14275",
+      "symbol": "_ZN18st_select_lex_unit9set_limitEP13st_select_lex",
+      "level": 2
+    },
+    {
+      "id": 496,
+      "caller": "15009",
+      "target": "13706",
+      "symbol": "_ZN17Item_in_subselect24inject_in_to_exists_condEP4JOIN",
+      "level": 2
+    },
+    {
+      "id": 497,
+      "caller": "15009",
+      "target": "12750",
+      "symbol": "_Z11make_selectP5TABLEyyP4ItemP9SORT_INFObPi",
+      "level": 2
+    },
+    {
+      "id": 498,
+      "caller": "15009",
+      "target": "14619",
+      "symbol": "_Z19check_stack_overrunP3THDlPh",
+      "level": 2
+    },
+    {
+      "id": 499,
+      "caller": "15009",
+      "target": "12791",
+      "symbol": "_ZN10SQL_SELECT17test_quick_selectEP3THD6BitmapILj64EEyybbbbN9Item_func6BitmapE",
+      "level": 2
+    },
+    {
+      "id": 500,
+      "caller": "15009",
+      "target": "12753",
+      "symbol": "_ZN10SQL_SELECTD2Ev",
+      "level": 2
+    },
+    {
+      "id": 501,
+      "caller": "15009",
+      "target": "21546",
+      "symbol": "_Z14hint_key_statePK3THDPK5TABLEj14opt_hints_enumb",
+      "level": 2
+    },
+    {
+      "id": 502,
+      "caller": "15009",
+      "target": "6814",
+      "symbol": "log2",
+      "level": 2
+    },
+    {
+      "id": 503,
+      "caller": "15009",
+      "target": "945",
+      "symbol": "my_qsort",
+      "level": 2
+    },
+    {
+      "id": 504,
+      "caller": "15009",
+      "target": "21223",
+      "symbol": "_ZNK5TABLE25trace_range_rowid_filtersEP3THD",
+      "level": 2
+    },
+    {
+      "id": 505,
+      "caller": "15009",
+      "target": "12812",
+      "symbol": "_Z36calculate_cond_selectivity_for_tableP3THDP5TABLEPP4Item",
+      "level": 2
+    },
+    {
+      "id": 506,
+      "caller": "15009",
+      "target": "15038",
+      "symbol": "_Z23mark_join_nest_as_constP4JOINP10TABLE_LISTPyPj",
+      "level": 2
+    },
+    {
+      "id": 507,
+      "caller": "15009",
+      "target": "21260",
+      "symbol": "_Z30add_table_scan_values_to_traceP3THDP13st_join_table",
+      "level": 2
+    },
+    {
+      "id": 508,
+      "caller": "15009",
+      "target": "indirect@5928",
+      "symbol": "indirect@5928",
+      "level": 2
+    },
+    {
+      "id": 509,
+      "caller": "15009",
+      "target": "indirect@6316",
+      "symbol": "indirect@6316",
+      "level": 2
+    },
+    {
+      "id": 510,
+      "caller": "15009",
+      "target": "indirect@7250",
+      "symbol": "indirect@7250",
+      "level": 2
+    },
+    {
+      "id": 511,
+      "caller": "15009",
+      "target": "indirect@7272",
+      "symbol": "indirect@7272",
+      "level": 2
+    },
+    {
+      "id": 512,
+      "caller": "15009",
+      "target": "indirect@7458",
+      "symbol": "indirect@7458",
+      "level": 2
+    },
+    {
+      "id": 513,
+      "caller": "15009",
+      "target": "indirect@7486",
+      "symbol": "indirect@7486",
+      "level": 2
+    },
+    {
+      "id": 514,
+      "caller": "15009",
+      "target": "indirect@7550",
+      "symbol": "indirect@7550",
+      "level": 2
+    },
+    {
+      "id": 515,
+      "caller": "15009",
+      "target": "indirect@7582",
+      "symbol": "indirect@7582",
+      "level": 2
+    },
+    {
+      "id": 516,
+      "caller": "15009",
+      "target": "indirect@7637",
+      "symbol": "indirect@7637",
+      "level": 2
+    },
+    {
+      "id": 517,
+      "caller": "15009",
+      "target": "indirect@7701",
+      "symbol": "indirect@7701",
+      "level": 2
+    },
+    {
+      "id": 518,
+      "caller": "15009",
+      "target": "indirect@7772",
+      "symbol": "indirect@7772",
+      "level": 2
+    },
+    {
+      "id": 519,
+      "caller": "15009",
+      "target": "indirect@7941",
+      "symbol": "indirect@7941",
+      "level": 2
+    },
+    {
+      "id": 520,
+      "caller": "15009",
+      "target": "indirect@7971",
+      "symbol": "indirect@7971",
+      "level": 2
+    },
+    {
+      "id": 521,
+      "caller": "15009",
+      "target": "indirect@8019",
+      "symbol": "indirect@8019",
+      "level": 2
+    },
+    {
+      "id": 522,
+      "caller": "15009",
+      "target": "indirect@8079",
+      "symbol": "indirect@8079",
+      "level": 2
+    },
+    {
+      "id": 523,
+      "caller": "15009",
+      "target": "indirect@8143",
+      "symbol": "indirect@8143",
+      "level": 2
+    },
+    {
+      "id": 524,
+      "caller": "15009",
+      "target": "indirect@8560",
+      "symbol": "indirect@8560",
+      "level": 2
+    },
+    {
+      "id": 525,
+      "caller": "15009",
+      "target": "indirect@8581",
+      "symbol": "indirect@8581",
+      "level": 2
+    },
+    {
+      "id": 526,
+      "caller": "15009",
+      "target": "indirect@8798",
+      "symbol": "indirect@8798",
+      "level": 2
+    },
+    {
+      "id": 527,
+      "caller": "15009",
+      "target": "indirect@8991",
+      "symbol": "indirect@8991",
+      "level": 2
+    },
+    {
+      "id": 528,
+      "caller": "15009",
+      "target": "indirect@9067",
+      "symbol": "indirect@9067",
+      "level": 2
+    },
+    {
+      "id": 529,
+      "caller": "15009",
+      "target": "indirect@9352",
+      "symbol": "indirect@9352",
+      "level": 2
+    },
+    {
+      "id": 530,
+      "caller": "15009",
+      "target": "indirect@9610",
+      "symbol": "indirect@9610",
+      "level": 2
+    },
+    {
+      "id": 531,
+      "caller": "15009",
+      "target": "indirect@9663",
+      "symbol": "indirect@9663",
+      "level": 2
+    },
+    {
+      "id": 532,
+      "caller": "15009",
+      "target": "indirect@9717",
+      "symbol": "indirect@9717",
+      "level": 2
+    },
+    {
+      "id": 533,
+      "caller": "15009",
+      "target": "indirect@9739",
+      "symbol": "indirect@9739",
+      "level": 2
+    },
+    {
+      "id": 534,
+      "caller": "15009",
+      "target": "indirect@10178",
+      "symbol": "indirect@10178",
+      "level": 2
+    },
+    {
+      "id": 535,
+      "caller": "15009",
+      "target": "indirect@10242",
+      "symbol": "indirect@10242",
+      "level": 2
+    },
+    {
+      "id": 536,
+      "caller": "15009",
+      "target": "indirect@10256",
+      "symbol": "indirect@10256",
+      "level": 2
+    },
+    {
+      "id": 537,
+      "caller": "15009",
+      "target": "indirect@10293",
+      "symbol": "indirect@10293",
+      "level": 2
+    },
+    {
+      "id": 538,
+      "caller": "15009",
+      "target": "indirect@10314",
+      "symbol": "indirect@10314",
+      "level": 2
+    },
+    {
+      "id": 539,
+      "caller": "15009",
+      "target": "indirect@10373",
+      "symbol": "indirect@10373",
+      "level": 2
+    },
+    {
+      "id": 540,
+      "caller": "15009",
+      "target": "indirect@10386",
+      "symbol": "indirect@10386",
+      "level": 2
+    },
+    {
+      "id": 541,
+      "caller": "15009",
+      "target": "indirect@10406",
+      "symbol": "indirect@10406",
+      "level": 2
+    },
+    {
+      "id": 542,
+      "caller": "15009",
+      "target": "indirect@10438",
+      "symbol": "indirect@10438",
+      "level": 2
+    },
+    {
+      "id": 543,
+      "caller": "15009",
+      "target": "indirect@10618",
+      "symbol": "indirect@10618",
+      "level": 2
+    },
+    {
+      "id": 544,
+      "caller": "15009",
+      "target": "indirect@11223",
+      "symbol": "indirect@11223",
+      "level": 2
+    },
+    {
+      "id": 545,
+      "caller": "15009",
+      "target": "indirect@11241",
+      "symbol": "indirect@11241",
+      "level": 2
+    },
+    {
+      "id": 546,
+      "caller": "15009",
+      "target": "indirect@11413",
+      "symbol": "indirect@11413",
+      "level": 2
+    },
+    {
+      "id": 547,
+      "caller": "15009",
+      "target": "indirect@11692",
+      "symbol": "indirect@11692",
+      "level": 2
+    },
+    {
+      "id": 548,
+      "caller": "15009",
+      "target": "indirect@11734",
+      "symbol": "indirect@11734",
+      "level": 2
+    },
+    {
+      "id": 549,
+      "caller": "15009",
+      "target": "indirect@11748",
+      "symbol": "indirect@11748",
+      "level": 2
+    },
+    {
+      "id": 550,
+      "caller": "15009",
+      "target": "indirect@11838",
+      "symbol": "indirect@11838",
+      "level": 2
+    },
+    {
+      "id": 551,
+      "caller": "15009",
+      "target": "indirect@11892",
+      "symbol": "indirect@11892",
+      "level": 2
+    },
+    {
+      "id": 552,
+      "caller": "15009",
+      "target": "indirect@12362",
+      "symbol": "indirect@12362",
+      "level": 2
+    },
+    {
+      "id": 553,
+      "caller": "15009",
+      "target": "indirect@12410",
+      "symbol": "indirect@12410",
+      "level": 2
+    },
+    {
+      "id": 554,
+      "caller": "15009",
+      "target": "indirect@12433",
+      "symbol": "indirect@12433",
+      "level": 2
+    },
+    {
+      "id": 555,
+      "caller": "15009",
+      "target": "indirect@14386",
+      "symbol": "indirect@14386",
+      "level": 2
+    },
+    {
+      "id": 556,
+      "caller": "15009",
+      "target": "indirect@14414",
+      "symbol": "indirect@14414",
+      "level": 2
+    },
+    {
+      "id": 557,
+      "caller": "15009",
+      "target": "indirect@14642",
+      "symbol": "indirect@14642",
+      "level": 2
+    },
+    {
+      "id": 558,
+      "caller": "15009",
+      "target": "indirect@15627",
+      "symbol": "indirect@15627",
+      "level": 2
+    },
+    {
+      "id": 559,
+      "caller": "15009",
+      "target": "indirect@15652",
+      "symbol": "indirect@15652",
+      "level": 2
+    },
+    {
+      "id": 560,
+      "caller": "15009",
+      "target": "indirect@15969",
+      "symbol": "indirect@15969",
+      "level": 2
+    },
+    {
+      "id": 561,
+      "caller": "15009",
+      "target": "indirect@15984",
+      "symbol": "indirect@15984",
+      "level": 2
+    },
+    {
+      "id": 562,
+      "caller": "15009",
+      "target": "indirect@16005",
+      "symbol": "indirect@16005",
+      "level": 2
+    },
+    {
+      "id": 563,
+      "caller": "15009",
+      "target": "indirect@16068",
+      "symbol": "indirect@16068",
+      "level": 2
+    },
+    {
+      "id": 564,
+      "caller": "15009",
+      "target": "indirect@16090",
+      "symbol": "indirect@16090",
+      "level": 2
+    },
+    {
+      "id": 565,
+      "caller": "15009",
+      "target": "indirect@16219",
+      "symbol": "indirect@16219",
+      "level": 2
+    },
+    {
+      "id": 566,
+      "caller": "15009",
+      "target": "indirect@16479",
+      "symbol": "indirect@16479",
+      "level": 2
+    },
+    {
+      "id": 567,
+      "caller": "15009",
+      "target": "indirect@16583",
+      "symbol": "indirect@16583",
+      "level": 2
+    },
+    {
+      "id": 568,
+      "caller": "15009",
+      "target": "indirect@16687",
+      "symbol": "indirect@16687",
+      "level": 2
+    },
+    {
+      "id": 569,
+      "caller": "15009",
+      "target": "indirect@16891",
+      "symbol": "indirect@16891",
+      "level": 2
+    },
+    {
+      "id": 570,
+      "caller": "15009",
+      "target": "indirect@17050",
+      "symbol": "indirect@17050",
+      "level": 2
+    },
+    {
+      "id": 571,
+      "caller": "15009",
+      "target": "indirect@17556",
+      "symbol": "indirect@17556",
+      "level": 2
+    },
+    {
+      "id": 572,
+      "caller": "15009",
+      "target": "indirect@17590",
+      "symbol": "indirect@17590",
+      "level": 2
+    },
+    {
+      "id": 573,
+      "caller": "15009",
+      "target": "indirect@18118",
+      "symbol": "indirect@18118",
+      "level": 2
+    },
+    {
+      "id": 574,
+      "caller": "15009",
+      "target": "indirect@18140",
+      "symbol": "indirect@18140",
+      "level": 2
+    },
+    {
+      "id": 575,
+      "caller": "14993",
+      "target": "14996",
+      "symbol": "_Z17count_field_typesP13st_select_lexP15TMP_TABLE_PARAMR4ListI4ItemEb",
+      "level": 2
+    },
+    {
+      "id": 576,
+      "caller": "14993",
+      "target": "783",
+      "symbol": "alloc_root",
+      "level": 2
+    },
+    {
+      "id": 577,
+      "caller": "14993",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 578,
+      "caller": "14993",
+      "target": "7998",
+      "symbol": "_ZN4ItemC2EP3THD",
+      "level": 2
+    },
+    {
+      "id": 579,
+      "caller": "14993",
+      "target": "14997",
+      "symbol": "_ZL16change_group_refP3THDP9Item_funcP8st_orderPb",
+      "level": 2
+    },
+    {
+      "id": 580,
+      "caller": "14993",
+      "target": "indirect@748",
+      "symbol": "indirect@748",
+      "level": 2
+    },
+    {
+      "id": 581,
+      "caller": "14993",
+      "target": "indirect@983",
+      "symbol": "indirect@983",
+      "level": 2
+    },
+    {
+      "id": 582,
+      "caller": "14993",
+      "target": "indirect@1015",
+      "symbol": "indirect@1015",
+      "level": 2
+    },
+    {
+      "id": 583,
+      "caller": "15004",
+      "target": "15026",
+      "symbol": "_ZL17build_equal_itemsP4JOINP4ItemP10COND_EQUALP4ListI10TABLE_LISTEbPS4_b",
+      "level": 2
+    },
+    {
+      "id": 584,
+      "caller": "15004",
+      "target": "7577",
+      "symbol": "_ZN18Json_writer_objectD2Ev",
+      "level": 2
+    },
+    {
+      "id": 585,
+      "caller": "15004",
+      "target": "20007",
+      "symbol": "_ZN11Json_writer12start_objectEv",
+      "level": 2
+    },
+    {
+      "id": 586,
+      "caller": "15004",
+      "target": "20013",
+      "symbol": "_ZN11Json_writer10add_memberEPKc",
+      "level": 2
+    },
+    {
+      "id": 587,
+      "caller": "15004",
+      "target": "12776",
+      "symbol": "_ZN18Json_writer_object3addEPKcS1_",
+      "level": 2
+    },
+    {
+      "id": 588,
+      "caller": "15004",
+      "target": "12815",
+      "symbol": "_ZN18Json_writer_object3addEPKcP4Item",
+      "level": 2
+    },
+    {
+      "id": 589,
+      "caller": "15004",
+      "target": "20010",
+      "symbol": "_ZN11Json_writer11start_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 590,
+      "caller": "15004",
+      "target": "12780",
+      "symbol": "_ZN17Json_writer_arrayD2Ev",
+      "level": 2
+    },
+    {
+      "id": 591,
+      "caller": "15004",
+      "target": "15027",
+      "symbol": "_ZL24propagate_cond_constantsP3THDP6I_ListI8COND_CMPEP4ItemS6_",
+      "level": 2
+    },
+    {
+      "id": 592,
+      "caller": "15004",
+      "target": "20012",
+      "symbol": "_ZN11Json_writer9end_arrayEv",
+      "level": 2
+    },
+    {
+      "id": 593,
+      "caller": "15004",
+      "target": "1158",
+      "symbol": "_ZSt9terminatev",
+      "level": 2
+    },
+    {
+      "id": 594,
+      "caller": "15004",
+      "target": "20011",
+      "symbol": "_ZN11Json_writer10end_objectEv",
+      "level": 2
+    },
+    {
+      "id": 595,
+      "caller": "15004",
+      "target": "indirect@781",
+      "symbol": "indirect@781",
+      "level": 2
+    },
+    {
+      "id": 596,
+      "caller": "15004",
+      "target": "indirect@906",
+      "symbol": "indirect@906",
+      "level": 2
+    },
+    {
+      "id": 597,
+      "caller": "15004",
+      "target": "indirect@925",
+      "symbol": "indirect@925",
+      "level": 2
+    }
+  ]
+}

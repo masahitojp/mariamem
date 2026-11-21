@@ -1,0 +1,54 @@
+package timeline
+
+import (
+    "encoding/json"
+    "unsafe"
+)
+
+type EdgeCost struct {
+    Calls, Exclusive, Inclusive int64
+    live int
+    start int64
+}
+type JoinCosts [SIZE]EdgeCost
+
+func (c *JoinCosts) MarshalJSON() ([]byte, error) {
+    active := make(map[int]EdgeCost)
+    for i := range c {
+        if c[i].live != 0 { panic("unclosed optimizer edge") }
+        if c[i].Calls > 0 { active[i] = c[i] }
+    }
+    return json.Marshal(active)
+}
+type JoinFrame struct {
+    previous, edge int
+}
+func JoinRequest(m unsafe.Pointer, root bool) *Row {
+    r := Current()
+    if r == nil || r.module.Load() != (*byte)(m) || r.depth == 0 || (!root && r.joinDepth == 0) {
+        return nil
+    }
+    return r
+}
+func (r *Row) EnterJoin(edge int) JoinFrame {
+    now := Now()
+    if r.joinDepth > 0 { r.Join[r.joinActive].Exclusive += now-r.joinLast }
+    f := JoinFrame{previous:r.joinActive, edge:edge}
+    c := &r.Join[edge]
+    c.Calls++
+    if c.live == 0 { c.start=now }
+    c.live++
+    r.joinDepth++
+    r.joinLast, r.joinActive = now,edge
+    return f
+}
+func (r *Row) LeaveJoin(f JoinFrame) {
+    now := Now()
+    if r.joinActive != f.edge || r.joinDepth <= 0 { panic("optimizer edge stack") }
+    c := &r.Join[f.edge]
+    c.Exclusive += now-r.joinLast
+    c.live--
+    if c.live == 0 { c.Inclusive += now-c.start }
+    r.joinDepth--
+    r.joinLast, r.joinActive = now,f.previous
+}

@@ -1,0 +1,11 @@
+{
+  "totals": {
+    "processes": 60,
+    "databases": 588,
+    "inserts": 58800,
+    "traced": 44100,
+    "steady_inserts": 48000
+  },
+  "negative_checks": 5,
+  "static_sites": 598
+}
