@@ -1,0 +1,151 @@
+=== RUN   TestQualificationFullStream
+=== RUN   TestQualificationFullStream/input/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=4944
+=== RUN   TestQualificationFullStream/input/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=5094
+=== RUN   TestQualificationFullStream/input/drain
+    qual_full_test.go:173: drain pending response EOF
+=== RUN   TestQualificationFullStream/input/serverClose
+[mysql] 2026/11/21 14:08:28 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=5321
+=== RUN   TestQualificationFullStream/output/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=873
+=== RUN   TestQualificationFullStream/output/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=883
+=== RUN   TestQualificationFullStream/output/drain
+    qual_full_test.go:201: observed_full_bytes=16384 event=drain done_and_disposed_us=1601
+=== RUN   TestQualificationFullStream/output/serverClose
+[mysql] 2026/11/21 14:08:28 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=890
+--- FAIL: TestQualificationFullStream (0.21s)
+    --- PASS: TestQualificationFullStream/input/cancel (0.05s)
+    --- PASS: TestQualificationFullStream/input/disconnect (0.02s)
+    --- FAIL: TestQualificationFullStream/input/drain (0.02s)
+    --- PASS: TestQualificationFullStream/input/serverClose (0.02s)
+    --- PASS: TestQualificationFullStream/output/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/output/disconnect (0.02s)
+    --- PASS: TestQualificationFullStream/output/drain (0.02s)
+    --- PASS: TestQualificationFullStream/output/serverClose (0.02s)
+=== RUN   TestQualificationFullStream
+=== RUN   TestQualificationFullStream/input/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=5347
+=== RUN   TestQualificationFullStream/input/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=5517
+=== RUN   TestQualificationFullStream/input/drain
+    qual_full_test.go:173: drain pending response EOF
+=== RUN   TestQualificationFullStream/input/serverClose
+[mysql] 2026/11/21 14:08:28 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=5352
+=== RUN   TestQualificationFullStream/output/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=845
+=== RUN   TestQualificationFullStream/output/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=944
+=== RUN   TestQualificationFullStream/output/drain
+    qual_full_test.go:201: observed_full_bytes=16384 event=drain done_and_disposed_us=2304
+=== RUN   TestQualificationFullStream/output/serverClose
+[mysql] 2026/11/21 14:08:28 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=913
+--- FAIL: TestQualificationFullStream (0.18s)
+    --- PASS: TestQualificationFullStream/input/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/input/disconnect (0.02s)
+    --- FAIL: TestQualificationFullStream/input/drain (0.02s)
+    --- PASS: TestQualificationFullStream/input/serverClose (0.02s)
+    --- PASS: TestQualificationFullStream/output/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/output/disconnect (0.02s)
+    --- PASS: TestQualificationFullStream/output/drain (0.02s)
+    --- PASS: TestQualificationFullStream/output/serverClose (0.02s)
+=== RUN   TestQualificationFullStream
+=== RUN   TestQualificationFullStream/input/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=5124
+=== RUN   TestQualificationFullStream/input/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=5296
+=== RUN   TestQualificationFullStream/input/drain
+    qual_full_test.go:173: drain pending response EOF
+=== RUN   TestQualificationFullStream/input/serverClose
+[mysql] 2026/11/21 14:08:28 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=5225
+=== RUN   TestQualificationFullStream/output/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=895
+=== RUN   TestQualificationFullStream/output/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=906
+=== RUN   TestQualificationFullStream/output/drain
+    qual_full_test.go:201: observed_full_bytes=16384 event=drain done_and_disposed_us=1567
+=== RUN   TestQualificationFullStream/output/serverClose
+[mysql] 2026/11/21 14:08:28 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=903
+--- FAIL: TestQualificationFullStream (0.18s)
+    --- PASS: TestQualificationFullStream/input/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/input/disconnect (0.02s)
+    --- FAIL: TestQualificationFullStream/input/drain (0.02s)
+    --- PASS: TestQualificationFullStream/input/serverClose (0.02s)
+    --- PASS: TestQualificationFullStream/output/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/output/disconnect (0.02s)
+    --- PASS: TestQualificationFullStream/output/drain (0.02s)
+    --- PASS: TestQualificationFullStream/output/serverClose (0.02s)
+=== RUN   TestQualificationFullStream
+=== RUN   TestQualificationFullStream/input/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=6111
+=== RUN   TestQualificationFullStream/input/disconnect
+[mysql] 2026/11/21 14:08:28 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=5430
+=== RUN   TestQualificationFullStream/input/drain
+    qual_full_test.go:173: drain pending response EOF
+=== RUN   TestQualificationFullStream/input/serverClose
+[mysql] 2026/11/21 14:08:29 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=5337
+=== RUN   TestQualificationFullStream/output/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=888
+=== RUN   TestQualificationFullStream/output/disconnect
+[mysql] 2026/11/21 14:08:29 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=877
+=== RUN   TestQualificationFullStream/output/drain
+    qual_full_test.go:201: observed_full_bytes=16384 event=drain done_and_disposed_us=1557
+=== RUN   TestQualificationFullStream/output/serverClose
+[mysql] 2026/11/21 14:08:29 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=904
+--- FAIL: TestQualificationFullStream (0.18s)
+    --- PASS: TestQualificationFullStream/input/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/input/disconnect (0.02s)
+    --- FAIL: TestQualificationFullStream/input/drain (0.02s)
+    --- PASS: TestQualificationFullStream/input/serverClose (0.02s)
+    --- PASS: TestQualificationFullStream/output/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/output/disconnect (0.02s)
+    --- PASS: TestQualificationFullStream/output/drain (0.02s)
+    --- PASS: TestQualificationFullStream/output/serverClose (0.02s)
+=== RUN   TestQualificationFullStream
+=== RUN   TestQualificationFullStream/input/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=5607
+=== RUN   TestQualificationFullStream/input/disconnect
+[mysql] 2026/11/21 14:08:29 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=5254
+=== RUN   TestQualificationFullStream/input/drain
+    qual_full_test.go:173: drain pending response EOF
+=== RUN   TestQualificationFullStream/input/serverClose
+[mysql] 2026/11/21 14:08:29 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=5036
+=== RUN   TestQualificationFullStream/output/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=879
+=== RUN   TestQualificationFullStream/output/disconnect
+[mysql] 2026/11/21 14:08:29 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=872
+=== RUN   TestQualificationFullStream/output/drain
+    qual_full_test.go:201: observed_full_bytes=16384 event=drain done_and_disposed_us=1812
+=== RUN   TestQualificationFullStream/output/serverClose
+[mysql] 2026/11/21 14:08:29 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=910
+--- FAIL: TestQualificationFullStream (0.18s)
+    --- PASS: TestQualificationFullStream/input/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/input/disconnect (0.02s)
+    --- FAIL: TestQualificationFullStream/input/drain (0.02s)
+    --- PASS: TestQualificationFullStream/input/serverClose (0.02s)
+    --- PASS: TestQualificationFullStream/output/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/output/disconnect (0.02s)
+    --- PASS: TestQualificationFullStream/output/drain (0.02s)
+    --- PASS: TestQualificationFullStream/output/serverClose (0.02s)
+FAIL

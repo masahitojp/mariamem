@@ -1,0 +1,19 @@
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport=both query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.05s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport=both query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport=both query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport=both query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport=both query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+=== RUN   TestQualificationPartialControl
+    qual_extra_test.go:73: partial_sent=16384 transport=both query_err=EOF shutdown_err=<nil> disposed=true
+--- PASS: TestQualificationPartialControl (0.02s)
+PASS

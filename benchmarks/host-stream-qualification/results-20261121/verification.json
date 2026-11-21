@@ -1,0 +1,7 @@
+{
+  "processes": 70,
+  "waves": 370,
+  "workers": 2960,
+  "workload_databases": 1924,
+  "sql_operations": 243904
+}

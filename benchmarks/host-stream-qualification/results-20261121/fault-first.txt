@@ -1,0 +1,31 @@
+=== RUN   TestQualificationFullStream
+=== RUN   TestQualificationFullStream/input/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=1893
+=== RUN   TestQualificationFullStream/input/disconnect
+[mysql] 2026/11/21 14:06:37 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=4577
+=== RUN   TestQualificationFullStream/input/drain
+    qual_full_test.go:173: drain pending response EOF
+=== RUN   TestQualificationFullStream/input/serverClose
+[mysql] 2026/11/21 14:06:37 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=4825
+=== RUN   TestQualificationFullStream/output/cancel
+    qual_full_test.go:201: observed_full_bytes=16384 event=cancel done_and_disposed_us=857
+=== RUN   TestQualificationFullStream/output/disconnect
+[mysql] 2026/11/21 14:06:37 packets.go:58 io: read/write on closed pipe
+    qual_full_test.go:201: observed_full_bytes=16384 event=disconnect done_and_disposed_us=800
+=== RUN   TestQualificationFullStream/output/drain
+    qual_full_test.go:201: observed_full_bytes=16384 event=drain done_and_disposed_us=1525
+=== RUN   TestQualificationFullStream/output/serverClose
+[mysql] 2026/11/21 14:06:37 packets.go:58 unexpected EOF
+    qual_full_test.go:201: observed_full_bytes=16384 event=serverClose done_and_disposed_us=822
+--- FAIL: TestQualificationFullStream (0.23s)
+    --- PASS: TestQualificationFullStream/input/cancel (0.08s)
+    --- PASS: TestQualificationFullStream/input/disconnect (0.02s)
+    --- FAIL: TestQualificationFullStream/input/drain (0.02s)
+    --- PASS: TestQualificationFullStream/input/serverClose (0.02s)
+    --- PASS: TestQualificationFullStream/output/cancel (0.02s)
+    --- PASS: TestQualificationFullStream/output/disconnect (0.02s)
+    --- PASS: TestQualificationFullStream/output/drain (0.02s)
+    --- PASS: TestQualificationFullStream/output/serverClose (0.02s)
+FAIL

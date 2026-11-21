@@ -1,0 +1,112 @@
+package main
+
+import (
+	"bytes"
+	"context"
+	"flag"
+	"fmt"
+	"runtime"
+	"strings"
+	"sync"
+	"syscall"
+	"time"
+
+	maria "github.com/masahitojp/mariamem"
+)
+
+const p8 = 8
+
+var work = flag.String("work", "A", "A/B/C, mixed or large")
+var waves = flag.Int("waves", 6, "fresh waves; first is warm")
+
+type waveGate struct {
+	ready, done   sync.WaitGroup
+	begin, finish chan struct{}
+}
+
+func (g *waveGate) start() { g.ready.Done(); <-g.begin }
+func (g *waveGate) end()   { g.done.Done(); <-g.finish }
+func usage() (int64, int64) {
+	var u syscall.Rusage
+	must(syscall.Getrusage(syscall.RUSAGE_SELF, &u))
+	return u.Utime.Nano() + u.Stime.Nano(), u.Maxrss
+}
+func wave(n int, worker func(int, *waveGate)) {
+	g := &waveGate{begin: make(chan struct{}), finish: make(chan struct{})}
+	var joined sync.WaitGroup
+	g.ready.Add(p8)
+	g.done.Add(p8)
+	joined.Add(p8)
+	for i := 0; i < p8; i++ {
+		go func(i int) { defer joined.Done(); worker(i, g) }(i)
+	}
+	g.ready.Wait()
+	runtime.GC()
+	var before, after runtime.MemStats
+	runtime.ReadMemStats(&before)
+	cpu, _ := usage()
+	t := time.Now()
+	close(g.begin)
+	g.done.Wait()
+	elapsed := time.Since(t)
+	cpuEnd, rss := usage()
+	runtime.ReadMemStats(&after)
+	close(g.finish)
+	joined.Wait()
+	must(rowsOut.Encode(map[string]any{"wave": n, "workers": p8, "wall_ns": elapsed.Nanoseconds(), "cpu_ns": cpuEnd - cpu,
+		"live_heap_before": before.HeapAlloc, "allocated_bytes": after.TotalAlloc - before.TotalAlloc, "peak_rss_bytes": rss, "all_workers_closed": true}))
+}
+func shared(n int) {
+	srv, err := maria.Start(ctx, maria.Options{})
+	must(err)
+	defer func() { must(srv.Close()) }()
+	db := openDB(srv)
+	db.SetMaxOpenConns(p8)
+	_, err = db.Exec("CREATE TABLE progress (id INT PRIMARY KEY, v INT NOT NULL) ENGINE=InnoDB")
+	must(err)
+	for i := 0; i < p8; i++ {
+		_, err = db.Exec("INSERT INTO progress VALUES (?,0)", i)
+		must(err)
+	}
+	wave(n, func(i int, g *waveGate) {
+		conn, err := db.Conn(ctx)
+		must(err)
+		defer func() { must(conn.Close()) }()
+		tag := fmt.Sprintf("%02d", i)
+		// Every worker has distinct output and a different prefix per iteration.
+		var expected string
+		if *work == "large" {
+			expected = strings.Repeat(tag, 131072)
+		}
+		g.start()
+		switch *work {
+		case "mixed":
+			for j := 1; j <= 50; j++ {
+				r, err := conn.ExecContext(ctx, "UPDATE progress SET v=v+1 WHERE id=?", i)
+				must(err)
+				count, err := r.RowsAffected()
+				must(err)
+				check(count == 1, "changed row")
+				var v int
+				must(conn.QueryRowContext(ctx, "SELECT v FROM progress WHERE id=?", i).Scan(&v))
+				check(v == j, "mixed value", i, j, v)
+			}
+		case "large":
+			for j := 0; j < 12; j++ {
+				prefix := fmt.Sprintf("%d/%d/", i, j)
+				var v []byte
+				err := conn.QueryRowContext(ctx, "SELECT CONCAT(?, REPEAT(?,131072))", prefix, tag).Scan(&v)
+				must(err)
+				check(len(v) == len(prefix)+262144 && string(v[:len(prefix)]) == prefix && bytes.Equal(v[len(prefix):], []byte(expected)), "large response", i, j)
+			}
+		}
+		g.end()
+	})
+	want := 0
+	if *work == "mixed" {
+		want = p8 * 50
+	}
+	check(count(db, "SELECT SUM(v) FROM progress") == want, "final shared state")
+	must(db.Close())
+	must(srv.WaitDisconnected(context.Background()))
+}

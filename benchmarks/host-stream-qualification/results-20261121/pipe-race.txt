@@ -1,0 +1,82 @@
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+=== RUN   TestWrapAndDrain
+--- PASS: TestWrapAndDrain (0.00s)
+=== RUN   TestFullPipeClose
+--- PASS: TestFullPipeClose (0.00s)
+=== RUN   TestReadCloseAndWriters
+--- PASS: TestReadCloseAndWriters (0.00s)
+=== RUN   TestCloseAfterPartialLargeWrite
+--- PASS: TestCloseAfterPartialLargeWrite (0.00s)
+PASS
+ok  	_/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/host-stream-qualification/temp/pipe-tests	1.326s

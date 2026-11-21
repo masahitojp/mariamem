@@ -1,0 +1,49 @@
+=== RUN   TestQualificationClientDrain
+=== RUN   TestQualificationClientDrain/input
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=1 graceful_close=true
+=== RUN   TestQualificationClientDrain/output
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=131072 graceful_close=true
+--- PASS: TestQualificationClientDrain (0.07s)
+    --- PASS: TestQualificationClientDrain/input (0.05s)
+    --- PASS: TestQualificationClientDrain/output (0.02s)
+=== RUN   TestQualificationClientDrain
+=== RUN   TestQualificationClientDrain/input
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=1 graceful_close=true
+=== RUN   TestQualificationClientDrain/output
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=131072 graceful_close=true
+--- PASS: TestQualificationClientDrain (0.05s)
+    --- PASS: TestQualificationClientDrain/input (0.02s)
+    --- PASS: TestQualificationClientDrain/output (0.02s)
+=== RUN   TestQualificationClientDrain
+=== RUN   TestQualificationClientDrain/input
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=1 graceful_close=true
+=== RUN   TestQualificationClientDrain/output
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=131072 graceful_close=true
+--- PASS: TestQualificationClientDrain (0.05s)
+    --- PASS: TestQualificationClientDrain/input (0.02s)
+    --- PASS: TestQualificationClientDrain/output (0.02s)
+=== RUN   TestQualificationClientDrain
+=== RUN   TestQualificationClientDrain/input
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=1 graceful_close=true
+=== RUN   TestQualificationClientDrain/output
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=131072 graceful_close=true
+--- PASS: TestQualificationClientDrain (0.05s)
+    --- PASS: TestQualificationClientDrain/input (0.02s)
+    --- PASS: TestQualificationClientDrain/output (0.02s)
+=== RUN   TestQualificationClientDrain
+=== RUN   TestQualificationClientDrain/input
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=1 graceful_close=true
+=== RUN   TestQualificationClientDrain/output
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=131072 graceful_close=true
+--- PASS: TestQualificationClientDrain (0.05s)
+    --- PASS: TestQualificationClientDrain/input (0.02s)
+    --- PASS: TestQualificationClientDrain/output (0.02s)
+=== RUN   TestQualificationClientDrain
+=== RUN   TestQualificationClientDrain/input
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=1 graceful_close=true
+=== RUN   TestQualificationClientDrain/output
+    qual_extra_test.go:163: observed_full_bytes=16384 client_payload_verified=131072 graceful_close=true
+--- PASS: TestQualificationClientDrain (0.05s)
+    --- PASS: TestQualificationClientDrain/input (0.02s)
+    --- PASS: TestQualificationClientDrain/output (0.02s)
+PASS

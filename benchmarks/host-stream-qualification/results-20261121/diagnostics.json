@@ -1,0 +1,49 @@
+{
+  "strict": {
+    "input/cancel": {
+      "pass_count": 6,
+      "fail_count": 0
+    },
+    "input/disconnect": {
+      "pass_count": 6,
+      "fail_count": 0
+    },
+    "input/drain": {
+      "pass_count": 0,
+      "fail_count": 6
+    },
+    "input/serverClose": {
+      "pass_count": 6,
+      "fail_count": 0
+    },
+    "output/cancel": {
+      "pass_count": 6,
+      "fail_count": 0
+    },
+    "output/disconnect": {
+      "pass_count": 6,
+      "fail_count": 0
+    },
+    "output/drain": {
+      "pass_count": 6,
+      "fail_count": 0
+    },
+    "output/serverClose": {
+      "pass_count": 6,
+      "fail_count": 0
+    }
+  },
+  "strict_eof_occurrences": 6,
+  "differential_partial_send": {
+    "os": {
+      "eof": 5,
+      "response_ok": 1
+    },
+    "both": {
+      "eof": 6,
+      "response_ok": 0
+    }
+  },
+  "public_drain_passes": 12,
+  "standalone_race_cases": 40
+}

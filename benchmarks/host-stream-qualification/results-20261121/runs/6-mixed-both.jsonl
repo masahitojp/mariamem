@@ -1,0 +1,6 @@
+{"all_workers_closed":true,"allocated_bytes":10453248,"cpu_ns":153814000,"live_heap_before":5425032,"peak_rss_bytes":126107648,"wall_ns":24903750,"wave":0,"workers":8}
+{"all_workers_closed":true,"allocated_bytes":11141096,"cpu_ns":156147000,"live_heap_before":4840240,"peak_rss_bytes":128778240,"wall_ns":24640041,"wave":1,"workers":8}
+{"all_workers_closed":true,"allocated_bytes":11086128,"cpu_ns":159711000,"live_heap_before":4919832,"peak_rss_bytes":129957888,"wall_ns":25547792,"wave":2,"workers":8}
+{"all_workers_closed":true,"allocated_bytes":10994736,"cpu_ns":159914000,"live_heap_before":5044168,"peak_rss_bytes":130367488,"wall_ns":24821958,"wave":3,"workers":8}
+{"all_workers_closed":true,"allocated_bytes":10770400,"cpu_ns":142604000,"live_heap_before":5097808,"peak_rss_bytes":131072000,"wall_ns":22540334,"wave":4,"workers":8}
+{"all_workers_closed":true,"allocated_bytes":11019736,"cpu_ns":145978000,"live_heap_before":4839016,"peak_rss_bytes":131366912,"wall_ns":23278084,"wave":5,"workers":8}
