@@ -1,0 +1,14 @@
+{
+  "tail_loads": {
+    "off": 7,
+    "default": 4
+  },
+  "associated_slow_stages": 10,
+  "unique_associated_slow_tasks": 10,
+  "all_slow_first_tasks": 583,
+  "slow_roles": {
+    "batch_callback_parent": 7,
+    "page": 3
+  },
+  "unmatched_slow_stages": 0
+}

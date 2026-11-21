@@ -1,0 +1,2 @@
+PASS: 2 settings, 192 measured processes, 4032 loads, 11 threshold crossings; SQL readback, case counts, block order and matched callback identity verified.
+PASS: All 11 long loads map to one slow queue stage each, 11 pending-creation branches, 11 maintenance launches with matching worker entry and first dequeue. Both purge callbacks parked during over 99% of each longest no-dequeue interval.

@@ -1,0 +1,85 @@
+package probe
+
+import (
+    "context"
+    "database/sql"
+    "fmt"
+    "os"
+)
+
+// A flush generation starts at buf_page_t::flush. Its token and page identity
+// travel with the actual I/O task across both asynchronous dispatches.
+type Flush struct {
+    DblStamp,UpBatch,UpEnqueue,UpInvoke int64
+    UpPtr,UpControl uint32
+    UpUnique bool
+    Generation uint64
+    Page, Number, Space uint32
+    Decision, Batch, Buffered, File, Submit int64
+    BufferedPage, Slot, Occupancy uint32
+    FromWriteCallback bool
+    Origin, BatchFn, Control uint32
+    Offset int64
+    Cleaner bool
+}
+func(d *DB) BeginFlush(page int32, id uint64, a Agent) {
+    if d == nil { return }
+    d.mu.Lock()
+    defer d.mu.Unlock()
+    if d.pages == nil { d.pages=make(map[uint32]Flush) }
+    d.generation++
+    d.pages[uint32(page)]=Flush{Generation:d.generation,Page:uint32(page),Number:uint32(id),Space:uint32(id>>32),
+        Decision:Now(),Batch:a.Batch,BatchFn:a.BatchFn,Cleaner:a.Cleaner,Origin:a.Request}
+}
+func(d *DB) Buffered(page, slot, occupancy int32, stored uint32) {
+    if d==nil{return}
+    d.mu.Lock()
+    defer d.mu.Unlock()
+    p:=uint32(page)
+    f,ok:=d.pages[p]
+    if !ok || f.Page!=stored {panic("doublewrite slot page mismatch")}
+    f.Buffered=Now();f.BufferedPage=stored;f.Slot=uint32(slot);f.Occupancy=uint32(occupancy)
+    d.pages[p]=f
+}
+func(d *DB) FileIO(page int32, offset int64, a *Agent) Flush {
+    var f Flush
+    if d!=nil && page!=0 { d.mu.Lock();f=d.pages[uint32(page)];d.mu.Unlock() }
+    f.FromWriteCallback=a.WriteAt!=0
+    if f.FromWriteCallback {
+        t:=a.Current
+        f.UpBatch=t.Flush.DblStamp;f.UpEnqueue=t.ParentEnqueue;f.UpInvoke=t.ParentInvoke;f.UpPtr=t.ParentPtr;f.UpControl=t.Flush.Control
+        f.UpUnique=t.Unique && t.ParentUnique && t.Arg==a.WriteArg && t.Arg==f.UpControl
+    }
+    f.File=Now();f.Offset=offset
+    return f
+}
+func(d *DB) CompletePage(a *Agent, page int32) {
+    a.CallbackPage=uint32(page)
+    f:=a.Current.Flush
+    if d==nil || page==0 || f.Generation==0 || f.Page!=uint32(page) {return}
+    d.mu.Lock()
+    if d.pages[f.Page].Generation==f.Generation {delete(d.pages,f.Page)}
+    d.mu.Unlock()
+}
+func Configure(ctx context.Context, db *sql.DB, lane string) {
+    mode:=os.Getenv("FLUSH_MODE")
+    query:="SELECT @@global.innodb_max_dirty_pages_pct_lwm,@@global.innodb_io_capacity,@@global.innodb_io_capacity_max,@@global.innodb_flush_sync,@@global.innodb_doublewrite,@@global.innodb_buffer_pool_size,@@global.innodb_page_size"
+    read:=func() [7]string {
+        var values [7]string
+        err:=db.QueryRowContext(ctx,query).Scan(&values[0],&values[1],&values[2],&values[3],&values[4],&values[5],&values[6])
+        if err!=nil{panic(err)}
+        return values
+    }
+    before:=read()
+    var command string
+    switch mode {
+    case "default":
+    case "off":command="SET GLOBAL innodb_doublewrite=OFF"
+    default:panic("unknown flush mode")
+    }
+    if command!="" {
+        if _,err:=db.ExecContext(ctx,command);err!=nil{panic(err)}
+    }
+    after:=read()
+    fmt.Printf("FLUSH_CONFIG %s %s %v %v\n",lane,mode,before,after)
+}

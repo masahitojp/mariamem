@@ -1,0 +1,21 @@
+package probe
+
+// [time, kind, pool, TID, worker, submitted generation, arg0, arg1, maintenance]
+type WorkerEvent [9]int64
+func(d *DB) Mark(at int64, kind int, pool, worker int32, tid int32, generation, x,y int64, maintenance bool) {
+    if d==nil{return}
+    if at==0{at=Now()}
+    ev:=WorkerEvent{at,int64(kind),int64(pool),int64(tid),int64(worker),generation,x,y}
+    if maintenance{ev[8]=1}
+    d.mu.Lock()
+    d.timeline=append(d.timeline,ev)
+    d.mu.Unlock()
+}
+func(d *DB) Event(kind int,pool,worker int32,a *Agent,x,y int64) {
+    d.Mark(0,kind,pool,worker,a.TID,a.SubmitStamp,x,y,a.Maintenance)
+}
+func(d *DB) WorkerEvents() []WorkerEvent {
+    if d.slowFirst>0{return d.timeline}
+    for _,e:=range d.events {if e.Host!=nil{return d.timeline}}
+    return nil
+}
