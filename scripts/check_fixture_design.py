@@ -72,8 +72,12 @@ def validate_current_contract(plan, root=ROOT):
     dispatch = source.split('switch request[0] {', 1)[1].split('\n\t\tif e != nil', 1)[0]
     commands = {int(n.strip()) for case in re.findall(r'case ([0-9, ]+):', dispatch) for n in case.split(',')}
     need(commands == set(wire['supported_commands']), 'wire dispatch inventory differs')
-    caps = re.search(r'const capabilities uint32 = ([0-9 |]+)', source)[1]
-    need({int(n.strip()) for n in caps.split('|')} == set(wire['base_capability_bits']), 'wire capability inventory differs')
+    caps = re.search(r'^const capabilities uint32 = ([\w |]+)$', source, re.MULTILINE)
+    need(caps is not None, 'wire capability definition missing')
+    constants = dict(re.findall(r'^const (\w+) uint32 = (\d+)$', source, re.MULTILINE))
+    bits = [constants.get(term, term) for term in (value.strip() for value in caps[1].split('|'))]
+    need(all(bit.isdecimal() for bit in bits) and {int(bit) for bit in bits} == set(wire['base_capability_bits']),
+         'wire capability inventory differs')
     need(set(wire['ledger_fields']) == {'operation', 'client_options', 'observed_command_flags', 'native_result', 'guest_result', 'error', 'cleanup', 'source_client_pin', 'oracle'}, 'wire observation ledger incomplete')
     need(plan['future_runtime_status'] == 'NOT_RUN', 'design lint must not grant runtime PASS')
     p1 = plan['p1_approval']
