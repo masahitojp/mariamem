@@ -1,0 +1,19 @@
+{
+  "host": "macOS-27.2.1-arm64-arm-64bit",
+  "cpu": "Apple M1",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "processes_at_once": 1,
+  "binaries": {
+    "base": {
+      "bytes": 110139586,
+      "sha256": "fef5509456e5d15c86422b7d16f2608f49ea1c4c6dfc3f56caa9b2ff5620ce0c",
+      "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-go-shim/temp/base: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-go-shim/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    },
+    "shim": {
+      "bytes": 107167506,
+      "sha256": "1b63fe61284ba6f26e7b29aafdaeaf9ae0c1a29a93d4ccf85b223b3af2fb33d4",
+      "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-go-shim/temp/shim: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/trigger-sum-go-shim/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    }
+  }
+}

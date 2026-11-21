@@ -1,0 +1,8 @@
+{
+  "guest_sha256": "869ffee51c519e4ef725bbc0c0049dd7f121e1070166ad43a5f356094891164a",
+  "map_entries": 21791,
+  "map_sha256": "1f8dcd20057090cde400f1439d0cc9d1c933b16490ba8ecd22269d909f1fe475",
+  "profile_commit": "7c5893b3d5198d2c5087dbb100e631dfe63a58bb",
+  "crc_adapter_sha256": "e6188b972c49d9b7b1b2d6d12a84234adce6df8ff4f6f280c84574397434bb7f",
+  "unchanged_guest_source_patch_sha256": "0826197caa46c8d1e389e9883e752749b99eb84a56b0afee48b7ba6dd2465288"
+}

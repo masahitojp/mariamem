@@ -1,0 +1,52 @@
+package base
+
+import (
+	"math/rand"
+	"sync/atomic"
+	"testing"
+)
+
+type shimResult struct {
+	value uint64
+	trap  any
+}
+
+func observeShim(f func() uint64) (result shimResult) {
+	defer func() { result.trap = recover() }()
+	result.value = f()
+	return
+}
+func TestCheckedMemory32Shim(t *testing.T) {
+	m := &Module{MemSize: new(atomic.Uint64)}
+	trials := 0
+	compare := func(bound uint64, addr, offset, width uint32) {
+		if uint64(offset)+uint64(width) > 0xffffffff {
+			return
+		}
+		trials++
+		m.MemSize.Store(bound)
+		orig := observeShim(func() uint64 { return MemoryEA(m, uint64(addr), uint64(offset), uint64(width)) })
+		shim := observeShim(func() uint64 { return CheckedMemory32(m, addr, offset+width) + uint64(offset) })
+		if orig != shim {
+			t.Fatalf("bound=%d addr=%d offset=%d width=%d: %+v != %+v", bound, addr, offset, width, orig, shim)
+		}
+	}
+	for _, addr := range []uint32{0, 1, 15, 65535, 1<<31 - 1, 1 << 31, 0xfffffff8, 0xffffffff} {
+		for _, offset := range []uint32{0, 1, 4, 63, 65535, 0x7fffffff, 0xfffffffe} {
+			for _, width := range []uint32{1, 2, 4, 8, 16} {
+				end := uint64(addr) + uint64(offset) + uint64(width)
+				for _, bound := range []uint64{0, 65536, 1 << 31, 1 << 32, end - 1, end, end + 1} {
+					compare(bound, addr, offset, width)
+				}
+			}
+		}
+	}
+	rng := rand.New(rand.NewSource(233))
+	for i := 0; i < 10000; i++ {
+		addr, offset := rng.Uint32(), rng.Uint32()
+		width := uint32(1) << rng.Intn(5)
+		compare(uint64(rng.Uint32()), addr, offset, width)
+		compare(uint64(addr)+uint64(offset)+uint64(width), addr, offset, width)
+	}
+	t.Logf("%d differential checks", trials)
+}

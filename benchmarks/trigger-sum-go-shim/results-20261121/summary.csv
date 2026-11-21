@@ -1,0 +1,4 @@
+sql,pairs,raw_ms_shorter,raw_ms_median_gain_pct,raw_ms_min_gain_pct,raw_ms_max_gain_pct,cpu_ms_shorter,cpu_ms_median_gain_pct,cpu_ms_min_gain_pct,cpu_ms_max_gain_pct,p95_ms_shorter,p95_ms_median_gain_pct,p95_ms_min_gain_pct,p95_ms_max_gain_pct
+A,6,6,1.09149,0.12165,3.05137,5,0.78056,-0.75259,3.26042,3,0.93865,-8.4966,8.518
+B,6,6,1.40114,0.00531,1.8561,5,1.2507,-1.22333,1.76466,1,-3.93864,-19.43808,7.02067
+C,6,5,1.67988,-0.32685,2.13625,5,1.83052,-0.6986,2.61533,4,5.62696,-9.41433,11.94331

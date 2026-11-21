@@ -1,0 +1,11 @@
+=== RUN   TestCheckedMemory32Shim
+    shim_experiment_test.go:51: 21736 differential checks
+--- PASS: TestCheckedMemory32Shim (0.01s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.346s
+=== RUN   TestPureMemory32GeneratedTraps
+    pure_memory32_test.go:87: root and worker generated traps survived; worker visibility, grow and private TLS/stack globals pass
+--- PASS: TestPureMemory32GeneratedTraps (0.02s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.110s
+peak owned bytes 3036397568 minimum free bytes 69632000000
