@@ -1,0 +1,33 @@
+package store_test
+
+import (
+    "testing"
+    "github.com/shibukawa/pgmem/bench/modelcase/store"
+)
+
+func TestSeedOracle(t *testing.T) {
+    db := fx.shared()
+    orders := store.SampleOrders()
+    stock := make([]int,501)
+    for i := range stock { stock[i]=100 }
+    rows,err := db.Query("SELECT o.id,o.total_cents,COUNT(i.id),SUM(i.quantity*i.unit_price_cents) FROM orders o JOIN order_items i ON o.id=i.order_id GROUP BY o.id,o.total_cents ORDER BY o.id")
+    if err!=nil { t.Fatal(err) }; defer rows.Close()
+    var n, lines int
+    for rows.Next() {
+        var id,total,count,amount int64
+        if err:=rows.Scan(&id,&total,&count,&amount); err!=nil {t.Fatal(err)}
+        if n>=len(orders) {t.Fatal("extra order")}
+        o:=orders[n]; var want int64
+        for _,it:=range o.Items {want+=int64(it.Quantity)*it.UnitPriceCents;stock[it.ProductID]-=int(it.Quantity)}
+        if id!=o.ID || total!=want || amount!=want || int(count)!=len(o.Items){t.Fatalf("order %d mismatch",id)}
+        n++;lines+=int(count)
+    }
+    if rows.Err()!=nil || n!=40 || lines!=100 {t.Fatal("order count",n,lines,rows.Err())}
+    products,err:=db.Query("SELECT id,stock FROM products ORDER BY id"); if err!=nil {t.Fatal(err)}
+    defer products.Close()
+    n=0
+    for products.Next(){var id,v int;if err:=products.Scan(&id,&v);err!=nil{t.Fatal(err)};n++;if id!=n||id>500||v!=stock[id]{t.Fatalf("stock %d",id)}}
+    if n!=500 || products.Err()!=nil{t.Fatal("product count",n,products.Err())}
+    var audits int
+    if err:=db.QueryRow("SELECT COUNT(*) FROM audit_log").Scan(&audits);err!=nil||audits!=40{t.Fatal("audit",audits,err)}
+}
