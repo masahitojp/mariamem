@@ -1,0 +1,39 @@
+File: ring
+Type: cpu
+Time: 2026-11-21 22:28:04 JST
+Duration: 21.22s, Total samples = 98680ms (465.13%)
+Active filters:
+   focus=guest.byte(Writer|Reader)
+Showing nodes accounting for 50ms, 0.051% of 98680ms total
+      flat  flat%   sum%        cum   cum%
+      20ms  0.02%  0.02%       20ms  0.02%  runtime.memmove
+      10ms  0.01%  0.03%       10ms  0.01%  runtime.ready
+      10ms  0.01% 0.041%       10ms  0.01%  runtime.usleep
+      10ms  0.01% 0.051%       10ms  0.01%  sync.runtime_notifyListWait
+         0     0% 0.051%       10ms  0.01%  _.goready.func1
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.func1
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn103
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76
+         0     0% 0.051%       20ms  0.02%  github.com/masahitojp/mariamem/internal/guest.(*Process).read
+         0     0% 0.051%       20ms  0.02%  github.com/masahitojp/mariamem/internal/guest.byteReader.Read
+         0     0% 0.051%       30ms  0.03%  github.com/masahitojp/mariamem/internal/guest.byteWriter.Write
+         0     0% 0.051%       20ms  0.02%  github.com/masahitojp/mariamem/internal/guest.connectLifecycle.func1
+         0     0% 0.051%       20ms  0.02%  io.ReadAtLeast
+         0     0% 0.051%       20ms  0.02%  io.ReadFull (inline)
+         0     0% 0.051%       10ms  0.01%  runtime.goready (inline)
+         0     0% 0.051%       10ms  0.01%  runtime.lock2
+         0     0% 0.051%       10ms  0.01%  runtime.lockWithRank (inline)
+         0     0% 0.051%       10ms  0.01%  runtime.osyield (inline)
+         0     0% 0.051%       10ms  0.01%  runtime.readyWithTime
+         0     0% 0.051%       10ms  0.01%  runtime.systemstack
+         0     0% 0.051%       20ms  0.02%  sync.(*Cond).Broadcast
+         0     0% 0.051%       10ms  0.01%  sync.(*Cond).Wait
+         0     0% 0.051%       20ms  0.02%  sync.runtime_notifyListNotifyAll

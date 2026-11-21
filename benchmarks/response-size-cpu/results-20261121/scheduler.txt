@@ -1,0 +1,34 @@
+File: ring
+Type: cpu
+Time: 2026-11-21 22:27:41 JST
+Duration: 43.59s, Total samples = 187980ms (431.22%)
+Active filters:
+   focus=runtime.usleep
+Showing nodes accounting for 7250ms, 3.86% of 187980ms total
+Dropped 71 nodes (cum <= 939.90ms)
+Showing top 24 nodes out of 27
+      flat  flat%   sum%        cum   cum%
+    7250ms  3.86%  3.86%     7240ms  3.85%  runtime.usleep
+         0     0%  3.86%     5370ms  2.86%  runtime.osyield (inline)
+         0     0%  3.86%     5350ms  2.85%  runtime.lock2
+         0     0%  3.86%     5350ms  2.85%  runtime.lockWithRank (inline)
+         0     0%  3.86%     5330ms  2.84%  runtime.lock (partial-inline)
+         0     0%  3.86%     5280ms  2.81%  runtime.morestack
+         0     0%  3.86%     5280ms  2.81%  runtime.newstack
+         0     0%  3.86%     5230ms  2.78%  runtime.goschedImpl
+         0     0%  3.86%     5190ms  2.76%  runtime.gopreempt_m (inline)
+         0     0%  3.86%     5030ms  2.68%  runtime.schedule
+         0     0%  3.86%     5020ms  2.67%  runtime.findRunnable
+         0     0%  3.86%     3190ms  1.70%  runtime.gcstopm
+         0     0%  3.86%     1870ms  0.99%  runtime.runqgrab
+         0     0%  3.86%     1870ms  0.99%  runtime.runqsteal
+         0     0%  3.86%     1870ms  0.99%  runtime.stealWork
+         0     0%  3.86%     1840ms  0.98%  runtime.mcall
+         0     0%  3.86%     1700ms   0.9%  runtime.park_m
+         0     0%  3.86%      870ms  0.46%  runtime.wakep
+         0     0%  3.86%      160ms 0.085%  runtime.preemptPark
+         0     0%  3.86%      130ms 0.069%  runtime.systemstack
+         0     0%  3.86%       70ms 0.037%  runtime.asyncPreempt2.func1
+         0     0%  3.86%       60ms 0.032%  _.goready.func1
+         0     0%  3.86%       60ms 0.032%  runtime.ready
+         0     0%  3.86%       40ms 0.021%  runtime.(*mheap).allocSpan

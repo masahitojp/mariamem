@@ -1,0 +1,38 @@
+File: ring
+Type: cpu
+Time: 2026-11-21 22:27:41 JST
+Duration: 43.59s, Total samples = 187980ms (431.22%)
+Showing nodes accounting for 9420ms, 5.01% of 187980ms total
+Dropped 386 nodes (cum <= 939.90ms)
+Showing top 30 nodes out of 183
+      flat  flat%   sum%        cum   cum%
+    7250ms  3.86%  3.86%     7240ms  3.85%  runtime.usleep
+   -4050ms  2.15%  1.70%    -4050ms  2.15%  runtime.kevent
+   -3920ms  2.09%  0.38%    -3920ms  2.09%  syscall.rawsyscalln
+    3770ms  2.01%  1.62%     4540ms  2.42%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+   -3260ms  1.73%  0.11%    -3260ms  1.73%  runtime.pthread_cond_wait
+    2270ms  1.21%  1.10%     2270ms  1.21%  runtime.madvise
+    1870ms  0.99%  2.09%     1870ms  0.99%  runtime.asyncPreempt
+    1660ms  0.88%  2.97%     5120ms  2.72%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+   -1580ms  0.84%  2.13%     -780ms  0.41%  encoding/json/internal/jsonwire.ConsumeSimpleString
+    1170ms  0.62%  2.76%     1400ms  0.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryCopy
+    1000ms  0.53%  3.29%     1000ms  0.53%  runtime.pthread_kill
+     910ms  0.48%  3.77%      970ms  0.52%  encoding/hex.Decode
+     670ms  0.36%  4.13%      670ms  0.36%  runtime.pthread_cond_signal
+     570ms   0.3%  4.43%      570ms   0.3%  runtime.procyieldAsm
+     400ms  0.21%  4.64%      650ms  0.35%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn70
+     270ms  0.14%  4.79%     4350ms  2.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn255
+     240ms  0.13%  4.92%     2570ms  1.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn10891
+     180ms 0.096%  5.01%     6200ms  3.30%  runtime.lock2
+    -180ms 0.096%  4.92%     -180ms 0.096%  runtime.memmove
+     100ms 0.053%  4.97%       90ms 0.048%  runtime.nanotime1
+     -90ms 0.048%  4.92%      -90ms 0.048%  runtime.(*pallocBits).summarize
+     -90ms 0.048%  4.87%      -90ms 0.048%  runtime.readvarint (inline)
+      90ms 0.048%  4.92%      100ms 0.053%  sync/atomic.(*Uint64).Load (inline)
+     -80ms 0.043%  4.88%      -80ms 0.043%  internal/runtime/atomic.(*Uint32).Add (inline)
+      70ms 0.037%  4.92%     2040ms  1.09%  runtime.stealWork
+      60ms 0.032%  4.95%     1930ms  1.03%  runtime.runqgrab
+      60ms 0.032%  4.98%       90ms 0.048%  runtime.scanObjectsSmall
+      50ms 0.027%  5.01%       50ms 0.027%  runtime.(*gcControllerState).releaseNextGCMarkWorker
+      50ms 0.027%  5.03%      100ms 0.053%  runtime.scanObject
+     -40ms 0.021%  5.01%     1630ms  0.87%  runtime.(*mheap).allocSpan
