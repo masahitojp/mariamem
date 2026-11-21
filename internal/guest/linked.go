@@ -4,13 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/masahitojp/mariamem/internal/preparedproto"
 	"io"
-	"os"
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/prepared"
+	"github.com/masahitojp/mariamem/internal/preparedproto"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
@@ -23,16 +22,8 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 	if stderr != nil {
 		logs = io.MultiWriter(stderr, tail)
 	}
-	childIn, in, err := os.Pipe()
-	if err != nil {
-		return nil, err
-	}
-	out, childOut, err := os.Pipe()
-	if err != nil {
-		childIn.Close()
-		in.Close()
-		return nil, err
-	}
+	childIn, in := newBytePipe()
+	out, childOut := newBytePipe()
 	timing.Mark(ctx, "linked_execution_begin")
 	capture := &prepared.Capture{}
 	failed := make(chan error, 1)
