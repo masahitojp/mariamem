@@ -1,0 +1,28 @@
+package frameprobe
+
+import (
+	"encoding/json"
+	"os"
+	"sync"
+)
+
+var lock sync.Mutex
+var sizes = map[uint32]int{}
+
+func Record(body uint32) {
+	lock.Lock()
+	sizes[body+4]++
+	lock.Unlock()
+}
+func Save() {
+	f, err := os.Create(os.Getenv("BENCH_FRAMES"))
+	if err != nil {
+		panic(err)
+	}
+	if err = json.NewEncoder(f).Encode(sizes); err != nil {
+		panic(err)
+	}
+	if err = f.Close(); err != nil {
+		panic(err)
+	}
+}

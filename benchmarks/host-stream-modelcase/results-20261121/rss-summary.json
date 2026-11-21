@@ -1,0 +1,170 @@
+{
+  "p1-both-close": {
+    "median_max_mib": 191.828125,
+    "observed": 6
+  },
+  "p1-both-final_close": {
+    "median_max_mib": null,
+    "observed": 0
+  },
+  "p1-both-fork": {
+    "median_max_mib": 192.078125,
+    "observed": 6
+  },
+  "p1-both-import": {
+    "median_max_mib": 112.5625,
+    "observed": 6
+  },
+  "p1-both-sample": {
+    "median_max_mib": 194.34375,
+    "observed": 6
+  },
+  "p1-both-snapshot": {
+    "median_max_mib": 114.359375,
+    "observed": 5
+  },
+  "p1-both-sql": {
+    "median_max_mib": 191.78125,
+    "observed": 6
+  },
+  "p1-os-close": {
+    "median_max_mib": 189.9609375,
+    "observed": 6
+  },
+  "p1-os-final_close": {
+    "median_max_mib": null,
+    "observed": 0
+  },
+  "p1-os-fork": {
+    "median_max_mib": 188.7109375,
+    "observed": 6
+  },
+  "p1-os-import": {
+    "median_max_mib": 112.7890625,
+    "observed": 6
+  },
+  "p1-os-sample": {
+    "median_max_mib": 191.5703125,
+    "observed": 6
+  },
+  "p1-os-snapshot": {
+    "median_max_mib": 113.703125,
+    "observed": 4
+  },
+  "p1-os-sql": {
+    "median_max_mib": 190.453125,
+    "observed": 6
+  },
+  "p1-pg-close": {
+    "median_max_mib": 660.734375,
+    "observed": 4
+  },
+  "p1-pg-final_close": {
+    "median_max_mib": null,
+    "observed": 0
+  },
+  "p1-pg-fork": {
+    "median_max_mib": 939.3515625,
+    "observed": 6
+  },
+  "p1-pg-import": {
+    "median_max_mib": 168.5859375,
+    "observed": 6
+  },
+  "p1-pg-sample": {
+    "median_max_mib": 980.328125,
+    "observed": 6
+  },
+  "p1-pg-snapshot": {
+    "median_max_mib": 151.265625,
+    "observed": 6
+  },
+  "p1-pg-sql": {
+    "median_max_mib": 974.8203125,
+    "observed": 6
+  },
+  "p8-both-close": {
+    "median_max_mib": 570.0234375,
+    "observed": 6
+  },
+  "p8-both-final_close": {
+    "median_max_mib": 121.84375,
+    "observed": 1
+  },
+  "p8-both-fork": {
+    "median_max_mib": 608.7578125,
+    "observed": 6
+  },
+  "p8-both-import": {
+    "median_max_mib": 112.9609375,
+    "observed": 6
+  },
+  "p8-both-sample": {
+    "median_max_mib": 612.515625,
+    "observed": 6
+  },
+  "p8-both-snapshot": {
+    "median_max_mib": 113.265625,
+    "observed": 4
+  },
+  "p8-both-sql": {
+    "median_max_mib": 610.75,
+    "observed": 6
+  },
+  "p8-os-close": {
+    "median_max_mib": 604.0234375,
+    "observed": 6
+  },
+  "p8-os-final_close": {
+    "median_max_mib": null,
+    "observed": 0
+  },
+  "p8-os-fork": {
+    "median_max_mib": 608.7890625,
+    "observed": 6
+  },
+  "p8-os-import": {
+    "median_max_mib": 112.8125,
+    "observed": 6
+  },
+  "p8-os-sample": {
+    "median_max_mib": 614.1328125,
+    "observed": 6
+  },
+  "p8-os-snapshot": {
+    "median_max_mib": 113.609375,
+    "observed": 4
+  },
+  "p8-os-sql": {
+    "median_max_mib": 596.328125,
+    "observed": 6
+  },
+  "p8-pg-close": {
+    "median_max_mib": 1024.796875,
+    "observed": 6
+  },
+  "p8-pg-final_close": {
+    "median_max_mib": null,
+    "observed": 0
+  },
+  "p8-pg-fork": {
+    "median_max_mib": 970.40625,
+    "observed": 6
+  },
+  "p8-pg-import": {
+    "median_max_mib": 168.609375,
+    "observed": 6
+  },
+  "p8-pg-sample": {
+    "median_max_mib": 1048.3984375,
+    "observed": 6
+  },
+  "p8-pg-snapshot": {
+    "median_max_mib": 150.4140625,
+    "observed": 6
+  },
+  "p8-pg-sql": {
+    "median_max_mib": 1048.3984375,
+    "observed": 6
+  }
+}

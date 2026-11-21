@@ -1,0 +1,162 @@
+{
+  "p1-both": {
+    "bins": [
+      {
+        "bytes": 3007594,
+        "count": 11420,
+        "upper_bytes": 1024
+      },
+      {
+        "bytes": 82500,
+        "count": 48,
+        "upper_bytes": 4096
+      },
+      {
+        "bytes": 62442,
+        "count": 10,
+        "upper_bytes": 16384
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 65536
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 262144
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 4294967296
+      }
+    ],
+    "bytes": 3152536,
+    "count": 11478,
+    "max": 6645,
+    "p50": 219,
+    "p99": 859,
+    "runs": 2
+  },
+  "p1-os": {
+    "bins": [
+      {
+        "bytes": 3007594,
+        "count": 11420,
+        "upper_bytes": 1024
+      },
+      {
+        "bytes": 82500,
+        "count": 48,
+        "upper_bytes": 4096
+      },
+      {
+        "bytes": 62442,
+        "count": 10,
+        "upper_bytes": 16384
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 65536
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 262144
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 4294967296
+      }
+    ],
+    "bytes": 3152536,
+    "count": 11478,
+    "max": 6645,
+    "p50": 219,
+    "p99": 859,
+    "runs": 2
+  },
+  "p8-both": {
+    "bins": [
+      {
+        "bytes": 3029385,
+        "count": 11539,
+        "upper_bytes": 1024
+      },
+      {
+        "bytes": 82500,
+        "count": 48,
+        "upper_bytes": 4096
+      },
+      {
+        "bytes": 62442,
+        "count": 10,
+        "upper_bytes": 16384
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 65536
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 262144
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 4294967296
+      }
+    ],
+    "bytes": 3174327,
+    "count": 11597,
+    "max": 6645,
+    "p50": 219,
+    "p99": 859,
+    "runs": 2
+  },
+  "p8-os": {
+    "bins": [
+      {
+        "bytes": 3020414,
+        "count": 11490,
+        "upper_bytes": 1024
+      },
+      {
+        "bytes": 82500,
+        "count": 48,
+        "upper_bytes": 4096
+      },
+      {
+        "bytes": 62442,
+        "count": 10,
+        "upper_bytes": 16384
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 65536
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 262144
+      },
+      {
+        "bytes": 0,
+        "count": 0,
+        "upper_bytes": 4294967296
+      }
+    ],
+    "bytes": 3165356,
+    "count": 11548,
+    "max": 6645,
+    "p50": 219,
+    "p99": 859,
+    "runs": 2
+  }
+}
