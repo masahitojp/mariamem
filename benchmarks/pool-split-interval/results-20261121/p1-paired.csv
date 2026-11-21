@@ -1,0 +1,13 @@
+control,trial,metric,paired_pct,low95,high95
+current,split,wall,-23.64044,-23.88158,-23.37313
+current,split,cpu,-3.09124,-3.35122,-2.47333
+current,split,setup_import,-82.87998,-83.16334,-82.78853
+current,split,load_max,1.63422,0.30369,3.23354
+short,split,wall,-0.07448,-0.5662,0.14262
+short,split,cpu,-0.03365,-0.39739,0.0904
+short,split,setup_import,-0.22397,-0.76219,0.74106
+short,split,load_max,-0.82305,-2.34056,0.76864
+current,short,wall,-23.75158,-23.90904,-23.52399
+current,short,cpu,-2.98229,-3.26701,-2.53041
+current,short,setup_import,-82.82745,-82.92859,-82.76274
+current,short,load_max,2.04791,0.79306,2.74583

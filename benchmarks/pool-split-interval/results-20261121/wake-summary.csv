@@ -1,0 +1,7 @@
+arm,sql,requests,started_low,median_ms,max_ms,sql_max_ms,slow
+current,select,8,8,3.40892,4.03475,1.479,0
+current,update,8,8,3.95379,4.56525,1.91833,0
+short,select,8,8,3.55783,4.12871,1.48042,0
+short,update,8,7,4.26608,4.72575,1.96267,0
+split,select,8,8,3.29987,4.07325,1.50125,0
+split,update,8,8,4.21858,4.96675,2.07167,0

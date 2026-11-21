@@ -1,0 +1,4 @@
+arm,suites,loads,slow_loads,slow_suites,worst_ms,wall_med_ms,cpu_med_ms,import_med_ms,load_sum_med_ms
+current,48,1008,0,0,46.133,1639.38,1243.8395,474.835,729.985
+short,48,1008,0,0,51.908,1250.6145,1205.0985,81.215,732.4295
+split,48,1008,0,0,62.745,1250.7955,1204.3865,81.046,731.3615
