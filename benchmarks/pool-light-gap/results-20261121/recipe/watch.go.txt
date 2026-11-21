@@ -1,0 +1,198 @@
+package period
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"os"
+	"runtime"
+	"strconv"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+const threshold = 4 * time.Second
+
+type handler struct {
+	id    atomic.Int64
+	ended atomic.Bool
+}
+
+var handlers sync.Map
+
+func getHandler(owner any) *handler {
+	if v, ok := handlers.Load(owner); ok {
+		return v.(*handler)
+	}
+	v, _ := handlers.LoadOrStore(owner, new(handler))
+	return v.(*handler)
+}
+
+// Called once by each guest timer handler, outside the firing loop.
+func HandlerStart(owner any) func() {
+	var header [96]byte
+	n := runtime.Stack(header[:], false)
+	id, err := strconv.ParseInt(string(bytes.Fields(header[:n])[1]), 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	h := getHandler(owner)
+	if !h.id.CompareAndSwap(0, id) {
+		panic("duplicate timer handler")
+	}
+	return func() { h.ended.Store(true) }
+}
+
+type ticket struct {
+	p   *pool
+	seq uint64
+}
+
+func (t ticket) Exit() { t.p.exited.Store(t.seq) }
+func Reinsert(mem uintptr, addr int32) {
+	p := poolByKey(mem)
+	if addr == p.timer+8 {
+		p.inserted.Store(p.exited.Load())
+	}
+}
+
+type Sample struct {
+	AtNS, LastEntryNS, ActiveSinceNS int64
+	Entered, Exited, Inserted        uint64
+	Low, HandlerEnded                bool
+	HandlerID                        int64
+}
+
+func (p *pool) sample() Sample {
+	return Sample{
+		Low: p.low.Load(), ActiveSinceNS: p.activeSince.Load(), LastEntryNS: p.lastTickNS.Load(),
+		Entered: p.entered.Load(), Exited: p.exited.Load(), Inserted: p.inserted.Load(),
+		HandlerID: p.handler.id.Load(), HandlerEnded: p.handler.ended.Load(), AtNS: time.Since(clockStart).Nanoseconds(),
+	}
+}
+func (s Sample) remaining() time.Duration {
+	if s.Low {
+		return threshold
+	}
+	last := s.LastEntryNS
+	if last < s.ActiveSinceNS {
+		last = s.ActiveSinceNS
+	}
+	return threshold - time.Duration(s.AtNS-last)
+}
+
+type Capture struct {
+	PoolID         int
+	Before, After  Sample
+	DumpNS         int64
+	HandlerPresent bool
+}
+type Monitor struct {
+	Scans             int
+	MaxScanIntervalMS float64
+	Captured          bool
+	Last              []Sample
+}
+
+func stackblock(all []byte, id int64) []byte {
+	prefix := []byte(fmt.Sprintf("goroutine %d [", id))
+	for _, b := range bytes.Split(all, []byte("\n\n")) {
+		if bytes.HasPrefix(b, prefix) {
+			return b
+		}
+	}
+	return nil
+}
+func capture(report string, id int, p *pool, before Sample) {
+	var all []byte
+	for size := 1 << 20; size <= 64<<20; size *= 2 {
+		buf := make([]byte, size)
+		n := runtime.Stack(buf, true)
+		if n < size {
+			all = buf[:n]
+			break
+		}
+	}
+	if all == nil {
+		panic("incomplete stack snapshot")
+	}
+	after := p.sample()
+	h := stackblock(all, before.HandlerID)
+	if err := os.WriteFile(report+".stacks", all, 0600); err != nil {
+		panic(err)
+	}
+	if len(h) > 0 {
+		if err := os.WriteFile(report+".handler", h, 0600); err != nil {
+			panic(err)
+		}
+	}
+	data, err := json.MarshalIndent(Capture{id, before, after, after.AtNS - before.AtNS, len(h) > 0}, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	if err = os.WriteFile(report+".capture.json", data, 0600); err != nil {
+		panic(err)
+	}
+}
+
+// Inspect only at the earliest known threshold. New ticks push that deadline
+// later. A transition to active starts its own grace interval.
+func Watch(ids []int, report string) func() Monitor {
+	targets := make([]*pool, len(ids))
+	poolMutex.Lock()
+	for i, id := range ids {
+		targets[i] = pools[id-1]
+	}
+	poolMutex.Unlock()
+	stop := make(chan struct{})
+	done := make(chan struct{})
+	var result Monitor
+	go func() {
+		defer close(done)
+		previous := time.Now()
+		for {
+			delay := threshold
+			now := time.Now()
+			elapsed := float64(now.Sub(previous)) / 1e6
+			if elapsed > result.MaxScanIntervalMS {
+				result.MaxScanIntervalMS = elapsed
+			}
+			previous = now
+			result.Scans++
+			for i, p := range targets {
+				s := p.sample()
+				remain := s.remaining()
+				if remain <= 0 {
+					// Confirm that a concurrent entry or mode update did not
+					// make the original observation obsolete.
+					s = p.sample()
+					remain = s.remaining()
+					if remain <= 0 {
+						capture(report, ids[i], p, s)
+						result.Captured = true
+						return
+					}
+				}
+				if remain < delay {
+					delay = remain
+				}
+			}
+			timer := time.NewTimer(delay)
+			select {
+			case <-timer.C:
+			case <-stop:
+				timer.Stop()
+				return
+			}
+		}
+	}()
+	return func() Monitor {
+		close(stop)
+		<-done
+		for _, p := range targets {
+			result.Last = append(result.Last, p.sample())
+		}
+		return result
+	}
+}

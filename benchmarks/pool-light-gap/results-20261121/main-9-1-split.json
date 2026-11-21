@@ -1,0 +1,1690 @@
+{
+  "Monitor": {
+    "Scans": 34,
+    "MaxScanIntervalMS": 4002.200084,
+    "Captured": false,
+    "Last": [
+      {
+        "AtNS": 134739519000,
+        "LastEntryNS": 132233897458,
+        "ActiveSinceNS": 83371833,
+        "Entered": 1163,
+        "Exited": 1163,
+        "Inserted": 1163,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 157
+      },
+      {
+        "AtNS": 134739520333,
+        "LastEntryNS": 132233873583,
+        "ActiveSinceNS": 128566417,
+        "Entered": 1162,
+        "Exited": 1162,
+        "Inserted": 1162,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 143
+      },
+      {
+        "AtNS": 134739521333,
+        "LastEntryNS": 132275853292,
+        "ActiveSinceNS": 173412833,
+        "Entered": 1162,
+        "Exited": 1162,
+        "Inserted": 1162,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 1613
+      },
+      {
+        "AtNS": 134739524667,
+        "LastEntryNS": 132325724083,
+        "ActiveSinceNS": 217582292,
+        "Entered": 1162,
+        "Exited": 1162,
+        "Inserted": 1162,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 1902
+      },
+      {
+        "AtNS": 134739525125,
+        "LastEntryNS": 132380617917,
+        "ActiveSinceNS": 262060875,
+        "Entered": 1163,
+        "Exited": 1163,
+        "Inserted": 1163,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 3428
+      },
+      {
+        "AtNS": 134739527250,
+        "LastEntryNS": 132433783542,
+        "ActiveSinceNS": 306186333,
+        "Entered": 1163,
+        "Exited": 1163,
+        "Inserted": 1163,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 4262
+      },
+      {
+        "AtNS": 134739528000,
+        "LastEntryNS": 132485263750,
+        "ActiveSinceNS": 350089042,
+        "Entered": 1163,
+        "Exited": 1163,
+        "Inserted": 1163,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 5063
+      },
+      {
+        "AtNS": 134739528792,
+        "LastEntryNS": 132542025708,
+        "ActiveSinceNS": 394502583,
+        "Entered": 1163,
+        "Exited": 1163,
+        "Inserted": 1163,
+        "Low": true,
+        "HandlerEnded": false,
+        "HandlerID": 5878
+      }
+    ]
+  },
+  "Period": 50,
+  "Armed": 9,
+  "Expected": [
+    40,
+    100,
+    1888173,
+    1888173
+  ],
+  "After": [
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ],
+    [
+      40,
+      100,
+      1888173,
+      1888173
+    ]
+  ],
+  "InitialStocks": [
+    99,
+    99,
+    99,
+    99,
+    99,
+    99,
+    99,
+    99
+  ],
+  "FinalStocks": [
+    103,
+    104,
+    103,
+    104,
+    103,
+    104,
+    103,
+    104
+  ],
+  "Waves": [
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 0.000010583,
+        "UserUS": 441142,
+        "SystemUS": 76306,
+        "Interrupts": 2073,
+        "PackageIdle": 1,
+        "Ticks": 35,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 6611
+      },
+      "AfterIdle": {
+        "Seconds": 8.001471541,
+        "UserUS": 511398,
+        "SystemUS": 112843,
+        "Interrupts": 4203,
+        "PackageIdle": 8,
+        "Ticks": 1257,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 9956
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.390375
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 28.368875
+          },
+          "StartMS": 0.170292,
+          "ConnectMS": 1.97775,
+          "SQLMS": 1.118,
+          "TotalMS": 3.096375,
+          "EndMS": 3.266667
+        },
+        {
+          "ID": 3,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.255083
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 28.394958
+          },
+          "StartMS": 0.009042,
+          "ConnectMS": 2.139083,
+          "SQLMS": 1.293042,
+          "TotalMS": 3.432875,
+          "EndMS": 3.441917
+        },
+        {
+          "ID": 4,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.202916
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 30.541958
+          },
+          "StartMS": 0.013167,
+          "ConnectMS": 4.337875,
+          "SQLMS": 1.195209,
+          "TotalMS": 5.533792,
+          "EndMS": 5.546959
+        },
+        {
+          "ID": 5,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.298
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 31.963667
+          },
+          "StartMS": 0.041209,
+          "ConnectMS": 5.664583,
+          "SQLMS": 0.833583,
+          "TotalMS": 6.498958,
+          "EndMS": 6.540167
+        },
+        {
+          "ID": 6,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.2305
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 29.058792
+          },
+          "StartMS": 0.022834,
+          "ConnectMS": 2.8275,
+          "SQLMS": 0.878708,
+          "TotalMS": 3.706791,
+          "EndMS": 3.729625
+        },
+        {
+          "ID": 7,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.372375
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 31.454041
+          },
+          "StartMS": 0.198375,
+          "ConnectMS": 5.080917,
+          "SQLMS": 1.027292,
+          "TotalMS": 6.108917,
+          "EndMS": 6.307292
+        },
+        {
+          "ID": 8,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.382375
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 31.104
+          },
+          "StartMS": 0.155792,
+          "ConnectMS": 4.720833,
+          "SQLMS": 1.4645,
+          "TotalMS": 6.186,
+          "EndMS": 6.341792
+        },
+        {
+          "ID": 9,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 26.498916
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 28.738125
+          },
+          "StartMS": 0.29325,
+          "ConnectMS": 2.238375,
+          "SQLMS": 0.909791,
+          "TotalMS": 3.14875,
+          "EndMS": 3.442
+        }
+      ],
+      "AllResponsesMS": 6.540167
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 8.008393541,
+        "UserUS": 532375,
+        "SystemUS": 115270,
+        "Interrupts": 4246,
+        "PackageIdle": 8,
+        "Ticks": 1257,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 10041
+      },
+      "AfterIdle": {
+        "Seconds": 16.009130291,
+        "UserUS": 585210,
+        "SystemUS": 138772,
+        "Interrupts": 5456,
+        "PackageIdle": 10,
+        "Ticks": 2473,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 12005
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.761584
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.323917
+          },
+          "StartMS": 0.0225,
+          "ConnectMS": 2.908792,
+          "SQLMS": 1.396583,
+          "TotalMS": 4.305792,
+          "EndMS": 4.328292
+        },
+        {
+          "ID": 3,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.95025
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.781583
+          },
+          "StartMS": 0.240334,
+          "ConnectMS": 2.954041,
+          "SQLMS": 0.87725,
+          "TotalMS": 3.831791,
+          "EndMS": 4.072125
+        },
+        {
+          "ID": 4,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.754167
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.948167
+          },
+          "StartMS": 0.027084,
+          "ConnectMS": 4.762166,
+          "SQLMS": 0.948667,
+          "TotalMS": 5.7115,
+          "EndMS": 5.738584
+        },
+        {
+          "ID": 5,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.707875
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 51.011833
+          },
+          "StartMS": 0.03875,
+          "ConnectMS": 2.303084,
+          "SQLMS": 0.977,
+          "TotalMS": 3.280667,
+          "EndMS": 3.319417
+        },
+        {
+          "ID": 6,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.8805
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 52.059084
+          },
+          "StartMS": 0.204167,
+          "ConnectMS": 3.177958,
+          "SQLMS": 0.913458,
+          "TotalMS": 4.091833,
+          "EndMS": 4.296
+        },
+        {
+          "ID": 7,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.829584
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 2.197
+          },
+          "StartMS": 0.064584,
+          "ConnectMS": 4.713958,
+          "SQLMS": 0.862875,
+          "TotalMS": 5.577625,
+          "EndMS": 5.642209
+        },
+        {
+          "ID": 8,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.899625
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 50.5905
+          },
+          "StartMS": 0.172084,
+          "ConnectMS": 1.689875,
+          "SQLMS": 1.586667,
+          "TotalMS": 3.277333,
+          "EndMS": 3.449417
+        },
+        {
+          "ID": 9,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 48.83425
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.214167
+          },
+          "StartMS": 0.137292,
+          "ConnectMS": 2.697875,
+          "SQLMS": 0.835541,
+          "TotalMS": 3.533958,
+          "EndMS": 3.67125
+        }
+      ],
+      "AllResponsesMS": 5.738584
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 16.015199375,
+        "UserUS": 604492,
+        "SystemUS": 140357,
+        "Interrupts": 5503,
+        "PackageIdle": 10,
+        "Ticks": 2481,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 12088
+      },
+      "AfterIdle": {
+        "Seconds": 24.016279166,
+        "UserUS": 655209,
+        "SystemUS": 163913,
+        "Interrupts": 6649,
+        "PackageIdle": 18,
+        "Ticks": 3697,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 13971
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.108666
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 18.638708
+          },
+          "StartMS": 0.016375,
+          "ConnectMS": 4.52875,
+          "SQLMS": 0.741667,
+          "TotalMS": 5.271375,
+          "EndMS": 5.28775
+        },
+        {
+          "ID": 3,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.2055
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 15.922042
+          },
+          "StartMS": 0.162333,
+          "ConnectMS": 1.715709,
+          "SQLMS": 1.440167,
+          "TotalMS": 3.156542,
+          "EndMS": 3.318875
+        },
+        {
+          "ID": 4,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.228875
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 16.236166
+          },
+          "StartMS": 0.133125,
+          "ConnectMS": 2.006583,
+          "SQLMS": 1.005459,
+          "TotalMS": 3.012667,
+          "EndMS": 3.145792
+        },
+        {
+          "ID": 5,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.211375
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 16.852875
+          },
+          "StartMS": 0.139458,
+          "ConnectMS": 2.640625,
+          "SQLMS": 0.998625,
+          "TotalMS": 3.640042,
+          "EndMS": 3.7795
+        },
+        {
+          "ID": 6,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.316708
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 17.038042
+          },
+          "StartMS": 0.209458,
+          "ConnectMS": 2.720917,
+          "SQLMS": 0.9525,
+          "TotalMS": 3.673792,
+          "EndMS": 3.88325
+        },
+        {
+          "ID": 7,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.248917
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 16.910708
+          },
+          "StartMS": 0.176917,
+          "ConnectMS": 2.661166,
+          "SQLMS": 0.94375,
+          "TotalMS": 3.605541,
+          "EndMS": 3.782458
+        },
+        {
+          "ID": 8,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.182
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 18.697291
+          },
+          "StartMS": 0.03075,
+          "ConnectMS": 4.514292,
+          "SQLMS": 0.750208,
+          "TotalMS": 5.265125,
+          "EndMS": 5.295875
+        },
+        {
+          "ID": 9,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 14.155708
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 16.998792
+          },
+          "StartMS": 0.030583,
+          "ConnectMS": 2.842375,
+          "SQLMS": 1.370167,
+          "TotalMS": 4.213084,
+          "EndMS": 4.243667
+        }
+      ],
+      "AllResponsesMS": 5.295875
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 24.021905458,
+        "UserUS": 673797,
+        "SystemUS": 164938,
+        "Interrupts": 6664,
+        "PackageIdle": 18,
+        "Ticks": 3697,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 14017
+      },
+      "AfterIdle": {
+        "Seconds": 32.024044666,
+        "UserUS": 726271,
+        "SystemUS": 189457,
+        "Interrupts": 7900,
+        "PackageIdle": 26,
+        "Ticks": 4913,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 16029
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.794375
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 32.085166
+          },
+          "StartMS": 0.149292,
+          "ConnectMS": 2.29,
+          "SQLMS": 1.129083,
+          "TotalMS": 3.419583,
+          "EndMS": 3.568875
+        },
+        {
+          "ID": 3,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.688583
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 32.338375
+          },
+          "StartMS": 0.060375,
+          "ConnectMS": 2.648833,
+          "SQLMS": 0.894125,
+          "TotalMS": 3.543625,
+          "EndMS": 3.604
+        },
+        {
+          "ID": 4,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.657333
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.990083
+          },
+          "StartMS": 0.005375,
+          "ConnectMS": 4.332042,
+          "SQLMS": 0.908792,
+          "TotalMS": 5.2415,
+          "EndMS": 5.246875
+        },
+        {
+          "ID": 5,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.765375
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 32.438417
+          },
+          "StartMS": 0.128833,
+          "ConnectMS": 2.672334,
+          "SQLMS": 1.328709,
+          "TotalMS": 4.001584,
+          "EndMS": 4.130417
+        },
+        {
+          "ID": 6,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.679875
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 31.860667
+          },
+          "StartMS": 0.01425,
+          "ConnectMS": 2.179958,
+          "SQLMS": 1.374166,
+          "TotalMS": 3.554708,
+          "EndMS": 3.568958
+        },
+        {
+          "ID": 7,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.81225
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 32.073958
+          },
+          "StartMS": 0.119792,
+          "ConnectMS": 2.260916,
+          "SQLMS": 1.045125,
+          "TotalMS": 3.306625,
+          "EndMS": 3.426417
+        },
+        {
+          "ID": 8,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.763542
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 34.097542
+          },
+          "StartMS": 0.138833,
+          "ConnectMS": 4.33325,
+          "SQLMS": 0.823041,
+          "TotalMS": 5.156875,
+          "EndMS": 5.295708
+        },
+        {
+          "ID": 9,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 29.739208
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 34.178416
+          },
+          "StartMS": 0.061333,
+          "ConnectMS": 4.438375,
+          "SQLMS": 0.720875,
+          "TotalMS": 5.159709,
+          "EndMS": 5.221042
+        }
+      ],
+      "AllResponsesMS": 5.295708
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 32.02968575,
+        "UserUS": 746184,
+        "SystemUS": 190732,
+        "Interrupts": 7944,
+        "PackageIdle": 26,
+        "Ticks": 4913,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 16109
+      },
+      "AfterIdle": {
+        "Seconds": 40.030044208,
+        "UserUS": 797539,
+        "SystemUS": 213879,
+        "Interrupts": 9103,
+        "PackageIdle": 32,
+        "Ticks": 6129,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 18008
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 51.035667
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.975375
+          },
+          "StartMS": 0.14325,
+          "ConnectMS": 0.9925,
+          "SQLMS": 0.500458,
+          "TotalMS": 1.493583,
+          "EndMS": 1.636833
+        },
+        {
+          "ID": 3,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 0.008083
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.906916
+          },
+          "StartMS": 0.124041,
+          "ConnectMS": 0.898375,
+          "SQLMS": 0.662709,
+          "TotalMS": 1.561459,
+          "EndMS": 1.6855
+        },
+        {
+          "ID": 4,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 50.982208
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 1.430958
+          },
+          "StartMS": 0.089625,
+          "ConnectMS": 1.46675,
+          "SQLMS": 0.533875,
+          "TotalMS": 2.001166,
+          "EndMS": 2.090791
+        },
+        {
+          "ID": 5,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 50.904167
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.965417
+          },
+          "StartMS": 0.032125,
+          "ConnectMS": 1.101208,
+          "SQLMS": 0.620125,
+          "TotalMS": 1.721708,
+          "EndMS": 1.753833
+        },
+        {
+          "ID": 6,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 0.028292
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.984417
+          },
+          "StartMS": 0.17575,
+          "ConnectMS": 0.955458,
+          "SQLMS": 0.546375,
+          "TotalMS": 1.5025,
+          "EndMS": 1.67825
+        },
+        {
+          "ID": 7,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 0.025833
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 0.91325
+          },
+          "StartMS": 0.134291,
+          "ConnectMS": 0.887,
+          "SQLMS": 0.662667,
+          "TotalMS": 1.550084,
+          "EndMS": 1.684375
+        },
+        {
+          "ID": 8,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 50.875667
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 1.6725
+          },
+          "StartMS": 0.021958,
+          "ConnectMS": 2.061375,
+          "SQLMS": 0.327125,
+          "TotalMS": 2.389083,
+          "EndMS": 2.411041
+        },
+        {
+          "ID": 9,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 50.939083
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 1.452917
+          },
+          "StartMS": 0.034,
+          "ConnectMS": 1.578833,
+          "SQLMS": 0.546458,
+          "TotalMS": 2.125666,
+          "EndMS": 2.159666
+        }
+      ],
+      "AllResponsesMS": 2.411041
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 40.032599291,
+        "UserUS": 808727,
+        "SystemUS": 214547,
+        "Interrupts": 9119,
+        "PackageIdle": 32,
+        "Ticks": 6137,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 18063
+      },
+      "AfterIdle": {
+        "Seconds": 48.033251541,
+        "UserUS": 859632,
+        "SystemUS": 238433,
+        "Interrupts": 10270,
+        "PackageIdle": 41,
+        "Ticks": 7353,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 19937
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.250917
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 22.138292
+          },
+          "StartMS": 0.007083,
+          "ConnectMS": 1.88675,
+          "SQLMS": 1.606875,
+          "TotalMS": 3.494209,
+          "EndMS": 3.501292
+        },
+        {
+          "ID": 3,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.307166
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 24.492208
+          },
+          "StartMS": 0.13625,
+          "ConnectMS": 4.18425,
+          "SQLMS": 0.637834,
+          "TotalMS": 4.822792,
+          "EndMS": 4.959042
+        },
+        {
+          "ID": 4,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.180709
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 23.346209
+          },
+          "StartMS": 0.033833,
+          "ConnectMS": 3.1645,
+          "SQLMS": 1.090791,
+          "TotalMS": 4.256,
+          "EndMS": 4.289833
+        },
+        {
+          "ID": 5,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 21.579541
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 23.585583
+          },
+          "StartMS": 1.39,
+          "ConnectMS": 2.005417,
+          "SQLMS": 1.085959,
+          "TotalMS": 3.091917,
+          "EndMS": 4.481917
+        },
+        {
+          "ID": 6,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.288291
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 22.514666
+          },
+          "StartMS": 0.14275,
+          "ConnectMS": 2.225583,
+          "SQLMS": 1.132209,
+          "TotalMS": 3.358417,
+          "EndMS": 3.501167
+        },
+        {
+          "ID": 7,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.238125
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 24.518333
+          },
+          "StartMS": 0.010917,
+          "ConnectMS": 4.279041,
+          "SQLMS": 0.664459,
+          "TotalMS": 4.94425,
+          "EndMS": 4.955167
+        },
+        {
+          "ID": 8,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.394666
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 22.322666
+          },
+          "StartMS": 0.226042,
+          "ConnectMS": 1.927208,
+          "SQLMS": 1.347417,
+          "TotalMS": 3.275208,
+          "EndMS": 3.50125
+        },
+        {
+          "ID": 9,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 20.20925
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 25.155959
+          },
+          "StartMS": 0.064125,
+          "ConnectMS": 4.94575,
+          "SQLMS": 0.685708,
+          "TotalMS": 5.632125,
+          "EndMS": 5.69625
+        }
+      ],
+      "AllResponsesMS": 5.69625
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 48.039250375,
+        "UserUS": 879742,
+        "SystemUS": 239929,
+        "Interrupts": 10327,
+        "PackageIdle": 41,
+        "Ticks": 7353,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 20026
+      },
+      "AfterIdle": {
+        "Seconds": 56.041299291,
+        "UserUS": 932318,
+        "SystemUS": 264832,
+        "Interrupts": 11495,
+        "PackageIdle": 44,
+        "Ticks": 8569,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 21960
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 33.042083
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.804708
+          },
+          "StartMS": 0.065459,
+          "ConnectMS": 0.762416,
+          "SQLMS": 0.139792,
+          "TotalMS": 0.902375,
+          "EndMS": 0.967834
+        },
+        {
+          "ID": 3,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 33.013333
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.670667
+          },
+          "StartMS": 0.057834,
+          "ConnectMS": 0.656958,
+          "SQLMS": 0.201625,
+          "TotalMS": 0.858958,
+          "EndMS": 0.916792
+        },
+        {
+          "ID": 4,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 33.027792
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.511167
+          },
+          "StartMS": 0.039917,
+          "ConnectMS": 0.48325,
+          "SQLMS": 0.167458,
+          "TotalMS": 0.650833,
+          "EndMS": 0.69075
+        },
+        {
+          "ID": 5,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 32.975792
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.398709
+          },
+          "StartMS": 0.003959,
+          "ConnectMS": 0.422708,
+          "SQLMS": 0.311542,
+          "TotalMS": 0.734333,
+          "EndMS": 0.738292
+        },
+        {
+          "ID": 6,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 33.004042
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.617667
+          },
+          "StartMS": 0.035667,
+          "ConnectMS": 0.613125,
+          "SQLMS": 0.343791,
+          "TotalMS": 0.957458,
+          "EndMS": 0.993125
+        },
+        {
+          "ID": 7,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 32.988125
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.803875
+          },
+          "StartMS": 0.027625,
+          "ConnectMS": 0.815542,
+          "SQLMS": 0.146959,
+          "TotalMS": 0.962584,
+          "EndMS": 0.990209
+        },
+        {
+          "ID": 8,
+          "Write": false,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 33.016625
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.434583
+          },
+          "StartMS": 0.048625,
+          "ConnectMS": 0.417834,
+          "SQLMS": 0.224042,
+          "TotalMS": 0.641959,
+          "EndMS": 0.690584
+        },
+        {
+          "ID": 9,
+          "Write": true,
+          "Before": {
+            "Low": false,
+            "SinceTickMS": 32.964666
+          },
+          "Connected": {
+            "Low": false,
+            "SinceTickMS": 33.624083
+          },
+          "StartMS": 0.001167,
+          "ConnectMS": 0.659125,
+          "SQLMS": 0.429917,
+          "TotalMS": 1.089417,
+          "EndMS": 1.090584
+        }
+      ],
+      "AllResponsesMS": 1.090584
+    },
+    {
+      "IdleSeconds": 8,
+      "BeforeIdle": {
+        "Seconds": 56.042450458,
+        "UserUS": 937883,
+        "SystemUS": 265252,
+        "Interrupts": 11514,
+        "PackageIdle": 44,
+        "Ticks": 8569,
+        "SetLow": 0,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 22015
+      },
+      "AfterIdle": {
+        "Seconds": 64.043896375,
+        "UserUS": 971062,
+        "SystemUS": 281707,
+        "Interrupts": 12391,
+        "PackageIdle": 56,
+        "Ticks": 9165,
+        "SetLow": 8,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 23388
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 293.562791
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 295.434416
+          },
+          "StartMS": 0.00625,
+          "ConnectMS": 1.871,
+          "SQLMS": 1.592791,
+          "TotalMS": 3.464333,
+          "EndMS": 3.470583
+        },
+        {
+          "ID": 3,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 293.581167
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 298.119
+          },
+          "StartMS": 0.044708,
+          "ConnectMS": 4.536959,
+          "SQLMS": 0.758083,
+          "TotalMS": 5.295667,
+          "EndMS": 5.340375
+        },
+        {
+          "ID": 4,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 244.103917
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 246.010375
+          },
+          "StartMS": 0.168583,
+          "ConnectMS": 1.905709,
+          "SQLMS": 1.395625,
+          "TotalMS": 3.301959,
+          "EndMS": 3.470542
+        },
+        {
+          "ID": 5,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 192.048792
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 194.866584
+          },
+          "StartMS": 0.020167,
+          "ConnectMS": 2.816916,
+          "SQLMS": 1.446166,
+          "TotalMS": 4.263666,
+          "EndMS": 4.283833
+        },
+        {
+          "ID": 6,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 138.29925
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 140.897125
+          },
+          "StartMS": 0.190208,
+          "ConnectMS": 2.597042,
+          "SQLMS": 1.03125,
+          "TotalMS": 3.629,
+          "EndMS": 3.819208
+        },
+        {
+          "ID": 7,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 85.104
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 87.702791
+          },
+          "StartMS": 0.141667,
+          "ConnectMS": 2.598041,
+          "SQLMS": 0.971459,
+          "TotalMS": 3.570125,
+          "EndMS": 3.711792
+        },
+        {
+          "ID": 8,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 35.543042
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 38.179292
+          },
+          "StartMS": 0.244042,
+          "ConnectMS": 2.635666,
+          "SQLMS": 1.527958,
+          "TotalMS": 4.164041,
+          "EndMS": 4.408083
+        },
+        {
+          "ID": 9,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 3985.6105
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 3990.091125
+          },
+          "StartMS": 0.071875,
+          "ConnectMS": 4.479583,
+          "SQLMS": 0.793709,
+          "TotalMS": 5.274167,
+          "EndMS": 5.346042
+        }
+      ],
+      "AllResponsesMS": 5.346042
+    },
+    {
+      "IdleSeconds": 70.25,
+      "BeforeIdle": {
+        "Seconds": 64.04957225,
+        "UserUS": 990285,
+        "SystemUS": 282851,
+        "Interrupts": 12398,
+        "PackageIdle": 56,
+        "Ticks": 9165,
+        "SetLow": 8,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 23422
+      },
+      "AfterIdle": {
+        "Seconds": 134.30001175,
+        "UserUS": 1106161,
+        "SystemUS": 350390,
+        "Interrupts": 16628,
+        "PackageIdle": 84,
+        "Ticks": 9302,
+        "SetLow": 8,
+        "SetHigh": 0,
+        "Starts": 43,
+        "Voluntary": 69,
+        "Involuntary": 29190
+      },
+      "Wakes": [
+        {
+          "ID": 2,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2499.85925
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2504.213875
+          },
+          "StartMS": 0.220958,
+          "ConnectMS": 4.35375,
+          "SQLMS": 0.724791,
+          "TotalMS": 5.079083,
+          "EndMS": 5.300041
+        },
+        {
+          "ID": 3,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2499.672959
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2502.460042
+          },
+          "StartMS": 0.010875,
+          "ConnectMS": 2.786083,
+          "SQLMS": 1.059125,
+          "TotalMS": 3.845833,
+          "EndMS": 3.856708
+        },
+        {
+          "ID": 4,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2457.70325
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2460.573333
+          },
+          "StartMS": 0.020541,
+          "ConnectMS": 2.869459,
+          "SQLMS": 1.2435,
+          "TotalMS": 4.1135,
+          "EndMS": 4.134041
+        },
+        {
+          "ID": 5,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2407.839959
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2410.324375
+          },
+          "StartMS": 0.028041,
+          "ConnectMS": 2.483709,
+          "SQLMS": 1.345292,
+          "TotalMS": 3.829667,
+          "EndMS": 3.857708
+        },
+        {
+          "ID": 6,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2352.978083
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2358.0265
+          },
+          "StartMS": 0.060333,
+          "ConnectMS": 5.047542,
+          "SQLMS": 0.702833,
+          "TotalMS": 5.750833,
+          "EndMS": 5.811166
+        },
+        {
+          "ID": 7,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2299.77925
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2302.604458
+          },
+          "StartMS": 0.027041,
+          "ConnectMS": 2.824292,
+          "SQLMS": 1.004708,
+          "TotalMS": 3.829625,
+          "EndMS": 3.856666
+        },
+        {
+          "ID": 8,
+          "Write": false,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2248.4985
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2250.417792
+          },
+          "StartMS": 0.226458,
+          "ConnectMS": 1.918458,
+          "SQLMS": 1.199417,
+          "TotalMS": 3.118417,
+          "EndMS": 3.344875
+        },
+        {
+          "ID": 9,
+          "Write": true,
+          "Before": {
+            "Low": true,
+            "SinceTickMS": 2191.517334
+          },
+          "Connected": {
+            "Low": true,
+            "SinceTickMS": 2196.088292
+          },
+          "StartMS": 0.007041,
+          "ConnectMS": 4.57025,
+          "SQLMS": 0.892667,
+          "TotalMS": 5.463542,
+          "EndMS": 5.470583
+        }
+      ],
+      "AllResponsesMS": 5.811166
+    }
+  ],
+  "LowWrites": 8
+}

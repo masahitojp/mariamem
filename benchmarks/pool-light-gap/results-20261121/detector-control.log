@@ -1,0 +1,5 @@
+=== RUN   TestLightDetector
+--- PASS: TestLightDetector (0.00s)
+PASS
+ok  	github.com/shibukawa/pgmem/bench/modelcase/period	0.291s
+peak owned bytes 1341329408 minimum free bytes 74956800000

@@ -1,0 +1,57 @@
+package period
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+	"time"
+)
+
+func TestLightDetector(t *testing.T) {
+	ready, stop, done := make(chan struct{}), make(chan struct{}), make(chan struct{})
+	owner := new(int)
+	go func() { defer close(done); defer HandlerStart(owner)(); close(ready); <-stop }()
+	<-ready
+	defer func() { close(stop); <-done }()
+	Register(1, owner, 40)
+	first := Tick(1)
+	first.Exit()
+	Reinsert(1, 48)
+	p := poolByKey(1)
+	now := time.Since(clockStart).Nanoseconds()
+	p.activeSince.Store(now - int64(10*time.Second))
+	p.lastTickNS.Store(now - int64(6*time.Second))
+	p.low.Store(true)
+	if p.sample().remaining() <= 0 {
+		t.Fatal("low state triggered alarm")
+	}
+	High(1)
+	if p.sample().remaining() <= 0 {
+		t.Fatal("recent mode change triggered alarm")
+	}
+	p.activeSince.Store(now - int64(10*time.Second))
+	prefix := filepath.Join(t.TempDir(), "control")
+	finish := Watch([]int{1}, prefix)
+	deadline := time.Now().Add(3 * time.Second)
+	for time.Now().Before(deadline) {
+		if _, err := os.Stat(prefix + ".capture.json"); err == nil {
+			break
+		}
+		time.Sleep(time.Millisecond)
+	}
+	if !finish().Captured {
+		t.Fatal("expected stale control to trigger")
+	}
+	data, err := os.ReadFile(prefix + ".capture.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var v Capture
+	if err = json.Unmarshal(data, &v); err != nil {
+		t.Fatal(err)
+	}
+	if v.Before.Entered != 1 || v.Before.Exited != 1 || v.Before.Inserted != 1 || !v.HandlerPresent || v.Before.HandlerEnded {
+		t.Fatalf("bad capture: %+v", v)
+	}
+}
