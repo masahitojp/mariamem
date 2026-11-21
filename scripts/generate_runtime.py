@@ -194,6 +194,8 @@ def main():
     env=dict(os.environ,GOTOOLCHAIN='go1.26.11',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='')
     go_root=Path(subprocess.check_output(['go','env','GOROOT'],env=env,text=True).strip())
     subprocess.run([str(go_root/'bin/gofmt'),'-w', *map(str,out.rglob('*.go'))], check=True)
+    from runtime_pool_period import install as install_pool_period
+    install_pool_period(out, pins['guest_sha256'])
     inventory = {str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest()
                  for p in sorted(out.rglob('*')) if p.is_file()}
     provenance = {'guest_sha256':pins['guest_sha256'],

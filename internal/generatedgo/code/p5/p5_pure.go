@@ -896792,9 +896792,9 @@ func Fn16626(m *base.Module, l0 int32) {
 													} else {
 														v73 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60)), 56, 4)))
 														if v73 == int32(0) {
-															*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60+int32(8))), 16, 8))) = v63 * int64(42949672960) >> (uint(int64(32)) % 64) * int64(1000)
+															*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60+int32(8))), 16, 8))) = int64(4000000)
 														} else {
-															*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60)), 168, 4))) = base.I32_wrap_i64(v63) * int32(10)
+															*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60)), 168, 4))) = int32(4000)
 														}
 													}
 													Fn16585(m, v65)
@@ -897409,9 +897409,9 @@ func Fn16626(m *base.Module, l0 int32) {
 														} else {
 															v73 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60)), 56, 4)))
 															if v73 == int32(0) {
-																*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60+int32(8))), 16, 8))) = v63 * int64(42949672960) >> (uint(int64(32)) % 64) * int64(1000)
+																*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60+int32(8))), 16, 8))) = int64(4000000)
 															} else {
-																*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60)), 168, 4))) = base.I32_wrap_i64(v63) * int32(10)
+																*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v60)), 168, 4))) = int32(4000)
 															}
 														}
 														Fn16585(m, v65)
