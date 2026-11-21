@@ -1,0 +1,13 @@
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0', '200', '2000', '1', 'ON', '16777216', '16384']}}
+meaning-000-0-diag-400-default PASS
+warm-000-0-diag-400-default 831.4 []
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0', '200', '2000', '1', 'ON', '16777216', '16384']}}
+meaning-000-0-diag-50-default PASS
+warm-000-0-diag-50-default 926.8 []
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0', '200', '2000', '1', 'OFF', '16777216', '16384']}}
+meaning-000-0-diag-400-off PASS
+warm-000-0-diag-400-off 672.3 []
+{'shared': {'before': ['0', '200', '2000', '1', 'ON', '16777216', '16384'], 'after': ['0', '200', '2000', '1', 'OFF', '16777216', '16384']}}
+meaning-000-0-diag-50-off PASS
+warm-000-0-diag-50-off 598.5 []
+peak owned bytes 1299173376 minimum free bytes 76120555520

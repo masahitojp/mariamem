@@ -1,0 +1,13 @@
+=== RUN   TestFutexObserverControls
+=== RUN   TestFutexObserverControls/notify
+=== RUN   TestFutexObserverControls/timeout
+=== RUN   TestFutexObserverControls/failure
+=== RUN   TestFutexObserverControls/short
+--- PASS: TestFutexObserverControls (0.39s)
+    --- PASS: TestFutexObserverControls/notify (0.13s)
+    --- PASS: TestFutexObserverControls/timeout (0.13s)
+    --- PASS: TestFutexObserverControls/failure (0.13s)
+    --- PASS: TestFutexObserverControls/short (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.714s
+peak owned bytes 1904611328 minimum free bytes 75366400000

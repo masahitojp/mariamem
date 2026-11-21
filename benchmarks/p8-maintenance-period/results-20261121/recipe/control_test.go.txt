@@ -1,0 +1,49 @@
+package base
+
+import (
+    "context"
+    "encoding/json"
+    "os"
+    "testing"
+    "time"
+    probe "github.com/shibukawa/pgmem/bench/modelcase/p8probe"
+)
+func TestFutexObserverControls(t *testing.T) {
+    for _,reason:=range []string{"notify","timeout","failure","short"} {
+        t.Run(reason,func(t *testing.T){
+            name:=t.Name();ctx:=context.WithValue(context.Background(),"mariamem_benchmark_label",name)
+            probe.Bind(ctx,name)
+            m:=waitTimeoutModule();m.Threads=&ThreadPool{};m.Threads.Probe=probe.Lookup(name)
+            m.Threads.NotifyWorkerFailure(func(any){});ForceContendedAtomics(m)
+            waker:=*m;waker.ProbeAgent.TID=2
+            timeout:=int64(-1)
+            if reason=="timeout"{timeout=int64(125*time.Millisecond)}
+            if reason=="short"{timeout=int64(time.Millisecond)}
+            if reason=="notify"||reason=="failure"{
+                go func(){
+                    for {
+                        m.Threads.parkMu.Lock();n:=len(m.Threads.parked[64]);m.Threads.parkMu.Unlock()
+                        if n==1{break};time.Sleep(time.Millisecond)
+                    }
+                    time.Sleep(125*time.Millisecond)
+                    if reason=="notify"{AtomicNotify(&waker,64,0,1)}else{m.Threads.recordTrap("control failure")}
+                }()
+            }
+            rc:=int32(-1);var trap any
+            func(){defer func(){trap=recover()}();rc=AtomicWait32At(m,64,0,timeout)}()
+            if (reason=="failure")!=(trap=="control failure"){t.Fatalf("wrong trap %v",trap)}
+            if reason=="notify"&&rc!=0 || (reason=="timeout"||reason=="short")&&rc!=2{t.Fatalf("return %d",rc)}
+            probe.Save()
+            data,err:=os.ReadFile(os.Getenv("FUTEX_OUT"));if err!=nil{t.Fatal(err)}
+            var saved map[string]struct{Events []probe.Wait}
+            if err=json.Unmarshal(data,&saved);err!=nil{t.Fatal(err)}
+            waits:=saved[name].Events
+            if reason=="short"{if len(waits)!=0{t.Fatal(waits)};return}
+            if len(waits)!=1{t.Fatal(waits)}
+            e:=waits[0]
+            if e.Branch!=reason||e.Address!=64||e.Token!=1||e.Selected-e.Start<probe.Threshold {t.Fatal(e)}
+            if reason=="notify" && (e.Waker.TID!=2||e.Notified<e.Start+probe.Threshold||e.Notified>e.Selected||len(e.WakeStack)==0){t.Fatal(e)}
+            if reason!="notify" && e.Notified!=0{t.Fatal(e)}
+        })
+    }
+}

@@ -1,0 +1,23 @@
+package probe
+import ("context";"os";"encoding/json";"sync";"runtime/trace")
+type clientKey struct{}
+type Span struct{ Op string; Start,End int64 }
+type clientLog struct{ Name string; Spans []Span }
+var clients sync.Map
+func Lane(ctx context.Context,name string)context.Context{return context.WithValue(ctx,clientKey{},name)}
+func Client(ctx context.Context)*clientLog {
+    name,ok:=ctx.Value(clientKey{}).(string);if !ok{panic("unnamed client")}
+    l:=&clientLog{Name:name,Spans:make([]Span,0,256)}
+    if _,ok:=clients.LoadOrStore(name,l);ok{panic("duplicate sample")}
+    if trace.IsEnabled(){trace.Logf(ctx,"p8sample","%s begin",name)}
+    return l
+}
+func(l *clientLog) Start(op string){l.Spans=append(l.Spans,Span{Op:op,Start:Now()})}
+func(l *clientLog) End(){l.Spans[len(l.Spans)-1].End=Now()}
+func(l *clientLog) Finish(){if trace.IsEnabled(){trace.Logf(context.Background(),"p8sample","%s end",l.Name)}}
+func SaveClients(){
+    all:=map[string][]Span{}
+    clients.Range(func(k,v any)bool{all[k.(string)]=v.(*clientLog).Spans;return true})
+    f,e:=os.Create(os.Getenv("P8_CLIENTS"));if e!=nil{panic(e)}
+    if e=json.NewEncoder(f).Encode(all);e!=nil{panic(e)};if e=f.Close();e!=nil{panic(e)}
+}

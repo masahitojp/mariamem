@@ -1,0 +1,4 @@
+diag default discordant blocks 400-only/50-only 3 0 two-sided exact p 0.25
+diag off discordant blocks 400-only/50-only 6 0 two-sided exact p 0.03125
+raw default discordant blocks 400-only/50-only 7 0 two-sided exact p 0.015625
+PASS: 576 measured suites; balanced 96 blocks per mode; 12,096 sample loads; each suite checked timer arm, counts, settings where instrumented.
