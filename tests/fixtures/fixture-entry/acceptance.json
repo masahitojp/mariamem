@@ -174,6 +174,7 @@
     ],
     "base_capability_bits": [
       1,
+      2,
       4,
       8,
       512,
@@ -185,7 +186,7 @@
     ],
     "conditional_ps_multi_results": 262144,
     "source_sha256": {
-      "internal/mysqlwire/wire.go": "88aa8ea922677a1d07dc071ae61f0cc6235e1b2da73b39e2d68fbf6fad39e2b4",
+      "internal/mysqlwire/wire.go": "a355476589dd05165aea12a4685ac599ca47090675f45caefb1bc7b570c11f3e",
       "internal/mysqlwire/prepared_session.go": "e2f243d352cae309fe3e593de3c2fcf1d1a9ce0d9c11fe6cc95191b0473a0415",
       "guest/wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a",
       "guest/resident.inc": "f26c16193e6ac48a17d0a5ccebbd78dc889118f34e6056c1348f9b6a1c142643"
@@ -209,7 +210,7 @@
       "source_client_pin",
       "oracle"
     ],
-    "source_commit": "d8f66d9a5605b3b738b2175268a3734ee1c89a4a",
+    "source_commit": "c4354afa5c912201995e4fcf2429e314f95c8338",
     "historical_source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469"
   },
   "future_runtime_status": "NOT_RUN",

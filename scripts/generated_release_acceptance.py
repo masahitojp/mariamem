@@ -140,7 +140,7 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
             if mode=='candidate':
                 proxy=prepare_proxy(root,work,tag)
                 env.update(GOPROXY=proxy.as_uri()+',https://proxy.golang.org',GONOSUMDB=MODULE)
-            (project/'go.mod').write_text(f'module example.com/release-consumer\n\ngo 1.26.0\n\nrequire (\n {MODULE} {tag}\n github.com/go-sql-driver/mysql v1.9.3\n)\n')
+            (project/'go.mod').write_text(f'module example.com/release-consumer\n\ngo 1.26.0\n\nrequire (\n {MODULE} {tag}\n github.com/go-sql-driver/mysql v1.10.1\n)\n')
             for source in (root/'tests/godefault').glob('*.go'):
                 shutil.copyfile(source,project/source.name)
             if mode=='candidate': run(['go','mod','download',MODULE+'@'+tag],project,{**env,'GOPROXY':proxy.as_uri()})
