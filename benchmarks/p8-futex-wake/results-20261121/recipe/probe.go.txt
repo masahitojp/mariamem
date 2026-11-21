@@ -1,0 +1,123 @@
+package probe
+
+import (
+    "context"
+    "encoding/json"
+    "os"
+    "runtime"
+    "sync"
+    "sync/atomic"
+    "time"
+)
+
+var origin=time.Now()
+func Now() int64{return time.Since(origin).Nanoseconds()}
+func Stamp(t time.Time) int64{return t.Sub(origin).Nanoseconds()}
+const Threshold=int64(100*time.Millisecond)
+
+type Task struct {
+    Ptr,Arg uint32
+    Enqueued,Invoked int64
+    Unique bool
+    SubmitTID int32
+    ParentPtr uint32
+    ParentEnqueue,ParentInvoke,SubmitTimer,SubmitAIO int64
+}
+type Agent struct {
+    TID int32
+    Request uint32
+    WorkerAt int64
+    Current Task
+    TimerAt,AIOAt,WriteAt int64
+    WriteArg uint32
+}
+type Request struct{ ID,Slot uint32; Op byte; Call,Reply,Resume int64; ReplySlot uint32 }
+type Wait struct {
+    Host *Request
+    Token uint64
+    Address uint64
+    Timeout,Start,Selected,Notified int64
+    Branch string
+    Waiting,Waker Agent
+    WaitStack,WakeStack []string
+}
+type DB struct{
+    Name string
+    next atomic.Uint64
+    mu sync.Mutex
+    requests map[uint32]*Request
+    tasks map[uint32][]Task
+    events []Wait
+    issued,invoked,unmatched int
+}
+var registry sync.Map
+type linkKey struct{}
+func Bind(ctx context.Context,transfer string)context.Context{
+    name,ok:=ctx.Value("mariamem_benchmark_label").(string)
+    if !ok || name==""{panic("missing DB label")}
+    if name=="reader"{name="shared"}
+    d:=&DB{Name:name,tasks:map[uint32][]Task{},requests:map[uint32]*Request{}};if _,loaded:=registry.LoadOrStore(transfer,d);loaded{panic("duplicate transfer")};return context.WithValue(ctx,linkKey{},d)
+}
+func From(ctx context.Context)*DB {d,_:=ctx.Value(linkKey{}).(*DB);return d}
+func(d *DB)Call(id,slot uint32,op byte)*Request{
+    q:=&Request{ID:id,Slot:slot,Op:op,Call:Now()}
+    d.mu.Lock();d.requests[id]=q;d.mu.Unlock();return q
+}
+func(d *DB)Reply(id,slot uint32){
+    if id==0{return};d.mu.Lock();q:=d.requests[id];d.mu.Unlock();if q==nil||q.Slot!=slot{panic("response ID/slot mismatch")};q.Reply=Now();q.ReplySlot=slot
+}
+func Lookup(transfer string)*DB{value,ok:=registry.Load(transfer);if !ok{return nil};return value.(*DB)}
+func(d *DB)Enqueue(task int32,a Agent){
+    if d==nil{return}
+    k:=uint32(task);q:=Task{Ptr:k,Enqueued:Now(),Unique:true,SubmitTID:a.TID,
+        ParentPtr:a.Current.Ptr,ParentEnqueue:a.Current.Enqueued,ParentInvoke:a.Current.Invoked,SubmitTimer:a.TimerAt,SubmitAIO:a.AIOAt}
+    d.mu.Lock()
+    list:=d.tasks[k]
+    if len(list)>0{q.Unique=false;for i:=range list{list[i].Unique=false}}
+    d.tasks[k]=append(list,q);d.issued++
+    d.mu.Unlock()
+}
+func(d *DB)Invoke(task,arg int32,a *Agent) Task {
+    old:=a.Current
+    if d==nil{return old}
+    k:=uint32(task);now:=Now()
+    d.mu.Lock()
+    list:=d.tasks[k];q:=Task{Ptr:k}
+    if len(list)>0{q=list[0];if len(list)==1{delete(d.tasks,k)}else{d.tasks[k]=list[1:]}}else{d.unmatched++}
+    d.invoked++
+    d.mu.Unlock()
+    q.Invoked=now;q.Arg=uint32(arg);a.Current=q
+    return old
+}
+func(d *DB)Park(ea uint64,timeout int64,a Agent)*Wait{
+    return &Wait{Token:d.next.Add(1),Address:ea,Timeout:timeout,Start:Now(),Waiting:a}
+}
+func stack()[]string{
+    var pcs [72]uintptr
+    n:=runtime.Callers(2,pcs[:])
+    frames:=runtime.CallersFrames(pcs[:n]);var names []string
+    for {f,more:=frames.Next();names=append(names,f.Function);if !more{break}}
+    return names
+}
+// Called under the same park mutex that selects the channel about to be closed.
+func(w *Wait)Notify(a Agent){
+    w.Notified=Now()
+    if w.Notified-w.Start>=Threshold{w.Waker=a;w.WakeStack=stack()}
+}
+func(d *DB)Finish(w *Wait){
+    if w.Selected==0 || w.Selected-w.Start<Threshold{return}
+    w.WaitStack=stack()
+    d.mu.Lock();d.events=append(d.events,*w);d.mu.Unlock()
+}
+func Save(){
+    result:=map[string]any{}
+    registry.Range(func(_,value any)bool{
+        d:=value.(*DB)
+        if _,duplicate:=result[d.Name];duplicate{panic("duplicate lane")}
+        for i:=range d.events {e:=&d.events[i];if e.Waiting.Request!=0 {e.Host=d.requests[e.Waiting.Request]}}
+        result[d.Name]=map[string]any{"parked":d.next.Load(),"events":d.events,"enqueued":d.issued,"invoked":d.invoked,"unknown_queue":d.unmatched}
+        return true
+    })
+    f,err:=os.Create(os.Getenv("FUTEX_OUT"));if err!=nil{panic(err)}
+    if err=json.NewEncoder(f).Encode(result);err!=nil{panic(err)};if err=f.Close();err!=nil{panic(err)}
+}
