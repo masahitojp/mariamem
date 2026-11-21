@@ -1,0 +1,21 @@
+{
+  "build": "peak owned bytes 3245375488 minimum free bytes 72499200000",
+  "replay": [
+    "validate-A pass 1.556",
+    "validate-B pass 0.428",
+    "validate-C pass 0.37",
+    "1-A pass 0.488",
+    "1-B pass 0.428",
+    "1-C pass 0.373",
+    "2-B pass 0.42",
+    "2-C pass 0.362",
+    "2-A pass 0.49",
+    "3-C pass 0.361",
+    "3-A pass 0.486",
+    "3-B pass 0.42",
+    "peak owned bytes 2269741056 minimum free bytes 73823801344"
+  ],
+  "preflight_inserts": 2400,
+  "measured_inserts": 7200,
+  "source_archive_sha256": "628eef6d789b563e46f362b4a98dd32ff3dd86050929215fb4cf773ec0549ff6"
+}
