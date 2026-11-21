@@ -1,0 +1,164 @@
+package period
+
+import (
+	"bytes"
+	"fmt"
+	"os"
+	"runtime"
+	"strconv"
+	"sync"
+	"time"
+)
+
+type Event struct {
+	Kind    string
+	AtNS    int64
+	Address int32
+	Value   int64
+}
+type Counter struct {
+	Count int
+	Last  Event
+}
+type Trail struct {
+	DB            int
+	Timer, Pool   int32
+	HandlerGID    int
+	KeyMismatches int
+	NowNS         int64
+	Old           State
+	Counters      map[string]Counter
+	Handler       Event
+	Recent        []Event
+	StackFile     string
+}
+type pathProbe struct {
+	mu                  sync.Mutex
+	address, pool       int32
+	key                 uintptr
+	id, gid, mismatches int
+	counters            map[string]Counter
+	handler             Event
+	recent              [20]Event
+	events              int
+	stackFile           string
+}
+
+var byOwner sync.Map
+var byID sync.Map
+
+func owner(key any) *pathProbe {
+	if p, ok := byOwner.Load(key); ok {
+		return p.(*pathProbe)
+	}
+	p, _ := byOwner.LoadOrStore(key, &pathProbe{counters: make(map[string]Counter)})
+	return p.(*pathProbe)
+}
+func Bind(ownerKey any, mem uintptr, id int, poolAddr, timer int32) {
+	p := owner(ownerKey)
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.id != 0 || timer == 0 || poolAddr == 0 {
+		panic("duplicated/invalid timer binding")
+	}
+	p.id, p.key, p.address, p.pool = id, mem, timer, poolAddr
+	byID.Store(id, p)
+}
+func ThreadStart(k any) {
+	var buf [80]byte
+	n := runtime.Stack(buf[:], false)
+	fields := bytes.Fields(buf[:n])
+	id, err := strconv.Atoi(string(fields[1]))
+	if err != nil {
+		panic(err)
+	}
+	p := owner(k)
+	p.mu.Lock()
+	p.gid = id
+	p.mu.Unlock()
+}
+func (p *pathProbe) record(e Event) {
+	c := p.counters[e.Kind]
+	c.Count++
+	c.Last = e
+	p.counters[e.Kind] = c
+	p.recent[p.events%len(p.recent)] = e
+	p.events++
+}
+
+// The heap contains the embedded thr_timer_t subobject at timer+8.
+func Mark(k any, mem uintptr, kind string, addr int32, value int64, domain byte) {
+	p := owner(k)
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.id == 0 {
+		return
+	}
+	if p.key != mem {
+		p.mismatches++
+	}
+	match := false
+	switch domain {
+	case 'h':
+		match = addr == p.address+8
+	case 't':
+		match = addr == p.address
+	case 'p':
+		match = addr == p.pool
+	case 'd':
+		match = addr == p.address+8
+	case 'g':
+		match = true
+	}
+	if !match && domain != 'd' {
+		return
+	}
+	e := Event{Kind: kind, AtNS: time.Since(clockStart).Nanoseconds(), Address: addr, Value: value}
+	if domain == 'd' || domain == 'g' {
+		p.handler = e
+	}
+	if match {
+		p.record(e)
+	}
+}
+func PathSnapshot(id int) Trail {
+	value, ok := byID.Load(id)
+	if !ok {
+		panic("missing pool identity")
+	}
+	p := value.(*pathProbe)
+	s := Inspect(id)
+	p.mu.Lock()
+	r := Trail{DB: id, Timer: p.address, Pool: p.pool, HandlerGID: p.gid, KeyMismatches: p.mismatches,
+		NowNS: time.Since(clockStart).Nanoseconds(), Old: s, Handler: p.handler, Counters: make(map[string]Counter), StackFile: p.stackFile}
+	for k, c := range p.counters {
+		r.Counters[k] = c
+	}
+	first := p.events - len(p.recent)
+	if first < 0 {
+		first = 0
+	}
+	for i := first; i < p.events; i++ {
+		r.Recent = append(r.Recent, p.recent[i%len(p.recent)])
+	}
+	dump := !s.Low && s.SinceTickMS > 4000 && p.stackFile == ""
+	if dump {
+		p.stackFile = fmt.Sprintf("%s.db%d.stacks", os.Getenv("BURST_REPORT"), id)
+		r.StackFile = p.stackFile
+	}
+	p.mu.Unlock()
+	if dump {
+		for size := 1 << 20; size <= 32<<20; size *= 2 {
+			buf := make([]byte, size)
+			n := runtime.Stack(buf, true)
+			if n < len(buf) {
+				if err := os.WriteFile(r.StackFile, buf[:n], 0600); err != nil {
+					panic(err)
+				}
+				return r
+			}
+		}
+		panic("incomplete goroutine snapshot")
+	}
+	return r
+}

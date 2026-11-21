@@ -1,0 +1,46 @@
+{
+  "commit": "aaabca75ced4876a45f553de940671f3f7e2efc5",
+  "path": "benchmarks/pool-reactivation/results-20261121/main-3-1-split.json",
+  "observations": [
+    {
+      "pool_id": 2,
+      "mode": "low",
+      "age_ms": 554.149
+    },
+    {
+      "pool_id": 3,
+      "mode": "low",
+      "age_ms": 500.715708
+    },
+    {
+      "pool_id": 4,
+      "mode": "low",
+      "age_ms": 447.548167
+    },
+    {
+      "pool_id": 5,
+      "mode": "low",
+      "age_ms": 396.910792
+    },
+    {
+      "pool_id": 6,
+      "mode": "low",
+      "age_ms": 348.016542
+    },
+    {
+      "pool_id": 7,
+      "mode": "active",
+      "age_ms": 126448.442334
+    },
+    {
+      "pool_id": 8,
+      "mode": "low",
+      "age_ms": 298.101917
+    },
+    {
+      "pool_id": 9,
+      "mode": "low",
+      "age_ms": 247.191666
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+main-1-0-current PASS stale observations 0
+main-1-1-split PASS stale observations 0
+main-2-0-split PASS stale observations 0
+main-2-1-current PASS stale observations 0
+main-3-0-current PASS stale observations 0
+main-3-1-split PASS stale observations 0
+main-4-0-split PASS stale observations 0
+main-4-1-current PASS stale observations 0
+peak owned bytes 2073464832 minimum free bytes 74426871808

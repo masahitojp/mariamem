@@ -1,0 +1,6 @@
+{
+  "sha256": "06ab5d0a6854c250a7be7d837f33dd0f07cd17289c84f6f5576d11e9b8e94a14",
+  "source_commit": "fa7d878d0bdc8616726db0e8a822285f987a2e91",
+  "fixture": "10665616ba6f00d72b5563158a50bfb7cb2305d2",
+  "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-timer-path/temp/split.test: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase/store.test\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.10.1\th1:arlSnNLq6a5yxGxV7qg9lF4j0C+KwD6NbQyKr9QL6ME=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/pool-timer-path/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}
