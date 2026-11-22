@@ -59,7 +59,7 @@
   "legacy_source_inputs": [
     "wasmer-source"
   ],
-  "evidence_sha256": "f1f17259670cce8e49c8f058babd2bd8d49ac93fa3137ad008c30bad0f3bd6f6",
+  "evidence_sha256": "5af3140fbe904b14ff7a5eac27bb2ee8a365bfa4117353acf188b7b0fbbb23bb",
   "upstream_notice_files": {
     "LLVM-compiler-rt-LICENSE.txt": {
       "input": "llvm-project",

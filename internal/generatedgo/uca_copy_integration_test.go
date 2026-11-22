@@ -5,16 +5,14 @@ package generatedgo
 import (
 	"bytes"
 	"crypto/sha256"
-	"encoding/binary"
-	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/prepared"
 )
 
 // The private switch is supplied at construction, never by guestEnvironment or
@@ -49,75 +47,26 @@ func TestUCACopyActualGuest(t *testing.T) {
 			defer childOut.Close()
 			replies := make(chan error, 1)
 			go func() {
-				fail := func(err error) { input.Close(); replies <- err }
-				read := func(ready bool) error {
-					var n uint32
-					if err := binary.Read(output, binary.LittleEndian, &n); err != nil {
-						return err
-					}
-					if n > 1<<20 {
-						return fmt.Errorf("invalid frame length %d", n)
-					}
-					raw := make([]byte, int(n))
-					if _, err := io.ReadFull(output, raw); err != nil {
-						return err
-					}
-					var reply struct {
-						Result map[string]any `json:"result"`
-					}
-					if err := json.Unmarshal(raw, &reply); err != nil {
-						return err
-					}
-					key := "ok"
-					if ready {
-						key = "ready"
-					}
-					if reply.Result[key] != true {
-						return fmt.Errorf("failed guest reply: %+v", reply)
-					}
-					return nil
-				}
-				if err := read(true); err != nil {
-					fail(err)
-					return
-				}
-				sequence := uint32(0)
-				call := func(op byte, sql string) error {
-					sequence++
-					packet := make([]byte, 13+len(sql))
-					binary.LittleEndian.PutUint32(packet, uint32(9+len(sql)))
-					packet[4] = op
-					binary.LittleEndian.PutUint32(packet[5:], sequence)
-					copy(packet[13:], sql)
-					if _, err := input.Write(packet); err != nil {
-						return err
-					}
-					return read(false)
-				}
-				if err := call(1, ""); err != nil {
-					fail(err)
-					return
-				}
+				queries := make([]string, 0, 5)
 				for _, encoding := range []string{"utf8mb3", "utf8mb4", "ucs2", "utf16", "utf32"} {
-					sql := fmt.Sprintf("SELECT STRCMP(CONVERT(_utf8mb4'a' USING %s) COLLATE %s_uca1400_ai_ci,CONVERT(_utf8mb4'A' USING %s) COLLATE %s_uca1400_ai_ci)", encoding, encoding, encoding, encoding)
-					if err := call(2, sql); err != nil {
-						fail(err)
-						return
-					}
+					queries = append(queries, fmt.Sprintf("SELECT STRCMP(CONVERT(_utf8mb4'a' USING %s) COLLATE %s_uca1400_ai_ci,CONVERT(_utf8mb4'A' USING %s) COLLATE %s_uca1400_ai_ci)", encoding, encoding, encoding, encoding))
 				}
-				_, err := input.Write([]byte{0, 0, 0, 0})
+				err := runWireSQLQueries(input, output, queries)
+				if err != nil {
+					input.Close()
+				}
 				replies <- err
 			}()
 
 			before := base.MemoryMappingStats()
 			construct := func(h *host) (*base.Module, func() error, error) {
 				if tc.verify {
-					h.SetEnv(append(guestEnvironment(false, tc.timing), "MARIAMEM_UCA_COPY_VERIFY_INTERNAL=1"))
+					h.SetEnv(append(wireGuestEnvironment(false, tc.timing), "MARIAMEM_CONTROL_EPOCH=1", "MARIAMEM_UCA_COPY_VERIFY_INTERNAL=1"))
 				}
 				m, release, err := newMemoryModule(h)
 				if err == nil && tc.corrupt {
 					// Exact canonical flag table in this guest, not an inferred match.
-					const address = 10143632
+					const address = 10148144
 					const size = 12288
 					if fmt.Sprintf("%x", sha256.Sum256(m.Memory[address:address+size])) != "ef290f39feb57991e9871bbc5d58d78f8e42e6db73c477f25920493cebba6a0f" {
 						release()
@@ -128,7 +77,7 @@ func TestUCACopyActualGuest(t *testing.T) {
 				}
 				return m, release, err
 			}
-			done := startInstance(childIn, childOut, &diagnostic, "", nil, tc.timing, nil, construct)
+			done := startWireInstance(childIn, childOut, &diagnostic, "", nil, tc.timing, nil, construct, 1, &WireLifecycle{Capture: &prepared.Capture{}, Approval: make(chan error, 1)})
 			select {
 			case err = <-done:
 			case <-time.After(30 * time.Second):

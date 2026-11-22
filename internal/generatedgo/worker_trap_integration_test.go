@@ -184,6 +184,32 @@ func (g *trapGuest) stop() error {
 	return g.writeEnv(wireEnvelope{kind: 6, epoch: 1})
 }
 
+func runWireSQLQueries(in, out *os.File, queries []string) error {
+	g := &trapGuest{in: in, out: out}
+	env, err := g.readEnv()
+	if err != nil {
+		return err
+	}
+	if env.kind != 100 {
+		return fmt.Errorf("expected READY(100), got %d", env.kind)
+	}
+	if err := g.openSession(); err != nil {
+		return err
+	}
+	for _, sql := range queries {
+		if err := g.execSQL(sql); err != nil {
+			return err
+		}
+	}
+	if err := g.writeMySQLPacket(0, []byte{0x01}); err != nil { // COM_QUIT
+		return err
+	}
+	if err := g.writeEnv(wireEnvelope{kind: 4, slot: 0, epoch: 1, generation: 1, value: 0}); err != nil { // PEER_EOF
+		return err
+	}
+	return g.stop()
+}
+
 func startTrapGuest(t *testing.T, inject bool) *trapGuest {
 	t.Helper()
 	childIn, in, err := os.Pipe()
