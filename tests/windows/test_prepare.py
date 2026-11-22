@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
 
 import pytest
 
@@ -91,13 +92,28 @@ def test_windows_missing_command_preserves_os_error(tmp_path):
 
 def test_windows_command_never_runs_before_assignment(tmp_path, monkeypatch):
     from mariamem import _windows_prepare as runner
-    def reject(self, pid):
-        raise PermissionError('injected assignment failure')
-    monkeypatch.setattr(runner._Job, 'assign', reject)
+
+    bootstrap = tmp_path / 'launcher-started'
+    startup = tmp_path / 'startup-ran'
     marker = tmp_path / 'unexpected'
+    (tmp_path / 'sitecustomize.py').write_text(
+        f'from pathlib import Path; Path({str(startup)!r}).touch()\n', encoding='utf-8')
+    monkeypatch.setattr(runner, '_LAUNCHER',
+                        f'from pathlib import Path; Path({str(bootstrap)!r}).touch()\n' + runner._LAUNCHER)
+
+    def reject(self, pid):
+        deadline = time.monotonic() + 10
+        while not bootstrap.exists() and time.monotonic() < deadline:
+            time.sleep(.01)
+        assert bootstrap.exists(), 'launcher did not reach its gate'
+        raise PermissionError('injected assignment failure')
+
+    monkeypatch.setattr(runner._Job, 'assign', reject)
     with pytest.raises(PermissionError) as raised:
-        execute(tmp_path, f"from pathlib import Path; Path({str(marker)!r}).write_text('ran')")
+        execute(tmp_path, f'from pathlib import Path; Path({str(marker)!r}).touch()',
+                env={'PYTHONPATH': str(tmp_path)})
     assert raised.value.process_cleanup == 'not started'
+    assert not startup.exists()
     assert not marker.exists()
 
 
@@ -114,8 +130,14 @@ def test_windows_query_denial_never_claims_cleanup(tmp_path, monkeypatch):
 
 def test_windows_env_overlay_is_case_insensitive(tmp_path, monkeypatch):
     monkeypatch.setenv('P1_MIXED_CASE', 'parent')
-    result = execute(tmp_path, "import os; print(os.environ['P1_MIXED_CASE'])", env={'p1_mixed_case': 'overlay'})
-    assert result.stdout.strip() == b'overlay'
+    hooks = tmp_path / 'hooks'
+    hooks.mkdir()
+    (hooks / 'sitecustomize.py').write_text('import os; os.environ["P1_STARTUP"] = "loaded"\n',
+                                          encoding='utf-8')
+    result = execute(tmp_path,
+                     "import os; print(os.environ['P1_MIXED_CASE'], os.environ['P1_STARTUP'])",
+                     cwd=hooks, env={'p1_mixed_case': 'overlay', 'PYTHONPATH': str(hooks)})
+    assert result.stdout.strip() == b'overlay loaded'
     from mariamem import PrepareCommand
     with pytest.raises(ValueError, match='reserved'):
         PrepareCommand([sys.executable], env={'mariamem_prepare_connection_info': 'wrong'})

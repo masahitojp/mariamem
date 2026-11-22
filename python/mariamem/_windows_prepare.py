@@ -95,12 +95,14 @@ class _Job:
 # This controlled launcher waits for the parent's gate before creating a user
 # process. Parent death before assignment closes stdin; afterwards closing the
 # parent's sole Job Object handle retires the whole command tree.
-_LAUNCHER = '''import json, subprocess, sys
+_LAUNCHER = '''import json, os, subprocess, sys
 line = sys.stdin.buffer.readline()
 if not line:
     sys.exit(1)
 request = json.loads(line)
 try:
+    os.chdir(request['cwd'])
+    os.environ.update(request['env'])
     process = subprocess.Popen(request['argv'], stdin=subprocess.DEVNULL)
 except OSError as error:
     with open(request['status'], 'w', encoding='utf-8') as stream:
@@ -137,8 +139,7 @@ def _retire(job, process, assigned, readers):
 
 
 def run_command(command, database, rootpath):
-    env = {key.upper(): value for key, value in os.environ.items()}
-    env.update({key.upper(): value for key, value in command.env.items()})
+    env = {key.upper(): value for key, value in command.env.items()}
     env[_CONNECTION_ENV] = json.dumps(database.connection_info())
     cwd = Path(rootpath) if command.cwd is None else Path(rootpath) / command.cwd
     tails = {'stdout': _Tail(), 'stderr': _Tail()}
@@ -152,7 +153,9 @@ def run_command(command, database, rootpath):
         control = tempfile.TemporaryDirectory(prefix='mariamem-prepare-control-')
         status = Path(control.name) / 'launch.json'
         job = _Job()
-        process = subprocess.Popen([sys.executable, '-c', _LAUNCHER], cwd=cwd, env=env,
+        # Keep Python startup independent of the command's cwd and environment
+        # until the launcher is owned by the Job Object.
+        process = subprocess.Popen([sys.executable, '-I', '-S', '-c', _LAUNCHER], cwd=control.name,
                                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE, bufsize=0)
         job.assign(process.pid)
@@ -161,7 +164,8 @@ def run_command(command, database, rootpath):
             reader = threading.Thread(target=_drain, args=(getattr(process, name), tails[name], failures), daemon=True)
             readers.append(reader)
             reader.start()
-        data = memoryview((json.dumps({'argv': command.argv, 'status': str(status)}) + '\n').encode('utf-8'))
+        request = {'argv': command.argv, 'cwd': str(cwd), 'env': env, 'status': str(status)}
+        data = memoryview((json.dumps(request) + '\n').encode('utf-8'))
         gate_opened = True
         while data:
             count = process.stdin.write(data)
