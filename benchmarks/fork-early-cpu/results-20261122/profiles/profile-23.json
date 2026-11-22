@@ -1,0 +1,1 @@
+{"suite_ms": 1309.578, "counts": {"boot": 1, "import": 1, "snapshot": 1, "fork": 21, "sample": 21, "write": 20, "close": 21, "read": 50, "cleanup": 1}}

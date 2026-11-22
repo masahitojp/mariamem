@@ -1,0 +1,15 @@
+early_ms 3.4055 3.3501 3.7965
+4170_ms 0.0205 0.0192 0.0329 my_load_defaults
+4178_ms 0.0757 0.0745 0.0824 handle_options
+13063_ms 0.0073 0.007 0.0079 _Z19sys_var_add_optionsP16st_dynamic_arrayi
+15283_ms 0.0022 0.002 0.0034 _Z15add_status_varsP17st_mysql_show_var
+14536_ms 0.0015 0.0012 0.002 _Z23get_or_create_key_cachePKcm
+14555_ms 0.0004 0.0003 0.0016 _Z17my_locale_by_nameRK25st_mysql_const_lex_string
+20147_ms 2.5 2.463 2.7694 _ZN24Charset_collation_map_st9from_textERK25st_mysql_const_lex_stringm
+974_ms 0.0007 0.0005 0.0023 get_charset_by_name
+975_ms 1.5744 1.5652 1.7217 get_charset_by_csname
+20137_ms 0.0007 0.0006 0.001 _ZNK38Lex_exact_charset_opt_extended_collate31find_compiled_default_collationEv
+21566_ms 0.0044 0.0034 0.0073 _ZN8Sql_path9from_textERK16system_variablesP6String
+15433_ms 0.0 0.0 0.0 _Z21tablename_to_filenamePKcPcm
+5819_ms 0.0002 0.0001 0.0008 init_client_errs
+5887_ms 0.0 0.0 0.0001 mysql_client_plugin_init

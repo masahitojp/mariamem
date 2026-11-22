@@ -1,0 +1,11 @@
+early sample count 170
+from_text 115 under from_text 115
+charset_lookup 70 under from_text 70
+registry_init 70 under from_text 70
+uca_init 34 under from_text 34
+grow 45 under from_text 43
+from_text_ms 2.4999795 2.463042 2.769416 [2.4929, 2.4908, 2.497, 2.5328]
+lookup_ms 1.5711875000000002 1.562125 1.717 [1.5708, 1.5675, 1.57, 1.5948]
+first_lookup_ms 1.5648335 1.555542 1.709709 [1.5645, 1.5611, 1.5636, 1.5886]
+other_ms 0.9262915 0.900042 1.052416 [0.9234, 0.9173, 0.9268, 0.9502]
+early_ms 3.4055210000000002 3.350125 3.796458 [3.3904, 3.4017, 3.4053, 3.5076]

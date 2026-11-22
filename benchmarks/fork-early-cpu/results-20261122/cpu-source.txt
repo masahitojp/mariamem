@@ -1,0 +1,25 @@
+# Sampled statements in init_embedded_server
+     120ms  7.06% 64.12%      120ms  7.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5583 github.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/p0/p0_pure.go:71952
+71950: source 71948: *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 27475736, 0, 4))) = v9292
+71951: source 71949: *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 27475728, 0, 4))) = int32(27475732)
+71952: source 71950: v9299 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 18584984, 0, 4)))
+71953: source 71951: v9301 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 18584988, 0, 4)))
+71954: source 71952: v9302 = Fn14536(m, v9299, v9301)
+      50ms  2.94% 85.29%       50ms  2.94%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5583 github.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/p0/p0_pure.go:72826
+72824: source 72822: L1864:
+72825: source 72823: ;
+72826: source 72824: *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v9848)), 12, 4))) = v9857
+72827: source 72825: v9860 = v9857
+72828: source 72826: goto L1863
+      20ms  1.18% 88.82%       20ms  1.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5583 github.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/p0/p0_pure.go:80606
+80604: source 80602: m.G0 = v16997
+80605: source 80603: v16999 = int32(1)
+80606: source 80604: *(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 18624292, 0, 1))) = uint8(v16999)
+80607: source 80605: v17004 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 27414580, 0, 4)))
+80608: source 80606: v17008 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 27405864, 0, 4)))
+      10ms  0.59% 97.06%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5583 github.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/p0/p0_pure.go:78799
+78797: source 78795: L2777:
+78798: source 78796: ;
+78799: source 78797: v14879 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v14816+int32(18584208))), 0, 4)))
+78800: source 78798: v14880 = Fn70(m, v14879)
+78801: source 78799: mBase = m.M

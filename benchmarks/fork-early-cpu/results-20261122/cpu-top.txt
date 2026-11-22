@@ -1,0 +1,37 @@
+File: observed.test
+Type: cpu
+Time: 2026-11-22 18:55:18 JST
+Duration: 32.99s, Total samples = 1700ms ( 5.15%)
+Showing nodes accounting for 1700ms, 100% of 1700ms total
+Showing top 30 nodes out of 61
+      flat  flat%   sum%        cum   cum%
+     450ms 26.47% 26.47%      450ms 26.47%  syscall.rawsyscalln
+     400ms 23.53% 50.00%      850ms 50.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+     200ms 11.76% 61.76%     1700ms   100%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5583
+     150ms  8.82% 70.59%      150ms  8.82%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn4450
+     120ms  7.06% 77.65%      120ms  7.06%  runtime.memmove
+     110ms  6.47% 84.12%      450ms 26.47%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn972
+      70ms  4.12% 88.24%       70ms  4.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn313
+      70ms  4.12% 92.35%       70ms  4.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12448
+      40ms  2.35% 94.71%      700ms 41.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn966
+      20ms  1.18% 95.88%       20ms  1.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn759
+      20ms  1.18% 97.06%      430ms 25.29%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn963
+      10ms  0.59% 97.65%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+      10ms  0.59% 98.24%      340ms 20.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468
+      10ms  0.59% 98.82%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn1063
+      10ms  0.59% 99.41%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn21564
+      10ms  0.59%   100%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn350
+         0     0%   100%     1700ms   100%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%     1700ms   100%  github.com/masahitojp/mariamem/internal/generatedgo.runObserved.func2
+         0     0%   100%     1700ms   100%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%      450ms 26.47%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow
+         0     0%   100%      120ms  7.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryCopy
+         0     0%   100%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+         0     0%   100%      450ms 26.47%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+         0     0%   100%     1700ms   100%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21790
+         0     0%   100%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn1062
+         0     0%   100%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn21566
+         0     0%   100%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn4171
+         0     0%   100%      340ms 20.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465
+         0     0%   100%       10ms  0.59%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn762
+         0     0%   100%     1150ms 67.65%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20147
