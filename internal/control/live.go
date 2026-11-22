@@ -58,7 +58,7 @@ func (c *liveChild) Close() error {
 	}
 	// Keep the log open while an unjoined guest can still write to it.
 	cleanup := disposal.CleanupAfter(err, func() error {
-		return errors.Join(closeLog(c.db.log), removeLog(c.db.logPath))
+		return cleanupOwnedLog(c.db.log, c.db.logPath, true)
 	})
 	err = errors.Join(err, cleanup)
 	c.db.settle(err)

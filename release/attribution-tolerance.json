@@ -9,5 +9,27 @@
       "audit_field": "audited_image_metadata_sha256"
     }
   ],
-  "generated_file_deltas": []
+  "generated_file_deltas": [
+    {
+      "path": "code/base/base.go",
+      "reason": "Route native error translation and write probes through platform adapters.",
+      "approval": "Windows OS boundary port, issue #244",
+      "before": "79bda5bca722d14f21763d56a16e18bd56d06cf23baa71888859224a73a589cd",
+      "after": "b6619eec145fbaf831b1ffbaa7901832eb6b8e0a319724c284ba50e4099a630a"
+    },
+    {
+      "path": "code/base/prepared_files.go",
+      "reason": "Route prepared mapping and release through platform adapters, retaining cleanup retries.",
+      "approval": "Windows OS boundary port, issue #244",
+      "before": "0a33cc6234186d737d03900bbdddfe410cd0edd095ef18fcffaf1ca823790e34",
+      "after": "122aeee3857e41db27ad5692ee7cab80ad63c8ec3535d2acaebf809245071443"
+    },
+    {
+      "path": "main.go",
+      "reason": "Route entropy device access through platform adapters.",
+      "approval": "Windows OS boundary port, issue #244",
+      "before": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
+      "after": "c328d54f802c55dd0cd12554f8879d80b59fe50250ce2dfb1075ab4080a09e5e"
+    }
+  ]
 }

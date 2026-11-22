@@ -43,6 +43,8 @@ HANDWRITTEN_FILES = (
     'code/base/runtime_failure_test.go',
     'runtime_thread_lifetime.go',
     'code/base/narrow_load_test.go',
+    'code/base/narrow_load_protect_unix_test.go',
+    'code/base/narrow_load_protect_windows_test.go',
     'code/base/narrow_load_supported.go',
     'code/base/narrow_load_other.go',
     'code/base/narrow_load_arm64.s',
@@ -51,9 +53,17 @@ HANDWRITTEN_FILES = (
     'code/base/narrow_write_other.go',
     'code/base/narrow_write_arm64.s',
     'code/base/narrow_write_linux_amd64.s',
+    'code/base/narrow_load_amd64.s',
+    'code/base/narrow_write_amd64.s',
     'code/base/narrow_write_test.go',
     'code/base/owned_prepared.go',
+    'code/base/prepared_mapping_unix.go',
+    'code/base/prepared_mapping_windows.go',
     'code/base/owned_prepared_test.go',
+    'code/base/prepared_backing_unix_test.go',
+    'code/base/prepared_backing_windows_test.go',
+    'code/base/native_errors_unix.go',
+    'code/base/native_errors_windows.go',
     'runtime_instance.go',
     'runtime_instance_test.go',
     'host_dup_test.go',
@@ -67,12 +77,17 @@ HANDWRITTEN_FILES = (
     'code/base/host_memory_test.go',
     'code/base/fd_write_test.go',
     'memory_backing_unix.go',
+    'memory_backing_windows.go',
+    'memory_mapping_init.go',
     'memory_backing_other.go',
     'memory_lifetime.go',
     'memory_backing_test.go',
     'memory_controlled_test.go',
     'memory_host_test.go',
     'code/base/memory_mapping.go',
+    'code/base/memory_mapping_unix.go',
+    'code/base/memory_mapping_windows.go',
+    'code/base/memory_mapping_windows_test.go',
     'code/base/memory_mapping_test.go',
 )
 
@@ -187,6 +202,10 @@ def main():
             (out/'code/p4').mkdir(parents=True, exist_ok=True)
             (out/'code/p4/crc32c_reference_test.go').write_text(reference_source(text))
         text = crc32c(str(target.relative_to(out)), text)
+        from runtime_native_errors import apply as native_errors
+        text = native_errors(target.relative_to(out).as_posix(), text)
+        from runtime_entropy import apply as host_entropy
+        text = host_entropy(target.relative_to(out).as_posix(), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.
