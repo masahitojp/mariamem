@@ -100,6 +100,7 @@ extern "C" int mariamem_spike_control_session(SpikeIO *io)
     thd->protocol->end_statement();
     if(net_flush(&thd->net))result=13;
     else if(io->event(io->ctx,AUTH_COMPLETE,thd,thd->server_status))result=17;
+    else if(thd->client_capabilities & CLIENT_COMPRESS) thd->net.compress= 1;
   }
   while(!result){
     if(thd->client_params!=NULL)abort();

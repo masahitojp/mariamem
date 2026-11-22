@@ -34,12 +34,13 @@ static Bytes bytes(const std::string &s){return Bytes(s.begin(),s.end());}
 static bool exact(int fd,unsigned char *p,size_t n){while(n){ssize_t z=read(fd,p,n);if(z<0&&errno==EINTR)continue;if(z<=0)return false;p+=z;n-=z;}return true;}
 static bool receive(Frame &f){unsigned char h[4];if(!exact(0,h,4))return false;size_t n=at(h,4);need(n>=33&&n<=33+65536,"internal frame length");Bytes b(n);need(exact(0,b.data(),n),"internal frame EOF");f.kind=b[0];f.request=at(b.data()+1,4);f.slot=at(b.data()+5,4);f.epoch=at(b.data()+9,8);f.generation=at(b.data()+17,8);f.value=at(b.data()+25,8);f.data.assign(b.begin()+33,b.end());return true;}
 static void send_frame(const Frame &f){Bytes b;le(b,33+f.data.size(),4);b.push_back(f.kind);le(b,f.request,4);le(b,f.slot,4);le(b,f.epoch,8);le(b,f.generation,8);le(b,f.value,8);b.insert(b.end(),f.data.begin(),f.data.end());size_t p=0;while(p<b.size()){ssize_t n=write(1,b.data()+p,b.size()-p);if(n<0&&errno==EINTR)continue;if(n<=0)std::_Exit(80);p+=n;}}
+static bool allows_peer_eof_during_exec(unsigned cmd){return cmd==COM_QUIT||cmd==COM_STMT_CLOSE;}
 struct Manager;
 struct Session {
  Manager *owner;uint32_t slot;uint64_t generation;
  std::mutex io,handle;std::condition_variable changed;
  std::deque<unsigned char> input,output;
- uint64_t received=0,consumed=0,produced=0,sent=0,acked=0;
+ uint64_t received=0,consumed=0,produced=0,sent=0,acked=0,cmdProducedStart=0;
  size_t inputPeak=0,outputPeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false;
  int error=0;void *thd=nullptr;
  Phase phase=HANDSHAKE;unsigned nativeCommand=0,status=2;uint64_t command=0,executions=0;
@@ -95,7 +96,7 @@ struct Manager {
   if(kind==AUTH_COMPLETE)return finish(raw,status,false);
   if(kind==COMMAND_COMPLETE||kind==CONNECTION_COMPLETE)return finish(raw,status,kind==CONNECTION_COMPLETE);
   if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
-  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;}raw->nativeCommand=status;if(inputEOF&&status!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
+  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
   return 0;
  }
  static int eventCb(void *p,int e,void *thd,unsigned st){auto *s=(Session*)p;return s->owner->event(s,e,thd,st);}
@@ -129,9 +130,9 @@ struct Manager {
  void poisonLockedAfterIO(const std::shared_ptr<Session>&,const std::lock_guard<std::mutex>&){pendingPoison="input_offset";}
  void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}outReady.notify_all();}
  void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||(fenced&&captureID))return;
-  {std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;s->changed.notify_all();}
+  bool responseSent=false;{std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;responseSent=s->sent>s->cmdProducedStart;s->changed.notify_all();}
   if(f.value){if(s->command&&s->phase!=IDLE){poisonLocked("peer_output_error");return;}s->phase=RETIRING;s->deadline.disarm();s->closeIO(ECANCELED);scheduleKill(s);state(s);return;}
-  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&s->nativeCommand!=COM_QUIT)poisonLocked("unexpected_peer_eof");
+  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)&&!responseSent)poisonLocked("unexpected_peer_eof");
  }
  void tryCapture(const Frame &f){std::lock_guard<std::mutex> l(gate);
   if(f.epoch!=epoch||!f.value||f.generation>1){emit(frame(REJECTED,f.request,{},5,"capture_identity"));return;}

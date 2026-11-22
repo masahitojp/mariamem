@@ -7,11 +7,11 @@
     },
     "libmysqld/mariamem_wire_probe.inc": {
       "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
-      "sha256": "ec68448873b1cfedc942c43b4b9db951e5b223d4065aea2fd7b662ebaa043313"
+      "sha256": "cea5a97af7f99f37e898b7558d7383400ea8716ca2a99219003b70be59f0e168"
     },
     "wasm/issue65_control.cc": {
       "file": "guest/native/wasm/issue65_control.cc",
-      "sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+      "sha256": "2f314803d6b635d22264cc75889e0d2551cac8238c16611746dec80cca213b3b"
     },
     "wasm/issue65_deadline.h": {
       "file": "guest/native/wasm/issue65_deadline.h",
