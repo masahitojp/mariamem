@@ -6,12 +6,12 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "299c6e6805bb9084487e311615c2010a9d11f1da",
-  "guest_sha256": "06c90897e8aa2617e64b74e5f0a327c251589c2328ae3602e840f11497ac6f47",
-  "linked_sha256": "c5e39dc4d4bc8cf41bc3dafd8966f77cd7b6563fcf0b2ae4a55a1286687673af",
+  "audit_source_commit": "dfc9f17703f85bbe7881cb8d8720ff2e9bcd618a",
+  "guest_sha256": "f7769d418f529b3947acf3c721fcc6934ba23f67a88230fd0ce21a86e0931096",
+  "linked_sha256": "36ed12593cfdaf656e9ab7f9faa94e8a5e45030d9859aa9ca650bbd5d42d2297",
   "symbol_map_sha256": "f0c92419b2e73d552e80ee8a1ceebcdf46cfff3623c129dc8ff391d93cd99b00",
   "symbol_map_entries": 21798,
-  "generated_provenance_sha256": "c80efe6cb124749ba9a85dc38a434adc61cbe01b4f06f59c10868ebb97f994fe",
+  "generated_provenance_sha256": "d8f0cc6cbd04c17d7595e76f32e538f2e865448c905b6e1cfad8bb985bb451d0",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -582,9 +582,9 @@
     }
   },
   "host_check": {
-    "source_commit": "299c6e6805bb9084487e311615c2010a9d11f1da",
-    "sha256": "dfcf1ddf4f6fce54f783714b2e2a242140774300ad9151f98413e8fa35331bb2",
-    "buildinfo": "mariamem-host: go1.27.4\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.7.1-0.20261122185418-299c6e6805bb\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=299c6e6805bb9084487e311615c2010a9d11f1da\n\tbuild\tvcs.time=2026-11-22T18:54:18Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "dfc9f17703f85bbe7881cb8d8720ff2e9bcd618a",
+    "sha256": "28cce9c219613d94830d40cdf35ca373a8fdc6c70e7e7f2493fafe2bf9c3e866",
+    "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.7.1-0.20261122193720-dfc9f17703f8\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=dfc9f17703f85bbe7881cb8d8720ff2e9bcd618a\n\tbuild\tvcs.time=2026-11-22T19:37:20Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
   },
   "previous_candidate_audit": {

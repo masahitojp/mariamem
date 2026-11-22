@@ -5,7 +5,7 @@
       "path": "image/layout.json",
       "reason": "Derived image layout metadata; restore its audited hash when reconstructing provenance.",
       "approval": "Existing metadata-only attribution contract; issue #179",
-      "before": "d7b9fd596616acc7a9148bb743eccc798d5d0efcafb09701157f7bf788b555d1",
+      "before": "d8ada7a81481a6eb6e485dfafac72a09d33c5194a320c8f5cb63737d0002dcf7",
       "audit_field": "audited_image_metadata_sha256"
     }
   ],
