@@ -79,6 +79,8 @@ def test_invalid_windows_executable_rejected(tmp_path, data):
 
 @pytest.mark.parametrize('name', [target.WINDOWS_X86, target.WINDOWS_ARM])
 def test_real_packager_preserves_windows_wheel_tag(tmp_path, name):
+    pytest.importorskip('setuptools')
+    pytest.importorskip('wheel.bdist_wheel')
     import os
     import shutil
     import subprocess
@@ -97,9 +99,10 @@ def test_real_packager_preserves_windows_wheel_tag(tmp_path, name):
     (native / 'mariamem-host.exe').write_bytes(pe(meta['architecture']))
     manifest = {'version': 1, **target.platform_fields(meta), 'runtime_kind': 'generated-go', 'package_version': PYTHON_VERSION}
     (native / 'manifest.json').write_text(json.dumps(manifest))
-    subprocess.run([sys.executable, 'setup.py', 'bdist_wheel'], cwd=project,
-                   env={**os.environ, 'MARIAMEM_WHEEL_PLATFORM': meta['wheel_platform']},
-                   check=True, capture_output=True, timeout=30)
+    result = subprocess.run([sys.executable, 'setup.py', 'bdist_wheel'], cwd=project,
+                            env={**os.environ, 'MARIAMEM_WHEEL_PLATFORM': meta['wheel_platform']},
+                            capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stdout + result.stderr
     wheels = list((project / 'dist').glob('*.whl'))
     assert len(wheels) == 1 and wheels[0].name.endswith('-' + meta['wheel_platform'] + '.whl')
     with zipfile.ZipFile(wheels[0]) as archive:

@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_SCOPES = {
     ".github/workflows/additional-v062-build.yml": "python",
     ".github/workflows/linux-wheel.yml": "python",
+    ".github/workflows/windows-boundary.yml": "python",
     ".github/workflows/prepared-output-installed.yml": "python",
     ".github/workflows/prepared-output-product.yml": "python",
     ".github/workflows/prepared-output-acceptance.yml": "python",

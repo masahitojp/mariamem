@@ -4,15 +4,16 @@ import sys
 import pytest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
+from layout import FIXTURES, GENERATED_CODE
 from runtime_native_errors import apply, CHANGES
 
 
 def fixture():
-    return (ROOT/'tests/fixtures/pinned-native-errors.go.txt').read_text()
+    return (ROOT/FIXTURES/'pinned-native-errors.go.txt').read_text()
 
 
 def test_native_error_adapter_reproduces_installed_helpers():
-    current=(ROOT/'internal/generatedgo/code/base/base.go').read_text()
+    current=(ROOT/GENERATED_CODE/'base/base.go').read_text()
     fragments=[]
     for start in ('func mapOSError(', 'func (w *WasiStubs) Fd_allocate('):
         a=current.index(start)
