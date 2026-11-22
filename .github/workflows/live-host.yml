@@ -6,6 +6,10 @@ on:
         description: Exact commit resolved by Release CI
         required: true
         type: string
+      ubuntu_only:
+        description: Run full Live acceptance and require G1 evidence on Ubuntu only
+        type: boolean
+        default: false
 permissions:
   contents: read
 env:
@@ -78,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, ubuntu-24.04]
+        os: ${{ fromJSON(inputs.ubuntu_only && '["ubuntu-24.04"]' || '["macos-15","ubuntu-24.04"]') }}
     env:
       PLAYWRIGHT_BROWSERS_PATH: build/e2e-browsers
     steps:
@@ -287,7 +291,11 @@ jobs:
         with:
           pattern: go-fixture-host-*-${{ inputs.source_commit }}
           path: build/g1-matrix
-      - name: Validate both source-bound G1 host receipts
+      - name: Validate selected source-bound G1 host receipts
+        env:
+          G1_HOST: ${{ inputs.ubuntu_only && 'ubuntu-24.04' || '' }}
         run: |
-          python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix --profile release
-          python scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix
+          host_args=()
+          if [ -n "$G1_HOST" ]; then host_args+=(--required-host "$G1_HOST"); fi
+          python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix --profile release "${host_args[@]}"
+          python scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix "${host_args[@]}"

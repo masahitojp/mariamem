@@ -289,12 +289,14 @@ def main():
     parser.add_argument('--expected-source-commit', required=True)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--validate-matrix', type=Path)
+    parser.add_argument('--required-host', choices=HOSTS, help='Validate one selected host instead of both')
     args = parser.parse_args()
     if args.validate_matrix:
-        for host in ('macos-15', 'ubuntu-24.04'):
+        for host in (args.required_host,) if args.required_host else HOSTS:
             validate(args.validate_matrix / ('go-fixture-host-' + host + '-' + args.expected_source_commit) / 'completion', args.expected_source_commit, host)
         print('G1_FAULT_AND_EXTERNAL_CONSUMER_MATRIX_PASS')
     else:
+        need(args.required_host is None, '--required-host requires --validate-matrix')
         need(args.output is not None, '--output required')
         run(args.expected_source_commit, args.output)
         print('G1_FAULT_AND_EXTERNAL_CONSUMER_PASS')

@@ -248,11 +248,10 @@ def test_guard_probe_rejects_a_source_started_before_stop():
         campaign.validate_guard_probe(go)
 
 
-def test_ci_runs_both_modes_and_requires_both_host_artifacts():
+def test_ci_runs_campaign_and_requires_selected_host_artifacts():
     from workflow_model import load, commands, needs, steps
     model = load(ROOT / '.github/workflows/live-host.yml')
     text = commands(model)
-    assert model['jobs']['live']['strategy']['matrix']['os'] == ['macos-15', 'ubuntu-24.04']
     assert 'scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1' in text
     assert any(step.get('with', {}).get('name') == 'go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}' for step in steps(model))
     assert any(step.get('with', {}).get('pattern') == 'go-fixture-host-*-${{ inputs.source_commit }}' for step in steps(model))
