@@ -164,6 +164,16 @@ func (k *keepFakeRuntime) run(x Execution) <-chan error {
 		}
 		send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
 		seenAuth := map[uint32]bool{}
+		retired := map[key]bool{}
+		retireOnce := func(slot uint32, gen uint64) {
+			k := key{slot, gen}
+			if retired[k] {
+				return
+			}
+			retired[k] = true
+			delete(seenAuth, slot)
+			send(frame{kind: kindRetired, slot: slot, generation: gen})
+		}
 		for {
 			v, err := readFrame(x.Input)
 			if err != nil {
@@ -204,8 +214,7 @@ func (k *keepFakeRuntime) run(x Execution) <-chan error {
 					continue
 				}
 				if payload[0] == 0x01 { // COM_QUIT
-					delete(seenAuth, v.slot)
-					send(frame{kind: kindRetired, slot: v.slot, generation: v.generation})
+					retireOnce(v.slot, v.generation)
 					continue
 				}
 				if payload[0] == 0x03 { // COM_QUERY
@@ -239,8 +248,7 @@ func (k *keepFakeRuntime) run(x Execution) <-chan error {
 					send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, body: mysqlPkt(1, []byte{0x00, 0, 0, 2, 0, 0, 0})})
 				}
 			case kindPeerEOF:
-				delete(seenAuth, v.slot)
-				send(frame{kind: kindRetired, slot: v.slot, generation: v.generation})
+				retireOnce(v.slot, v.generation)
 			case kindStop:
 				if x.Stopped != nil {
 					x.Stopped(nil)

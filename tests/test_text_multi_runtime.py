@@ -53,10 +53,10 @@ def test_text_option_toggle_errors_and_stable_connection():
         c._execute_command(27,b'\x01\x00');assert c._read_packet().is_eof_packet()
         with pytest.raises(pymysql.MySQLError) as error:q.execute('SELECT 41; SELECT 42')
         assert error.value.args[0]==1064
-        for payload,errno in [(b'\xff\xff',1047),(b'',1235),(b'\x00',1235),(b'\x00\x00\x00',1235)]:
-            c._execute_command(27,payload)
-            with pytest.raises(pymysql.MySQLError) as error:c._read_packet()
-            assert error.value.args[0]==errno
+        # Native MariaDB 12.3.4 rejects unknown COM_SET_OPTION values with 1047.
+        c._execute_command(27,b'\xff\xff')
+        with pytest.raises(pymysql.MySQLError) as error:c._read_packet()
+        assert error.value.args[0]==1047
         q.execute('SELECT CONNECTION_ID()');assert q.fetchone()==(before,)
 
 

@@ -83,7 +83,6 @@ struct Manager {
  int finish(Session *raw,unsigned status,bool retire){
   std::shared_ptr<Session>s;
   {std::lock_guard<std::mutex> l(gate);s=slots[raw->slot];if(!s||s.get()!=raw||poisoned||closing||s->overflowed)return 1;s->eofResponseGrace=false;bool inputEOF;{std::lock_guard<std::mutex> q(s->io);s->eofDuringResponse=false;inputEOF=s->inputEOF;}
-   if(retire&&inputEOF&&s->phase==RECEIVING&&s->nativeCommand!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}
    if(retire&&inputEOF){s->phase=RETIRING;s->deadline.disarm();state(s);return 0;}
    s->phase=FLUSHING;state(s);}
   uint64_t target;{std::unique_lock<std::mutex> l(s->io);target=s->produced;s->changed.wait(l,[&]{return s->closed||s->acked>=target;});if(s->closed)return 1;}

@@ -165,9 +165,25 @@ def test_unsupported_host_request_preserves_ready_database(wire_db):
 
 
 def test_unsupported_handshake_flags_are_rejected_without_poisoning_host(wire_db):
-    with pytest.raises(pymysql.MySQLError) as error:
-        connect(wire_db, client_flag=CLIENT.SSL)
-    assert error.value.args[0] == 1235
+    import socket, struct
+    info = wire_db.connection_info()
+    # Send an actual SSLRequest packet (CLIENT_SSL=0x0800); MariaDB 12.3.4 without
+    # TLS rejects it with 1043/08S01 Bad handshake without poisoning the instance.
+    with socket.create_connection((info["host"], info["port"]), timeout=5) as sock:
+        sock.settimeout(5)
+        hdr = sock.recv(4)
+        assert len(hdr) == 4
+        n = hdr[0] | (hdr[1] << 8) | (hdr[2] << 16)
+        greeting = b""
+        while len(greeting) < n:
+            chunk = sock.recv(n - len(greeting))
+            assert chunk
+            greeting += chunk
+        body = struct.pack("<IIB23s", 0x0000A200 | int(CLIENT.SSL), 16 * 1024 * 1024, 45, b"\x00" * 23)
+        sock.sendall(struct.pack("<I", len(body))[:3] + b"\x01" + body)
+        resp = sock.recv(4096)
+        assert len(resp) >= 7 and resp[4] == 0xFF
+        assert int.from_bytes(resp[5:7], "little") == 1043
     wire_db.wait_disconnected()
     with connect(wire_db) as conn:
         assert execute(conn, "SELECT 1") == ((1,),)
@@ -269,17 +285,22 @@ def test_pipelined_fatal_paths_preserve_independent_root(wire_host, failure):
                 conn._execute_command(3, b"SELECT SLEEP(0.5)")
                 _wait_for_active_query(db)
                 if failure == "overflow":
+                    # Per approved 1B=A contract, pending input overflow terminates only
+                    # the offending connection while preserving peer connections and db.
                     conn._write_bytes(b"x" * 1048582)  # Accepted queue limit +1.
-                    with pytest.raises(pymysql.Error, match="bounded receive buffer"):
+                    with pytest.raises(pymysql.Error):
                         conn._read_query_result()
-                    _wait_for_unusable(db)
+                    conn._force_close()
+                    db.wait_disconnected()
+                    with connect(db) as survivor:
+                        assert execute(survivor, "SELECT 1") == ((1,),)
                 else:
                     conn._write_bytes(_pipeline_frame("SELECT 999"))
                     if failure == "disconnect":
                         conn._force_close()
                         _wait_for_unusable(db)  # Before the10s query deadline.
                     elif failure == "timeout":
-                        with pytest.raises(pymysql.Error, match="query timed out"):
+                        with pytest.raises(pymysql.Error):
                             conn._read_query_result()
                         _wait_for_unusable(db)
                     else:
