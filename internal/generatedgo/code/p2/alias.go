@@ -1049,7 +1049,7 @@ func Fn3900(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32)
 //go:linkname Fn3911 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3911
 func Fn3911(m *base.Module, l0 int32) int32
 
-//go:linkname Fn3912 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn3912
+//go:linkname Fn3912 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3912
 func Fn3912(m *base.Module, l0 int32)
 
 //go:linkname Fn3913 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3913

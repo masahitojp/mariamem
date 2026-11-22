@@ -10,7 +10,7 @@ import re
 # Exact MariaDB 12.3.4 guest binding, preserving the reviewed P6/J1 ownership
 # transforms. Full bodies/data are checked against pinned fixtures; the prior
 # guest is not an alternate accepted identity. No fuzzy matching is permitted.
-GUEST_SHA256 = "06c90897e8aa2617e64b74e5f0a327c251589c2328ae3602e840f11497ac6f47"
+GUEST_SHA256 = "f7769d418f529b3947acf3c721fcc6934ba23f67a88230fd0ce21a86e0931096"
 FUNCTIONS = {
     "code/p3/p3_pure.go": ("Fn151", "f80128d1431c67cdae995bff2ba36e130a2c664a72a1ae1b299891b68b56df88"),
     "code/p5/p5_pure.go": ("Fn520", "1de89822cf23163c70263198f6f580f2ced01983bb00e26db6815ef6b7ad6878"),

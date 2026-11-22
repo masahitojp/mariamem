@@ -8955,123 +8955,6 @@ L52:
 	;
 	goto L14
 }
-func Fn393(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
-	mBase := m.M
-	_ = mBase
-	var v6 int32
-	_ = v6
-	var v7 int32
-	_ = v7
-	var v9 int32
-	_ = v9
-	var v10 int32
-	_ = v10
-	var v18 int32
-	_ = v18
-	var v19 int32
-	_ = v19
-	var v20 int32
-	_ = v20
-	var v27 int32
-	_ = v27
-	var v36 int32
-	_ = v36
-	var v37 int32
-	_ = v37
-	v6 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-	v7 = int32(*(*int8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 11, 1))))
-	v9 = base.B2i32(v7 < int32(0))
-	if v7 < int32(0) {
-		goto L1
-	} else {
-		goto L2
-	}
-L1:
-	;
-	v10 = v6
-	goto L3
-L2:
-	;
-	v10 = v7
-	goto L3
-L3:
-	;
-	if v10 == int32(0) {
-		goto L4
-	} else {
-		goto L5
-	}
-L4:
-	;
-	return int32(-1)
-L5:
-	;
-	goto L6
-L6:
-	;
-	if base.Ui32(l2) < base.Ui32(v10) {
-		goto L7
-	} else {
-		goto L8
-	}
-L7:
-	;
-	v18 = l2 + int32(1)
-	goto L9
-L8:
-	;
-	v18 = v10
-	goto L9
-L9:
-	;
-	v19 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))
-	if v7 < int32(0) {
-		goto L10
-	} else {
-		goto L11
-	}
-L10:
-	;
-	v20 = v19
-	goto L12
-L11:
-	;
-	v20 = l0
-	goto L12
-L12:
-	;
-	v27 = v18
-	goto L13
-L13:
-	;
-	if v27 == int32(0) {
-		goto L15
-	} else {
-		goto L16
-	}
-L14:
-	;
-	return v36
-L15:
-	;
-	return int32(-1)
-L16:
-	;
-	goto L17
-L17:
-	;
-	v36 = v27 - int32(1)
-	v37 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v27+(v20-int32(1)))), 0, 1))))
-	if v37 != l1&int32(255) {
-		v27 = v36
-		goto L13
-	} else {
-		goto L18
-	}
-L18:
-	;
-	goto L14
-}
 func Fn397(m *base.Module, l0 int32, l1 int32) int32 {
 	mBase := m.M
 	_ = mBase
@@ -11331,85 +11214,6 @@ func Fn509(m *base.Module, l0 int32) int32 {
 		v7 = int32(0)
 	}
 	return v7
-}
-func Fn511(m *base.Module, l0 int32) int32 {
-	mBase := m.M
-	_ = mBase
-	var v6 int32
-	_ = v6
-	var v9 int32
-	_ = v9
-	var v13 int32
-	_ = v13
-	var v17 int32
-	_ = v17
-	var v21 int32
-	_ = v21
-	var v24 int32
-	_ = v24
-	var v28 int32
-	_ = v28
-	var v32 int32
-	_ = v32
-	var v34 int32
-	_ = v34
-	var v36 int32
-	_ = v36
-	var v42 int32
-	_ = v42
-	var v46 int32
-	_ = v46
-	v6 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))
-	if v6 == int32(0) {
-	} else {
-		v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 12, 4)))
-		if v9 == int32(0) {
-		} else {
-			v13 = l0 + int32(12)
-			for {
-				v17 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 0, 4)))
-				v21 = base.AtomicRmwCmpxchg32(m, v13, int32(0), v17, v17|int32(-2147483648))
-				if v17 != v21 {
-					continue
-				} else {
-					break
-				}
-				break
-			}
-			v24 = l0 + int32(8)
-			for {
-				v28 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v24)), 0, 4)))
-				v32 = base.AtomicRmwCmpxchg32(m, v24, int32(0), v28, v28+int32(1))
-				if v28 != v32 {
-					continue
-				} else {
-					break
-				}
-				break
-			}
-			v34 = int32(2147483647)
-			Fn87(m, v24, v34)
-			mBase = m.M
-			v36 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 0, 4)))
-			if v36&v34 == int32(0) {
-			} else {
-				v42 = v36
-				for {
-					Fn92(m, v13, int32(0), v42)
-					mBase = m.M
-					v46 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 0, 4)))
-					if v46&int32(2147483647) != 0 {
-						v42 = v46
-						continue
-					} else {
-						break
-					}
-					break
-				}
-			}
-		}
-	}
-	return l0
 }
 func Fn512(m *base.Module, l0 int32) int32 {
 	mBase := m.M
@@ -120830,6 +120634,45 @@ func Fn3911(m *base.Module, l0 int32) int32 {
 		} else {
 			return v10
 		}
+	}
+}
+func Fn3912(m *base.Module, l0 int32) {
+	mBase := m.M
+	_ = mBase
+	var v4 int32
+	_ = v4
+	var v6 int32
+	_ = v6
+	var v10 int32
+	_ = v10
+	var v14 int32
+	_ = v14
+	var v17 int64
+	_ = v17
+	v4 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 18995760, 0, 4)))
+	if v4 != 0 {
+		m.T0[v4].(func(*base.Module, int32))(m, l0)
+		mBase = m.M
+		v6 = m.ExcPending
+		if v6 != 0 {
+			return
+		} else {
+			return
+		}
+	} else {
+		if l0 == int32(0) {
+		} else {
+			v10 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 18771736, 0, 4)))
+			if v10 == int32(0) {
+			} else {
+				v14 = Fn156(m, l0)
+				mBase = m.M
+				v17 = base.AtomicRmwSub64(m, int32(0), int32(18829136), base.I64_extend_i32_u(v14))
+			}
+		}
+		Fn151(m, l0)
+		mBase = m.M
+		return
 	}
 }
 func Fn3913(m *base.Module, l0 int32, l1 int32) int32 {

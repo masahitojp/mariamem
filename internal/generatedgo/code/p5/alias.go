@@ -344,9 +344,6 @@ func Fn509(m *base.Module, l0 int32) int32
 //go:linkname Fn510 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn510
 func Fn510(m *base.Module, l0 int32) int32
 
-//go:linkname Fn511 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn511
-func Fn511(m *base.Module, l0 int32) int32
-
 //go:linkname Fn512 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn512
 func Fn512(m *base.Module, l0 int32) int32
 
@@ -1325,7 +1322,7 @@ func Fn3907(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn3911 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3911
 func Fn3911(m *base.Module, l0 int32) int32
 
-//go:linkname Fn3912 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn3912
+//go:linkname Fn3912 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3912
 func Fn3912(m *base.Module, l0 int32)
 
 //go:linkname Fn3913 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3913
@@ -3128,6 +3125,9 @@ func Fn12809(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn12818 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn12818
 func Fn12818(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 
+//go:linkname Fn12819 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn12819
+func Fn12819(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
+
 //go:linkname Fn12820 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12820
 func Fn12820(m *base.Module, l0 int32) int32
 
@@ -3169,6 +3169,9 @@ func Fn12868(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn12869 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12869
 func Fn12869(m *base.Module, l0 int32, l1 int32, l2 float64) int32
+
+//go:linkname Fn12880 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn12880
+func Fn12880(m *base.Module, l0 int32, l1 int32, l2 int32)
 
 //go:linkname Fn12894 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12894
 func Fn12894(m *base.Module, l0 int32, l1 int32, l2 int32)
