@@ -49,8 +49,8 @@ def test_bound_function_change_is_rejected(name):
 
 
 @pytest.mark.parametrize('name,address', [
-    ('code/p3/p3_pure.go', '18771212'),
-    ('code/p5/p5_pure.go', '18769793'),
+    ('code/p3/p3_pure.go', '18771404'),
+    ('code/p5/p5_pure.go', '18769985'),
 ])
 @pytest.mark.parametrize('earlier_same_literal', [False, True])
 def test_another_address_relocation_is_not_accepted(name, address, earlier_same_literal):

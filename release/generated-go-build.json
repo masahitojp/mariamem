@@ -1,12 +1,12 @@
 {
   "compiled_guest_source_scope": "MariaDB 12.3.4 B1 native-wire guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
-  "guest_sha256": "f7769d418f529b3947acf3c721fcc6934ba23f67a88230fd0ce21a86e0931096",
+  "guest_sha256": "f2b5a3e5e6fc54c9efac6722ca1be65e25ba8a229553c17f3d13ecdcf661505d",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.4",
       "native_glue_manifest": {
         "file": "guest/native/manifest.json",
-        "sha256": "dbb4d48ed7bea62718028957e075f3a4bbb9fcee6df11bbefb0497db30c85fd1"
+        "sha256": "9e124e0b00a4482b9d20e3f2708d43707b3a35c0b2bc5bf975eb2506d7984269"
       },
       "native_wire_patch": {
         "after_sha256": {
@@ -24,7 +24,7 @@
           "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
           "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
           "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
-          "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de"
+          "wasm/lite4mariadb.c": "c4699e71e4b90adf30153acee61abbc3982b6dc3a9538d99cf4fa661843c1a64"
         },
         "before_sha256": {
           "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
@@ -44,7 +44,7 @@
           "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
         },
         "file": "guest/patches/12.3.4-native-wire.patch",
-        "sha256": "e3be86cf752b060efefb6161584bb033c2a767df556e6ec0ff9ad9c88a759fb6"
+        "sha256": "b0a87239b11ddc268bdd197e17556ead49d624fff6061fdf89ebacf35400d7e6"
       },
       "patches": [
         {
@@ -211,9 +211,9 @@
       "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
       "wasm/CMakeLists.txt": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "wasm/issue65_control.cc": "0da8e14562894ead2afd31e1dcc673757ae98174a95954c9ec82eafb238dab6f",
+      "wasm/issue65_control.cc": "ff97d3ff65ee0767387f4b2cd0d86d39d918a38354794407156c12658ced42d7",
       "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
-      "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de",
+      "wasm/lite4mariadb.c": "c4699e71e4b90adf30153acee61abbc3982b6dc3a9538d99cf4fa661843c1a64",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
       "wasm/prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
@@ -235,7 +235,7 @@
       },
       "wasm/issue65_control.cc": {
         "file": "guest/native/wasm/issue65_control.cc",
-        "sha256": "0da8e14562894ead2afd31e1dcc673757ae98174a95954c9ec82eafb238dab6f"
+        "sha256": "ff97d3ff65ee0767387f4b2cd0d86d39d918a38354794407156c12658ced42d7"
       },
       "wasm/issue65_deadline.h": {
         "file": "guest/native/wasm/issue65_deadline.h",
@@ -258,7 +258,7 @@
         "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
         "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
         "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
-        "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de"
+        "wasm/lite4mariadb.c": "c4699e71e4b90adf30153acee61abbc3982b6dc3a9538d99cf4fa661843c1a64"
       },
       "before_sha256": {
         "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
@@ -278,13 +278,13 @@
         "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
       },
       "file": "guest/patches/12.3.4-native-wire.patch",
-      "sha256": "e3be86cf752b060efefb6161584bb033c2a767df556e6ec0ff9ad9c88a759fb6"
+      "sha256": "b0a87239b11ddc268bdd197e17556ead49d624fff6061fdf89ebacf35400d7e6"
     },
     "overlays": {
       "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "input.json": "f9ff4811d2c727585a60e1b8806cf686866fc666ee2428242d7d74845c29d162",
+      "input.json": "6bbc3fbc8e0e2c0e82a3b223c790c339c720dc89a565419e1b401ae3ddbbcfec",
       "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "59ae2e658478cfe03a67587f74b51103ba9917b1a0f295b2bb7d230dd6c736e9",
@@ -473,9 +473,9 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "ac35294ff029e3352084ef14c814a09e1da59f11",
-  "guest_size": 21983991,
-  "linked_guest_sha256": "36ed12593cfdaf656e9ab7f9faa94e8a5e45030d9859aa9ca650bbd5d42d2297",
+  "source_commit": "0fc6296ccc6d7a3aead0603724c7d6a1184ab362",
+  "guest_size": 21984944,
+  "linked_guest_sha256": "5de4dacce00ca42eab1f1fd0c7ac8fb06e68ebb0e64d858b92bd0b2b5844dc0f",
   "repetitions": 1,
   "completed": true,
   "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
@@ -497,7 +497,7 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "ac35294ff029e3352084ef14c814a09e1da59f11",
+    "source_commit": "0fc6296ccc6d7a3aead0603724c7d6a1184ab362",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
     "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."

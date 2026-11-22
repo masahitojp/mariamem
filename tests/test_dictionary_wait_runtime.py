@@ -16,11 +16,11 @@ def test_actual_guest_fixture_binding():
     guard.validate(ROOT)
 
 
-@pytest.mark.parametrize('call', ['Fn16613(m)', 'Fn16614(m)', 'Fn18045(m)'])
+@pytest.mark.parametrize('call', ['Fn16614(m)', 'Fn16615(m)', 'Fn18046(m)'])
 def test_removed_guest_notification_or_lock_is_rejected(call):
     pins = guard.validate(ROOT)
-    entry = pins['functions']['Fn18055']
-    original = guard.body((ROOT/entry['file']).read_text(), 'Fn18055')
+    entry = pins['functions']['Fn18056']
+    original = guard.body((ROOT/entry['file']).read_text(), 'Fn18056')
     assert original.count(call) == 1
     changed = original.replace(call, '/* removed */')
     with pytest.raises(ValueError, match='body changed'):
@@ -29,12 +29,12 @@ def test_removed_guest_notification_or_lock_is_rejected(call):
 
 def test_notification_order_and_real_guest_owner():
     pins = guard.validate(ROOT)
-    entry = pins['functions']['Fn18055']
-    original = guard.body((ROOT/entry['file']).read_text(), 'Fn18055')
-    assert original.index('Fn16613(m)') < original.index('Fn18045(m)') < original.index('Fn16614(m)')
+    entry = pins['functions']['Fn18056']
+    original = guard.body((ROOT/entry['file']).read_text(), 'Fn18056')
+    assert original.index('Fn16614(m)') < original.index('Fn18046(m)') < original.index('Fn16615(m)')
     test = (ROOT/(GENERATED / 'dictionary_wait_integration_test.go')).read_text()
-    assert 'p6.Fn18055(c, 0)' in test
-    assert 'Fn16613(' not in test and 'Fn16614(' not in test
+    assert 'p6.Fn18056(c, 0)' in test
+    assert 'Fn16614(' not in test and 'Fn16615(' not in test
     assert "'dictionary_wait_integration_test.go'" in (ROOT/'scripts/generate_runtime.py').read_text()
     assert 'tests/test_dictionary_wait_runtime.py' in (ROOT/'scripts/verify.py').read_text()
 
