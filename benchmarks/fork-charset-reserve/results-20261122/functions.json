@@ -1,0 +1,12 @@
+{
+  "5749": "mysql_server_init",
+  "5583": "init_embedded_server",
+  "20147": "_ZN24Charset_collation_map_st9from_textERK25st_mysql_const_lex_stringm",
+  "966": "init_available_charsets",
+  "809": "my_hash_init2",
+  "963": "add_compiled_collation",
+  "795": "alloc_dynamic",
+  "798": "allocate_dynamic",
+  "986": "my_malloc",
+  "987": "my_realloc"
+}

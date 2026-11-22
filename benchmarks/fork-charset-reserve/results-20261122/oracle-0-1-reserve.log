@@ -1,0 +1,24 @@
+=== RUN   TestCharsetReserveCatalog
+CHARSET_ORACLE e95d766c2b68bd7f6029ff884ed4ca45bb4aedaec88b8ec95e64132c9d71cb7b
+--- PASS: TestCharsetReserveCatalog (0.12s)
+=== RUN   TestMatchedSemantics
+--- PASS: TestMatchedSemantics (0.01s)
+PASS
+        0.25 real         0.22 user         0.07 sys
+           188153856  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               17054  page reclaims
+                   1  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                  58  signals received
+                  62  voluntary context switches
+                6028  involuntary context switches
+          3118806872  instructions retired
+           807035953  cycles elapsed
+           132793400  peak memory footprint

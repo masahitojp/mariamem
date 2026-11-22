@@ -1,0 +1,53 @@
+package store_test
+
+import (
+    "crypto/sha256"
+    "database/sql"
+    "encoding/json"
+    "fmt"
+    "sort"
+    "testing"
+)
+
+func TestCharsetReserveCatalog(t *testing.T) {
+    db := fx.shared()
+    clone := fx.isolated(t)
+    queries := []string{
+        "SHOW CHARACTER SET",
+        "SHOW COLLATION",
+        "SELECT @@global.character_set_collations, @@session.character_set_collations, @@collation_connection",
+        "SELECT COLLATION(CONVERT('こんにちは' USING utf8mb4)), 'Å' COLLATE utf8mb4_uca1400_ai_ci = 'a', 'β' COLLATE utf8mb4_bin = 'Β'",
+    }
+    digest := func(db *sql.DB) string {
+        h := sha256.New()
+        for _, q := range queries {
+            rows, err := db.Query(q)
+            if err != nil { t.Fatal(q, err) }
+            columns, err := rows.Columns()
+            if err != nil { t.Fatal(err) }
+            var result []string
+            for rows.Next() {
+                fields := make([]sql.NullString, len(columns))
+                targets := make([]any, len(columns))
+                for i := range fields { targets[i] = &fields[i] }
+                if err := rows.Scan(targets...); err != nil { t.Fatal(err) }
+                encoded, err := json.Marshal(fields)
+                if err != nil { t.Fatal(err) }
+                result = append(result, string(encoded))
+            }
+            if err := rows.Err(); err != nil { t.Fatal(err) }
+            if err := rows.Close(); err != nil { t.Fatal(err) }
+            if len(result) == 0 { t.Fatal("empty result", q) }
+            sort.Strings(result)
+            fmt.Fprintln(h, q)
+            for _, line := range result { fmt.Fprintln(h, line) }
+        }
+        return fmt.Sprintf("%x", h.Sum(nil))
+    }
+    before, sibling := digest(db), digest(clone)
+    if before != sibling { t.Fatal("catalog differs across siblings", before, sibling) }
+    if _, err := clone.Exec("SET SESSION character_set_collations='utf8mb4=utf8mb4_bin'"); err != nil {t.Fatal(err)}
+    if _, err := clone.Exec("SET SESSION character_set_collations='utf8mb4=no_such_collation'"); err == nil {t.Fatal("invalid collation accepted")}
+    if digest(clone) == before || digest(db) != before {t.Fatal("session setting was lost or escaped")}
+    fmt.Println("CHARSET_ORACLE", before)
+}

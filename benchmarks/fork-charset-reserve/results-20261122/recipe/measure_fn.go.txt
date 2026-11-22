@@ -1,0 +1,70 @@
+// Each startup record is registered against the module executing the guest.
+type forkPhaseEvent struct {
+	ID int `json:"id"`
+	Name string `json:"name,omitempty"`
+	StartNS int64 `json:"start_ns"`
+	EndNS int64 `json:"end_ns"`
+}
+
+type forkPhaseRecord struct {
+	mu sync.Mutex
+	origin time.Time
+	events []forkPhaseEvent
+ profile bool
+}
+
+var forkPhaseRecords sync.Map
+
+func RecordForkPhases(m *Module, profile bool) (func() []forkPhaseEvent, func()) {
+	record := &forkPhaseRecord{origin: time.Now(), profile: profile}
+	forkPhaseRecords.Store(m, record)
+	finish := func() { forkPhaseRecords.Delete(m) }
+	snapshot := func() []forkPhaseEvent {
+		finish()
+		record.mu.Lock()
+		defer record.mu.Unlock()
+		return append([]forkPhaseEvent(nil), record.events...)
+	}
+	return snapshot, finish
+}
+
+func MeasureForkPhase(m *Module, id int) func() {
+	value, ok := forkPhaseRecords.Load(m)
+	if !ok { return func() {} }
+	record := value.(*forkPhaseRecord)
+	start := time.Since(record.origin).Nanoseconds()
+	return func() {
+		end := time.Since(record.origin).Nanoseconds()
+		record.mu.Lock()
+		record.events = append(record.events, forkPhaseEvent{ID: id, StartNS: start, EndNS: end})
+		record.mu.Unlock()
+	}
+}
+
+func MarkEmbeddedStartup(m *Module, pointer int32) {
+	value, ok := forkPhaseRecords.Load(m)
+	if !ok { return }
+	record := value.(*forkPhaseRecord)
+	now := time.Since(record.origin).Nanoseconds()
+	var wasi WasiStubs
+	name, valid := wasi.readCStr(m, pointer)
+	if !valid || name == "" { panic("invalid embedded startup marker") }
+	if record.profile {
+        switch name {
+        case "embedded_begin":
+            pprof.SetGoroutineLabels(pprof.WithLabels(context.Background(), pprof.Labels("fork_phase", "early")))
+        case "embedded_options_complete":
+            pprof.SetGoroutineLabels(context.Background())
+        }
+    }
+    record.mu.Lock()
+	record.events = append(record.events, forkPhaseEvent{Name: name, StartNS: now, EndNS: now})
+	record.mu.Unlock()
+}
+
+
+// The experiment changes only the initial capacity of the collation-name hash.
+func CollationHashReserve() int32 {
+    if os.Getenv("COLLATION_RESERVE_EXPERIMENT")=="1" { return 1024 }
+    return 64
+}
