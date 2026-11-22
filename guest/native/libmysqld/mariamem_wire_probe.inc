@@ -77,9 +77,11 @@ extern "C" int mariamem_spike_control_session(SpikeIO *io)
   if(my_net_init(&thd->net,vio,thd,MYF(MY_THREAD_SPECIFIC)))result=11;
   else {
     // In EMBEDDED_LIBRARY sql/sql_client.cc:my_net_local_init is compiled out;
-    // honor server --max-allowed-packet directly in self-owned glue.
+    // honor mariamem's 1 MiB SQL body contract directly in self-owned glue:
+    // net_realloc rejects length >= net->max_packet_size, so max_allowed_packet + 2
+    // accepts exact 1 MiB SQL + 1B command (1,048,577) and rejects 1,048,578 before body.
     thd->net.max_packet_size= MY_MAX(thd->variables.net_buffer_length,
-                                     thd->variables.max_allowed_packet);
+                                     thd->variables.max_allowed_packet + 2);
   }
   if(io->event(io->ctx,REGISTER_THD,thd,0))result=17;
   if(!result && acl_authenticate(thd,0)) {

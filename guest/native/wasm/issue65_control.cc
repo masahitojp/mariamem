@@ -41,7 +41,7 @@ struct Session {
  std::mutex io,handle;std::condition_variable changed;
  std::deque<unsigned char> input,output;
  uint64_t received=0,consumed=0,produced=0,sent=0,acked=0,cmdProducedStart=0;
- size_t inputPeak=0,outputPeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false;
+ size_t inputPeak=0,outputPeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false,overflowed=false;
  int error=0;void *thd=nullptr;
  Phase phase=HANDSHAKE;unsigned nativeCommand=0,status=2;uint64_t command=0,executions=0;
  issue65_deadline::Budget deadline;
@@ -82,7 +82,7 @@ struct Manager {
  bool admit(Session *raw){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing){++denied;raw->closeIO(ECANCELED);return false;}need(s->phase==IDLE,"admit only idle");s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline.arm(Clock::now());state(s);return true;}
  int finish(Session *raw,unsigned status,bool retire){
   std::shared_ptr<Session>s;
-  {std::lock_guard<std::mutex> l(gate);s=slots[raw->slot];if(!s||s.get()!=raw||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(s->io);inputEOF=s->inputEOF;}
+  {std::lock_guard<std::mutex> l(gate);s=slots[raw->slot];if(!s||s.get()!=raw||poisoned||closing||s->overflowed)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(s->io);inputEOF=s->inputEOF;}
    if(retire&&inputEOF&&s->phase==RECEIVING&&s->nativeCommand!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}
    if(retire&&inputEOF){s->phase=RETIRING;s->deadline.disarm();state(s);return 0;}
    s->phase=FLUSHING;state(s);}
@@ -95,8 +95,8 @@ struct Manager {
   if(kind==UNREGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=nullptr;}std::lock_guard<std::mutex> l(gate);raw->netError=status;raw->phase=RETIRING;raw->deadline.disarm();state(slots[raw->slot]);return 0;}
   if(kind==AUTH_COMPLETE)return finish(raw,status,false);
   if(kind==COMMAND_COMPLETE||kind==CONNECTION_COMPLETE)return finish(raw,status,kind==CONNECTION_COMPLETE);
-  if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
-  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
+  if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing||raw->overflowed)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
+  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing||raw->overflowed)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
   return 0;
  }
  static int eventCb(void *p,int e,void *thd,unsigned st){auto *s=(Session*)p;return s->owner->event(s,e,thd,st);}
@@ -121,15 +121,36 @@ struct Manager {
   generations[f.slot]=f.generation;slots[f.slot]=s;++started;emit(frame(OPENED,f.request,s));
   s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->workerDone=true;progress.notify_all();}});
  }
- void input(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;if(fenced||poisoned||closing)return;std::lock_guard<std::mutex> q(s->io);if(s->closed)return;if(f.value!=s->received){poisonLockedAfterIO(s,q);return;}if(f.data.size()>INPUT_LIMIT-s->input.size()){controlOverflow=false; /* no payload appended */
-    // Release the queue lock before cancelling all sessions.
-    pendingPoison="pending_input_overflow";return;
-   }s->input.insert(s->input.end(),f.data.begin(),f.data.end());s->received+=f.data.size();s->inputPeak=std::max(s->inputPeak,s->input.size());s->changed.notify_all();}
+ void input(const Frame &f){
+  std::lock_guard<std::mutex> l(gate);
+  auto s=match(f);
+  if(!s||fenced||poisoned||closing||s->phase==RETIRING||s->overflowed)return;
+  bool overflow=false;
+  {
+   std::lock_guard<std::mutex> q(s->io);
+   if(s->closed)return;
+   if(f.value!=s->received){poisonLockedAfterIO(s,q);return;}
+   if(f.data.size()>INPUT_LIMIT-s->input.size()){
+    overflow=true;
+   }else{
+    s->input.insert(s->input.end(),f.data.begin(),f.data.end());
+    s->received+=f.data.size();
+    s->inputPeak=std::max(s->inputPeak,s->input.size());
+    s->changed.notify_all();
+   }
+  }
+  if(overflow){
+   // Isolate pending input overflow to this connection; keep peer sessions alive.
+   // Arm deadline with command>=1 so an unkillable worker still falls back to instance poison.
+   s->overflowed=true;s->phase=RETIRING;if(s->command==0)++s->command;s->deadline.arm(Clock::now());
+   s->closeIO(EOVERFLOW);scheduleKill(s);state(s);
+  }
+ }
  // Input framing errors are escalated immediately by the reader after releasing I/O locks.
  std::string pendingPoison;
  void poisonLockedAfterIO(const std::shared_ptr<Session>&,const std::lock_guard<std::mutex>&){pendingPoison="input_offset";}
  void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}outReady.notify_all();}
- void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||(fenced&&captureID))return;
+ void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||s->overflowed||(fenced&&captureID))return;
   bool responseSent=false;{std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;responseSent=s->sent>s->cmdProducedStart;s->changed.notify_all();}
   if(f.value){if(s->command&&s->phase!=IDLE){poisonLocked("peer_output_error");return;}s->phase=RETIRING;s->deadline.disarm();s->closeIO(ECANCELED);scheduleKill(s);state(s);return;}
   if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)&&!responseSent)poisonLocked("unexpected_peer_eof");
