@@ -24,9 +24,9 @@ import (
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
 )
 
-// Init completion flag written to 2 by the pinned generated p7.Fn67.
+// Init completion flag written to 2 by the pinned generated p7.Fn65.
 // Keep this test-only address bound to the constructor when guest data relocates.
-const initialMemoryFlagOffset = 27753328
+const initialMemoryFlagOffset = 27750384
 
 func assertInitialMemoryFlag(t *testing.T, m *base.Module) {
 	t.Helper()
@@ -200,10 +200,10 @@ func TestWorkerTLSGrowAndRetirement(t *testing.T) {
 		generated.WasmInitTls(worker, generated.InitialMemoryBytes)
 		binary.LittleEndian.PutUint32(worker.Memory[generated.InitialMemoryBytes+4:], 456)
 		worker.G0 = 7 << 20
-		ready <- worker.M == m.M && worker.Threads == m.Threads && worker.MemSize == m.MemSize && p8.Fn68(worker) == 456
+		ready <- worker.M == m.M && worker.Threads == m.Threads && worker.MemSize == m.MemSize && p8.Fn66(worker) == 456
 		<-finish
 	})
-	if !<-ready || m.G1 != parentTLS || p8.Fn68(m) != 123 || m.G0 != 8<<20 {
+	if !<-ready || m.G1 != parentTLS || p8.Fn66(m) != 123 || m.G0 != 8<<20 {
 		t.Fatal("worker TLS")
 	}
 	if base.MemoryGrow(m, 32768-4097) != 4097 || m.M != ptr || m.Memory[maximum-1] != 0 {

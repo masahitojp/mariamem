@@ -10,11 +10,11 @@ import re
 # Exact MariaDB 12.3.4 guest binding, preserving the reviewed P6/J1 ownership
 # transforms. Full bodies/data are checked against pinned fixtures; the prior
 # guest is not an alternate accepted identity. No fuzzy matching is permitted.
-GUEST_SHA256 = "869ffee51c519e4ef725bbc0c0049dd7f121e1070166ad43a5f356094891164a"
+GUEST_SHA256 = "06c90897e8aa2617e64b74e5f0a327c251589c2328ae3602e840f11497ac6f47"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "fe4f656ccda58125ffd21a564e946e11e0501f17f6c6c482c34699e29158ff28"),
-    "code/p5/p5_pure.go": ("Fn214", "16a84310226cbac1d053c69f2dd779964a42a9393a92ef10bac4b52216434994"),
-    "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
+    "code/p3/p3_pure.go": ("Fn151", "f80128d1431c67cdae995bff2ba36e130a2c664a72a1ae1b299891b68b56df88"),
+    "code/p5/p5_pure.go": ("Fn520", "1de89822cf23163c70263198f6f580f2ced01983bb00e26db6815ef6b7ad6878"),
+    "code/p8/p8_pure.go": ("Fn129", "8dde085a66cd7422bd9974506308d77fbdf3a6d4ebe386fb1b9b0649d203b707"),
 }
 
 
@@ -48,7 +48,7 @@ def apply(name, text):
     body = function(text, fn)
     if hashlib.sha256(re.sub(r"\s+", "", body).encode()).hexdigest() != expected:
         raise ValueError("accepted WASIX thread/reclaimer function changed: " + fn)
-    if fn == "Fn153":
-        anchor = "func Fn153(m *base.Module, l0 int32) {\n"
+    if fn == "Fn151":
+        anchor = "func Fn151(m *base.Module, l0 int32) {\n"
         return text.replace(anchor, anchor + "\tif base.DeferThreadAllocationFree(m, l0) { return }\n", 1)
     return text

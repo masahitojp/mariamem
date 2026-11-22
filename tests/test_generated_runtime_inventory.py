@@ -112,8 +112,8 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
         + (ROOT/(FIXTURES / 'pinned-memfs.go.txt')).read_text())
     for relative, (fn, _) in FUNCTIONS.items():
         body = function((canonical/relative).read_text(), fn)
-        if fn == 'Fn153':
-            body = re.sub(r'(func Fn153\(m \*base.Module, l0 int32\) \{\n)\s*if base.DeferThreadAllocationFree\(m, l0\) \{\s*return\s*\}\n', r'\1', body, count=1)
+        if fn == 'Fn151':
+            body = re.sub(r'(func Fn151\(m \*base.Module, l0 int32\) \{\n)\s*if base.DeferThreadAllocationFree\(m, l0\) \{\s*return\s*\}\n', r'\1', body, count=1)
         target = module/'generated'/relative.removeprefix('code/')
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text('package generated\n'+body)

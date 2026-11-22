@@ -1,9 +1,51 @@
 {
-  "compiled_guest_source_scope": "MariaDB 12.3.4 guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
-  "guest_sha256": "869ffee51c519e4ef725bbc0c0049dd7f121e1070166ad43a5f356094891164a",
+  "compiled_guest_source_scope": "MariaDB 12.3.4 B1 native-wire guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
+  "guest_sha256": "06c90897e8aa2617e64b74e5f0a327c251589c2328ae3602e840f11497ac6f47",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.4",
+      "native_glue_manifest": {
+        "file": "guest/native/manifest.json",
+        "sha256": "75e8dfa6a04672903dfbb01f815c8abcaa0ffbcc27e1d042eed0164a13ecddaa"
+      },
+      "native_wire_patch": {
+        "after_sha256": {
+          "cmake/os/WASIX.cmake": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766",
+          "include/violite.h": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+          "libmysqld/lib_sql.cc": "ea64e9ff4679548aa9646b1c4b994ac679497a504ab5fb0020968ead1b1a81e1",
+          "sql-common/client.c": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
+          "sql/item.h": "ef13c953f79d0c4ff91e5fcab3fe17547da267816b460745fd3c5c737699798e",
+          "sql/net_serv.cc": "74f69406945c43131efe48e7432032f131949df4800c7472b155f6b7b2513af9",
+          "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
+          "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
+          "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
+          "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+          "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
+          "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
+          "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
+          "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
+          "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de"
+        },
+        "before_sha256": {
+          "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+          "include/violite.h": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+          "libmysqld/lib_sql.cc": "dff0da5b9344ce2e0f13520910261b4161313368ee1834abb38b6d140c464bd2",
+          "sql-common/client.c": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
+          "sql/item.h": "7aac2fc8d163c0136805b0bace13e6d3bf5374bb464eef8e69f04bcc7f635d51",
+          "sql/net_serv.cc": "bf59e5a85fb151e6bd5334d0b16db5bcaf024a9c3348c68a4586237793cbed01",
+          "sql/protocol.cc": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+          "sql/protocol.h": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+          "sql/sql_acl.cc": "80afd927373cb7f81e8a562cca9e3e70c910edf216df0a06cd425b124b9e4878",
+          "sql/sql_class.cc": "0038b0d70ce28772fb6e51bc51d21a6c354f78695b459f8192fc2481aff4da1a",
+          "sql/sql_class.h": "7f0b51e55a5e5fe459c246d193f48f3ca2f08f1f5680e2963f579b582174f9f6",
+          "sql/sql_parse.cc": "e8e4d1906ac13235f413a5550591e41761e69f5b317307182679e9b8499476d8",
+          "sql/sql_prepare.cc": "1838ecbfc909040ad19816382799096a1574806058e2091ba0abebf40a2f3ea2",
+          "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+          "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
+        },
+        "file": "guest/patches/12.3.4-native-wire.patch",
+        "sha256": "e3be86cf752b060efefb6161584bb033c2a767df556e6ec0ff9ad9c88a759fb6"
+      },
       "patches": [
         {
           "after_sha256": {
@@ -120,7 +162,7 @@
       "CMakeLists.txt": "845dfffabc21bde1a497a04bfa4facfe3b560f8a2b3e529ac9f13f750f9f5ad2",
       "cmake/libfmt.cmake": "7ee74e50434b54119933bd12789cfb8fae76ceb155b8d56b149fecb2f1e41f5a",
       "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
-      "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+      "cmake/os/WASIX.cmake": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766",
       "cmake/pcre.cmake": "773e23f75aff3b4d87356f136f83b5b6600ad801f26e6b2465f3ed72c39cf6e6",
       "configure.cmake": "d31ee5636f396922e5bb3bae297a2528dcf8a120b166a51308f1de5d62e73312",
       "include/m_ctype.h": "ed5a69a01608b56aef78d096df921d9790621d71b36c2a514c6a75bf5b1efb1b",
@@ -128,8 +170,11 @@
       "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
       "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
       "include/my_sys.h": "269939104541f7ebe03ad719a96774aa3bd29286dfbe769b6788097cb7c0d253",
-      "libmysqld/lib_sql.cc": "f4610f025674e4fefd890b7ff0ce14637ab9d7b8feeec7e2ee6d2fa161332620",
+      "include/violite.h": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+      "libmysqld/lib_sql.cc": "79266a2142e0b3d62503f00005c8a339a70ed37d1730bea3e9560cb979102416",
       "libmysqld/libmysql.c": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67",
+      "libmysqld/mariamem_control_abi.h": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
+      "libmysqld/mariamem_wire_probe.inc": "d0b0a4809423f18e93ef92a9d7f79c129d70d58a97a4e1367180f7a1d5b1573d",
       "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
       "mysys/charset.c": "220fa2236f5d96972ce711d40cd5880efdcbbca127c99a866d499c76478e373b",
       "mysys/mariamem_lexer_prepared.h": "72b3b0a05ee156835d343ad4f57cdb484b3d891a3cf17b7ff854a3b86c7bf7c9",
@@ -140,9 +185,18 @@
       "mysys/my_virtual_mem.c": "dc6e54810a4ef7e8fa6bf6e0efca21f8ab834c740da239cc78965988677b0c01",
       "plugin/auth_mysql_sha2/mysql_sha2.c": "a961b5add598bfe64bb206fa7dfeee3e18345370667cc358e68525219106f5cb",
       "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+      "sql-common/client.c": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
+      "sql/item.h": "ef13c953f79d0c4ff91e5fcab3fe17547da267816b460745fd3c5c737699798e",
       "sql/mysqld.cc": "4b9ea579a3d794ec32188127dbea145e44c06708eb9a2af9cdc53c9a2d1a9d1f",
+      "sql/net_serv.cc": "74f69406945c43131efe48e7432032f131949df4800c7472b155f6b7b2513af9",
+      "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
+      "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
+      "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
+      "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+      "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
+      "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
       "sql/sql_plugin.cc": "d7d6f309948bd6eb68e71101254ecb91d5c55c074058d445262d63b44ec2abfe",
-      "sql/sql_prepare.cc": "1838ecbfc909040ad19816382799096a1574806058e2091ba0abebf40a2f3ea2",
+      "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
       "storage/innobase/buf/buf0buf.cc": "1139ad604c6ccf60e36d5220058544af78c9d38244075fe7f06be1ea441a2a04",
       "storage/innobase/dict/dict0dict.cc": "68abba5af765e4eac441a72883fc010641501a3215ff74431a771a2b0c6bf4cc",
       "storage/innobase/fil/fil0fil.cc": "1ff966339d53442f9f45ea29e34ef3df49e773536965e059cd97f0ce1b64ed4e",
@@ -155,9 +209,11 @@
       "strings/ctype-uca.c": "74d73d4793e82120171d8c9a3b5df4cd1a869963da7ef5f9027f9178aa79960d",
       "strings/mariamem_uca_copy_prepared.h": "e98564588cdff8076e747b0be6780a6e23c981a7769322db52ba26738cc5f5e7",
       "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
-      "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
+      "wasm/CMakeLists.txt": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+      "wasm/issue65_control.cc": "9a0457e1c6bd127c7b3c551d3da6cf3dcbde7354bc7be44456bfad7f6eb307d1",
+      "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+      "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
       "wasm/prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
@@ -168,11 +224,67 @@
       "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "wasm/wire_api.inc": "d1f20b50ca23f470873d383513d8f927e85ece2173dec65f8ea6a9f24b31c24a"
     },
+    "native_glue": {
+      "libmysqld/mariamem_control_abi.h": {
+        "file": "guest/native/libmysqld/mariamem_control_abi.h",
+        "sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075"
+      },
+      "libmysqld/mariamem_wire_probe.inc": {
+        "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
+        "sha256": "d0b0a4809423f18e93ef92a9d7f79c129d70d58a97a4e1367180f7a1d5b1573d"
+      },
+      "wasm/issue65_control.cc": {
+        "file": "guest/native/wasm/issue65_control.cc",
+        "sha256": "9a0457e1c6bd127c7b3c551d3da6cf3dcbde7354bc7be44456bfad7f6eb307d1"
+      },
+      "wasm/issue65_deadline.h": {
+        "file": "guest/native/wasm/issue65_deadline.h",
+        "sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f"
+      }
+    },
+    "native_wire_patch": {
+      "after_sha256": {
+        "cmake/os/WASIX.cmake": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766",
+        "include/violite.h": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+        "libmysqld/lib_sql.cc": "ea64e9ff4679548aa9646b1c4b994ac679497a504ab5fb0020968ead1b1a81e1",
+        "sql-common/client.c": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
+        "sql/item.h": "ef13c953f79d0c4ff91e5fcab3fe17547da267816b460745fd3c5c737699798e",
+        "sql/net_serv.cc": "74f69406945c43131efe48e7432032f131949df4800c7472b155f6b7b2513af9",
+        "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
+        "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
+        "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
+        "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+        "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
+        "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
+        "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
+        "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
+        "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de"
+      },
+      "before_sha256": {
+        "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+        "include/violite.h": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+        "libmysqld/lib_sql.cc": "dff0da5b9344ce2e0f13520910261b4161313368ee1834abb38b6d140c464bd2",
+        "sql-common/client.c": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
+        "sql/item.h": "7aac2fc8d163c0136805b0bace13e6d3bf5374bb464eef8e69f04bcc7f635d51",
+        "sql/net_serv.cc": "bf59e5a85fb151e6bd5334d0b16db5bcaf024a9c3348c68a4586237793cbed01",
+        "sql/protocol.cc": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+        "sql/protocol.h": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+        "sql/sql_acl.cc": "80afd927373cb7f81e8a562cca9e3e70c910edf216df0a06cd425b124b9e4878",
+        "sql/sql_class.cc": "0038b0d70ce28772fb6e51bc51d21a6c354f78695b459f8192fc2481aff4da1a",
+        "sql/sql_class.h": "7f0b51e55a5e5fe459c246d193f48f3ca2f08f1f5680e2963f579b582174f9f6",
+        "sql/sql_parse.cc": "e8e4d1906ac13235f413a5550591e41761e69f5b317307182679e9b8499476d8",
+        "sql/sql_prepare.cc": "1838ecbfc909040ad19816382799096a1574806058e2091ba0abebf40a2f3ea2",
+        "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+        "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
+      },
+      "file": "guest/patches/12.3.4-native-wire.patch",
+      "sha256": "e3be86cf752b060efefb6161584bb033c2a767df556e6ec0ff9ad9c88a759fb6"
+    },
     "overlays": {
       "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "input.json": "8f86c203a08e623c85a4b139d3015d9539c1d7faf66b868d8f17c7e0abddbbd2",
+      "input.json": "73e6af2eec2db486eb8cec2f92d7b3f5b0a5d997578d7efb4a17e85be8f1542d",
       "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "59ae2e658478cfe03a67587f74b51103ba9917b1a0f295b2bb7d230dd6c736e9",
@@ -361,12 +473,12 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "e04eda9be78910a2efab7069678f2cec828b0ca4",
-  "guest_size": 21959367,
-  "linked_guest_sha256": "673549bd7c74e87e3a18d2807fd936a1711de30bd449457fd06ce9efddd08d12",
-  "repetitions": 2,
+  "source_commit": "5dc4af8b0899af7445179e2d10d98b008d8d4a2c",
+  "guest_size": 21984100,
+  "linked_guest_sha256": "c5e39dc4d4bc8cf41bc3dafd8966f77cd7b6563fcf0b2ae4a55a1286687673af",
+  "repetitions": 1,
   "completed": true,
-  "full_guest_regeneration": "PASS: two independent Linux arm64 builds and byte-identical generated-Go replay on macOS arm64. Platform qualification pending.",
+  "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
   "ci_evidence": null,
   "previous_canonical_evidence": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
@@ -385,10 +497,10 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "e04eda9be78910a2efab7069678f2cec828b0ca4",
+    "source_commit": "5dc4af8b0899af7445179e2d10d98b008d8d4a2c",
     "contract": "development-unqualified-v1",
-    "independent_source_builds": 2,
-    "use": "Local source bootstrap and byte reproduction; CI qualification remains pending."
+    "independent_source_builds": 1,
+    "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."
   },
   "previous_12_3_3_ci_evidence": {
     "run_id": 43569024494,
@@ -403,10 +515,10 @@
   },
   "local_generated_go_replay": {
     "result": "PASS",
-    "generated_and_owned_files": 120,
-    "inventory_sha256": "15a8eea3c20d585c3c67c69f3b2f8af5dd99707bccc4cbb36025fdadddfeed6b",
-    "generated_provenance_sha256": "d232c06333da7b552353515bd54daaae0e7723bbcb4ee686697f9e8457cecb86",
-    "second_converter_manifest_sha256": "9cb7a86cee31f2a591694af73c19f00647da2fffb91e7c1cd896a90d26df82cf",
+    "generated_and_owned_files": 121,
+    "inventory_sha256": "a30dff8d9fd519cc468a4da2805e0a7625859d1f45ec0c7ac72ca2c564c216d5",
+    "generated_provenance_sha256": "c80efe6cb124749ba9a85dc38a434adc61cbe01b4f06f59c10868ebb97f994fe",
+    "second_converter_manifest_sha256": "8b60da62c955d13e7119df6847e1d59e3d2f9bab797630845d3d295e68dc6051",
     "memory32_cases": 2472,
     "memory32_expected_traps": 1693
   }

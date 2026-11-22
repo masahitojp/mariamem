@@ -7,5 +7,5 @@ import (
 )
 
 func installGuestThreadLifetime(m *base.Module) {
-	base.InstallThreadLifetime(m, p3.Fn153)
+	base.InstallThreadLifetime(m, p3.Fn151)
 }
