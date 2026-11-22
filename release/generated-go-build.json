@@ -6,7 +6,7 @@
       "candidate": "MariaDB 12.3.4",
       "native_glue_manifest": {
         "file": "guest/native/manifest.json",
-        "sha256": "75e8dfa6a04672903dfbb01f815c8abcaa0ffbcc27e1d042eed0164a13ecddaa"
+        "sha256": "dbb4d48ed7bea62718028957e075f3a4bbb9fcee6df11bbefb0497db30c85fd1"
       },
       "native_wire_patch": {
         "after_sha256": {
@@ -211,7 +211,7 @@
       "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
       "wasm/CMakeLists.txt": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "wasm/issue65_control.cc": "9a0457e1c6bd127c7b3c551d3da6cf3dcbde7354bc7be44456bfad7f6eb307d1",
+      "wasm/issue65_control.cc": "0da8e14562894ead2afd31e1dcc673757ae98174a95954c9ec82eafb238dab6f",
       "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
       "wasm/lite4mariadb.c": "eada8c045916dc0c078237a5f984bb5f5bce425960457e70d1a649d0b89459de",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
@@ -235,7 +235,7 @@
       },
       "wasm/issue65_control.cc": {
         "file": "guest/native/wasm/issue65_control.cc",
-        "sha256": "9a0457e1c6bd127c7b3c551d3da6cf3dcbde7354bc7be44456bfad7f6eb307d1"
+        "sha256": "0da8e14562894ead2afd31e1dcc673757ae98174a95954c9ec82eafb238dab6f"
       },
       "wasm/issue65_deadline.h": {
         "file": "guest/native/wasm/issue65_deadline.h",
@@ -284,7 +284,7 @@
       "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "input.json": "73e6af2eec2db486eb8cec2f92d7b3f5b0a5d997578d7efb4a17e85be8f1542d",
+      "input.json": "f9ff4811d2c727585a60e1b8806cf686866fc666ee2428242d7d74845c29d162",
       "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "59ae2e658478cfe03a67587f74b51103ba9917b1a0f295b2bb7d230dd6c736e9",
@@ -474,7 +474,7 @@
     }
   },
   "source_commit": "ac35294ff029e3352084ef14c814a09e1da59f11",
-  "guest_size": 21984100,
+  "guest_size": 21983991,
   "linked_guest_sha256": "36ed12593cfdaf656e9ab7f9faa94e8a5e45030d9859aa9ca650bbd5d42d2297",
   "repetitions": 1,
   "completed": true,
@@ -497,7 +497,7 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "5dc4af8b0899af7445179e2d10d98b008d8d4a2c",
+    "source_commit": "ac35294ff029e3352084ef14c814a09e1da59f11",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
     "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."
@@ -516,11 +516,10 @@
   "local_generated_go_replay": {
     "result": "PASS",
     "generated_and_owned_files": 121,
-    "inventory_sha256": "a30dff8d9fd519cc468a4da2805e0a7625859d1f45ec0c7ac72ca2c564c216d5",
-    "generated_provenance_sha256": "c80efe6cb124749ba9a85dc38a434adc61cbe01b4f06f59c10868ebb97f994fe",
-    "second_converter_manifest_sha256": "8b60da62c955d13e7119df6847e1d59e3d2f9bab797630845d3d295e68dc6051",
+    "inventory_sha256": "c02bc85de64ab699fab9a887de6d8b09e451e3570fb1cc1645fd3201fd9fe501",
+    "generated_provenance_sha256": "d8f0cc6cbd04c17d7595e76f32e538f2e865448c905b6e1cfad8bb985bb451d0",
+    "second_converter_manifest_sha256": "075fcf95cab570132ad0ef7cf36afc9e98b7aea6e6ac2ee9d78e01ed867254c3",
     "memory32_cases": 2472,
     "memory32_expected_traps": 1693
-  },
-  "guest_bytes": 21983991
+  }
 }
