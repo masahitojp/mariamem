@@ -10,7 +10,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/guest"
@@ -52,12 +51,9 @@ type Rejected struct {
 
 func (e *Rejected) Error() string { return e.Message }
 
-// StartGenerated uses compiled guest identity and the same snapshot/transport contract.
-func StartGenerated(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (*Server, error) {
-	if err := artifacts.ValidatePlatform(ctx); err != nil {
-		return nil, err
-	}
-	return start(ctx, restore, timeout, stderr)
+// StartGenerated uses compiled guest identity and the B1 native wire contract.
+func StartGenerated(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (Service, error) {
+	return StartNativeGenerated(ctx, restore, timeout, stderr)
 }
 
 func start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
