@@ -96,6 +96,32 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
         raise ValueError("experimental prepared source patch is missing")
     elif (root / "guest/prepared_time_patch.json").exists():
         raise ValueError("experimental TIME patch is missing")
+    native_glue = None
+    native_manifest = root / "guest/native/manifest.json"
+    if native_manifest.exists():
+        if not experimental.exists():
+            raise ValueError("guest/native/manifest.json requires guest/experimental.patch")
+        glue_spec = json.loads(native_manifest.read_text())
+        pending_glue = []
+        for dest, ref in glue_spec.get("files", {}).items():
+            src_file = (root / ref["file"]).resolve(strict=True)
+            if not src_file.is_relative_to(root.resolve()):
+                raise ValueError("native glue source outside root: " + dest)
+            if digest(src_file) != ref["sha256"]:
+                raise ValueError("native glue identity mismatch: " + dest)
+            target = source
+            for part in dest.split("/"):
+                target = target / part
+                if target.is_symlink():
+                    raise ValueError("native glue destination symlink: " + dest)
+            if target.exists() or not target.parent.is_dir():
+                raise ValueError("native glue destination conflict: " + dest)
+            pending_glue.append((target, src_file))
+        for target, src_file in pending_glue:
+            shutil.copyfile(src_file, target)
+            target.chmod(0o644)
+        native_glue = glue_spec.get("files", {})
+        experimental_files = [*experimental_files, *native_glue.keys()]
     core = re.sub(r"\bg_mysql\b", "multi_mysql", (root / "guest/wire_core.inc").read_text())
     (source / "wasm/wire_api.inc").write_text(
         "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "prepared_api.inc"\n#include "resident.inc"\n')
@@ -152,6 +178,8 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
                         uca_prepared=uca_prepared, prepared_profile=canonical_prepared)
     if experimental.exists():
         manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
+    if native_glue:
+        manifest["native_glue"] = native_glue
     if time_patch:
         manifest["experimental_time_patch"] = time_patch
     if prepared_patch:
