@@ -1,0 +1,36 @@
+normal {'suite_ms': 1818.434, 'fork_sum_ms': 417.38, 'fork_median_ms': 19.352}
+host {'suite_ms': 1596.598, 'fork_sum_ms': 421.98, 'fork_median_ms': 18.521}
+guest documents 0
+api_ms 18.7036 17.2302 43.4851
+maps_ms 0.1117 0.1008 0.4304
+module_ms 0.4162 0.3459 0.8274
+execute_to_ready_ms 17.4297 16.0634 41.3554
+guest {'suite_ms': 2256.261, 'fork_sum_ms': 502.701, 'fork_median_ms': 23.109}
+guest documents 84
+api_ms 22.7139 17.1012 58.0291
+maps_ms 0.1203 0.099 0.8522
+module_ms 0.4541 0.3431 2.053
+execute_to_ready_ms 20.8544 15.906 54.8798
+server_init_ms 17.5654 14.2699 49.9282
+bootstrap_ms 0.1663 0.0942 1.7286
+routine_ms 1.2971 0.918 14.2346
+ready_prepare_ms 20.3229 15.5227 53.9759
+server_count 2.0 2 2
+server_ms 17.5642 14.2688 49.9267
+aria_count 1.0 1 1
+aria_ms 2.4627 1.8925 9.7653
+innodb_count 1.0 1 1
+innodb_ms 5.2807 4.1284 18.562
+srv_start_count 1.0 1 1
+srv_start_ms 5.2169 4.0806 18.4958
+dict_boot_count 1.0 1 1
+dict_boot_ms 0.0652 0.051 0.3027
+trx_lists_count 1.0 1 1
+trx_lists_ms 1.6179 1.4103 3.5433
+rseg_count 1.0 1 1
+rseg_ms 1.5418 1.3433 3.2088
+server_outside_innodb_ms 12.3697 10.0714 33.6081
+innodb_outside_srv_start_ms 0.0603 0.0383 0.2812
+srv_start_outside_trx_lists_ms 3.5622 2.6703 16.2856
+trx_lists_outside_rseg_ms 0.0768 0.0595 0.3345
+server_outside_both_plugins_ms 9.8134 8.179 31.1067

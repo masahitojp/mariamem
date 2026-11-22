@@ -1,0 +1,41 @@
+// Startup experiment collectors are owned by the executing module.
+type ForkPhase struct {
+	Count int   `json:"count"`
+	NS    int64 `json:"ns"`
+}
+
+type forkPhaseRecord struct {
+	mu sync.Mutex
+	phases map[int]ForkPhase
+}
+
+var forkPhaseRecords sync.Map
+
+func RecordForkPhases(m *Module) (func() map[int]ForkPhase, func()) {
+	record := &forkPhaseRecord{phases: make(map[int]ForkPhase)}
+	forkPhaseRecords.Store(m, record)
+	snapshot := func() map[int]ForkPhase {
+		record.mu.Lock()
+		defer record.mu.Unlock()
+		result := make(map[int]ForkPhase, len(record.phases))
+		for key, phase := range record.phases { result[key] = phase }
+		return result
+	}
+	return snapshot, func() { forkPhaseRecords.Delete(m) }
+}
+
+func MeasureForkPhase(m *Module, id int) func() {
+	value, ok := forkPhaseRecords.Load(m)
+	if !ok { return func() {} }
+	record := value.(*forkPhaseRecord)
+	start := time.Now()
+	return func() {
+		elapsed := time.Since(start)
+		record.mu.Lock()
+		phase := record.phases[id]
+		phase.Count++
+		phase.NS += elapsed.Nanoseconds()
+		record.phases[id] = phase
+		record.mu.Unlock()
+	}
+}
