@@ -803,7 +803,7 @@
  {
    MYSQL_TIME tm;
    if (len >= sizeof (MYSQL_TIME))
-@@ -801,7 +806,7 @@
+@@ -801,16 +806,15 @@
    set_time(&tm, MYSQL_TIMESTAMP_DATETIME, MAX_DATETIME_WIDTH);
  }
  
@@ -812,6 +812,15 @@
  {
    MYSQL_TIME tm;
    if (len >= sizeof (MYSQL_TIME))
+     tm= *((MYSQL_TIME*)*pos);
+   else
+     set_zero_time(&tm, MYSQL_TIMESTAMP_DATE);
+   set_time(&tm, MYSQL_TIMESTAMP_DATE, MAX_DATE_WIDTH);
+ }
+-#endif /*!EMBEDDED_LIBRARY*/
+ 
+ 
+ void Item_param::set_param_str(uchar **pos, ulong len)
 @@ -872,7 +877,6 @@
    */
  }
