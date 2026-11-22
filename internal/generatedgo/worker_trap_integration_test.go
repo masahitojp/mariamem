@@ -408,3 +408,90 @@ func TestActualGuestStoppedBeforeMemoryRelease(t *testing.T) {
 		t.Fatal("mapping leak", got, before)
 	}
 }
+
+// P1 actual-guest regression: when shutdown mode application fails (INJECT=3),
+// both capture (Snapshot) and ordinary (Close) paths must emit POISON
+// "shutdown_mode_failed" and exit non-zero rather than returning success.
+func TestShutdownModeFailureActualGuest(t *testing.T) {
+	for _, captureMode := range []bool{false, true} {
+		name := "ordinary_close"
+		if captureMode {
+			name = "capture_snapshot"
+		}
+		t.Run(name, func(t *testing.T) {
+			childIn, in, err := os.Pipe()
+			if err != nil {
+				t.Fatal(err)
+			}
+			out, childOut, err := os.Pipe()
+			if err != nil {
+				childIn.Close()
+				in.Close()
+				t.Fatal(err)
+			}
+			t.Cleanup(func() { in.Close(); out.Close(); childIn.Close(); childOut.Close() })
+			var stderr bytes.Buffer
+			var capture prepared.Capture
+			approval := make(chan error, 1)
+			g := &trapGuest{in: in, out: out}
+			g.done = startWireInstance(childIn, childOut, &stderr, "", nil, false, nil, newMemoryModule, 1,
+				&WireLifecycle{Capture: &capture, Approval: approval})
+
+			env, err := g.readEnv()
+			if err != nil || env.kind != 100 {
+				t.Fatalf("expected READY(100), got %+v err=%v", env, err)
+			}
+			// Inject shutdown-mode failure (injectFailure == 3).
+			if err := g.writeEnv(wireEnvelope{kind: 13, request: 1, epoch: 1, value: 3}); err != nil {
+				t.Fatal(err)
+			}
+			if reply, err := g.readEnv(); err != nil || reply.kind != 102 {
+				t.Fatalf("expected INJECT REPLY(102), got %+v err=%v", reply, err)
+			}
+			if captureMode {
+				// TRY_CAPTURE(11) -> CAPTURE_FENCED(112) -> CAPTURE_STOP(12) -> CAPTURE_STOP_ACCEPTED(113)
+				if err := g.writeEnv(wireEnvelope{kind: 11, request: 2, epoch: 1, value: 77}); err != nil {
+					t.Fatal(err)
+				}
+				if reply, err := g.readEnv(); err != nil || reply.kind != 112 {
+					t.Fatalf("expected CAPTURE_FENCED(112), got %+v err=%v", reply, err)
+				}
+				if err := g.writeEnv(wireEnvelope{kind: 12, request: 3, epoch: 1, value: 77}); err != nil {
+					t.Fatal(err)
+				}
+				if reply, err := g.readEnv(); err != nil || reply.kind != 113 {
+					t.Fatalf("expected CAPTURE_STOP_ACCEPTED(113), got %+v err=%v", reply, err)
+				}
+			} else {
+				if err := g.writeEnv(wireEnvelope{kind: 6, epoch: 1, value: 2}); err != nil {
+					t.Fatal(err)
+				}
+			}
+
+			sawPoison := false
+			sawDoneZero := false
+			for {
+				f, err := g.readEnv()
+				if err != nil {
+					break
+				}
+				if f.kind == 105 && strings.Contains(string(f.body), "shutdown_mode_failed") {
+					sawPoison = true
+				}
+				if f.kind == 111 && f.value == 0 {
+					sawDoneZero = true
+				}
+			}
+			guestErr := <-g.done
+			if guestErr == nil {
+				t.Fatalf("expected non-zero guest exit on shutdown mode failure, stderr:\n%s", stderr.String())
+			}
+			if !sawPoison || !sawDoneZero {
+				t.Fatalf("expected POISON(shutdown_mode_failed) and DONE(0), got poison=%v doneZero=%v stderr:\n%s", sawPoison, sawDoneZero, stderr.String())
+			}
+			if !strings.Contains(stderr.String(), "mode_applied=0 mode_err=9") {
+				t.Fatalf("expected mode_applied=0 mode_err=9 in stderr:\n%s", stderr.String())
+			}
+		})
+	}
+}

@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"io"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -372,6 +373,285 @@ func TestSnapshotKeepRejectionsAndTimingMarks(t *testing.T) {
 			if !marks[want] {
 				t.Fatalf("missing timing mark %q in %+v", want, gotTrace.Events)
 			}
+		}
+	})
+}
+
+// P2 regression: if ctx is canceled after the guest applies HOLD=1 but before
+// the host receives REPLY, SnapshotKeep must still send HOLD=0 so subsequent
+// SQL on that existing session completes without deadlocking.
+func TestSnapshotKeepCancelDuringHoldUnblocksExistingSession(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	holdApplied := make(chan struct{})
+	var holdAppliedOnce sync.Once
+	var unholdCount atomic.Int32
+	var mu sync.Mutex
+	heldSlots := map[uint32]bool{}
+	holdCV := sync.NewCond(&mu)
+
+	runner := func(x Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			source := prepared.NewRootSource(true)
+			_ = x.Capture.BindRootSource(source, "fake-hold-cancel")
+			send := func(v frame) {
+				v.epoch = x.Epoch
+				_ = writeFrame(x.Output, v)
+			}
+			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+			seenAuth := map[uint32]bool{}
+			retired := map[key]bool{}
+			retireOnce := func(slot uint32, gen uint64) {
+				k := key{slot, gen}
+				if retired[k] {
+					return
+				}
+				retired[k] = true
+				send(frame{kind: kindRetired, slot: slot, generation: gen})
+			}
+			for {
+				v, err := readFrame(x.Input)
+				if err != nil {
+					break
+				}
+				switch v.kind {
+				case kindOpen:
+					send(frame{kind: kindOpened, request: v.request, slot: v.slot, generation: v.generation})
+					send(frame{kind: kindState, slot: v.slot, generation: v.generation, body: []byte("idle")})
+					send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, body: mysqlPkt(0, []byte{0x0a, '1', '2', 0})})
+				case kindHold:
+					if v.value != 0 {
+						mu.Lock()
+						heldSlots[v.slot] = true
+						mu.Unlock()
+						// Deliberately withhold REPLY for HOLD=1 to force the cancel race.
+						holdAppliedOnce.Do(func() { close(holdApplied) })
+					} else {
+						unholdCount.Add(1)
+						mu.Lock()
+						heldSlots[v.slot] = false
+						holdCV.Broadcast()
+						mu.Unlock()
+						send(frame{kind: kindReply, request: v.request, slot: v.slot, generation: v.generation})
+					}
+				case kindData:
+					send(frame{kind: kindCredit, slot: v.slot, generation: v.generation, value: v.value + uint64(len(v.body))})
+					if len(v.body) < 4 {
+						continue
+					}
+					payload := v.body[4:]
+					if !seenAuth[v.slot] {
+						seenAuth[v.slot] = true
+						send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, body: mysqlPkt(2, []byte{0x00, 0, 0, 2, 0, 0, 0})})
+						continue
+					}
+					if len(payload) > 0 && payload[0] == 0x01 {
+						retireOnce(v.slot, v.generation)
+						continue
+					}
+					// Model real guest readCb(): block command admission while HOLD=1.
+					go func(slot uint32, gen uint64) {
+						mu.Lock()
+						for heldSlots[slot] {
+							holdCV.Wait()
+						}
+						mu.Unlock()
+						send(frame{kind: kindRaw, slot: slot, generation: gen, body: mysqlPkt(1, []byte{0x00, 0, 0, 2, 0, 0, 0})})
+					}(v.slot, v.generation)
+				case kindPeerEOF:
+					retireOnce(v.slot, v.generation)
+				case kindStop:
+					mu.Lock()
+					for s := range heldSlots {
+						heldSlots[s] = false
+					}
+					holdCV.Broadcast()
+					mu.Unlock()
+					if x.Stopped != nil {
+						x.Stopped(nil)
+					}
+					done <- nil
+					return
+				}
+			}
+			if x.Stopped != nil {
+				x.Stopped(nil)
+			}
+			done <- nil
+		}()
+		return done
+	}
+
+	b, err := Start(ctx, Config{Runner: runner, Build: "fake-hold-cancel"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer b.Close(context.Background())
+
+	ext, err := b.DialContext(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer ext.Close()
+	if err := privateHandshake(ctx, ext, "test"); err != nil {
+		t.Fatalf("handshake failed: %v", err)
+	}
+	deadline := time.Now().Add(2 * time.Second)
+	for b.Busy() && time.Now().Before(deadline) {
+		time.Sleep(time.Millisecond)
+	}
+
+	keepCtx, cancelKeep := context.WithCancel(ctx)
+	keepDone := make(chan error, 1)
+	go func() {
+		_, err := b.SnapshotKeep(keepCtx)
+		keepDone <- err
+	}()
+
+	select {
+	case <-holdApplied:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for guest to apply HOLD=1")
+	}
+	cancelKeep()
+
+	select {
+	case err := <-keepDone:
+		if !errors.Is(err, context.Canceled) {
+			t.Fatalf("expected context.Canceled, got %v", err)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("SnapshotKeep did not return after cancel")
+	}
+	if unholdCount.Load() < 1 {
+		t.Fatalf("expected HOLD=0 to be sent after cancel, got unhold=%d", unholdCount.Load())
+	}
+
+	// Next SQL on the exact same connection must complete (proves HOLD was cleared).
+	if _, err := privateExec(ctx, ext, "SELECT 1"); err != nil {
+		t.Fatalf("subsequent SQL on existing connection failed after canceled SnapshotKeep: %v", err)
+	}
+}
+
+// P1 regression: Close sends discard mode=2, Snapshot sends capture stop without
+// pre-fence SQL mutation, and shutdown_mode_failed poisons both Snapshot and Close.
+func TestShutdownModePurposeAndFailurePropagation(t *testing.T) {
+	t.Run("close_sends_discard_mode_2_and_propagates_failure", func(t *testing.T) {
+		for _, failMode := range []bool{false, true} {
+			var gotStopValue atomic.Uint64
+			runner := func(x Execution) <-chan error {
+				done := make(chan error, 1)
+				go func() {
+					source := prepared.NewRootSource(true)
+					_ = x.Capture.BindRootSource(source, "fake-shutdown")
+					send := func(v frame) {
+						v.epoch = x.Epoch
+						_ = writeFrame(x.Output, v)
+					}
+					send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+					for {
+						v, err := readFrame(x.Input)
+						if err != nil {
+							break
+						}
+						if v.kind == kindStop {
+							gotStopValue.Store(v.value)
+							if failMode {
+								send(frame{kind: kindPoison, body: []byte("shutdown_mode_failed")})
+								send(frame{kind: kindDone, value: 0, body: []byte(`{}`)})
+								if x.Stopped != nil {
+									x.Stopped(errors.New("exit 21"))
+								}
+								done <- errors.New("exit 21")
+								return
+							}
+							send(frame{kind: kindDone, value: 2, body: []byte(`{}`)})
+							if x.Stopped != nil {
+								x.Stopped(nil)
+							}
+							done <- nil
+							return
+						}
+					}
+					done <- nil
+				}()
+				return done
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+			defer cancel()
+			b, err := Start(ctx, Config{Runner: runner, Build: "fake-shutdown"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			err = b.Close(ctx)
+			if gotStopValue.Load() != 2 {
+				t.Fatalf("expected Close to send STOP value=2, got %d", gotStopValue.Load())
+			}
+			if failMode {
+				if err == nil || (!strings.Contains(err.Error(), "shutdown_mode_failed") && !strings.Contains(err.Error(), "exit 21")) {
+					t.Fatalf("expected shutdown_mode_failed/exit 21 error on Close, got %v", err)
+				}
+			} else if err != nil {
+				t.Fatalf("unexpected Close error: %v", err)
+			}
+		}
+	})
+
+	t.Run("snapshot_rejects_without_pre_fence_open_and_fails_on_mode_error", func(t *testing.T) {
+		var openCount atomic.Int32
+		runner := func(x Execution) <-chan error {
+			done := make(chan error, 1)
+			go func() {
+				source := prepared.NewRootSource(true)
+				_ = x.Capture.BindRootSource(source, "fake-snap-fail")
+				send := func(v frame) {
+					v.epoch = x.Epoch
+					_ = writeFrame(x.Output, v)
+				}
+				send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+				for {
+					v, err := readFrame(x.Input)
+					if err != nil {
+						break
+					}
+					switch v.kind {
+					case kindOpen:
+						openCount.Add(1)
+						send(frame{kind: kindRejected, request: v.request, value: 4, body: []byte("unexpected")})
+					case kindCaptureFence:
+						send(frame{kind: kindFenced, request: v.request, value: v.value, body: []byte("fenced")})
+					case kindCaptureStop:
+						send(frame{kind: kindStopAccepted, request: v.request, value: v.value, body: []byte("expected_owner_stop")})
+						send(frame{kind: kindPoison, body: []byte("shutdown_mode_failed")})
+						send(frame{kind: kindDone, value: 0, body: []byte(`{}`)})
+						if x.Stopped != nil {
+							x.Stopped(errors.New("exit 21"))
+						}
+						done <- errors.New("exit 21")
+						return
+					case kindStop:
+						done <- nil
+						return
+					}
+				}
+				done <- nil
+			}()
+			return done
+		}
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel()
+		b, err := Start(ctx, Config{Runner: runner, Build: "fake-snap-fail"})
+		if err != nil {
+			t.Fatal(err)
+		}
+		owned, consumed, err := b.SnapshotHeap(ctx, false)
+		if openCount.Load() != 0 {
+			t.Fatalf("SnapshotHeap must not open a private session before fence; got %d opens", openCount.Load())
+		}
+		if err == nil || (!strings.Contains(err.Error(), "shutdown_mode_failed") && !strings.Contains(err.Error(), "exit 21")) || owned != nil || !consumed {
+			t.Fatalf("expected consuming shutdown_mode_failed/exit 21 error, got owned=%v consumed=%v err=%v", owned, consumed, err)
 		}
 	})
 }

@@ -59,18 +59,6 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 		r.mu.Unlock()
 		return nil, true, ErrClosed
 	}
-	cleanShutdown := r.cleanShutdownOnCapture
-	r.mu.Unlock()
-	if cleanShutdown {
-		// Ensure a client's SET GLOBAL innodb_fast_shutdown=2 cannot force crash recovery on Fork.
-		// Runs before TRY_CAPTURE so no consuming fence is armed if this fails.
-		_ = r.setShutdownMode(ctx, "1")
-	}
-	r.mu.Lock()
-	if r.stopping || r.consumed || r.failure != nil {
-		r.mu.Unlock()
-		return nil, true, ErrClosed
-	}
 	if e := r.owner.BeginCaptureLocked(); e != nil {
 		r.mu.Unlock()
 		return nil, false, e

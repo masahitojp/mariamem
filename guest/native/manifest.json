@@ -11,7 +11,7 @@
     },
     "wasm/issue65_control.cc": {
       "file": "guest/native/wasm/issue65_control.cc",
-      "sha256": "0da8e14562894ead2afd31e1dcc673757ae98174a95954c9ec82eafb238dab6f"
+      "sha256": "ff97d3ff65ee0767387f4b2cd0d86d39d918a38354794407156c12658ced42d7"
     },
     "wasm/issue65_deadline.h": {
       "file": "guest/native/wasm/issue65_deadline.h",

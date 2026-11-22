@@ -96,3 +96,104 @@ func TestShutdownModeSnapshotAndResnapshot(t *testing.T) {
 		t.Fatal(got)
 	}
 }
+
+func TestShutdownModeRejectedSnapshotPreservesOriginalSetting(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+	db, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	c := openSQLClient(t, ctx, db)
+	defer c.Close()
+	for _, q := range []string{
+		"CREATE TABLE rej_shutdown(id INT PRIMARY KEY) ENGINE=InnoDB",
+		"SET GLOBAL innodb_fast_shutdown=2",
+		"BEGIN",
+		"INSERT INTO rej_shutdown VALUES(1)",
+	} {
+		if _, err := c.conn.ExecContext(ctx, q); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err := db.Snapshot(ctx, mariamem.SnapshotOptions{}); err == nil {
+		t.Fatal("expected Snapshot to be rejected while transaction is active")
+	}
+	// Rejected Snapshot must preserve the client's innodb_fast_shutdown=2.
+	if got := queryInt(t, ctx, c, "SELECT @@GLOBAL.innodb_fast_shutdown"); got != 2 {
+		t.Fatalf("rejected Snapshot mutated @@GLOBAL.innodb_fast_shutdown: want 2, got %d", got)
+	}
+}
+
+func TestShutdownModeFullCapacity16ConnectionsSnapshotAndClose(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	// 1. Full 16-connection Snapshot forces innodb_fast_shutdown=1 after worker join.
+	db, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	conns := make([]*sqlClient, 0, 16)
+	for i := 0; i < 16; i++ {
+		c := openSQLClient(t, ctx, db)
+		conns = append(conns, c)
+	}
+	for _, q := range []string{
+		"CREATE TABLE full16(id INT PRIMARY KEY) ENGINE=InnoDB",
+		"INSERT INTO full16 VALUES(1),(2)",
+		"SET GLOBAL innodb_fast_shutdown=2",
+	} {
+		if _, err := conns[0].conn.ExecContext(ctx, q); err != nil {
+			t.Fatal(err)
+		}
+	}
+	snap, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+	if err != nil {
+		t.Fatalf("full-capacity 16-connection Snapshot failed: %v", err)
+	}
+	defer snap.Close()
+	for _, c := range conns {
+		c.Close()
+	}
+	if !strings.Contains(db.Logs(), "NATIVE_STOP mode=capture fast_shutdown=1 mode_applied=1 mode_err=0") {
+		t.Fatalf("expected Snapshot to apply fast_shutdown=1 at shutdown boundary, logs:\n%s", db.Logs())
+	}
+	child, err := snap.Fork(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer child.Close()
+	if strings.Contains(child.Logs(), "Starting crash recovery") {
+		t.Fatalf("full-capacity Snapshot required crash recovery:\n%s", child.Logs())
+	}
+	cc := openSQLClient(t, ctx, child)
+	if got := queryInt(t, ctx, cc, "SELECT COUNT(*) FROM full16"); got != 2 {
+		t.Fatalf("expected 2 restored rows, got %d", got)
+	}
+	cc.Close()
+
+	// 2. Full 16-connection ordinary discard Close forces innodb_fast_shutdown=2 even if client set 0.
+	discard, err := snap.Fork(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	dconns := make([]*sqlClient, 0, 16)
+	for i := 0; i < 16; i++ {
+		dconns = append(dconns, openSQLClient(t, ctx, discard))
+	}
+	if _, err := dconns[0].conn.ExecContext(ctx, "SET GLOBAL innodb_fast_shutdown=0"); err != nil {
+		t.Fatal(err)
+	}
+	if err := discard.Close(); err != nil {
+		t.Fatalf("full-capacity 16-connection Close failed: %v", err)
+	}
+	for _, c := range dconns {
+		c.Close()
+	}
+	if !strings.Contains(discard.Logs(), "NATIVE_STOP mode=ordinary fast_shutdown=2 mode_applied=1 mode_err=0") {
+		t.Fatalf("expected ordinary Close to apply fast_shutdown=2 at shutdown boundary, logs:\n%s", discard.Logs())
+	}
+}

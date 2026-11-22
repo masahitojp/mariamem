@@ -72,7 +72,7 @@ func startNative(ctx context.Context, restore *snapshot.Owned, timeout time.Dura
 			return nil, e
 		}
 	}
-	b, e := nativewire.Start(ctx, nativewire.Config{Runner: runner, Build: build, Restore: entries, QueryTimeout: timeout, Stderr: stderr, RejectCapacity: RejectCapacity, CleanShutdownOnCapture: true})
+	b, e := nativewire.Start(ctx, nativewire.Config{Runner: runner, Build: build, Restore: entries, QueryTimeout: timeout, Stderr: stderr, RejectCapacity: RejectCapacity})
 	if e != nil {
 		return nil, disposal.After(e, func() error { release(); return nil })
 	}

@@ -1068,7 +1068,7 @@
  EMSCRIPTEN_KEEPALIVE
  void l4m_free(char *p)
  {
-@@ -552,3 +559,30 @@
+@@ -552,3 +559,66 @@
  }
  
  #include "wire_api.inc"
@@ -1098,4 +1098,40 @@
 +  startup_write();
 +  return 0;
 +}
-+void issue65_shutdown(void) { l4m_close(); }
++/* Apply disposal-purpose InnoDB shutdown mode after all client workers join. */
++int issue65_shutdown(int fast_shutdown_mode)
++{
++  int err= 0;
++  if (fast_shutdown_mode == 1 || fast_shutdown_mode == 2)
++  {
++    MYSQL *m= mysql_init(NULL);
++    if (!m)
++      err= 1;
++    else
++    {
++      if (!mysql_real_connect(m, NULL, "root", "", NULL, 0, NULL, 0))
++        err= 2;
++      else
++      {
++        const char *q= fast_shutdown_mode == 1
++          ? "SET GLOBAL innodb_fast_shutdown=1"
++          : "SET GLOBAL innodb_fast_shutdown=2";
++        const char *want= fast_shutdown_mode == 1 ? "1" : "2";
++        if (mysql_query(m, q) ||
++            mysql_query(m, "SELECT @@GLOBAL.innodb_fast_shutdown"))
++          err= 3;
++        else
++        {
++          MYSQL_RES *res= mysql_store_result(m);
++          MYSQL_ROW row= res ? mysql_fetch_row(res) : NULL;
++          if (!row || !row[0] || strcmp(row[0], want) != 0)
++            err= 4;
++          if (res) mysql_free_result(res);
++        }
++      }
++      mysql_close(m);
++    }
++  }
++  l4m_close();
++  return err;
++}

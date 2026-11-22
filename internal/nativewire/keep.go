@@ -111,23 +111,6 @@ func (r *Backend) openPrivateSession(ctx context.Context, dbName string) (net.Co
 	return client, k, waitRetired, nil
 }
 
-func (r *Backend) setShutdownMode(ctx context.Context, mode string) error {
-	// Best-effort if all 16 slots are occupied, otherwise run SET GLOBAL innodb_fast_shutdown=<mode>
-	// on a private maintenance session (no default DB required).
-	c, _, waitRetired, err := r.openPrivateSession(ctx, "")
-	if err != nil {
-		if errors.Is(err, ErrCapacity) {
-			return nil
-		}
-		return err
-	}
-	_, qErr := privateExec(ctx, c, "SET GLOBAL innodb_fast_shutdown="+mode)
-	_ = privateWritePkt(c, 0, []byte{0x01})
-	_ = c.Close()
-	waitRetired()
-	return qErr
-}
-
 // SnapshotKeep captures committed state without stopping the instance. Existing
 // idle sessions stay attached; the source continues accepting SQL afterwards.
 func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err error) {
@@ -159,10 +142,19 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 	}
 
 	var held []key
+	heldSet := make(map[key]bool)
 	releaseAll := func() {
-		relCtx := context.Background()
+		relCtx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
+		defer cancel()
 		for _, k := range held {
-			_ = r.setHold(relCtx, k, 0)
+			if e := r.setHold(relCtx, k, 0); e != nil {
+				r.mu.Lock()
+				alive := !r.stopping && !r.consumed && r.failure == nil
+				r.mu.Unlock()
+				if alive {
+					r.fail(fmt.Errorf("release snapshot keep hold: %w", e))
+				}
+			}
 		}
 		held = nil
 		r.mu.Lock()
@@ -216,17 +208,16 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 		actCh := r.activityChanged
 		r.mu.Unlock()
 
-		// Hold all currently existing sessions.
-		heldSet := make(map[key]bool, len(held))
-		for _, k := range held {
-			heldSet[k] = true
-		}
+		// Record each session before sending HOLD=1 so that even if ctx is
+		// canceled after the guest applies HOLD=1 (before REPLY arrives),
+		// defer releaseAll() always sends an idempotent HOLD=0 to unblock it.
 		for _, k := range keys {
 			if !heldSet[k] {
+				heldSet[k] = true
+				held = append(held, k)
 				if e := r.setHold(ctx, k, 1); e != nil {
 					return nil, e
 				}
-				held = append(held, k)
 			}
 		}
 

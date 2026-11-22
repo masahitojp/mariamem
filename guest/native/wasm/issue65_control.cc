@@ -200,19 +200,36 @@ struct Manager {
  void stopWriter(){ {std::lock_guard<std::mutex> l(outMu);writerStop=true;outReady.notify_all();}writer.join();}
 };
 extern "C" int issue65_bootstrap(void);
-extern "C" void issue65_shutdown(void);
+extern "C" int issue65_shutdown(int fast_shutdown_mode);
 int main(){
  need(!issue65_bootstrap(),"product fresh/restore bootstrap");
  Manager manager;manager.start();Frame f,stopRequest;bool gotStop=false,capture=false;
+ int shutdownMode=2;
  while(receive(f)){
-  if(f.kind==STOP){gotStop=true;break;}
-  if(f.kind==CAPTURE_STOP){if(manager.captureStop(f)){gotStop=true;capture=true;stopRequest=f;break;}continue;}
+  if(f.kind==STOP){gotStop=true;shutdownMode=(f.value==1||f.value==2)?int(f.value):2;break;}
+  if(f.kind==CAPTURE_STOP){if(manager.captureStop(f)){gotStop=true;capture=true;shutdownMode=1;stopRequest=f;break;}continue;}
   manager.dispatch(f);
  }
- manager.shutdown();issue65_shutdown();
- bool ok=gotStop;
- if(capture)ok=manager.captureComplete(stopRequest);
- manager.emit(manager.frame(DONE,0,{},0,manager.stats()));manager.stopWriter();
- fprintf(stderr,"NATIVE_STOP mode=%s started=%llu joined=%llu cleanup_failed=%u\n",capture?"capture":"ordinary",(unsigned long long)manager.started,(unsigned long long)manager.joined,unsigned(manager.cleanupFailed));
+ manager.shutdown();
+ int shutdownErr=0;
+ bool modeApplied=false;
+ if(gotStop&&!manager.poisoned){
+  if(manager.injectFailure==3){shutdownErr=9;issue65_shutdown(0);}
+  else shutdownErr=issue65_shutdown(shutdownMode);
+  if(shutdownErr!=0){
+   std::lock_guard<std::mutex> l(manager.gate);
+   manager.poisoned=true;
+   if(manager.cause.empty())manager.cause="shutdown_mode_failed";
+  }else{
+   modeApplied=true;
+  }
+ }else{
+  issue65_shutdown(0);
+ }
+ bool ok=gotStop&&!shutdownErr;
+ if(capture)ok=manager.captureComplete(stopRequest)&&!shutdownErr;
+ else if(shutdownErr)manager.emit(manager.frame(POISON,0,{},0,"shutdown_mode_failed"));
+ manager.emit(manager.frame(DONE,0,{},uint64_t(modeApplied?shutdownMode:0),manager.stats()));manager.stopWriter();
+ fprintf(stderr,"NATIVE_STOP mode=%s fast_shutdown=%d mode_applied=%u mode_err=%d started=%llu joined=%llu cleanup_failed=%u\n",capture?"capture":"ordinary",shutdownMode,unsigned(modeApplied),shutdownErr,(unsigned long long)manager.started,(unsigned long long)manager.joined,unsigned(manager.cleanupFailed));
  return ok?0:21;
 }

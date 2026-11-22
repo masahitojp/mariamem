@@ -43,8 +43,6 @@ type Config struct {
 	// RejectCapacity owns and closes a pre-login TCP connection. The host supplies
 	// its existing bounded helper; core never imports the legacy packet decoder.
 	RejectCapacity func(net.Conn)
-	// CleanShutdownOnCapture forces innodb_fast_shutdown=1 before consuming capture.
-	CleanShutdownOnCapture bool
 }
 
 // Backend owns one native instance, not a baseline, fork pool or Live generation.
@@ -57,7 +55,6 @@ type Backend struct {
 	epoch                        uint64
 	limit                        uint64
 	build                        string
-	cleanShutdownOnCapture       bool
 	pending                      map[uint32]chan frame
 	opening                      map[uint32]*session
 	sessions                     map[key]*session
@@ -144,7 +141,7 @@ func Start(ctx context.Context, cfg Config) (*Backend, error) {
 	if err != nil {
 		return nil, err
 	}
-	r := &Backend{owner: New(epoch), epoch: epoch, limit: limit, build: cfg.Build, cleanShutdownOnCapture: cfg.CleanShutdownOnCapture,
+	r := &Backend{owner: New(epoch), epoch: epoch, limit: limit, build: cfg.Build,
 		pending: map[uint32]chan frame{}, opening: map[uint32]*session{}, sessions: map[key]*session{},
 		readyCh: make(chan struct{}), failed: make(chan struct{}), done: make(chan struct{}), executionDone: make(chan struct{}), readDone: make(chan struct{}),
 		approval: make(chan error, 1), operation: make(chan struct{}, 1), stopSent: make(chan struct{}), rejectCapacity: cfg.RejectCapacity,
@@ -348,7 +345,7 @@ func (r *Backend) stopIngress() {
 	}
 }
 func (r *Backend) requestStop() {
-	r.stopOnce.Do(func() { go func() { defer close(r.stopSent); _ = r.send(frame{kind: kindStop}) }() })
+	r.stopOnce.Do(func() { go func() { defer close(r.stopSent); _ = r.send(frame{kind: kindStop, value: 2}) }() })
 }
 func (r *Backend) Failure() error         { r.mu.Lock(); defer r.mu.Unlock(); return r.failure }
 func (r *Backend) Done() <-chan struct{}  { return r.done }

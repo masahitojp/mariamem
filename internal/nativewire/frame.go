@@ -25,6 +25,7 @@ const (
 	kindState          = 107
 	kindStatsReply     = 108
 	kindRejected       = 110
+	kindDone           = 111
 	kindCaptureFence   = 11
 	kindCaptureStop    = 12
 	kindFenced         = 112
