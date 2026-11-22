@@ -470,19 +470,35 @@ func TestShutdownModeFailureActualGuest(t *testing.T) {
 
 			sawPoison := false
 			sawDoneZero := false
-			for {
-				f, err := g.readEnv()
-				if err != nil {
-					break
+			framesDone := make(chan struct{})
+			go func() {
+				defer close(framesDone)
+				for {
+					f, err := g.readEnv()
+					if err != nil {
+						return
+					}
+					if f.kind == 105 && strings.Contains(string(f.body), "shutdown_mode_failed") {
+						sawPoison = true
+					}
+					if f.kind == 111 && f.value == 0 {
+						sawDoneZero = true
+						return
+					}
 				}
-				if f.kind == 105 && strings.Contains(string(f.body), "shutdown_mode_failed") {
-					sawPoison = true
-				}
-				if f.kind == 111 && f.value == 0 {
-					sawDoneZero = true
-				}
+			}()
+			var guestErr error
+			select {
+			case guestErr = <-g.done:
+			case <-time.After(30 * time.Second):
+				t.Fatalf("guest exit timeout, stderr:\n%s", stderr.String())
 			}
-			guestErr := <-g.done
+			_ = childOut.Close()
+			select {
+			case <-framesDone:
+			case <-time.After(5 * time.Second):
+				t.Fatalf("frame reader timeout, stderr:\n%s", stderr.String())
+			}
 			if guestErr == nil {
 				t.Fatalf("expected non-zero guest exit on shutdown mode failure, stderr:\n%s", stderr.String())
 			}
