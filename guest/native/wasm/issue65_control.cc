@@ -41,11 +41,11 @@ struct Session {
  std::mutex io,handle;std::condition_variable changed;
  std::deque<unsigned char> input,output;
  uint64_t received=0,consumed=0,produced=0,sent=0,acked=0,cmdProducedStart=0;
- size_t inputPeak=0,outputPeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false,overflowed=false;
+ size_t inputPeak=0,outputPeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false,overflowed=false,eofDuringResponse=false;
  int error=0;void *thd=nullptr;
  Phase phase=HANDSHAKE;unsigned nativeCommand=0,status=2;uint64_t command=0,executions=0;
  issue65_deadline::Budget deadline;
- bool statePending=true,workerDone=false,joining=false;int result=-1;unsigned netError=0;
+ bool statePending=true,workerDone=false,joining=false,eofResponseGrace=false;Clock::time_point eofResponseAt{};int result=-1;unsigned netError=0;
  std::thread worker;
  Session(Manager *m,uint32_t s,uint64_t g,uint64_t ns):owner(m),slot(s),generation(g),deadline(ns){}
  void closeIO(int err){std::lock_guard<std::mutex> l(io);closed=true;error=err;input.clear();output.clear();changed.notify_all();}
@@ -75,14 +75,14 @@ struct Manager {
  void start(){
   writer=std::thread([this]{writeLoop();});
   killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(killMu);killReady.wait(l,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;s=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(s->handle);if(s->thd)mariamem_spike_kill(s->thd);}mysql_thread_end();});
-  timer=std::thread([this]{std::unique_lock<std::mutex> l(gate);while(!timerStop){progress.wait_for(l,std::chrono::milliseconds(5));if(controlOverflow.exchange(false))poisonLocked("control_queue_overflow");if(poisoned||closing)continue;auto now=Clock::now();for(auto &s:slots)if(s&&s->deadline.expired(now)){if(s->command==0){s->phase=RETIRING;s->deadline.disarm();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);}else{poisonLocked("deadline");break;}}}});
+  timer=std::thread([this]{std::unique_lock<std::mutex> l(gate);while(!timerStop){progress.wait_for(l,std::chrono::milliseconds(5));if(controlOverflow.exchange(false))poisonLocked("control_queue_overflow");if(poisoned||closing)continue;auto now=Clock::now();for(auto &s:slots){if(!s)continue;if(s->eofResponseGrace&&s->phase==EXECUTING&&now-s->eofResponseAt>=std::chrono::milliseconds(200)){poisonLocked("unexpected_peer_eof");break;}if(s->deadline.expired(now)){if(s->command==0){s->phase=RETIRING;s->deadline.disarm();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);}else{poisonLocked("deadline");break;}}}}});
   reaper=std::thread([this]{reapLoop();});
   emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":3,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
  }
  bool admit(Session *raw){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing){++denied;raw->closeIO(ECANCELED);return false;}need(s->phase==IDLE,"admit only idle");s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline.arm(Clock::now());state(s);return true;}
  int finish(Session *raw,unsigned status,bool retire){
   std::shared_ptr<Session>s;
-  {std::lock_guard<std::mutex> l(gate);s=slots[raw->slot];if(!s||s.get()!=raw||poisoned||closing||s->overflowed)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(s->io);inputEOF=s->inputEOF;}
+  {std::lock_guard<std::mutex> l(gate);s=slots[raw->slot];if(!s||s.get()!=raw||poisoned||closing||s->overflowed)return 1;s->eofResponseGrace=false;bool inputEOF;{std::lock_guard<std::mutex> q(s->io);s->eofDuringResponse=false;inputEOF=s->inputEOF;}
    if(retire&&inputEOF&&s->phase==RECEIVING&&s->nativeCommand!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}
    if(retire&&inputEOF){s->phase=RETIRING;s->deadline.disarm();state(s);return 0;}
    s->phase=FLUSHING;state(s);}
@@ -96,7 +96,7 @@ struct Manager {
   if(kind==AUTH_COMPLETE)return finish(raw,status,false);
   if(kind==COMMAND_COMPLETE||kind==CONNECTION_COMPLETE)return finish(raw,status,kind==CONNECTION_COMPLETE);
   if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing||raw->overflowed)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
-  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing||raw->overflowed)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
+  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing||raw->overflowed)return 1;raw->eofResponseGrace=false;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);raw->eofDuringResponse=false;inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
   return 0;
  }
  static int eventCb(void *p,int e,void *thd,unsigned st){auto *s=(Session*)p;return s->owner->event(s,e,thd,st);}
@@ -105,7 +105,7 @@ struct Manager {
   if(s->armed){s->armed=false;if(s->hold){l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->emit(s->owner->frame(REPLY,0,s->owner->slots[s->slot],s->command,"admit_wait"));}l.lock();s->changed.wait(l,[&]{return s->closed||!s->hold;});if(s->closed)return size_t(-1);}l.unlock();if(!s->owner->admit(s))return size_t(-1);l.lock();if(s->closed)return size_t(-1);}
   n=std::min({n,s->input.size(),CHUNK});for(size_t i=0;i<n;++i){to[i]=s->input.front();s->input.pop_front();}s->consumed+=n;s->creditPending=true;l.unlock();s->owner->outReady.notify_all();return n;
  }
- static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->produced-s->acked<OUTPUT_LIMIT;});if(s->closed)return size_t(-1);n=std::min({n,size_t(OUTPUT_LIMIT-(s->produced-s->acked)),CHUNK});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->outReady.notify_all();return n;}
+ static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->eofDuringResponse||s->produced-s->acked<OUTPUT_LIMIT;});if(s->closed)return size_t(-1);if(s->eofDuringResponse&&n>0){s->closed=true;s->error=EPIPE;s->changed.notify_all();l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->poisonLocked("peer_output_error");}return size_t(-1);}n=std::min({n,size_t(OUTPUT_LIMIT-(s->produced-s->acked)),CHUNK});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->outReady.notify_all();return n;}
  static int errorCb(void *p){auto *s=(Session*)p;std::lock_guard<std::mutex> l(s->io);return s->error?s->error:EIO;}
  static void closeCb(void *p){((Session*)p)->closeIO(ECANCELED);}
  static int waitCb(void *p,int kind,int ms){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);auto ready=[&]{return s->closed||(kind==0?(s->inputEOF||!s->input.empty()):s->produced-s->acked<OUTPUT_LIMIT);};if(ms<0)s->changed.wait(l,ready);else if(!s->changed.wait_for(l,std::chrono::milliseconds(ms),ready)){s->error=ETIMEDOUT;return 0;}return s->closed?-1:1;}
@@ -151,9 +151,9 @@ struct Manager {
  void poisonLockedAfterIO(const std::shared_ptr<Session>&,const std::lock_guard<std::mutex>&){pendingPoison="input_offset";}
  void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}outReady.notify_all();}
  void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||s->overflowed||(fenced&&captureID))return;
-  bool responseSent=false;{std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;responseSent=s->sent>s->cmdProducedStart;s->changed.notify_all();}
+  bool responseSent=false;{std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;responseSent=s->sent>s->cmdProducedStart;if(!f.value&&!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)&&responseSent)s->eofDuringResponse=true;s->changed.notify_all();}
   if(f.value){if(s->command&&s->phase!=IDLE){poisonLocked("peer_output_error");return;}s->phase=RETIRING;s->deadline.disarm();s->closeIO(ECANCELED);scheduleKill(s);state(s);return;}
-  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)&&!responseSent)poisonLocked("unexpected_peer_eof");
+  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)){if(!responseSent)poisonLocked("unexpected_peer_eof");else{s->eofResponseGrace=true;s->eofResponseAt=Clock::now();progress.notify_all();}}
  }
  void tryCapture(const Frame &f){std::lock_guard<std::mutex> l(gate);
   if(f.epoch!=epoch||!f.value||f.generation>1){emit(frame(REJECTED,f.request,{},5,"capture_identity"));return;}

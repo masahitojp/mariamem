@@ -28,9 +28,3 @@ type Service interface {
 	DisposalComplete() bool
 	CaptureDebt() error
 }
-
-func (s *Server) Done() <-chan struct{} { return s.Guest.Done() }
-func (s *Server) RuntimePID() int       { return s.Guest.PID() }
-func (s *Server) CaptureDebt() error    { return nil }
-
-var _ Service = (*Server)(nil)

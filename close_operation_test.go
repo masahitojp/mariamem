@@ -358,7 +358,7 @@ func TestCloseResultSurvivesLateDisposal(t *testing.T) {
 // Keep the real producer from silently falling back to synchronous-only Close.
 var _ interface {
 	CloseWithStopped(context.Context, func(error)) error
-} = (*host.Server)(nil)
+} = (*host.Native)(nil)
 
 func TestPublicCloseAsyncHandle(t *testing.T) {
 	b := newStagedClose()

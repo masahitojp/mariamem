@@ -28,16 +28,33 @@ def descriptor(root, lock):
         if entry['sha256'] != value[key + '_archive_sha256']:
             raise ValueError('guest source archive mismatch: ' + key)
     for patch in value['patches']:
-        name = safe_relative(patch['file'])
-        if not name.startswith('guest/patches/') or digest(root / name) != patch['sha256']:
-            raise ValueError('guest patch identity mismatch: ' + name)
-        text = (root / name).read_text()
-        files = re.findall(r'^\+\+\+ b/(.+)$', text, re.M)
-        if not files or set(files) != set(patch['before_sha256']) or set(files) != set(patch['after_sha256']):
-            raise ValueError('guest patch file inventory differs: ' + name)
-        for file in files:
-            safe_relative(file)
+        _validate_patch(root, patch)
+    if 'native_wire_patch' in value:
+        _validate_patch(root, value['native_wire_patch'])
+    if 'native_glue_manifest' in value:
+        gm = value['native_glue_manifest']
+        name = safe_relative(gm['file'])
+        if name != 'guest/native/manifest.json' or digest(root / name) != gm['sha256']:
+            raise ValueError('native glue manifest identity mismatch: ' + name)
+        glue_spec = json.loads((root / name).read_text())
+        for dest, ref in glue_spec.get('files', {}).items():
+            safe_relative(dest)
+            src_name = safe_relative(ref['file'])
+            if not src_name.startswith('guest/native/') or digest(root / src_name) != ref['sha256']:
+                raise ValueError('native glue file identity mismatch: ' + dest)
     return value
+
+
+def _validate_patch(root, patch):
+    name = safe_relative(patch['file'])
+    if not name.startswith('guest/patches/') or digest(root / name) != patch['sha256']:
+        raise ValueError('guest patch identity mismatch: ' + name)
+    text = (root / name).read_text()
+    files = re.findall(r'^\+\+\+ b/(.+)$', text, re.M)
+    if not files or set(files) != set(patch['before_sha256']) or set(files) != set(patch['after_sha256']):
+        raise ValueError('guest patch file inventory differs: ' + name)
+    for file in files:
+        safe_relative(file)
 
 
 def apply_series(root, source, value):

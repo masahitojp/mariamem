@@ -13,13 +13,25 @@ import (
 	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/generatedgo"
-	"github.com/masahitojp/mariamem/internal/mysqlwire"
 	"github.com/masahitojp/mariamem/internal/nativewire"
 	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
+
+// Rejected is a typed non-fatal precondition rejection surfaced to public callers.
+type Rejected struct {
+	Code    string
+	Message string
+}
+
+func (e *Rejected) Error() string { return e.Message }
+
+// StartGenerated starts the compiled generated-Go guest over the B1 native wire contract.
+func StartGenerated(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr io.Writer) (Service, error) {
+	return StartNativeGenerated(ctx, restore, timeout, stderr)
+}
 
 // Native connects one opaque native core to the existing owner service. It owns
 // neither a fork pool nor Live generations. Runtime construction stays injected.
@@ -60,7 +72,7 @@ func startNative(ctx context.Context, restore *snapshot.Owned, timeout time.Dura
 			return nil, e
 		}
 	}
-	b, e := nativewire.Start(ctx, nativewire.Config{Runner: runner, Build: build, Restore: entries, QueryTimeout: timeout, Stderr: stderr, RejectCapacity: mysqlwire.RejectCapacity, CleanShutdownOnCapture: true})
+	b, e := nativewire.Start(ctx, nativewire.Config{Runner: runner, Build: build, Restore: entries, QueryTimeout: timeout, Stderr: stderr, RejectCapacity: RejectCapacity, CleanShutdownOnCapture: true})
 	if e != nil {
 		return nil, disposal.After(e, func() error { release(); return nil })
 	}
