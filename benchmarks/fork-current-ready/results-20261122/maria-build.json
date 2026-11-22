@@ -1,0 +1,10 @@
+{
+  "source": {
+    "object_sha": "3831bd3c9cfa82931b0ae6956ac3dbdb9ffa9d3d",
+    "object_type": "commit",
+    "source_commit": "3831bd3c9cfa82931b0ae6956ac3dbdb9ffa9d3d"
+  },
+  "harness": "10665616ba6f00d72b5563158a50bfb7cb2305d2",
+  "sha256": "5c12426b66db59547c7f65a170b6ff2a94451b48fff9e8fffdac1d56f8888f95",
+  "go": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/fork-current-ready/temp/maria.test: go1.27.4\n\tpath\tgithub.com/shibukawa/pgmem/bench/modelcase/store.test\n\tmod\tgithub.com/shibukawa/pgmem/bench/modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.10.1\th1:arlSnNLq6a5yxGxV7qg9lF4j0C+KwD6NbQyKr9QL6ME=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/fork-current-ready/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}
