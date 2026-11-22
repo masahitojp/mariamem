@@ -1,0 +1,54 @@
+// Each startup record is registered against the module executing the guest.
+type forkPhaseEvent struct {
+	ID int `json:"id"`
+	Name string `json:"name,omitempty"`
+	StartNS int64 `json:"start_ns"`
+	EndNS int64 `json:"end_ns"`
+}
+
+type forkPhaseRecord struct {
+	mu sync.Mutex
+	origin time.Time
+	events []forkPhaseEvent
+}
+
+var forkPhaseRecords sync.Map
+
+func RecordForkPhases(m *Module) (func() []forkPhaseEvent, func()) {
+	record := &forkPhaseRecord{origin: time.Now()}
+	forkPhaseRecords.Store(m, record)
+	finish := func() { forkPhaseRecords.Delete(m) }
+	snapshot := func() []forkPhaseEvent {
+		finish()
+		record.mu.Lock()
+		defer record.mu.Unlock()
+		return append([]forkPhaseEvent(nil), record.events...)
+	}
+	return snapshot, finish
+}
+
+func MeasureForkPhase(m *Module, id int) func() {
+	value, ok := forkPhaseRecords.Load(m)
+	if !ok { return func() {} }
+	record := value.(*forkPhaseRecord)
+	start := time.Since(record.origin).Nanoseconds()
+	return func() {
+		end := time.Since(record.origin).Nanoseconds()
+		record.mu.Lock()
+		record.events = append(record.events, forkPhaseEvent{ID: id, StartNS: start, EndNS: end})
+		record.mu.Unlock()
+	}
+}
+
+func MarkEmbeddedStartup(m *Module, pointer int32) {
+	value, ok := forkPhaseRecords.Load(m)
+	if !ok { return }
+	record := value.(*forkPhaseRecord)
+	now := time.Since(record.origin).Nanoseconds()
+	var wasi WasiStubs
+	name, valid := wasi.readCStr(m, pointer)
+	if !valid || name == "" { panic("invalid embedded startup marker") }
+	record.mu.Lock()
+	record.events = append(record.events, forkPhaseEvent{Name: name, StartNS: now, EndNS: now})
+	record.mu.Unlock()
+}

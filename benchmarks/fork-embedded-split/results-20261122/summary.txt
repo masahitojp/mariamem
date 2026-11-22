@@ -1,0 +1,42 @@
+server_ms 15.5335 14.7754 15.8493
+embedded_ms 15.323 14.4752 15.6333
+innodb_ms 4.5569 4.2982 4.638
+aria_ms 2.1971 2.0852 2.3068
+embedded_outside_engines_ms 8.4871 8.0794 8.5466
+embedded.entry → embedded_begin 0.0002 0.0001 0.0002
+embedded.entry → embedded_begin excl InnoDB+Aria 0.0002 0.0001 0.0002
+embedded_begin → embedded_options_complete 4.1434 3.9774 4.2558
+embedded_begin → embedded_options_complete excl InnoDB+Aria 4.1434 3.9774 4.2558
+embedded_options_complete → components_begin 0.0009 0.0007 0.0011
+embedded_options_complete → components_begin excl InnoDB+Aria 0.0009 0.0007 0.0011
+components_begin → myisam_key_cache_begin 0.0391 0.0344 0.0425
+components_begin → myisam_key_cache_begin excl InnoDB+Aria 0.0391 0.0344 0.0425
+myisam_key_cache_begin → myisam_key_cache_complete 1.4517 1.3995 1.5092
+myisam_key_cache_begin → myisam_key_cache_complete excl InnoDB+Aria 1.4517 1.3995 1.5092
+myisam_key_cache_complete → plugins_begin 0.0284 0.0265 0.0303
+myisam_key_cache_complete → plugins_begin excl InnoDB+Aria 0.0284 0.0265 0.0303
+plugins_begin → plugins_complete 8.6698 8.0309 8.8055
+plugins_begin → plugins_complete excl InnoDB+Aria 1.8087 1.6841 1.8649
+plugins_complete → ddl_recovery_complete 0.2103 0.1977 0.2146
+plugins_complete → ddl_recovery_complete excl InnoDB+Aria 0.2103 0.1977 0.2146
+ddl_recovery_complete → embedded_complete 0.7238 0.6879 0.7383
+ddl_recovery_complete → embedded_complete excl InnoDB+Aria 0.7238 0.6879 0.7383
+embedded_complete → embedded.return 0.0003 0.0002 0.0003
+embedded_complete → embedded.return excl InnoDB+Aria 0.0003 0.0002 0.0003
+option_functions_ms 0.1182 0.1113 0.1203
+early_outside_option_functions_ms 4.0269 3.8645 4.135
+5749 mysql_server_init 15.5335 14.7754 15.8493
+5583 init_embedded_server 15.323 14.4752 15.6333
+5434 _ZL13ha_maria_initPv 2.1971 2.0852 2.3068
+18602 _ZL11innodb_initPv 4.5569 4.2982 4.638
+4170 my_load_defaults 0.0273 0.0249 0.0283
+4178 handle_options 0.3376 0.3152 0.341
+14538 _Z18process_key_cachesPFiPKcP12st_key_cachePvES3_ 1.4505 1.3985 1.508
+4245 init_key_cache 1.449 1.3967 1.5063
+14768 _ZL17plugin_initializeP11st_mem_rootP13st_plugin_intPiPPcb 8.5732 7.941 8.714
+14769 _ZL20plugin_do_initializeP13st_plugin_intRj 7.6577 7.0965 7.7809
+14770 _ZL10plugin_addP11st_mem_rootbPK25st_mysql_const_lex_stringPS1_m 0.0 0.0 0.0
+13514 _Z20open_and_lock_tablesP3THDRK14DDL_options_stP10TABLE_LISTbjP19Prelocking_strategy 0.0461 0.0438 0.0494
+15242 _Z14servers_reloadP3THD 0.0379 0.0357 0.0405
+13044 _Z16init_read_recordP11READ_RECORDP3THDP5TABLEP10SQL_SELECTP9SORT_INFOibb 0.0 0.0 0.0
+21001 _Z26finalize_encryption_pluginPv 0.0003 0.0003 0.0003

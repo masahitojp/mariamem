@@ -1,0 +1,43 @@
+kind,phase,median_ms,min_ms,max_ms,min_trial_median_ms,max_trial_median_ms
+marker,server_ms,15.5335205,13.920167,18.702583,14.775375,15.849334
+marker,embedded_ms,15.323,13.723917,18.500375,14.475167,15.633291
+marker,innodb_ms,4.556875,4.028875,5.824875,4.298167,4.637958
+marker,aria_ms,2.1971455,1.946041,3.903375,2.085167,2.306833
+marker,embedded_outside_engines_ms,8.487147,7.4770829999999995,11.487790999999998,8.079376,8.546584
+marker,embedded.entry → embedded_begin,0.000167,4.1e-05,0.011208,0.000125,0.000208
+marker,embedded.entry → embedded_begin excl InnoDB+Aria,0.000167,4.1e-05,0.011208,0.000125,0.000208
+marker,embedded_begin → embedded_options_complete,4.1434165,3.579292,5.139916,3.977375,4.255833
+marker,embedded_begin → embedded_options_complete excl InnoDB+Aria,4.1434165,3.579292,5.139916,3.977375,4.255833
+marker,embedded_options_complete → components_begin,0.0009375,0.000416,0.004042,0.000667,0.001125
+marker,embedded_options_complete → components_begin excl InnoDB+Aria,0.0009375,0.000416,0.004042,0.000667,0.001125
+marker,components_begin → myisam_key_cache_begin,0.0390625,0.029333,0.052791,0.034416,0.042541
+marker,components_begin → myisam_key_cache_begin excl InnoDB+Aria,0.0390625,0.029333,0.052791,0.034416,0.042541
+marker,myisam_key_cache_begin → myisam_key_cache_complete,1.451729,1.287333,1.705125,1.3995,1.509208
+marker,myisam_key_cache_begin → myisam_key_cache_complete excl InnoDB+Aria,1.451729,1.287333,1.705125,1.3995,1.509208
+marker,myisam_key_cache_complete → plugins_begin,0.028396,0.016459,0.26475,0.026458,0.030334
+marker,myisam_key_cache_complete → plugins_begin excl InnoDB+Aria,0.028396,0.016459,0.26475,0.026458,0.030334
+marker,plugins_begin → plugins_complete,8.66975,7.517208,10.803875,8.030916,8.8055
+marker,plugins_begin → plugins_complete excl InnoDB+Aria,1.808709,1.531459,4.002333999999999,1.6841249999999999,1.8649159999999991
+marker,plugins_complete → ddl_recovery_complete,0.21027099999999999,0.171667,1.366875,0.197709,0.214583
+marker,plugins_complete → ddl_recovery_complete excl InnoDB+Aria,0.21027099999999999,0.171667,1.366875,0.197709,0.214583
+marker,ddl_recovery_complete → embedded_complete,0.7238335,0.621125,2.191541,0.687916,0.738333
+marker,ddl_recovery_complete → embedded_complete excl InnoDB+Aria,0.7238335,0.621125,2.191541,0.687916,0.738333
+marker,embedded_complete → embedded.return,0.00025,8.3e-05,0.002125,0.000208,0.00025
+marker,embedded_complete → embedded.return excl InnoDB+Aria,0.00025,8.3e-05,0.002125,0.000208,0.00025
+marker,option_functions_ms,0.1181875,0.100208,0.133541,0.111292,0.120291
+marker,early_outside_option_functions_ms,4.026875,3.477834,5.013791,3.8645419999999997,4.134957
+function,5749 mysql_server_init,15.5335205,13.920167,18.702583,14.775375,15.849334
+function,5583 init_embedded_server,15.323,13.723917,18.500375,14.475167,15.633291
+function,5434 _ZL13ha_maria_initPv,2.1971455,1.946041,3.903375,2.085167,2.306833
+function,18602 _ZL11innodb_initPv,4.556875,4.028875,5.824875,4.298167,4.637958
+function,4170 my_load_defaults,0.0272705,0.022834,0.040084,0.024917,0.028333
+function,4178 handle_options,0.3376255,0.296333,0.692668,0.315209,0.341041
+function,14538 _Z18process_key_cachesPFiPKcP12st_key_cachePvES3_,1.4505415,1.286458,1.703791,1.398458,1.508
+function,4245 init_key_cache,1.448979,1.284875,1.701208,1.396709,1.506292
+function,14768 _ZL17plugin_initializeP11st_mem_rootP13st_plugin_intPiPPcb,8.573248,7.423708,10.701166,7.940954,8.714
+function,14769 _ZL20plugin_do_initializeP13st_plugin_intRj,7.6577285,6.641832,9.404915,7.096538,7.780873
+function,14770 _ZL10plugin_addP11st_mem_rootbPK25st_mysql_const_lex_stringPS1_m,0.0,0.0,0.0,0.0,0.0
+function,13514 _Z20open_and_lock_tablesP3THDRK14DDL_options_stP10TABLE_LISTbjP19Prelocking_strategy,0.0461465,0.036916,0.312791,0.043791,0.049416
+function,15242 _Z14servers_reloadP3THD,0.0379165,0.03,0.125875,0.035708,0.0405
+function,13044 _Z16init_read_recordP11READ_RECORDP3THDP5TABLEP10SQL_SELECTP9SORT_INFOibb,0.0,0.0,0.0,0.0,0.0
+function,21001 _Z26finalize_encryption_pluginPv,0.00025,4.2e-05,0.001459,0.00025,0.000333
