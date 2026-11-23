@@ -13,6 +13,8 @@ import platform
 import shutil
 import subprocess
 import sys
+from urllib.error import HTTPError
+from urllib.parse import urlsplit
 import urllib.request
 from common import ROOT, digest, extract
 from install_guest_toolchain import inventory
@@ -26,12 +28,20 @@ def download(pin, directory):
     directory.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         pending = path.with_suffix('.partial')
+        url = pin['url']
+        origin = urlsplit(url).hostname
+        print(f'Downloading {path.name} from {origin}', file=sys.stderr, flush=True)
         try:
-            with urllib.request.urlopen(pin['url'], timeout=180) as src, pending.open('wb') as dst:
+            with urllib.request.urlopen(url, timeout=180) as src, pending.open('wb') as dst:
                 shutil.copyfileobj(src, dst)
             if digest(pending) != pin['sha256']:
                 raise ValueError('download checksum mismatch: ' + pin['file'])
             pending.replace(path)
+        except HTTPError as error:
+            responder = urlsplit(error.geturl()).hostname or origin
+            raise RuntimeError(
+                f'Could not download {path.name} from {origin} (HTTP {error.code} from {responder})'
+            ) from error
         finally:
             pending.unlink(missing_ok=True)
     if digest(path) != pin['sha256']:

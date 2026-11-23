@@ -111,6 +111,24 @@ def test_translation_binds_guest_converter_patches_and_complete_inventory(tmp_pa
     with pytest.raises(ValueError,match='stale/mixed'):dev.verify_translation(root,out,record['guest_sha256'])
 
 
+def test_guest_download_failure_reports_archive_and_responding_host(tmp_path, monkeypatch, capsys):
+    from urllib.error import HTTPError
+    import build_generated_guest as builder
+
+    pin = {'file': 'toolchain.tar.xz', 'url': 'https://origin.example/toolchain.tar.xz', 'sha256': 'a' * 64}
+
+    def forbidden(url, *, timeout):
+        assert url == pin['url']
+        raise HTTPError('https://assets.example/toolchain.tar.xz?signature=secret', 403, 'Forbidden', {}, None)
+
+    monkeypatch.setattr(builder.urllib.request, 'urlopen', forbidden)
+    with pytest.raises(RuntimeError, match=r'toolchain.tar.xz from origin.example .*HTTP 403 from assets.example') as failure:
+        builder.download(pin, tmp_path)
+    assert 'signature' not in str(failure.value)
+    assert 'Downloading toolchain.tar.xz from origin.example' in capsys.readouterr().err
+    assert list(tmp_path.iterdir()) == []
+
+
 def test_partial_generation_never_emits_success_or_canonical_output(guest,tmp_path,monkeypatch):
     root,directory,record=guest
     import build_feedback,build_generated_guest
