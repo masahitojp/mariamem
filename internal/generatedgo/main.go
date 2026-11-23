@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/entropyfs"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"github.com/masahitojp/mariamem/internal/timing"
@@ -52,13 +53,13 @@ func (f entropyFS) OpenFile(name string, flags int, mode os.FileMode) (base.File
 		if flags != os.O_RDONLY {
 			return nil, os.ErrPermission
 		}
-		return os.Open("/" + strings.TrimPrefix(name, "/"))
+		return entropyfs.Open("/" + strings.TrimPrefix(name, "/"))
 	}
 	return f.MemFS.OpenFile(name, flags, mode)
 }
 func (f entropyFS) Stat(name string) (os.FileInfo, error) {
 	if entropyPath(name) {
-		return os.Stat("/" + strings.TrimPrefix(name, "/"))
+		return entropyfs.Stat("/" + strings.TrimPrefix(name, "/"))
 	}
 	return f.MemFS.Stat(name)
 }

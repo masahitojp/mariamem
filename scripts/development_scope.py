@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_SCOPES = {
     ".github/workflows/additional-v062-build.yml": "python",
     ".github/workflows/linux-wheel.yml": "python",
+    ".github/workflows/windows-boundary.yml": "python",
     ".github/workflows/prepared-output-installed.yml": "python",
     ".github/workflows/prepared-output-product.yml": "python",
     ".github/workflows/prepared-output-acceptance.yml": "python",
@@ -76,6 +77,8 @@ TOOLING = {
     '.agents/skills/release/SKILL.md',
     '.agents/skills/experiment-workspace/SKILL.md',
     '.agents/skills/review/SKILL.md',
+    '.agents/skills/create-issue/SKILL.md',
+    '.agents/skills/polish-issue/SKILL.md',
 }
 # Only already-owned non-real-host suites are runtime-free. New test files are
 # unknown until deliberately assigned a responsibility, even if named .py.

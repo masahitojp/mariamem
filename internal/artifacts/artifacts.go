@@ -27,6 +27,16 @@ func ValidatePlatform(ctx context.Context) error {
 }
 
 func currentTarget(ctx context.Context) (string, int, error) {
+	if runtime.GOOS == "windows" {
+		if err := ctx.Err(); err != nil {
+			return "", 0, err
+		}
+		identity, build, err := windowsTarget()
+		if err != nil {
+			err = diagnostic.Wrap("unsupported_platform", "platform", err)
+		}
+		return identity, build, err
+	}
 	if runtime.GOOS == "linux" {
 		if err := platformContextError(ctx); err != nil {
 			return "", 0, err
@@ -34,7 +44,7 @@ func currentTarget(ctx context.Context) (string, int, error) {
 		return linuxTarget(runtime.GOARCH, os.Getpagesize())
 	}
 	if runtime.GOOS != "darwin" || runtime.GOARCH != "arm64" {
-		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 or Linux x86_64/aarch64; got %s-%s. Run on a supported platform with its matching generated-Go package", runtime.GOOS, runtime.GOARCH))
+		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 Linux x86_64/aarch64, or Windows build 22000+ amd64/arm64; got %s-%s. Run on a supported platform with its matching generated-Go package", runtime.GOOS, runtime.GOARCH))
 	}
 	return readMacOS(ctx)
 }

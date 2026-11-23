@@ -1,6 +1,9 @@
 """Opt-in observations/env for existing commands, never qualification or a cache manager."""
 import errno
-import fcntl
+try:
+    import fcntl
+except ImportError:  # Windows observations use the existing subprocess fallback.
+    fcntl = None
 import hashlib
 import json
 import os
@@ -144,8 +147,19 @@ def _append(path, record):
             raise ValueError('phase trace must be an absolute path')
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open('a') as stream:
-            fcntl.flock(stream, fcntl.LOCK_EX)
-            stream.write(json.dumps(record, sort_keys=True)+'\n')
+            if fcntl is not None:
+                fcntl.flock(stream, fcntl.LOCK_EX)
+                stream.write(json.dumps(record, sort_keys=True)+'\n')
+            else:
+                import msvcrt
+                stream.seek(0)
+                msvcrt.locking(stream.fileno(), msvcrt.LK_LOCK, 1)
+                try:
+                    stream.write(json.dumps(record, sort_keys=True)+'\n')
+                    stream.flush()
+                finally:
+                    stream.seek(0)
+                    msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
     except (OSError, ValueError, TypeError) as exc:
         # Diagnostic write failure must not replace the command's result.
         print('phase observation unavailable: '+str(exc), file=sys.stderr)

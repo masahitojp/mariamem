@@ -7,7 +7,6 @@ import (
 	"github.com/masahitojp/mariamem/internal/disposal"
 	"os"
 	"path/filepath"
-	"syscall"
 )
 
 // Each child owns its tree, descriptors, offsets and private writable views.
@@ -46,7 +45,7 @@ func MapPreparedFiles(fsys *MemFS, dir, prefix string) (*PreparedFiles, error) {
 		}
 		var data []byte
 		if st.Size() > 0 {
-			data, err = syscall.Mmap(int(f.Fd()), 0, int(st.Size()), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE)
+			data, err = mapPreparedMemory(int(f.Fd()), int(st.Size()), false)
 			if err != nil {
 				return err
 			}
@@ -74,7 +73,7 @@ func (p *PreparedFiles) Close() error {
 	if p == nil {
 		return nil
 	}
-	return p.closeWith(syscall.Munmap)
+	return p.closeWith(unmapPreparedMemory)
 }
 func (p *PreparedFiles) closeWith(unmap func([]byte) error) error {
 	var result error

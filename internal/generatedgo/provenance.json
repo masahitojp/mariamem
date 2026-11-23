@@ -4,7 +4,7 @@
   "files_sha256": {
     "code/alias.go": "4abb28d8625f065cfafdf93e170c194a3033ffe4c1fc3edf3c899ebf4f9ace80",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "code/base/base.go": "31e6d8586b5bdb2d6cb093c8d2f72c1e5139531032aa38911b1e888ed7f14db4",
+    "code/base/base.go": "cc8b6f802ca934756f2096cc2784afd68e903742de97f62f552abd2d8c43747a",
     "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
@@ -12,7 +12,7 @@
     "code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
     "code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
     "code/base/memfs_growth_test.go": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
-    "code/base/prepared_files.go": "0a33cc6234186d737d03900bbdddfe410cd0edd095ef18fcffaf1ca823790e34",
+    "code/base/prepared_files.go": "122aeee3857e41db27ad5692ee7cab80ad63c8ec3535d2acaebf809245071443",
     "code/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
     "code/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
     "code/base/relative.go": "a5c100e135a04b93b76b36b9c80cc14645950f6fab34abf6655b13cdf02ca15a",
@@ -64,7 +64,7 @@
     "entry.go": "c617b18dac59463e9a1fa27600a5e6e13453606dd60ffc3e265752eace83484e",
     "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
     "guest_identity.go": "20adf8ed5a00b01f524692220a2e605a148dad15f6e651c2daac358aa60106d7",
-    "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
-    "image/layout.json": "88a0d613892654caf76003a011ea92e85b76f59cd8b5baf67eef5879dffd2283"
+    "main.go": "c328d54f802c55dd0cd12554f8879d80b59fe50250ce2dfb1075ab4080a09e5e",
+    "image/layout.json": "3cc0a903b08c75edd48117a33a0f4ba1381e689b074569e35898a287589bf0fb"
   }
 }

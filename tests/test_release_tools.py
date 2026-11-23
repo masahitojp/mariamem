@@ -59,9 +59,10 @@ class PublicationBoundary(unittest.TestCase):
     def test_experiment_skill_excluded_without_broadening_agent_allowlist(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            skill = root / '.agents/skills/experiment-workspace/SKILL.md'
-            skill.parent.mkdir(parents=True)
-            skill.write_text('repository workflow')
+            for name in ('experiment-workspace', 'review', 'create-issue', 'polish-issue'):
+                skill = root / f'.agents/skills/{name}/SKILL.md'
+                skill.parent.mkdir(parents=True, exist_ok=True)
+                skill.write_text('repository workflow')
             (root / 'LICENSE').write_text('project license')
             self.assertEqual(list(check_public.check(root)['files']), ['LICENSE'])
             (skill.parent / 'unknown.txt').write_text('private scratch')
