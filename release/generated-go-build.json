@@ -516,9 +516,9 @@
   "local_generated_go_replay": {
     "result": "PASS",
     "generated_and_owned_files": 136,
-    "inventory_sha256": "2ef560fac530f6188b995b08c46010a2237dff9370036d146b622e7265632adb",
-    "generated_provenance_sha256": "7d34fb2641c83d1df5731ae2e5b8901d986425b336680069a7a4054cc9ba50ea",
-    "second_converter_manifest_sha256": "ce6bb903160f17b42707defcf2c79d8b12e01c999ad302508334447bf8e95267",
+    "inventory_sha256": "fbef57428fa4a40df34998c0a2f5e7357b1dd633f85f3b9fd933052b00820c35",
+    "generated_provenance_sha256": "e0fec5067c0e24bafd702fc3064824de71652fdebdb77a44a4c1fa55c50ba63d",
+    "second_converter_manifest_sha256": "d64ec9abe39c5d3650de724835bac733176068592ddec13deeed26e94bae9d3e",
     "memory32_cases": 2472,
     "memory32_expected_traps": 1693
   }
