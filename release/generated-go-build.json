@@ -1,12 +1,12 @@
 {
   "compiled_guest_source_scope": "MariaDB 12.3.4 B1 native-wire guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
-  "guest_sha256": "3642b53e086587261a20b30b231ae3aa1bdd6a3c053f84af547adfafba6263cb",
+  "guest_sha256": "d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.4",
       "native_glue_manifest": {
         "file": "guest/native/manifest.json",
-        "sha256": "cda68ab938db9b59b8d9487d64531abf4f6688a0c9244b209f6d8c6f5bf6ec74"
+        "sha256": "a0d72f621c3f438435419eae5a1325535b8722144bb47a362dd5453608ebcd84"
       },
       "native_wire_patch": {
         "after_sha256": {
@@ -211,7 +211,7 @@
       "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
       "wasm/CMakeLists.txt": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "wasm/issue65_control.cc": "61348e067c608aaffd34fc520a8243a8fb1b585acf281c697e63da32c1f9c9dd",
+      "wasm/issue65_control.cc": "b0a5563777e98d012093147ce1c6b9b11ead4a5acee7f3920c20e9aef2eb8516",
       "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
       "wasm/lite4mariadb.c": "a06c09664ea82092976aba09286de2eb05de167cf347f114e3434d3812662d2d",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
@@ -235,7 +235,7 @@
       },
       "wasm/issue65_control.cc": {
         "file": "guest/native/wasm/issue65_control.cc",
-        "sha256": "61348e067c608aaffd34fc520a8243a8fb1b585acf281c697e63da32c1f9c9dd"
+        "sha256": "b0a5563777e98d012093147ce1c6b9b11ead4a5acee7f3920c20e9aef2eb8516"
       },
       "wasm/issue65_deadline.h": {
         "file": "guest/native/wasm/issue65_deadline.h",
@@ -284,7 +284,7 @@
       "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "input.json": "2f9fd9838ae32513acc07950c5d02c54474be3411c9c7ccdec4b62846f48a930",
+      "input.json": "c4816528743b848cd3a9b14ae3c2ca2a4518b74cc3f348fe8f661f8cc10fdfbd",
       "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "59ae2e658478cfe03a67587f74b51103ba9917b1a0f295b2bb7d230dd6c736e9",
@@ -473,9 +473,9 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "c041a2547d2d29f1b11f775f5e4d669386bab1cc",
-  "guest_size": 21985786,
-  "linked_guest_sha256": "f5f283e7e9ba43f0abb2cbec18884233f09649c5c23032b6e5bab21e1861330a",
+  "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
+  "guest_size": 21986494,
+  "linked_guest_sha256": "bf2fc606846e6fd11e86227fcd8e1200033da9e3ed881e7dcd6521223af63b59",
   "repetitions": 1,
   "completed": true,
   "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
@@ -497,7 +497,7 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "c041a2547d2d29f1b11f775f5e4d669386bab1cc",
+    "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
     "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."
