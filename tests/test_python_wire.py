@@ -264,9 +264,14 @@ def test_compressed_multi_command_enforces_query_timeout_on_second_command(wire_
             _, ok = _read_mysql_packet(sock)
             assert ok and ok[0] == 0x00
 
-            # Pack TWO COM_QUERY packets into ONE compressed frame so the 2nd
-            # is served from net->remain_in_buf without calling VIO readCb.
-            raw = _pipeline_frame("SELECT 1") + _pipeline_frame("SELECT SLEEP(5)")
+            # Pack COM_STMT_CLOSE (no server reply, so net_flush does not overwrite
+            # net->buff) + COM_QUERY(SELECT SLEEP(5)) into ONE compressed frame.
+            # MariaDB extracts the 2nd command from net->remain_in_buf without
+            # calling VIO readCb; EXECUTE_START must still invoke admit() and arm
+            # query_timeout.
+            stmt_close_body = b"\x19" + struct.pack("<I", 999)
+            cmd1 = struct.pack("<I", len(stmt_close_body))[:3] + b"\x00" + stmt_close_body
+            raw = cmd1 + _pipeline_frame("SELECT SLEEP(5)")
             comp = zlib.compress(raw)
             comp_hdr = (
                 struct.pack("<I", len(comp))[:3]
