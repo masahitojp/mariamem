@@ -1,62 +1,62 @@
 {
-  "guest_sha256": "f2b5a3e5e6fc54c9efac6722ca1be65e25ba8a229553c17f3d13ecdcf661505d",
-  "data_sha256": "f06924df817b97be303a3e059b5b518e9766ec0b38f80e89f60889ac6680af2c",
+  "guest_sha256": "0733f40209d3e823c2756be512518ee0e0474809cb99a4e596b483e103be55d7",
+  "data_sha256": "293814718363c5aa7d72fe9a1a1834e6333501ac495ef404abaf0a8f6b2d66f4",
   "functions": {
-    "Fn16644": {
+    "Fn16645": {
       "file": "internal/generatedgo/code/p3/p3_pure.go",
-      "normalized_sha256": "c5ff89ff2e571cb0eac7888070c318250604b3c1a44f37f3ccfc299f05ef40da"
+      "normalized_sha256": "688eaad8a06f4c7a3c46e7cf5ec55c6246c762c5acc2aa2a541f6d59ae44e07b"
     },
-    "Fn16636": {
+    "Fn16637": {
       "file": "internal/generatedgo/code/p5/p5_pure.go",
-      "normalized_sha256": "c3991963d8b4e5261e65dd656f58f7db47ceaba5080ba5a33ff361694feb8546"
+      "normalized_sha256": "99c4e8bf916b73355c653c97741e08af8d414fe457049215ab9002799edacb3e"
     },
-    "Fn16638": {
+    "Fn16639": {
       "file": "internal/generatedgo/code/p7/p7_pure.go",
-      "normalized_sha256": "8685f1802da221a4e2c53bad969e8b65ca7421ae5eeb3a29f34892f02d59bfda"
+      "normalized_sha256": "3b42c6a1d6e25f50984a891d9f9dfe19ab84daa4aeceeca35f9904a86ad64b64"
     },
-    "Fn16643": {
+    "Fn16644": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "b5dd90a2b2245ff92b032a4077ae12d3cca27dca75cf0b4ec9df5660a17594fc"
-    },
-    "Fn16614": {
-      "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "f9115504a4b3387428590c7641d39ec055f7f96d4924e167f388850babe59f53"
+      "normalized_sha256": "77672be538b2d79a2526b6953a67d41a5d9640c4683fd117b9ff474d71f1f257"
     },
     "Fn16615": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "db7fbf1d911d74be63ce991766767b34d11bda65cad37d7409f8742e96528f4e"
+      "normalized_sha256": "64814f67e6ca53ee8ed5e65471cad0526d2e2e2cf45266017ad2811ddb9381b3"
+    },
+    "Fn16616": {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "normalized_sha256": "6c26bdebbacdfb55414d04292a550290f5dd470ae84bbe9e31766c73143207da"
     },
     "Fn595": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "3de7cd8bb4504804bdb6481953300c516be0e09e9e94bd088d0ea022ed3b355c"
+      "normalized_sha256": "0b2a4ec5ea2d4e54d1717f1474e88abf406ff2fc69431962aa50294148be88ba"
     },
     "Fn597": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
       "normalized_sha256": "f4f55ceff56be9a78d02afa44ab87d6d4ee9176aef04ff1a8e10ed11d49d5270"
     },
-    "Fn16637": {
+    "Fn16638": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "9f5297e5773ad81eab075e34f1cdd352aac67e01819002e6ba912075f68ef43c"
+      "normalized_sha256": "61c363c1c36be0c9af7ee3e05fa9931bffc648548d1089db17ca5b2963b402d5"
     },
-    "Fn18046": {
+    "Fn18047": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
-      "normalized_sha256": "7c202a90ced17b1792c052ec521bab489d77d9772efa7c72d97864189a6542db"
+      "normalized_sha256": "f405d1ac3bd064a755f530b996951d22d78ac4339fc42d3e77b37999662df83f"
     },
-    "Fn16621": {
+    "Fn16622": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
-      "normalized_sha256": "76c6aa51a9ddfd09c2377fe3e608239f996d08a6a71abbd396e1f47100e16721"
+      "normalized_sha256": "defa16d1a4bee409fd2ad5a0026dcaa2ab0ee5779bdbb3408954d67516ffbbdc"
     },
-    "Fn18056": {
+    "Fn18057": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
-      "normalized_sha256": "6fd3b64f5d29e5a68dae209f4aec12d4e9f46f4f816f921e9799e322babb40d7"
-    },
-    "Fn16640": {
-      "file": "internal/generatedgo/code/p7/p7_pure.go",
-      "normalized_sha256": "fc2180eb23f97dcdc8977ab38a171fb43b4d82c699762399b9f446681e59d216"
+      "normalized_sha256": "8e2132426796184af4f03cd96c8edb9c720c61f8a0d11a5a4fbfdb5c6eaf2a31"
     },
     "Fn16641": {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "normalized_sha256": "1f0dae8bc26f75b6c949863f78b239d653522037907269e0998a824d866fdd27"
+    },
+    "Fn16642": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "f701711437aed3a3562a86e4a1795701f8292252a88853b927010e35ac4af1eb"
+      "normalized_sha256": "7717eda54c7b375d3bc7dc66afd357cc70e3cc44879fb24e75b0f109c449c9c5"
     }
   },
   "scope": "Actual guest contention regression; helper bodies and data remain exact. No injected notification.",

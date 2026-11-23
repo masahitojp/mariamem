@@ -1,5 +1,5 @@
 package generatedgo
 
-const GuestSHA256 = "f2b5a3e5e6fc54c9efac6722ca1be65e25ba8a229553c17f3d13ecdcf661505d"
+const GuestSHA256 = "0733f40209d3e823c2756be512518ee0e0474809cb99a4e596b483e103be55d7"
 
 func Run(args []string) { run(args) }
