@@ -254,8 +254,16 @@ def test_ci_runs_campaign_and_requires_selected_host_artifacts():
     text = commands(model)
     assert 'scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1' in text
     assert any(step.get('with', {}).get('name') == 'go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}' for step in steps(model))
-    assert any(step.get('with', {}).get('pattern') == 'go-fixture-host-*-${{ inputs.source_commit }}' for step in steps(model))
     required = model['jobs']['required']
+    downloads = {step['with']['name']: step for step in required['steps']
+                 if step.get('uses', '').startswith('actions/download-artifact@')}
+    ubuntu = 'go-fixture-host-ubuntu-24.04-${{ inputs.source_commit }}'
+    macos = 'go-fixture-host-macos-15-${{ inputs.source_commit }}'
+    assert set(downloads) == {ubuntu, macos}
+    assert 'if' not in downloads[ubuntu]
+    assert downloads[macos]['if'] == '!inputs.ubuntu_only'
+    for name, step in downloads.items():
+        assert step['with'] == {'name': name, 'path': 'build/g1-matrix/' + name}
     assert '--validate-matrix build/g1-matrix' in '\n'.join(step.get('run', '') for step in required['steps'])
     assert needs(required) == {'native-reference', 'live'}
     assert 'needs.scope' not in str(required)

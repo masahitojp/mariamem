@@ -289,8 +289,13 @@ jobs:
         run: python scripts/live_ci.py gate
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          pattern: go-fixture-host-*-${{ inputs.source_commit }}
-          path: build/g1-matrix
+          name: go-fixture-host-ubuntu-24.04-${{ inputs.source_commit }}
+          path: build/g1-matrix/go-fixture-host-ubuntu-24.04-${{ inputs.source_commit }}
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: "!inputs.ubuntu_only"
+        with:
+          name: go-fixture-host-macos-15-${{ inputs.source_commit }}
+          path: build/g1-matrix/go-fixture-host-macos-15-${{ inputs.source_commit }}
       - name: Validate selected source-bound G1 host receipts
         env:
           G1_HOST: ${{ inputs.ubuntu_only && 'ubuntu-24.04' || '' }}
