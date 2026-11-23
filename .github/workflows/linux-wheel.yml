@@ -72,6 +72,7 @@ jobs:
         if: always()
         with:
           name: linux-wheel-${{ matrix.target }}-${{ inputs.source_commit || github.sha }}
+          overwrite: ${{ inputs.source_commit && github.run_attempt > 1 }}
           path: |
             build/dist/*.whl
             build/linux-receipts/*.json

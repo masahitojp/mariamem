@@ -56,6 +56,7 @@ jobs:
         if: always()
         with:
           name: django-native-${{ matrix.python }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/django-native
           if-no-files-found: error
   recipe:
@@ -142,6 +143,7 @@ jobs:
         if: always()
         with:
           name: django-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/django-evidence
           if-no-files-found: error
       - name: Remove job-owned scratch

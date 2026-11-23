@@ -51,5 +51,6 @@ jobs:
         if: always()
         with:
           name: routing-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: ${{ runner.temp }}/routing/evidence
           if-no-files-found: error

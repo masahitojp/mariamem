@@ -58,6 +58,7 @@ jobs:
         if: always()
         with:
           name: dump-product-native-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/dump-reference/evidence
           if-no-files-found: error
   guest-comparison:
@@ -142,5 +143,6 @@ jobs:
         if: always()
         with:
           name: dump-product-comparison-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: ${{ runner.temp }}/dump-work/*/evidence
           if-no-files-found: error

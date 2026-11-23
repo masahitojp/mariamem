@@ -73,6 +73,7 @@ jobs:
         if: always()
         with:
           name: live-native-py${{ matrix.python }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/live-native
           if-no-files-found: error
   live:
@@ -168,6 +169,7 @@ jobs:
         if: always()
         with:
           name: go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: |
             build/live-evidence/g1/**/*.json
             build/live-evidence/g1/**/*.txt
@@ -268,6 +270,7 @@ jobs:
         if: always()
         with:
           name: live-host-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/live-evidence
           if-no-files-found: error
 

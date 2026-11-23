@@ -54,6 +54,7 @@ jobs:
         if: always()
         with:
           name: macos-boundary-${{ inputs.source_commit }}
+          overwrite: ${{ github.run_attempt > 1 }}
           path: |
             build/macos-boundary/acceptance.json
             build/dist/*.whl

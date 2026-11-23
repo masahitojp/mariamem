@@ -212,7 +212,9 @@ jobs:
         run: python scripts/release_runtime.py --source-commit '${{ needs.resolve.outputs.source_sha }}'
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
+          # A failed-job rerun keeps the artifacts of successful jobs at the same names.
           name: release-runtime-${{ matrix.runner }}-${{ needs.resolve.outputs.source_sha }}
+          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
           path: |
             build/dist/*.whl
             tests/evidence/alpha-wheel.json
@@ -258,6 +260,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: release-generated-inputs-${{ needs.resolve.outputs.source_sha }}
+          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
           path: |
             build/generated-release/
             build/release/generated-source.json
@@ -401,6 +404,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: release-candidate-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
+          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
           path: |
             ${{ runner.temp }}/candidate-handoff.tar
             ${{ runner.temp }}/candidate-handoff.sha256
@@ -497,6 +501,7 @@ jobs:
         if: always()
         with:
           name: release-evidence-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
+          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
           path: |
             candidate-source/build/release/generated-acceptance.json
             candidate-source/build/release/generated-acceptance.log
@@ -627,7 +632,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: release-candidate-preview-${{ needs.resolve.outputs.source_sha }}
+          name: release-candidate-preview-${{ needs.resolve.outputs.source_sha }}-attempt-${{ github.run_attempt }}
           path: preview-qualification.json
           if-no-files-found: error
           retention-days: 14

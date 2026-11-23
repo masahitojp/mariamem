@@ -161,8 +161,35 @@ def test_preview_uses_one_legacy_ubuntu_lane_and_cannot_publish():
     for name in preview.FEATURES:
         assert jobs[name]['with']['ubuntu_only'] == '${{ inputs.native_preview }}'
     upload = jobs['preview-aggregate']['steps'][-1]
-    assert upload['with']['name'] == 'release-candidate-preview-${{ needs.resolve.outputs.source_sha }}'
+    assert upload['with']['name'] == (
+        'release-candidate-preview-${{ needs.resolve.outputs.source_sha }}-attempt-${{ github.run_attempt }}')
+    assert 'overwrite' not in upload['with']
     assert upload['with']['path'] == 'preview-qualification.json'
+
+
+@pytest.mark.parametrize(('workflow', 'job_names', 'guard'), [
+    ('release-candidate-ready', ('runtime', 'guest', 'candidate_ubuntu', 'verification_ubuntu'),
+     'inputs.native_preview'),
+    ('macos-native-candidate', ('native',), ''),
+    ('windows-boundary', ('native',), 'inputs.source_commit'),
+    ('linux-wheel', ('wheel',), 'inputs.source_commit'),
+    ('live-host', ('native-reference', 'live'), 'inputs.ubuntu_only'),
+    ('dump-import-productization', ('native-reference', 'guest-comparison'), 'inputs.ubuntu_only'),
+    ('django-lifecycle', ('native', 'recipe'), 'inputs.ubuntu_only'),
+    ('connection-routing', ('native',), 'inputs.ubuntu_only'),
+    ('preparation-migration', ('native',), 'inputs.ubuntu_only'),
+    ('worker-failure', ('worker-failure-native', 'worker-failure'), 'inputs.ubuntu_only'),
+])
+def test_failed_job_retry_replaces_only_the_rerun_jobs_uploads(workflow, job_names, guard):
+    jobs = load(ROOT / f'.github/workflows/{workflow}.yml')['jobs']
+    expected = '${{ ' + (guard + ' && ' if guard else '') + 'github.run_attempt > 1 }}'
+    for name in job_names:
+        uploads = [step['with'] for step in jobs[name]['steps']
+                   if step.get('uses', '').startswith('actions/upload-artifact@')]
+        assert uploads, name
+        for upload in uploads:
+            assert upload['overwrite'] == expected
+            assert 'github.run_attempt' not in upload['name']
 
 
 @pytest.mark.parametrize('bad', [

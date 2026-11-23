@@ -42,6 +42,7 @@ jobs:
         if: always()
         with:
           name: worker-failure-native-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/worker-failure
           if-no-files-found: error
 
@@ -89,6 +90,7 @@ jobs:
         if: always()
         with:
           name: worker-failure-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: |
             build/worker-failure/guest.json
             build/worker-failure/ordinary-guest.json
