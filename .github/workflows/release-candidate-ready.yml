@@ -13,6 +13,10 @@ on:
         description: Display only (version -- short SHA); never used for identity
         required: false
         type: string
+      native_preview:
+        description: Verify the six-target candidate gate without publishing or reusing qualification
+        type: boolean
+        default: false
       notes:
         description: Optional tracked release-notes path
         required: false
@@ -53,7 +57,7 @@ permissions:
   actions: read
 jobs:
   resolve:
-    if: ${{ !inputs.additional_v062 && (inputs.operation != 'public-smoke-recovery' && inputs.published_tag == '') }}
+    if: ${{ inputs.native_preview || (!inputs.additional_v062 && (inputs.operation != 'public-smoke-recovery' && inputs.published_tag == '')) }}
     runs-on: ubuntu-24.04
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
@@ -73,8 +77,19 @@ jobs:
           MODE: ${{ inputs.mode }}
           CANDIDATE_RUN: ${{ inputs.candidate_run }}
           EVIDENCE_RUN: ${{ inputs.evidence_run }}
+          NATIVE_PREVIEW: ${{ inputs.native_preview }}
+          OPERATION: ${{ inputs.operation }}
+          ADDITIONAL: ${{ inputs.additional_v062 }}
+          PUBLISHED_TAG: ${{ inputs.published_tag }}
+          SMOKE_REF: ${{ inputs.smoke_ref }}
         run: |
           [[ "$CANDIDATE_REF" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          if [ "$NATIVE_PREVIEW" = true ]; then
+            test "$OPERATION" = verify
+            test "$ADDITIONAL" = false
+            test "$MODE" = auto || test "$MODE" = full
+            test -z "$PUBLISHED_TAG$SMOKE_REF$CANDIDATE_RUN$EVIDENCE_RUN"
+          fi
           if [ "$MODE" != auto ] && [ "$MODE" != full ]; then
             [[ "$CANDIDATE_RUN" =~ ^[0-9]+$ ]] || exit 1
           fi
@@ -104,7 +119,13 @@ jobs:
           CANDIDATE_RUN: ${{ inputs.candidate_run }}
           EVIDENCE_RUN: ${{ inputs.evidence_run }}
           GITHUB_TOKEN: ${{ github.token }}
+          NATIVE_PREVIEW: ${{ inputs.native_preview }}
         run: |
+          if [ "$NATIVE_PREVIEW" = true ]; then
+            test ! -e candidate-source/release/runtime-validation.json
+            printf '%s\n' mode=full runtime_reused=false features_reused=false >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           args=(--root candidate-source --candidate-sha "$SOURCE_SHA" --operation "$OPERATION" --mode "$MODE")
           if [ -n "$CANDIDATE_RUN" ]; then args+=(--candidate-run "$CANDIDATE_RUN"); fi
           if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
@@ -152,11 +173,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - platform: darwin-arm64
-            runner: macos-15
-          - platform: ubuntu24.04-x86_64
-            runner: ubuntu-24.04
+        include: ${{ fromJSON(inputs.native_preview && '[{"platform":"ubuntu24.04-x86_64","runner":"ubuntu-24.04"}]' || '[{"platform":"darwin-arm64","runner":"macos-15"},{"platform":"ubuntu24.04-x86_64","runner":"ubuntu-24.04"}]') }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -250,7 +267,7 @@ jobs:
   # Core runs alongside canonical guest reproduction. Platform paths meet only
   # at the final verification gate; YAML aliases keep their checks identical.
   core_darwin:
-    if: needs.resolve.outputs.mode == 'full'
+    if: "!inputs.native_preview && needs.resolve.outputs.mode == 'full'"
     needs: [resolve, runtime]
     runs-on: macos-15
     timeout-minutes: 90
@@ -338,7 +355,7 @@ jobs:
       RELEASE_RUNNER: ubuntu-24.04
     steps: *core_steps
   candidate_darwin:
-    if: needs.resolve.outputs.mode == 'full'
+    if: "!inputs.native_preview && needs.resolve.outputs.mode == 'full'"
     needs: [resolve, guest, core_darwin]
     runs-on: macos-15
     timeout-minutes: 30
@@ -399,7 +416,7 @@ jobs:
       RELEASE_RUNNER: ubuntu-24.04
     steps: *candidate_steps
   verification_darwin:
-    if: always() && !cancelled() && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_darwin.result == 'success')
+    if: always() && !cancelled() && !inputs.native_preview && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_darwin.result == 'success')
     needs: [resolve, candidate_darwin]
     runs-on: macos-15
     timeout-minutes: 90
@@ -501,7 +518,7 @@ jobs:
     # Preserve the existing feature/READY gate contract without a platform barrier
     # before either external-consumer job. This job only inspects results.
     needs: [resolve, guest, core_darwin, core_ubuntu, candidate_darwin, candidate_ubuntu, verification_darwin, verification_ubuntu]
-    if: always() && needs.resolve.result == 'success'
+    if: always() && !inputs.native_preview && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -528,39 +545,95 @@ jobs:
     uses: ./.github/workflows/live-host.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
+      ubuntu_only: ${{ inputs.native_preview }}
   feature-dump:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/dump-import-productization.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
+      ubuntu_only: ${{ inputs.native_preview }}
   feature-django:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/django-lifecycle.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
+      ubuntu_only: ${{ inputs.native_preview }}
   feature-routing:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/connection-routing.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
+      ubuntu_only: ${{ inputs.native_preview }}
   feature-preparation:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/preparation-migration.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
+      ubuntu_only: ${{ inputs.native_preview }}
   feature-sql:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/worker-failure.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
+      ubuntu_only: ${{ inputs.native_preview }}
+  preview-macos:
+    if: inputs.native_preview
+    needs: resolve
+    uses: ./.github/workflows/macos-native-candidate.yml
+    with:
+      source_commit: ${{ needs.resolve.outputs.source_sha }}
+  preview-windows:
+    if: inputs.native_preview
+    needs: resolve
+    uses: ./.github/workflows/windows-boundary.yml
+    with:
+      source_commit: ${{ needs.resolve.outputs.source_sha }}
+  preview-linux:
+    if: inputs.native_preview
+    needs: resolve
+    uses: ./.github/workflows/linux-wheel.yml
+    with:
+      source_commit: ${{ needs.resolve.outputs.source_sha }}
+  preview-aggregate:
+    if: always() && !cancelled() && inputs.native_preview && needs.resolve.result == 'success'
+    needs: [resolve, units, runtime, guest, core_ubuntu, candidate_ubuntu, verification_ubuntu, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql, preview-macos, preview-windows, preview-linux]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: tooling
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          path: candidate-source
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Require all six exact-source qualification records
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python tooling/scripts/release_candidate_preview.py --root candidate-source --output preview-qualification.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: release-candidate-preview-${{ needs.resolve.outputs.source_sha }}
+          path: preview-qualification.json
+          if-no-files-found: error
+          retention-days: 14
   aggregate:
     needs: [resolve, runtime, units, verification, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql]
-    if: always() && needs.resolve.result == 'success'
+    if: always() && !inputs.native_preview && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -623,7 +696,7 @@ jobs:
           retention-days: 14
   publication:
     needs: [resolve, aggregate]
-    if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'
+    if: always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -663,7 +736,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   public_smoke_recovery:
-    if: ${{ !inputs.additional_v062 && (inputs.operation == 'public-smoke-recovery') }}
+    if: ${{ !inputs.native_preview && !inputs.additional_v062 && (inputs.operation == 'public-smoke-recovery') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -753,7 +826,7 @@ jobs:
           retention-days: 14
 
   pypi_verify:
-    if: ${{ !inputs.additional_v062 && (inputs.operation == 'verify' && inputs.published_tag != '') }}
+    if: ${{ !inputs.native_preview && !inputs.additional_v062 && (inputs.operation == 'verify' && inputs.published_tag != '') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -781,7 +854,7 @@ jobs:
 
   pypi_publication:
     needs: [resolve, publication]
-    if: ${{ !inputs.additional_v062 && (always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')) }}
+    if: ${{ !inputs.native_preview && !inputs.additional_v062 && (always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     environment: pypi
@@ -872,7 +945,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   additional_plan:
-    if: inputs.additional_v062
+    if: inputs.additional_v062 && !inputs.native_preview
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -975,7 +1048,7 @@ jobs:
           retention-days: 14
   additional_publication:
     needs: additional_qualification
-    if: inputs.additional_v062 && inputs.operation == 'release'
+    if: inputs.additional_v062 && !inputs.native_preview && inputs.operation == 'release'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     environment: pypi

@@ -227,7 +227,8 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
     assert {'macos-15', 'ubuntu-24.04'} <= {job.get('runs-on') for job in model['jobs'].values()}
     assert model['jobs']['core_darwin']['steps'] == model['jobs']['core_ubuntu']['steps']
     assert all(any('os' in job.get('strategy', {}).get('matrix', {}) for job in value['jobs'].values())
-               for name, value in called_models.items() if name != 'additional-v062-build.yml')
+               for name, value in called_models.items() if name not in {
+                   'additional-v062-build.yml', 'macos-native-candidate.yml', 'windows-boundary.yml', 'linux-wheel.yml'})
     native = called_models['additional-v062-build.yml']['jobs']['native']
     assert {cell['runner'] for cell in native['strategy']['matrix']['include']} == {
         'ubuntu-24.04', 'ubuntu-24.04-arm', 'windows-2025', 'windows-11-arm'}

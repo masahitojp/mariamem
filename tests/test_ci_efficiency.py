@@ -221,7 +221,9 @@ def test_shared_release_policy_rejects_trigger_and_identity_regressions(before, 
 def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
     release = parse((ROOT/'.github/workflows/release-candidate-ready.yml').read_text())
     called = [Path(job['uses']).stem for job in release['jobs'].values() if 'uses' in job]
-    expected = set(RELEASE_WORKFLOWS) | {'additional-v062-build'}
+    expected = set(RELEASE_WORKFLOWS) | {
+        'additional-v062-build', 'macos-native-candidate', 'windows-boundary', 'linux-wheel',
+    }
     assert set(called) == expected and len(called) == len(expected)
     additional = parse((ROOT/'.github/workflows/additional-v062-build.yml').read_text())
     assert set(events(additional)) == {'workflow_call'}
