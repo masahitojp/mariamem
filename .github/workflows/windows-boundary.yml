@@ -72,6 +72,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python scripts/verify_generated_runtime.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "GOCACHE=$(go env GOCACHE)" >> $env:GITHUB_ENV
+          go clean -testcache
       - name: Snapshot ownership and memory, mappings and narrow atomics
         shell: pwsh
         env:
@@ -103,7 +105,7 @@ jobs:
         shell: pwsh
         run: |
           $wheel = (Get-Content -Raw tests/evidence/alpha-wheel.json | ConvertFrom-Json).wheel
-          python scripts/windows_wheel_acceptance.py --target '${{ matrix.target }}' --wheel $wheel --output 'build/windows-boundary/acceptance.json'
+          python scripts/native_candidate_acceptance.py --target '${{ matrix.target }}' --wheel $wheel --output 'build/windows-boundary/acceptance.json'
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

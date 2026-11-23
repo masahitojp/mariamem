@@ -330,3 +330,19 @@ def test_candidate_windows_jobs_share_one_slot_and_require_exact_source():
         '${{ inputs.source_commit || github.sha }}')
     assert "(git rev-parse HEAD) -cne $env:SOURCE_COMMIT" in commands(model)
     assert "'--release-wheel'" in commands(model)
+    assert 'python scripts/native_candidate_acceptance.py' in commands(model)
+
+
+def test_candidate_macos_acceptance_builds_and_uses_one_exact_wheel_in_one_slot():
+    model = parse((ROOT/'.github/workflows/macos-native-candidate.yml').read_text())
+    assert set(events(model)) == {'workflow_call'}
+    assert events(model)['workflow_call']['inputs']['source_commit']['required'] is True
+    assert set(model['jobs']) == {'native'}
+    native = model['jobs']['native']
+    assert native['runs-on'] == 'macos-15'
+    assert native['concurrency'] == {'group': 'release-candidate-macos', 'queue': 'max'}
+    script = commands(model)
+    assert 'test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"' in script
+    assert script.count('scripts/build_alpha.py') == 1
+    assert 'scripts/build_alpha.py --ci-candidate --release-wheel' in script
+    assert 'scripts/native_candidate_acceptance.py --target darwin-arm64 --wheel "$wheel"' in script

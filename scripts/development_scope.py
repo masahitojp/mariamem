@@ -20,6 +20,7 @@ WORKFLOW_SCOPES = {
     ".github/workflows/additional-v062-build.yml": "python",
     ".github/workflows/linux-wheel.yml": "python",
     ".github/workflows/windows-boundary.yml": "python",
+    ".github/workflows/macos-native-candidate.yml": "python",
     ".github/workflows/prepared-output-installed.yml": "python",
     ".github/workflows/prepared-output-product.yml": "python",
     ".github/workflows/prepared-output-acceptance.yml": "python",
