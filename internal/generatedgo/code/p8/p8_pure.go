@@ -302,6 +302,36 @@ func Fn90(m *base.Module, l0 int32, l1 int32) int32 {
 	m.G0 = v6 + int32(32)
 	return v37
 }
+func Fn94(m *base.Module, l0 int32) {
+	mBase := m.M
+	_ = mBase
+	var v4 int32
+	_ = v4
+	var v7 int32
+	_ = v7
+	var v8 int32
+	_ = v8
+	var v10 int32
+	_ = v10
+	v4 = l0 + int32(72)
+	for {
+		v7 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v4)), 0, 4)))
+		v8 = int32(0)
+		v10 = base.AtomicRmwCmpxchg32(m, v4, v8, v7, v8)
+		if v7 != v10 {
+			continue
+		} else {
+			break
+		}
+		break
+	}
+	if v7&int32(1073741824) != 0 {
+		Fn87(m, v4, int32(1))
+		mBase = m.M
+	} else {
+	}
+	return
+}
 func Fn96(m *base.Module, l0 int32) {
 	mBase := m.M
 	_ = mBase
@@ -1140,32 +1170,6 @@ func Fn130(m *base.Module) {
 	return
 }
 func Fn131(m *base.Module, l0 int32) {
-	return
-}
-func Fn133(m *base.Module, l0 int32) {
-	mBase := m.M
-	_ = mBase
-	var v3 int32
-	_ = v3
-	var v6 int32
-	_ = v6
-	var v9 int32
-	_ = v9
-	var v11 int32
-	_ = v11
-	m.Wasix_32v1.Proc_exit2(m, l0)
-	mBase = m.M
-	v3 = m.G1
-	v6 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3+int32(8))), 0, 4)))
-	v9 = v3 + v6*int32(-156)
-	v11 = v9 + int32(172)
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v11)), 12, 4))) = int32(1)
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v11)), 8, 4))) = v11
-	{
-		m.ExcTag = uint32(int32(0))
-		m.ExcVals[0] = uint64(uint32(v9 + int32(180)))
-		m.ExcPending = 1
-	}
 	return
 }
 func Fn134(m *base.Module, l0 int32) int32 {

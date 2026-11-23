@@ -53,6 +53,9 @@ func Fn90(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn91 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn91
 func Fn91(m *base.Module, l0 int32) int32
 
+//go:linkname Fn94 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn94
+func Fn94(m *base.Module, l0 int32)
+
 //go:linkname Fn95 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn95
 func Fn95(m *base.Module, l0 int32)
 
@@ -3682,6 +3685,9 @@ func Fn15434(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l
 
 //go:linkname Fn15445 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn15445
 func Fn15445(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
+
+//go:linkname Fn15452 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn15452
+func Fn15452(m *base.Module, l0 int32) int32
 
 //go:linkname Fn15488 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn15488
 func Fn15488(m *base.Module, l0 int32, l1 int32, l2 int32) int32

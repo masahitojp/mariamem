@@ -1,6 +1,6 @@
 {
   "compiled_guest_source_scope": "MariaDB 12.3.4 B1 native-wire guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
-  "guest_sha256": "0733f40209d3e823c2756be512518ee0e0474809cb99a4e596b483e103be55d7",
+  "guest_sha256": "3642b53e086587261a20b30b231ae3aa1bdd6a3c053f84af547adfafba6263cb",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.4",
@@ -19,7 +19,7 @@
           "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
           "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
           "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
-          "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+          "sql/sql_class.cc": "302d323abb352e0c06c7716fde2a8290cca84f17498a5ed32637ff45dae41c29",
           "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
           "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
           "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
@@ -44,7 +44,7 @@
           "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
         },
         "file": "guest/patches/12.3.4-native-wire.patch",
-        "sha256": "ec97f89800849cf1c1d1074404524a2bf4c32c4b4c078434a8672cf8374559a8"
+        "sha256": "caf8b97c7307d0c5e01b6d7801ff978b9b518d79f9d78b8a0e17c27fbe473d49"
       },
       "patches": [
         {
@@ -192,7 +192,7 @@
       "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
       "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
       "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
-      "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+      "sql/sql_class.cc": "302d323abb352e0c06c7716fde2a8290cca84f17498a5ed32637ff45dae41c29",
       "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
       "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
       "sql/sql_plugin.cc": "d7d6f309948bd6eb68e71101254ecb91d5c55c074058d445262d63b44ec2abfe",
@@ -253,7 +253,7 @@
         "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
         "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
         "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
-        "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+        "sql/sql_class.cc": "302d323abb352e0c06c7716fde2a8290cca84f17498a5ed32637ff45dae41c29",
         "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
         "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
         "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",
@@ -278,13 +278,13 @@
         "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
       },
       "file": "guest/patches/12.3.4-native-wire.patch",
-      "sha256": "ec97f89800849cf1c1d1074404524a2bf4c32c4b4c078434a8672cf8374559a8"
+      "sha256": "caf8b97c7307d0c5e01b6d7801ff978b9b518d79f9d78b8a0e17c27fbe473d49"
     },
     "overlays": {
       "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "input.json": "2bf683df33ac7fd4231fd2ab923cece9b14b1c0f0b8fcc565305121a4b940d1e",
+      "input.json": "2f9fd9838ae32513acc07950c5d02c54474be3411c9c7ccdec4b62846f48a930",
       "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "59ae2e658478cfe03a67587f74b51103ba9917b1a0f295b2bb7d230dd6c736e9",
@@ -473,9 +473,9 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "0e6f211cc4535832a5713095452ec6e3acc71183",
-  "guest_size": 21985781,
-  "linked_guest_sha256": "c7d14098ea881d46c9a99e85f26123aed53370117178e895ee68039cc9622c83",
+  "source_commit": "c041a2547d2d29f1b11f775f5e4d669386bab1cc",
+  "guest_size": 21985786,
+  "linked_guest_sha256": "f5f283e7e9ba43f0abb2cbec18884233f09649c5c23032b6e5bab21e1861330a",
   "repetitions": 1,
   "completed": true,
   "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
@@ -497,7 +497,7 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "0e6f211cc4535832a5713095452ec6e3acc71183",
+    "source_commit": "c041a2547d2d29f1b11f775f5e4d669386bab1cc",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
     "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."
