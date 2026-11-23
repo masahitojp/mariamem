@@ -6,12 +6,12 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "0408d2ace43d2c8f0d21cc0f115d41e795f603c9",
+  "audit_source_commit": "7f7f4a1659b8a70597099e08a25a60834f8f2cb0",
   "guest_sha256": "0733f40209d3e823c2756be512518ee0e0474809cb99a4e596b483e103be55d7",
   "linked_sha256": "c7d14098ea881d46c9a99e85f26123aed53370117178e895ee68039cc9622c83",
   "symbol_map_sha256": "87537a0857764fca8fdb50bd788a9c3dae37cd308ed79f3939e5e55641d6b5b7",
   "symbol_map_entries": 21800,
-  "generated_provenance_sha256": "3131138cec32163f50d253bd439ff3c90c32ee4029bc23983f40b7a6304a3030",
+  "generated_provenance_sha256": "82d1bb2bde94b608642bc745dff402eb1763f846c12ccf4304c005514c31d359",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -582,9 +582,9 @@
     }
   },
   "host_check": {
-    "source_commit": "0408d2ace43d2c8f0d21cc0f115d41e795f603c9",
-    "sha256": "3e1399672e5ddaab123dcef5f02cf2214b85c2ac0946ca073b860f5a56db5e4d",
-    "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.7.1-0.20261123005147-0408d2ace43d\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=0408d2ace43d2c8f0d21cc0f115d41e795f603c9\n\tbuild\tvcs.time=2026-11-23T00:51:47Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "7f7f4a1659b8a70597099e08a25a60834f8f2cb0",
+    "sha256": "341cd24a50992343166f85fde7bf77c9c509dd1c87046ace71a3bba216145ab0",
+    "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.7.1-0.20261123021427-7f7f4a1659b8\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7f7f4a1659b8a70597099e08a25a60834f8f2cb0\n\tbuild\tvcs.time=2026-11-23T02:14:27Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
   },
   "previous_candidate_audit": {
