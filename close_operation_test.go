@@ -13,6 +13,7 @@ import (
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"io"
 	"net"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"syscall"
@@ -769,5 +770,79 @@ func TestPublicCloseAsyncWaitsForNativeWireRelaysNotMemoryRelease(t *testing.T) 
 	}
 	if !r.h.Disposed() {
 		t.Fatal("expected handle.Disposed() == true after memory release completes")
+	}
+}
+
+func TestPublicCleanupFailureSnapshotKeepReturnsErrUnusableAndCloseReportsCause(t *testing.T) {
+	ctx := closeTestContext(t)
+	poisoned := make(chan struct{})
+	runner := func(x nativewire.Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			_ = testNativeWireFrameWrite(x.Output, 100, 0, 0, x.Epoch, 0, 0, []byte(`{"lifecycle_profile":3}`))
+			for {
+				kind, req, slot, _, gen, val, _, err := testNativeWireFrameRead(x.Input)
+				if err != nil {
+					break
+				}
+				switch kind {
+				case 1: // OPEN
+					_ = testNativeWireFrameWrite(x.Output, 101, req, slot, x.Epoch, gen, 0, nil)
+					_ = testNativeWireFrameWrite(x.Output, 103, 0, slot, x.Epoch, gen, 0, testMySQLPkt(0, []byte{0x0a, '1', '2', 0}))
+				case 4: // PEER_EOF -> simulate cleanup_failed poison on session disconnect
+					_ = testNativeWireFrameWrite(x.Output, 105, 0, 0, x.Epoch, 0, 0, []byte("cleanup_failed"))
+					close(poisoned)
+				case 6: // STOP
+					_ = testNativeWireFrameWrite(x.Output, 111, 0, 0, x.Epoch, 0, val, []byte(`{}`))
+					if x.Stopped != nil {
+						x.Stopped(errors.New("exit 21"))
+					}
+					done <- errors.New("exit 21")
+					return
+				}
+			}
+			if x.Stopped != nil {
+				x.Stopped(errors.New("exit 21"))
+			}
+			done <- errors.New("exit 21")
+		}()
+		return done
+	}
+
+	svc, err := host.StartNative(ctx, nil, 0, io.Discard, "pub-cleanup-failed", runner)
+	if err != nil {
+		t.Fatal(err)
+	}
+	db := &Database{server: svc, opts: Options{ShutdownTimeout: time.Second}}
+
+	c, err := svc.DialContext(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	buf := make([]byte, 64)
+	if _, err := c.Read(buf); err != nil {
+		t.Fatal(err)
+	}
+	_ = c.Close()
+	<-poisoned
+
+	deadline := time.Now().Add(2 * time.Second)
+	for svc.Failure() == nil && time.Now().Before(deadline) {
+		time.Sleep(5 * time.Millisecond)
+	}
+
+	snap, err := db.Snapshot(ctx, SnapshotOptions{KeepDatabase: true, MaxForks: 1})
+	if snap != nil {
+		_ = snap.Close()
+		t.Fatalf("expected nil snapshot after cleanup_failed, got %v", snap)
+	}
+	var he *HostError
+	if !errors.Is(err, ErrUnusable) || !errors.As(err, &he) || !he.Closed || !strings.Contains(err.Error(), "cleanup_failed") {
+		t.Fatalf("expected closed ErrUnusable(cleanup_failed) from SnapshotKeep, got %v", err)
+	}
+
+	closeErr := db.Close()
+	if closeErr == nil || !strings.Contains(closeErr.Error(), "cleanup_failed") {
+		t.Fatalf("expected Close to report cleanup_failed, got %v", closeErr)
 	}
 }

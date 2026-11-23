@@ -116,9 +116,22 @@ struct Manager {
   {std::lock_guard<std::mutex> l(gate);if(poisoned||closing)return 1;s->status=status;s->phase=retire?RETIRING:IDLE;s->deadline.disarm();state(s);}return 0;
  }
  int event(Session *raw,int kind,void *thd,unsigned status){
-  if(kind==CLEANUP_RESULT){std::lock_guard<std::mutex> l(gate);++rollbackReports;if(status||injectFailure==1)cleanupFailed=true;return 0;}
+  if(kind==CLEANUP_RESULT){
+   bool stall=false;
+   {
+    std::lock_guard<std::mutex> l(gate);
+    ++rollbackReports;
+    if(status||injectFailure==1){cleanupFailed=true;poisonLocked("cleanup_failed");}
+    stall=(raw->overflowed&&injectFailure==4&&!poisoned&&!closing);
+   }
+   if(stall){
+    std::unique_lock<std::mutex> l(gate);
+    progress.wait(l,[&]{return poisoned||closing;});
+   }
+   return 0;
+  }
   if(kind==REGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=thd;}std::lock_guard<std::mutex> l(gate);return poisoned||closing;}
-  if(kind==UNREGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=nullptr;}std::lock_guard<std::mutex> l(gate);raw->netError=status;raw->phase=RETIRING;raw->deadline.disarm();state(slots[raw->slot]);return 0;}
+  if(kind==UNREGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=nullptr;}std::lock_guard<std::mutex> l(gate);raw->netError=status;raw->phase=RETIRING;if(!raw->overflowed)raw->deadline.disarm();state(slots[raw->slot]);return 0;}
   if(kind==AUTH_COMPLETE)return finish(raw,status,false);
   if(kind==COMMAND_COMPLETE||kind==CONNECTION_COMPLETE)return finish(raw,status,kind==CONNECTION_COMPLETE);
   if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing||raw->overflowed)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
@@ -150,7 +163,7 @@ struct Manager {
   auto s=std::make_shared<Session>(this,f.slot,f.generation,f.value);
   // A replay watermark only: host chooses the slot and issues the generation.
   generations[f.slot]=f.generation;slots[f.slot]=s;++started;emit(frame(OPENED,f.request,s));
-  s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->workerDone=true;progress.notify_all();}});
+  s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->deadline.disarm();s->workerDone=true;progress.notify_all();}});
  }
  void input(const Frame &f){
   std::lock_guard<std::mutex> l(gate);
@@ -243,9 +256,13 @@ int main(){
   manager.dispatch(f);
  }
  manager.shutdown();
+ {
+  std::lock_guard<std::mutex> l(manager.gate);
+  if(manager.rollbackReports!=manager.started)manager.cleanupFailed=true;
+ }
  int shutdownErr=0;
  bool modeApplied=false;
- if(gotStop&&!manager.poisoned){
+ if(gotStop&&!manager.poisoned&&!manager.cleanupFailed){
   if(manager.injectFailure==3){shutdownErr=9;issue65_shutdown(0);}
   else shutdownErr=issue65_shutdown(shutdownMode);
   if(shutdownErr!=0){
@@ -258,9 +275,10 @@ int main(){
  }else{
   issue65_shutdown(0);
  }
- bool ok=gotStop&&!shutdownErr;
+ bool ok=gotStop&&!shutdownErr&&!manager.poisoned&&!manager.cleanupFailed;
  if(capture)ok=manager.captureComplete(stopRequest)&&!shutdownErr;
  else if(shutdownErr)manager.emit(manager.frame(POISON,0,{},0,"shutdown_mode_failed"));
+ else if(!manager.poisoned&&manager.cleanupFailed)manager.emit(manager.frame(POISON,0,{},0,"cleanup_failed"));
  manager.emit(manager.frame(DONE,0,{},uint64_t(modeApplied?shutdownMode:0),manager.stats()));manager.stopWriter();
  fprintf(stderr,"NATIVE_STOP mode=%s fast_shutdown=%d mode_applied=%u mode_err=%d started=%llu joined=%llu cleanup_failed=%u\n",capture?"capture":"ordinary",shutdownMode,unsigned(modeApplied),shutdownErr,(unsigned long long)manager.started,(unsigned long long)manager.joined,unsigned(manager.cleanupFailed));
  return ok?0:21;
