@@ -5,7 +5,9 @@ import (
 	"context"
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"io"
+	"net"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -654,4 +656,490 @@ func TestShutdownModePurposeAndFailurePropagation(t *testing.T) {
 			t.Fatalf("expected consuming shutdown_mode_failed/exit 21 error, got owned=%v consumed=%v err=%v", owned, consumed, err)
 		}
 	})
+}
+
+type blockingFrameWriter struct {
+	io.WriteCloser
+	blockKind uint8
+	onBlock   func()
+	mu        sync.Mutex
+	blocked   bool
+}
+
+func (w *blockingFrameWriter) Write(p []byte) (int, error) {
+	w.mu.Lock()
+	shouldBlock := !w.blocked && len(p) >= 5 && p[4] == w.blockKind
+	if shouldBlock {
+		w.blocked = true
+	}
+	w.mu.Unlock()
+	if shouldBlock && w.onBlock != nil {
+		w.onBlock()
+	}
+	return w.WriteCloser.Write(p)
+}
+
+// P1-1 regression: canceling SnapshotKeep while writing HOLD or STATS must NOT
+// close the shared guestIn pipe; existing sessions must continue executing SQL.
+func TestSnapshotKeepCancelDuringControlWritePreservesExistingSession(t *testing.T) {
+	for _, blockKind := range []uint8{kindHold, kindStats} {
+		name := "block_hold_write"
+		if blockKind == kindStats {
+			name = "block_stats_write"
+		}
+		t.Run(name, func(t *testing.T) {
+			var gotInputEOF atomic.Bool
+			var unholdCount atomic.Int32
+			releaseWrite := make(chan struct{})
+			writeBlocked := make(chan struct{})
+			var blockOnce sync.Once
+
+			runner := func(x Execution) <-chan error {
+				done := make(chan error, 1)
+				go func() {
+					source := prepared.NewRootSource(true)
+					_ = x.Capture.BindRootSource(source, "fake-keep-write")
+					send := func(v frame) {
+						v.epoch = x.Epoch
+						_ = writeFrame(x.Output, v)
+					}
+					send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+					var held atomic.Bool
+					var extSlot uint32
+					var extGen uint64
+					var outOff uint64
+					seenAuth := false
+					for {
+						v, err := readFrame(x.Input)
+						if err != nil {
+							gotInputEOF.Store(true)
+							done <- err
+							return
+						}
+						switch v.kind {
+						case kindOpen:
+							extSlot, extGen = v.slot, v.generation
+							send(frame{kind: kindOpened, request: v.request, slot: v.slot, generation: v.generation})
+							greet := mysqlPkt(0, []byte{0x0a, '1', '2', 0})
+							send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff, body: greet})
+							outOff += uint64(len(greet))
+						case kindData:
+							send(frame{kind: kindCredit, slot: v.slot, generation: v.generation, value: v.value + uint64(len(v.body))})
+							if !seenAuth {
+								seenAuth = true
+								ok := mysqlPkt(2, []byte{0x00, 0, 0, 2, 0, 0, 0})
+								send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff, body: ok})
+								outOff += uint64(len(ok))
+								send(frame{kind: kindState, slot: v.slot, generation: v.generation, body: []byte("idle")})
+							} else if len(v.body) >= 5 && v.body[4] == 0x03 {
+								if held.Load() {
+									continue
+								}
+								ok := mysqlPkt(1, []byte{0x00, 0, 0, 2, 0, 0, 0})
+								send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff, body: ok})
+								outOff += uint64(len(ok))
+							}
+						case kindHold:
+							if v.value == 1 {
+								held.Store(true)
+							} else {
+								held.Store(false)
+								unholdCount.Add(1)
+							}
+							send(frame{kind: kindReply, request: v.request, slot: v.slot, generation: v.generation, body: []byte("hold_set")})
+						case kindStats:
+							body := fmt.Sprintf(`{"sessions":[{"slot":%d,"generation":%d,"phase":"idle","status":2}]}`, extSlot, extGen)
+							send(frame{kind: kindStatsReply, request: v.request, body: []byte(body)})
+						case kindStop:
+							done <- nil
+							return
+						}
+					}
+				}()
+				return done
+			}
+
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			b, err := Start(ctx, Config{Runner: runner, Build: "fake-keep-write"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer b.Close(context.Background())
+
+			ext, err := b.DialContext(ctx)
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer ext.Close()
+			if err := privateHandshake(ctx, ext, "test"); err != nil {
+				t.Fatal(err)
+			}
+			waitPhaseIdle := time.Now().Add(2 * time.Second)
+			for b.Busy() && time.Now().Before(waitPhaseIdle) {
+				time.Sleep(5 * time.Millisecond)
+			}
+
+			b.writeSem <- struct{}{}
+			origIn := b.in
+			b.in = &blockingFrameWriter{
+				WriteCloser: origIn,
+				blockKind:   blockKind,
+				onBlock: func() {
+					blockOnce.Do(func() { close(writeBlocked) })
+					<-releaseWrite
+				},
+			}
+			<-b.writeSem
+
+			keepCtx, cancelKeep := context.WithCancel(ctx)
+			keepDone := make(chan error, 1)
+			go func() {
+				_, e := b.SnapshotKeep(keepCtx)
+				keepDone <- e
+			}()
+
+			select {
+			case <-writeBlocked:
+			case <-time.After(2 * time.Second):
+				t.Fatalf("timed out waiting for kind=%d write to block", blockKind)
+			}
+			// Cancel while writeFrame is blocked (NOT waiting for reply).
+			cancelKeep()
+			close(releaseWrite)
+
+			select {
+			case err := <-keepDone:
+				if !errors.Is(err, context.Canceled) {
+					t.Fatalf("expected context.Canceled, got %v", err)
+				}
+			case <-time.After(2 * time.Second):
+				t.Fatal("SnapshotKeep did not return after write cancel")
+			}
+			if gotInputEOF.Load() || b.Failure() != nil {
+				t.Fatalf("shared guestIn closed or backend failed on SnapshotKeep write cancel: eof=%v fail=%v", gotInputEOF.Load(), b.Failure())
+			}
+			if unholdCount.Load() < 1 {
+				t.Fatalf("expected HOLD=0 cleanup after write cancel, got %d", unholdCount.Load())
+			}
+			if _, err := privateExec(ctx, ext, "SELECT 1"); err != nil {
+				t.Fatalf("existing connection broke after SnapshotKeep write cancel: %v", err)
+			}
+		})
+	}
+}
+
+// P1-3 regression: a stale(5) response to HOLD=1 sent before OPEN reaches the
+// guest must NOT be recorded as confirmed HOLD; SnapshotKeep must retry HOLD=1
+// after OPEN completes before proceeding to capture.
+func TestSnapshotKeepRetriesStaleHoldBeforeOpenCompletes(t *testing.T) {
+	var holdAttempts atomic.Int32
+	var holdConfirmed atomic.Bool
+	var keepRootWhileHeld atomic.Bool
+	staleSent := make(chan struct{})
+	var staleOnce sync.Once
+	allowOpen := make(chan struct{})
+	sentinel := errors.New("keep_root_reached_after_confirmed_hold")
+
+	runner := func(x Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			source := prepared.NewRootSource(true)
+			_ = x.Capture.BindRootSource(source, "fake-stale-hold")
+			x.Capture.SetKeep(func() (*prepared.Root, error) {
+				keepRootWhileHeld.Store(holdConfirmed.Load())
+				return nil, sentinel
+			})
+			send := func(v frame) {
+				v.epoch = x.Epoch
+				_ = writeFrame(x.Output, v)
+			}
+			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+			var extSlot uint32
+			var extGen uint64
+			var extOpened bool
+			seenAuth := map[uint32]bool{}
+			outOff := map[uint32]uint64{}
+			for {
+				v, err := readFrame(x.Input)
+				if err != nil {
+					done <- nil
+					return
+				}
+				switch v.kind {
+				case kindOpen:
+					if !extOpened {
+						extSlot, extGen = v.slot, v.generation
+						extOpened = true
+					}
+					send(frame{kind: kindOpened, request: v.request, slot: v.slot, generation: v.generation})
+					greet := mysqlPkt(0, []byte{0x0a, '1', '2', 0})
+					send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff[v.slot], body: greet})
+					outOff[v.slot] += uint64(len(greet))
+				case kindData:
+					send(frame{kind: kindCredit, slot: v.slot, generation: v.generation, value: v.value + uint64(len(v.body))})
+					if !seenAuth[v.slot] {
+						seenAuth[v.slot] = true
+						ok := mysqlPkt(2, []byte{0x00, 0, 0, 2, 0, 0, 0})
+						send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff[v.slot], body: ok})
+						outOff[v.slot] += uint64(len(ok))
+						send(frame{kind: kindState, slot: v.slot, generation: v.generation, body: []byte("idle")})
+					} else if len(v.body) >= 5 && v.body[4] == 0x01 {
+						send(frame{kind: kindRetired, slot: v.slot, generation: v.generation})
+					} else if len(v.body) >= 5 && v.body[4] == 0x03 {
+						ok := mysqlPkt(1, []byte{0x00, 0, 0, 2, 0, 0, 0})
+						send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff[v.slot], body: ok})
+						outOff[v.slot] += uint64(len(ok))
+					}
+				case kindHold:
+					if v.value == 1 {
+						holdAttempts.Add(1)
+						if !extOpened {
+							send(frame{kind: kindRejected, request: v.request, slot: v.slot, generation: v.generation, value: 5, body: []byte("stale")})
+							staleOnce.Do(func() { close(staleSent) })
+							continue
+						}
+						holdConfirmed.Store(true)
+					}
+					send(frame{kind: kindReply, request: v.request, slot: v.slot, generation: v.generation, body: []byte("hold_set")})
+				case kindStats:
+					if extOpened {
+						body := fmt.Sprintf(`{"sessions":[{"slot":%d,"generation":%d,"phase":"idle","status":2}]}`, extSlot, extGen)
+						send(frame{kind: kindStatsReply, request: v.request, body: []byte(body)})
+					} else {
+						send(frame{kind: kindStatsReply, request: v.request, body: []byte(`{"sessions":[]}`)})
+					}
+				case kindPeerEOF:
+					send(frame{kind: kindRetired, slot: v.slot, generation: v.generation})
+				case kindStop:
+					done <- nil
+					return
+				}
+			}
+		}()
+		return done
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	b, err := Start(ctx, Config{Runner: runner, Build: "fake-stale-hold"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer b.Close(context.Background())
+
+	client, server := net.Pipe()
+	defer client.Close()
+	b.mu.Lock()
+	s, err := b.reserveLocked(server)
+	if err != nil {
+		b.mu.Unlock()
+		t.Fatal(err)
+	}
+	b.wg.Add(1)
+	b.mu.Unlock()
+	go func() {
+		defer b.wg.Done()
+		<-allowOpen
+		b.attach(s)
+	}()
+
+	keepDone := make(chan error, 1)
+	go func() {
+		_, e := b.SnapshotKeep(ctx)
+		keepDone <- e
+	}()
+
+	select {
+	case <-staleSent:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for pre-OPEN stale HOLD")
+	}
+	close(allowOpen)
+	if err := privateHandshake(ctx, client, "test"); err != nil {
+		t.Fatal(err)
+	}
+
+	select {
+	case err := <-keepDone:
+		if !errors.Is(err, sentinel) {
+			t.Fatalf("expected sentinel after confirmed HOLD, got %v", err)
+		}
+	case <-time.After(3 * time.Second):
+		t.Fatal("SnapshotKeep timed out")
+	}
+	if !keepRootWhileHeld.Load() || holdAttempts.Load() < 2 {
+		t.Fatalf("expected SnapshotKeep to retry HOLD=1 after stale until confirmed; attempts=%d keptWhileHeld=%v", holdAttempts.Load(), keepRootWhileHeld.Load())
+	}
+}
+
+// P1-6 regression: >16 small output frames totaling <64 KiB for a slow client
+// must NOT overflow the host output queue or kill unrelated peer sessions.
+func TestFragmentedOutputBelowByteLimitDoesNotFailInstance(t *testing.T) {
+	const numFrames = 40
+	const frameSize = 64
+	burstSent := make(chan struct{})
+	var burstOnce sync.Once
+
+	runner := func(x Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			send := func(v frame) {
+				v.epoch = x.Epoch
+				_ = writeFrame(x.Output, v)
+			}
+			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+			outOff := map[uint32]uint64{}
+			for {
+				v, err := readFrame(x.Input)
+				if err != nil {
+					done <- nil
+					return
+				}
+				switch v.kind {
+				case kindOpen:
+					send(frame{kind: kindOpened, request: v.request, slot: v.slot, generation: v.generation})
+				case kindData:
+					if string(v.body) == "BURST" {
+						chunk := bytes.Repeat([]byte("a"), frameSize)
+						for i := 0; i < numFrames; i++ {
+							send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff[v.slot], body: chunk})
+							outOff[v.slot] += uint64(len(chunk))
+						}
+						burstOnce.Do(func() { close(burstSent) })
+					} else {
+						resp := []byte("PONG")
+						send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: outOff[v.slot], body: resp})
+						outOff[v.slot] += uint64(len(resp))
+					}
+				case kindStop:
+					done <- nil
+					return
+				}
+			}
+		}()
+		return done
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	b, err := Start(ctx, Config{Runner: runner, Build: "fake-frag"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer b.Close(context.Background())
+
+	slow, err := b.DialContext(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer slow.Close()
+	peer, err := b.DialContext(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer peer.Close()
+
+	if _, err := slow.Write([]byte("BURST")); err != nil {
+		t.Fatal(err)
+	}
+	select {
+	case <-burstSent:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for fragmented burst")
+	}
+	if _, err := peer.Write([]byte("PING")); err != nil {
+		t.Fatal(err)
+	}
+	buf := make([]byte, 4)
+	if _, err := io.ReadFull(peer, buf); err != nil || string(buf) != "PONG" {
+		t.Fatalf("peer failed while slow had fragmented frames: got=%q err=%v failure=%v", buf, err, b.Failure())
+	}
+	if b.Failure() != nil {
+		t.Fatalf("instance failed on fragmented output below 64 KiB: %v", b.Failure())
+	}
+	drained := make([]byte, numFrames*frameSize)
+	if _, err := io.ReadFull(slow, drained); err != nil {
+		t.Fatalf("slow failed to drain fragmented output: %v", err)
+	}
+}
+
+// P1-7 regression: owner Close while a session writer is blocked mid-response
+// must NOT send PEER_EOF(value=1) as a client disconnect before STOP(2).
+func TestOwnerCloseMidResponseDoesNotSendPeerOutputEOF(t *testing.T) {
+	var sawPeerOutputEOF atomic.Bool
+	var gotStopValue atomic.Uint64
+	writeStarted := make(chan struct{})
+	var startOnce sync.Once
+
+	runner := func(x Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			send := func(v frame) {
+				v.epoch = x.Epoch
+				_ = writeFrame(x.Output, v)
+			}
+			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+			for {
+				v, err := readFrame(x.Input)
+				if err != nil {
+					done <- nil
+					return
+				}
+				switch v.kind {
+				case kindOpen:
+					send(frame{kind: kindOpened, request: v.request, slot: v.slot, generation: v.generation})
+				case kindData:
+					send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: 0, body: bytes.Repeat([]byte("R"), 4096)})
+					startOnce.Do(func() { close(writeStarted) })
+				case kindPeerEOF:
+					if v.value == 1 {
+						sawPeerOutputEOF.Store(true)
+						send(frame{kind: kindPoison, body: []byte("peer_output_error")})
+					}
+				case kindStop:
+					gotStopValue.Store(v.value)
+					send(frame{kind: kindDone, value: v.value, body: []byte(`{}`)})
+					if x.Stopped != nil {
+						x.Stopped(nil)
+					}
+					done <- nil
+					return
+				}
+			}
+		}()
+		return done
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	b, err := Start(ctx, Config{Runner: runner, Build: "fake-owner-close"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	c, err := b.DialContext(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer c.Close()
+
+	if _, err := c.Write([]byte("RUN")); err != nil {
+		t.Fatal(err)
+	}
+	select {
+	case <-writeStarted:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for response chunk")
+	}
+	time.Sleep(30 * time.Millisecond)
+
+	if err := b.Close(ctx); err != nil {
+		t.Fatalf("owner Close mid-response failed: %v", err)
+	}
+	if sawPeerOutputEOF.Load() {
+		t.Fatal("owner Close falsely sent PEER_EOF(value=1) to guest")
+	}
+	if gotStopValue.Load() != 2 {
+		t.Fatalf("expected STOP(value=2), got %d", gotStopValue.Load())
+	}
 }

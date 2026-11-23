@@ -201,6 +201,15 @@
  #undef MYSQL_SERVER
  #undef MYSQL_CLIENT
  #define MYSQL_CLIENT
+@@ -962,7 +962,7 @@
+         goto end;
+       helping= MY_MAX(len, *complen) + net->where_b;
+       /* The necessary size of net->buff */
+-      if (helping >= net->max_packet)
++      if (helping >= net->max_packet || helping >= net->max_packet_size)
+       {
+         if (net_realloc(net, helping))
+         {
 --- a/sql/protocol.cc
 +++ b/sql/protocol.cc
 @@ -28,7 +28,7 @@
@@ -1068,7 +1077,7 @@
  EMSCRIPTEN_KEEPALIVE
  void l4m_free(char *p)
  {
-@@ -552,3 +559,66 @@
+@@ -552,3 +559,72 @@
  }
  
  #include "wire_api.inc"
@@ -1086,14 +1095,20 @@
 +  startup_timing.enabled= getenv("MARIAMEM_GUEST_TIMING") != NULL;
 +  init_enable();
 +  mariamem_init_mark("guest_main");
++  startup_mark("guest_main");
 +  int restore=routine_boot_mode(getenv("MARIAMEM_BOOT_MODE"), 0);
 +  if (restore < 0) return 11;
++  startup_mark("restore_begin");
 +  if (prepare_auth_keys()) return 18;
++  startup_mark("restore_complete");
++  mariamem_init_mark("restore_complete");
++  startup_mark("open_begin");
 +  if (l4m_open()) return 11;
 +  if (!mariamem_auth_keys_ready()) { l4m_close(); return 18; }
 +  if (routine_bootstrap(g_mysql, restore)) { l4m_close(); return 11; }
 +  mysql_close(g_mysql);
 +  g_mysql= NULL;
++  startup_mark("ready_prepared");
 +  mariamem_init_mark("ready_prepared");
 +  startup_write();
 +  return 0;

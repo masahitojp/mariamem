@@ -22,15 +22,17 @@ import (
 // after all native workers, descriptors and borrowed prepared mappings join.
 // Capture approval is permission to freeze, not permission to release execution.
 type Execution struct {
-	Input    io.Reader
-	Output   io.Writer
-	Stderr   io.Writer
-	Restore  []prepared.Entry
-	Epoch    uint64
-	Capture  *prepared.Capture
-	Approval <-chan error
-	Failure  func(error)
-	Stopped  func(error)
+	Input           io.Reader
+	Output          io.Writer
+	Stderr          io.Writer
+	Restore         []prepared.Entry
+	GuestTiming     bool
+	BindGuestTiming func(func() []byte)
+	Epoch           uint64
+	Capture         *prepared.Capture
+	Approval        <-chan error
+	Failure         func(error)
+	Stopped         func(error)
 }
 type Runner func(Execution) <-chan error
 
@@ -38,6 +40,7 @@ type Config struct {
 	Runner       Runner
 	Build        string
 	Restore      []prepared.Entry
+	GuestTiming  bool
 	QueryTimeout time.Duration
 	Stderr       io.Writer
 	// RejectCapacity owns and closes a pre-login TCP connection. The host supplies
@@ -50,7 +53,7 @@ type Config struct {
 // It has no generatedgo dependency and does not select public routing.
 type Backend struct {
 	mu                           sync.Mutex
-	writeMu                      sync.Mutex
+	writeSem                     chan struct{}
 	owner                        *Owner
 	epoch                        uint64
 	limit                        uint64
@@ -88,6 +91,7 @@ type Backend struct {
 	stoppedOnce                  sync.Once
 	stoppedErr                   error
 	startTail                    *stderrTail
+	readGuestTiming              atomic.Pointer[func() []byte]
 }
 
 type stderrTail struct {
@@ -141,7 +145,7 @@ func Start(ctx context.Context, cfg Config) (*Backend, error) {
 	if err != nil {
 		return nil, err
 	}
-	r := &Backend{owner: New(epoch), epoch: epoch, limit: limit, build: cfg.Build,
+	r := &Backend{owner: New(epoch), writeSem: make(chan struct{}, 1), epoch: epoch, limit: limit, build: cfg.Build,
 		pending: map[uint32]chan frame{}, opening: map[uint32]*session{}, sessions: map[key]*session{},
 		readyCh: make(chan struct{}), failed: make(chan struct{}), done: make(chan struct{}), executionDone: make(chan struct{}), readDone: make(chan struct{}),
 		approval: make(chan error, 1), operation: make(chan struct{}, 1), stopSent: make(chan struct{}), rejectCapacity: cfg.RejectCapacity,
@@ -178,13 +182,29 @@ func Start(ctx context.Context, cfg Config) (*Backend, error) {
 	}
 	tail := &stderrTail{active: true, wrapped: cfg.Stderr}
 	r.startTail = tail
-	complete := cfg.Runner(Execution{r.guestIn, r.guestOut, tail, cfg.Restore, epoch, &r.capture, r.approval, func(e error) {
-		// The runner callback cannot wait for a native/host join or pipe I/O.
-		r.recordFailure(e)
-		go r.abort()
-	}, func(e error) {
-		r.markStopped(e)
-	}})
+	complete := cfg.Runner(Execution{
+		Input:       r.guestIn,
+		Output:      r.guestOut,
+		Stderr:      tail,
+		Restore:     cfg.Restore,
+		GuestTiming: cfg.GuestTiming,
+		BindGuestTiming: func(fn func() []byte) {
+			if fn != nil {
+				r.readGuestTiming.Store(&fn)
+			}
+		},
+		Epoch:    epoch,
+		Capture:  &r.capture,
+		Approval: r.approval,
+		Failure: func(e error) {
+			// The runner callback cannot wait for a native/host join or pipe I/O.
+			r.recordFailure(e)
+			go r.abort()
+		},
+		Stopped: func(e error) {
+			r.markStopped(e)
+		},
+	})
 	r.wg.Add(1)
 	go func() { defer r.wg.Done(); defer close(r.readDone); r.readLoop() }()
 	if complete == nil {
@@ -405,10 +425,17 @@ func (r *Backend) CloseWithStopped(ctx context.Context, notify func(error)) erro
 	return cause
 }
 
+func (r *Backend) GuestTiming() []byte {
+	if fn := r.readGuestTiming.Load(); fn != nil {
+		return (*fn)()
+	}
+	return nil
+}
+
 func (r *Backend) send(f frame) error {
 	f.epoch = r.epoch
-	r.writeMu.Lock()
-	defer r.writeMu.Unlock()
+	r.writeSem <- struct{}{}
+	defer func() { <-r.writeSem }()
 	return writeFrame(r.in, f)
 }
 
@@ -419,14 +446,30 @@ func (r *Backend) sendContext(ctx context.Context, f frame) error {
 	if e := ctx.Err(); e != nil {
 		return &unsentControl{e}
 	}
+	f.epoch = r.epoch
+	select {
+	case r.writeSem <- struct{}{}:
+	case <-ctx.Done():
+		return &unsentControl{ctx.Err()}
+	case <-r.failed:
+		return r.Failure()
+	}
+	if e := ctx.Err(); e != nil {
+		<-r.writeSem
+		return &unsentControl{e}
+	}
 	done := make(chan error, 1)
-	go func() { done <- r.send(f) }()
+	go func() {
+		defer func() { <-r.writeSem }()
+		done <- writeFrame(r.in, f)
+	}()
 	select {
 	case e := <-done:
 		return e
 	case <-ctx.Done():
-		_ = r.guestIn.Close()
-		<-done
+		// Do not close the shared r.guestIn pipe on a single caller's
+		// cancellation; the in-flight frame finishes and releases writeSem
+		// so subsequent controls stay ordered and existing sessions survive.
 		return ctx.Err()
 	case <-r.failed:
 		_ = r.guestIn.Close()
@@ -573,10 +616,7 @@ func (r *Backend) receiveFrame(f frame) bool {
 			r.fail(errors.New("output without session"))
 			return false
 		}
-		select {
-		case s.output <- f:
-		case <-s.ended:
-		default:
+		if !s.pushOutput(f) {
 			r.fail(errors.New("bounded host output queue overflow"))
 			return false
 		}

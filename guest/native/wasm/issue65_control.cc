@@ -79,7 +79,34 @@ struct Manager {
   reaper=std::thread([this]{reapLoop();});
   emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":3,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
  }
- bool admit(Session *raw){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing){++denied;raw->closeIO(ECANCELED);return false;}need(s->phase==IDLE,"admit only idle");s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline.arm(Clock::now());state(s);return true;}
+ bool admit(Session *raw){
+  for(;;){
+   bool waitHold=false;
+   {
+    std::lock_guard<std::mutex> l(gate);
+    auto s=slots[raw->slot];
+    if(!s||s.get()!=raw||fenced||poisoned||closing||s->overflowed){++denied;raw->closeIO(ECANCELED);return false;}
+    {
+     std::lock_guard<std::mutex> q(s->io);
+     if(s->closed)return false;
+     if(!s->armed)return true;
+     if(s->hold){
+      waitHold=true;
+      emit(frame(REPLY,0,s,s->command,"admit_wait"));
+     }else{
+      need(s->phase==IDLE,"admit only idle");
+      s->armed=false;s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline.arm(Clock::now());state(s);
+      return true;
+     }
+    }
+   }
+   if(waitHold){
+    std::unique_lock<std::mutex> q(raw->io);
+    raw->changed.wait(q,[&]{return raw->closed||!raw->hold;});
+    if(raw->closed)return false;
+   }
+  }
+ }
  int finish(Session *raw,unsigned status,bool retire){
   std::shared_ptr<Session>s;
   {std::lock_guard<std::mutex> l(gate);s=slots[raw->slot];if(!s||s.get()!=raw||poisoned||closing||s->overflowed)return 1;s->eofResponseGrace=false;bool inputEOF;{std::lock_guard<std::mutex> q(s->io);s->eofDuringResponse=false;inputEOF=s->inputEOF;}
@@ -95,13 +122,18 @@ struct Manager {
   if(kind==AUTH_COMPLETE)return finish(raw,status,false);
   if(kind==COMMAND_COMPLETE||kind==CONNECTION_COMPLETE)return finish(raw,status,kind==CONNECTION_COMPLETE);
   if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing||raw->overflowed)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
-  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing||raw->overflowed)return 1;raw->eofResponseGrace=false;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);raw->eofDuringResponse=false;inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
+  if(kind==EXECUTE_START){
+   // CLIENT_COMPRESS may serve the next command out of net->remain_in_buf
+   // without calling readCb; enforce HOLD, command numbering and deadline here too.
+   if(!admit(raw))return 1;
+   std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing||raw->overflowed)return 1;raw->eofResponseGrace=false;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);raw->eofDuringResponse=false;inputEOF=raw->inputEOF;raw->cmdProducedStart=raw->produced;}raw->nativeCommand=status;if(inputEOF&&!allows_peer_eof_during_exec(status)){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;
+  }
   return 0;
  }
  static int eventCb(void *p,int e,void *thd,unsigned st){auto *s=(Session*)p;return s->owner->event(s,e,thd,st);}
  static size_t readCb(void *p,unsigned char *to,size_t n){
   auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->inputEOF||!s->input.empty();});if(s->closed)return size_t(-1);if(s->input.empty()&&s->inputEOF)return 0;
-  if(s->armed){s->armed=false;if(s->hold){l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->emit(s->owner->frame(REPLY,0,s->owner->slots[s->slot],s->command,"admit_wait"));}l.lock();s->changed.wait(l,[&]{return s->closed||!s->hold;});if(s->closed)return size_t(-1);}l.unlock();if(!s->owner->admit(s))return size_t(-1);l.lock();if(s->closed)return size_t(-1);}
+  if(s->armed){l.unlock();if(!s->owner->admit(s))return size_t(-1);l.lock();if(s->closed)return size_t(-1);}
   n=std::min({n,s->input.size(),CHUNK});for(size_t i=0;i<n;++i){to[i]=s->input.front();s->input.pop_front();}s->consumed+=n;s->creditPending=true;l.unlock();s->owner->outReady.notify_all();return n;
  }
  static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->eofDuringResponse||s->produced-s->acked<OUTPUT_LIMIT;});if(s->closed)return size_t(-1);if(s->eofDuringResponse&&n>0){s->closed=true;s->error=EPIPE;s->changed.notify_all();l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->poisonLocked("peer_output_error");}return size_t(-1);}n=std::min({n,size_t(OUTPUT_LIMIT-(s->produced-s->acked)),CHUNK});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->outReady.notify_all();return n;}

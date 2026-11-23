@@ -164,6 +164,22 @@ def test_unsupported_host_request_preserves_ready_database(wire_db):
     wire_db.wait_disconnected()
 
 
+def _recv_exact(sock, n):
+    buf = bytearray()
+    while len(buf) < n:
+        chunk = sock.recv(n - len(buf))
+        assert chunk, f"unexpected EOF after {len(buf)}/{n} bytes"
+        buf.extend(chunk)
+    return bytes(buf)
+
+
+def _read_mysql_packet(sock):
+    hdr = _recv_exact(sock, 4)
+    length = hdr[0] | (hdr[1] << 8) | (hdr[2] << 16)
+    seq = hdr[3]
+    return seq, _recv_exact(sock, length)
+
+
 def test_unsupported_handshake_flags_are_rejected_without_poisoning_host(wire_db):
     import socket, struct
     info = wire_db.connection_info()
@@ -171,23 +187,98 @@ def test_unsupported_handshake_flags_are_rejected_without_poisoning_host(wire_db
     # TLS rejects it with 1043/08S01 Bad handshake without poisoning the instance.
     with socket.create_connection((info["host"], info["port"]), timeout=5) as sock:
         sock.settimeout(5)
-        hdr = sock.recv(4)
-        assert len(hdr) == 4
-        n = hdr[0] | (hdr[1] << 8) | (hdr[2] << 16)
-        greeting = b""
-        while len(greeting) < n:
-            chunk = sock.recv(n - len(greeting))
-            assert chunk
-            greeting += chunk
+        _, greeting = _read_mysql_packet(sock)
+        assert greeting
         body = struct.pack("<IIB23s", 0x0000A200 | int(CLIENT.SSL), 16 * 1024 * 1024, 45, b"\x00" * 23)
         sock.sendall(struct.pack("<I", len(body))[:3] + b"\x01" + body)
-        resp = sock.recv(4096)
-        assert len(resp) >= 7 and resp[4] == 0xFF
-        assert int.from_bytes(resp[5:7], "little") == 1043
+        _, resp = _read_mysql_packet(sock)
+        assert len(resp) >= 3 and resp[0] == 0xFF
+        assert int.from_bytes(resp[1:3], "little") == 1043
     wire_db.wait_disconnected()
     with connect(wire_db) as conn:
         assert execute(conn, "SELECT 1") == ((1,),)
     wire_db.wait_disconnected()
+
+
+def test_same_connection_rejects_one_mib_plus_one_after_accepting_one_mib(wire_db):
+    """P1-5: After expanding net->buff for an exact 1 MiB SQL, the same connection
+    must still reject 1 MiB + 1 byte with 1153/08S01 before receiving the body."""
+    import socket, struct
+    info = wire_db.connection_info()
+    with socket.create_connection((info["host"], info["port"]), timeout=5) as sock:
+        sock.settimeout(5)
+        _, greeting = _read_mysql_packet(sock)
+        assert greeting
+        # HandshakeResponse41 (no password, root@test)
+        flags = 1 | 8 | 512 | 32768 | 524288
+        auth = struct.pack("<IIB23s", flags, 16 * 1024 * 1024, 45, b"\x00" * 23) + b"root\x00\x00test\x00mysql_native_password\x00"
+        sock.sendall(struct.pack("<I", len(auth))[:3] + b"\x01" + auth)
+        _, ok = _read_mysql_packet(sock)
+        assert ok and ok[0] == 0x00
+
+        # 1. Exact 1 MiB SQL body (1,048,576 B) -> packet length 1,048,577 -> accepted.
+        prefix = b"SELECT '"
+        suffix = b"'"
+        sql_1m = prefix + b"a" * (1048576 - len(prefix) - len(suffix)) + suffix
+        assert len(sql_1m) == 1048576
+        payload = b"\x03" + sql_1m
+        sock.sendall(struct.pack("<I", len(payload))[:3] + b"\x00" + payload)
+        # Drain result set (col count, col def, EOF, row, EOF).
+        _, first = _read_mysql_packet(sock)
+        assert first and first[0] != 0xFF
+        eofs = 0
+        while eofs < 2:
+            _, pkt = _read_mysql_packet(sock)
+            assert pkt and pkt[0] != 0xFF
+            if pkt[0] == 0xFE and len(pkt) < 9:
+                eofs += 1
+
+        # 2. On the EXACT SAME connection, send ONLY the 4-byte header for 1 MiB + 1 B
+        #    SQL (packet length 1,048,578) WITHOUT sending the body -> must get 1153.
+        over_len = 1 + 1048576 + 1
+        sock.sendall(struct.pack("<I", over_len)[:3] + b"\x00")
+        _, err_pkt = _read_mysql_packet(sock)
+        assert len(err_pkt) >= 9 and err_pkt[0] == 0xFF
+        assert int.from_bytes(err_pkt[1:3], "little") == 1153
+        assert err_pkt[3:9] == b"#08S01"
+    wire_db.wait_disconnected()
+    with connect(wire_db) as conn:
+        assert execute(conn, "SELECT 1") == ((1,),)
+    wire_db.wait_disconnected()
+
+
+def test_compressed_multi_command_enforces_query_timeout_on_second_command(wire_host):
+    """P1-4: A second command extracted from CLIENT_COMPRESS net->remain_in_buf
+    must still go through admit() so query_timeout is armed and enforced."""
+    import socket, struct, zlib
+    with mariamem.start(host_binary=wire_host, query_timeout=0.25, shutdown_timeout=2) as db:
+        info = db.connection_info()
+        with socket.create_connection((info["host"], info["port"]), timeout=5) as sock:
+            sock.settimeout(5)
+            _, greeting = _read_mysql_packet(sock)
+            assert greeting
+            # HandshakeResponse41 with CLIENT_COMPRESS (0x0020)
+            flags = 1 | 8 | 32 | 512 | 32768 | 524288
+            auth = struct.pack("<IIB23s", flags, 16 * 1024 * 1024, 45, b"\x00" * 23) + b"root\x00\x00test\x00mysql_native_password\x00"
+            sock.sendall(struct.pack("<I", len(auth))[:3] + b"\x01" + auth)
+            _, ok = _read_mysql_packet(sock)
+            assert ok and ok[0] == 0x00
+
+            # Pack TWO COM_QUERY packets into ONE compressed frame so the 2nd
+            # is served from net->remain_in_buf without calling VIO readCb.
+            raw = _pipeline_frame("SELECT 1") + _pipeline_frame("SELECT SLEEP(5)")
+            comp = zlib.compress(raw)
+            comp_hdr = (
+                struct.pack("<I", len(comp))[:3]
+                + b"\x00"
+                + struct.pack("<I", len(raw))[:3]
+            )
+            t0 = time.monotonic()
+            sock.sendall(comp_hdr + comp)
+            # 2nd command must be poisoned by query_timeout (~0.25s), well before 5s.
+            _wait_for_unusable(db)
+            elapsed = time.monotonic() - t0
+            assert elapsed < 3.0, f"2nd compressed command escaped query_timeout (elapsed={elapsed:.2f}s)"
 
 
 def test_idle_connection_does_not_expire_at_query_deadline():

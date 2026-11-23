@@ -7,6 +7,8 @@ import (
 	"sync"
 )
 
+const outputLimit uint64 = 65536
+
 type key struct {
 	slot       uint32
 	generation uint64
@@ -22,14 +24,78 @@ type session struct {
 	cv             *sync.Cond
 	sent, consumed uint64
 	dead           bool
-	output         chan frame
+	outFrames      []frame
+	outBytes       uint64
+	outWake        chan struct{}
 	ended          chan struct{}
+}
+
+func (s *session) pushOutput(f frame) bool {
+	s.mu.Lock()
+	if s.dead {
+		s.mu.Unlock()
+		return true
+	}
+	n := uint64(len(f.body))
+	if n == 0 || n > outputLimit-s.outBytes {
+		s.mu.Unlock()
+		return false
+	}
+	if last := len(s.outFrames) - 1; last >= 0 {
+		prev := &s.outFrames[last]
+		if prev.value+uint64(len(prev.body)) == f.value && len(prev.body)+len(f.body) <= 4096 {
+			prev.body = append(prev.body, f.body...)
+			s.outBytes += n
+			s.mu.Unlock()
+			select {
+			case s.outWake <- struct{}{}:
+			default:
+			}
+			return true
+		}
+	}
+	f.body = append([]byte(nil), f.body...)
+	s.outFrames = append(s.outFrames, f)
+	s.outBytes += n
+	s.mu.Unlock()
+	select {
+	case s.outWake <- struct{}{}:
+	default:
+	}
+	return true
+}
+
+func (s *session) popOutput() (frame, bool) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.dead || len(s.outFrames) == 0 {
+		return frame{}, false
+	}
+	f := s.outFrames[0]
+	s.outFrames[0] = frame{}
+	s.outFrames = s.outFrames[1:]
+	if len(s.outFrames) == 0 {
+		s.outFrames = nil
+	}
+	return f, true
+}
+
+func (s *session) releaseOutputBytes(n uint64) {
+	s.mu.Lock()
+	if n >= s.outBytes {
+		s.outBytes = 0
+	} else {
+		s.outBytes -= n
+	}
+	s.mu.Unlock()
 }
 
 func (s *session) close() {
 	s.mu.Lock()
 	if !s.dead {
 		s.dead = true
+		s.outFrames = nil
+		s.outBytes = 0
 		close(s.ended)
 		s.conn.Close()
 		s.cv.Broadcast()
@@ -43,7 +109,7 @@ func (r *Backend) reserveLocked(c net.Conn) (*session, error) {
 		return nil, e
 	}
 	t := l.Token()
-	s := &session{root: r, lease: l, id: key{t.Slot, t.Generation}, conn: c, output: make(chan frame, 16), ended: make(chan struct{})}
+	s := &session{root: r, lease: l, id: key{t.Slot, t.Generation}, conn: c, outWake: make(chan struct{}, 1), ended: make(chan struct{})}
 	s.cv = sync.NewCond(&s.mu)
 	r.sessions[s.id] = s
 	r.notifyDisconnectLocked()
@@ -131,25 +197,38 @@ func (r *Backend) attach(s *session) {
 		defer s.relayDone(Writer)
 		defer s.close()
 		for {
-			select {
-			case f := <-s.output:
-				b := f.body
-				for len(b) > 0 {
-					n, e := c.Write(b)
-					if e != nil {
-						r.send(frame{kind: kindPeerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
-						return
-					}
-					if n <= 0 || n > len(b) {
-						r.fail(io.ErrNoProgress)
-						return
-					}
-					b = b[n:]
-				}
-				if e := r.send(frame{kind: kindAck, slot: s.id.slot, generation: s.id.generation, value: f.value + uint64(len(f.body))}); e != nil {
+			f, ok := s.popOutput()
+			if !ok {
+				select {
+				case <-s.outWake:
+					continue
+				case <-s.ended:
 					return
 				}
-			case <-s.ended:
+			}
+			b := f.body
+			for len(b) > 0 {
+				n, e := c.Write(b)
+				if e != nil {
+					r.mu.Lock()
+					stopping := r.stopping
+					r.mu.Unlock()
+					s.mu.Lock()
+					ownerClosed := s.dead
+					s.mu.Unlock()
+					if !stopping && !ownerClosed {
+						_ = r.send(frame{kind: kindPeerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
+					}
+					return
+				}
+				if n <= 0 || n > len(b) {
+					r.fail(io.ErrNoProgress)
+					return
+				}
+				b = b[n:]
+			}
+			s.releaseOutputBytes(uint64(len(f.body)))
+			if e := r.send(frame{kind: kindAck, slot: s.id.slot, generation: s.id.generation, value: f.value + uint64(len(f.body))}); e != nil {
 				return
 			}
 		}

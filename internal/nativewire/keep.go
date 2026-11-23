@@ -41,19 +41,20 @@ func (r *Backend) queryStats(ctx context.Context) (guestStats, error) {
 	return st, nil
 }
 
-func (r *Backend) setHold(ctx context.Context, k key, hold uint64) error {
+func (r *Backend) setHold(ctx context.Context, k key, hold uint64) (bool, error) {
 	reply, err := r.rpcContext(ctx, frame{kind: kindHold, slot: k.slot, generation: k.generation, value: hold})
 	if err != nil {
-		return err
+		return false, err
 	}
-	// Stale (5) means the session already retired cleanly; ignore.
+	// Stale (5) means the session has not opened yet or already retired.
+	// Callers must NOT treat stale as confirmed HOLD=1 while the session is still reserved.
 	if reply.kind == kindRejected && reply.value == 5 {
-		return nil
+		return false, nil
 	}
 	if reply.kind != kindReply {
-		return fmt.Errorf("unexpected HOLD reply kind %d", reply.kind)
+		return false, fmt.Errorf("unexpected HOLD reply kind %d", reply.kind)
 	}
-	return nil
+	return true, nil
 }
 
 // openPrivateSession opens an internal maintenance session over net.Pipe()
@@ -141,13 +142,14 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 		return nil
 	}
 
-	var held []key
-	heldSet := make(map[key]bool)
+	var releaseList []key
+	releaseSet := make(map[key]bool)
+	confirmedHeld := make(map[key]bool)
 	releaseAll := func() {
 		relCtx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
 		defer cancel()
-		for _, k := range held {
-			if e := r.setHold(relCtx, k, 0); e != nil {
+		for _, k := range releaseList {
+			if _, e := r.setHold(relCtx, k, 0); e != nil {
 				r.mu.Lock()
 				alive := !r.stopping && !r.consumed && r.failure == nil
 				r.mu.Unlock()
@@ -156,7 +158,7 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 				}
 			}
 		}
-		held = nil
+		releaseList = nil
 		r.mu.Lock()
 		if r.keepHold {
 			r.keepHold = false
@@ -208,15 +210,32 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 		actCh := r.activityChanged
 		r.mu.Unlock()
 
-		// Record each session before sending HOLD=1 so that even if ctx is
-		// canceled after the guest applies HOLD=1 (before REPLY arrives),
+		// Record each session in releaseList BEFORE sending HOLD=1 so that even if
+		// ctx cancels after the guest applies HOLD=1 (before REPLY arrives),
 		// defer releaseAll() always sends an idempotent HOLD=0 to unblock it.
+		// Track confirmedHeld separately: a stale reply before OPEN reaches the
+		// guest does NOT confirm HOLD=1, so we retry while the session remains reserved.
+		allHeld := true
 		for _, k := range keys {
-			if !heldSet[k] {
-				heldSet[k] = true
-				held = append(held, k)
-				if e := r.setHold(ctx, k, 1); e != nil {
-					return nil, e
+			if confirmedHeld[k] {
+				continue
+			}
+			if !releaseSet[k] {
+				releaseSet[k] = true
+				releaseList = append(releaseList, k)
+			}
+			applied, e := r.setHold(ctx, k, 1)
+			if e != nil {
+				return nil, e
+			}
+			if applied {
+				confirmedHeld[k] = true
+			} else {
+				r.mu.Lock()
+				_, stillReserved := r.sessions[k]
+				r.mu.Unlock()
+				if stillReserved {
+					allHeld = false
 				}
 			}
 		}
@@ -226,9 +245,13 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 		if e != nil {
 			return nil, e
 		}
-		allIdle := !anyOpening
+		allIdle := !anyOpening && allHeld
 		inTrans := false
 		for _, s := range st.Sessions {
+			sk := key{s.Slot, s.Generation}
+			if !confirmedHeld[sk] {
+				allIdle = false
+			}
 			if s.Phase != "idle" {
 				allIdle = false
 			} else if s.Status&1 != 0 {

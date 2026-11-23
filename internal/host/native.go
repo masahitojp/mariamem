@@ -46,10 +46,11 @@ var _ Service = (*Native)(nil)
 
 func StartNativeGenerated(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr io.Writer) (Service, error) {
 	return StartNative(ctx, restore, timeout, stderr, runtimekind.GuestSHA256, func(x nativewire.Execution) <-chan error {
-		return generatedgo.StartWireInstance(x.Input, x.Output, x.Stderr, "", x.Restore, false, x.Failure, x.Epoch, &generatedgo.WireLifecycle{
-			Capture:   x.Capture,
-			Approval:  x.Approval,
-			OnStopped: x.Stopped,
+		return generatedgo.StartWireInstance(x.Input, x.Output, x.Stderr, "", x.Restore, x.GuestTiming, x.Failure, x.Epoch, &generatedgo.WireLifecycle{
+			Capture:         x.Capture,
+			Approval:        x.Approval,
+			OnStopped:       x.Stopped,
+			BindGuestTiming: x.BindGuestTiming,
 		})
 	})
 }
@@ -72,7 +73,7 @@ func startNative(ctx context.Context, restore *snapshot.Owned, timeout time.Dura
 			return nil, e
 		}
 	}
-	b, e := nativewire.Start(ctx, nativewire.Config{Runner: runner, Build: build, Restore: entries, QueryTimeout: timeout, Stderr: stderr, RejectCapacity: RejectCapacity})
+	b, e := nativewire.Start(ctx, nativewire.Config{Runner: runner, Build: build, Restore: entries, GuestTiming: timing.Enabled(ctx), QueryTimeout: timeout, Stderr: stderr, RejectCapacity: RejectCapacity})
 	if e != nil {
 		return nil, disposal.After(e, func() error { release(); return nil })
 	}
@@ -85,6 +86,10 @@ func startNative(ctx context.Context, restore *snapshot.Owned, timeout time.Dura
 	}
 	if e == nil {
 		timing.Mark(ctx, "wire_listener_ready")
+		if timing.Enabled(ctx) {
+			timing.SetGuest(ctx, b.GuestTiming())
+			timing.Mark(ctx, "guest_timing_read")
+		}
 		e = ctx.Err()
 	}
 	if e != nil {

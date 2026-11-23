@@ -37,11 +37,16 @@ def test_full_integration_retains_regressions_without_duplicate_routing(monkeypa
     for filename in ('worker_trap_integration_test.go', 'dictionary_wait_integration_test.go'):
         source = (ROOT/GENERATED/filename).read_text()
         declarations.update(re.findall(r'^func (Test\w+)\(', source, re.MULTILINE))
-    required = {'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer', 'TestDictionaryWaitActualGuest'}
+    required = {
+        'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer',
+        'TestDictionaryWaitActualGuest',
+        'TestShutdownModeFailureActualGuest',
+    }
     assert required <= declarations
     assert {name for name in declarations if re.search(selector, name)} == required
     assert re.search(selector, 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer')
     assert re.search(selector, 'TestDictionaryWaitActualGuest')
+    assert re.search(selector, 'TestShutdownModeFailureActualGuest')
     assert any('scripts/check_prepared_consumers.py' in a for a in calls)
     race = next(a for a in calls if a[:3] == ['go', 'test', '-race'])
     assert {'./internal/live', './internal/generatedgo', './internal/generatedgo/code/base'} <= set(race)

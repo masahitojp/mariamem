@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"strconv"
 	"sync"
 
@@ -15,10 +16,11 @@ import (
 
 // WireLifecycle binds capture, keep-root, and stop notifications for native wire execution.
 type WireLifecycle struct {
-	Capture   *prepared.Capture
-	Approval  <-chan error
-	Observe   func(string)
-	OnStopped func(error)
+	Capture         *prepared.Capture
+	Approval        <-chan error
+	Observe         func(string)
+	OnStopped       func(error)
+	BindGuestTiming func(func() []byte)
 }
 
 func (l *WireLifecycle) observe(event string) {
@@ -57,6 +59,24 @@ func startWireInstance(in io.Reader, out, stderr io.Writer, transfer string, res
 		}()
 		w := base.DefaultWASI()
 		fs := base.NewBlockMemFS()
+		if guestTiming && life != nil && life.BindGuestTiming != nil {
+			life.BindGuestTiming(func() []byte {
+				f, e := fs.OpenFile("snapshot-out/startup-timing.json", os.O_RDONLY, 0)
+				if e != nil {
+					return nil
+				}
+				defer f.Close()
+				st, e := f.Stat()
+				if e != nil || st.IsDir() || st.Size() <= 0 || st.Size() > 128*1024 {
+					return nil
+				}
+				b := make([]byte, st.Size())
+				if _, e := f.ReadAt(b, 0); e != nil {
+					return nil
+				}
+				return b
+			})
+		}
 		if life == nil || life.Capture == nil || life.Approval == nil {
 			err = fmt.Errorf("capture lifecycle required")
 			return
