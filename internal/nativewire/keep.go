@@ -133,11 +133,11 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 		if !r.SnapshotCapable() {
 			return &Rejected{"unsupported", "guest does not support snapshots"}
 		}
-		if r.stopping || r.consumed {
-			return &Rejected{"closed", "database is closing"}
-		}
 		if r.failure != nil {
 			return errors.Join(&Rejected{"unusable", "database instance terminated"}, r.failure)
+		}
+		if r.stopping || r.consumed {
+			return &Rejected{"closed", "database is closing"}
 		}
 		return nil
 	}
@@ -198,14 +198,14 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 
 		// Acquire keepHold so no new external connections enter while we quiesce & hold.
 		r.mu.Lock()
-		if r.stopping || r.consumed {
-			r.mu.Unlock()
-			return nil, &Rejected{"closed", "database is closing"}
-		}
 		if r.failure != nil {
 			f := r.failure
 			r.mu.Unlock()
 			return nil, errors.Join(&Rejected{"unusable", "database instance terminated"}, f)
+		}
+		if r.stopping || r.consumed {
+			r.mu.Unlock()
+			return nil, &Rejected{"closed", "database is closing"}
 		}
 		if !r.keepHold {
 			r.keepHold = true
