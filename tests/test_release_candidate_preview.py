@@ -23,6 +23,9 @@ HOST = 'c' * 64
 PACKAGE = '0.7.0'
 INVENTORY = {'go.mod': 'd' * 64}
 RUN = 123
+WORKFLOW = 'e' * 40
+INPUTS = 'f' * 64
+RECEIPT = f'release-candidate-preview-{COMMIT}-attempt-2'
 
 
 def qualification_jobs():
@@ -53,6 +56,7 @@ def test_previous_ready_and_runtime_reuse_cannot_substitute(override):
 class Artifacts:
     def __init__(self):
         self.entries = {}
+        self.ids = {}
         for target in preview.TARGETS:
             self.add(target)
 
@@ -62,7 +66,8 @@ class Artifacts:
         with zipfile.ZipFile(destination, 'w') as archive:
             for path, value in self.entries[name].items():
                 archive.writestr(path, value if isinstance(value, bytes) else json.dumps(value))
-        return {'run_id': run, 'name': name, 'zip_sha256': hashlib.sha256(destination.read_bytes()).hexdigest()}
+        return {'run_id': run, 'artifact_id': self.ids.setdefault(name, len(self.ids) + 1),
+                'name': name, 'zip_sha256': hashlib.sha256(destination.read_bytes()).hexdigest()}
 
     def add(self, target):
         meta = target_metadata(target)
@@ -146,6 +151,72 @@ def test_aggregate_rejects_incomplete_or_mixed_evidence(failure):
         linux['../extra'] = b'unexpected'
     with pytest.raises(ValueError):
         preview.collect(api, RUN, COMMIT, PACKAGE, GUEST, INVENTORY)
+
+
+class CompletedQualification(Artifacts):
+    def __init__(self):
+        super().__init__()
+        self.run = {'path': preview.WORKFLOW + '@ci/preview', 'id': RUN, 'head_sha': WORKFLOW,
+                    'event': 'workflow_dispatch', 'status': 'completed',
+                    'conclusion': 'success', 'run_attempt': 2}
+        self.receipt = {'contract': preview.CONTRACT, 'result': 'READY', 'source_commit': COMMIT,
+                        'workflow_commit': WORKFLOW, 'run_id': RUN, 'run_attempt': 2,
+                        'guest_sha256': GUEST, 'inputs_sha256': INPUTS,
+                        'targets': preview.collect(self, RUN, COMMIT, PACKAGE, GUEST, INVENTORY)}
+        self.entries[RECEIPT] = {'preview-qualification.json': self.receipt}
+
+    def json(self, path):
+        assert path == f'/actions/runs/{RUN}'
+        return self.run.copy()
+
+
+def test_reuse_authenticates_latest_six_target_receipt():
+    api = CompletedQualification()
+    ref = preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+    assert ref['run_id'] == RUN
+    assert ref['name'] == RECEIPT
+    assert ref['artifact_id'] == api.ids[RECEIPT]
+
+
+@pytest.mark.parametrize('change', [
+    {'path': '.github/workflows/other.yml'}, {'head_sha': COMMIT},
+    {'status': 'in_progress'}, {'conclusion': 'failure'},
+    {'run_attempt': 3}, {'run_attempt': True},
+])
+def test_reuse_requires_latest_success_on_exact_workflow(change):
+    api = CompletedQualification()
+    api.run.update(change)
+    with pytest.raises(ValueError):
+        preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+
+
+@pytest.mark.parametrize('change', [
+    {'contract': preview.LEGACY_CONTRACT}, {'result': 'NOT READY'}, {'source_commit': WORKFLOW},
+    {'run_attempt': 1}, {'guest_sha256': INPUTS}, {'inputs_sha256': GUEST},
+    {'targets': {}}, {'targets': {'ubuntu24.04-x86_64': {}, 'darwin-arm64': {}}},
+])
+def test_reuse_rejects_mismatched_qualification(change):
+    api = CompletedQualification()
+    api.receipt.update(change)
+    with pytest.raises(ValueError, match='READY'):
+        preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+
+
+def test_reuse_rejects_reuploaded_identical_bytes():
+    api = CompletedQualification()
+    api.ids['windows-wheel-arm64-' + COMMIT] += 100
+    with pytest.raises(ValueError, match='wheel or artifact identity differs'):
+        preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+
+
+def test_reuse_rejects_run_restarted_during_validation(monkeypatch):
+    api = CompletedQualification()
+    first = api.run.copy()
+    second = {**first, 'run_attempt': 3}
+    metadata = iter((first, second))
+    monkeypatch.setattr(api, 'json', lambda _: next(metadata))
+    with pytest.raises(ValueError, match='restarted during validation'):
+        preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
 
 
 def test_preview_uses_one_legacy_ubuntu_lane_and_cannot_publish():

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aggregate current-run qualification without producing publication credentials."""
+"""Aggregate or revalidate preview qualification without producing publication credentials."""
 
 import argparse
 from contextlib import contextmanager
@@ -12,7 +12,7 @@ import stat
 import tempfile
 import zipfile
 
-from ci_release_reuse import GitHub, safe_name
+from ci_release_reuse import GitHub, WORKFLOW, safe_name
 from common import digest
 from generated_release import CONTRACT as LEGACY_CONTRACT, checkout, source_inventory, version, wheel_name
 from native_target import DARWIN, LINUX_ARM, LINUX_X86, UBUNTU, WINDOWS_ARM, WINDOWS_X86, platform_fields, target_metadata
@@ -175,25 +175,70 @@ def collect(api, run, commit, package, guest, inventory):
     return records
 
 
+def successful_attempt(api, run, workflow):
+    info = api.json(f'/actions/runs/{run}')
+    require(info.get('path', '').split('@', 1)[0] == WORKFLOW
+            and (info.get('id'), info.get('head_sha'), info.get('event'),
+                 info.get('status'), info.get('conclusion'))
+            == (run, workflow, 'workflow_dispatch', 'completed', 'success'),
+            'reuse requires a successful exact-workflow Release CI run')
+    attempt = info.get('run_attempt')
+    require(type(attempt) is int and attempt > 0, 'invalid qualification run attempt')
+    return attempt
+
+
+def revalidate(api, run, commit, workflow, package, guest, inputs, inventory):
+    attempt = successful_attempt(api, run, workflow)
+    name = f'release-candidate-preview-{commit}-attempt-{attempt}'
+    with artifact(api, run, commit, name) as (bundle, reference):
+        require(bundle.names == {'preview-qualification.json'}, 'unexpected preview receipt members')
+        receipt = bundle.json('preview-qualification.json')
+    identity = {'contract': CONTRACT, 'result': 'READY', 'source_commit': commit,
+                'workflow_commit': workflow, 'run_id': run, 'run_attempt': attempt,
+                'guest_sha256': guest, 'inputs_sha256': inputs}
+    require(isinstance(receipt, dict) and set(receipt) == {*identity, 'targets'}
+            and all(receipt[key] == value for key, value in identity.items()),
+            'preview READY identity differs')
+    targets = receipt['targets']
+    require(isinstance(targets, dict) and set(targets) == set(TARGETS),
+            'preview READY targets differ')
+    require(collect(api, run, commit, package, guest, inventory) == targets,
+            'preview READY wheel or artifact identity differs')
+    require(successful_attempt(api, run, workflow) == attempt,
+            'qualification run was restarted during validation')
+    return reference
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--reuse-run', type=int, help='Revalidate one completed exact-source preview run')
     args = parser.parse_args()
     commit = os.environ['SOURCE_SHA']
+    workflow = os.environ['WORKFLOW_SHA']
     run, attempt = int(os.environ['GITHUB_RUN_ID']), int(os.environ['GITHUB_RUN_ATTEMPT'])
     record = {'contract': CONTRACT, 'result': 'NOT READY', 'source_commit': commit,
-              'workflow_commit': os.environ['WORKFLOW_SHA'], 'run_id': run, 'run_attempt': attempt}
+              'workflow_commit': workflow, 'run_id': run, 'run_attempt': attempt}
     try:
         checkout(args.root, commit)
-        check_jobs(json.loads(os.environ['NEEDS_JSON']), commit)
         api = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_TOKEN'])
         package = version(args.root)['PYTHON_VERSION']
         path = args.root / 'release/generated-go-inputs.json'
         guest = json.loads(path.read_text())['guest_sha256']
-        record['guest_sha256'] = guest
-        record['inputs_sha256'] = digest(path)
-        record['targets'] = collect(api, run, commit, package, guest, source_inventory(args.root))
+        inputs = digest(path)
+        inventory = source_inventory(args.root)
+        if args.reuse_run is None:
+            check_jobs(json.loads(os.environ['NEEDS_JSON']), commit)
+            record['guest_sha256'] = guest
+            record['inputs_sha256'] = inputs
+            record['targets'] = collect(api, run, commit, package, guest, inventory)
+        else:
+            require(args.reuse_run > 0 and args.reuse_run != run, 'reuse requires a distinct earlier qualification run')
+            # A reuse result points to the original qualification. It cannot
+            # stand in for a fresh six-target receipt on a later dispatch.
+            record['reused_qualification'] = revalidate(
+                api, args.reuse_run, commit, workflow, package, guest, inputs, inventory)
         record['result'] = 'READY'
     except Exception as error:
         record['reason'] = str(error)
