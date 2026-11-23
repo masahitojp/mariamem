@@ -5,7 +5,6 @@ package gointegration_test
 import (
 	"context"
 	"encoding/json"
-	"net"
 	"os"
 	"path/filepath"
 	"strings"
@@ -227,18 +226,8 @@ func TestShutdownModeOwnerCloseMidResponseAppliesMode2(t *testing.T) {
 	}
 	setup.Close()
 
-	// Open a raw TCP client, authenticate via DialContext/TCP, start reading rows,
-	// then stall before draining the full response and invoke owner db.Close().
-	info := db.ConnectionInfo()
-	raw, err := net.DialTimeout("tcp", info.Addr, 5*time.Second)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer raw.Close()
-	// Authenticate using standard sql client on a second connection? Better: use
-	// openSQLClient and execute QueryContext, read 1st row (response is in flight),
-	// leave Rows open while calling db.Close()!
-	_ = raw.Close()
+	// Start a large query whose >256 KiB result set is in flight while the
+	// owner invokes db.Close() before the client drains the remaining rows.
 	reader := openSQLClient(t, ctx, db)
 	defer reader.Close()
 	rows, err := reader.conn.QueryContext(ctx, "SELECT id, body FROM big_close")
