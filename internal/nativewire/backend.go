@@ -90,6 +90,8 @@ type Backend struct {
 	stoppedCh                    chan struct{}
 	stoppedOnce                  sync.Once
 	stoppedErr                   error
+	relaysDone                   chan struct{}
+	relaysOnce                   sync.Once
 	startTail                    *stderrTail
 	readGuestTiming              atomic.Pointer[func() []byte]
 }
@@ -149,7 +151,7 @@ func Start(ctx context.Context, cfg Config) (*Backend, error) {
 		pending: map[uint32]chan frame{}, opening: map[uint32]*session{}, sessions: map[key]*session{},
 		readyCh: make(chan struct{}), failed: make(chan struct{}), done: make(chan struct{}), executionDone: make(chan struct{}), readDone: make(chan struct{}),
 		approval: make(chan error, 1), operation: make(chan struct{}, 1), stopSent: make(chan struct{}), rejectCapacity: cfg.RejectCapacity,
-		stoppedCh: make(chan struct{})}
+		stoppedCh: make(chan struct{}), relaysDone: make(chan struct{})}
 	if r.rejectCapacity == nil {
 		r.rejectCapacity = func(c net.Conn) { _ = c.Close() }
 	}
@@ -272,9 +274,35 @@ func (r *Backend) recordFailure(e error) {
 }
 func (r *Backend) markStopped(e error) {
 	r.stoppedOnce.Do(func() {
+		r.mu.Lock()
 		r.stoppedErr = e
+		r.mu.Unlock()
+		_ = r.guestIn.Close()
+		_ = r.guestOut.Close()
 		close(r.stoppedCh)
 	})
+}
+func (r *Backend) stoppedCause() error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	return r.stoppedErr
+}
+func (r *Backend) waitRelays() <-chan struct{} {
+	r.relaysOnce.Do(func() {
+		go func() {
+			r.wg.Wait()
+			close(r.relaysDone)
+		}()
+	})
+	return r.relaysDone
+}
+func (r *Backend) disposeSessions() {
+	r.mu.Lock()
+	r.owner.DisposeLocked()
+	r.sessions = map[key]*session{}
+	r.notifyDisconnectLocked()
+	r.notifyActivityLocked()
+	r.mu.Unlock()
 }
 func (r *Backend) notifyDisconnectLocked() {
 	if r.disconnectChanged != nil {
@@ -327,13 +355,8 @@ func (r *Backend) supervise(complete <-chan error) {
 	close(r.executionDone)
 	r.requestStop()
 	<-r.stopSent
-	r.wg.Wait()
-	r.mu.Lock()
-	r.owner.DisposeLocked()
-	r.sessions = map[key]*session{}
-	r.notifyDisconnectLocked()
-	r.notifyActivityLocked()
-	r.mu.Unlock()
+	<-r.waitRelays()
+	r.disposeSessions()
 	r.markStopped(r.Failure())
 	close(r.done)
 	if r.Failure() != nil {
@@ -406,12 +429,16 @@ func (r *Backend) CloseWithStopped(ctx context.Context, notify func(error)) erro
 	if notify != nil {
 		notified := make(chan struct{})
 		go func() {
+			defer close(notified)
 			stopErr := disposal.Wait(ctx, r.stoppedCh)
 			if stopErr == nil {
-				stopErr = errors.Join(r.stoppedErr, r.Failure())
+				stopErr = disposal.Wait(ctx, r.waitRelays())
+			}
+			if stopErr == nil {
+				r.disposeSessions()
+				stopErr = errors.Join(r.stoppedCause(), r.Failure())
 			}
 			notify(stopErr)
-			close(notified)
 		}()
 		defer func() { <-notified }()
 	}
@@ -508,6 +535,14 @@ func (r *Backend) rpcContext(ctx context.Context, f frame, initial ...*session) 
 		return answer, nil
 	case <-r.failed:
 		return frame{}, r.Failure()
+	case <-r.readDone:
+		if e := r.Failure(); e != nil {
+			return frame{}, e
+		}
+		if e := r.stoppedCause(); e != nil {
+			return frame{}, e
+		}
+		return frame{}, fmt.Errorf("native execution ended: %w", ErrClosed)
 	case <-r.executionDone:
 		return frame{}, fmt.Errorf("native execution ended: %w", ErrClosed)
 	case <-ctx.Done():

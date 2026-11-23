@@ -143,6 +143,8 @@ type keepFakeRuntime struct {
 	statsBody   string
 	xaRows      int
 	ftwrlErrno  uint16
+	failUnhold  bool
+	rootCut     atomic.Bool
 	holdCalls   atomic.Int32
 	unholdCalls atomic.Int32
 	sqlQueries  []string
@@ -161,6 +163,18 @@ func (k *keepFakeRuntime) run(x Execution) <-chan error {
 	go func() {
 		source := prepared.NewRootSource(true)
 		_ = x.Capture.BindRootSource(source, "fake-keep")
+		x.Capture.SetKeep(func() (*prepared.Root, error) {
+			k.rootCut.Store(true)
+			var c prepared.Capture
+			if err := c.BindRootSource(source, "fake-keep"); err != nil {
+				return nil, err
+			}
+			c.Request()
+			if err := c.CompleteRoot(source, "fake-keep", []string{"."}, nil); err != nil {
+				return nil, err
+			}
+			return c.TakeRoot("fake-keep")
+		})
 		send := func(v frame) {
 			v.epoch = x.Epoch
 			_ = writeFrame(x.Output, v)
@@ -194,6 +208,13 @@ func (k *keepFakeRuntime) run(x Execution) <-chan error {
 					k.holdCalls.Add(1)
 				} else {
 					k.unholdCalls.Add(1)
+					if k.failUnhold {
+						if x.Stopped != nil {
+							x.Stopped(errors.New("lost HOLD=0 reply"))
+						}
+						done <- errors.New("lost HOLD=0 reply")
+						return
+					}
 				}
 				send(frame{kind: kindReply, request: v.request, slot: v.slot, generation: v.generation})
 			case kindOpen:
@@ -1141,5 +1162,222 @@ func TestOwnerCloseMidResponseDoesNotSendPeerOutputEOF(t *testing.T) {
 	}
 	if gotStopValue.Load() != 2 {
 		t.Fatalf("expected STOP(value=2), got %d", gotStopValue.Load())
+	}
+}
+
+// Regression: if HOLD=0 release fails after cutting the root, SnapshotKeep must
+// return an unusable error (not nil), close the created owned root, and mark
+// the backend failed.
+func TestSnapshotKeepHoldReleaseFailureReturnsUnusableAndClosesRoot(t *testing.T) {
+	k := &keepFakeRuntime{
+		statsBody:  `{"sessions":[{"slot":0,"generation":1,"phase":"idle","status":2}]}`,
+		failUnhold: true,
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	b, err := Start(ctx, Config{Runner: k.run, Build: "fake-keep"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer b.Close(context.Background())
+
+	c, err := b.DialContext(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer c.Close()
+	// Drain greeting so session 0 is open and idle.
+	buf := make([]byte, 64)
+	if _, err := c.Read(buf); err != nil {
+		t.Fatal(err)
+	}
+
+	owned, err := b.SnapshotKeep(ctx)
+	if !k.rootCut.Load() {
+		t.Fatal("expected SnapshotKeep to cut root before failing on HOLD=0 release")
+	}
+	if owned != nil {
+		_ = owned.Close()
+		t.Fatalf("expected nil owned root on HOLD=0 release failure, got %v", owned)
+	}
+	if err == nil {
+		t.Fatal("expected error from SnapshotKeep when HOLD=0 release failed")
+	}
+	var rej *Rejected
+	if !errors.As(err, &rej) || rej.Code != "unusable" {
+		t.Fatalf("expected unusable Rejected error, got %v", err)
+	}
+	if b.Failure() == nil {
+		t.Fatal("expected backend Failure() to be recorded after HOLD=0 release failure")
+	}
+	if b.CaptureDebt() != nil {
+		t.Fatalf("unexpected capture debt after closing created root: %v", b.CaptureDebt())
+	}
+}
+
+type blockingWriteConn struct {
+	net.Conn
+	writeEntered  chan struct{}
+	releaseWriter chan struct{}
+	enterOnce     sync.Once
+}
+
+func (c *blockingWriteConn) Write(p []byte) (int, error) {
+	c.enterOnce.Do(func() { close(c.writeEntered) })
+	<-c.releaseWriter
+	return c.Conn.Write(p)
+}
+
+type singleConnListener struct {
+	ch     chan net.Conn
+	closed chan struct{}
+	once   sync.Once
+}
+
+func newSingleConnListener(c net.Conn) *singleConnListener {
+	ch := make(chan net.Conn, 1)
+	ch <- c
+	return &singleConnListener{ch: ch, closed: make(chan struct{})}
+}
+
+func (l *singleConnListener) Accept() (net.Conn, error) {
+	select {
+	case c := <-l.ch:
+		return c, nil
+	case <-l.closed:
+		return nil, net.ErrClosed
+	}
+}
+func (l *singleConnListener) Close() error {
+	l.once.Do(func() { close(l.closed) })
+	return nil
+}
+func (l *singleConnListener) Addr() net.Addr {
+	return &net.TCPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 1}
+}
+
+// Regression: CloseWithStopped must not notify success while a host relay writer
+// is still active even after the guest stops, and once relays finish it must
+// notify without waiting for background memory reclamation (complete channel).
+func TestCloseWithStoppedWaitsForRelaysNotMemoryRelease(t *testing.T) {
+	guestStopped := make(chan struct{})
+	releaseMemory := make(chan struct{})
+	writeEntered := make(chan struct{})
+	releaseWriter := make(chan struct{})
+
+	runner := func(x Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			send := func(v frame) {
+				v.epoch = x.Epoch
+				_ = writeFrame(x.Output, v)
+			}
+			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+			var openSlot uint32
+			var openGen uint64
+			for {
+				v, err := readFrame(x.Input)
+				if err != nil {
+					break
+				}
+				switch v.kind {
+				case kindOpen:
+					openSlot, openGen = v.slot, v.generation
+					send(frame{kind: kindOpened, request: v.request, slot: v.slot, generation: v.generation})
+					send(frame{kind: kindRaw, slot: v.slot, generation: v.generation, value: 0, body: []byte("HELLO")})
+				case kindStop:
+					if openGen != 0 {
+						send(frame{kind: kindRetired, slot: openSlot, generation: openGen})
+					}
+					send(frame{kind: kindDone, value: v.value, body: []byte(`{}`)})
+					if x.Stopped != nil {
+						x.Stopped(nil)
+					}
+					close(guestStopped)
+					<-releaseMemory
+					done <- nil
+					return
+				}
+			}
+			if x.Stopped != nil {
+				x.Stopped(nil)
+			}
+			done <- nil
+		}()
+		return done
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	b, err := Start(ctx, Config{Runner: runner, Build: "fake-close-async"})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	clientSide, serverRaw := net.Pipe()
+	defer clientSide.Close()
+	heldConn := &blockingWriteConn{Conn: serverRaw, writeEntered: writeEntered, releaseWriter: releaseWriter}
+	ln := newSingleConnListener(heldConn)
+	if err := b.Serve(ln); err != nil {
+		t.Fatal(err)
+	}
+
+	select {
+	case <-writeEntered:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for relay writer to enter Write")
+	}
+
+	stopped := make(chan error, 1)
+	closeDone := make(chan error, 1)
+	go func() {
+		closeDone <- b.CloseWithStopped(ctx, func(e error) { stopped <- e })
+	}()
+
+	select {
+	case <-guestStopped:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for guest to stop")
+	}
+
+	// While relay writer is still held, stop notification must NOT fire.
+	select {
+	case e := <-stopped:
+		t.Fatalf("CloseWithStopped notified early while writer was still active (active=%d, err=%v)", b.Active(), e)
+	case <-time.After(50 * time.Millisecond):
+	}
+	if active := b.Active(); active != 1 {
+		t.Fatalf("expected active=1 while writer is held, got %d", active)
+	}
+
+	// Release writer while memory reclamation is STILL blocked: notification must fire now.
+	close(releaseWriter)
+	select {
+	case e := <-stopped:
+		if e != nil {
+			t.Fatalf("expected nil stop notification after relays stopped, got %v", e)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("CloseWithStopped did not notify after relays stopped while memory release remained gated")
+	}
+	if active := b.Active(); active != 0 {
+		t.Fatalf("expected active=0 after stop notification, got %d", active)
+	}
+	if b.DisposalComplete() {
+		t.Fatal("expected DisposalComplete() == false while memory release is still gated")
+	}
+
+	// Now unblock memory reclamation and confirm full disposal completes cleanly.
+	close(releaseMemory)
+	select {
+	case e := <-closeDone:
+		if e != nil {
+			t.Fatalf("CloseWithStopped returned error: %v", e)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("CloseWithStopped did not finish after memory release")
+	}
+	if !b.DisposalComplete() {
+		t.Fatal("expected DisposalComplete() == true after memory release")
 	}
 }

@@ -167,9 +167,12 @@ func (r *Backend) attach(s *session) {
 	if e != nil {
 		// A lost OPEN reply is uncertain: retain the reservation until disposal.
 		r.mu.Lock()
+		stopping := r.stopping
 		r.owner.UncertainLocked(s.lease)
 		r.mu.Unlock()
-		r.fail(e)
+		if !stopping || !errors.Is(e, ErrClosed) {
+			r.fail(e)
+		}
 		c.Close()
 		return
 	}

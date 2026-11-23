@@ -102,7 +102,7 @@
   "recipe_archive_sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
   "native_wire_patch": {
     "file": "guest/patches/12.3.4-native-wire.patch",
-    "sha256": "ec97f89800849cf1c1d1074404524a2bf4c32c4b4c078434a8672cf8374559a8",
+    "sha256": "caf8b97c7307d0c5e01b6d7801ff978b9b518d79f9d78b8a0e17c27fbe473d49",
     "before_sha256": {
       "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
       "include/violite.h": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
@@ -129,7 +129,7 @@
       "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
       "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
       "sql/sql_acl.cc": "2cf39bbaa3110bb8fcb03b4f1c8189426ee378e770b9bca4e6a0d2e3dbd1d90d",
-      "sql/sql_class.cc": "1d99eb7c241560501903a5cc2241991fa58e7abe3d556b100381541b94c48607",
+      "sql/sql_class.cc": "302d323abb352e0c06c7716fde2a8290cca84f17498a5ed32637ff45dae41c29",
       "sql/sql_class.h": "37210dd9282996df9867bfc50e4b944cc71f767a7cf9294f5c4acf1b66cb9a9c",
       "sql/sql_parse.cc": "8d275aa4d409b88c6b3e3a1bb10d0a78598835f6f64c5837863b51b9d60087a6",
       "sql/sql_prepare.cc": "3e82cea9ace580bfb2955ab60c4e4e9a0c2e770bb6fadde14fab7b1f50192f3c",

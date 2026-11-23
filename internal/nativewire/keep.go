@@ -148,13 +148,16 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 	releaseAll := func() {
 		relCtx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
 		defer cancel()
+		var releaseErr error
 		for _, k := range releaseList {
 			if _, e := r.setHold(relCtx, k, 0); e != nil {
+				rel := fmt.Errorf("release snapshot keep hold: %w", e)
+				releaseErr = errors.Join(releaseErr, rel)
 				r.mu.Lock()
 				alive := !r.stopping && !r.consumed && r.failure == nil
 				r.mu.Unlock()
 				if alive {
-					r.fail(fmt.Errorf("release snapshot keep hold: %w", e))
+					r.fail(rel)
 				}
 			}
 		}
@@ -168,6 +171,19 @@ func (r *Backend) SnapshotKeep(ctx context.Context) (owned *stored.Owned, err er
 			}
 		}
 		r.mu.Unlock()
+		if releaseErr != nil {
+			err = errors.Join(err, &Rejected{"unusable", releaseErr.Error()}, releaseErr)
+		}
+		if err != nil && owned != nil {
+			cleanupErr := owned.Close()
+			owned = nil
+			if cleanupErr != nil {
+				r.mu.Lock()
+				r.captureDebt = errors.Join(r.captureDebt, cleanupErr)
+				r.mu.Unlock()
+				err = errors.Join(err, cleanupErr)
+			}
+		}
 	}
 	defer releaseAll()
 
