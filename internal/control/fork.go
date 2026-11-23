@@ -126,11 +126,7 @@ func (d *db) retryCleanup(ctx context.Context) error {
 	return err
 }
 func (d *db) cleanupLog() error {
-	var removal error
-	if d.ownedLog {
-		removal = removeLog(d.logPath)
-	}
-	return errors.Join(closeLog(d.log), removal)
+	return cleanupOwnedLog(d.log, d.logPath, d.ownedLog)
 }
 
 func (m *manager) retainFailure(err error) map[string]any {

@@ -211,7 +211,12 @@ def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
                for step in steps(additional) if action(step, 'actions/checkout'))
     for path in (ROOT/'.github/workflows').glob('*.yml'):
         triggers = events(parse(path.read_text(), str(path)))
-        assert not set(triggers) & {'push', 'schedule', 'workflow_run', 'pull_request_target'}, path
+        automatic = set(triggers) & {'push', 'schedule', 'workflow_run', 'pull_request_target'}
+        if path.name == 'windows-boundary.yml':
+            assert automatic == {'push'}, path
+            assert triggers['push'] == {'branches': ['feat/issue242-windows-runtime-port']}, path
+        else:
+            assert not automatic, path
         if 'pull_request' in triggers:
             assert path.name == 'check.yml'
     daily = parse((ROOT/'.github/workflows/check.yml').read_text())

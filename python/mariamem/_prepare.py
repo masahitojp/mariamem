@@ -47,7 +47,7 @@ class PrepareCommand:
         if any(not isinstance(k, str) or not k or '=' in k or '\0' in k
                or not isinstance(v, str) or '\0' in v for k, v in env.items()):
             raise ValueError('PrepareCommand env requires NUL-free string keys and values')
-        if _CONNECTION_ENV in env:
+        if _CONNECTION_ENV in env or (os.name == 'nt' and any(k.upper() == _CONNECTION_ENV for k in env)):
             raise ValueError('PrepareCommand env must not override its reserved connection variable')
         object.__setattr__(self, 'argv', argv)
         object.__setattr__(self, 'timeout', float(timeout))
@@ -170,6 +170,9 @@ def _outputs(value, tails, cleanup):
 
 
 def _run_command(command, database, rootpath):
+    if os.name == 'nt':
+        from ._windows_prepare import run_command
+        return run_command(command, database, rootpath)
     env = os.environ.copy()
     env.update(command.env)
     env[_CONNECTION_ENV] = json.dumps(database.connection_info())

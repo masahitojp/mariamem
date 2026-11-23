@@ -614,9 +614,9 @@
     }
   },
   "attribution_continuity": {
-    "kind": "unchanged-generated-code; image-metadata-only",
+    "kind": "reviewed-generated-source-delta",
     "audited_provenance_sha256": "d232c06333da7b552353515bd54daaae0e7723bbcb4ee686697f9e8457cecb86",
-    "current_provenance_sha256": "a32d16a2afa5159962056d1f2d18c263855f45bf3f341ed50fffd3356a7493ae",
-    "policy_sha256": "d544eff6bfbd9e3fca9950bc188eab346231d60c75d010ef85ce6f2d21f47b6d"
+    "current_provenance_sha256": "25db09067736beed52228d8b7e4bd3548252d559afbdea5514206364dd147f2c",
+    "policy_sha256": "db6cc2c04edabb791e2134aedb84ca25d2c69506129bb55ab082d2c0532aa9a7"
   }
 }

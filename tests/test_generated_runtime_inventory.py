@@ -108,6 +108,7 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
         + 'func (w *WasiStubs) Sched_yield(m *Module) int32 {\n\truntime.Gosched()\n\treturn _wasiESUCCESS\n}\n'
         + 'const _wasiESUCCESS int32 = 0\n'
         + (ROOT/(FIXTURES / 'pinned-fd-write.go.txt')).read_text()
+        + (ROOT/(FIXTURES / 'pinned-native-errors.go.txt')).read_text()
         + (ROOT/(FIXTURES / 'pinned-worker-failure.go.txt')).read_text()
         + (ROOT/(FIXTURES / 'pinned-memfs.go.txt')).read_text())
     for relative, (fn, _) in FUNCTIONS.items():
