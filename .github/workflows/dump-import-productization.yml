@@ -6,6 +6,10 @@ on:
         description: Exact commit resolved by Release CI
         required: true
         type: string
+      ubuntu_only:
+        description: Run the complete feature suite on Ubuntu only
+        type: boolean
+        default: false
 permissions:
   contents: read
 env:
@@ -61,8 +65,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Release acceptance retains both supported hosts.
-        os: [ubuntu-24.04, macos-15]
+        os: ${{ fromJSON(inputs.ubuntu_only && '["ubuntu-24.04"]' || '["ubuntu-24.04","macos-15"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     steps:

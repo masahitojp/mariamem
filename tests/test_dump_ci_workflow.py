@@ -12,7 +12,7 @@ def validate(text):
     from workflow_model import parse, needs, commands
     model = parse(text)
     assert any(needs(job) == {'native-reference'} for job in model['jobs'].values())
-    assert any(job.get('strategy', {}).get('matrix', {}).get('os') == ['ubuntu-24.04', 'macos-15'] for job in model['jobs'].values())
+    assert model['jobs']['guest-comparison']['runs-on'] == '${{ matrix.os }}'
     script = commands(model)
     assert 'scripts/verify.py' not in script
     for owner in ['producer.py', 'native_reference.py', 'variant.py', 'campaign.py']:
