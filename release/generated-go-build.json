@@ -281,7 +281,6 @@
       "sha256": "caf8b97c7307d0c5e01b6d7801ff978b9b518d79f9d78b8a0e17c27fbe473d49"
     },
     "overlays": {
-      "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
       "input.json": "c4816528743b848cd3a9b14ae3c2ca2a4518b74cc3f348fe8f661f8cc10fdfbd",

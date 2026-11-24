@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Install the pinned Linux x86_64 WASIXCC toolchain for guest builds."""
+"""Retired Linux x86_64 Wasmer WASIXCC toolchain installer (historical reference)."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses release/generated-go-toolchain.json and docs/development.md.")
+
 import hashlib
 import json
 import os
