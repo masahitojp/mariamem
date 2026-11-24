@@ -5,15 +5,25 @@ Unknown inputs conservatively require source checks + representative smoke.
 This selector produces an execution plan, not reusable runtime or final-artifact qualification evidence.
 """
 import argparse
+from functools import lru_cache
 import json
 import os
 from pathlib import Path
 import subprocess
 
 from git_identity import require_commit
-from check_benchmark_evidence import known_inert
+from check_benchmark_evidence import known_inert, maintained
+from check_development_docs import current_release_notes_path
 
 ROOT = Path(__file__).resolve().parents[1]
+V047_ARCHIVE_COMMIT = '3831bd3c9cfa82931b0ae6956ac3dbdb9ffa9d3d'
+V047_EVIDENCE_PREFIX = 'benchmarks/v047-upstream-evidence/'
+V047_RETAINED_DOCS = {
+    'benchmarks/v047-product-validation.md',
+    'benchmarks/v047-upstream-evidence/README.md',
+    'benchmarks/v047-upstream-evidence/SHA256SUMS',
+}
+PYTHON_README = 'python/README.md'
 # Every maintained workflow has a reviewed classification. New workflow paths
 # remain conservative until assigned here; the inventory test catches omissions.
 WORKFLOW_SCOPES = {
@@ -64,7 +74,8 @@ TOOLING = {
     'benchmarks/ownedprepared/test_tools.py',
     'scripts/published_assets.py', 'benchmarks/measurement_summary.py',
     'benchmarks/v04_candidate.py',
-    'scripts/development_scope.py', 'scripts/check_public.py', 'scripts/check_version.py',
+    'scripts/development_scope.py', 'scripts/check_development_docs.py',
+    'scripts/check_public.py', 'scripts/check_version.py',
     'scripts/git_identity.py', 'scripts/experiment_workspace.py', 'scripts/experiment_disk.py',
     'scripts/release_features.py', 'scripts/release_prepare.py', 'scripts/release_version.py', 'scripts/release_plan.py',
     'scripts/release_candidate_preview.py',
@@ -107,6 +118,7 @@ PURE_TESTS = {
     'tests/test_deployment.py',
     'tests/test_development_cleanup.py',
     'tests/test_development_scope.py',
+    'tests/test_check_development_docs.py',
     'tests/test_distribution_licenses.py', 'tests/test_update_evidence_records.py',
     'tests/test_experiment_workspace.py',
     'tests/test_final_latency.py',
@@ -142,8 +154,78 @@ PURE_TESTS = {
 }
 
 
-def boundary(path):
-    if known_inert(path):
+@lru_cache(maxsize=8)
+def v047_archive_blobs(root):
+    """Return path -> Git blob SHA for the immutable v0.4.7 evidence archive commit."""
+    actual = subprocess.check_output(
+        ['git', '-C', str(root), 'rev-parse', '--verify', V047_ARCHIVE_COMMIT + '^{commit}'],
+        stderr=subprocess.PIPE,
+    ).decode().strip()
+    if actual != V047_ARCHIVE_COMMIT:
+        raise ValueError('v0.4.7 archive commit identity mismatch')
+    out = subprocess.check_output(
+        ['git', '-C', str(root), 'ls-tree', '-rz', V047_ARCHIVE_COMMIT, '--', V047_EVIDENCE_PREFIX],
+        stderr=subprocess.PIPE,
+    )
+    blobs = {}
+    for row in out.split(b'\0'):
+        if row:
+            meta, path = row.split(b'\t', 1)
+            blobs[path.decode()] = meta.split()[2].decode()
+    return blobs
+
+
+def verified_v047_deletions(root, base, candidate):
+    """Return deleted paths under benchmarks/v047-upstream-evidence/ matching the fixed archive blobs."""
+    root_str = str(Path(root).resolve())
+    try:
+        archive = v047_archive_blobs(root_str)
+    except (ValueError, subprocess.CalledProcessError):
+        return frozenset()
+    proc = subprocess.run(
+        ['git', 'diff', '--raw', '--no-renames', '--no-abbrev', '-z', base, candidate, '--'],
+        cwd=root, check=True, capture_output=True,
+    )
+    tokens = proc.stdout.split(b'\0')
+    verified = set()
+    i = 0
+    while i + 1 < len(tokens):
+        header = tokens[i]
+        if not header:
+            i += 1
+            continue
+        path = tokens[i + 1].decode('utf-8')
+        i += 2
+        if not header.startswith(b':'):
+            continue
+        parts = header[1:].decode('ascii').split()
+        if len(parts) < 5:
+            continue
+        old_sha, status = parts[2], parts[4]
+        if (status == 'D' and path.startswith(V047_EVIDENCE_PREFIX)
+                and not maintained(path) and archive.get(path) == old_sha):
+            verified.add(path)
+    return frozenset(verified)
+
+
+def safe_current_release_notes_path(root):
+    version_file = Path(root) / 'python/mariamem/_version.py'
+    if not version_file.is_file():
+        return None
+    return current_release_notes_path(root)
+
+
+def safe_known_inert(path, root):
+    try:
+        return known_inert(path, root=root)
+    except (ValueError, subprocess.CalledProcessError):
+        return False
+
+
+def boundary(path, *, root=ROOT, verified_deletions=frozenset()):
+    if safe_known_inert(path, root):
+        return 'docs'
+    if path in verified_deletions:
         return 'docs'
     p = Path(path)
     if p.is_absolute() or '..' in p.parts:
@@ -154,6 +236,9 @@ def boundary(path):
             'docs/benchmarks/go126-vs-go127-evidence/',
             'docs/reviews/memfs-discovery-evidence/')) and (
             p.suffix in ('.json', '.csv', '.txt') or p.name == 'SHA256SUMS'):
+        return 'docs'
+    current_notes = safe_current_release_notes_path(root)
+    if path == PYTHON_README or path in V047_RETAINED_DOCS or (current_notes is not None and path == current_notes):
         return 'docs'
     # Explicit inert historical documents; do not exempt active release inputs
     # or benchmark programs by directory or suffix.
@@ -172,18 +257,28 @@ def boundary(path):
     return 'runtime'
 
 
-def select(paths, *, fallback=None):
-    scopes = {boundary(path) for path in paths}
+def select(paths, *, fallback=None, root=ROOT, verified_deletions=frozenset()):
+    current_notes = safe_current_release_notes_path(root)
+    scopes = {boundary(path, root=root, verified_deletions=verified_deletions) for path in paths}
     full = bool(fallback or not paths or 'runtime' in scopes)
+    check_release_notes = not full and current_notes is not None and any(path == current_notes for path in paths)
+    check_python_readme = not full and any(path == PYTHON_README for path in paths)
+    check_v047_evidence = not full and any(
+        path in V047_RETAINED_DOCS or path in verified_deletions for path in paths
+    )
     return {'version': 1, 'check_scope': 'full' if full else ('python' if 'python' in scopes else 'docs'),
             # Linux ABI/OS acceptance accompanies full runtime changes and direct
-            # packaging changes; #172 can refine this conservative initial set.
-            'linux_wheel': full or any(path.startswith('python/') or path in {
+            # packaging changes; #172/#253 keep python/README.md on the sdist/Twine check.
+            'linux_wheel': full or any((path.startswith('python/') and path != PYTHON_README) or path in {
                 '.github/workflows/check.yml', '.github/workflows/linux-wheel.yml',
                 'scripts/build_alpha.py', 'scripts/native_target.py', 'scripts/linux_wheel_acceptance.py',
                 'scripts/wheel_metadata.py', 'scripts/pypi_smoke.py', 'scripts/development_scope.py',
                 'tests/test_linux_distribution.py'} for path in paths),
-            'integration': full, 'changed_paths': sorted(set(paths)),
+            'integration': full,
+            'check_release_notes': check_release_notes,
+            'check_python_readme': check_python_readme,
+            'check_v047_evidence': check_v047_evidence,
+            'changed_paths': sorted(set(paths)),
             'reason': fallback or ('unknown/runtime input' if full else 'local changed-input classification')}
 
 
@@ -199,16 +294,17 @@ def plan(root, candidate, base):
     # Candidate identity is never silently downgraded. No tag-object inputs.
     require_commit(root, candidate)
     if not base or base == '0' * 40:
-        result = select([], fallback='event base unavailable; full verification')
+        result = select([], fallback='event base unavailable; full verification', root=root)
     else:
         try:
             require_commit(root, base)
             proc = subprocess.run(['git', 'diff', '--name-only', '--no-renames', '-z', base, candidate, '--'],
                                   cwd=root, check=True, capture_output=True)
             paths = proc.stdout.decode('utf-8').split('\0')[:-1]
-            result = select(paths)
+            deletions = verified_v047_deletions(root, base, candidate)
+            result = select(paths, root=root, verified_deletions=deletions)
         except (ValueError, subprocess.CalledProcessError, UnicodeError):
-            result = select([], fallback='event diff unavailable; full verification')
+            result = select([], fallback='event diff unavailable; full verification', root=root)
     return {**result, 'source_commit': candidate, 'base_commit': base}
 
 
@@ -230,6 +326,9 @@ def main():
             output.write('check_scope=' + result['check_scope'] + '\n')
             output.write('linux_wheel=' + str(result['linux_wheel']).lower() + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
+            output.write('check_release_notes=' + str(result['check_release_notes']).lower() + '\n')
+            output.write('check_python_readme=' + str(result['check_python_readme']).lower() + '\n')
+            output.write('check_v047_evidence=' + str(result['check_v047_evidence']).lower() + '\n')
 
 
 if __name__ == '__main__':
