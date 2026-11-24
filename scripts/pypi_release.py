@@ -18,7 +18,7 @@ import zipfile
 from ci_release_reuse import GitHub, WORKFLOW
 from common import ROOT, digest
 from git_identity import inspect_ref, require_commit, read_release_pin, verify_release_pin
-from published_assets import require, verify_publication
+from published_assets import require, verify_publication, verify_six_target_publication
 
 SCHEMA = 'pypi-publication-v1'
 # Upload acceptance can precede visibility through PyPI's public JSON cache.
@@ -95,7 +95,21 @@ def missing_files(expected, actual):
 
 
 def verify_origin(report, provenance, sums, release, source, tag, repository):
+    from generated_release import wheel_name
+    from native_target import UBUNTU
+    from release_candidate_preview import CONTRACT, TARGETS
+
     version = stable_version(tag)
+    if provenance.get('contract') == CONTRACT:
+        require(release.get('tag_name') == tag and release.get('draft') is False
+                and release.get('prerelease') is False, 'GitHub release is not published stable')
+        names = [asset['name'] for asset in release['assets']]
+        require(len(names) == len(set(names)) and set(names) == set(sums) | {'SHA256SUMS'},
+                'six-target GitHub release filenames differ')
+        verify_six_target_publication(report, provenance, sums, source,
+                                      {'GIT_TAG': tag, 'PYTHON_VERSION': version}, repository)
+        return {wheel_name(version, target): sums[wheel_name(version, target)]
+                for target in TARGETS if target != UBUNTU}
     names = {f'mariamem-{version}-provenance.json', f'mariamem-{version}-corresponding-source.tar.gz',
              f'mariamem-{version}-py3-none-linux_x86_64.whl', *selected_wheels(version)}
     require(set(sums) == names, 'GitHub asset contract differs')

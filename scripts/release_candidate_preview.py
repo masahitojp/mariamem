@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aggregate or revalidate preview qualification without producing publication credentials."""
+"""Qualify, revalidate, or stage artifacts for the six-target candidate."""
 
 import argparse
 from contextlib import contextmanager
@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import stat
 import sys
 import tempfile
@@ -16,7 +17,7 @@ import zipfile
 
 from ci_release_reuse import GitHub, WORKFLOW, safe_name
 from common import digest
-from generated_release import CONTRACT as LEGACY_CONTRACT, checkout, source_inventory, version, wheel_name
+from generated_release import CONTRACT as LEGACY_CONTRACT, checkout, source_inventory, source_name, version, wheel_name
 from native_target import DARWIN, LINUX_ARM, LINUX_X86, UBUNTU, WINDOWS_ARM, WINDOWS_X86, platform_fields, target_metadata
 from release_features import FEATURES
 
@@ -69,6 +70,18 @@ class Bundle:
         expected = self.member(name, max_size)
         with self.archive.open(expected) as stream:
             return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+    def stage_file(self, name, destination, max_size):
+        entry = self.member(name, max_size)
+        with self.archive.open(entry) as source, destination.open('xb') as output:
+            shutil.copyfileobj(source, output)
+        return digest(destination)
+
+
+def wheel_digest(bundle, member, name, staging):
+    if staging is None:
+        return bundle.file_sha(member)
+    return bundle.stage_file(member, staging / name, 128 * 1024 * 1024)
 
 
 @contextmanager
@@ -128,7 +141,7 @@ def verify_linux(record, target, family, commit, name, sha):
             and record.get('image_digests'), target + ': container identity missing')
 
 
-def collect(api, run, commit, package, guest, inventory):
+def collect(api, run, commit, package, guest, inventory, *, staging=None):
     records = {}
     for target in TARGETS:
         name = wheel_name(package, target)
@@ -137,7 +150,7 @@ def collect(api, run, commit, package, guest, inventory):
             proof_artifact = 'release-evidence-' + target + '-' + commit
             with artifact(api, run, commit, wheel_artifact) as (bundle, wheel_ref):
                 build = bundle.json('tests/evidence/alpha-wheel.json')
-                sha = bundle.file_sha('build/dist/' + name)
+                sha = wheel_digest(bundle, 'build/dist/' + name, name, staging)
                 verify_build(build, target, commit, package, guest, inventory, name, sha)
             with artifact(api, run, commit, proof_artifact) as (bundle, proof_ref):
                 proof = bundle.json('build/release/ci-ready.json')
@@ -151,10 +164,15 @@ def collect(api, run, commit, package, guest, inventory):
                 require(proof['acceptance_sha256'] ==
                         bundle.file_sha('build/release/generated-acceptance.json', 8 * 1024 * 1024),
                         'Ubuntu acceptance digest differs')
+            if staging is not None:
+                source = source_name(package)
+                with artifact(api, run, commit, 'release-generated-inputs-' + commit) as (bundle, _):
+                    source_sha = bundle.stage_file('release/' + source, staging / source, 1024 * 1024 * 1024)
+                require(proof['assets'].get(source) == source_sha, 'corresponding source digest differs')
             refs = [wheel_ref, proof_ref]
         elif target in (LINUX_X86, LINUX_ARM):
             with artifact(api, run, commit, 'linux-wheel-' + target + '-' + commit) as (bundle, ref):
-                sha = bundle.file_sha('dist/' + name)
+                sha = wheel_digest(bundle, 'dist/' + name, name, staging)
                 verify_build(bundle.json('linux-receipts/wheel.json'), target, commit, package, guest, inventory, name, sha)
                 for family in LIBCS:
                     verify_linux(bundle.json(f'linux-receipts/{family}.json'), target, family, commit, name, sha)
@@ -162,14 +180,14 @@ def collect(api, run, commit, package, guest, inventory):
         else:
             if target == DARWIN:
                 with artifact(api, run, commit, 'macos-boundary-' + commit) as (bundle, ref):
-                    sha = bundle.file_sha('build/dist/' + name)
+                    sha = wheel_digest(bundle, 'build/dist/' + name, name, staging)
                     build = bundle.json('tests/evidence/alpha-wheel.json')
                     report = bundle.json('build/macos-boundary/acceptance.json')
                 refs = [ref]
             else:
                 suffix = target_metadata(target)['goarch'] + '-' + commit
                 with artifact(api, run, commit, 'windows-wheel-' + suffix) as (bundle, wheel_ref):
-                    sha = bundle.file_sha(name)
+                    sha = wheel_digest(bundle, name, name, staging)
                 with artifact(api, run, commit, 'windows-boundary-' + suffix) as (bundle, proof_ref):
                     build = bundle.json('tests/evidence/alpha-wheel.json')
                     report = bundle.json('build/windows-boundary/acceptance.json')
@@ -192,7 +210,7 @@ def successful_attempt(api, run, workflow):
     return attempt
 
 
-def revalidate(api, run, commit, workflow, package, guest, inputs, inventory):
+def revalidate(api, run, commit, workflow, package, guest, inputs, inventory, *, staging=None):
     attempt = successful_attempt(api, run, workflow)
     name = f'release-candidate-preview-{commit}-attempt-{attempt}'
     with artifact(api, run, commit, name) as (bundle, reference):
@@ -207,11 +225,32 @@ def revalidate(api, run, commit, workflow, package, guest, inputs, inventory):
     targets = receipt['targets']
     require(isinstance(targets, dict) and set(targets) == set(TARGETS),
             'preview READY targets differ')
-    require(collect(api, run, commit, package, guest, inventory) == targets,
+    require(collect(api, run, commit, package, guest, inventory, staging=staging) == targets,
             'preview READY wheel or artifact identity differs')
     require(successful_attempt(api, run, workflow) == attempt,
             'qualification run was restarted during validation')
     return {**reference, 'run_attempt': attempt}
+
+
+def stage_publication(api, run, commit, workflow, root, destination):
+    inputs = preview_inputs(root, commit)
+    package, guest, input_digest, _ = inputs
+    require(not destination.exists() and not destination.is_symlink(), 'publication destination already exists')
+    with tempfile.TemporaryDirectory(prefix='.mariamem-publication-', dir=destination.parent) as scratch:
+        staging = Path(scratch) / 'assets'
+        staging.mkdir()
+        reference = revalidate(api, run, commit, workflow, *inputs, staging=staging)
+        assets = {path.name: digest(path) for path in staging.iterdir()}
+        provenance = {'contract': CONTRACT, 'source_commit': commit, 'workflow_commit': workflow,
+                      'guest_sha256': guest, 'inputs_sha256': input_digest, 'git_tag': version(root)['GIT_TAG'],
+                      'python_version': package,
+                      'qualification': reference, 'assets': assets}
+        path = staging / f'mariamem-{package}-provenance.json'
+        path.write_text(json.dumps(provenance, indent=2, sort_keys=True) + '\n')
+        assets = {**assets, path.name: digest(path)}
+        (staging / 'SHA256SUMS').write_text(''.join(f'{sha}  {name}\n' for name, sha in sorted(assets.items())))
+        staging.rename(destination)
+    return reference
 
 
 REUSE_ERRORS = (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile, http.client.HTTPException)
@@ -258,16 +297,23 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--stage-directory', type=Path, help='Stage accepted files from --reuse-run without uploading')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--reuse-run', type=int, help='Revalidate one completed exact-source preview run')
     mode.add_argument('--select-reuse', action='store_true', help='Write the automatic plan to GITHUB_OUTPUT')
     args = parser.parse_args()
-    if not args.select_reuse and args.output is None:
+    if args.stage_directory is not None and (args.reuse_run is None or args.reuse_run <= 0):
+        parser.error('--stage-directory requires a positive --reuse-run')
+    if not args.select_reuse and args.stage_directory is None and args.output is None:
         parser.error('--output is required when writing a qualification receipt')
     commit = os.environ['SOURCE_SHA']
     workflow = os.environ['WORKFLOW_SHA']
-    run, attempt = int(os.environ['GITHUB_RUN_ID']), int(os.environ['GITHUB_RUN_ATTEMPT'])
     api = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_TOKEN'])
+    if args.stage_directory is not None:
+        reference = stage_publication(api, args.reuse_run, commit, workflow, args.root, args.stage_directory)
+        print(json.dumps(reference, sort_keys=True))
+        return
+    run, attempt = int(os.environ['GITHUB_RUN_ID']), int(os.environ['GITHUB_RUN_ATTEMPT'])
     if args.select_reuse:
         inputs = preview_inputs(args.root, commit)
         write_selection(select_reuse(api, run, commit, workflow, *inputs))

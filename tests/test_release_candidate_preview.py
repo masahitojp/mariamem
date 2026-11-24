@@ -170,6 +170,53 @@ class CompletedQualification(Artifacts):
         return self.run.copy()
 
 
+@pytest.mark.parametrize('source_ok', [True, False])
+def test_publication_stages_only_authenticated_assets(source_ok, tmp_path, monkeypatch):
+    from published_assets import verify_downloads
+
+    api = Artifacts()
+    source = preview.source_name(PACKAGE)
+    contents = b'canonical corresponding source'
+    proof = api.entries['release-evidence-' + preview.UBUNTU + '-' + COMMIT]['build/release/ci-ready.json']
+    proof['assets'][source] = hashlib.sha256(contents).hexdigest()
+    api.entries['release-generated-inputs-' + COMMIT] = {
+        'release/' + source: contents if source_ok else b'wrong source',
+    }
+    completed = CompletedQualification()
+    api.json = completed.json
+    receipt = dict(completed.receipt, targets=preview.collect(api, RUN, COMMIT, PACKAGE, GUEST, INVENTORY))
+    api.entries[RECEIPT] = {'preview-qualification.json': receipt}
+    monkeypatch.setattr(preview, 'preview_inputs', lambda root, commit: (PACKAGE, GUEST, INPUTS, INVENTORY))
+    monkeypatch.setattr(preview, 'version', lambda root: {'GIT_TAG': 'v' + PACKAGE})
+    destination = tmp_path / 'publish'
+    if not source_ok:
+        with pytest.raises(ValueError, match='corresponding source digest differs'):
+            preview.stage_publication(api, RUN, COMMIT, WORKFLOW, tmp_path, destination)
+        assert list(tmp_path.iterdir()) == []
+        return
+    reference = preview.stage_publication(api, RUN, COMMIT, WORKFLOW, tmp_path, destination)
+    expected_assets = {preview.wheel_name(PACKAGE, target): hashlib.sha256(target.encode()).hexdigest()
+                       for target in preview.TARGETS}
+    expected_assets[source] = hashlib.sha256(contents).hexdigest()
+    provenance = destination / f'mariamem-{PACKAGE}-provenance.json'
+    payload = json.loads(provenance.read_text())
+    assert payload['assets'] == expected_assets
+    assert payload['qualification'] == reference
+    sums = destination / 'SHA256SUMS'
+    verify_downloads(destination, {**expected_assets, provenance.name: preview.digest(provenance),
+                                   sums.name: preview.digest(sums)})
+    from pypi_release import checksums, verify_origin
+    hashes = checksums(sums.read_text())
+    release = {'tag_name': 'v' + PACKAGE, 'draft': False, 'prerelease': False,
+               'assets': [{'name': path.name} for path in destination.iterdir()]}
+    pypi = verify_origin(None, payload, hashes, release, COMMIT, 'v' + PACKAGE, 'example/repository')
+    assert pypi == {preview.wheel_name(PACKAGE, target): expected_assets[preview.wheel_name(PACKAGE, target)]
+                    for target in preview.TARGETS if target != preview.UBUNTU}
+    release['assets'].pop()
+    with pytest.raises(ValueError, match='six-target GitHub release filenames differ'):
+        verify_origin(None, payload, hashes, release, COMMIT, 'v' + PACKAGE, 'example/repository')
+
+
 def test_reuse_authenticates_latest_six_target_receipt():
     api = CompletedQualification()
     ref = preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
