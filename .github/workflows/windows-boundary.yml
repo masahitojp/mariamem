@@ -110,7 +110,7 @@ jobs:
         if: always()
         with:
           name: windows-boundary-${{ matrix.arch }}-${{ inputs.source_commit || github.sha }}
-          overwrite: ${{ inputs.source_commit && github.run_attempt > 1 }}
+          overwrite: ${{ inputs.source_commit != '' && github.run_attempt > 1 }}
           path: |
             build/windows-boundary/tests.json
             build/windows-boundary/acceptance.json
@@ -121,7 +121,7 @@ jobs:
         if: always() && steps.build.outcome == 'success'
         with:
           name: windows-wheel-${{ matrix.arch }}-${{ inputs.source_commit || github.sha }}
-          overwrite: ${{ inputs.source_commit && github.run_attempt > 1 }}
+          overwrite: ${{ inputs.source_commit != '' && github.run_attempt > 1 }}
           path: build/dist/*.whl
           if-no-files-found: error
           retention-days: 7
