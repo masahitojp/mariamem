@@ -110,8 +110,8 @@ def integration(host=None):
     # v0.4 keeps handwritten/runtime race coverage. Full generated guest races
     # are a documented shared-memory-model limitation, not a release gate.
     run(["go", "test", "-race", "-p", "1", "./internal/artifacts", "./internal/generatedgo/code/base",
-         "./internal/generatedgo", "./internal/generatedgo/image", "./internal/generatedgo/imagelayout", "./internal/guest", "./internal/host",
-         "./internal/mysqlwire", "./internal/preparedproto", "./internal/snapshot", "./internal/live", "./internal/control", "./internal/prepared", "./mariamemtest", ".", "-count=1"], env=env)
+         "./internal/generatedgo", "./internal/generatedgo/image", "./internal/generatedgo/imagelayout", "./internal/nativewire", "./internal/host",
+         "./internal/snapshot", "./internal/live", "./internal/control", "./internal/prepared", "./mariamemtest", ".", "-count=1"], env=env)
     command = ["go", "test"]
     run([*command, "-tags=integration", "./tests/gointegration",
          "-count=1", "-timeout=3m"], env=env)
@@ -122,7 +122,7 @@ def integration(host=None):
     run(["go", "test", "-p", "1", "-tags=integration", "./tests/generatedmemory",
          "-count=1", "-timeout=3m"], env=env)
     run(["go", "test", "-p", "1", "-tags=integration", "./internal/generatedgo",
-         "-run=^Test(WorkerTrapActualGuestNotifiesAndIsolatesPeer|DictionaryWaitActualGuest)$", "-count=1", "-timeout=3m"], env=env)
+         "-run=^Test(WorkerTrapActualGuestNotifiesAndIsolatesPeer|DictionaryWaitActualGuest|ShutdownModeFailureActualGuest)$", "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
         host = shared_host or Path(temporary) / "mariamem-host"
         if shared_host is None:

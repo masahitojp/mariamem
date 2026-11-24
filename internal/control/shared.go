@@ -46,7 +46,7 @@ type Request struct {
 }
 type db struct {
 	gate                     chan struct{}
-	server                   *host.Server
+	server                   host.Service
 	query, startup, shutdown time.Duration
 	id                       string
 	log                      *os.File

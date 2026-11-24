@@ -43,9 +43,9 @@ func TestMappedMemoryContract(t *testing.T) {
 		t.Fatal("grow zero/huge")
 	}
 	// Real generated scalar load, data/TLS initializer, and scalar store function.
-	p8.Fn66(m, 65536)
+	p8.Fn64(m, 65536)
 	binary.LittleEndian.PutUint32(m.Memory[65540:], 123)
-	if p8.Fn68(m) != 123 || p8.Fn80(m, 0, 131072) != 0 {
+	if p8.Fn66(m) != 123 || p8.Fn78(m, 0, 131072) != 0 {
 		t.Fatal("generated load/store")
 	}
 	if binary.LittleEndian.Uint64(m.Memory[131072:]) == 0 {
@@ -66,21 +66,21 @@ func TestMappedMemoryContract(t *testing.T) {
 	parentTLS := m.G1
 	results := make(chan bool, 1)
 	base.ThreadLaunch(m, func(child *base.Module, tid int32) {
-		p8.Fn66(child, generated.InitialMemoryBytes)
+		p8.Fn64(child, generated.InitialMemoryBytes)
 		binary.LittleEndian.PutUint32(child.Memory[generated.InitialMemoryBytes+4:], 456)
-		ok := child.M == ptr && child.MemSize == m.MemSize && p8.Fn68(child) == 456
+		ok := child.M == ptr && child.MemSize == m.MemSize && p8.Fn66(child) == 456
 		child.G0 = 7 << 20
 		atomic.StoreUint32(base.AtomicPtr32At(child, generated.InitialMemoryBytes+1024), 99)
 		results <- ok
 	})
 	base.SpikeWait(m)
-	if !<-results || atomic.LoadUint32(word) != 99 || m.G1 != parentTLS || m.G0 != 8<<20 || p8.Fn68(m) != 123 {
+	if !<-results || atomic.LoadUint32(word) != 99 || m.G1 != parentTLS || m.G0 != 8<<20 || p8.Fn66(m) != 123 {
 		t.Fatal("worker shared visibility / private stack and TLS global")
 	}
-	if base.MemoryGrow(m, 32768-4097) != 4097 || base.MemorySize(m) != 32768 || m.M != ptr || m.Memory[(2<<30)-1] != 0 || p8.Fn68(m) != 123 {
+	if base.MemoryGrow(m, 32768-4097) != 4097 || base.MemorySize(m) != 32768 || m.M != ptr || m.Memory[(2<<30)-1] != 0 || p8.Fn66(m) != 123 {
 		t.Fatal("full maximum grow, zero/preservation/stability")
 	}
-	if p8.Fn80(m, 0, (2<<30)-65536) != 0 {
+	if p8.Fn78(m, 0, (2<<30)-65536) != 0 {
 		t.Fatal("generated store near maximum")
 	}
 	if base.MemoryGrow(m, 1) != -1 {

@@ -46,42 +46,42 @@ func TestPureMemory32GeneratedTraps(t *testing.T) {
 		}()
 	}
 	m.G1 = generated.InitialMemoryBytes - 4
-	trap("initial OOB", func() { p8.Fn68(m) })
+	trap("initial OOB", func() { p8.Fn66(m) })
 	m.G1 = generated.InitialMemoryBytes - 6
-	trap("width crosses end", func() { p8.Fn68(m) })
+	trap("width crosses end", func() { p8.Fn66(m) })
 	m.G0 = 8
-	trap("non-wrapping static offset", func() { p8.Fn80(m, 0, 65536) })
+	trap("non-wrapping static offset", func() { p8.Fn78(m, 0, 65536) })
 	if base.MemoryGrow(m, 1) != 4096 || m.M != ptr {
 		t.Fatal("grow/base")
 	}
 	m.G1 = generated.InitialMemoryBytes - 4
-	if p8.Fn68(m) != 0 {
+	if p8.Fn66(m) != 0 {
 		t.Fatal("grown zero region")
 	}
 
 	m.G0 = 8 << 20
-	p8.Fn66(m, 65536)
+	p8.Fn64(m, 65536)
 	binary.LittleEndian.PutUint32(m.Memory[65540:], 123)
 	word := base.AtomicPtr32At(m, base.AtomicEA(m, 196608, 0, 4))
 	atomic.StoreUint32(word, 0)
 	oldPages := base.MemorySize(m)
 	done := make(chan bool, 1)
 	base.ThreadLaunch(m, func(child *base.Module, tid int32) {
-		p8.Fn66(child, 131072)
+		p8.Fn64(child, 131072)
 		binary.LittleEndian.PutUint32(child.Memory[131076:], 456)
 		child.G0 = 7 << 20
 		grown := base.MemoryGrow(child, 1) == oldPages
 		atomic.StoreUint32(base.AtomicPtr32At(child, base.AtomicEA(child, 196608, 0, 4)), 99)
-		done <- grown && child.M == ptr && p8.Fn68(child) == 456
+		done <- grown && child.M == ptr && p8.Fn66(child) == 456
 	})
 	base.SpikeWait(m)
-	if !<-done || atomic.LoadUint32(word) != 99 || m.G1 != 65536 || m.G0 != 8<<20 || p8.Fn68(m) != 123 || base.MemorySize(m) != oldPages+1 {
+	if !<-done || atomic.LoadUint32(word) != 99 || m.G1 != 65536 || m.G0 != 8<<20 || p8.Fn66(m) != 123 || base.MemorySize(m) != oldPages+1 {
 		t.Fatal("shared worker/grow/TLS contract")
 	}
 	// The same actual generated access must be recoverable across a worker
 	// boundary too; an unhandled goroutine panic previously killed the host.
 	m.G1 = int32(m.MemSize.Load()) - 4
-	base.ThreadLaunch(m, func(child *base.Module, _ int32) { p8.Fn68(child) })
+	base.ThreadLaunch(m, func(child *base.Module, _ int32) { p8.Fn66(child) })
 	trap("worker OOB relayed at join", func() { base.SpikeWait(m) })
 	trap("worker failure retained on repeated join", func() { base.SpikeWait(m) })
 	t.Log("root and worker generated traps survived; worker visibility, grow and private TLS/stack globals pass")

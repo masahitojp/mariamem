@@ -19,6 +19,37 @@ def test_registered_input_and_order():
     assert sum(len(p['after_sha256']) for p in value['patches'][:2]) == 18
     assert set(value['patches'][2]['after_sha256']) == {'sql/sql_prepare.cc','libmysqld/libmysql.c','libmysqld/lib_sql.cc'}
     assert set(value['patches'][3]['after_sha256']) == {'mysys/my_largepage.c','include/my_sys.h','storage/innobase/buf/buf0buf.cc'}
+    assert value['native_wire_patch']['file'] == 'guest/patches/12.3.4-native-wire.patch'
+    assert len(value['native_wire_patch']['after_sha256']) == 15
+    assert value['native_glue_manifest']['file'] == 'guest/native/manifest.json'
+
+
+def test_changed_native_wire_patch_or_glue_manifest_rejected(tmp_path):
+    value = json.loads((ROOT / 'guest/input.json').read_text())
+    (tmp_path / 'guest/patches').mkdir(parents=True)
+    (tmp_path / 'guest/native/libmysqld').mkdir(parents=True)
+    (tmp_path / 'guest/native/wasm').mkdir(parents=True)
+    for patch in [*value['patches'], value['native_wire_patch']]:
+        (tmp_path / patch['file']).write_bytes((ROOT / patch['file']).read_bytes())
+    man_file = value['native_glue_manifest']['file']
+    man = json.loads((ROOT / man_file).read_text())
+    (tmp_path / man_file).write_bytes((ROOT / man_file).read_bytes())
+    for ref in man['files'].values():
+        (tmp_path / ref['file']).write_bytes((ROOT / ref['file']).read_bytes())
+    (tmp_path / 'guest/input.json').write_text(json.dumps(value))
+    assert descriptor(tmp_path, LOCK)['native_glue_manifest']['file'] == man_file
+    # Mutating native_wire_patch fails closed.
+    nw = tmp_path / value['native_wire_patch']['file']
+    orig = nw.read_bytes()
+    nw.write_bytes(orig + b'\n')
+    with pytest.raises(ValueError, match='patch identity'):
+        descriptor(tmp_path, LOCK)
+    nw.write_bytes(orig)
+    # Mutating a native glue file fails closed.
+    glue_ref = next(iter(man['files'].values()))['file']
+    (tmp_path / glue_ref).write_bytes((ROOT / glue_ref).read_bytes() + b'\n')
+    with pytest.raises(ValueError, match='native glue file identity'):
+        descriptor(tmp_path, LOCK)
 
 
 @pytest.mark.parametrize('field', ['revision', 'sha256'])

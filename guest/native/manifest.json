@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "files": {
+    "libmysqld/mariamem_control_abi.h": {
+      "file": "guest/native/libmysqld/mariamem_control_abi.h",
+      "sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075"
+    },
+    "libmysqld/mariamem_wire_probe.inc": {
+      "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
+      "sha256": "d0b0a4809423f18e93ef92a9d7f79c129d70d58a97a4e1367180f7a1d5b1573d"
+    },
+    "wasm/issue65_control.cc": {
+      "file": "guest/native/wasm/issue65_control.cc",
+      "sha256": "b0a5563777e98d012093147ce1c6b9b11ead4a5acee7f3920c20e9aef2eb8516"
+    },
+    "wasm/issue65_deadline.h": {
+      "file": "guest/native/wasm/issue65_deadline.h",
+      "sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f"
+    }
+  }
+}

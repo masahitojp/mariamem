@@ -19,6 +19,7 @@ from install_guest_toolchain import inventory
 from build_feedback import run as observed_run
 
 PIN = ROOT / 'release/generated-go-toolchain.json'
+USER_AGENT = 'mariamem-guest-builder/1.0'
 
 
 def download(pin, directory):
@@ -26,8 +27,9 @@ def download(pin, directory):
     directory.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         pending = path.with_suffix('.partial')
+        request = urllib.request.Request(pin['url'], headers={'User-Agent': USER_AGENT})
         try:
-            with urllib.request.urlopen(pin['url'], timeout=180) as src, pending.open('wb') as dst:
+            with urllib.request.urlopen(request, timeout=180) as src, pending.open('wb') as dst:
                 shutil.copyfileobj(src, dst)
             if digest(pending) != pin['sha256']:
                 raise ValueError('download checksum mismatch: ' + pin['file'])

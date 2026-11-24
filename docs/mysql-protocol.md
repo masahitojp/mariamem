@@ -14,12 +14,13 @@ byte and four-byte frame header). This is a cumulative byte limit and can hold
 several small commands. It is not a command-count limit or an overall RSS limit.
 The limit is fixed; there is no new SDK setting.
 
-If additional input exceeds that limit while a query runs, the database instance
-is terminated and clients receive a connection-loss error identifying the bounded
-receive buffer. Prepare a new independent database after this fatal failure.
-Reduce outstanding requests or disable the driver's pipelining for large bursts.
-Other physical connections to that same instance are also lost; independent
-root databases remain separate.
+If additional input exceeds that limit on a connection, **only that offending
+connection is terminated** (its active query is killed and any uncommitted
+transaction is rolled back during session cleanup); other physical connections
+and the database instance itself continue operating normally. Only if the
+offending worker cannot be terminated within the session deadline does the
+instance fall back to fatal termination. Reduce outstanding requests or disable
+the driver's pipelining for large bursts.
 
 Disconnect monitoring continues after future input arrives, including when the
 buffer is full. Query deadlines and owner shutdown retain their existing abort

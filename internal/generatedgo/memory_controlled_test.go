@@ -26,7 +26,7 @@ func TestMappedWorkerFailureNotifiesBeforeRootReturns(t *testing.T) {
 		return executeGuest(m, func(m *base.Module) {
 			base.ThreadLaunch(m, func(child *base.Module, _ int32) {
 				child.G1 = int32(child.MemSize.Load()) - 4
-				p8.Fn68(child)
+				p8.Fn66(child)
 			})
 			select {
 			case <-failed:
@@ -58,7 +58,7 @@ func TestMappedControlledTrapsRelease(t *testing.T) {
 				switch family {
 				case "scalar":
 					child.G1 = end - 4
-					p8.Fn68(child)
+					p8.Fn66(child)
 				case "simd":
 					base.Simd_v128_load(child, end-15, 0)
 				case "atomic":

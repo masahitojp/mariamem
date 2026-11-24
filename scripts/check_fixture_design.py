@@ -64,11 +64,16 @@ def validate_current_contract(plan, root=ROOT):
     need((root / wire['current_inventory']).is_file(), 'current wire inventory missing')
     need(set(wire['source_sha256']) == {'internal/mysqlwire/wire.go', 'internal/mysqlwire/prepared_session.go', 'guest/wire_core.inc', 'guest/resident.inc'}, 'wire source boundary missing')
     require_commit(root, wire['source_commit'])
+    native_wire_active = (root / 'internal/nativewire/backend.go').is_file() and not (root / 'internal/mysqlwire/wire.go').exists()
     for path, digest in wire['source_sha256'].items():
-        need(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest, 'wire source drift requires inventory reconciliation: ' + path)
         pinned = subprocess.check_output(['git', 'show', wire['source_commit'] + ':' + path], cwd=root)
         need(hashlib.sha256(pinned).hexdigest() == digest, 'wire baseline is not the inspected source: ' + path)
-    source = (root / 'internal/mysqlwire/wire.go').read_text()
+        if not native_wire_active or not path.startswith('internal/mysqlwire/'):
+            need(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest, 'wire source drift requires inventory reconciliation: ' + path)
+    if native_wire_active:
+        source = subprocess.check_output(['git', 'show', wire['source_commit'] + ':internal/mysqlwire/wire.go'], cwd=root).decode()
+    else:
+        source = (root / 'internal/mysqlwire/wire.go').read_text()
     dispatch = source.split('switch request[0] {', 1)[1].split('\n\t\tif e != nil', 1)[0]
     commands = {int(n.strip()) for case in re.findall(r'case ([0-9, ]+):', dispatch) for n in case.split(',')}
     need(commands == set(wire['supported_commands']), 'wire dispatch inventory differs')

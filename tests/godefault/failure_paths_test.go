@@ -162,15 +162,19 @@ func TestDefaultReleaseFailurePaths(t *testing.T) {
 			t.Fatalf("closed snapshot: %v %v", child, err)
 		}
 	}
-	t.Run("unusable_temporary_directory", func(t *testing.T) {
+	t.Run("unusable_temporary_directory_not_required_for_in_memory_start", func(t *testing.T) {
 		file := filepath.Join(t.TempDir(), "not-a-directory")
 		if err := os.WriteFile(file, nil, 0600); err != nil {
 			t.Fatal(err)
 		}
 		t.Setenv("TMPDIR", file)
-		for i := 0; i < 8; i++ {
-			if db, err := mariamem.Start(ctx, mariamem.Options{}); err == nil || db != nil {
-				t.Fatalf("unusable input: %v %v", db, err)
+		for i := 0; i < 4; i++ {
+			db, err := mariamem.Start(ctx, mariamem.Options{})
+			if err != nil {
+				t.Fatalf("in-memory start unexpectedly required TMPDIR: %v", err)
+			}
+			if err := db.Close(); err != nil {
+				t.Fatalf("close after TMPDIR-free start: %v", err)
 			}
 		}
 	})
