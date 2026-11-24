@@ -39,7 +39,16 @@ retain the exact-source evidence. Qualification/release remain separate.
   `mysql+pymysql` `QueuePool`. `python/setup.cfg` extras (`dump`,
   `routing-pymysql`, `routing-sqlalchemy`, `routing-mysql-connector`) match
   these ranges, while `tests/routing_acceptance/` retains exact reproducibility
-  pins for CI gates. Required TLS and
+  pins for CI gates.
+- `MySQLdb` / `mysqlclient` extension (#260, 2026-11-25): `drivers=("MySQLdb",)`
+  supports `mysqlclient>=2.2,<3` (`routing-mysqlclient` extra `mysqlclient>=2.2.7,<3`)
+  via `MySQLdb.connections.Connection.__init__` (normalizing positional arguments
+  and `db`/`passwd` aliases, refusing `option_file`, `transport_conflict`,
+  required `ssl`/`ssl_mode`, and unsupported wire options before dial, and using
+  an `open`-aware idempotent closer) and SQLAlchemy `mysql+mysqldb` default
+  `QueuePool` enrollment. Direct C-extension calls (`MySQLdb._mysql.connect()`)
+  and deprecated `ping(reconnect=True)` remain outside this support boundary.
+  Required TLS and
   unsupported transports/options refuse on the enrolled entry. Saved advanced
   Connector factories, custom/native handles and arbitrary live applications
   are outside this support boundary; provide explicit configuration/adapter

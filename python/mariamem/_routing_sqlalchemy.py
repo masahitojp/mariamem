@@ -4,14 +4,24 @@ from sqlalchemy.pool import QueuePool
 from ._routing_drivers import check_sqlalchemy_version
 
 
+_DRIVER_MAP = {
+    "pymysql": "pymysql",
+    "mysqldb": "MySQLdb",
+}
+
+
 class Adapter:
     def __init__(self, registry, engine):
         self.registry, self.engine = registry, engine
         self.events = []
         self.closed = False
         check_sqlalchemy_version(registry)
-        if engine.dialect.driver != "pymysql" or "pymysql" not in registry.drivers:
-            raise registry._error("unsupported_adapter", "Use the enrolled mysql+pymysql adapter or explicit configuration.")
+        required_driver = _DRIVER_MAP.get(engine.dialect.driver)
+        if required_driver is None or required_driver not in registry.drivers:
+            raise registry._error(
+                "unsupported_adapter",
+                "Use the enrolled mysql+pymysql or mysql+mysqldb adapter with its matching routing driver, or explicit configuration.",
+            )
         if not isinstance(engine.pool, QueuePool):
             raise registry._error("custom_pool", "Use the default QueuePool or an explicit factory.")
         self.ensure_quiet()
