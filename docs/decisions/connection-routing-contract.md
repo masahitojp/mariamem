@@ -27,9 +27,19 @@ retain the exact-source evidence. Qualification/release remain separate.
   context-local, revocable lease binds a child. Missing/expired/closed targets
   refuse with stage/reason/context and a next action. Context propagation and
   cooperative application shutdown remain explicit.
-- Initial pinned entries: PyMySQL1.2.3 direct/saved/deferred/reconnect;
+- Initial pinned entries (2026-10-24): PyMySQL1.2.3 direct/saved/deferred/reconnect;
   Connector/Python26.7.0 module factory/default/prepared; SQLAlchemy2.0.54
-  default mysql+pymysql QueuePool with explicit enrollment. Required TLS and
+  default mysql+pymysql QueuePool with explicit enrollment.
+- Updated compatibility-range contract (#259, 2026-11-25): runtime version
+  verification uses stdlib-only stable PEP 440 range checks (rejecting
+  prereleases, epochs, and malformed versions) paired with pre-patch structural
+  checks of the hooked targets: `PyMySQL>=1.1,<2` (supporting both 1.1.x
+  `connection.ssl` and 1.2.x `connection._ssl_required` required-TLS checks),
+  `mysql-connector-python>=9.0,<27`, and `SQLAlchemy>=2.0,<2.2` default
+  `mysql+pymysql` `QueuePool`. `python/setup.cfg` extras (`dump`,
+  `routing-pymysql`, `routing-sqlalchemy`, `routing-mysql-connector`) match
+  these ranges, while `tests/routing_acceptance/` retains exact reproducibility
+  pins for CI gates. Required TLS and
   unsupported transports/options refuse on the enrolled entry. Saved advanced
   Connector factories, custom/native handles and arbitrary live applications
   are outside this support boundary; provide explicit configuration/adapter
