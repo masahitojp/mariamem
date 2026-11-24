@@ -147,7 +147,7 @@
       "tag_object_sha": "89b15ad180ba4f23b53226af5b0c168b0795c991",
       "version": "12.3.4"
     },
-    "inputs_lock_sha256": "b24a2c892f69d8ed61f0f387a3db6a9e5016b522dcb396a73cb476cd44c5b314",
+    "inputs_lock_sha256": "94bde45063b87e425b7512b95e43270365b8ca3820818f2709b41d9eec219848",
     "lexer_prepared": {
       "contract": "prepared-lexer-v1",
       "descriptors": 638,
@@ -487,7 +487,7 @@
   "linked_guest_sha256": "bf2fc606846e6fd11e86227fcd8e1200033da9e3ed881e7dcd6521223af63b59",
   "repetitions": 2,
   "completed": true,
-  "full_guest_regeneration": "PASS: two fresh Linux arm64 source builds produced identical linked and optimized WASM. Both-OS CI qualification pending.",
+  "full_guest_regeneration": "PASS at the recorded bootstrap source commit: two independent Linux arm64 builds produced identical linked and optimized WASM. The post-#258 checkout was prepared separately; final-candidate CI qualification is pending.",
   "ci_evidence": null,
   "previous_canonical_evidence": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
@@ -531,5 +531,11 @@
     "regeneration_receipt_sha256": "8331fe75584a05f25c0f7792cb224acbe7bd63065b8af301ab38f098b70db8fa",
     "memory32_cases": 2472,
     "memory32_expected_traps": 1693
+  },
+  "prepared_source_replay": {
+    "source_commit": "a05dcf1e569931ca3367133d5a32722a50fb85fc",
+    "prepared_source_sha256": "7ee146afa06a9e361786034d9c3c4e628ba19db86baa73ab66123200412589a2",
+    "bootstrap_receipt_sha256": "0713ecfee8f63928a1171600e015f0acbbd7da3b154759778633ee9d869ac824",
+    "scope": "Source-only replay after #258; compiled source hashes are identical to the bootstrap receipt."
   }
 }
