@@ -68,11 +68,11 @@ def test_migrated_consumers_accept_reordered_workflows(monkeypatch):
         'test_static_image_workflow': ['test_static_image_candidate_boundaries'],
         'test_timer_source': ['test_product_candidate_requires_canonical_and_platform_timer_checks'],
         'test_p1_pytest_entry': ['test_required_hosts_run_new_entry_controls_for_both_python_minors'],
-        'test_go_fixture_campaign': ['test_ci_runs_both_modes_and_requires_both_host_artifacts'],
+        'test_go_fixture_campaign': ['test_ci_runs_campaign_and_requires_selected_host_artifacts'],
         'test_go_fixture_completion': ['test_both_host_workflow_executes_and_requires_completion_receipts'],
         'test_text_dedup_acceptance': ['test_ordinary_ci_preserves_reference_and_enforces_per_host_budget'],
         'test_django_recipe_workflow': ['test_single_host_retains_both_source_bound_python_campaigns'],
-        'test_routing_ci_workflow': ['test_routing_release_keeps_compatibility_and_both_platforms'],
+        'test_routing_ci_workflow': ['test_routing_release_keeps_compatibility_and_native_acceptance'],
         'test_ci_publication_workflow': ['test_publication_job_gate_and_handoff', 'test_heavy_suites_are_release_only_and_use_resolved_candidate'],
     }
     for module, names in owners.items():

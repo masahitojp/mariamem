@@ -55,3 +55,31 @@ def verify_publication(record, provenance, commit, metadata, repository):
         require(record['assets'].get(wheel['wheel'].rsplit('/',1)[-1]) == wheel['sha256']
                 and wheel['source_commit'] == commit, 'accepted wheel identity differs')
     return record
+
+
+def verify_six_target_publication(record, provenance, sums, commit, metadata, repository):
+    from generated_release import source_name, wheel_name
+    from release_candidate_preview import CONTRACT, TARGETS
+
+    package = metadata['PYTHON_VERSION']
+    tag = metadata['GIT_TAG']
+    assets = {source_name(package), *(wheel_name(package, target) for target in TARGETS)}
+    require(set(sums) == assets | {f'mariamem-{package}-provenance.json'}, 'six-target checksum inventory differs')
+    require(all(re.fullmatch('[0-9a-f]{64}', value) for value in sums.values()), 'invalid six-target asset digest')
+    require((provenance.get('contract'), provenance.get('source_commit'), provenance.get('git_tag'),
+             provenance.get('python_version')) == (CONTRACT, commit, tag, package),
+            'six-target publication provenance differs')
+    require(provenance.get('assets') == {name: sums[name] for name in assets}, 'six-target provenance assets differ')
+    proof = provenance['qualification']
+    attempt = proof.get('run_attempt')
+    require(all(type(proof.get(key)) is int and proof[key] > 0 for key in ('run_id', 'run_attempt', 'artifact_id'))
+            and proof.get('name') == f'release-candidate-preview-{commit}-attempt-{attempt}'
+            and re.fullmatch('[0-9a-f]{64}', proof.get('zip_sha256', '')),
+            'six-target qualification reference differs')
+    if record is not None:
+        require((record.get('contract'), record.get('status'), record.get('repository'),
+                 record.get('source_commit'), record.get('git_tag'), record.get('python_version'))
+                == (CONTRACT, 'PUBLISHED', repository, commit, tag, package), 'six-target publication record differs')
+        require(record.get('qualification') == proof and set(record['assets']) == set(sums) | {'SHA256SUMS'}
+                and all(record['assets'].get(name) == value for name, value in sums.items()),
+                'six-target publication record assets differ')

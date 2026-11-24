@@ -6,6 +6,10 @@ on:
         description: Exact commit resolved by Release CI
         required: true
         type: string
+      ubuntu_only:
+        description: Run the complete feature suite on Ubuntu only
+        type: boolean
+        default: false
 permissions:
   contents: read
 env:
@@ -15,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, ubuntu-24.04]
+        os: ${{ fromJSON(inputs.ubuntu_only && '["ubuntu-24.04"]' || '["macos-15","ubuntu-24.04"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     steps:
@@ -47,5 +51,6 @@ jobs:
         if: always()
         with:
           name: routing-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: ${{ runner.temp }}/routing/evidence
           if-no-files-found: error

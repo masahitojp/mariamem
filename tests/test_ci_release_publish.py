@@ -78,6 +78,22 @@ def test_dry_run_validates_and_stages_exact_four_assets_without_mutations(candid
     assert not mutations(calls)
 
 
+def test_six_target_rehearsal_reports_existing_release_without_mutations(candidate, monkeypatch):
+    root, ready, calls, _ = candidate
+    for key, value in {'WORKFLOW_SHA': SHA, 'GITHUB_RUN_ID': '5', 'GITHUB_RUN_ATTEMPT': '1'}.items():
+        monkeypatch.setenv(key, value)
+    monkeypatch.setattr(publisher, 'prepare_six_targets', lambda *args: (
+        {'git_tag': TAG, 'source_commit': SHA, 'assets': ready['assets']},
+        root / 'build/release/publish', root / 'release/NOTES-alpha.3.md'))
+    monkeypatch.setattr(publisher, 'release_exists', lambda *args: True)
+    report = publisher.publish(root, SHA, REPO, six_target=True, dry_run=True)
+    assert report['status'] == 'DRY_RUN'
+    assert report['existing_destination']['github_release'] is True
+    with pytest.raises(ValueError, match='release already exists'):
+        publisher.publish(root, SHA, REPO, six_target=True)
+    assert not mutations(calls)
+
+
 def test_publish_exact_tag_assets_prerelease(candidate):
     root, ready, calls, _ = candidate
     report = publisher.publish(root, SHA, REPO)

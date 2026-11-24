@@ -6,6 +6,10 @@ on:
         description: Exact commit resolved by Release CI
         required: true
         type: string
+      ubuntu_only:
+        description: Run the complete feature suite on Ubuntu only
+        type: boolean
+        default: false
 permissions:
   contents: read
 env:
@@ -38,6 +42,7 @@ jobs:
         if: always()
         with:
           name: worker-failure-native-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/worker-failure
           if-no-files-found: error
 
@@ -46,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15]
+        os: ${{ fromJSON(inputs.ubuntu_only && '["ubuntu-24.04"]' || '["ubuntu-24.04","macos-15"]') }}
     runs-on: ${{ matrix.os }}
     # Cold macOS guest compilation can consume the original 30-minute job budget.
     # The ordinary SQL steps and combined reference/guest budget remain one minute.
@@ -85,6 +90,7 @@ jobs:
         if: always()
         with:
           name: worker-failure-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: |
             build/worker-failure/guest.json
             build/worker-failure/ordinary-guest.json

@@ -420,14 +420,16 @@ def main():
     parser.add_argument('--expected-source-commit', required=True)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--validate-matrix', type=Path)
+    parser.add_argument('--required-host', choices=HOSTS, help='Validate one selected host instead of both')
     parser.add_argument('--profile', choices=('measurement', 'release'), default='measurement')
     args = parser.parse_args()
     if args.validate_matrix:
-        for host in HOSTS:
+        for host in (args.required_host,) if args.required_host else HOSTS:
             path = args.validate_matrix / ('go-fixture-host-' + host + '-' + args.expected_source_commit)
             validate_host(path, args.expected_source_commit, host, args.profile)
-        print('G1_BOTH_HOST_CAMPAIGN_PASS')
+        print('G1_HOST_MATRIX_PASS' if args.required_host else 'G1_BOTH_HOST_CAMPAIGN_PASS')
     else:
+        need(args.required_host is None, '--required-host requires --validate-matrix')
         need(args.output is not None, '--output required')
         run(args.expected_source_commit, args.output, args.profile)
         print('G1_HOST_CAMPAIGN_PASS')

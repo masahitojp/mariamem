@@ -6,6 +6,10 @@ on:
         description: Exact commit resolved by Release CI
         required: true
         type: string
+      ubuntu_only:
+        description: Run the complete feature suite on Ubuntu only
+        type: boolean
+        default: false
 permissions:
   contents: read
 env:
@@ -54,6 +58,7 @@ jobs:
         if: always()
         with:
           name: dump-product-native-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: build/dump-reference/evidence
           if-no-files-found: error
   guest-comparison:
@@ -61,8 +66,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Release acceptance retains both supported hosts.
-        os: [ubuntu-24.04, macos-15]
+        os: ${{ fromJSON(inputs.ubuntu_only && '["ubuntu-24.04"]' || '["ubuntu-24.04","macos-15"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     steps:
@@ -139,5 +143,6 @@ jobs:
         if: always()
         with:
           name: dump-product-comparison-${{ matrix.os }}-${{ inputs.source_commit }}
+          overwrite: ${{ inputs.ubuntu_only && github.run_attempt > 1 }}
           path: ${{ runner.temp }}/dump-work/*/evidence
           if-no-files-found: error

@@ -35,7 +35,13 @@ def validate(text):
     assert len(gates) == 1 and needs(gates[0]) == {'native-reference', 'live'}
     assert all(job.get('name') != 'Live required gate' for job in jobs.values())
     matrix = jobs['live']['strategy']['matrix']
-    assert matrix['os'] == ['macos-15', 'ubuntu-24.04']
+    assert model['on']['workflow_call']['inputs']['ubuntu_only']['default'] is False
+    assert matrix['os'] == ('${{ fromJSON(inputs.ubuntu_only && \'["ubuntu-24.04"]\' '
+                            '|| \'["macos-15","ubuntu-24.04"]\') }}')
+    receipts = step_named(model, 'Validate selected source-bound G1 host receipts')
+    assert receipts['env']['G1_HOST'] == "${{ inputs.ubuntu_only && 'ubuntu-24.04' || '' }}"
+    assert '--required-host "$G1_HOST"' in receipts['run']
+    assert receipts['run'].count('"${host_args[@]}"') == 2
     assert jobs['native-reference']['strategy']['matrix']['python'] == ['3.11', '3.14']
     assert 'needs.scope' not in str(model)
     script = commands(model)
@@ -60,6 +66,41 @@ def validate(text):
 def test_full_acceptance_is_explicit_and_retains_its_oracles():
     validate(WORKFLOW.read_text())
     validate_development_owners(DEVELOPMENT.read_text())
+
+
+@pytest.mark.parametrize('script,validate_name', [
+    ('go_fixture_campaign', 'validate_host'), ('go_fixture_completion', 'validate'),
+])
+@pytest.mark.parametrize('ubuntu_only', [False, True])
+def test_g1_requires_receipts_for_selected_hosts(monkeypatch, tmp_path, script, validate_name,
+                                                ubuntu_only):
+    import importlib
+    module = importlib.import_module(script)
+    commit = 'a' * 40
+    ubuntu = tmp_path / ('go-fixture-host-ubuntu-24.04-' + commit)
+    macos = tmp_path / ('go-fixture-host-macos-15-' + commit)
+    ubuntu.mkdir()
+    if not ubuntu_only:
+        macos.mkdir()
+
+    def validate_receipt(path, expected, host, *args):
+        assert expected == commit
+        receipt_root = tmp_path / ('go-fixture-host-' + host + '-' + commit)
+        expected_path = receipt_root / 'completion' if script == 'go_fixture_completion' else receipt_root
+        assert path == expected_path
+        receipt_root.stat()
+
+    monkeypatch.setattr(module, validate_name, validate_receipt)
+    args = [script, '--expected-source-commit', commit, '--validate-matrix', str(tmp_path)]
+    if ubuntu_only:
+        args += ['--required-host', 'ubuntu-24.04']
+    monkeypatch.setattr(sys, 'argv', args)
+
+    module.main()
+    missing = ubuntu if ubuntu_only else macos
+    missing.rmdir()
+    with pytest.raises(FileNotFoundError):
+        module.main()
 
 
 @pytest.mark.parametrize('before,after', [

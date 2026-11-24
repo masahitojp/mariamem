@@ -190,6 +190,24 @@ def test_release_workflows_are_callable_only_and_candidate_bound(workflow, sourc
     validate_release_workflow((ROOT/'.github/workflows'/f'{workflow}.yml').read_text(), source_argument)
 
 
+@pytest.mark.parametrize('workflow,job,default_hosts', [
+    ('live-host', 'live', '["macos-15","ubuntu-24.04"]'),
+    ('dump-import-productization', 'guest-comparison', '["ubuntu-24.04","macos-15"]'),
+    ('django-lifecycle', 'recipe', '["ubuntu-24.04","macos-15"]'),
+    ('connection-routing', 'native', '["macos-15","ubuntu-24.04"]'),
+    ('preparation-migration', 'native', '["macos-15","ubuntu-24.04"]'),
+    ('worker-failure', 'worker-failure', '["ubuntu-24.04","macos-15"]'),
+])
+def test_full_feature_acceptance_has_an_explicit_ubuntu_only_selection(workflow, job, default_hosts):
+    model = parse((ROOT/'.github/workflows'/f'{workflow}.yml').read_text())
+    selection = events(model)['workflow_call']['inputs']['ubuntu_only']
+    assert selection['type'] == 'boolean' and selection['default'] is False
+    matrix = model['jobs'][job]['strategy']['matrix']
+    assert matrix['os'] == ('${{ fromJSON(inputs.ubuntu_only && \'["ubuntu-24.04"]\' || '
+                            + repr(default_hosts) + ') }}')
+    assert model['jobs'][job]['runs-on'] == '${{ matrix.os }}'
+
+
 @pytest.mark.parametrize('before,after', [
     ('  workflow_call:', '  pull_request:'),
     ('ref: ${{ inputs.source_commit }}', 'ref: main'),
@@ -203,7 +221,9 @@ def test_shared_release_policy_rejects_trigger_and_identity_regressions(before, 
 def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
     release = parse((ROOT/'.github/workflows/release-candidate-ready.yml').read_text())
     called = [Path(job['uses']).stem for job in release['jobs'].values() if 'uses' in job]
-    expected = set(RELEASE_WORKFLOWS) | {'additional-v062-build'}
+    expected = set(RELEASE_WORKFLOWS) | {
+        'additional-v062-build', 'macos-native-candidate', 'windows-boundary', 'linux-wheel',
+    }
     assert set(called) == expected and len(called) == len(expected)
     additional = parse((ROOT/'.github/workflows/additional-v062-build.yml').read_text())
     assert set(events(additional)) == {'workflow_call'}
@@ -282,3 +302,49 @@ def test_linux_packaging_inherits_compiler_cache_without_reusing_test_pass():
                if 'go test ' in step.get('run', '') or 'scripts/build_alpha.py' in step.get('run', ''))
     assert sum('scripts/build_alpha.py' in step.get('run', '') for step in sequence) == 1
     assert 'cache-hit' not in str(sequence)
+
+
+def test_candidate_portable_linux_wheels_require_the_requested_source():
+    model = parse((ROOT/'.github/workflows/linux-wheel.yml').read_text())
+    assert events(model)['workflow_call']['inputs']['source_commit']['default'] == ''
+    wheel = model['jobs']['wheel']
+    assert wheel['env']['SOURCE_COMMIT'] == '${{ inputs.source_commit || github.sha }}'
+    assert next(step for step in wheel['steps'] if action(step, 'actions/checkout'))['with']['ref'] == (
+        '${{ inputs.source_commit }}')
+    assert 'test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"' in commands(model)
+    build = next(step for step in wheel['steps'] if 'scripts/build_alpha.py' in step.get('run', ''))
+    assert build['env']['RELEASE_CANDIDATE'] == "${{ inputs.source_commit != '' }}"
+    assert 'wheel_args+=(--release-wheel)' in build['run']
+
+
+def test_candidate_windows_jobs_share_one_slot_and_require_exact_source():
+    model = parse((ROOT/'.github/workflows/windows-boundary.yml').read_text())
+    assert events(model)['workflow_call']['inputs']['source_commit']['required'] is True
+    native = model['jobs']['native']
+    assert {cell['target'] for cell in native['strategy']['matrix']['include']} == {
+        'windows-x86_64', 'windows-arm64'}
+    assert native['strategy']['fail-fast'] is False
+    assert native['concurrency']['queue'] == 'max'
+    assert native['concurrency']['group'].startswith(
+        "${{ inputs.source_commit && 'release-candidate-windows' || ")
+    assert 'cancel-in-progress' not in native['concurrency']
+    assert next(step for step in native['steps'] if action(step, 'actions/checkout'))['with']['ref'] == (
+        '${{ inputs.source_commit || github.sha }}')
+    assert "(git rev-parse HEAD) -cne $env:SOURCE_COMMIT" in commands(model)
+    assert "'--release-wheel'" in commands(model)
+    assert 'python scripts/native_candidate_acceptance.py' in commands(model)
+
+
+def test_candidate_macos_acceptance_builds_and_uses_one_exact_wheel_in_one_slot():
+    model = parse((ROOT/'.github/workflows/macos-native-candidate.yml').read_text())
+    assert set(events(model)) == {'workflow_call'}
+    assert events(model)['workflow_call']['inputs']['source_commit']['required'] is True
+    assert set(model['jobs']) == {'native'}
+    native = model['jobs']['native']
+    assert native['runs-on'] == 'macos-15'
+    assert native['concurrency'] == {'group': 'release-candidate-macos', 'queue': 'max'}
+    script = commands(model)
+    assert 'test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"' in script
+    assert script.count('scripts/build_alpha.py') == 1
+    assert 'scripts/build_alpha.py --ci-candidate --release-wheel' in script
+    assert 'scripts/native_candidate_acceptance.py --target darwin-arm64 --wheel "$wheel"' in script

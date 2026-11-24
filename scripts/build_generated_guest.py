@@ -13,12 +13,17 @@ import platform
 import shutil
 import subprocess
 import sys
+from urllib.error import HTTPError
+from urllib.parse import urlsplit
 import urllib.request
 from common import ROOT, digest, extract
 from install_guest_toolchain import inventory
 from build_feedback import run as observed_run
 
 PIN = ROOT / 'release/generated-go-toolchain.json'
+# Alternate transport for the same pinned Ubuntu archive.
+ICU_PORTS_URL = 'https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb'
+ICU_LAUNCHPAD_URL = 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu70_70.1-2_arm64.deb'
 USER_AGENT = 'mariamem-guest-builder/1.0'
 
 
@@ -27,15 +32,28 @@ def download(pin, directory):
     directory.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         pending = path.with_suffix('.partial')
-        request = urllib.request.Request(pin['url'], headers={'User-Agent': USER_AGENT})
-        try:
-            with urllib.request.urlopen(request, timeout=180) as src, pending.open('wb') as dst:
-                shutil.copyfileobj(src, dst)
-            if digest(pending) != pin['sha256']:
-                raise ValueError('download checksum mismatch: ' + pin['file'])
-            pending.replace(path)
-        finally:
-            pending.unlink(missing_ok=True)
+        primary = pin['url']
+        urls = (primary, ICU_LAUNCHPAD_URL) if primary == ICU_PORTS_URL else (primary,)
+        for url in urls:
+            origin = urlsplit(url).hostname
+            print(f'Downloading {path.name} from {origin}', file=sys.stderr, flush=True)
+            request = urllib.request.Request(url, headers={'User-Agent': USER_AGENT})
+            try:
+                with urllib.request.urlopen(request, timeout=180) as src, pending.open('wb') as dst:
+                    shutil.copyfileobj(src, dst)
+                if digest(pending) != pin['sha256']:
+                    raise ValueError('download checksum mismatch: ' + pin['file'])
+                pending.replace(path)
+                break
+            except HTTPError as error:
+                responder = urlsplit(error.geturl()).hostname or origin
+                message = f'Could not download {path.name} from {origin} (HTTP {error.code} from {responder})'
+                if url == ICU_PORTS_URL and error.code in (403, 404, 408, 429, 500, 502, 503, 504):
+                    print(message + '; trying the Ubuntu archive on Launchpad', file=sys.stderr, flush=True)
+                    continue
+                raise RuntimeError(message) from error
+            finally:
+                pending.unlink(missing_ok=True)
     if digest(path) != pin['sha256']:
         raise ValueError('cached checksum mismatch: ' + pin['file'])
     return path

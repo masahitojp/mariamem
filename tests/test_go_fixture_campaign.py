@@ -248,15 +248,22 @@ def test_guard_probe_rejects_a_source_started_before_stop():
         campaign.validate_guard_probe(go)
 
 
-def test_ci_runs_both_modes_and_requires_both_host_artifacts():
+def test_ci_runs_campaign_and_requires_selected_host_artifacts():
     from workflow_model import load, commands, needs, steps
     model = load(ROOT / '.github/workflows/live-host.yml')
     text = commands(model)
-    assert model['jobs']['live']['strategy']['matrix']['os'] == ['macos-15', 'ubuntu-24.04']
     assert 'scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1' in text
     assert any(step.get('with', {}).get('name') == 'go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}' for step in steps(model))
-    assert any(step.get('with', {}).get('pattern') == 'go-fixture-host-*-${{ inputs.source_commit }}' for step in steps(model))
     required = model['jobs']['required']
+    downloads = {step['with']['name']: step for step in required['steps']
+                 if step.get('uses', '').startswith('actions/download-artifact@')}
+    ubuntu = 'go-fixture-host-ubuntu-24.04-${{ inputs.source_commit }}'
+    macos = 'go-fixture-host-macos-15-${{ inputs.source_commit }}'
+    assert set(downloads) == {ubuntu, macos}
+    assert 'if' not in downloads[ubuntu]
+    assert downloads[macos]['if'] == '!inputs.ubuntu_only'
+    for name, step in downloads.items():
+        assert step['with'] == {'name': name, 'path': 'build/g1-matrix/' + name}
     assert '--validate-matrix build/g1-matrix' in '\n'.join(step.get('run', '') for step in required['steps'])
     assert needs(required) == {'native-reference', 'live'}
     assert 'needs.scope' not in str(required)

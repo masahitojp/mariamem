@@ -1,0 +1,137 @@
+// Built in an external module from the exact candidate source.
+package main
+
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+	"log"
+	"sync"
+	"time"
+
+	"github.com/masahitojp/mariamem"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+type user struct {
+	ID   uint
+	Name string `gorm:"size:64;not null"`
+}
+
+func ormRoundTrip(ctx context.Context) (err error) {
+	db, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		return err
+	}
+	defer func() {
+		err = errors.Join(err, db.Close())
+	}()
+	orm, err := gorm.Open(mysql.Open(db.DSN()), &gorm.Config{})
+	if err != nil {
+		return err
+	}
+	pool, err := orm.DB()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		err = errors.Join(err, pool.Close())
+	}()
+	orm = orm.WithContext(ctx)
+	if err := orm.AutoMigrate(&user{}); err != nil {
+		return err
+	}
+	written := user{Name: "committed"}
+	if err := orm.Create(&written).Error; err != nil {
+		return err
+	}
+	var read user
+	if err := orm.First(&read, written.ID).Error; err != nil {
+		return err
+	}
+	if read.Name != written.Name {
+		return fmt.Errorf("read back %q, want %q", read.Name, written.Name)
+	}
+	return nil
+}
+
+func forkIsolation(ctx context.Context) (err error) {
+	root, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, root.Close()) }()
+	pool, err := sql.Open("mysql", root.DSN())
+	if err != nil {
+		return err
+	}
+	_, err = pool.ExecContext(ctx, "CREATE TABLE native_fork (id INT PRIMARY KEY)")
+	if err := errors.Join(err, pool.Close()); err != nil {
+		return err
+	}
+	if err := root.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	snapshot, err := root.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 2})
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, snapshot.Close()) }()
+
+	type fork struct {
+		db   *mariamem.Database
+		pool *sql.DB
+		err  error
+	}
+	children := make([]fork, 2)
+	var writes sync.WaitGroup
+	for i := range children {
+		writes.Go(func() {
+			child := &children[i]
+			child.db, child.err = snapshot.Fork(ctx)
+			if child.err == nil {
+				child.pool, child.err = sql.Open("mysql", child.db.DSN())
+			}
+			if child.err == nil {
+				_, child.err = child.pool.ExecContext(ctx, "INSERT INTO native_fork VALUES (?)", i+1)
+			}
+		})
+	}
+	writes.Wait()
+	defer func() {
+		for _, child := range children {
+			if child.pool != nil {
+				err = errors.Join(err, child.pool.Close())
+			}
+			if child.db != nil {
+				err = errors.Join(err, child.db.Close())
+			}
+		}
+	}()
+	for i, child := range children {
+		if child.err != nil {
+			return child.err
+		}
+		var count, value int
+		if err := child.pool.QueryRowContext(ctx, "SELECT COUNT(*), MIN(id) FROM native_fork").Scan(&count, &value); err != nil {
+			return err
+		}
+		if count != 1 || value != i+1 {
+			return fmt.Errorf("fork %d: found %d rows, minimum id %d", i+1, count, value)
+		}
+	}
+	return nil
+}
+
+func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	if err := ormRoundTrip(ctx); err != nil {
+		log.Fatal(err)
+	}
+	if err := forkIsolation(ctx); err != nil {
+		log.Fatal(err)
+	}
+}
