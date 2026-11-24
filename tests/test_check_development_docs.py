@@ -9,6 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+from layout import BENCHMARKS
 import check_development_docs as docs
 
 
@@ -37,8 +38,8 @@ def test_v047_retained_checksums_pass_and_detect_tampering(tmp_path):
     assert result["passed"] is True
     assert result["files"] == 7
 
-    copied = tmp_path / "benchmarks/v047-upstream-evidence"
-    shutil.copytree(ROOT / "benchmarks/v047-upstream-evidence", copied)
+    copied = tmp_path / (BENCHMARKS / "v047-upstream-evidence")
+    shutil.copytree(ROOT / (BENCHMARKS / "v047-upstream-evidence"), copied)
     assert docs.check_v047_retained_checksums(tmp_path)["passed"] is True
 
     (copied / "README.md").write_text("tampered\n", encoding="utf-8")

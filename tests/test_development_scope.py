@@ -455,7 +455,8 @@ def test_issue253_plan_verifies_v047_deletions_against_archive_blobs(monkeypatch
     root, git, _ = git_repo
     (root / 'python/mariamem').mkdir(parents=True)
     shutil.copyfile(ROOT / 'python/mariamem/_version.py', root / 'python/mariamem/_version.py')
-    target = root / 'benchmarks/v047-upstream-evidence/product/sample.json'
+    from layout import BENCHMARKS
+    target = root / (BENCHMARKS / 'v047-upstream-evidence/product/sample.json')
     target.parent.mkdir(parents=True)
     target.write_text('{"archived":true}\n')
     git('add', '.')
