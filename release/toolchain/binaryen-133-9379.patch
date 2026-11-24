@@ -1,0 +1,30 @@
+diff --git a/src/wasm-interpreter.h b/src/wasm-interpreter.h
+index 9de687d..a1a976c 100644
+--- a/src/wasm-interpreter.h
++++ b/src/wasm-interpreter.h
+@@ -3124,6 +3124,7 @@ public:
+   }
+   Flow visitAtomicWait(AtomicWait* curr) { return Flow(NONCONSTANT_FLOW); }
+   Flow visitAtomicNotify(AtomicNotify* curr) { return Flow(NONCONSTANT_FLOW); }
++  Flow visitAtomicFence(AtomicFence* curr) { return Flow(NONCONSTANT_FLOW); }
+   Flow visitStructWait(StructWait* curr) { return Flow(NONCONSTANT_FLOW); }
+   Flow visitWaitqueueNew(WaitqueueNew* curr) { return Flow(NONCONSTANT_FLOW); }
+   Flow visitWaitqueueNotify(WaitqueueNotify* curr) {
+diff --git a/test/lit/passes/precompute_all-features.wast b/test/lit/passes/precompute_all-features.wast
+index add0e65..c30a9fb 100644
+--- a/test/lit/passes/precompute_all-features.wast
++++ b/test/lit/passes/precompute_all-features.wast
+@@ -810,4 +810,13 @@
+     )
+    )
+   )
++
++  ;; CHECK:      (func $atomic-fence (type $1)
++  ;; CHECK-NEXT:  (atomic.fence)
++  ;; CHECK-NEXT:  (atomic.fence acqrel)
++  ;; CHECK-NEXT: )
++  (func $atomic-fence
++    (atomic.fence)
++    (atomic.fence acqrel)
++  )
+ )
