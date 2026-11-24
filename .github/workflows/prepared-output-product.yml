@@ -131,7 +131,7 @@ jobs:
         run: |
           command -v clang
           python -m pytest tests/native/test_prepared_api.py tests/test_thread_lifetime_binding.py tests/test_crc32c_adapter.py tests/test_generated_runtime_inventory.py tests/test_dictionary_wait_runtime.py -q > build/prepared-output-ci/output-boundary.txt 2>&1
-          go test -p 1 -count=1 ./internal/preparedproto ./internal/mysqlwire ./internal/guest > build/prepared-output-ci/output-host.txt 2>&1
+          go test -p 1 -count=1 ./internal/nativewire ./internal/host > build/prepared-output-ci/output-host.txt 2>&1
       - name: Canonical timer source regression and mutations
         run: python -m pytest tests/test_timer_source.py -q > build/prepared-output-ci/timer-source.txt 2>&1
       - name: Independent Go regeneration and canonical build guard

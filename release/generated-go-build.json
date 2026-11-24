@@ -472,13 +472,29 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
+  "source_commit": "1bde3a008eec3e40a3e278c2e760ef1385e6cdd2",
   "guest_size": 21986494,
   "linked_guest_sha256": "bf2fc606846e6fd11e86227fcd8e1200033da9e3ed881e7dcd6521223af63b59",
-  "repetitions": 1,
+  "repetitions": 2,
   "completed": true,
-  "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
-  "ci_evidence": null,
+  "full_guest_regeneration": "PASS: PR #241 exact-SHA CI qualification (two independent Linux arm64 canonical builds + both-platform acceptance + Windows native acceptance).",
+  "ci_evidence": {
+    "source_commit": "1bde3a008eec3e40a3e278c2e760ef1385e6cdd2",
+    "merge_commit": "5ae17c640f973fc6d52d39e827f1f77a2c6dd8ee",
+    "release_candidate_ready_run_id": 45341245599,
+    "release_candidate_ready_url": "https://github.com/masahitojp/mariamem/actions/runs/45341245599",
+    "development_checks_run_id": 45341264717,
+    "development_checks_url": "https://github.com/masahitojp/mariamem/actions/runs/45341264717",
+    "windows_native_acceptance_run_id": 45341251144,
+    "windows_native_acceptance_url": "https://github.com/masahitojp/mariamem/actions/runs/45341251144",
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64",
+      "windows-x86_64",
+      "windows-arm64"
+    ],
+    "status": "PASS: two-repetition canonical guest rebuild, both-platform release candidate READY, Development checks, and Windows native acceptance; integrated on main via PR #241"
+  },
   "previous_canonical_evidence": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
     "record": "benchmarks/forkcost/buffer-zero-candidate/build-evidence/previous-canonical-build.json",
