@@ -6,13 +6,13 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "650f41bbc804b633f8c6d5e296657262da3eadfc",
-  "guest_sha256": "d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9",
+  "audit_source_commit": "ab849bfcca10d4363642e6a6ce49a1a0a02cbc1f",
+  "guest_sha256": "67fbc6f0d16360383fbf5a033abd5ba0d3bd272c3384c4bbd077e61efd54ca5d",
   "linked_sha256": "bf2fc606846e6fd11e86227fcd8e1200033da9e3ed881e7dcd6521223af63b59",
   "symbol_map_sha256": "87537a0857764fca8fdb50bd788a9c3dae37cd308ed79f3939e5e55641d6b5b7",
   "symbol_map_entries": 21800,
-  "generated_provenance_sha256": "e0fec5067c0e24bafd702fc3064824de71652fdebdb77a44a4c1fa55c50ba63d",
-  "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
+  "generated_provenance_sha256": "ad2125c234468a168c01e45bb730cf86049682df7a05033bf256ce4d01921317",
+  "method": "Pinned Binaryen 133 with upstream #9379; function map reproduces guest bytes and retained functions were re-audited in canonical Go and a clean-source native host.",
   "retained_symbols": {
     "MariaDB": {
       "pattern": "^(mysql_server_init|mysql_real_query)$",
@@ -582,9 +582,9 @@
     }
   },
   "host_check": {
-    "source_commit": "650f41bbc804b633f8c6d5e296657262da3eadfc",
-    "sha256": "6828274170142d6bb4327ef16ca10c6d3d351094a0c5f3e0c88702d394a90c16",
-    "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.7.1-0.20261123232313-650f41bbc804\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=650f41bbc804b633f8c6d5e296657262da3eadfc\n\tbuild\tvcs.time=2026-11-23T23:23:13Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "ab849bfcca10d4363642e6a6ce49a1a0a02cbc1f",
+    "sha256": "e3b60f0f8f542a80f4ce8a296e911c6879de2ff3481b673132c6a83f9f2196e9",
+    "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.0.0-20261124170248-ab849bfcca10\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=ab849bfcca10d4363642e6a6ce49a1a0a02cbc1f\n\tbuild\tvcs.time=2026-11-24T17:02:48Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
   },
   "previous_candidate_audit": {
@@ -612,5 +612,12 @@
       "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261114170813-434712e8edbb\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=434712e8edbbf367b7436592b08356645b950493\n\tbuild\tvcs.time=2026-11-14T17:08:13Z\n\tbuild\tvcs.modified=false\n",
       "note": "Product-verification attribution audit; no publication approval."
     }
+  },
+  "binaryen_backport_source_refresh": {
+    "baseline_source_commit": "5db5046d4343f34de9f31c97ebb0f138d54aed47",
+    "previous_evidence_sha256": "48995390ecabf34e5a45fd2bd0365ae88a983b133d126e7e6fc3456b3f0c17d0",
+    "previous_guest_sha256": "d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9",
+    "upstream_commit": "c35bddec04ca366d8f307ca5fcec98c358239db0",
+    "scope": "Optimizer-only backport. Re-audited the retained functions without changing guest source or notices."
   }
 }

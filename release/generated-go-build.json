@@ -1,6 +1,6 @@
 {
   "compiled_guest_source_scope": "MariaDB 12.3.4 B1 native-wire guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
-  "guest_sha256": "d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9",
+  "guest_sha256": "67fbc6f0d16360383fbf5a033abd5ba0d3bd272c3384c4bbd077e61efd54ca5d",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.4",
@@ -440,13 +440,23 @@
   },
   "toolchain": {
     "archives_sha256": {
-      "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+      "binaryen": "02ac4342e030c85a1849f3d0094c04cfa04c9ec11e5978f70349a588a659eac5",
       "converter": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
       "icu": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
       "llvm": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
       "sysroot": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
       "sysroot_pic": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0",
       "wasixcc": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+    },
+    "binaryen_backport": {
+      "atomic_fence": "PASS",
+      "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "library_sha256": "1dfeaf5266ea65fbde0d85954d83b720b6f0ce32e5c96e9fd2445f415e53d491",
+      "optimizer_sha256": "72342a023b140487936c7a2669c541077dc3b28dc45fd2d8f6f303fbc9e91bde",
+      "patch": "release/toolchain/binaryen-133-9379.patch",
+      "patch_sha256": "b153460cb3ca804ff01c0d6669e5df3c606ee94985ddf0d3c79611a508ad3915",
+      "source_commit": "fba5005a132d85d578be5bd010e0487ed8e2ce3e",
+      "upstream_commit": "c35bddec04ca366d8f307ca5fcec98c358239db0"
     },
     "contract": "generated-go-v1",
     "environment": {
@@ -457,13 +467,13 @@
       "TZ": "UTC"
     },
     "host": "linux-arm64",
-    "pins_sha256": "8f0ebd2edb4fc55fa68c058a77379b284291dd8a2199b6a24b68738ebe895437",
+    "pins_sha256": "fee780309797b772691105cd7309c51492ea1d4898c29d1c4f86997528f05076",
     "sysroot": {
       "entries": 4985,
       "inventory_sha256": "ec9f4eec4cc3f5d019531a8b3d6dbfb524b2661ba5a2046b9d8ce89378bf29dc"
     },
     "versions": {
-      "binaryen": "wasm-opt version 133 (version_133)",
+      "binaryen": "wasm-opt version 133",
       "bison": "bison (GNU Bison) 3.8.2\nWritten by Robert Corbett and Richard Stallman.\n\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
       "cmake": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
       "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
@@ -473,12 +483,12 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
-  "guest_size": 21986494,
+  "source_commit": "49b884e63c1f8548c1a4283fe6c443ff0a7387a6",
+  "guest_size": 21987924,
   "linked_guest_sha256": "bf2fc606846e6fd11e86227fcd8e1200033da9e3ed881e7dcd6521223af63b59",
-  "repetitions": 1,
+  "repetitions": 2,
   "completed": true,
-  "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
+  "full_guest_regeneration": "PASS: two fresh Linux arm64 source builds produced identical linked and optimized WASM. Both-OS CI qualification pending.",
   "ci_evidence": null,
   "previous_canonical_evidence": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
@@ -497,10 +507,10 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
-    "contract": "development-unqualified-v1",
-    "independent_source_builds": 1,
-    "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."
+    "source_commit": "49b884e63c1f8548c1a4283fe6c443ff0a7387a6",
+    "contract": "generated-go-v1",
+    "independent_source_builds": 2,
+    "use": "Local canonical source bootstrap for the Binaryen #9379 backport."
   },
   "previous_12_3_3_ci_evidence": {
     "run_id": 43569024494,
@@ -516,9 +526,10 @@
   "local_generated_go_replay": {
     "result": "PASS",
     "generated_and_owned_files": 136,
-    "inventory_sha256": "fbef57428fa4a40df34998c0a2f5e7357b1dd633f85f3b9fd933052b00820c35",
-    "generated_provenance_sha256": "e0fec5067c0e24bafd702fc3064824de71652fdebdb77a44a4c1fa55c50ba63d",
-    "second_converter_manifest_sha256": "d64ec9abe39c5d3650de724835bac733176068592ddec13deeed26e94bae9d3e",
+    "inventory_sha256": "e7ddd3c4fc0ebaf9857e67a78187a22f4a62e0c3a485ca8e7870286afa7ff515",
+    "generated_provenance_sha256": "ad2125c234468a168c01e45bb730cf86049682df7a05033bf256ce4d01921317",
+    "second_converter_manifest_sha256": "826df0a3b33fb16b24ee73cb8dc4beca81fcaf7b38a874bdfdffbdc3fbb2cc20",
+    "regeneration_receipt_sha256": "8331fe75584a05f25c0f7792cb224acbe7bd63065b8af301ab38f098b70db8fa",
     "memory32_cases": 2472,
     "memory32_expected_traps": 1693
   }
