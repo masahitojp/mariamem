@@ -1,5 +1,5 @@
 name: Issue 246 macOS Fork regression
-run-name: Issue 246 macos-15 Fork and Close at 06e001a6
+run-name: Issue 246 macos-15 Fork and Close at 0f666a4d
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 30
     env:
-      CANDIDATE_SHA: 06e001a62bd2a9ab6ded65afc3b3458c09d875c4
+      CANDIDATE_SHA: 0f666a4d0ac58e250dac112de5d1ba34cb777c7d
       GUEST_SHA: 67fbc6f0d16360383fbf5a033abd5ba0d3bd272c3384c4bbd077e61efd54ca5d
       MARIAMEM_TEST_DEFAULT: '1'
     steps:
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: issue246-macos-fork-06e001a6
+          name: issue246-macos-fork-0f666a4d
           path: build/issue246-evidence/
           if-no-files-found: error
           retention-days: 30
