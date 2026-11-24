@@ -1,124 +1,66 @@
-name: Disconnect notification candidate
+name: Issue 246 macOS Fork regression
+run-name: Issue 246 macos-15 Fork and Close at 8949ed35
+
 on:
   workflow_dispatch:
-    inputs:
-      shutdown_validation:
-        description: Run only the bounded shutdown and prepared-consumer validation
-        type: boolean
-        required: false
-        default: false
+
 permissions:
   contents: read
+
 jobs:
-  verify:
-    if: ${{ !inputs.shutdown_validation }}
-    strategy:
-      fail-fast: false
-      matrix:
-        runner: [macos-15, ubuntu-24.04]
-    runs-on: ${{ matrix.runner }}
+  macos-fork:
+    runs-on: macos-15
     timeout-minutes: 30
+    env:
+      CANDIDATE_SHA: 8949ed35a4fb059996234a67b10b7dfe4ea9f80e
+      GUEST_SHA: 67fbc6f0d16360383fbf5a033abd5ba0d3bd272c3384c4bbd077e61efd54ca5d
+      MARIAMEM_TEST_DEFAULT: '1'
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          go-version: '1.26.11'
-          cache: true
-          cache-dependency-path: |
-            go.mod
-            go.sum
-      - name: Record exact source and platform
+          ref: ${{ env.CANDIDATE_SHA }}
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: 1.26.11
+          cache: false
+      - name: Record exact candidate, guest and ARM64 runner
         shell: bash
         run: |
-          mkdir -p build/disconnect-evidence
-          python3 scripts/git_identity.py inspect HEAD > build/disconnect-evidence/source.json
-          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          test -z "$(git status --porcelain)"
-          go version > build/disconnect-evidence/go.txt
-          uname -a > build/disconnect-evidence/platform.txt
-          if [ "${{ matrix.runner }}" = macos-15 ]; then
+          set -euo pipefail
+          mkdir -p build/issue246-evidence
+          {
+            test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+            test "$(git cat-file -t "$CANDIDATE_SHA")" = commit
+            test -z "$(git status --porcelain)"
             test "$(uname -m)" = arm64
-            sw_vers > build/disconnect-evidence/os-version.txt
-          else
-            test "$(uname -m)" = x86_64
-            cat /etc/os-release > build/disconnect-evidence/os-version.txt
-          fi
-          cp release/generated-go-inputs.json build/disconnect-evidence/generated-go-inputs.json
-      - name: Notification and disposal contracts with handwritten race detection
+            test "$(go env GOARCH)" = arm64
+            git rev-parse HEAD
+            uname -a
+            sw_vers
+            go version
+            grep -F "$GUEST_SHA" release/generated-go-inputs.json internal/generatedgo/entry.go
+            grep -Fq "$GUEST_SHA" release/generated-go-inputs.json
+            grep -Fq "$GUEST_SHA" internal/generatedgo/entry.go
+          } | tee build/issue246-evidence/identity.txt
+          go clean -testcache
+      - name: Repeat the original concurrent Fork and Close regression
         shell: bash
         run: |
-          set -o pipefail
-          go test -p 1 -count=1 -race -gcflags='github.com/masahitojp/mariamem/internal/generatedgo/code/...=-race=false' \
-            -run 'TestWaitDisconnected|TestDisconnectGenerations|TestFailureSignal|TestWorkerTrapFailsPendingCallsBeforeCompletion|TestConsumedFailureKeepsTransferUntilGuestAndWorkersJoin' \
-            . ./internal/host ./internal/guest 2>&1 | tee build/disconnect-evidence/contracts.txt
-      - name: Real TCP and Pipe disconnect, capture and child retirement
-        shell: bash
-        run: |
-          set -o pipefail
-          go test -p 1 -count=1 -timeout=5m -tags=integration \
-            -run 'TestDisconnectNotificationTransports|TestInProcessConnectionLifecycle|TestInProcessCapacityAndClose' \
-            ./tests/godefault 2>&1 | tee build/disconnect-evidence/runtime.txt
-      - name: Bounded retirement measurement (not a performance gate)
-        shell: bash
-        env:
-          GOMAXPROCS: '4'
-          GOGC: '100'
-        run: |
-          set -o pipefail
-          go test -c -o build/disconnect-bench.test .
-          shasum -a 256 build/disconnect-bench.test > build/disconnect-evidence/binary-sha256.txt
-          # Six fixed pairs, alternating order. Each benchmark has Go's one-op
-          # calibration plus 48 measured retirements. No retries or exclusions.
-          for pair in 1 2 3 4 5 6; do
-            modes='Poll Notify'
-            if [ $((pair % 2)) = 0 ]; then modes='Notify Poll'; fi
-            for mode in $modes; do
-              build/disconnect-bench.test -test.run '^$' \
-                -test.bench "^BenchmarkDisconnectRetirement${mode}$" \
-                -test.benchtime=48x -test.count=1 -test.timeout=2m \
-                2>&1 | tee "build/disconnect-evidence/pair-${pair}-${mode}.txt"
-            done
+          set -euo pipefail
+          unset MARIAMEM_RUNTIME MARIAMEM_NATIVE_DIR
+          for attempt in 1 2 3 4 5; do
+            log="build/issue246-evidence/attempt-$attempt.txt"
+            go test -v -count=1 -timeout=3m -tags=integration ./tests/gointegration \
+              -run '^TestOwnedManyOrderParallelAndClose$' 2>&1 | tee "$log"
+            grep -Fq -- '--- PASS: TestOwnedManyOrderParallelAndClose ' "$log"
+            grep -Fq '35 mutating children + live-after-Close' "$log"
           done
-      - name: Summarize connection retirement and seal evidence
-        if: always()
-        shell: python
-        run: |
-          import hashlib, json, os, re, statistics
-          from pathlib import Path
-          root = Path('build/disconnect-evidence')
-          pairs = []
-          for pair in range(1, 7):
-              values = {}
-              for mode in ('Poll', 'Notify'):
-                  path = root / f'pair-{pair}-{mode}.txt'
-                  if path.exists():
-                      rows = re.findall(r'^BenchmarkDisconnectRetirement' + mode + r'-[0-9]+\s+48\s+([0-9.]+) ns/op', path.read_text(), re.M)
-                      if len(rows) == 1:
-                          values[mode] = float(rows[0]) / 1e6
-              if len(values) == 2:
-                  pairs.append({'pair': pair, 'poll_ms': values['Poll'], 'notify_ms': values['Notify'],
-                                'difference_ms': values['Notify'] - values['Poll']})
-          result = {'source_commit': os.environ['GITHUB_SHA'], 'scope': 'pool.Close + WaitDisconnected; excludes SQL/setup/final DB.Close',
-                    'complete': len(pairs) == 6, 'pairs': pairs}
-          if pairs:
-              result['median_paired_difference_ms'] = statistics.median(p['difference_ms'] for p in pairs)
-          (root / 'measurement.json').write_text(json.dumps(result, indent=2) + '\n')
-          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
-              out.write('\nConnection-retirement observations (not a performance gate):\n```json\n' + json.dumps(result, indent=2) + '\n```\n')
-          hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in root.iterdir() if p.is_file() and p.name != 'SHA256SUMS.json'}
-          (root / 'SHA256SUMS.json').write_text(json.dumps(hashes, indent=2, sort_keys=True) + '\n')
-          if len(pairs) != 6:
-              raise SystemExit('incomplete measurement; see retained logs')
+          echo '5/5: concurrent Snapshot.Fork and Close completed on macOS ARM64.' \
+            | tee -a "$GITHUB_STEP_SUMMARY" build/issue246-evidence/result.txt
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: disconnect-${{ matrix.runner }}-${{ github.sha }}
-          path: build/disconnect-evidence
+          name: issue246-macos-fork-8949ed35
+          path: build/issue246-evidence/
           if-no-files-found: error
           retention-days: 30
-
-  shutdown-validation:
-    if: ${{ inputs.shutdown_validation }}
-    uses: ./.github/workflows/shutdown-candidate.yml
-    with:
-      source_commit: ${{ github.sha }}
