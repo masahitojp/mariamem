@@ -1,5 +1,5 @@
 {
-  "guest_sha256": "d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9",
+  "guest_sha256": "67fbc6f0d16360383fbf5a033abd5ba0d3bd272c3384c4bbd077e61efd54ca5d",
   "data_sha256": "293814718363c5aa7d72fe9a1a1834e6333501ac495ef404abaf0a8f6b2d66f4",
   "functions": {
     "Fn16645": {
@@ -40,7 +40,7 @@
     },
     "Fn18047": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
-      "normalized_sha256": "f405d1ac3bd064a755f530b996951d22d78ac4339fc42d3e77b37999662df83f"
+      "normalized_sha256": "356e120ff700e53ba385508fb160d3450ffdf110c5c493268fa55b91e3e4104b"
     },
     "Fn16622": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",

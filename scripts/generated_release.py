@@ -64,6 +64,20 @@ def checkout(root, commit):
         require(not subprocess.check_output(['git','-c','safe.directory='+str(root),'diff','--name-only','HEAD'],cwd=root,text=True).strip(),'candidate has tracked changes')
 
 
+def verify_binaryen_backport(root, pins, toolchain):
+    pin = pins.get('binaryen_backport')
+    if pin is None:
+        return
+    build = toolchain.get('binaryen_backport', {})
+    require(all(build.get(key) == value for key, value in pin.items()),
+            'Binaryen backport provenance differs')
+    require(digest(root/pin['patch']) == pin['patch_sha256'], 'Binaryen backport patch differs')
+    require(build.get('atomic_fence') == 'PASS', 'Binaryen atomic fence regression evidence missing')
+    for key in ('optimizer_sha256', 'library_sha256'):
+        require(re.fullmatch(r'[0-9a-f]{64}', str(build.get(key))) is not None,
+                'Binaryen executable or library identity missing')
+
+
 def verify_build(root, commit, directory=None):
     directory=directory or root/'build/generated-release'
     guest=read(directory/'guest.json'); regen=read(directory/'regeneration.json')
@@ -98,6 +112,7 @@ def verify_build(root, commit, directory=None):
     require(tool['pins_sha256']==digest(root/'release/generated-go-toolchain.json'),'toolchain pin identity differs')
     require(tool['archives_sha256']=={k:v['sha256'] for k,v in tools['archives'].items()},'toolchain archives differ')
     require(tool['host']=='linux-arm64' and tool['sysroot']['entries']>0,'wrong canonical build host/sysroot')
+    verify_binaryen_backport(root, tools, tool)
     require(regen['result']=='PASS' and regen['input_manifest_sha256']==digest(root/'release/generated-go-inputs.json'),'generation inputs differ')
     generated=root/GENERATED
     require(regen['generated_inventory']=={p.relative_to(generated).as_posix():digest(p) for p in generated.rglob('*') if p.is_file()},'generated source inventory differs')
