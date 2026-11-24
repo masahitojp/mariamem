@@ -110,7 +110,7 @@ def runs_job(job, result, *, aggregate='success', preview_aggregate='skipped', p
     expression = job_condition(job)
     if ancestors_skipped and not re.search(r'\b(always|cancelled|success|failure)\(', expression):
         return False
-    values = {'inputs.operation': result['operation'], 'inputs.native_preview': result.get('native_preview', False),
+    values = {'inputs.operation': result['operation'], 'needs.resolve.outputs.six_target': str(result.get('native_preview', False)).lower(),
               'needs.resolve.outputs.features_reused': result.get('features_reused', 'false'), 'needs.resolve.outputs.mode': result['mode'],
               'needs.resolve.result': resolve, 'needs.aggregate.result': aggregate,
               'needs.preview-aggregate.result': preview_aggregate,

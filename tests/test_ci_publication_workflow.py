@@ -79,13 +79,13 @@ def test_publication_job_gate_and_handoff():
     assert operation['options'] == ['verify', 'release', 'public-smoke-recovery']
     assert publication['if'] == ("always() && !cancelled() && inputs.operation == 'release' && "
                                  "needs.resolve.result == 'success' && "
-                                 "((inputs.native_preview && needs.preview-aggregate.result == 'success') || "
-                                 "(!inputs.native_preview && needs.aggregate.result == 'success'))")
+                                 "((needs.resolve.outputs.six_target == 'true' && needs.preview-aggregate.result == 'success') || "
+                                 "(needs.resolve.outputs.six_target != 'true' && needs.aggregate.result == 'success'))")
     assert publication['permissions']['contents'] == 'write'
     writers = {name for name, job in jobs.items() if job.get('permissions', {}).get('contents') == 'write'}
     assert writers == {'publication', 'additional_publication'}
     additive = jobs['additional_publication']
-    assert additive['if'] == "inputs.additional_v062 && !inputs.native_preview && inputs.operation == 'release'"
+    assert additive['if'] == "inputs.additional_v062 && inputs.operation == 'release'"
     assert additive['environment'] == 'pypi'
     assert additive['permissions'] == {'contents': 'write', 'actions': 'read', 'id-token': 'write'}
     assert additive['concurrency']['cancel-in-progress'] is False
@@ -102,7 +102,7 @@ def test_publication_job_gate_and_handoff():
     assert 'if [ "$OPERATION" = verify ]; then args+=(--dry-run); fi' in normal
     assert jobs['publication_rehearsal']['permissions'] == {'contents': 'read', 'actions': 'read'}
     assert "inputs.operation == 'verify'" in jobs['publication_rehearsal']['if']
-    assert jobs['public_smoke']['if'] == "always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'"
+    assert jobs['public_smoke']['if'] == "always() && !cancelled() && needs.resolve.outputs.six_target != 'true' && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'"
     for job in (publication, recovery):
         code = '\n'.join(step.get('run', '') for step in job['steps'])
         assert 'build_alpha.py' not in code and 'build_generated_guest.py' not in code

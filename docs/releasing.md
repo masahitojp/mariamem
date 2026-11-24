@@ -75,6 +75,14 @@ For an allowed version/docs preparation diff, local submission runs the focused
 metadata, source/license boundaries and release tooling without Go compilation
 or runtime qualification; Release CI owns those checks. An explicit runtime reuse
 intent is still authenticated before push.
+Normal verify and release qualify six targets: Ubuntu 24.04 x86_64, macOS arm64,
+Windows x86_64 and arm64, and portable Linux x86_64 and aarch64. Ubuntu runs shared
+feature regression. The native macOS and Windows lanes each use at most one runner
+at a time. GitHub Release publishes the six accepted wheels. Stable PyPI releases
+use the five wheels with PyPI-compatible platform tags.
+Dispatch with `native_preview=false` when recovering a legacy two-target candidate.
+Explicit historical backfill and recovery inputs keep their dedicated paths.
+
 For an optional READY-only audit, add `--operation verify`. Run names include the
 operation, supplied version and short SHA; display labels never establish identity.
 

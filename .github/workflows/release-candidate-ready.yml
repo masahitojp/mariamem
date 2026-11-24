@@ -14,9 +14,9 @@ on:
         required: false
         type: string
       native_preview:
-        description: Use the six-target candidate gate for verify or release
+        description: Use the six-target gate for normal verify or release
         type: boolean
-        default: false
+        default: true
       rehearse_publication:
         description: In six-target verify, dry-run publication with a read-only token
         type: boolean
@@ -61,7 +61,7 @@ permissions:
   actions: read
 jobs:
   resolve:
-    if: ${{ inputs.native_preview || (!inputs.additional_v062 && (inputs.operation != 'public-smoke-recovery' && inputs.published_tag == '')) }}
+    if: ${{ !inputs.additional_v062 && inputs.operation != 'public-smoke-recovery' && inputs.published_tag == '' }}
     runs-on: ubuntu-24.04
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
@@ -72,6 +72,7 @@ jobs:
       candidate_run: ${{ steps.plan.outputs.candidate_run }}
       evidence_run: ${{ steps.plan.outputs.evidence_run }}
       preview_reuse: ${{ steps.plan.outputs.preview_reuse }}
+      six_target: ${{ steps.source.outputs.six_target }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -82,7 +83,7 @@ jobs:
           MODE: ${{ inputs.mode }}
           CANDIDATE_RUN: ${{ inputs.candidate_run }}
           EVIDENCE_RUN: ${{ inputs.evidence_run }}
-          NATIVE_PREVIEW: ${{ inputs.native_preview }}
+          NATIVE_PREVIEW: ${{ inputs.native_preview && (inputs.mode == 'auto' || inputs.mode == 'full') }}
           OPERATION: ${{ inputs.operation }}
           ADDITIONAL: ${{ inputs.additional_v062 }}
           PUBLISHED_TAG: ${{ inputs.published_tag }}
@@ -111,6 +112,7 @@ jobs:
           test "$sha" = "$CANDIDATE_REF"
           test "$(git cat-file -t "$sha")" = commit
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "six_target=$NATIVE_PREVIEW" >> "$GITHUB_OUTPUT"
           echo "Exact generated-go-v1 candidate: $sha" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -130,7 +132,7 @@ jobs:
           CANDIDATE_RUN: ${{ inputs.candidate_run }}
           EVIDENCE_RUN: ${{ inputs.evidence_run }}
           GITHUB_TOKEN: ${{ github.token }}
-          NATIVE_PREVIEW: ${{ inputs.native_preview }}
+          NATIVE_PREVIEW: ${{ steps.source.outputs.six_target }}
         run: |
           if [ "$NATIVE_PREVIEW" = true ]; then
             test ! -e candidate-source/release/runtime-validation.json
@@ -188,7 +190,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJSON(inputs.native_preview && '[{"platform":"ubuntu24.04-x86_64","runner":"ubuntu-24.04"}]' || '[{"platform":"darwin-arm64","runner":"macos-15"},{"platform":"ubuntu24.04-x86_64","runner":"ubuntu-24.04"}]') }}
+        include: ${{ fromJSON(needs.resolve.outputs.six_target == 'true' && '[{"platform":"ubuntu24.04-x86_64","runner":"ubuntu-24.04"}]' || '[{"platform":"darwin-arm64","runner":"macos-15"},{"platform":"ubuntu24.04-x86_64","runner":"ubuntu-24.04"}]') }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -229,7 +231,7 @@ jobs:
         with:
           # A failed-job rerun keeps the artifacts of successful jobs at the same names.
           name: release-runtime-${{ matrix.runner }}-${{ needs.resolve.outputs.source_sha }}
-          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
+          overwrite: ${{ needs.resolve.outputs.six_target == 'true' && github.run_attempt > 1 }}
           path: |
             build/dist/*.whl
             tests/evidence/alpha-wheel.json
@@ -275,7 +277,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: release-generated-inputs-${{ needs.resolve.outputs.source_sha }}
-          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
+          overwrite: ${{ needs.resolve.outputs.six_target == 'true' && github.run_attempt > 1 }}
           path: |
             build/generated-release/
             build/release/generated-source.json
@@ -285,7 +287,7 @@ jobs:
   # Core runs alongside canonical guest reproduction. Platform paths meet only
   # at the final verification gate; YAML aliases keep their checks identical.
   core_darwin:
-    if: "!inputs.native_preview && needs.resolve.outputs.mode == 'full'"
+    if: "needs.resolve.outputs.six_target != 'true' && needs.resolve.outputs.mode == 'full'"
     needs: [resolve, runtime]
     runs-on: macos-15
     timeout-minutes: 90
@@ -373,7 +375,7 @@ jobs:
       RELEASE_RUNNER: ubuntu-24.04
     steps: *core_steps
   candidate_darwin:
-    if: "!inputs.native_preview && needs.resolve.outputs.mode == 'full'"
+    if: "needs.resolve.outputs.six_target != 'true' && needs.resolve.outputs.mode == 'full'"
     needs: [resolve, guest, core_darwin]
     runs-on: macos-15
     timeout-minutes: 30
@@ -419,7 +421,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: release-candidate-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
-          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
+          overwrite: ${{ needs.resolve.outputs.six_target == 'true' && github.run_attempt > 1 }}
           path: |
             ${{ runner.temp }}/candidate-handoff.tar
             ${{ runner.temp }}/candidate-handoff.sha256
@@ -435,7 +437,7 @@ jobs:
       RELEASE_RUNNER: ubuntu-24.04
     steps: *candidate_steps
   verification_darwin:
-    if: always() && !cancelled() && !inputs.native_preview && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_darwin.result == 'success')
+    if: always() && !cancelled() && needs.resolve.outputs.six_target != 'true' && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_darwin.result == 'success')
     needs: [resolve, candidate_darwin]
     runs-on: macos-15
     timeout-minutes: 90
@@ -516,7 +518,7 @@ jobs:
         if: always()
         with:
           name: release-evidence-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
-          overwrite: ${{ inputs.native_preview && github.run_attempt > 1 }}
+          overwrite: ${{ needs.resolve.outputs.six_target == 'true' && github.run_attempt > 1 }}
           path: |
             candidate-source/build/release/generated-acceptance.json
             candidate-source/build/release/generated-acceptance.log
@@ -538,7 +540,7 @@ jobs:
     # Preserve the existing feature/READY gate contract without a platform barrier
     # before either external-consumer job. This job only inspects results.
     needs: [resolve, guest, core_darwin, core_ubuntu, candidate_darwin, candidate_ubuntu, verification_darwin, verification_ubuntu]
-    if: always() && !inputs.native_preview && needs.resolve.result == 'success'
+    if: always() && needs.resolve.outputs.six_target != 'true' && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
@@ -565,62 +567,62 @@ jobs:
     uses: ./.github/workflows/live-host.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
-      ubuntu_only: ${{ inputs.native_preview }}
+      ubuntu_only: ${{ needs.resolve.outputs.six_target == 'true' }}
   feature-dump:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/dump-import-productization.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
-      ubuntu_only: ${{ inputs.native_preview }}
+      ubuntu_only: ${{ needs.resolve.outputs.six_target == 'true' }}
   feature-django:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/django-lifecycle.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
-      ubuntu_only: ${{ inputs.native_preview }}
+      ubuntu_only: ${{ needs.resolve.outputs.six_target == 'true' }}
   feature-routing:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/connection-routing.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
-      ubuntu_only: ${{ inputs.native_preview }}
+      ubuntu_only: ${{ needs.resolve.outputs.six_target == 'true' }}
   feature-preparation:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/preparation-migration.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
-      ubuntu_only: ${{ inputs.native_preview }}
+      ubuntu_only: ${{ needs.resolve.outputs.six_target == 'true' }}
   feature-sql:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
     uses: ./.github/workflows/worker-failure.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
-      ubuntu_only: ${{ inputs.native_preview }}
+      ubuntu_only: ${{ needs.resolve.outputs.six_target == 'true' }}
   preview-macos:
-    if: inputs.native_preview && needs.resolve.outputs.mode == 'full'
+    if: needs.resolve.outputs.six_target == 'true' && needs.resolve.outputs.mode == 'full'
     needs: resolve
     uses: ./.github/workflows/macos-native-candidate.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   preview-windows:
-    if: inputs.native_preview && needs.resolve.outputs.mode == 'full'
+    if: needs.resolve.outputs.six_target == 'true' && needs.resolve.outputs.mode == 'full'
     needs: resolve
     uses: ./.github/workflows/windows-boundary.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   preview-linux:
-    if: inputs.native_preview && needs.resolve.outputs.mode == 'full'
+    if: needs.resolve.outputs.six_target == 'true' && needs.resolve.outputs.mode == 'full'
     needs: resolve
     uses: ./.github/workflows/linux-wheel.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   preview-aggregate:
-    if: always() && !cancelled() && inputs.native_preview && needs.resolve.result == 'success'
+    if: always() && !cancelled() && needs.resolve.outputs.six_target == 'true' && needs.resolve.result == 'success'
     needs: [resolve, units, runtime, guest, core_ubuntu, candidate_ubuntu, verification_ubuntu, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql, preview-macos, preview-windows, preview-linux]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -653,7 +655,7 @@ jobs:
           retention-days: 14
   aggregate:
     needs: [resolve, runtime, units, verification, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql]
-    if: always() && !inputs.native_preview && needs.resolve.result == 'success'
+    if: always() && needs.resolve.outputs.six_target != 'true' && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -716,7 +718,7 @@ jobs:
           retention-days: 14
   publication:
     needs: [resolve, aggregate, preview-aggregate]
-    if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && ((inputs.native_preview && needs.preview-aggregate.result == 'success') || (!inputs.native_preview && needs.aggregate.result == 'success'))
+    if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && ((needs.resolve.outputs.six_target == 'true' && needs.preview-aggregate.result == 'success') || (needs.resolve.outputs.six_target != 'true' && needs.aggregate.result == 'success'))
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -732,7 +734,7 @@ jobs:
           fetch-depth: 0
           path: candidate-source
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        if: inputs.native_preview
+        if: needs.resolve.outputs.six_target == 'true'
         with:
           ref: ${{ github.workflow_sha }}
           path: tooling
@@ -746,7 +748,7 @@ jobs:
           RELEASE_NOTES: ${{ inputs.notes }}
           CANDIDATE_RUN: ${{ needs.resolve.outputs.mode == 'full' && github.run_id || needs.resolve.outputs.candidate_run }}
           EVIDENCE_RUN: ${{ github.run_id }}
-          NATIVE_PREVIEW: ${{ inputs.native_preview }}
+          NATIVE_PREVIEW: ${{ needs.resolve.outputs.six_target == 'true' }}
           WORKFLOW_SHA: ${{ github.workflow_sha }}
           PREVIEW_REUSE: ${{ needs.resolve.outputs.preview_reuse }}
           OPERATION: ${{ inputs.operation }}
@@ -774,7 +776,7 @@ jobs:
           retention-days: 14
   publication_rehearsal:
     needs: [resolve, aggregate, preview-aggregate]
-    if: always() && !cancelled() && inputs.rehearse_publication && inputs.native_preview && inputs.operation == 'verify' && needs.preview-aggregate.result == 'success'
+    if: always() && !cancelled() && inputs.rehearse_publication && needs.resolve.outputs.six_target == 'true' && inputs.operation == 'verify' && needs.preview-aggregate.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -782,7 +784,7 @@ jobs:
       actions: read
     steps: *publication_steps
   public_smoke_recovery:
-    if: ${{ !inputs.native_preview && !inputs.additional_v062 && (inputs.operation == 'public-smoke-recovery') }}
+    if: ${{ !inputs.additional_v062 && (inputs.operation == 'public-smoke-recovery') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -826,7 +828,7 @@ jobs:
           retention-days: 14
   public_smoke:
     needs: [resolve, publication]
-    if: always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'
+    if: always() && !cancelled() && needs.resolve.outputs.six_target != 'true' && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'
     strategy:
       fail-fast: false
       matrix:
@@ -873,7 +875,7 @@ jobs:
 
   six_target_public_smoke:
     needs: [resolve, publication]
-    if: inputs.native_preview && inputs.operation == 'release' && needs.publication.result == 'success'
+    if: needs.resolve.outputs.six_target == 'true' && inputs.operation == 'release' && needs.publication.result == 'success'
     strategy:
       fail-fast: false
       matrix:
@@ -935,7 +937,7 @@ jobs:
           python scripts/six_target_public_smoke.py "${args[@]}"
 
   pypi_verify:
-    if: ${{ !inputs.native_preview && !inputs.additional_v062 && (inputs.operation == 'verify' && inputs.published_tag != '') }}
+    if: ${{ !inputs.additional_v062 && (inputs.operation == 'verify' && inputs.published_tag != '') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -1054,7 +1056,7 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   additional_plan:
-    if: inputs.additional_v062 && !inputs.native_preview
+    if: inputs.additional_v062
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -1157,7 +1159,7 @@ jobs:
           retention-days: 14
   additional_publication:
     needs: additional_qualification
-    if: inputs.additional_v062 && !inputs.native_preview && inputs.operation == 'release'
+    if: inputs.additional_v062 && inputs.operation == 'release'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     environment: pypi

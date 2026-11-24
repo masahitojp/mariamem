@@ -396,20 +396,27 @@ def test_auto_reused_receipt_cannot_become_an_original_full_receipt():
 
 def test_preview_uses_one_legacy_ubuntu_lane_and_gates_publication():
     model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
-    assert events(model)['workflow_dispatch']['inputs']['native_preview']['default'] is False
+    assert events(model)['workflow_dispatch']['inputs']['native_preview']['default'] is True
     jobs = model['jobs']
     assert needs(jobs['preview-aggregate']) == preview.REQUIRED_JOBS
-    assert jobs['preview-aggregate']['if'].find('inputs.native_preview') >= 0
+    assert "needs.resolve.outputs.six_target == 'true'" in jobs['preview-aggregate']['if']
+    resolve = jobs['resolve']
+    source = next(step for step in resolve['steps'] if step.get('id') == 'source')
+    assert source['env']['NATIVE_PREVIEW'] == (
+        "${{ inputs.native_preview && (inputs.mode == 'auto' || inputs.mode == 'full') }}")
+    assert resolve['outputs']['six_target'] == '${{ steps.source.outputs.six_target }}'
+    for legacy in ('additional_plan', 'public_smoke_recovery', 'pypi_verify'):
+        assert 'native_preview' not in jobs[legacy]['if']
     for name in ('core_darwin', 'candidate_darwin', 'verification_darwin', 'verification',
-                 'aggregate', 'public_smoke_recovery', 'pypi_verify', 'additional_plan', 'additional_publication'):
-        assert '!inputs.native_preview' in jobs[name]['if'], name
+                 'aggregate'):
+        assert "needs.resolve.outputs.six_target != 'true'" in jobs[name]['if'], name
     assert "inputs.operation == 'release'" in jobs['publication']['if']
-    assert "inputs.native_preview && needs.preview-aggregate.result == 'success'" in jobs['publication']['if']
+    assert "needs.resolve.outputs.six_target == 'true' && needs.preview-aggregate.result == 'success'" in jobs['publication']['if']
     smoke = jobs['six_target_public_smoke']
     assert {cell['platform'] for cell in smoke['strategy']['matrix']['include']} == set(preview.TARGETS)
     assert "inputs.operation == 'release'" in smoke['if']
     for name in preview.FEATURES:
-        assert jobs[name]['with']['ubuntu_only'] == '${{ inputs.native_preview }}'
+        assert jobs[name]['with']['ubuntu_only'] == "${{ needs.resolve.outputs.six_target == 'true' }}"
     upload = jobs['preview-aggregate']['steps'][-1]
     assert upload['with']['name'] == (
         'release-candidate-preview-${{ needs.resolve.outputs.source_sha }}-attempt-${{ github.run_attempt }}')
@@ -434,7 +441,7 @@ def test_auto_reuse_skips_full_lanes_and_preserves_explicit_full_selection():
 
 @pytest.mark.parametrize(('workflow', 'job_names', 'guard'), [
     ('release-candidate-ready', ('runtime', 'guest', 'candidate_ubuntu', 'verification_ubuntu'),
-     'inputs.native_preview'),
+     "needs.resolve.outputs.six_target == 'true'"),
     ('macos-native-candidate', ('native',), ''),
     ('windows-boundary', ('native',), 'inputs.source_commit'),
     ('linux-wheel', ('wheel',), 'inputs.source_commit'),
