@@ -4,10 +4,26 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/masahitojp/mariamem/internal/disposal"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
+)
+
+const (
+	flushingSettleBudget = 500 * time.Millisecond
+	tailExecSettleBudget = 15 * time.Millisecond
+	maxIdleFenceRetries  = 4
+)
+
+type busySettleAction uint8
+
+const (
+	settleRejectBusy busySettleAction = iota
+	settleRetryNow
+	settleWaitFlushing
+	settleWaitTailExec
 )
 
 // Rejected is a definitive, non-consuming guest capture rejection. Public
@@ -37,6 +53,126 @@ func (r *Backend) endCheck() {
 	r.checking = false
 	r.owner.EndCaptureLocked()
 	r.mu.Unlock()
+}
+
+type sessionSettleSnapshot struct {
+	s          *session
+	ackPending bool
+	cmdAcked   bool
+}
+
+func (r *Backend) snapshotSessionsForSettle() (map[key]sessionSettleSnapshot, chan struct{}, bool) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.activityChanged == nil {
+		r.activityChanged = make(chan struct{})
+	}
+	ch := r.activityChanged
+	if len(r.sessions) == 0 {
+		return nil, ch, false
+	}
+	out := make(map[key]sessionSettleSnapshot, len(r.sessions))
+	for k, s := range r.sessions {
+		out[k] = sessionSettleSnapshot{
+			s:          s,
+			ackPending: s.ackSent < s.ackTarget,
+			cmdAcked:   s.cmdAcked,
+		}
+	}
+	return out, ch, true
+}
+
+func (r *Backend) hasAnyQueuedOutput() bool {
+	r.mu.Lock()
+	list := make([]*session, 0, len(r.sessions))
+	for _, s := range r.sessions {
+		list = append(list, s)
+	}
+	r.mu.Unlock()
+	for _, s := range list {
+		if s.hasQueuedOutput() {
+			return true
+		}
+	}
+	return false
+}
+
+// waitPendingAcks waits while any session has already delivered response bytes
+// via conn.Write and has not yet finished sending its corresponding kindAck.
+// Never waits when any session still has queued/stalled output awaiting Write.
+func (r *Backend) waitPendingAcks(ctx context.Context) error {
+	for {
+		if e := ctx.Err(); e != nil {
+			return e
+		}
+		snaps, ch, ok := r.snapshotSessionsForSettle()
+		if !ok {
+			return nil
+		}
+		anyPending := false
+		for _, snap := range snaps {
+			if snap.s.hasQueuedOutput() {
+				return nil
+			}
+			if snap.ackPending {
+				anyPending = true
+			}
+		}
+		if !anyPending {
+			return nil
+		}
+		select {
+		case <-ch:
+		case <-r.failed:
+			if f := r.Failure(); f != nil {
+				return f
+			}
+			return ErrClosed
+		case <-r.done:
+			return ErrClosed
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
+}
+
+func (r *Backend) classifyBusySettle(st guestStats, snaps map[key]sessionSettleSnapshot) busySettleAction {
+	for _, snap := range snaps {
+		if snap.s.hasQueuedOutput() {
+			return settleRejectBusy
+		}
+	}
+	anyNonIdle := false
+	anyFlushing := false
+	anyTailExec := false
+	for _, gs := range st.Sessions {
+		if gs.Phase == "idle" {
+			continue
+		}
+		anyNonIdle = true
+		snap, ok := snaps[key{gs.Slot, gs.Generation}]
+		switch gs.Phase {
+		case "flushing":
+			anyFlushing = true
+		case "executing":
+			if !ok || (!snap.ackPending && !snap.cmdAcked) {
+				return settleRejectBusy
+			}
+			anyTailExec = true
+		default:
+			return settleRejectBusy
+		}
+	}
+	if !anyNonIdle {
+		return settleRetryNow
+	}
+	if anyTailExec {
+		return settleWaitTailExec
+	}
+	if anyFlushing {
+		return settleWaitFlushing
+	}
+	return settleRejectBusy
 }
 
 // SnapshotHeap always asks the guest's final atomic fence. Busy is merely an
@@ -71,39 +207,170 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 	}
 	r.captureID = uint64(id)
 	r.mu.Unlock()
-	if e = ctx.Err(); e != nil {
-		r.endCheck()
-		return nil, false, e
-	}
 	flag := uint64(0)
 	if rollback {
 		flag = 1
 	}
-	reply, e := r.rpcContext(ctx, frame{kind: kindCaptureFence, value: uint64(id), generation: flag})
-	if e != nil {
-		var unsent *unsentControl
-		if errors.As(e, &unsent) {
+
+	var flushDeadline time.Time
+	var execDeadline time.Time
+	idleRetries := 0
+	attempt := 0
+	for {
+		if e := r.waitPendingAcks(ctx); e != nil {
 			r.endCheck()
 			return nil, false, e
 		}
-		return r.captureFailure(ctx, e)
-	}
-	if reply.kind == kindRejected && (reply.value == 1 || reply.value == 2) {
-		r.endCheck()
-		code := "busy"
-		if reply.value == 2 {
-			code = "transaction_active"
+		if e = ctx.Err(); e != nil {
+			r.endCheck()
+			return nil, false, e
 		}
-		return nil, false, &Rejected{code, string(reply.body)}
-	}
-	if reply.kind != kindFenced || reply.value != uint64(id) {
-		return r.captureFailure(ctx, errors.New("invalid capture fence"))
+		attempt++
+		reply, e := r.rpcContext(ctx, frame{kind: kindCaptureFence, value: uint64(id), generation: flag})
+		if e != nil {
+			var unsent *unsentControl
+			if errors.As(e, &unsent) {
+				r.endCheck()
+				return nil, false, e
+			}
+			return r.captureFailure(ctx, e)
+		}
+		if reply.kind == kindRejected && reply.value == 2 {
+			r.endCheck()
+			return nil, false, &Rejected{"transaction_active", string(reply.body)}
+		}
+		if reply.kind == kindRejected && reply.value == 1 {
+			r.mu.Lock()
+			hook := r.afterBusyFence
+			r.mu.Unlock()
+			if hook != nil {
+				hook(attempt)
+			}
+			snaps, actCh, hasSessions := r.snapshotSessionsForSettle()
+			if !hasSessions {
+				r.endCheck()
+				return nil, false, &Rejected{"busy", string(reply.body)}
+			}
+			if e := ctx.Err(); e != nil {
+				r.endCheck()
+				return nil, false, e
+			}
+			st, stErr := r.queryStats(ctx)
+			if stErr != nil {
+				if ctx.Err() != nil {
+					r.endCheck()
+					return nil, false, ctx.Err()
+				}
+				if f := r.Failure(); f != nil {
+					return r.captureFailure(ctx, f)
+				}
+				r.endCheck()
+				return nil, false, &Rejected{"busy", string(reply.body)}
+			}
+			// Re-check host session queued-output / ACK state after STATS too.
+			snapsAfter, _, _ := r.snapshotSessionsForSettle()
+			if snapsAfter != nil {
+				snaps = snapsAfter
+			}
+			switch r.classifyBusySettle(st, snaps) {
+			case settleRetryNow:
+				idleRetries++
+				if idleRetries > maxIdleFenceRetries {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				continue
+			case settleWaitFlushing:
+				now := time.Now()
+				if flushDeadline.IsZero() {
+					flushDeadline = now.Add(flushingSettleBudget)
+				}
+				if !now.Before(flushDeadline) {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				wait := time.Until(flushDeadline)
+				if wait > 5*time.Millisecond {
+					wait = 5 * time.Millisecond
+				}
+				timer := time.NewTimer(wait)
+				select {
+				case <-actCh:
+					timer.Stop()
+				case <-timer.C:
+				case <-r.failed:
+					timer.Stop()
+					if f := r.Failure(); f != nil {
+						return r.captureFailure(ctx, f)
+					}
+					r.endCheck()
+					return nil, false, ErrClosed
+				case <-r.done:
+					timer.Stop()
+					r.endCheck()
+					return nil, false, ErrClosed
+				case <-ctx.Done():
+					timer.Stop()
+					r.endCheck()
+					return nil, false, ctx.Err()
+				}
+				if r.hasAnyQueuedOutput() {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				continue
+			case settleWaitTailExec:
+				now := time.Now()
+				if execDeadline.IsZero() {
+					execDeadline = now.Add(tailExecSettleBudget)
+				}
+				if !now.Before(execDeadline) {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				timer := time.NewTimer(time.Until(execDeadline))
+				expired := false
+				select {
+				case <-actCh:
+					timer.Stop()
+				case <-timer.C:
+					expired = true
+				case <-r.failed:
+					timer.Stop()
+					if f := r.Failure(); f != nil {
+						return r.captureFailure(ctx, f)
+					}
+					r.endCheck()
+					return nil, false, ErrClosed
+				case <-r.done:
+					timer.Stop()
+					r.endCheck()
+					return nil, false, ErrClosed
+				case <-ctx.Done():
+					timer.Stop()
+					r.endCheck()
+					return nil, false, ctx.Err()
+				}
+				if expired || r.hasAnyQueuedOutput() {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				continue
+			default:
+				r.endCheck()
+				return nil, false, &Rejected{"busy", string(reply.body)}
+			}
+		}
+		if reply.kind != kindFenced || reply.value != uint64(id) {
+			return r.captureFailure(ctx, errors.New("invalid capture fence"))
+		}
+		break
 	}
 	r.mu.Lock()
 	r.consumed = true
 	r.mu.Unlock()
 	r.capture.Request()
-	reply, e = r.rpcContext(ctx, frame{kind: kindCaptureStop, value: uint64(id)})
+	reply, e := r.rpcContext(ctx, frame{kind: kindCaptureStop, value: uint64(id)})
 	if e != nil {
 		return r.captureFailure(ctx, e)
 	}

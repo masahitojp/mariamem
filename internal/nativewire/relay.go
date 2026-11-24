@@ -28,6 +28,13 @@ type session struct {
 	outBytes       uint64
 	outWake        chan struct{}
 	ended          chan struct{}
+
+	// Protected by root.mu: tracks output bytes already written to conn whose
+	// kindAck has not yet finished sending, plus whether the current command
+	// has already delivered output bytes to conn.
+	ackTarget uint64
+	ackSent   uint64
+	cmdAcked  bool
 }
 
 func (s *session) pushOutput(f frame) bool {
@@ -88,6 +95,13 @@ func (s *session) releaseOutputBytes(n uint64) {
 		s.outBytes -= n
 	}
 	s.mu.Unlock()
+}
+
+func (s *session) hasQueuedOutput() bool {
+	s.mu.Lock()
+	queued := !s.dead && s.outBytes > 0
+	s.mu.Unlock()
+	return queued
 }
 
 func (s *session) close() {
@@ -198,6 +212,14 @@ func (r *Backend) attach(s *session) {
 	go func() {
 		defer r.wg.Done()
 		defer s.relayDone(Writer)
+		defer func() {
+			r.mu.Lock()
+			if s.ackTarget != s.ackSent {
+				s.ackTarget = s.ackSent
+				r.notifyActivityLocked()
+			}
+			r.mu.Unlock()
+		}()
 		defer s.close()
 		for {
 			f, ok := s.popOutput()
@@ -230,10 +252,30 @@ func (r *Backend) attach(s *session) {
 				}
 				b = b[n:]
 			}
+			end := f.value + uint64(len(f.body))
+			// Advance ackTarget BEFORE releasing outBytes so SnapshotHeap never
+			// sees a gap where outBytes==0 and ackSent==ackTarget while kindAck
+			// has not yet been written to the guest control stream.
+			r.mu.Lock()
+			if end > s.ackTarget {
+				s.ackTarget = end
+			}
+			s.cmdAcked = true
+			hook := r.beforeAck
+			r.mu.Unlock()
 			s.releaseOutputBytes(uint64(len(f.body)))
-			if e := r.send(frame{kind: kindAck, slot: s.id.slot, generation: s.id.generation, value: f.value + uint64(len(f.body))}); e != nil {
+			if hook != nil {
+				hook(s.id, end)
+			}
+			if e := r.send(frame{kind: kindAck, slot: s.id.slot, generation: s.id.generation, value: end}); e != nil {
 				return
 			}
+			r.mu.Lock()
+			if end > s.ackSent {
+				s.ackSent = end
+			}
+			r.notifyActivityLocked()
+			r.mu.Unlock()
 		}
 	}()
 	defer func() {

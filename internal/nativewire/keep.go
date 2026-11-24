@@ -19,10 +19,12 @@ const errLockWaitTimeout = 1205
 
 type guestStats struct {
 	Sessions []struct {
-		Slot       uint32 `json:"slot"`
-		Generation uint64 `json:"generation"`
-		Phase      string `json:"phase"`
-		Status     uint64 `json:"status"`
+		Slot        uint32 `json:"slot"`
+		Generation  uint64 `json:"generation"`
+		Phase       string `json:"phase"`
+		Command     uint64 `json:"command"`
+		Status      uint64 `json:"status"`
+		Outstanding uint64 `json:"outstanding"`
 	} `json:"sessions"`
 }
 

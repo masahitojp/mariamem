@@ -94,6 +94,8 @@ type Backend struct {
 	relaysOnce                   sync.Once
 	startTail                    *stderrTail
 	readGuestTiming              atomic.Pointer[func() []byte]
+	beforeAck                    func(key, uint64)
+	afterBusyFence               func(attempt int)
 }
 
 type stderrTail struct {
@@ -611,6 +613,9 @@ func (r *Backend) receiveFrame(f frame) bool {
 	stale := r.owner.StaleLocked(Token{r.epoch, f.slot, f.generation})
 	if f.kind == kindState && s != nil {
 		s.phase = string(f.body)
+		if s.phase == "idle" || s.phase == "receiving" || s.phase == "handshake" {
+			s.cmdAcked = false
+		}
 		r.notifyActivityLocked()
 	}
 	r.mu.Unlock()
