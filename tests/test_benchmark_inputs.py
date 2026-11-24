@@ -9,7 +9,7 @@ from common import ROOT
 
 def inputs_tree(tmp_path):
     root = tmp_path / 'checkout'
-    for name in (*reuse.RECIPE, 'release/inputs.lock.json'):
+    for name in (*reuse.RECIPE, 'release/inputs.lock.json', 'release/generated-go-toolchain.json'):
         target = root / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / name, target)
@@ -24,12 +24,12 @@ def test_guest_identity_ignores_harness_but_changes_for_patch_recipe_and_pins(tm
     assert reuse.guest_inputs(root) == before
     for name in ('guest/source.patch', 'guest/test-auth-keypair.json',
                  'scripts/prepare_guest.py', 'scripts/guest_auth_hooks.py',
-                 'scripts/prepared_auth_keys.py', 'release/inputs.lock.json'):
+                 'scripts/prepared_auth_keys.py', 'release/generated-go-toolchain.json'):
         path = root / name
         original = path.read_bytes()
-        if name == 'release/inputs.lock.json':
+        if name == 'release/generated-go-toolchain.json':
             changed = json.loads(original)
-            changed['toolchain']['wasixcc'] = 'changed'
+            changed['llvm'] = 'changed'
             path.write_text(json.dumps(changed))
         else:
             path.write_bytes(original + b'\nchange')

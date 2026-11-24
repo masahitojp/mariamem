@@ -138,17 +138,7 @@
     "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437"
   },
   "toolchain": {
-    "go": "1.26.11",
-    "wasmer": "7.4.2",
-    "wasixcc": "0.4.7",
-    "wasixcc_linux_x86_64": {
-      "url": "https://github.com/wasix-org/wasixcc/releases/download/v0.4.7/wasixcc-x86_64-unknown-linux-gnu.tar.gz",
-      "sha256": "d39db81b6b76d9567e0f61955f390b8586d932ab683816989e23305f27099c2f"
-    },
-    "llvm": "21.1.206",
-    "wasix_sysroot": "v2026-07-03.1",
-    "binaryen": "version_133",
-    "wasix_sysroot_variant": "sysroot-exnref-eh"
+    "go": "1.26.11"
   },
   "known_unresolved": [],
   "runtime_source_submodules_to_collect": [

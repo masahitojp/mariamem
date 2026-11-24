@@ -6,6 +6,7 @@ preserve the accepted recipe; this command intentionally requires an empty /work
 """
 from layout import BENCHMARKS
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,7 +18,6 @@ from urllib.error import HTTPError
 from urllib.parse import urlsplit
 import urllib.request
 from common import ROOT, digest, extract
-from install_guest_toolchain import inventory
 from build_feedback import run as observed_run
 
 PIN = ROOT / 'release/generated-go-toolchain.json'
@@ -25,6 +25,18 @@ PIN = ROOT / 'release/generated-go-toolchain.json'
 ICU_PORTS_URL = 'https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb'
 ICU_LAUNCHPAD_URL = 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu70_70.1-2_arm64.deb'
 USER_AGENT = 'mariamem-guest-builder/1.0'
+
+
+def inventory(root):
+    entries = {}
+    for path in sorted(root.rglob('*')):
+        name = path.relative_to(root).as_posix()
+        if path.is_symlink():
+            entries[name] = ['symlink', os.readlink(path)]
+        elif path.is_file():
+            entries[name] = ['file', digest(path)]
+    encoded = json.dumps(entries, sort_keys=True, separators=(',', ':')).encode()
+    return {'entries': len(entries), 'inventory_sha256': hashlib.sha256(encoded).hexdigest()}
 
 
 def download(pin, directory):

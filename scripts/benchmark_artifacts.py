@@ -12,7 +12,7 @@ from release_version import PYTHON_VERSION
 
 RECIPE = ('scripts/prepare_guest.py', 'scripts/guest_init_hooks.py',
           'scripts/guest_auth_hooks.py', 'scripts/prepared_auth_keys.py',
-          'scripts/build_guest_wasm.py', 'scripts/install_guest_toolchain.py',
+          'scripts/build_generated_guest.py',
           'scripts/common.py', 'scripts/benchmark_artifacts.py', 'scripts/guest_experiment.py',
           'scripts/install_guest_host_tools.sh')
 
@@ -30,13 +30,12 @@ def guest_inputs(root=ROOT, commit=None):
         files = [p.relative_to(root).as_posix() for p in sorted((root / 'guest').rglob('*')) if p.is_file()]
         read = lambda name: (root / name).read_bytes()
     lock = json.loads(read('release/inputs.lock.json'))
+    toolchain_pin = json.loads(read('release/generated-go-toolchain.json'))
     guest_lock = {'inputs': [entry for entry in lock['inputs'] if entry['name'] in
-                  ('lite4mariadb', 'libmariadb', 'wolfssl', 'pcre2', 'libfmt')],
+                  ('mariadb', 'lite4mariadb', 'libmariadb', 'wolfssl', 'pcre2', 'libfmt')],
                   'pristine_files': lock['pristine_files'],
-                  'toolchain': {name: lock['toolchain'][name] for name in
-                    ('wasixcc', 'wasixcc_linux_x86_64', 'llvm', 'binaryen',
-                     'wasix_sysroot', 'wasix_sysroot_variant')}}
-    return {'guest_lock': guest_lock, 'schema': 1, 'host': 'ubuntu24.04-x86_64', 'target': 'wasm32/WASIX',
+                  'toolchain': toolchain_pin}
+    return {'guest_lock': guest_lock, 'schema': 1, 'host': 'linux-arm64', 'target': 'wasm32/WASIX',
             'jobs': 3, 'files': {name: hashlib.sha256(read(name)).hexdigest()
                                for name in sorted(set(files) | set(RECIPE))}}
 
