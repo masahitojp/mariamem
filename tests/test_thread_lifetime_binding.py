@@ -33,7 +33,7 @@ def preimage(name):
     if name == 'code/base/base.go':
         text = re.sub(r'(?m)^\s*ThreadLifetime\s+\*ThreadLifetime\n', '', text)
     elif name == 'code/p3/p3_pure.go':
-        text = re.sub(r'(func Fn153\(m \*base.Module, l0 int32\) \{\n)\s*if base.DeferThreadAllocationFree\(m, l0\) \{\s*return\s*\}\n', r'\1', text, count=1)
+        text = re.sub(r'(func Fn151\(m \*base.Module, l0 int32\) \{\n)\s*if base.DeferThreadAllocationFree\(m, l0\) \{\s*return\s*\}\n', r'\1', text, count=1)
     return text
 
 
@@ -49,8 +49,8 @@ def test_bound_function_change_is_rejected(name):
 
 
 @pytest.mark.parametrize('name,address', [
-    ('code/p3/p3_pure.go', '18772236'),
-    ('code/p5/p5_pure.go', '18770817'),
+    ('code/p3/p3_pure.go', '18771404'),
+    ('code/p5/p5_pure.go', '18769985'),
 ])
 @pytest.mark.parametrize('earlier_same_literal', [False, True])
 def test_another_address_relocation_is_not_accepted(name, address, earlier_same_literal):

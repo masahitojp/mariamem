@@ -68,24 +68,24 @@ func TestDefaultTestCredentials(t *testing.T) {
 			}
 		})
 	}
-	// Credential bypass must still parse the handshake and reject invalid framing
-	// or capabilities. Exercise both supported password response encodings.
+	// Credential bypass delegates handshake parsing to upstream MariaDB 12.3.4.
+	// Exercise both supported password response encodings and native malformed-handshake rejections.
 	for _, tc := range []struct {
 		name   string
 		flags  uint32
 		suffix []byte
-		want   uint16 // 0=OK, 1=connection closes, otherwise MySQL error number
+		want   uint16 // 0=OK, otherwise MariaDB native MySQL error number
 	}{
 		{"secure_response", 512 | 32768, []byte("application\x00\x03abc"), 0},
 		{"legacy_response", 512, []byte("application\x00synthetic\x00"), 0},
 		{"empty_username", 512, []byte("\x00synthetic\x00"), 0},
-		{"short_handshake", 512, nil, 1045},
-		{"missing_username_terminator", 512, []byte("application"), 1},
-		{"missing_legacy_response_terminator", 512, []byte("application\x00synthetic"), 1},
-		{"missing_secure_response_length", 512 | 32768, []byte("application\x00"), 1},
-		{"truncated_secure_response", 512 | 32768, []byte("application\x00\x05abc"), 1},
-		{"missing_protocol41", 0, []byte("application\x00\x00"), 1235},
-		{"unsupported_tls", 512 | 2048, []byte("application\x00\x00"), 1235},
+		{"short_handshake", 512, nil, 1043},
+		{"missing_username_terminator", 512, []byte("application"), 1043},
+		{"missing_legacy_response_terminator", 512, []byte("application\x00synthetic"), 0},
+		{"missing_secure_response_length", 512 | 32768, []byte("application\x00"), 1043},
+		{"truncated_secure_response", 512 | 32768, []byte("application\x00\x05abc"), 1043},
+		{"missing_protocol41", 0, []byte("application\x00\x00"), 0},
+		{"unsupported_tls_flag_ignored_without_server_ssl", 512 | 2048, []byte("application\x00\x00"), 0},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			cfg, err := mysql.ParseDSN(db.DSN())

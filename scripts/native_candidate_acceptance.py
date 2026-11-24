@@ -52,9 +52,9 @@ def accept_go(work, env):
 
 
 def accept_worker_failure(env):
-    name = 'TestWorkerTrapFailsPendingCallsBeforeCompletion'
+    name = 'TestBackendFailureImmediateDoneWaitsForExecution'
     result = subprocess.run(['go', 'test', '-json', '-count=1', '-timeout=2m',
-                             '-run', '^' + name + '$', './internal/guest'],
+                             '-run', '^' + name + '$', './internal/nativewire'],
                             cwd=ROOT, env=env, text=True, stdout=subprocess.PIPE, timeout=600)
     print(result.stdout, end='')
     result.check_returncode()

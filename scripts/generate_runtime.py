@@ -66,6 +66,7 @@ HANDWRITTEN_FILES = (
     'code/base/native_errors_windows.go',
     'runtime_instance.go',
     'runtime_instance_test.go',
+    'runtime_wire.go',
     'host_dup_test.go',
     'worker_trap_integration_test.go',
     'uca_prepared_integration_test.go',

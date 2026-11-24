@@ -129,7 +129,7 @@ func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease
 	timing.Mark(ctx, "host_returned")
 	db.server = s
 	db.info = ConnectionInfo{Host: "127.0.0.1", Port: s.Port(), User: "root", Database: "test"}
-	go db.watch(s.Guest.Done())
+	go db.watch(s.Done())
 	timing.Mark(ctx, "database_ready")
 	return db, nil
 }

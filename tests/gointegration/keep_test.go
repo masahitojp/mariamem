@@ -452,6 +452,30 @@ func TestSnapshotKeepDatabaseRejectsPreparedXA(t *testing.T) {
 			if got := keepRows(t, ctx, c.conn); got != "1=10" {
 				t.Fatalf("baseline %q", got)
 			}
+			c.Close()
+			if err := snap.Close(); err != nil {
+				t.Fatal(err)
+			}
+
+			// A consuming Snapshot after resolving a detached (or attached) XA
+			// transaction must succeed and preserve committed state on Fork.
+			consumedSnap, err := db.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 1})
+			if err != nil {
+				t.Fatalf("consuming Snapshot after resolved XA failed: %v", err)
+			}
+			defer consumedSnap.Close()
+			_, c2 := keepChild(t, ctx, consumedSnap)
+			rows2, err := c2.conn.QueryContext(ctx, "XA RECOVER")
+			if err != nil {
+				t.Fatal(err)
+			}
+			if rows2.Next() {
+				t.Fatal("consuming snapshot child inherited a prepared XA transaction")
+			}
+			rows2.Close()
+			if got := keepRows(t, ctx, c2.conn); got != "1=10" {
+				t.Fatalf("consuming snapshot baseline %q", got)
+			}
 		})
 	}
 }

@@ -24,6 +24,7 @@ PIN = ROOT / 'release/generated-go-toolchain.json'
 # Alternate transport for the same pinned Ubuntu archive.
 ICU_PORTS_URL = 'https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb'
 ICU_LAUNCHPAD_URL = 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu70_70.1-2_arm64.deb'
+USER_AGENT = 'mariamem-guest-builder/1.0'
 
 
 def download(pin, directory):
@@ -36,8 +37,9 @@ def download(pin, directory):
         for url in urls:
             origin = urlsplit(url).hostname
             print(f'Downloading {path.name} from {origin}', file=sys.stderr, flush=True)
+            request = urllib.request.Request(url, headers={'User-Agent': USER_AGENT})
             try:
-                with urllib.request.urlopen(url, timeout=180) as src, pending.open('wb') as dst:
+                with urllib.request.urlopen(request, timeout=180) as src, pending.open('wb') as dst:
                     shutil.copyfileobj(src, dst)
                 if digest(pending) != pin['sha256']:
                     raise ValueError('download checksum mismatch: ' + pin['file'])

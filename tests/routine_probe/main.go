@@ -36,7 +36,7 @@ func connect(port int) *sql.DB {
 	db.SetMaxOpenConns(1)
 	return db
 }
-func disconnected(s *host.Server) {
+func disconnected(s host.Service) {
 	deadline := time.Now().Add(5 * time.Second)
 	for s.Active() != 0 {
 		check(time.Now().Before(deadline), "connections not drained")

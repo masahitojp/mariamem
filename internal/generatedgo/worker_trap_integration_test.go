@@ -3,8 +3,9 @@
 package generatedgo
 
 import (
+	"bytes"
 	"encoding/binary"
-	"encoding/json"
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -13,18 +14,200 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/prepared"
 )
 
 type trappingDup struct{ base.Wasix_32v1Imports }
 
 func (trappingDup) Fd_dup(*base.Module, int32, int32) int32 { panic("injected fd_dup worker trap") }
 
+type wireEnvelope struct {
+	kind       byte
+	request    uint32
+	slot       uint32
+	epoch      uint64
+	generation uint64
+	value      uint64
+	body       []byte
+}
+
 type trapGuest struct {
 	in       *os.File
 	out      *os.File
 	done     <-chan error
 	failed   chan error
-	sequence uint32
+	reqSeq   uint32
+	sentOff  uint64
+	ackedOff uint64
+	rxBuf    bytes.Buffer
+}
+
+func (g *trapGuest) writeEnv(f wireEnvelope) error {
+	raw := make([]byte, 37+len(f.body))
+	binary.LittleEndian.PutUint32(raw[0:4], uint32(33+len(f.body)))
+	raw[4] = f.kind
+	binary.LittleEndian.PutUint32(raw[5:9], f.request)
+	binary.LittleEndian.PutUint32(raw[9:13], f.slot)
+	binary.LittleEndian.PutUint64(raw[13:21], f.epoch)
+	binary.LittleEndian.PutUint64(raw[21:29], f.generation)
+	binary.LittleEndian.PutUint64(raw[29:37], f.value)
+	copy(raw[37:], f.body)
+	_, err := g.in.Write(raw)
+	return err
+}
+
+func (g *trapGuest) readEnv() (wireEnvelope, error) {
+	var hdr [4]byte
+	if _, err := io.ReadFull(g.out, hdr[:]); err != nil {
+		return wireEnvelope{}, err
+	}
+	n := binary.LittleEndian.Uint32(hdr[:])
+	if n < 33 {
+		return wireEnvelope{}, fmt.Errorf("short wire envelope: %d", n)
+	}
+	raw := make([]byte, n)
+	if _, err := io.ReadFull(g.out, raw); err != nil {
+		return wireEnvelope{}, err
+	}
+	return wireEnvelope{
+		kind:       raw[0],
+		request:    binary.LittleEndian.Uint32(raw[1:5]),
+		slot:       binary.LittleEndian.Uint32(raw[5:9]),
+		epoch:      binary.LittleEndian.Uint64(raw[9:17]),
+		generation: binary.LittleEndian.Uint64(raw[17:25]),
+		value:      binary.LittleEndian.Uint64(raw[25:33]),
+		body:       raw[33:],
+	}, nil
+}
+
+func (g *trapGuest) readMySQLPacket() ([]byte, error) {
+	for {
+		if g.rxBuf.Len() >= 4 {
+			b := g.rxBuf.Bytes()
+			plen := int(b[0]) | int(b[1])<<8 | int(b[2])<<16
+			if g.rxBuf.Len() >= 4+plen {
+				out := make([]byte, plen)
+				_ = g.rxBuf.Next(4)
+				copy(out, g.rxBuf.Next(plen))
+				return out, nil
+			}
+		}
+		env, err := g.readEnv()
+		if err != nil {
+			return nil, err
+		}
+		if env.kind == 103 { // OUTPUT
+			g.rxBuf.Write(env.body)
+			g.ackedOff = env.value + uint64(len(env.body))
+			_ = g.writeEnv(wireEnvelope{kind: 3, slot: 0, epoch: 1, generation: 1, value: g.ackedOff})
+		} else if env.kind == 105 { // POISON
+			return nil, fmt.Errorf("guest poison: %s", string(env.body))
+		}
+	}
+}
+
+func (g *trapGuest) writeMySQLPacket(seq byte, payload []byte) error {
+	pkt := make([]byte, 4+len(payload))
+	n := len(payload)
+	pkt[0], pkt[1], pkt[2], pkt[3] = byte(n), byte(n>>8), byte(n>>16), seq
+	copy(pkt[4:], payload)
+	off := g.sentOff
+	g.sentOff += uint64(len(pkt))
+	return g.writeEnv(wireEnvelope{kind: 2, slot: 0, epoch: 1, generation: 1, value: off, body: pkt})
+}
+
+func (g *trapGuest) openSession() error {
+	g.reqSeq++
+	if err := g.writeEnv(wireEnvelope{kind: 1, request: g.reqSeq, slot: 0, epoch: 1, generation: 1, value: uint64(30 * time.Second)}); err != nil {
+		return err
+	}
+	// Read initial greeting packet
+	if _, err := g.readMySQLPacket(); err != nil {
+		return err
+	}
+	var auth bytes.Buffer
+	flags := uint32(1 | 512 | 32768 | 524288 | 8)
+	_ = binary.Write(&auth, binary.LittleEndian, flags)
+	_ = binary.Write(&auth, binary.LittleEndian, uint32(16*1024*1024))
+	auth.WriteByte(45)
+	auth.Write(make([]byte, 23))
+	auth.WriteString("root\x00\x00test\x00mysql_native_password\x00")
+	if err := g.writeMySQLPacket(1, auth.Bytes()); err != nil {
+		return err
+	}
+	reply, err := g.readMySQLPacket()
+	if err != nil {
+		return err
+	}
+	if len(reply) == 0 || reply[0] != 0x00 {
+		return fmt.Errorf("auth failed: %x", reply)
+	}
+	return nil
+}
+
+func (g *trapGuest) execSQL(sql string) error {
+	if err := g.writeMySQLPacket(0, append([]byte{0x03}, sql...)); err != nil {
+		return err
+	}
+	first, err := g.readMySQLPacket()
+	if err != nil {
+		return err
+	}
+	if len(first) == 0 {
+		return fmt.Errorf("empty SQL reply")
+	}
+	if first[0] == 0x00 {
+		return nil
+	}
+	if first[0] == 0xff {
+		return fmt.Errorf("mysql error: %x", first)
+	}
+	// Result set: read columns until EOF, then rows until EOF.
+	for phase := 0; phase < 2; phase++ {
+		for {
+			p, err := g.readMySQLPacket()
+			if err != nil {
+				return err
+			}
+			if len(p) > 0 && p[0] == 0xff {
+				return fmt.Errorf("mysql result error: %x", p)
+			}
+			if len(p) > 0 && len(p) < 9 && p[0] == 0xfe {
+				break
+			}
+		}
+	}
+	return nil
+}
+
+func (g *trapGuest) stop() error {
+	return g.writeEnv(wireEnvelope{kind: 6, epoch: 1})
+}
+
+func runWireSQLQueries(in, out *os.File, queries []string) error {
+	g := &trapGuest{in: in, out: out}
+	env, err := g.readEnv()
+	if err != nil {
+		return err
+	}
+	if env.kind != 100 {
+		return fmt.Errorf("expected READY(100), got %d", env.kind)
+	}
+	if err := g.openSession(); err != nil {
+		return err
+	}
+	for _, sql := range queries {
+		if err := g.execSQL(sql); err != nil {
+			return err
+		}
+	}
+	if err := g.writeMySQLPacket(0, []byte{0x01}); err != nil { // COM_QUIT
+		return err
+	}
+	if err := g.writeEnv(wireEnvelope{kind: 4, slot: 0, epoch: 1, generation: 1, value: 0}); err != nil { // PEER_EOF
+		return err
+	}
+	return g.stop()
 }
 
 func startTrapGuest(t *testing.T, inject bool) *trapGuest {
@@ -40,9 +223,12 @@ func startTrapGuest(t *testing.T, inject bool) *trapGuest {
 		t.Fatal(err)
 	}
 	g := &trapGuest{in: in, out: out, failed: make(chan error, 1)}
-	g.done = startInstance(childIn, childOut, io.Discard, "", nil, false, func(err error) {
-		g.failed <- err
-		// Exactly as Process.Abort: fail callers and close transport, then join.
+	var capture prepared.Capture
+	g.done = startWireInstance(childIn, childOut, io.Discard, "", nil, false, func(err error) {
+		select {
+		case g.failed <- err:
+		default:
+		}
 		in.Close()
 		out.Close()
 	}, func(h *host) (*base.Module, func() error, error) {
@@ -51,10 +237,16 @@ func startTrapGuest(t *testing.T, inject bool) *trapGuest {
 			m.Wasix_32v1 = trappingDup{m.Wasix_32v1}
 		}
 		return m, release, err
-	})
+	}, 1, &WireLifecycle{Capture: &capture, Approval: make(chan error, 1)})
 	t.Cleanup(func() { in.Close(); out.Close(); childIn.Close(); childOut.Close() })
 	read := make(chan error, 1)
-	go func() { _, err := g.read(); read <- err }()
+	go func() {
+		env, err := g.readEnv()
+		if err == nil && env.kind != 100 {
+			err = fmt.Errorf("expected READY(100), got %d", env.kind)
+		}
+		read <- err
+	}()
 	select {
 	case err := <-read:
 		if err != nil {
@@ -66,54 +258,22 @@ func startTrapGuest(t *testing.T, inject bool) *trapGuest {
 	return g
 }
 
-func (g *trapGuest) read() (map[string]any, error) {
-	var header [4]byte
-	if _, err := io.ReadFull(g.out, header[:]); err != nil {
-		return nil, err
-	}
-	body := make([]byte, binary.LittleEndian.Uint32(header[:]))
-	if _, err := io.ReadFull(g.out, body); err != nil {
-		return nil, err
-	}
-	var frame struct {
-		Result map[string]any `json:"result"`
-	}
-	if err := json.Unmarshal(body, &frame); err != nil {
-		return nil, err
-	}
-	return frame.Result, nil
-}
-
-func (g *trapGuest) call(op byte, sql string) (map[string]any, error) {
-	g.sequence++
-	frame := make([]byte, 13+len(sql))
-	binary.LittleEndian.PutUint32(frame, uint32(9+len(sql)))
-	frame[4] = op
-	binary.LittleEndian.PutUint32(frame[5:], g.sequence)
-	copy(frame[13:], sql)
-	if _, err := g.in.Write(frame); err != nil {
-		return nil, err
-	}
-	return g.read()
-}
-
 func TestWorkerTrapActualGuestNotifiesAndIsolatesPeer(t *testing.T) {
 	warmProcessImage(t)
 	before := base.MemoryMappingStats()
 	broken, healthy := startTrapGuest(t, true), startTrapGuest(t, false)
 	for _, g := range []*trapGuest{broken, healthy} {
-		for _, command := range []struct {
-			op  byte
-			sql string
-		}{{1, ""}, {2, "CREATE TABLE t(v TEXT)"}, {2, "INSERT INTO t VALUES('alice'),('alice'),('bob')"}} {
-			r, err := g.call(command.op, command.sql)
-			if err != nil || r["ok"] != true {
-				t.Fatal("setup", r, err)
+		if err := g.openSession(); err != nil {
+			t.Fatal("openSession", err)
+		}
+		for _, sql := range []string{"CREATE TABLE t(v TEXT)", "INSERT INTO t VALUES('alice'),('alice'),('bob')"} {
+			if err := g.execSQL(sql); err != nil {
+				t.Fatal("setup", sql, err)
 			}
 		}
 	}
 	query := make(chan error, 1)
-	go func() { _, err := broken.call(2, "SELECT DISTINCT v FROM t"); query <- err }()
+	go func() { query <- broken.execSQL("SELECT DISTINCT v FROM t") }()
 	select {
 	case err := <-broken.failed:
 		if !strings.Contains(err.Error(), "injected fd_dup worker trap") {
@@ -138,10 +298,10 @@ func TestWorkerTrapActualGuestNotifiesAndIsolatesPeer(t *testing.T) {
 	case <-time.After(3 * time.Second):
 		t.Fatal("cooperative trapped DB did not join")
 	}
-	if r, err := healthy.call(2, "SELECT DISTINCT v FROM t"); err != nil || r["ok"] != true {
-		t.Fatal("peer DB poisoned", r, err)
+	if err := healthy.execSQL("SELECT DISTINCT v FROM t"); err != nil {
+		t.Fatal("peer DB poisoned", err)
 	}
-	if _, err := healthy.in.Write([]byte{0, 0, 0, 0}); err != nil {
+	if err := healthy.stop(); err != nil {
 		t.Fatal(err)
 	}
 	select {
@@ -176,16 +336,27 @@ func TestActualGuestStoppedBeforeMemoryRelease(t *testing.T) {
 	var once sync.Once
 	t.Cleanup(func() { once.Do(func() { close(gate) }) })
 	g := &trapGuest{in: in, out: out}
-	g.done = startInstanceWithStopped(childIn, childOut, io.Discard, "", nil, false, nil,
+	var capture prepared.Capture
+	g.done = startWireInstance(childIn, childOut, io.Discard, "", nil, false, nil,
 		func(h *host) (*base.Module, func() error, error) {
 			m, release, err := newMemoryModule(h)
 			if err != nil {
 				return nil, nil, err
 			}
 			return m, func() error { close(entered); <-gate; return release() }, nil
-		}, func(err error) { stopped <- err })
+		}, 1, &WireLifecycle{
+			Capture:   &capture,
+			Approval:  make(chan error, 1),
+			OnStopped: func(err error) { stopped <- err },
+		})
 	ready := make(chan error, 1)
-	go func() { _, err := g.read(); ready <- err }()
+	go func() {
+		env, err := g.readEnv()
+		if err == nil && env.kind != 100 {
+			err = fmt.Errorf("expected READY(100), got %d", env.kind)
+		}
+		ready <- err
+	}()
 	select {
 	case err := <-ready:
 		if err != nil {
@@ -194,15 +365,13 @@ func TestActualGuestStoppedBeforeMemoryRelease(t *testing.T) {
 	case <-time.After(30 * time.Second):
 		t.Fatal("ready timeout")
 	}
-	for _, c := range []struct {
-		op  byte
-		sql string
-	}{{1, ""}, {2, "SET GLOBAL innodb_fast_shutdown=2"}, {3, ""}} {
-		if _, err := g.call(c.op, c.sql); err != nil {
-			t.Fatal(err)
-		}
+	if err := g.openSession(); err != nil {
+		t.Fatal(err)
 	}
-	if _, err := in.Write([]byte{0, 0, 0, 0}); err != nil {
+	if err := g.execSQL("SET GLOBAL innodb_fast_shutdown=2"); err != nil {
+		t.Fatal(err)
+	}
+	if err := g.stop(); err != nil {
 		t.Fatal(err)
 	}
 	in.Close()
@@ -237,5 +406,108 @@ func TestActualGuestStoppedBeforeMemoryRelease(t *testing.T) {
 	}
 	if got := base.MemoryMappingStats()["active_mappings"]; got != before {
 		t.Fatal("mapping leak", got, before)
+	}
+}
+
+// P1 actual-guest regression: when shutdown mode application fails (INJECT=3),
+// both capture (Snapshot) and ordinary (Close) paths must emit POISON
+// "shutdown_mode_failed" and exit non-zero rather than returning success.
+func TestShutdownModeFailureActualGuest(t *testing.T) {
+	for _, captureMode := range []bool{false, true} {
+		name := "ordinary_close"
+		if captureMode {
+			name = "capture_snapshot"
+		}
+		t.Run(name, func(t *testing.T) {
+			childIn, in, err := os.Pipe()
+			if err != nil {
+				t.Fatal(err)
+			}
+			out, childOut, err := os.Pipe()
+			if err != nil {
+				childIn.Close()
+				in.Close()
+				t.Fatal(err)
+			}
+			t.Cleanup(func() { in.Close(); out.Close(); childIn.Close(); childOut.Close() })
+			var stderr bytes.Buffer
+			var capture prepared.Capture
+			approval := make(chan error, 1)
+			g := &trapGuest{in: in, out: out}
+			g.done = startWireInstance(childIn, childOut, &stderr, "", nil, false, nil, newMemoryModule, 1,
+				&WireLifecycle{Capture: &capture, Approval: approval})
+
+			env, err := g.readEnv()
+			if err != nil || env.kind != 100 {
+				t.Fatalf("expected READY(100), got %+v err=%v", env, err)
+			}
+			// Inject shutdown-mode failure (injectFailure == 3).
+			if err := g.writeEnv(wireEnvelope{kind: 13, request: 1, epoch: 1, value: 3}); err != nil {
+				t.Fatal(err)
+			}
+			if reply, err := g.readEnv(); err != nil || reply.kind != 102 {
+				t.Fatalf("expected INJECT REPLY(102), got %+v err=%v", reply, err)
+			}
+			if captureMode {
+				// TRY_CAPTURE(11) -> CAPTURE_FENCED(112) -> CAPTURE_STOP(12) -> CAPTURE_STOP_ACCEPTED(113)
+				if err := g.writeEnv(wireEnvelope{kind: 11, request: 2, epoch: 1, value: 77}); err != nil {
+					t.Fatal(err)
+				}
+				if reply, err := g.readEnv(); err != nil || reply.kind != 112 {
+					t.Fatalf("expected CAPTURE_FENCED(112), got %+v err=%v", reply, err)
+				}
+				if err := g.writeEnv(wireEnvelope{kind: 12, request: 3, epoch: 1, value: 77}); err != nil {
+					t.Fatal(err)
+				}
+				if reply, err := g.readEnv(); err != nil || reply.kind != 113 {
+					t.Fatalf("expected CAPTURE_STOP_ACCEPTED(113), got %+v err=%v", reply, err)
+				}
+			} else {
+				if err := g.writeEnv(wireEnvelope{kind: 6, epoch: 1, value: 2}); err != nil {
+					t.Fatal(err)
+				}
+			}
+
+			sawPoison := false
+			sawDoneZero := false
+			framesDone := make(chan struct{})
+			go func() {
+				defer close(framesDone)
+				for {
+					f, err := g.readEnv()
+					if err != nil {
+						return
+					}
+					if f.kind == 105 && strings.Contains(string(f.body), "shutdown_mode_failed") {
+						sawPoison = true
+					}
+					if f.kind == 111 && f.value == 0 {
+						sawDoneZero = true
+						return
+					}
+				}
+			}()
+			var guestErr error
+			select {
+			case guestErr = <-g.done:
+			case <-time.After(30 * time.Second):
+				t.Fatalf("guest exit timeout, stderr:\n%s", stderr.String())
+			}
+			_ = childOut.Close()
+			select {
+			case <-framesDone:
+			case <-time.After(5 * time.Second):
+				t.Fatalf("frame reader timeout, stderr:\n%s", stderr.String())
+			}
+			if guestErr == nil {
+				t.Fatalf("expected non-zero guest exit on shutdown mode failure, stderr:\n%s", stderr.String())
+			}
+			if !sawPoison || !sawDoneZero {
+				t.Fatalf("expected POISON(shutdown_mode_failed) and DONE(0), got poison=%v doneZero=%v stderr:\n%s", sawPoison, sawDoneZero, stderr.String())
+			}
+			if !strings.Contains(stderr.String(), "mode_applied=0 mode_err=9") {
+				t.Fatalf("expected mode_applied=0 mode_err=9 in stderr:\n%s", stderr.String())
+			}
+		})
 	}
 }
