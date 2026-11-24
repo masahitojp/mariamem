@@ -103,7 +103,7 @@ def job_condition(job):
     return load(ROOT / '.github/workflows/release-candidate-ready.yml')['jobs'][job]['if']
 
 
-def runs_job(job, result, *, aggregate='success', publication='success',
+def runs_job(job, result, *, aggregate='success', preview_aggregate='skipped', publication='success',
              resolve='success', candidate_result='success', cancelled=False, ancestors_skipped=False):
     # Evaluate the actual, small boolean Actions expression. Model the implicit
     # success() guard too: the old workflow would fail the skipped-ancestor test.
@@ -113,6 +113,7 @@ def runs_job(job, result, *, aggregate='success', publication='success',
     values = {'inputs.operation': result['operation'], 'inputs.native_preview': result.get('native_preview', False),
               'needs.resolve.outputs.features_reused': result.get('features_reused', 'false'), 'needs.resolve.outputs.mode': result['mode'],
               'needs.resolve.result': resolve, 'needs.aggregate.result': aggregate,
+              'needs.preview-aggregate.result': preview_aggregate,
               'needs.publication.result': publication,
               'needs.candidate_darwin.result': candidate_result,
               'needs.candidate_ubuntu.result': candidate_result}
@@ -136,6 +137,17 @@ def test_release_without_ready_qualifies_once_then_publishes(candidate):
         assert runs_job('verification_'+platform, result)
     assert runs_job('verification', result)
     assert runs_job('publication', result) and runs_job('public_smoke', result)
+
+
+@pytest.mark.parametrize('operation, legacy, preview, expected', [
+    ('release', 'skipped', 'success', True),
+    ('release', 'success', 'failure', False),
+    ('release', 'success', 'skipped', False),
+    ('verify', 'skipped', 'success', False),
+])
+def test_six_target_publication_requires_its_own_ready(operation, legacy, preview, expected):
+    result = {'operation': operation, 'mode': 'full', 'native_preview': True}
+    assert runs_job('publication', result, aggregate=legacy, preview_aggregate=preview) is expected
 
 
 def test_exact_ready_reuses_without_build_or_acceptance_then_publishes(candidate):
