@@ -253,6 +253,12 @@ func (r *Backend) attach(s *session) {
 				b = b[n:]
 			}
 			end := f.value + uint64(len(f.body))
+			r.mu.Lock()
+			preHook := r.afterWriteBeforeRelease
+			r.mu.Unlock()
+			if preHook != nil {
+				preHook(s.id)
+			}
 			// Advance ackTarget BEFORE releasing outBytes so SnapshotHeap never
 			// sees a gap where outBytes==0 and ackSent==ackTarget while kindAck
 			// has not yet been written to the guest control stream.
@@ -264,6 +270,9 @@ func (r *Backend) attach(s *session) {
 			hook := r.beforeAck
 			r.mu.Unlock()
 			s.releaseOutputBytes(uint64(len(f.body)))
+			r.mu.Lock()
+			r.notifyActivityLocked()
+			r.mu.Unlock()
 			if hook != nil {
 				hook(s.id, end)
 			}

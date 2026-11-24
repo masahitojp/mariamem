@@ -295,6 +295,79 @@ func TestSnapshotHeapSettlesHeldAckBeforeFence(t *testing.T) {
 	}
 }
 
+func TestSnapshotHeapSettlesPreemptedWriterWithPositiveOutBytes(t *testing.T) {
+	f := newSettleFake("flushing")
+	f.outstanding = 7
+	b, conn := startSettleBackend(t, f)
+
+	writerPaused := make(chan struct{})
+	releaseWriter := make(chan struct{})
+	busyObserved := make(chan struct{}, 1)
+	b.mu.Lock()
+	b.afterWriteBeforeRelease = func(_ key) {
+		close(writerPaused)
+		<-releaseWriter
+	}
+	b.afterBusyFence = func(attempt int) {
+		if attempt == 1 {
+			select {
+			case busyObserved <- struct{}{}:
+			default:
+			}
+		}
+	}
+	b.mu.Unlock()
+
+	// Deliver OK packet to client while pausing writer BEFORE releaseOutputBytes/ackTarget,
+	// so client has finished reading OK while host s.outBytes is still > 0!
+	f.mu.Lock()
+	f.sendFn(frame{kind: kindRaw, slot: f.slot, generation: f.gen, value: 0, body: []byte("OK-PKT!")})
+	f.mu.Unlock()
+
+	buf := make([]byte, 7)
+	if _, err := io.ReadFull(conn, buf); err != nil {
+		t.Fatal(err)
+	}
+	<-writerPaused
+	if !b.hasAnyQueuedOutput() {
+		t.Fatal("expected s.outBytes > 0 while writer is paused after Write and before releaseOutputBytes")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	type res struct {
+		owned    bool
+		consumed bool
+		err      error
+	}
+	done := make(chan res, 1)
+	go func() {
+		o, c, e := b.SnapshotHeap(ctx, true)
+		if o != nil {
+			_ = o.Close()
+		}
+		done <- res{o != nil, c, e}
+	}()
+
+	// Wait until fence #1 returned busy while outBytes was still > 0.
+	select {
+	case <-busyObserved:
+	case <-time.After(2 * time.Second):
+		t.Fatal("timed out waiting for first busy fence")
+	}
+	if !b.hasAnyQueuedOutput() {
+		t.Fatal("expected outBytes to still be > 0 before releasing writer")
+	}
+
+	// Release writer promptly (simulating preempted writer resuming); the exact
+	// same SnapshotHeap call must settle outBytes -> ACK -> IDLE and succeed.
+	close(releaseWriter)
+	r := <-done
+	if !r.owned || !r.consumed || r.err != nil {
+		t.Fatalf("expected SnapshotHeap to succeed after preempted writer resumed, got %+v", r)
+	}
+}
+
 func TestSnapshotHeapRetriesWhenIdleImmediatelyAfterBusyRejection(t *testing.T) {
 	f := newSettleFake("flushing")
 	b, _ := startSettleBackend(t, f)

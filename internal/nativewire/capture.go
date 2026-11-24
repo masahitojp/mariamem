@@ -13,6 +13,7 @@ import (
 
 const (
 	flushingSettleBudget = 500 * time.Millisecond
+	writeDrainBudget     = 50 * time.Millisecond
 	tailExecSettleBudget = 15 * time.Millisecond
 	maxIdleFenceRetries  = 4
 )
@@ -22,6 +23,7 @@ type busySettleAction uint8
 const (
 	settleRejectBusy busySettleAction = iota
 	settleRetryNow
+	settleWaitWriteDrain
 	settleWaitFlushing
 	settleWaitTailExec
 )
@@ -56,19 +58,20 @@ func (r *Backend) endCheck() {
 }
 
 type sessionSettleSnapshot struct {
-	s          *session
-	ackPending bool
-	cmdAcked   bool
+	s            *session
+	ackPending   bool
+	cmdAcked     bool
+	queuedOutput bool
 }
 
 func (r *Backend) snapshotSessionsForSettle() (map[key]sessionSettleSnapshot, chan struct{}, bool) {
 	r.mu.Lock()
-	defer r.mu.Unlock()
 	if r.activityChanged == nil {
 		r.activityChanged = make(chan struct{})
 	}
 	ch := r.activityChanged
 	if len(r.sessions) == 0 {
+		r.mu.Unlock()
 		return nil, ch, false
 	}
 	out := make(map[key]sessionSettleSnapshot, len(r.sessions))
@@ -78,6 +81,11 @@ func (r *Backend) snapshotSessionsForSettle() (map[key]sessionSettleSnapshot, ch
 			ackPending: s.ackSent < s.ackTarget,
 			cmdAcked:   s.cmdAcked,
 		}
+	}
+	r.mu.Unlock()
+	for k, snap := range out {
+		snap.queuedOutput = snap.s.hasQueuedOutput()
+		out[k] = snap
 	}
 	return out, ch, true
 }
@@ -137,9 +145,10 @@ func (r *Backend) waitPendingAcks(ctx context.Context) error {
 }
 
 func (r *Backend) classifyBusySettle(st guestStats, snaps map[key]sessionSettleSnapshot) busySettleAction {
+	anyQueuedOutput := false
 	for _, snap := range snaps {
-		if snap.s.hasQueuedOutput() {
-			return settleRejectBusy
+		if snap.queuedOutput {
+			anyQueuedOutput = true
 		}
 	}
 	anyNonIdle := false
@@ -155,7 +164,7 @@ func (r *Backend) classifyBusySettle(st guestStats, snaps map[key]sessionSettleS
 		case "flushing":
 			anyFlushing = true
 		case "executing":
-			if !ok || (!snap.ackPending && !snap.cmdAcked) {
+			if !ok || (!snap.queuedOutput && !snap.ackPending && !snap.cmdAcked) {
 				return settleRejectBusy
 			}
 			anyTailExec = true
@@ -165,6 +174,9 @@ func (r *Backend) classifyBusySettle(st guestStats, snaps map[key]sessionSettleS
 	}
 	if !anyNonIdle {
 		return settleRetryNow
+	}
+	if anyQueuedOutput {
+		return settleWaitWriteDrain
 	}
 	if anyTailExec {
 		return settleWaitTailExec
@@ -213,6 +225,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 	}
 
 	var flushDeadline time.Time
+	var writeDrainDeadline time.Time
 	var execDeadline time.Time
 	idleRetries := 0
 	attempt := 0
@@ -276,6 +289,43 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 			case settleRetryNow:
 				idleRetries++
 				if idleRetries > maxIdleFenceRetries {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				continue
+			case settleWaitWriteDrain:
+				now := time.Now()
+				if writeDrainDeadline.IsZero() {
+					writeDrainDeadline = now.Add(writeDrainBudget)
+				}
+				if !now.Before(writeDrainDeadline) {
+					r.endCheck()
+					return nil, false, &Rejected{"busy", string(reply.body)}
+				}
+				timer := time.NewTimer(time.Until(writeDrainDeadline))
+				expired := false
+				select {
+				case <-actCh:
+					timer.Stop()
+				case <-timer.C:
+					expired = true
+				case <-r.failed:
+					timer.Stop()
+					if f := r.Failure(); f != nil {
+						return r.captureFailure(ctx, f)
+					}
+					r.endCheck()
+					return nil, false, ErrClosed
+				case <-r.done:
+					timer.Stop()
+					r.endCheck()
+					return nil, false, ErrClosed
+				case <-ctx.Done():
+					timer.Stop()
+					r.endCheck()
+					return nil, false, ctx.Err()
+				}
+				if expired && r.hasAnyQueuedOutput() {
 					r.endCheck()
 					return nil, false, &Rejected{"busy", string(reply.body)}
 				}

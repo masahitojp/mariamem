@@ -94,6 +94,7 @@ type Backend struct {
 	relaysOnce                   sync.Once
 	startTail                    *stderrTail
 	readGuestTiming              atomic.Pointer[func() []byte]
+	afterWriteBeforeRelease      func(key)
 	beforeAck                    func(key, uint64)
 	afterBusyFence               func(attempt int)
 }

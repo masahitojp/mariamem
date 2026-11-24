@@ -10,7 +10,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -247,6 +249,188 @@ func TestSnapshotRollbackActualGuestHeldAckSucceedsAndPreservesPreTxValue(t *tes
 	res := <-resCh
 	if !res.owned || !res.consumed || res.err != nil {
 		t.Fatalf("expected held-ACK SnapshotHeap + Fork to succeed, got %+v\nstderr:\n%s", res, stderr.String())
+	}
+	if res.forkVal != 42 {
+		t.Fatalf("expected rolled-back value 42 in Fork, got %d", res.forkVal)
+	}
+}
+
+type postWriteHoldListener struct {
+	net.Listener
+	holdNextWrite atomic.Bool
+	writtenCh     chan struct{}
+	releaseCh     chan struct{}
+}
+
+func (l *postWriteHoldListener) Accept() (net.Conn, error) {
+	c, err := l.Listener.Accept()
+	if err != nil {
+		return nil, err
+	}
+	return &postWriteHoldConn{Conn: c, parent: l}, nil
+}
+
+type postWriteHoldConn struct {
+	net.Conn
+	parent *postWriteHoldListener
+}
+
+func (c *postWriteHoldConn) Write(p []byte) (int, error) {
+	n, err := c.Conn.Write(p)
+	if err == nil && c.parent.holdNextWrite.CompareAndSwap(true, false) {
+		// Response bytes have ALREADY been written to the TCP socket (so the SQL
+		// client receives OK and returns from ExecContext), while relay.go has NOT
+		// returned from c.Write yet (outBytes > 0, ackTarget/kindAck not updated).
+		select {
+		case c.parent.writtenCh <- struct{}{}:
+		default:
+		}
+		<-c.parent.releaseCh
+	}
+	return n, err
+}
+
+// P1 regression (real r6 guest): client finishes reading UPDATE OK from TCP
+// while relay writer has NOT yet returned from conn.Write (so host outBytes > 0
+// and kindAck has not been sent yet). Snapshot(Rollback:true) started in that
+// exact state must settle once the writer resumes and Fork must observe 42.
+func TestSnapshotRollbackActualGuestPostWritePositiveOutBytesSucceeds(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+
+	var stderr bytes.Buffer
+	filterCh := make(chan *ackHoldingFilter, 1)
+	runner := func(x nativewire.Execution) <-chan error {
+		// Observe TRY_CAPTURE / STATS without holding ACK at the guest pipe.
+		flt := newAckHoldingFilter(x.Input)
+		filterCh <- flt
+		return generatedgo.StartWireInstance(flt, x.Output, x.Stderr, "", x.Restore, x.GuestTiming, x.Failure, x.Epoch, &generatedgo.WireLifecycle{
+			Capture:         x.Capture,
+			Approval:        x.Approval,
+			OnStopped:       x.Stopped,
+			BindGuestTiming: x.BindGuestTiming,
+		})
+	}
+	b, err := nativewire.Start(ctx, nativewire.Config{
+		Runner: runner,
+		Build:  runtimekind.GuestSHA256,
+		Stderr: &stderr,
+	})
+	if err != nil {
+		t.Fatalf("nativewire.Start failed: %v\nstderr:\n%s", err, stderr.String())
+	}
+	defer func() {
+		cctx, ccancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer ccancel()
+		_ = b.Close(cctx)
+	}()
+	rawLis, err := net.Listen("tcp4", "127.0.0.1:0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	lis := &postWriteHoldListener{
+		Listener:  rawLis,
+		writtenCh: make(chan struct{}, 1),
+		releaseCh: make(chan struct{}),
+	}
+	if err := b.Serve(lis); err != nil {
+		_ = rawLis.Close()
+		t.Fatal(err)
+	}
+	flt := <-filterCh
+
+	dsn := fmt.Sprintf("root@tcp(127.0.0.1:%d)/test?timeout=5s&readTimeout=5s&writeTimeout=5s", b.Port())
+	pool, err := sql.Open("mysql", dsn)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pool.SetMaxOpenConns(1)
+	pool.SetMaxIdleConns(1)
+	defer pool.Close()
+	conn, err := pool.Conn(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer conn.Close()
+
+	for _, q := range []string{
+		"CREATE TABLE shutdown_items(id INT PRIMARY KEY, value INT) ENGINE=InnoDB",
+		"INSERT INTO shutdown_items VALUES(1, 42)",
+		"SET GLOBAL innodb_fast_shutdown=2",
+		"BEGIN",
+	} {
+		if _, err := conn.ExecContext(ctx, q); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	// Arm post-Write hold: UPDATE OK reaches the SQL client over TCP, then
+	// relay.go pauses BEFORE releasing outBytes or sending kindAck.
+	lis.holdNextWrite.Store(true)
+	if _, err := conn.ExecContext(ctx, "UPDATE shutdown_items SET value=99"); err != nil {
+		close(lis.releaseCh)
+		t.Fatal(err)
+	}
+	select {
+	case <-lis.writtenCh:
+	case <-time.After(5 * time.Second):
+		close(lis.releaseCh)
+		t.Fatal("timed out waiting for post-Write hold")
+	}
+
+	type snapResult struct {
+		owned    bool
+		consumed bool
+		err      error
+		forkVal  int
+	}
+	resCh := make(chan snapResult, 1)
+	go func() {
+		owned, consumed, err := b.SnapshotHeap(ctx, true)
+		if err != nil || owned == nil {
+			if owned != nil {
+				_ = owned.Close()
+			}
+			resCh <- snapResult{owned != nil, consumed, err, -1}
+			return
+		}
+		defer owned.Close()
+		var forkStderr bytes.Buffer
+		forkSvc, err := host.StartGenerated(ctx, owned, 0, &forkStderr)
+		if err != nil {
+			resCh <- snapResult{true, consumed, fmt.Errorf("fork start failed: %w\n%s", err, forkStderr.String()), -1}
+			return
+		}
+		defer func() {
+			cctx, ccancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer ccancel()
+			_ = forkSvc.Close(cctx)
+		}()
+		fpool := openServiceSQL(t, forkSvc)
+		var val int
+		err = fpool.QueryRowContext(ctx, "SELECT value FROM shutdown_items WHERE id=1").Scan(&val)
+		resCh <- snapResult{true, consumed, err, val}
+	}()
+
+	// Wait until fence #1 + STATS ran while relay writer was still paused with outBytes > 0.
+	select {
+	case <-flt.fenceSeenCh:
+	case <-time.After(5 * time.Second):
+		close(lis.releaseCh)
+		t.Fatal("timed out waiting for first TRY_CAPTURE fence")
+	}
+	select {
+	case <-flt.statsSeenCh:
+	case <-time.After(5 * time.Second):
+		close(lis.releaseCh)
+		t.Fatal("timed out waiting for STATS while outBytes > 0")
+	}
+
+	// Resume relay writer; the exact same SnapshotHeap call must succeed and Fork must see 42.
+	close(lis.releaseCh)
+	res := <-resCh
+	if !res.owned || !res.consumed || res.err != nil {
+		t.Fatalf("expected post-Write outBytes>0 SnapshotHeap + Fork to succeed, got %+v\nstderr:\n%s", res, stderr.String())
 	}
 	if res.forkVal != 42 {
 		t.Fatalf("expected rolled-back value 42 in Fork, got %d", res.forkVal)
