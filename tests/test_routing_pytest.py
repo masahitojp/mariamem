@@ -392,6 +392,19 @@ def test_public_names_and_python_floor():
     assert '3.11' in supported and '3.14' in supported
     assert '3.9' not in supported and '3.10' not in supported
     assert 'routing-pymysql' in config['options.extras_require']
+    assert 'routing-sqlalchemy' in config['options.extras_require']
     assert 'routing-mysql-connector' in config['options.extras_require']
     assert 'routing' not in config['options.extras_require']
     assert 'routing-connector' not in config['options.extras_require']
+    pymysql_spec = SpecifierSet(config['options.extras_require']['routing-pymysql'].split('PyMySQL', 1)[1].strip())
+    dump_spec = SpecifierSet(config['options.extras_require']['dump'].split('PyMySQL', 1)[1].strip())
+    assert pymysql_spec == dump_spec
+    assert '1.1.0' in pymysql_spec and '1.2.4' in pymysql_spec
+    assert '1.0.3' not in pymysql_spec and '2.0.0' not in pymysql_spec
+    sa_lines = [line.strip() for line in config['options.extras_require']['routing-sqlalchemy'].splitlines() if line.strip()]
+    sa_spec = SpecifierSet(next(line for line in sa_lines if line.startswith('SQLAlchemy')).split('SQLAlchemy', 1)[1].strip())
+    assert '2.0.0' in sa_spec and '2.0.54' in sa_spec and '2.1.9' in sa_spec
+    assert '1.4.54' not in sa_spec and '2.2.0' not in sa_spec
+    mc_spec = SpecifierSet(config['options.extras_require']['routing-mysql-connector'].split('mysql-connector-python', 1)[1].strip())
+    assert '9.0.0' in mc_spec and '26.7.0' in mc_spec and '26.10.0' in mc_spec
+    assert '8.4.0' not in mc_spec and '27.0.0' not in mc_spec

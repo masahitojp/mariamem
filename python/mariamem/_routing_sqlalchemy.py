@@ -1,7 +1,7 @@
-"""Explicitly enrolled SQLAlchemy2.0.54 QueuePool ownership adapter."""
-import importlib.metadata
+"""Explicitly enrolled SQLAlchemy QueuePool ownership adapter."""
 from sqlalchemy import event, exc
 from sqlalchemy.pool import QueuePool
+from ._routing_drivers import check_sqlalchemy_version
 
 
 class Adapter:
@@ -9,8 +9,7 @@ class Adapter:
         self.registry, self.engine = registry, engine
         self.events = []
         self.closed = False
-        if importlib.metadata.version("SQLAlchemy") != "2.0.54":
-            raise registry._error("unsupported_adapter_version", "Use SQLAlchemy2.0.54 or explicit child configuration.")
+        check_sqlalchemy_version(registry)
         if engine.dialect.driver != "pymysql" or "pymysql" not in registry.drivers:
             raise registry._error("unsupported_adapter", "Use the enrolled mysql+pymysql adapter or explicit configuration.")
         if not isinstance(engine.pool, QueuePool):

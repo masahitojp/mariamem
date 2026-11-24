@@ -8,7 +8,6 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
 import math
-import importlib.metadata
 import threading
 import time
 import uuid
@@ -269,12 +268,8 @@ class Router:
         return engine
 
     def _sqlalchemy(self):
-        try:
-            version = importlib.metadata.version("SQLAlchemy")
-        except importlib.metadata.PackageNotFoundError as error:
-            raise self._error("adapter_unavailable", "Install the routing-sqlalchemy extra or pass child settings explicitly.") from error
-        if version != "2.0.54":
-            raise self._error("unsupported_adapter_version", "Use SQLAlchemy2.0.54 or explicit child configuration.")
+        from ._routing_drivers import check_sqlalchemy_version
+        check_sqlalchemy_version(self)
 
     def create_engine(self, url, *, profile, **options):
         self._require_installed()

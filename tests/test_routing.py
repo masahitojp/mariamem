@@ -109,7 +109,7 @@ def test_preinstall_deferred_tls_and_schema():
             required.connect()
         with pytest.raises(routing.RoutingError, match="schema_mismatch"):
             wrong.connect()
-    assert required._ssl_required is True and required._sock is None
+    assert getattr(required, "_ssl_required", required.ssl) is True and required._sock is None
 
 
 def test_missing_expired_closed_and_nested_targets(routes):
@@ -304,3 +304,132 @@ def test_unused_warning_never_masks_primary_or_cleanup_failure(routes, monkeypat
                 pass
         monkeypatch.setattr(routes, '_drain', drain)
         drain(failed_lease)
+
+
+def test_version_parser_boundaries_and_rejections():
+    from mariamem._routing_drivers import _parse_stable_version
+    assert _parse_stable_version("1.1.0") == (1, 1, 0)
+    assert _parse_stable_version("1.2.4") == (1, 2, 4)
+    assert _parse_stable_version("2.0") == (2, 0, 0)
+    assert _parse_stable_version("2.0.5.post1") == (2, 0, 5)
+    assert _parse_stable_version("2.1.9") == (2, 1, 9)
+    assert _parse_stable_version("9.0.0") == (9, 0, 0)
+    assert _parse_stable_version("26.10.0") == (26, 10, 0)
+    for bad in ("", "abc", "2.0.0rc1", "2.0.0b1", "2.0.0a1", "1.2.3.dev0", "1!1.2.3", "1.2.3+local", None):
+        assert _parse_stable_version(bad) is None
+
+
+@pytest.mark.parametrize("bad_version", ["1.0.3", "2.0.0", "1.2.0rc1", "1!1.2.3", "invalid"])
+def test_pymysql_version_range_rejects_out_of_range_and_prerelease(monkeypatch, bad_version):
+    original_connect = pymysql.connections.Connection.connect
+    monkeypatch.setattr(importlib.metadata, "version", lambda pkg: bad_version if pkg == "PyMySQL" else "2.0.54")
+    with pytest.raises(routing.RoutingError, match="unsupported_driver_version"):
+        routing.install(profiles={"app": PROFILE}, drivers=("pymysql",))
+    assert pymysql.connections.Connection.connect is original_connect
+
+
+@pytest.mark.parametrize("good_version", ["1.1.0", "1.1.3", "1.2.3", "1.2.4", "1.2.4.post1"])
+def test_pymysql_version_range_accepts_compatible_versions(monkeypatch, good_version):
+    real_version = importlib.metadata.version
+    monkeypatch.setattr(importlib.metadata, "version", lambda pkg: good_version if pkg == "PyMySQL" else real_version(pkg))
+    with routing.install(profiles={"app": PROFILE}, drivers=("pymysql",)):
+        pass
+
+
+@pytest.mark.parametrize("bad_version", ["1.4.54", "2.2.0", "2.1.0b1", "1!2.0.54", "invalid"])
+def test_sqlalchemy_version_range_rejects_out_of_range_and_prerelease(routes, monkeypatch, bad_version):
+    from sqlalchemy import create_engine
+    real_version = importlib.metadata.version
+    engine = create_engine("mysql+pymysql://original@127.0.0.1:3307/app")
+    try:
+        monkeypatch.setattr(importlib.metadata, "version", lambda pkg: bad_version if pkg == "SQLAlchemy" else real_version(pkg))
+        with pytest.raises(routing.RoutingError, match="unsupported_adapter_version"):
+            routes.register_engine(engine, profile="app", ownership="test")
+        with pytest.raises(routing.RoutingError, match="unsupported_adapter_version"):
+            routes.create_engine("mysql+pymysql://original@127.0.0.1:3307/app", profile="app")
+    finally:
+        engine.dispose()
+
+
+@pytest.mark.parametrize("good_version", ["2.0.0", "2.0.5.post1", "2.0.54", "2.1.0", "2.1.9"])
+def test_sqlalchemy_version_range_accepts_compatible_versions(routes, monkeypatch, good_version):
+    from sqlalchemy import create_engine
+    real_version = importlib.metadata.version
+    monkeypatch.setattr(importlib.metadata, "version", lambda pkg: good_version if pkg == "SQLAlchemy" else real_version(pkg))
+    engine = create_engine("mysql+pymysql://original@127.0.0.1:3307/app")
+    try:
+        routes.register_engine(engine, profile="app", ownership="test")
+    finally:
+        engine.dispose()
+
+
+@pytest.mark.parametrize("bad_version", ["8.4.0", "27.0.0", "26.10.0a1", "1!26.7.0"])
+def test_connector_version_range_rejects_and_rolls_back_prior_hooks(monkeypatch, bad_version):
+    original_connect = pymysql.connections.Connection.connect
+    real_version = importlib.metadata.version
+    def fake_version(pkg):
+        if pkg == "mysql-connector-python":
+            return bad_version
+        return real_version(pkg)
+    monkeypatch.setattr(importlib.metadata, "version", fake_version)
+    with pytest.raises(routing.RoutingError, match="unsupported_driver_version"):
+        routing.install(profiles={"app": PROFILE}, drivers=("pymysql", "mysql.connector"))
+    assert pymysql.connections.Connection.connect is original_connect
+
+
+def test_pymysql_1_1_style_connection_without_ssl_required_attribute(monkeypatch):
+    connected = []
+    class LegacyConnection:
+        def __init__(self, *, host, port, db, ssl=False):
+            self.host, self.port, self.db = host, port, db
+            self.user, self.password = "original", b"unit-private-value"
+            self.unix_socket = None
+            self.ssl = ssl
+            self.closed = False
+        def connect(self, sock=None):
+            connected.append((self.host, self.port, self.user, self.password))
+        def close(self):
+            self.closed = True
+
+    fake_connections = type("FakeConnections", (), {"Connection": LegacyConnection})
+    fake_err = type("FakeErr", (), {"Error": RuntimeError})
+    fake_pymysql = type("FakePyMySQL", (), {"connections": fake_connections, "err": fake_err})
+    real_import = importlib.import_module
+    monkeypatch.setattr(importlib.metadata, "version", lambda pkg: "1.1.3" if pkg == "PyMySQL" else "2.0.54")
+    monkeypatch.setattr(importlib, "import_module", lambda name: fake_pymysql if name == "pymysql" else real_import(name))
+
+    with routing.install(profiles={"app": PROFILE}, drivers=("pymysql",)) as reg:
+        with reg.bind("app", DB()):
+            plain = LegacyConnection(host="127.0.0.1", port=3307, db="app", ssl=False)
+            assert not hasattr(plain, "_ssl_required")
+            plain.connect()
+            assert connected == [("127.0.0.1", 12345, "child", b"private-child-value")]
+            tls = LegacyConnection(host="127.0.0.1", port=3307, db="app", ssl=True)
+            assert not hasattr(tls, "_ssl_required")
+            with pytest.raises(routing.RoutingError, match="tls_unavailable"):
+                tls.connect()
+        assert plain.closed
+
+
+def test_missing_hook_target_refuses_and_rolls_back(monkeypatch):
+    original_connect = pymysql.connections.Connection.connect
+    fake_abstracts = type("FakeAbstracts", (), {"MySQLConnectionAbstract": type("Abs", (), {})})
+    fake_connector = type("FakeConnector", (), {"connect": lambda **kw: None})
+    real_import = importlib.import_module
+    real_version = importlib.metadata.version
+
+    def fake_version(pkg):
+        return "26.10.0" if pkg == "mysql-connector-python" else real_version(pkg)
+
+    def fake_import(name):
+        if name == "mysql.connector":
+            return fake_connector
+        if name == "mysql.connector.abstracts":
+            return fake_abstracts
+        return real_import(name)
+
+    monkeypatch.setattr(importlib.metadata, "version", fake_version)
+    monkeypatch.setattr(importlib, "import_module", fake_import)
+    with pytest.raises(routing.RoutingError, match="unsupported_driver_version"):
+        routing.install(profiles={"app": PROFILE}, drivers=("pymysql", "mysql.connector"))
+    assert pymysql.connections.Connection.connect is original_connect
