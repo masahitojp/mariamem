@@ -29,7 +29,7 @@ class _Write:
         self.deadline = deadline
         self.started = False
         self.cancelled = threading.Event()
-        self.written = threading.Event()
+        self.written = False
 
 
 class Session:
@@ -129,11 +129,13 @@ class Session:
 
     def _enqueue(self, task):
         with self._write_condition:
-            while self._writes:
+            while self._writes and not self._transport_stop.is_set():
                 left = task.deadline - time.monotonic()
                 if left <= 0:
                     raise TimeoutError("Host control submission timed out")
                 self._write_condition.wait(left)
+            if self._failure is not None:
+                raise self._failure
             if self._transport_stop.is_set():
                 raise OSError("control transport closed")
             self._writes.append(task)
@@ -151,7 +153,7 @@ class Session:
     def _unsent(self, task):
         error = TimeoutError("Host control message was not sent")
         error.submitted = False
-        with self._lock:
+        with self._write_condition:
             pending = self._pending.pop(task.identifier, None)
             if pending is not None:
                 if pending.abandoned:
@@ -159,9 +161,9 @@ class Session:
                 else:
                     pending.value = error
                     pending.ready.set()
+                    self._write_condition.notify_all()
         if pending is not None and pending.abandoned:
             threading.Thread(target=self._late, args=(error, pending), daemon=True).start()
-        task.written.set()
 
     def _write(self):
         from . import HostError
@@ -190,8 +192,10 @@ class Session:
                         offset += count
                     except BlockingIOError:
                         select.select([], [self._process.stdin.fileno()], [], .1)
-                else:
-                    task.written.set()
+                if offset == len(task.data):
+                    with self._write_condition:
+                        task.written = True
+                        self._write_condition.notify_all()
                 # A partially written JSON frame must finish before another
                 # frame. Only this one writer remains parked on a full pipe;
                 # the caller's deadline still expires independently.
@@ -257,8 +261,14 @@ class Session:
         try:
             task = _Write(dict(id=identifier, op=op, **fields), send_deadline)
             self._enqueue(task)
-            if not task.written.wait(max(0, send_deadline-time.monotonic())) and not pending.ready.is_set():
-                raise TimeoutError("Host control submission timed out; cleanup owns any late response")
+            with self._write_condition:
+                # A terminal reply can arrive even if the writer never submits
+                # this frame, for example when the shared host exits.
+                if not self._write_condition.wait_for(
+                    lambda: task.written or pending.ready.is_set(),
+                    max(0, send_deadline-time.monotonic()),
+                ):
+                    raise TimeoutError("Host control submission timed out; cleanup owns any late response")
             left = None if deadline is None else max(0, deadline-time.monotonic())
             ready = pending.ready.wait(left)
         except BaseException as exc:
@@ -329,7 +339,7 @@ class Session:
                     raise ValueError("invalid host response header")
                 if not value["ok"] and not isinstance(value.get("error"), dict):
                     raise ValueError("invalid host error object")
-                with self._lock:
+                with self._write_condition:
                     pending = self._pending.pop(identifier, None)
                     if pending is None:
                         raise ValueError("unknown host response id")
@@ -339,6 +349,7 @@ class Session:
                     else:
                         pending.value = value
                         pending.ready.set()
+                        self._write_condition.notify_all()
                 if abandoned:
                     threading.Thread(target=self._late, args=(value, pending), daemon=True).start()
             with self._lock:

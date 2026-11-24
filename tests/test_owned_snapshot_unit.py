@@ -172,6 +172,46 @@ def test_out_of_order_responses_do_not_serialize_other_requests(fake_host):
         session.release()
 
 
+def test_host_death_wakes_request_submission_waiters(fake_host, monkeypatch):
+    release_writer = threading.Event()
+    first_queued = threading.Event()
+    second_submitting = threading.Event()
+    write = Session._write
+    enqueue = Session._enqueue
+
+    def paused_writer(session):
+        release_writer.wait(10)
+        write(session)
+
+    def observed_enqueue(session, task):
+        if task.identifier == 2:
+            second_submitting.set()
+        enqueue(session, task)
+        if task.identifier == 1:
+            first_queued.set()
+
+    monkeypatch.setattr(Session, "_write", paused_writer)
+    monkeypatch.setattr(Session, "_enqueue", observed_enqueue)
+    session = Session(fake_host)
+    session.retain()
+    try:
+        with ThreadPoolExecutor(2) as pool:
+            first = pool.submit(session.request, "stats")
+            assert first_queued.wait(2)
+            second = pool.submit(session.request, "stats")
+            assert second_submitting.wait(2)
+            session._process.kill()
+
+            for future in (first, second):
+                with pytest.raises(mariamem.HostError) as error:
+                    future.result(2)
+                assert error.value.closed and error.value.code == "unusable"
+            assert not session._pending
+    finally:
+        release_writer.set()
+        session.release()
+
+
 @pytest.mark.parametrize("operation", ["late_database", "late_snapshot"])
 def test_timeout_collects_late_created_handles_without_killing_other_owner(fake_host, operation):
     session = Session(fake_host)
