@@ -4,11 +4,13 @@
 import argparse
 from contextlib import contextmanager
 import hashlib
+import http.client
 import json
 import os
 from pathlib import Path
 import re
 import stat
+import sys
 import tempfile
 import zipfile
 
@@ -31,13 +33,16 @@ def require(ok, message):
         raise ValueError(message)
 
 
-def check_jobs(needs, commit):
+def check_jobs(needs, commit, *, reuse=False):
     require(set(needs) == REQUIRED_JOBS, 'preview dependency set differs')
-    for job in sorted(REQUIRED_JOBS):
-        require(needs[job].get('result') == 'success', job + ' did not pass')
+    require(needs['resolve'].get('result') == 'success', 'resolve did not pass')
+    expected = 'skipped' if reuse else 'success'
+    for job in sorted(REQUIRED_JOBS - {'resolve'}):
+        require(needs[job].get('result') == expected, job + ' must be ' + expected)
     outputs = needs['resolve']['outputs']
+    qualification = ('preview-reuse', 'false', 'true') if reuse else ('full', 'false', 'false')
     require((outputs.get('mode'), outputs.get('runtime_reused'), outputs.get('features_reused'),
-             outputs.get('source_sha')) == ('full', 'false', 'false', commit), 'preview requires fresh qualification')
+             outputs.get('source_sha')) == (*qualification, commit), 'preview qualification plan differs')
 
 
 class Bundle:
@@ -206,39 +211,91 @@ def revalidate(api, run, commit, workflow, package, guest, inputs, inventory):
             'preview READY wheel or artifact identity differs')
     require(successful_attempt(api, run, workflow) == attempt,
             'qualification run was restarted during validation')
-    return reference
+    return {**reference, 'run_attempt': attempt}
+
+
+REUSE_ERRORS = (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile, http.client.HTTPException)
+
+
+def select_reuse(api, current_run, commit, workflow, package, guest, inputs, inventory):
+    endpoint = f'/actions/workflows/{Path(WORKFLOW).name}/runs'
+    try:
+        runs = api.json(f'{endpoint}?event=workflow_dispatch&status=success&head_sha={workflow}&per_page=100')
+        for item in runs['workflow_runs']:
+            run = item['id']
+            if run == current_run:
+                continue
+            try:
+                return revalidate(api, run, commit, workflow, package, guest, inputs, inventory)
+            except REUSE_ERRORS as error:
+                print(f'Cannot reuse preview run {run}: {error}', file=sys.stderr)
+    except REUSE_ERRORS as error:
+        print(f'Cannot discover preview qualification: {error}', file=sys.stderr)
+    return None
+
+
+def preview_inputs(root, commit):
+    checkout(root, commit)
+    package = version(root)['PYTHON_VERSION']
+    path = root / 'release/generated-go-inputs.json'
+    guest = json.loads(path.read_text())['guest_sha256']
+    return package, guest, digest(path), source_inventory(root)
+
+
+def write_selection(reference):
+    mode = 'preview-reuse' if reference else 'full'
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+        output.write(f'mode={mode}\nruntime_reused=false\nfeatures_reused={str(bool(reference)).lower()}\n')
+        if reference:
+            output.write('preview_reuse=' + json.dumps(reference, separators=(',', ':')) + '\n')
+    if reference:
+        print(f"Reusing preview run {reference['run_id']} attempt {reference['run_attempt']}")
+    else:
+        print('No reusable preview qualification; running all six targets')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
-    parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--reuse-run', type=int, help='Revalidate one completed exact-source preview run')
+    parser.add_argument('--output', type=Path)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--reuse-run', type=int, help='Revalidate one completed exact-source preview run')
+    mode.add_argument('--select-reuse', action='store_true', help='Write the automatic plan to GITHUB_OUTPUT')
     args = parser.parse_args()
+    if not args.select_reuse and args.output is None:
+        parser.error('--output is required when writing a qualification receipt')
     commit = os.environ['SOURCE_SHA']
     workflow = os.environ['WORKFLOW_SHA']
     run, attempt = int(os.environ['GITHUB_RUN_ID']), int(os.environ['GITHUB_RUN_ATTEMPT'])
+    api = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_TOKEN'])
+    if args.select_reuse:
+        inputs = preview_inputs(args.root, commit)
+        write_selection(select_reuse(api, run, commit, workflow, *inputs))
+        return
     record = {'contract': CONTRACT, 'result': 'NOT READY', 'source_commit': commit,
               'workflow_commit': workflow, 'run_id': run, 'run_attempt': attempt}
     try:
-        checkout(args.root, commit)
-        api = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_TOKEN'])
-        package = version(args.root)['PYTHON_VERSION']
-        path = args.root / 'release/generated-go-inputs.json'
-        guest = json.loads(path.read_text())['guest_sha256']
-        inputs = digest(path)
-        inventory = source_inventory(args.root)
-        if args.reuse_run is None:
-            check_jobs(json.loads(os.environ['NEEDS_JSON']), commit)
-            record['guest_sha256'] = guest
-            record['inputs_sha256'] = inputs
-            record['targets'] = collect(api, run, commit, package, guest, inventory)
+        needs = json.loads(os.environ['NEEDS_JSON']) if args.reuse_run is None else None
+        if args.reuse_run is None and needs['resolve']['outputs'].get('mode') == 'preview-reuse':
+            check_jobs(needs, commit, reuse=True)
+            reference = json.loads(needs['resolve']['outputs']['preview_reuse'])
+            original = reference['run_id']
+            require(type(original) is int and original > 0 and original != run, 'invalid original qualification run')
+            require(successful_attempt(api, original, workflow) == reference['run_attempt'],
+                    'qualification run changed after selection')
+            record['reused_qualification'] = reference
         else:
-            require(args.reuse_run > 0 and args.reuse_run != run, 'reuse requires a distinct earlier qualification run')
-            # A reuse result points to the original qualification. It cannot
-            # stand in for a fresh six-target receipt on a later dispatch.
-            record['reused_qualification'] = revalidate(
-                api, args.reuse_run, commit, workflow, package, guest, inputs, inventory)
+            inputs = preview_inputs(args.root, commit)
+            package, guest, input_digest, inventory = inputs
+            if args.reuse_run is None:
+                check_jobs(needs, commit)
+                record['guest_sha256'] = guest
+                record['inputs_sha256'] = input_digest
+                record['targets'] = collect(api, run, commit, package, guest, inventory)
+            else:
+                require(args.reuse_run > 0 and args.reuse_run != run,
+                        'reuse requires a distinct earlier qualification run')
+                record['reused_qualification'] = revalidate(api, args.reuse_run, commit, workflow, *inputs)
         record['result'] = 'READY'
     except Exception as error:
         record['reason'] = str(error)

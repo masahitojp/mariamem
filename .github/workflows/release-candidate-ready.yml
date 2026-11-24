@@ -14,7 +14,7 @@ on:
         required: false
         type: string
       native_preview:
-        description: Verify the six-target candidate gate without publishing or reusing qualification
+        description: Verify the six-target candidate gate without publishing
         type: boolean
         default: false
       notes:
@@ -67,6 +67,7 @@ jobs:
       feature_run: ${{ steps.plan.outputs.feature_run }}
       candidate_run: ${{ steps.plan.outputs.candidate_run }}
       evidence_run: ${{ steps.plan.outputs.evidence_run }}
+      preview_reuse: ${{ steps.plan.outputs.preview_reuse }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -114,6 +115,7 @@ jobs:
         name: Automatically select authenticated READY reuse or full qualification
         env:
           SOURCE_SHA: ${{ steps.source.outputs.sha }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
           OPERATION: ${{ inputs.operation }}
           MODE: ${{ inputs.mode }}
           CANDIDATE_RUN: ${{ inputs.candidate_run }}
@@ -123,7 +125,11 @@ jobs:
         run: |
           if [ "$NATIVE_PREVIEW" = true ]; then
             test ! -e candidate-source/release/runtime-validation.json
-            printf '%s\n' mode=full runtime_reused=false features_reused=false >> "$GITHUB_OUTPUT"
+            if [ "$MODE" = auto ]; then
+              python scripts/release_candidate_preview.py --root candidate-source --select-reuse
+            else
+              printf '%s\n' mode=full runtime_reused=false features_reused=false >> "$GITHUB_OUTPUT"
+            fi
             exit 0
           fi
           args=(--root candidate-source --candidate-sha "$SOURCE_SHA" --operation "$OPERATION" --mode "$MODE")
@@ -511,7 +517,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   verification_ubuntu:
-    if: always() && !cancelled() && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_ubuntu.result == 'success')
+    if: always() && !cancelled() && needs.resolve.result == 'success' && needs.resolve.outputs.mode != 'preview-reuse' && (needs.resolve.outputs.mode != 'full' || needs.candidate_ubuntu.result == 'success')
     needs: [resolve, candidate_ubuntu]
     runs-on: ubuntu-24.04
     timeout-minutes: 90
@@ -587,19 +593,19 @@ jobs:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
       ubuntu_only: ${{ inputs.native_preview }}
   preview-macos:
-    if: inputs.native_preview
+    if: inputs.native_preview && needs.resolve.outputs.mode == 'full'
     needs: resolve
     uses: ./.github/workflows/macos-native-candidate.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   preview-windows:
-    if: inputs.native_preview
+    if: inputs.native_preview && needs.resolve.outputs.mode == 'full'
     needs: resolve
     uses: ./.github/workflows/windows-boundary.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   preview-linux:
-    if: inputs.native_preview
+    if: inputs.native_preview && needs.resolve.outputs.mode == 'full'
     needs: resolve
     uses: ./.github/workflows/linux-wheel.yml
     with:

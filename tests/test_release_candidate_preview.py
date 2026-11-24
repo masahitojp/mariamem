@@ -49,7 +49,7 @@ def test_no_job_can_be_skipped(job):
 def test_previous_ready_and_runtime_reuse_cannot_substitute(override):
     jobs = qualification_jobs()
     jobs['resolve']['outputs'].update(override)
-    with pytest.raises(ValueError, match='fresh qualification'):
+    with pytest.raises(ValueError, match='qualification plan differs'):
         preview.check_jobs(jobs, COMMIT)
 
 
@@ -219,6 +219,83 @@ def test_reuse_rejects_run_restarted_during_validation(monkeypatch):
         preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
 
 
+class DiscoverableQualification(CompletedQualification):
+    def json(self, path):
+        if path.startswith('/actions/workflows/'):
+            assert f'head_sha={WORKFLOW}' in path and 'status=success' in path
+            return {'workflow_runs': [{'id': RUN + 1}, {'id': RUN - 1}, {'id': RUN}]}
+        if path == f'/actions/runs/{RUN - 1}':
+            return {**self.run, 'id': RUN - 1, 'conclusion': 'failure'}
+        return super().json(path)
+
+
+def test_auto_discovers_exact_qualification_after_rejected_run():
+    api = DiscoverableQualification()
+    reference = preview.select_reuse(api, RUN + 1, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+    assert reference['run_id'] == RUN
+    assert reference['run_attempt'] == 2
+
+
+@pytest.mark.parametrize('reason', ['missing', 'stale', 'unavailable'])
+def test_auto_falls_back_to_full(reason, monkeypatch, tmp_path):
+    api = DiscoverableQualification()
+    if reason == 'missing':
+        del api.entries[RECEIPT]
+    elif reason == 'stale':
+        api.run['run_attempt'] += 1
+    else:
+        def unavailable(path):
+            raise OSError('GitHub API unavailable')
+        monkeypatch.setattr(api, 'json', unavailable)
+    reference = preview.select_reuse(api, RUN + 1, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+    assert reference is None
+    output = tmp_path / 'output'
+    monkeypatch.setenv('GITHUB_OUTPUT', str(output))
+    preview.write_selection(reference)
+    assert output.read_text().splitlines() == ['mode=full', 'runtime_reused=false', 'features_reused=false']
+
+
+@pytest.mark.parametrize('changed_attempt', [False, True])
+def test_auto_reuse_records_original_full_receipt(changed_attempt, monkeypatch, tmp_path):
+    api = DiscoverableQualification()
+    reference = preview.select_reuse(api, RUN + 1, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+    output = tmp_path / 'output'
+    monkeypatch.setenv('GITHUB_OUTPUT', str(output))
+    preview.write_selection(reference)
+    selection = dict(line.split('=', 1) for line in output.read_text().splitlines())
+    jobs = {name: {'result': 'skipped'} for name in preview.REQUIRED_JOBS}
+    jobs['resolve'] = {'result': 'success', 'outputs': {**selection, 'source_sha': COMMIT}}
+    assert selection['mode'] == 'preview-reuse'
+    preview.check_jobs(jobs, COMMIT, reuse=True)
+    with pytest.raises(ValueError, match='must be success'):
+        preview.check_jobs(jobs, COMMIT)
+    receipt = tmp_path / 'receipt.json'
+    for key, value in {'GITHUB_RUN_ID': str(RUN + 1), 'GITHUB_RUN_ATTEMPT': '1',
+                       'SOURCE_SHA': COMMIT, 'WORKFLOW_SHA': WORKFLOW, 'NEEDS_JSON': json.dumps(jobs),
+                       'GITHUB_REPOSITORY': 'example/project', 'GITHUB_TOKEN': 'test'}.items():
+        monkeypatch.setenv(key, value)
+    monkeypatch.setattr(preview, 'GitHub', lambda *_: api)
+    monkeypatch.setattr(sys, 'argv', ['preview', '--root', str(tmp_path), '--output', str(receipt)])
+    if changed_attempt:
+        api.run['run_attempt'] += 1
+        with pytest.raises(ValueError, match='changed after selection'):
+            preview.main()
+        assert json.loads(receipt.read_text())['result'] == 'NOT READY'
+    else:
+        preview.main()
+        result = json.loads(receipt.read_text())
+        assert result['result'] == 'READY'
+        assert result['reused_qualification'] == reference
+        assert 'targets' not in result
+
+
+def test_auto_reused_receipt_cannot_become_an_original_full_receipt():
+    api = CompletedQualification()
+    api.receipt['reused_qualification'] = api.receipt.pop('targets')
+    with pytest.raises(ValueError, match='identity differs'):
+        preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
+
+
 def test_preview_uses_one_legacy_ubuntu_lane_and_cannot_publish():
     model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
     assert events(model)['workflow_dispatch']['inputs']['native_preview']['default'] is False
@@ -236,6 +313,21 @@ def test_preview_uses_one_legacy_ubuntu_lane_and_cannot_publish():
         'release-candidate-preview-${{ needs.resolve.outputs.source_sha }}-attempt-${{ github.run_attempt }}')
     assert 'overwrite' not in upload['with']
     assert upload['with']['path'] == 'preview-qualification.json'
+
+
+def test_auto_reuse_skips_full_lanes_and_preserves_explicit_full_selection():
+    jobs = load(ROOT / '.github/workflows/release-candidate-ready.yml')['jobs']
+    resolve = jobs['resolve']
+    assert resolve['outputs']['preview_reuse'] == '${{ steps.plan.outputs.preview_reuse }}'
+    plan = next(step['run'] for step in resolve['steps'] if step.get('id') == 'plan')
+    assert 'if [ "$MODE" = auto ]; then' in plan
+    assert '--select-reuse' in plan
+    assert 'mode=full runtime_reused=false features_reused=false' in plan
+    for name in ('units', 'runtime', *preview.FEATURES):
+        assert "needs.resolve.outputs.features_reused != 'true'" == jobs[name]['if']
+    for name in ('guest', 'core_ubuntu', 'candidate_ubuntu', 'preview-windows', 'preview-macos', 'preview-linux'):
+        assert "needs.resolve.outputs.mode == 'full'" in jobs[name]['if']
+    assert "needs.resolve.outputs.mode != 'preview-reuse'" in jobs['verification_ubuntu']['if']
 
 
 @pytest.mark.parametrize(('workflow', 'job_names', 'guard'), [
