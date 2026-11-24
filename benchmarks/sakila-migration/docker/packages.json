@@ -1,0 +1,54 @@
+{
+  "archive": "https://archive.mariadb.org/mariadb-12.3.4/repo/ubuntu/",
+  "index_sha256": "93dd511c23e8253d81b0953ae88e4340f724155298c8187655c95b6e743832b9",
+  "packages": [
+    {
+      "Package": "libmariadb3",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/libmariadb3_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "b21fa92b9597eb596907212979fe4a745ebc39f16262aca72a577500fbe2f58e"
+    },
+    {
+      "Package": "mariadb-backup",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-backup_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "dcc3b8b4eea0b9b88b049fd8376722ca91c77fd74fa993b7e97ad4d44c51d3ea"
+    },
+    {
+      "Package": "mariadb-client",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-client_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "f523aba319cd372a36ebd84c3cfa575709023bc6a87b73dfac30e00fbd76116c"
+    },
+    {
+      "Package": "mariadb-client-core",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-client-core_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "857dd138070aebcc4b0039cd0eb7fa52e87b552b9459261dfa2272cfdb4cd78b"
+    },
+    {
+      "Package": "mariadb-common",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-common_12.3.4+maria~ubu2404_all.deb",
+      "SHA256": "408c5a995c5ea12381adb8f652f26d5ecda1bea09244404b51b5f360c526af54"
+    },
+    {
+      "Package": "mariadb-server",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-server_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "5822c18d8e07dda1c484a3c8496e9a04e8aab6ab20146607cec1fd8f27e801ff"
+    },
+    {
+      "Package": "mariadb-server-core",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-server-core_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "3cfa597dff0f87d63f271b58f56418c51a8128a380a99c3d06a9e4836d6c9955"
+    },
+    {
+      "Package": "mariadb-server-galera",
+      "Version": "1:12.3.4+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/mariadb-server-galera_12.3.4+maria~ubu2404_arm64.deb",
+      "SHA256": "dcc587a9d55ec06a1c9b16b71935438d99521e730f81a73df9af62e613d41e9d"
+    }
+  ]
+}

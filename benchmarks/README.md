@@ -29,6 +29,8 @@ corresponding-source input is removed by the module boundary.
 
 - [Sakila audit model case](sakila-modelcase/README.md): 100 application tests
   across embedded Forks and three shared MySQL workflows.
+- [Sakila migration benchmark](sakila-migration/README.md): eight late-fee
+  migration cases across embedded Forks and three shared MariaDB workflows.
 - [Historical v0.5.3 → v0.6.0 latency](v060-latency.md): paired Go/Python
   observations, including small-workload increases; not a current-main comparison.
 - [Historical parallel application suite](parallel-modelcase.md) and
