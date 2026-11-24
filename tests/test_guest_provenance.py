@@ -30,6 +30,8 @@ class Provenance(unittest.TestCase):
                                if e["name"] in self.evidence["source_archives"]
                                or e["name"] == "wasmer-source"
                                or e.get("kind") == "runtime-binary"]
+        self.lock["toolchain"].setdefault("wasix_sysroot", self.evidence["sysroot"]["tag"])
+        self.lock["toolchain"].setdefault("wasix_sysroot_variant", self.evidence["sysroot"]["variant"])
         for entry in self.lock["inputs"]:
             if entry["name"] not in self.evidence["source_archives"]:
                 continue
