@@ -173,3 +173,33 @@ def test_historical_guest_origin_allows_only_bound_host_stage_changes(tmp_path):
     git('add','.');git('commit','-qm','guest change')
     with pytest.raises(ValueError,match='fresh guest build'):
         dev.verify_source_origin(root,origin)
+
+
+def test_build_generated_guest_download_sets_explicit_user_agent(tmp_path, monkeypatch):
+    import hashlib
+    import io
+    import urllib.request
+    import build_generated_guest as builder
+
+    payload = b'pinned-archive-bytes'
+    seen = []
+
+    def fake_urlopen(req, timeout=None):
+        seen.append((req, timeout))
+        return io.BytesIO(payload)
+
+    monkeypatch.setattr(urllib.request, 'urlopen', fake_urlopen)
+    pin = {
+        'file': 'libicu70_70.1-2_arm64.deb',
+        'url': 'https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb',
+        'sha256': hashlib.sha256(payload).hexdigest(),
+    }
+    out = builder.download(pin, tmp_path / 'downloads')
+    assert out.read_bytes() == payload
+    assert len(seen) == 1
+    req, timeout = seen[0]
+    assert isinstance(req, urllib.request.Request)
+    assert req.full_url == pin['url']
+    assert req.get_header('User-agent') == builder.USER_AGENT
+    assert not req.get_header('User-agent').startswith('Python-urllib')
+    assert timeout == 180
