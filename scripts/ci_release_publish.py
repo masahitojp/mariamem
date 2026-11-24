@@ -56,6 +56,21 @@ def restore_for_publication(root, commit, repository, candidate_run, evidence_ru
     return ready_path
 
 
+def checked_notes(root, notes, version):
+    if notes is None:
+        suffix = f"{version['STAGE']}.{version['SERIAL']}" if version["STAGE"] else version["GIT_TAG"]
+        notes = root / "release" / f"NOTES-{suffix}.md"
+    notes = notes.resolve()
+    require(notes.is_relative_to(root) and notes.is_file(), "release notes must belong to candidate checkout")
+    require(not command(["git", "status", "--porcelain", "--", str(notes.relative_to(root))], root),
+            "release notes are modified")
+    require(command(["git", "ls-files", "--", str(notes.relative_to(root))], root),
+            "release notes must be tracked")
+    require(re.search(r"^#{1,6}\s+.*" + re.escape(version["GIT_TAG"]) + r"(?:\s|$)",
+                      notes.read_text(), re.MULTILINE), "release notes heading does not identify canonical tag")
+    return notes
+
+
 def prepare(root, commit, notes, ready_path=None):
     require(re.fullmatch(r"[0-9a-f]{40}", commit) is not None, "candidate must be a full SHA")
     require(command(["git", "rev-parse", "HEAD"], root) == commit, "checkout is not exact candidate")
@@ -76,17 +91,7 @@ def prepare(root, commit, notes, ready_path=None):
     entries = [line.split("  ") for line in checksums.read_text().splitlines()]
     require(len(entries) == len(ready["assets"]) and {name: sha for sha, name in entries} == ready["assets"],
             "SHA256SUMS differs from READY artifacts")
-    if notes is None:
-        suffix = f"{version['STAGE']}.{version['SERIAL']}" if version["STAGE"] else version["GIT_TAG"]
-        notes = root / "release" / f"NOTES-{suffix}.md"
-    notes = notes.resolve()
-    require(notes.is_relative_to(root) and notes.is_file(), "release notes must belong to candidate checkout")
-    require(not command(["git", "status", "--porcelain", "--", str(notes.relative_to(root))], root),
-            "release notes are modified")
-    require(command(["git", "ls-files", "--", str(notes.relative_to(root))], root),
-            "release notes must be tracked")
-    require(re.search(r"^#{1,6}\s+.*" + re.escape(version["GIT_TAG"]) + r"(?:\s|$)",
-                      notes.read_text(), re.MULTILINE), "release notes heading does not identify canonical tag")
+    notes = checked_notes(root, notes, version)
     # A CI handoff has no staged assets yet. Stage only after the complete guard
     # equals the authenticated aggregate receipt. Existing staging is never repaired.
     if not (root / 'build/release/publish').exists():
@@ -109,27 +114,59 @@ def prepare(root, commit, notes, ready_path=None):
             "status": "PREPARED"}, staging, notes
 
 
+def prepare_six_targets(root, commit, repository, notes, workflow, run, attempt, reuse):
+    from release_candidate_preview import CONTRACT as SIX_TARGET_CONTRACT, stage_publication
+
+    metadata = version(root)
+    staging = root / 'build/release/publish'
+    staging.parent.mkdir(parents=True, exist_ok=True)
+    notes = checked_notes(root, notes, metadata)
+    api = GitHub(repository, os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN'))
+    qualification_run = reuse['run_id'] if reuse else run
+    reference = stage_publication(api, qualification_run, commit, workflow, root, staging,
+                                  current_attempt=None if reuse else attempt, expected_reference=reuse)
+    return {'contract': SIX_TARGET_CONTRACT, 'source_commit': commit, 'git_tag': metadata['GIT_TAG'],
+            'python_version': metadata['PYTHON_VERSION'], 'qualification': reference,
+            'assets': {path.name: digest(path) for path in staging.iterdir()},
+            'prerelease': metadata['STAGE'] in {'alpha', 'beta', 'rc'}, 'status': 'PREPARED'}, staging, notes
+
+
 def publish(root, commit, repository, notes=None, dry_run=False, ready_path=None, *,
-            candidate_run=None, evidence_run=None):
+            candidate_run=None, evidence_run=None, six_target=False):
     root = Path(root).resolve()
     require(re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository) is not None,
             "invalid GitHub repository")
     report_path = root / "build/release/ci-publication.json"
     report = {"source_commit": commit, "repository": repository, "status": "FAILED", "stage": "guard"}
     try:
-        if candidate_run is not None or evidence_run is not None:
-            require(ready_path is None, 'remote publication cannot override authenticated READY')
-            report['stage'] = 'restore'
-            ready_path = restore_for_publication(root, commit, repository, candidate_run, evidence_run)
-            report['stage'] = 'guard'
-        report, staging, notes = prepare(root, commit, Path(notes) if notes else None, ready_path)
+        if six_target:
+            require(candidate_run is None and evidence_run is None and ready_path is None,
+                    'six-target publication obtains qualification from this workflow')
+            report, staging, notes = prepare_six_targets(
+                root, commit, repository, Path(notes) if notes else None, os.environ['WORKFLOW_SHA'],
+                int(os.environ['GITHUB_RUN_ID']), int(os.environ['GITHUB_RUN_ATTEMPT']),
+                json.loads(os.environ.get('PREVIEW_REUSE') or 'null'))
+        else:
+            if candidate_run is not None or evidence_run is not None:
+                require(ready_path is None, 'remote publication cannot override authenticated READY')
+                report['stage'] = 'restore'
+                ready_path = restore_for_publication(root, commit, repository, candidate_run, evidence_run)
+                report['stage'] = 'guard'
+            report, staging, notes = prepare(root, commit, Path(notes) if notes else None, ready_path)
         report.update(repository=repository, stage="remote-preflight")
         tag = report["git_tag"]
         remote = f"https://github.com/{repository}.git"
-        require(not command(["git", "tag", "--list", tag], root), "release tag already exists locally")
-        require(not command(["git", "ls-remote", "--tags", remote, f"refs/tags/{tag}", f"refs/tags/{tag}^{{}}"], root),
-                "release tag already exists remotely")
-        require(not release_exists(repository, tag, root), "GitHub release already exists")
+        local_tag = bool(command(["git", "tag", "--list", tag], root))
+        remote_tag = bool(command(["git", "ls-remote", "--tags", remote,
+                                   f"refs/tags/{tag}", f"refs/tags/{tag}^{{}}"], root))
+        existing_release = release_exists(repository, tag, root)
+        if six_target and dry_run:
+            report['existing_destination'] = {'local_tag': local_tag, 'remote_tag': remote_tag,
+                                              'github_release': existing_release}
+        else:
+            require(not local_tag, "release tag already exists locally")
+            require(not remote_tag, "release tag already exists remotely")
+            require(not existing_release, "GitHub release already exists")
         exposed = json.loads(command(["gh", "api", f"repos/{repository}/commits/{commit}"], root))
         require(exposed.get("sha") == commit, "exact candidate is not remotely available")
         if dry_run:
@@ -183,11 +220,13 @@ def main():
     parser.add_argument("--candidate-run", type=int)
     parser.add_argument("--evidence-run", type=int)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--six-target", action="store_true")
     args = parser.parse_args()
     notes = (args.notes if args.notes.is_absolute() else args.root / args.notes) if args.notes else None
     try:
         print(json.dumps(publish(args.root, args.candidate_sha, args.repository, notes, args.dry_run, args.ready,
-                                 candidate_run=args.candidate_run, evidence_run=args.evidence_run), indent=2))
+                                 candidate_run=args.candidate_run, evidence_run=args.evidence_run,
+                                 six_target=args.six_target), indent=2))
     except (ValueError, RuntimeError, OSError, KeyError) as error:
         print("Publication stopped: " + str(error))
         return 1

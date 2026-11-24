@@ -77,7 +77,10 @@ def test_publication_job_gate_and_handoff():
     operation = events(model)['workflow_dispatch']['inputs']['operation']
     assert operation['default'] == 'verify'
     assert operation['options'] == ['verify', 'release', 'public-smoke-recovery']
-    assert publication['if'] == "always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'"
+    assert publication['if'] == ("always() && !cancelled() && inputs.operation == 'release' && "
+                                 "needs.resolve.result == 'success' && "
+                                 "((inputs.native_preview && needs.preview-aggregate.result == 'success') || "
+                                 "(!inputs.native_preview && needs.aggregate.result == 'success'))")
     assert publication['permissions']['contents'] == 'write'
     writers = {name for name, job in jobs.items() if job.get('permissions', {}).get('contents') == 'write'}
     assert writers == {'publication', 'additional_publication'}
@@ -95,8 +98,11 @@ def test_publication_job_gate_and_handoff():
     assert '--candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"' in normal
     assert 'candidate-source/scripts/ci_release_publish.py' in normal
     assert any(step.get('env', {}).get('EVIDENCE_RUN') == '${{ github.run_id }}' for step in publication['steps'])
-    assert 'config user.name' in normal and 'args+=(--dry-run)' not in normal
-    assert jobs['public_smoke']['if'] == "always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'"
+    assert 'config user.name' in normal
+    assert 'if [ "$OPERATION" = verify ]; then args+=(--dry-run); fi' in normal
+    assert jobs['publication_rehearsal']['permissions'] == {'contents': 'read', 'actions': 'read'}
+    assert "inputs.operation == 'verify'" in jobs['publication_rehearsal']['if']
+    assert jobs['public_smoke']['if'] == "always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'"
     for job in (publication, recovery):
         code = '\n'.join(step.get('run', '') for step in job['steps'])
         assert 'build_alpha.py' not in code and 'build_generated_guest.py' not in code

@@ -217,6 +217,57 @@ def test_publication_stages_only_authenticated_assets(source_ok, tmp_path, monke
         verify_origin(None, payload, hashes, release, COMMIT, 'v' + PACKAGE, 'example/repository')
 
 
+@pytest.mark.parametrize('matches', [True, False])
+def test_public_smoke_checks_the_wheel_before_installing(matches, monkeypatch):
+    import six_target_public_smoke as public
+
+    payload = b'accepted wheel'
+    wheel = preview.wheel_name(PACKAGE, preview.WINDOWS_X86)
+    files = {preview.wheel_name(PACKAGE, target): payload for target in preview.TARGETS}
+    files[preview.source_name(PACKAGE)] = b'corresponding source'
+    hashes = {name: hashlib.sha256(value).hexdigest() for name, value in files.items()}
+    reference = {'run_id': RUN, 'run_attempt': 2, 'artifact_id': 40, 'name': RECEIPT, 'zip_sha256': HOST}
+    tag = 'v' + PACKAGE
+    provenance = {'contract': preview.CONTRACT, 'source_commit': COMMIT, 'git_tag': tag,
+                  'python_version': PACKAGE, 'qualification': reference, 'assets': hashes}
+    files[f'mariamem-{PACKAGE}-provenance.json'] = json.dumps(provenance).encode()
+    files['SHA256SUMS'] = ''.join(f'{hashlib.sha256(value).hexdigest()}  {name}\n'
+                                  for name, value in files.items()).encode()
+    record = {**provenance, 'assets': {name: hashlib.sha256(value).hexdigest() for name, value in files.items()},
+              'status': 'PUBLISHED', 'prerelease': False, 'repository': 'example/project'}
+    release = {'tag_name': tag, 'draft': False, 'prerelease': False, 'assets': [{'name': name} for name in files]}
+    monkeypatch.setattr(public.subprocess, 'check_output', lambda *args, **kwargs: json.dumps(release))
+
+    def download(args, **kwargs):
+        destination = args[args.index('--dir') + 1]
+        for name in ('SHA256SUMS', wheel, f'mariamem-{PACKAGE}-provenance.json'):
+            (destination / name).write_bytes(files[name] if name != wheel or matches else b'different wheel')
+
+    monkeypatch.setattr(public.subprocess, 'run', download)
+    installed = []
+    monkeypatch.setattr(public, 'wheel_smoke', lambda _, wheel_path, *args: installed.append(wheel_path.read_bytes()))
+    if matches:
+        public.smoke(record, preview.WINDOWS_X86, COMMIT, 'example/project')
+        assert installed == [payload]
+    else:
+        with pytest.raises(ValueError, match='public asset digest differs'):
+            public.smoke(record, preview.WINDOWS_X86, COMMIT, 'example/project')
+        assert installed == []
+
+
+def test_current_attempt_requires_successful_aggregate(monkeypatch):
+    api = CompletedQualification()
+    api.run.update(status='in_progress', conclusion=None)
+    original_json = api.json
+    job = {'name': 'preview-aggregate', 'conclusion': 'success'}
+    monkeypatch.setattr(api, 'json', lambda path: {'jobs': [job]} if '/jobs?' in path else original_json(path))
+    reference = preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY, current_attempt=2)
+    assert reference['run_attempt'] == 2
+    job['conclusion'] = 'failure'
+    with pytest.raises(ValueError, match='aggregate did not succeed'):
+        preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY, current_attempt=2)
+
+
 def test_reuse_authenticates_latest_six_target_receipt():
     api = CompletedQualification()
     ref = preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
@@ -343,16 +394,20 @@ def test_auto_reused_receipt_cannot_become_an_original_full_receipt():
         preview.revalidate(api, RUN, COMMIT, WORKFLOW, PACKAGE, GUEST, INPUTS, INVENTORY)
 
 
-def test_preview_uses_one_legacy_ubuntu_lane_and_cannot_publish():
+def test_preview_uses_one_legacy_ubuntu_lane_and_gates_publication():
     model = load(ROOT / '.github/workflows/release-candidate-ready.yml')
     assert events(model)['workflow_dispatch']['inputs']['native_preview']['default'] is False
     jobs = model['jobs']
     assert needs(jobs['preview-aggregate']) == preview.REQUIRED_JOBS
     assert jobs['preview-aggregate']['if'].find('inputs.native_preview') >= 0
     for name in ('core_darwin', 'candidate_darwin', 'verification_darwin', 'verification',
-                 'aggregate', 'publication', 'public_smoke_recovery', 'pypi_verify',
-                 'pypi_publication', 'additional_plan', 'additional_publication'):
+                 'aggregate', 'public_smoke_recovery', 'pypi_verify', 'additional_plan', 'additional_publication'):
         assert '!inputs.native_preview' in jobs[name]['if'], name
+    assert "inputs.operation == 'release'" in jobs['publication']['if']
+    assert "inputs.native_preview && needs.preview-aggregate.result == 'success'" in jobs['publication']['if']
+    smoke = jobs['six_target_public_smoke']
+    assert {cell['platform'] for cell in smoke['strategy']['matrix']['include']} == set(preview.TARGETS)
+    assert "inputs.operation == 'release'" in smoke['if']
     for name in preview.FEATURES:
         assert jobs[name]['with']['ubuntu_only'] == '${{ inputs.native_preview }}'
     upload = jobs['preview-aggregate']['steps'][-1]
@@ -403,7 +458,7 @@ def test_failed_job_retry_replaces_only_the_rerun_jobs_uploads(workflow, job_nam
 
 
 @pytest.mark.parametrize('bad', [
-    {'OPERATION': 'release'}, {'OPERATION': 'public-smoke-recovery'}, {'ADDITIONAL': 'true'},
+    {'OPERATION': 'public-smoke-recovery'}, {'ADDITIONAL': 'true'},
     {'MODE': 'guard-only'}, {'CANDIDATE_RUN': '42'}, {'EVIDENCE_RUN': '42'}, {'PUBLISHED_TAG': 'v0.7.0'},
     {'SMOKE_REF': COMMIT},
 ])

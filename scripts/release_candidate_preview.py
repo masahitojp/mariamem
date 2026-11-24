@@ -198,20 +198,28 @@ def collect(api, run, commit, package, guest, inventory, *, staging=None):
     return records
 
 
-def successful_attempt(api, run, workflow):
+def successful_attempt(api, run, workflow, *, current_attempt=None):
     info = api.json(f'/actions/runs/{run}')
     require(info.get('path', '').split('@', 1)[0] == WORKFLOW
-            and (info.get('id'), info.get('head_sha'), info.get('event'),
-                 info.get('status'), info.get('conclusion'))
-            == (run, workflow, 'workflow_dispatch', 'completed', 'success'),
-            'reuse requires a successful exact-workflow Release CI run')
+            and (info.get('id'), info.get('head_sha'), info.get('event')) == (run, workflow, 'workflow_dispatch'),
+            'qualification requires the exact Release CI workflow')
     attempt = info.get('run_attempt')
     require(type(attempt) is int and attempt > 0, 'invalid qualification run attempt')
+    if current_attempt is None:
+        require((info.get('status'), info.get('conclusion')) == ('completed', 'success'),
+                'reuse requires a successful exact-workflow Release CI run')
+    else:
+        require(attempt == current_attempt and info.get('status') == 'in_progress',
+                'current qualification attempt differs')
+        jobs = api.json(f'/actions/runs/{run}/attempts/{attempt}/jobs?per_page=100')['jobs']
+        matches = [job for job in jobs if job['name'] == 'preview-aggregate']
+        require(len(matches) == 1 and matches[0].get('conclusion') == 'success',
+                'current qualification aggregate did not succeed')
     return attempt
 
 
-def revalidate(api, run, commit, workflow, package, guest, inputs, inventory, *, staging=None):
-    attempt = successful_attempt(api, run, workflow)
+def revalidate(api, run, commit, workflow, package, guest, inputs, inventory, *, staging=None, current_attempt=None):
+    attempt = successful_attempt(api, run, workflow, current_attempt=current_attempt)
     name = f'release-candidate-preview-{commit}-attempt-{attempt}'
     with artifact(api, run, commit, name) as (bundle, reference):
         require(bundle.names == {'preview-qualification.json'}, 'unexpected preview receipt members')
@@ -227,19 +235,21 @@ def revalidate(api, run, commit, workflow, package, guest, inputs, inventory, *,
             'preview READY targets differ')
     require(collect(api, run, commit, package, guest, inventory, staging=staging) == targets,
             'preview READY wheel or artifact identity differs')
-    require(successful_attempt(api, run, workflow) == attempt,
+    require(successful_attempt(api, run, workflow, current_attempt=current_attempt) == attempt,
             'qualification run was restarted during validation')
     return {**reference, 'run_attempt': attempt}
 
 
-def stage_publication(api, run, commit, workflow, root, destination):
+def stage_publication(api, run, commit, workflow, root, destination, *, current_attempt=None, expected_reference=None):
     inputs = preview_inputs(root, commit)
     package, guest, input_digest, _ = inputs
     require(not destination.exists() and not destination.is_symlink(), 'publication destination already exists')
     with tempfile.TemporaryDirectory(prefix='.mariamem-publication-', dir=destination.parent) as scratch:
         staging = Path(scratch) / 'assets'
         staging.mkdir()
-        reference = revalidate(api, run, commit, workflow, *inputs, staging=staging)
+        reference = revalidate(api, run, commit, workflow, *inputs, staging=staging, current_attempt=current_attempt)
+        require(expected_reference is None or reference == expected_reference,
+                'publication qualification reference changed')
         assets = {path.name: digest(path) for path in staging.iterdir()}
         provenance = {'contract': CONTRACT, 'source_commit': commit, 'workflow_commit': workflow,
                       'guest_sha256': guest, 'inputs_sha256': input_digest, 'git_tag': version(root)['GIT_TAG'],

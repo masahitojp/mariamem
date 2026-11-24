@@ -14,7 +14,11 @@ on:
         required: false
         type: string
       native_preview:
-        description: Verify the six-target candidate gate without publishing
+        description: Use the six-target candidate gate for verify or release
+        type: boolean
+        default: false
+      rehearse_publication:
+        description: In six-target verify, dry-run publication with a read-only token
         type: boolean
         default: false
       notes:
@@ -83,10 +87,15 @@ jobs:
           ADDITIONAL: ${{ inputs.additional_v062 }}
           PUBLISHED_TAG: ${{ inputs.published_tag }}
           SMOKE_REF: ${{ inputs.smoke_ref }}
+          REHEARSE: ${{ inputs.rehearse_publication }}
         run: |
           [[ "$CANDIDATE_REF" =~ ^[0-9a-f]{40}$ ]] || exit 1
-          if [ "$NATIVE_PREVIEW" = true ]; then
+          if [ "$REHEARSE" = true ]; then
+            test "$NATIVE_PREVIEW" = true
             test "$OPERATION" = verify
+          fi
+          if [ "$NATIVE_PREVIEW" = true ]; then
+            test "$OPERATION" = verify || test "$OPERATION" = release
             test "$ADDITIONAL" = false
             test "$MODE" = auto || test "$MODE" = full
             test -z "$PUBLISHED_TAG$SMOKE_REF$CANDIDATE_RUN$EVIDENCE_RUN"
@@ -706,8 +715,8 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   publication:
-    needs: [resolve, aggregate]
-    if: always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'
+    needs: [resolve, aggregate, preview-aggregate]
+    if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && ((inputs.native_preview && needs.preview-aggregate.result == 'success') || (!inputs.native_preview && needs.aggregate.result == 'success'))
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -716,12 +725,17 @@ jobs:
     concurrency:
       group: mariamem-release-publication
       cancel-in-progress: false
-    steps:
+    steps: &publication_steps
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
           fetch-depth: 0
           path: candidate-source
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        if: inputs.native_preview
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: tooling
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
@@ -732,20 +746,41 @@ jobs:
           RELEASE_NOTES: ${{ inputs.notes }}
           CANDIDATE_RUN: ${{ needs.resolve.outputs.mode == 'full' && github.run_id || needs.resolve.outputs.candidate_run }}
           EVIDENCE_RUN: ${{ github.run_id }}
+          NATIVE_PREVIEW: ${{ inputs.native_preview }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          PREVIEW_REUSE: ${{ needs.resolve.outputs.preview_reuse }}
+          OPERATION: ${{ inputs.operation }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          args=(--root candidate-source --candidate-sha "$SOURCE_SHA" --repository "$GITHUB_REPOSITORY" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN")
+          args=(--root candidate-source --candidate-sha "$SOURCE_SHA" --repository "$GITHUB_REPOSITORY")
+          script=candidate-source/scripts/ci_release_publish.py
+          if [ "$NATIVE_PREVIEW" = true ]; then
+            args+=(--six-target)
+            if [ "$OPERATION" = verify ]; then args+=(--dry-run); fi
+            script=tooling/scripts/ci_release_publish.py
+          else
+            args+=(--candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN")
+          fi
           if [ -n "$RELEASE_NOTES" ]; then args+=(--notes "$RELEASE_NOTES"); fi
           git -C candidate-source config user.name 'github-actions[bot]'
           git -C candidate-source config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          python candidate-source/scripts/ci_release_publish.py "${args[@]}"
+          python "$script" "${args[@]}"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: release-publication-${{ needs.resolve.outputs.source_sha }}
+          name: ${{ inputs.operation == 'verify' && 'release-publication-rehearsal' || 'release-publication' }}-${{ needs.resolve.outputs.source_sha }}
           path: candidate-source/build/release/ci-publication.json
           if-no-files-found: warn
           retention-days: 14
+  publication_rehearsal:
+    needs: [resolve, aggregate, preview-aggregate]
+    if: always() && !cancelled() && inputs.rehearse_publication && inputs.native_preview && inputs.operation == 'verify' && needs.preview-aggregate.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    steps: *publication_steps
   public_smoke_recovery:
     if: ${{ !inputs.native_preview && !inputs.additional_v062 && (inputs.operation == 'public-smoke-recovery') }}
     runs-on: ubuntu-24.04
@@ -791,7 +826,7 @@ jobs:
           retention-days: 14
   public_smoke:
     needs: [resolve, publication]
-    if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'
+    if: always() && !cancelled() && !inputs.native_preview && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'
     strategy:
       fail-fast: false
       matrix:
@@ -836,6 +871,69 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  six_target_public_smoke:
+    needs: [resolve, publication]
+    if: inputs.native_preview && inputs.operation == 'release' && needs.publication.result == 'success'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: darwin-arm64
+            runner: macos-15
+            python: arm64
+          - platform: ubuntu24.04-x86_64
+            runner: ubuntu-24.04
+            python: x64
+          - platform: linux-x86_64
+            runner: ubuntu-24.04
+            python: x64
+          - platform: linux-aarch64
+            runner: ubuntu-24.04-arm
+            python: arm64
+          - platform: windows-x86_64
+            runner: windows-2025
+            python: x64
+          - platform: windows-arm64
+            runner: windows-11-arm
+            python: arm64
+    runs-on: ${{ matrix.runner }}
+    concurrency:
+      group: ${{ startsWith(matrix.platform, 'windows-') && 'release-candidate-windows' || (matrix.platform == 'darwin-arm64' && 'release-candidate-macos' || format('release-public-smoke-{0}-{1}', github.run_id, matrix.platform)) }}
+      queue: max
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.workflow_sha }}
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        if: matrix.platform == 'ubuntu24.04-x86_64'
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          path: candidate-source
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        if: matrix.platform == 'ubuntu24.04-x86_64'
+        with:
+          go-version: 1.26.11
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+          architecture: ${{ matrix.python }}
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-publication-${{ needs.resolve.outputs.source_sha }}
+          path: publication-input
+      - name: Install and smoke the accepted public wheel
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET: ${{ matrix.platform }}
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+        run: |
+          args=(--publication publication-input/ci-publication.json --target "$TARGET" --source "$SOURCE_SHA" --repository "$GITHUB_REPOSITORY")
+          if [ "$TARGET" = ubuntu24.04-x86_64 ]; then args+=(--go-source "$PWD/candidate-source"); fi
+          python scripts/six_target_public_smoke.py "${args[@]}"
+
   pypi_verify:
     if: ${{ !inputs.native_preview && !inputs.additional_v062 && (inputs.operation == 'verify' && inputs.published_tag != '') }}
     runs-on: ubuntu-24.04
@@ -865,7 +963,7 @@ jobs:
 
   pypi_publication:
     needs: [resolve, publication]
-    if: ${{ !inputs.native_preview && !inputs.additional_v062 && (always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')) }}
+    if: ${{ !inputs.additional_v062 && (always() && !cancelled() && inputs.operation == 'release' && (inputs.published_tag != '' || needs.publication.result == 'success')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     environment: pypi
