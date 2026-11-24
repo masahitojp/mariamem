@@ -295,3 +295,47 @@ func TestOverflowCleanupDeadlineActualGuest(t *testing.T) {
 		_ = svc.Close(ctx)
 	})
 }
+
+// M2 actual-guest regression (#239 / #251): when a client requests a large
+// multi-packet response (>64 KiB) and abruptly disconnects while the guest is
+// streaming output, the guest must receive peer output EOF, poison the instance
+// with peer_output_error, and reject subsequent operations rather than hanging.
+func TestMidResponseDisconnectActualGuestPoisonsInstance(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	svc, stderr := startActualGuestWithInject(t, ctx, 0, 0)
+	defer func() { _ = svc.Close(ctx) }()
+
+	// Use raw TCP so we can drop the client socket immediately without draining
+	// the >64 KiB response stream.
+	conn := rawOverflowSession(t, svc.Port())
+	query := "SELECT REPEAT('M', 262144), SLEEP(5)"
+	payload := append([]byte{0x03}, []byte(query)...)
+	hdr := []byte{byte(len(payload)), byte(len(payload) >> 8), byte(len(payload) >> 16), 0}
+	if _, err := conn.Write(append(hdr, payload...)); err != nil {
+		t.Fatalf("write large query: %v", err)
+	}
+	// Read only the first few bytes of the response so the guest is actively
+	// streaming output packets, then abruptly close the client socket.
+	var peek [16]byte
+	_ = conn.SetReadDeadline(time.Now().Add(15 * time.Second))
+	if _, err := io.ReadFull(conn, peek[:]); err != nil {
+		t.Fatalf("read initial response bytes: %v\nstderr:\n%s", err, stderr.String())
+	}
+	if tcp, ok := conn.(*net.TCPConn); ok {
+		_ = tcp.SetLinger(0)
+	}
+	_ = conn.Close()
+
+	deadline := time.Now().Add(15 * time.Second)
+	for svc.Failure() == nil && time.Now().Before(deadline) {
+		time.Sleep(10 * time.Millisecond)
+	}
+	failure := svc.Failure()
+	if failure == nil {
+		t.Fatalf("expected peer_output_error poison after mid-response disconnect, but instance stayed alive\nstderr:\n%s", stderr.String())
+	}
+	if !strings.Contains(failure.Error(), "peer_output_error") {
+		t.Fatalf("expected peer_output_error failure after mid-response disconnect, got %v\nstderr:\n%s", failure, stderr.String())
+	}
+}

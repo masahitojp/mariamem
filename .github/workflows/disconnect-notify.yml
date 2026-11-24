@@ -50,7 +50,7 @@ jobs:
           set -o pipefail
           go test -p 1 -count=1 -race -gcflags='github.com/masahitojp/mariamem/internal/generatedgo/code/...=-race=false' \
             -run 'TestWaitDisconnected|TestDisconnectGenerations|TestFailureSignal|TestWorkerTrapFailsPendingCallsBeforeCompletion|TestConsumedFailureKeepsTransferUntilGuestAndWorkersJoin' \
-            . ./internal/host ./internal/guest 2>&1 | tee build/disconnect-evidence/contracts.txt
+            . ./internal/host ./internal/nativewire 2>&1 | tee build/disconnect-evidence/contracts.txt
       - name: Real TCP and Pipe disconnect, capture and child retirement
         shell: bash
         run: |
