@@ -12,11 +12,12 @@ importing `mariamem.routing` alone do not install hooks or load optional drivers
 
 ## Direct binding
 
-Install the optional `routing-pymysql` extra for PyMySQL1.2.3, `routing-sqlalchemy` for
-SQLAlchemy2.0.54 with PyMySQL, or `routing-mysql-connector` for Connector/Python26.7.0.
-Select the driver explicitly when installing the router; PyMySQL is the default.
-Other versions receive an actionable refusal; explicit child configuration is
-available without interception. Existing [Prepared exceptions](decisions/prepared-consumer-exceptions.md)
+Install the optional `routing-pymysql` extra for `PyMySQL>=1.1,<2`, `routing-sqlalchemy` for
+`SQLAlchemy>=2.0,<2.2` with `PyMySQL>=1.1,<2`, or `routing-mysql-connector` for
+`mysql-connector-python>=9.0,<27`. Select the driver explicitly when installing the router;
+PyMySQL is the default. Out-of-range, prerelease, or structurally incompatible driver/adapter
+versions receive an actionable refusal; explicit child configuration is available without
+interception. Existing [Prepared exceptions](decisions/prepared-consumer-exceptions.md)
 remain applicable.
 
 ```python
