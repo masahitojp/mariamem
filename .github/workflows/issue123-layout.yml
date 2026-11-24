@@ -47,7 +47,7 @@ jobs:
       - name: Complete initial bytes, isolation and failure ownership
         run: go test -p 1 -count=1 ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/generatedgo/code/base ./internal/generatedgo > build/static-image-ci/units.txt 2>&1
       - name: Canonical ownership race targets
-        run: go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1 > build/static-image-ci/race.txt 2>&1
+        run: go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/nativewire ./internal/host ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1 > build/static-image-ci/race.txt 2>&1
       - name: Actual Go DBs, Snapshot isolation, traps and process image lifetime
         run: |
           go test -p 1 -tags=integration ./tests/gointegration ./tests/godefault ./tests/generatedmemory -count=1 -timeout=3m > build/static-image-ci/go-runtime.txt 2>&1

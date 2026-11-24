@@ -8,6 +8,23 @@ Version themes and candidate adoption do not authorize a release.
 
 
 
+## B1 native wire (MariaDB 12.3.4) — adopted on main (2026-11-24)
+
+[PR #241](https://github.com/masahitojp/mariamem/pull/241) (`5ae17c640f973fc6d52d39e827f1f77a2c6dd8ee`,
+head `1bde3a008eec3e40a3e278c2e760ef1385e6cdd2`) integrated the B1 native-wire
+MariaDB 12.3.4 guest (`d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9`)
+and `internal/nativewire` host onto `main`, retiring the legacy `./internal/guest`,
+`./internal/mysqlwire`, and `./internal/preparedproto` packages.
+Candidate `1bde3a008eec3e40a3e278c2e760ef1385e6cdd2` passed
+[Release candidate READY](https://github.com/masahitojp/mariamem/actions/runs/45341245599)
+(two independent canonical guest rebuilds plus both-platform acceptance),
+[Development checks](https://github.com/masahitojp/mariamem/actions/runs/45341264717),
+and [Windows native acceptance](https://github.com/masahitojp/mariamem/actions/runs/45341251144).
+Versioned release publication remains a separate Human decision; follow-up items
+are tracked in [#246](https://github.com/masahitojp/mariamem/issues/246),
+[#247](https://github.com/masahitojp/mariamem/issues/247), and
+[#251](https://github.com/masahitojp/mariamem/issues/251).
+
 ## Bounded linked-guest streams (2026-11-21)
 
 The Human approved productizing a 16 KiB in-process ring in each direction of
