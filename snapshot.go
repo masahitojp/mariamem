@@ -106,6 +106,10 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		if consumed {
 			db.settleFork(e, cleanup == nil && db.disposalComplete())
 		}
+		var rejected *host.Rejected
+		if !consumed && cleanup == nil && errors.As(e, &rejected) && rejected.Code == "busy" {
+			e = snapshotBusyError{cause: e}
+		}
 		return nil, hostError(e, "snapshot_failed", consumed)
 	}
 	if consumed {
@@ -113,6 +117,17 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	}
 	return &Snapshot{opts: db.opts, backing: backing, limit: limit}, nil
 }
+
+// snapshotBusyError gives recovery guidance while preserving the host rejection.
+type snapshotBusyError struct{ cause error }
+
+func (e snapshotBusyError) Error() string {
+	return "Snapshot was not created. The source database is still usable. " +
+		"Wait for active SQL to finish or pending connections to open. " +
+		"If results are unread, read them to completion or close the rows before retrying."
+}
+
+func (e snapshotBusyError) Unwrap() error { return e.cause }
 
 // snapshotKeepLocked requires db.mu. An unusable guest is reported on the
 // failing capture itself.

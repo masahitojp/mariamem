@@ -413,8 +413,12 @@ func TestSnapshotFailures(t *testing.T) {
 		}
 		_, e := db.Snapshot(ctx, SnapshotOptions{})
 		var detail *HostError
-		if !errors.As(e, &detail) || detail.Closed != consumed || !errors.Is(e, original) || db.Closed() != consumed {
+		if !errors.As(e, &detail) || detail.Closed != consumed ||
+			!errors.Is(e, original) || !errors.Is(e, ErrBusy) || db.Closed() != consumed {
 			t.Fatal(e)
+		}
+		if hasHint := strings.Contains(e.Error(), "The source database is still usable"); hasHint != !consumed {
+			t.Fatalf("consumed=%v, unexpected recovery guidance in %q", consumed, e)
 		}
 		db.Close()
 		cancel()

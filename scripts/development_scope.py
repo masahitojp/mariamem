@@ -183,7 +183,13 @@ def select(paths, *, fallback=None):
                 'scripts/build_alpha.py', 'scripts/native_target.py', 'scripts/linux_wheel_acceptance.py',
                 'scripts/wheel_metadata.py', 'scripts/pypi_smoke.py', 'scripts/development_scope.py',
                 'tests/test_linux_distribution.py'} for path in paths),
-            'integration': full, 'changed_paths': sorted(set(paths)),
+            'integration': full,
+            'snapshot_model': bool(fallback or not paths or any(
+                path.startswith(('tests/formal/snapshot/', 'internal/nativewire/', 'guest/native/'))
+                or path in {'.github/workflows/check.yml', 'scripts/development_scope.py',
+                            'snapshot.go', 'tests/gointegration/capture_settle_test.go'}
+                for path in paths)),
+            'changed_paths': sorted(set(paths)),
             'reason': fallback or ('unknown/runtime input' if full else 'local changed-input classification')}
 
 
@@ -230,6 +236,7 @@ def main():
             output.write('check_scope=' + result['check_scope'] + '\n')
             output.write('linux_wheel=' + str(result['linux_wheel']).lower() + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
+            output.write('snapshot_model=' + str(result['snapshot_model']).lower() + '\n')
 
 
 if __name__ == '__main__':

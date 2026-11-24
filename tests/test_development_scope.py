@@ -185,6 +185,20 @@ def test_narrow_checks_do_not_build_guest_or_consume_release_receipts(monkeypatc
         assert 'MARIAMEM_TEST_HOST' not in kw['env']
 
 
+@pytest.mark.parametrize('path, selected', [
+    ('tests/formal/snapshot/SharedTransport.tla', True),
+    ('internal/nativewire/capture.go', True),
+    ('guest/native/wasm/issue65_control.cc', True),
+    ('snapshot.go', True),
+    ('tests/gointegration/capture_settle_test.go', True),
+    ('README.md', False),
+    ('unrelated.go', False),
+])
+def test_snapshot_model_selection(path, selected):
+    assert scope.select([path])['snapshot_model'] is selected
+    assert scope.select([], fallback='unknown diff')['snapshot_model']
+
+
 def test_workflow_has_no_external_runtime_receipt_dependency():
     text = (ROOT / '.github/workflows/check.yml').read_text()
     assert 'scripts/development_scope.py' in text
@@ -193,6 +207,9 @@ def test_workflow_has_no_external_runtime_receipt_dependency():
     assert 'fetch-depth: 0' in text
     assert "if: steps.diff.outputs.integration == 'true'" in text
     assert "check --scope '${{ steps.diff.outputs.check_scope }}'" in text
+    assert "if: steps.diff.outputs.snapshot_model == 'true'" in text
+    assert 'sha256sum --check' in text
+    assert 'sh tests/formal/snapshot/check.sh' in text
 
 
 def test_source_guarantees_run_before_compilation_exactly_once(monkeypatch):
