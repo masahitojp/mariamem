@@ -165,7 +165,7 @@ pushed candidate history. Recreated converter/extracted source, guest copies,
 Go build/module caches, SDK copies, venv, binaries, generated copies and test
 Snapshot directories were removed after preserving compact results/checksums.
 
-[Cleanup receipt](../../benchmarks/v047-upstream-evidence/qualification/cleanup-local.json)
+[Cleanup receipt](../../benchmarks/v047-upstream-evidence/README.md#raw-records)
 records allocated usage: **10.52 GiB before →0.25 GiB after scratch cleanup**;
 the remaining candidate source worktree is below1 GiB and will be removed with
 Git after this final commit/push. Compact evidence remains outside the disposable

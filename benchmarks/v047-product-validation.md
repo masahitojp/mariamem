@@ -177,7 +177,7 @@ Checked against pinned main `386a62c3669e37bb8aaad58cd0aca8da893b3d80`:
 one-second startup tails. [v0.4.5 measurement](v045-measurement.md) and its
 [raw measurements](v045-measurements/measurements.json) establish that this shape
 predates the translator migration. The derived observations and source hash are
-in [the comparison record](v047-upstream-evidence/qualification/historical-startup-tail-comparison.json).
+in [the comparison record](https://github.com/masahitojp/mariamem/blob/3831bd3c9cfa82931b0ae6956ac3dbdb9ffa9d3d/benchmarks/v047-upstream-evidence/qualification/historical-startup-tail-comparison.json).
 
 | Ready-stage observations | Ordinary range | Near-one-second observations |
 | --- | --- | --- |
