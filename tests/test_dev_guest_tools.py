@@ -129,6 +129,43 @@ def test_guest_download_failure_reports_archive_and_responding_host(tmp_path, mo
     assert list(tmp_path.iterdir()) == []
 
 
+@pytest.mark.parametrize('primary_error, mirror_matches', [(None, True), (403, True), (403, False)])
+def test_guest_icu_fallback_preserves_the_pinned_digest(tmp_path, monkeypatch, primary_error, mirror_matches):
+    from hashlib import sha256
+    from io import BytesIO
+    from urllib.error import HTTPError
+    import build_generated_guest as builder
+
+    pin = json.loads(builder.PIN.read_text())['archives']['icu']
+    assert pin['url'] == builder.ICU_PORTS_URL
+    archive = b'pinned Ubuntu archive'
+    pin['sha256'] = sha256(archive).hexdigest()
+    requested = []
+
+    def download(url, *, timeout):
+        requested.append(url)
+        if url == pin['url']:
+            if primary_error is not None:
+                raise HTTPError(url, primary_error, 'Forbidden', {}, None)
+            return BytesIO(archive)
+        assert url == builder.ICU_LAUNCHPAD_URL
+        return BytesIO(archive if mirror_matches else b'different archive')
+
+    monkeypatch.setattr(builder.urllib.request, 'urlopen', download)
+    if mirror_matches:
+        path = builder.download(pin, tmp_path)
+        assert path.read_bytes() == archive
+        assert list(tmp_path.iterdir()) == [path]
+    else:
+        with pytest.raises(ValueError, match='download checksum mismatch'):
+            builder.download(pin, tmp_path)
+        assert list(tmp_path.iterdir()) == []
+    expected = [pin['url']]
+    if primary_error:
+        expected.append(builder.ICU_LAUNCHPAD_URL)
+    assert requested == expected
+
+
 def test_partial_generation_never_emits_success_or_canonical_output(guest,tmp_path,monkeypatch):
     root,directory,record=guest
     import build_feedback,build_generated_guest
