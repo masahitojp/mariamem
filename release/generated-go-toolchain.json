@@ -19,9 +19,9 @@
       "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4"
     },
     "binaryen": {
-      "file": "binaryen-version_133-aarch64-linux.tar.gz",
-      "url": "https://github.com/WebAssembly/binaryen/releases/download/version_133/binaryen-version_133-aarch64-linux.tar.gz",
-      "sha256": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8"
+      "file": "binaryen-133-source.tar.gz",
+      "url": "https://codeload.github.com/WebAssembly/binaryen/tar.gz/fba5005a132d85d578be5bd010e0487ed8e2ce3e",
+      "sha256": "02ac4342e030c85a1849f3d0094c04cfa04c9ec11e5978f70349a588a659eac5"
     },
     "llvm": {
       "file": "LLVM-23.1.0-Linux-ARM64.tar.xz",
@@ -47,5 +47,11 @@
   "sysroot_variants": [
     "sysroot-eh",
     "sysroot-ehpic"
-  ]
+  ],
+  "binaryen_backport": {
+    "source_commit": "fba5005a132d85d578be5bd010e0487ed8e2ce3e",
+    "upstream_commit": "c35bddec04ca366d8f307ca5fcec98c358239db0",
+    "patch": "release/toolchain/binaryen-133-9379.patch",
+    "patch_sha256": "b153460cb3ca804ff01c0d6669e5df3c606ee94985ddf0d3c79611a508ad3915"
+  }
 }

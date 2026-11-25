@@ -197,6 +197,17 @@ def test_toolchain_recipe_exact_pins():
     assert all(len(v['sha256'])==64 and v['url'].startswith('https://') for v in pins['archives'].values())
 
 
+def test_canonical_binaryen_requires_fence_evidence():
+    pins = json.loads((ROOT/'release/generated-go-toolchain.json').read_text())
+    backport = pins['binaryen_backport']
+    build = dict(backport, optimizer_sha256='a'*64, library_sha256='b'*64, atomic_fence='PASS')
+    release.verify_binaryen_backport(ROOT, pins, {'binaryen_backport': build})
+    with pytest.raises(ValueError, match='atomic fence regression'):
+        release.verify_binaryen_backport(ROOT, pins, {'binaryen_backport': dict(build, atomic_fence='FAIL')})
+    with pytest.raises(ValueError, match='backport provenance'):
+        release.verify_binaryen_backport(ROOT, pins, {'binaryen_backport': dict(build, patch_sha256='c'*64)})
+
+
 def test_missing_platform_never_ready(tmp_path):
     with pytest.raises((ValueError,FileNotFoundError)):release.check_aggregate(tmp_path,'a'*40)
 

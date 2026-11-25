@@ -403,3 +403,128 @@ def test_additional_publication_tooling_does_not_select_main_runtime():
                            'tests/test_additional_v062.py',
                            '.github/workflows/additional-v062-build.yml'])
     assert result['check_scope'] == 'python' and not result['integration']
+
+
+def test_issue253_lightweight_doc_and_evidence_cases():
+    from check_development_docs import current_release_notes_path
+    notes = current_release_notes_path(ROOT)
+
+    # PR #234: ordinary docs
+    r234 = scope.select(['docs/compatibility.md'])
+    assert r234['check_scope'] == 'docs'
+    assert not r234['integration'] and not r234['linux_wheel']
+    assert not (r234['check_release_notes'] or r234['check_python_readme'] or r234['check_v047_evidence'])
+
+    # PR #222: docs + current release notes
+    r222 = scope.select(['README.md', 'docs/go.md', 'docs/python.md', 'docs/releasing.md', notes])
+    assert r222['check_scope'] == 'docs'
+    assert not r222['integration'] and not r222['linux_wheel']
+    assert r222['check_release_notes'] is True
+    assert not r222['check_python_readme'] and not r222['check_v047_evidence']
+
+    # Non-current release notes remain conservative
+    other_notes = scope.select(['release/NOTES-v0.6.2.md'])
+    assert other_notes['check_scope'] == 'full' and other_notes['integration'] and other_notes['linux_wheel']
+
+    # PR #223: python/README.md only
+    r223 = scope.select(['python/README.md'])
+    assert r223['check_scope'] == 'docs'
+    assert not r223['integration'] and not r223['linux_wheel']
+    assert r223['check_python_readme'] is True
+
+    # Mixed python/README.md with python/setup.cfg keeps full + linux_wheel
+    mixed_pkg = scope.select(['python/README.md', 'python/setup.cfg'])
+    assert mixed_pkg['check_scope'] == 'full' and mixed_pkg['integration'] and mixed_pkg['linux_wheel']
+
+    # PR #252 retained docs + verified deletions
+    r252_docs = scope.select([
+        'benchmarks/v047-product-validation.md',
+        'benchmarks/v047-upstream-evidence/README.md',
+        'benchmarks/v047-upstream-evidence/SHA256SUMS',
+        'docs/reviews/v047-upstream-migration.md',
+    ])
+    assert r252_docs['check_scope'] == 'docs'
+    assert not r252_docs['integration'] and not r252_docs['linux_wheel']
+    assert r252_docs['check_v047_evidence'] is True
+
+    # Unverified v0.4.7 evidence paths stay conservative in select()
+    unverified = scope.select(['benchmarks/v047-upstream-evidence/evidence-manifest.json'])
+    assert unverified['check_scope'] == 'full' and unverified['integration'] and unverified['linux_wheel']
+
+    # Verified deletion from archive commit 3831bd3c selects docs + v047 evidence check
+    verified = scope.select(
+        ['benchmarks/v047-upstream-evidence/evidence-manifest.json'],
+        verified_deletions=frozenset({'benchmarks/v047-upstream-evidence/evidence-manifest.json'}),
+    )
+    assert verified['check_scope'] == 'docs'
+    assert not verified['integration'] and not verified['linux_wheel']
+    assert verified['check_v047_evidence'] is True
+
+    # Mixed with generated input stays full
+    mixed_gen = scope.select([
+        'benchmarks/v047-upstream-evidence/README.md',
+        'benchmarks/spikes/generated-go-integration/prepared-files.go.txt',
+    ])
+    assert mixed_gen['check_scope'] == 'full' and mixed_gen['integration'] and mixed_gen['linux_wheel']
+
+
+def test_issue253_plan_verifies_v047_deletions_against_archive_blobs(monkeypatch, git_repo):
+    root, git, _ = git_repo
+    (root / 'python/mariamem').mkdir(parents=True)
+    shutil.copyfile(ROOT / 'python/mariamem/_version.py', root / 'python/mariamem/_version.py')
+    from layout import BENCHMARKS
+    target = root / (BENCHMARKS / 'v047-upstream-evidence/product/sample.json')
+    target.parent.mkdir(parents=True)
+    target.write_text('{"archived":true}\n')
+    git('add', '.')
+    git('commit', '-qm', 'add archived evidence')
+    base = git('rev-parse', 'HEAD')
+    blob_sha = git('rev-parse', 'HEAD:benchmarks/v047-upstream-evidence/product/sample.json')
+
+    monkeypatch.setattr(scope, 'v047_archive_blobs', lambda _r: {
+        'benchmarks/v047-upstream-evidence/product/sample.json': blob_sha,
+    })
+
+    # Deleting exact matching archived blob -> lightweight docs + v047 check
+    git('rm', '-q', 'benchmarks/v047-upstream-evidence/product/sample.json')
+    git('commit', '-qm', 'delete archived evidence')
+    del_head = git('rev-parse', 'HEAD')
+    del_plan = scope.plan(root, del_head, base)
+    assert del_plan['check_scope'] == 'docs'
+    assert not del_plan['integration'] and not del_plan['linux_wheel']
+    assert del_plan['check_v047_evidence'] is True
+
+    # Modifying instead of deleting -> full
+    git('checkout', '-q', base)
+    target.write_text('{"modified":true}\n')
+    git('add', '.')
+    git('commit', '-qm', 'modify archived evidence')
+    mod_head = git('rev-parse', 'HEAD')
+    mod_plan = scope.plan(root, mod_head, base)
+    assert mod_plan['check_scope'] == 'full' and mod_plan['integration']
+
+    # Deleting a blob whose SHA does not match archive -> full
+    git('rm', '-q', 'benchmarks/v047-upstream-evidence/product/sample.json')
+    git('commit', '-qm', 'delete mismatched blob')
+    bad_del_plan = scope.plan(root, git('rev-parse', 'HEAD'), mod_head)
+    assert bad_del_plan['check_scope'] == 'full' and bad_del_plan['integration']
+
+    # Renaming out of archived path -> destination is new unknown file -> full
+    git('checkout', '-q', base)
+    git('mv', 'benchmarks/v047-upstream-evidence/product/sample.json', 'benchmarks/moved.json')
+    git('commit', '-qm', 'rename archived evidence')
+    mv_plan = scope.plan(root, git('rev-parse', 'HEAD'), base)
+    assert mv_plan['check_scope'] == 'full' and mv_plan['integration']
+
+
+def test_issue253_real_pr252_plan_uses_lightweight_docs():
+    # PR #252 base -> head in real repository history
+    result = scope.plan(
+        ROOT,
+        'adc307a00b816a0c5e272554f50503aec118379c',
+        '87a60f79e5bb5d5a1141c4769c57c76bcd6182db',
+    )
+    assert result['check_scope'] == 'docs'
+    assert not result['integration'] and not result['linux_wheel']
+    assert result['check_v047_evidence'] is True
+    assert not result['check_release_notes'] and not result['check_python_readme']

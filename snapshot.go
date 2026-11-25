@@ -68,20 +68,74 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		return nil, err
 	}
 	db.mu.Lock()
-	defer db.mu.Unlock()
-	if err := db.invalidLocked(); err != nil {
-		return nil, err
-	}
-	if db.closed || db.server == nil {
-		return nil, hostError(ErrClosed, "closed", true)
-	}
-	if err := ctx.Err(); err != nil {
-		return nil, err
+	for {
+		if err := db.invalidLocked(); err != nil {
+			db.mu.Unlock()
+			return nil, err
+		}
+		if db.closed || db.closing != nil || db.server == nil {
+			db.mu.Unlock()
+			return nil, hostError(ErrClosed, "closed", true)
+		}
+		if err := ctx.Err(); err != nil {
+			db.mu.Unlock()
+			return nil, err
+		}
+		if db.snapDone == nil {
+			break
+		}
+		wait := db.snapDone
+		db.mu.Unlock()
+		select {
+		case <-wait:
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		}
+		db.mu.Lock()
 	}
 	if opts.KeepDatabase {
-		return db.snapshotKeepLocked(ctx, opts, limit)
+		if opts.Rollback {
+			db.mu.Unlock()
+			return nil, &HostError{Code: "invalid_options", Stage: "snapshot_options", Err: errors.New("Rollback cannot be combined with KeepDatabase")}
+		}
+		keeper, ok := db.server.(interface {
+			SnapshotKeep(context.Context) (*stored.Owned, error)
+		})
+		if !ok {
+			db.mu.Unlock()
+			return nil, hostError(&host.Rejected{Code: "unsupported", Message: "database does not support KeepDatabase"}, "unsupported", false)
+		}
+		snapDone := make(chan struct{})
+		db.snapDone = snapDone
+		server := db.server
+		optsCopy := db.opts
+		db.mu.Unlock()
+
+		backing, e := keeper.SnapshotKeep(ctx)
+
+		db.mu.Lock()
+		defer func() {
+			db.snapDone = nil
+			close(snapDone)
+			db.mu.Unlock()
+		}()
+		return db.finishSnapshotKeepLocked(server, optsCopy, limit, backing, e)
 	}
-	backing, consumed, e := db.server.SnapshotHeap(ctx, opts.Rollback)
+
+	snapDone := make(chan struct{})
+	db.snapDone = snapDone
+	server := db.server
+	optsCopy := db.opts
+	db.mu.Unlock()
+
+	backing, consumed, e := server.SnapshotHeap(ctx, opts.Rollback)
+
+	db.mu.Lock()
+	defer func() {
+		db.snapDone = nil
+		close(snapDone)
+		db.mu.Unlock()
+	}()
 	if consumed {
 		db.closed = true
 		// Keep cleanup dependencies separate from the capture operation error.
@@ -115,7 +169,7 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	if consumed {
 		db.settleFork(db.closeErr, db.disposalComplete())
 	}
-	return &Snapshot{opts: db.opts, backing: backing, limit: limit}, nil
+	return &Snapshot{opts: optsCopy, backing: backing, limit: limit}, nil
 }
 
 // snapshotBusyError gives recovery guidance while preserving the host rejection.
@@ -129,19 +183,9 @@ func (e snapshotBusyError) Error() string {
 
 func (e snapshotBusyError) Unwrap() error { return e.cause }
 
-// snapshotKeepLocked requires db.mu. An unusable guest is reported on the
+// finishSnapshotKeepLocked requires db.mu. An unusable guest is reported on the
 // failing capture itself.
-func (db *Database) snapshotKeepLocked(ctx context.Context, opts SnapshotOptions, limit *forklimit.Pool) (*Snapshot, error) {
-	if opts.Rollback {
-		return nil, &HostError{Code: "invalid_options", Stage: "snapshot_options", Err: errors.New("Rollback cannot be combined with KeepDatabase")}
-	}
-	keeper, ok := db.server.(interface {
-		SnapshotKeep(context.Context) (*stored.Owned, error)
-	})
-	if !ok {
-		return nil, hostError(&host.Rejected{Code: "unsupported", Message: "database does not support KeepDatabase"}, "unsupported", false)
-	}
-	backing, e := keeper.SnapshotKeep(ctx)
+func (db *Database) finishSnapshotKeepLocked(server backend, opts Options, limit *forklimit.Pool, backing *stored.Owned, e error) (*Snapshot, error) {
 	if e == nil && backing == nil {
 		e = errors.New("missing verified snapshot backing")
 	}
@@ -151,12 +195,12 @@ func (db *Database) snapshotKeepLocked(ctx context.Context, opts SnapshotOptions
 			e = errors.Join(e, cleanup)
 			db.captureDebt = errors.Join(db.captureDebt, cleanup)
 		}
-		if cause := db.server.Failure(); cause != nil {
+		if cause := server.Failure(); cause != nil {
 			return nil, &HostError{Code: "unusable", Closed: true, Err: errors.Join(ErrUnusable, e, cause)}
 		}
 		return nil, hostError(e, "snapshot_failed", false)
 	}
-	return &Snapshot{opts: db.opts, backing: backing, limit: limit}, nil
+	return &Snapshot{opts: opts, backing: backing, limit: limit}, nil
 }
 
 // MaxForks returns this baseline's immutable resolved limit. The automatic

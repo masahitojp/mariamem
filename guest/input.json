@@ -140,6 +140,6 @@
   },
   "native_glue_manifest": {
     "file": "guest/native/manifest.json",
-    "sha256": "a0d72f621c3f438435419eae5a1325535b8722144bb47a362dd5453608ebcd84"
+    "sha256": "c0c73b8d04aa8ad5da1e164ea2c4a13a25f82273b8cc1b48d2d5fde4b6cf04ea"
   }
 }

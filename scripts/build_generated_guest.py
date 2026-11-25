@@ -6,10 +6,12 @@ preserve the accepted recipe; this command intentionally requires an empty /work
 """
 from layout import BENCHMARKS
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -17,7 +19,6 @@ from urllib.error import HTTPError
 from urllib.parse import urlsplit
 import urllib.request
 from common import ROOT, digest, extract
-from install_guest_toolchain import inventory
 from build_feedback import run as observed_run
 
 PIN = ROOT / 'release/generated-go-toolchain.json'
@@ -25,6 +26,18 @@ PIN = ROOT / 'release/generated-go-toolchain.json'
 ICU_PORTS_URL = 'https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb'
 ICU_LAUNCHPAD_URL = 'https://launchpad.net/ubuntu/+archive/primary/+files/libicu70_70.1-2_arm64.deb'
 USER_AGENT = 'mariamem-guest-builder/1.0'
+
+
+def inventory(root):
+    entries = {}
+    for path in sorted(root.rglob('*')):
+        name = path.relative_to(root).as_posix()
+        if path.is_symlink():
+            entries[name] = ['symlink', os.readlink(path)]
+        elif path.is_file():
+            entries[name] = ['file', digest(path)]
+    encoded = json.dumps(entries, sort_keys=True, separators=(',', ':')).encode()
+    return {'entries': len(entries), 'inventory_sha256': hashlib.sha256(encoded).hexdigest()}
 
 
 def download(pin, directory):
@@ -57,6 +70,43 @@ def download(pin, directory):
     if digest(path) != pin['sha256']:
         raise ValueError('cached checksum mismatch: ' + pin['file'])
     return path
+
+
+def build_binaryen(pins, archive, sdk):
+    backport = pins['binaryen_backport']
+    patch = ROOT / backport['patch']
+    if digest(patch) != backport['patch_sha256']:
+        raise ValueError('Binaryen backport patch checksum differs')
+    source_root = sdk/'binaryen-source'
+    extract(archive, source_root)
+    source = source_root/('binaryen-' + backport['source_commit'])
+    output = sdk/'binaryen'
+    env = dict(os.environ, PATH='/usr/bin:/bin', LC_ALL='C', TZ='UTC', SOURCE_DATE_EPOCH='0')
+    inputs = [PIN, patch, archive]
+    observed_run(['/usr/bin/patch', '--fuzz=0', '-p1', '--batch', '--forward', '-i', patch],
+                 cwd=source, env=env, check=True, phase='guest:binaryen-patch', inputs=inputs)
+    observed_run(['/usr/bin/cmake', '-S', source, '-B', output, '-G', 'Ninja',
+                  '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_C_COMPILER=/usr/bin/gcc',
+                  '-DCMAKE_CXX_COMPILER=/usr/bin/g++', '-DCMAKE_CXX_FLAGS_RELEASE=-O2 -DNDEBUG',
+                  '-DCMAKE_C_FLAGS_RELEASE=-O2 -DNDEBUG', '-DBUILD_TESTS=OFF', '-DBUILD_LLVM_DWARF=ON'],
+                 env=env, check=True, phase='guest:binaryen-configure', inputs=inputs)
+    optimizer = output/'bin/wasm-opt'
+    library = output/'lib/libbinaryen.so'
+    observed_run(['/usr/bin/cmake', '--build', output, '--target', 'wasm-opt', '--parallel', '6'],
+                 env=env, check=True, phase='guest:binaryen-build', inputs=inputs,
+                 outputs=[optimizer, library])
+    fixture = source/'test/lit/passes/precompute_all-features.wast'
+    result = output/'atomic-fence-regression.wat'
+    observed_run([optimizer, fixture, '--all-features', '--precompute', '-S', '-g', '-o', result],
+                 env=env, check=True, phase='guest:binaryen-atomic-fence', inputs=[optimizer, library, fixture],
+                 outputs=[result])
+    if not re.search(r'^ \(func \$atomic-fence \(type [^)]+\)\n'
+                     r'  \(atomic\.fence\)\n  \(atomic\.fence acqrel\)\n \)$',
+                     result.read_text(), re.MULTILINE):
+        raise ValueError('Binaryen precompute removed an atomic fence')
+    return dict(backport, optimizer_sha256=digest(optimizer), library_sha256=digest(library),
+                compiler=subprocess.check_output(['/usr/bin/g++', '--version'], env=env, text=True).splitlines()[0],
+                atomic_fence='PASS')
 
 
 def main():
@@ -99,9 +149,7 @@ def main():
             raise ValueError('unexpected upstream sysroot layout: '+variant)
         payload.rename(sdk/'sysroot'/variant)
         shutil.rmtree(unpack)
-    extract(archives['binaryen'], sdk/'binaryen-unpack')
-    binaryen = next((sdk/'binaryen-unpack').iterdir())
-    binaryen.rename(sdk/'binaryen')
+    binaryen = build_binaryen(pins, archives['binaryen'], sdk)
     recipe = ROOT/(BENCHMARKS / 'spikes/generated-go-integration/prepare_llvm23.py')
     # The checksum-verified official LLVM23 and ICU archives are prepared by
     # the same accepted header profile, including the native-only NEON exclusion.
@@ -118,6 +166,7 @@ def main():
     toolchain = {'contract': 'generated-go-v1', 'pins_sha256': digest(PIN),
                  'host': 'linux-arm64', 'versions': {}, 'sysroot': inventory(sdk/'sysroot'),
                  'archives_sha256': {k:digest(v) for k,v in archives.items()}}
+    toolchain['binaryen_backport'] = binaryen
     for key,command in [('wasixcc',[driver,'--version']),('llvm',[sdk/'llvm/bin/clang','--version']),
                          ('lld',[sdk/'llvm/bin/wasm-ld','--version']),('binaryen',[sdk/'binaryen/bin/wasm-opt','--version']),
                          ('cmake',['/usr/bin/cmake','--version']),('bison',['/usr/bin/bison','--version']),
@@ -156,7 +205,8 @@ def main():
                      phase=f'guest:compile-link:{trial}', inputs=[PIN, shell, ROOT/'build/prepared-source.json'],
                      outputs=[linked], tools=toolchain['versions'])
         observed_run(['bash', shell, 'postopt'], env=env, check=True,
-                     phase=f'guest:wasm-postopt:{trial}', inputs=[linked, shell],
+                     phase=f'guest:wasm-postopt:{trial}', inputs=[linked, shell, sdk/'binaryen/bin/wasm-opt',
+                     sdk/'binaryen/lib/libbinaryen.so'],
                      outputs=[guest], tools=toolchain['versions'])
         result = {'linked_sha256':digest(linked),'guest_sha256':digest(guest)}
         if not development and result['guest_sha256'] != expected:

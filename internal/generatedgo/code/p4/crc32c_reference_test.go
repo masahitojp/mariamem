@@ -1304,7 +1304,7 @@ L94:
 	goto L95
 L95:
 	;
-	p4.Fn12528(m, int32(8828642), v15-int32(-64))
+	p4.Fn12526(m, int32(8828642), v15-int32(-64))
 	mBase = m.M
 	v606 = m.ExcPending
 	if v606 != 0 {
@@ -1337,7 +1337,7 @@ L99:
 	;
 	v611 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 18754356, 0, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 48, 4))) = v611
-	p4.Fn12528(m, int32(8518132), v15+int32(48))
+	p4.Fn12526(m, int32(8518132), v15+int32(48))
 	mBase = m.M
 	v617 = m.ExcPending
 	if v617 != 0 {
@@ -1399,7 +1399,7 @@ L108:
 	m.G0 = v695
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v695)), 12, 4))) = v686
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v695)), 8, 4))) = l1
-	v701 = p4.Fn18167(m, v695+int32(8))
+	v701 = p4.Fn18165(m, v695+int32(8))
 	mBase = m.M
 	if v701 != 0 {
 		goto L114
@@ -1452,15 +1452,15 @@ L116:
 	v713 = int32(base.Ui32((v703^base.I32_rotr(v703, int32(16)))&int32(-16711936))>>(uint(v709)%32)) ^ base.I32_rotr(v703, v709)
 	v714 = int32(0)
 	v716 = l1 + int32(4)
-	v718 = p4.Fn9134(m, v714, v716, int32(12))
+	v718 = p4.Fn9132(m, v714, v716, int32(12))
 	mBase = m.M
 	v721 = l1 + int32(24)
-	v723 = p4.Fn9134(m, v714, v721, int32(2))
+	v723 = p4.Fn9132(m, v714, v721, int32(2))
 	mBase = m.M
 	v726 = int32(34)
 	v727 = l1 + v726
 	v729 = v686 - v726
-	v730 = p4.Fn9134(m, v714, v727, v729)
+	v730 = p4.Fn9132(m, v714, v727, v729)
 	mBase = m.M
 	if v713 == v718^v723^v730 {
 		goto L117
@@ -1494,11 +1494,11 @@ L120:
 	}
 L121:
 	;
-	v743 = p4.Fn7032(m, int32(0), v716, int32(12))
+	v743 = p4.Fn7030(m, int32(0), v716, int32(12))
 	mBase = m.M
-	v745 = p4.Fn7032(m, v743, v721, int32(2))
+	v745 = p4.Fn7030(m, v743, v721, int32(2))
 	mBase = m.M
-	v746 = p4.Fn7032(m, v745, v727, v729)
+	v746 = p4.Fn7030(m, v745, v727, v729)
 	mBase = m.M
 	v750 = base.B2i32(v746 == v713)
 	goto L113
@@ -1551,7 +1551,7 @@ L130:
 	goto L125
 L131:
 	;
-	v1068 = p4.Fn16664(m, l1)
+	v1068 = p4.Fn16662(m, l1)
 	mBase = m.M
 	v1069 = m.ExcPending
 	if v1069 != 0 {
@@ -1569,7 +1569,7 @@ L132:
 	}
 L133:
 	;
-	v810 = p4.Fn16664(m, l1)
+	v810 = p4.Fn16662(m, l1)
 	mBase = m.M
 	v811 = m.ExcPending
 	if v811 != 0 {
@@ -1756,10 +1756,10 @@ L157:
 	}
 L158:
 	;
-	v1057 = p4.Fn16665(m, l1+int32(4), int32(22))
+	v1057 = p4.Fn16663(m, l1+int32(4), int32(22))
 	mBase = m.M
 	v1061 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 27619104, 0, 4)))
-	v1064 = p4.Fn16665(m, l1+int32(38), v1061-int32(46))
+	v1064 = p4.Fn16663(m, l1+int32(38), v1061-int32(46))
 	mBase = m.M
 	goto L159
 L159:
@@ -1862,7 +1862,7 @@ L173:
 	goto L174
 L174:
 	;
-	p4.Fn12528(m, int32(8828642), v15+int32(16))
+	p4.Fn12526(m, int32(8828642), v15+int32(16))
 	mBase = m.M
 	v1181 = m.ExcPending
 	if v1181 != 0 {
@@ -1899,7 +1899,7 @@ L178:
 	;
 	v1186 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 18754356, 0, 4)))
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v15)), 0, 4))) = v1186
-	p4.Fn12528(m, int32(8518132), v15)
+	p4.Fn12526(m, int32(8518132), v15)
 	mBase = m.M
 	v1190 = m.ExcPending
 	if v1190 != 0 {

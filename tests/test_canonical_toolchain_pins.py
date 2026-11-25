@@ -25,3 +25,16 @@ def test_release_ci_uses_authoritative_go_pin():
     assert {step['with']['go-version'] for step in steps(model) if action(step, 'actions/setup-go')} == {version}
     pins = {owner['env']['GOTOOLCHAIN'] for owner in [model, *model['jobs'].values(), *steps(model)] if 'GOTOOLCHAIN' in owner.get('env', {})}
     assert pins == {'go' + version}
+
+
+def test_canonical_guest_build_uses_llvm23_without_retired_wasmer_llvm_pins():
+    toolchain = json.loads((ROOT / 'release/generated-go-toolchain.json').read_text())
+    assert toolchain['llvm'] == '23.1.0'
+    assert toolchain['archives']['llvm']['file'] == 'LLVM-23.1.0-Linux-ARM64.tar.xz'
+    assert not (ROOT / 'guest/Dockerfile').exists()
+    lock_toolchain = json.loads((ROOT / 'release/inputs.lock.json').read_text())['toolchain']
+    assert set(lock_toolchain) == {'go'}
+    builder_text = (ROOT / 'scripts/build_generated_guest.py').read_text()
+    assert 'install_guest_toolchain' not in builder_text
+    assert 'release/generated-go-toolchain.json' in builder_text
+    assert '21.1.206' not in builder_text

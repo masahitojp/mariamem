@@ -1,12 +1,12 @@
 {
   "compiled_guest_source_scope": "MariaDB 12.3.4 B1 native-wire guest, existing WASIX owners, prepared UCA and lexer, bundled PCRE2 10.49",
-  "guest_sha256": "d9539c2e3501c509f2685f677e879f336e3b39bc4d66ead6a8afd88b3014f7a9",
+  "guest_sha256": "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.4",
       "native_glue_manifest": {
         "file": "guest/native/manifest.json",
-        "sha256": "a0d72f621c3f438435419eae5a1325535b8722144bb47a362dd5453608ebcd84"
+        "sha256": "c0c73b8d04aa8ad5da1e164ea2c4a13a25f82273b8cc1b48d2d5fde4b6cf04ea"
       },
       "native_wire_patch": {
         "after_sha256": {
@@ -147,7 +147,7 @@
       "tag_object_sha": "89b15ad180ba4f23b53226af5b0c168b0795c991",
       "version": "12.3.4"
     },
-    "inputs_lock_sha256": "b24a2c892f69d8ed61f0f387a3db6a9e5016b522dcb396a73cb476cd44c5b314",
+    "inputs_lock_sha256": "94bde45063b87e425b7512b95e43270365b8ca3820818f2709b41d9eec219848",
     "lexer_prepared": {
       "contract": "prepared-lexer-v1",
       "descriptors": 638,
@@ -211,7 +211,7 @@
       "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
       "wasm/CMakeLists.txt": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "wasm/issue65_control.cc": "b0a5563777e98d012093147ce1c6b9b11ead4a5acee7f3920c20e9aef2eb8516",
+      "wasm/issue65_control.cc": "89424e128a8fc92e9386cfa86027bbbdff5541d858967dfb840706a858cc0223",
       "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
       "wasm/lite4mariadb.c": "a06c09664ea82092976aba09286de2eb05de167cf347f114e3434d3812662d2d",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
@@ -235,7 +235,7 @@
       },
       "wasm/issue65_control.cc": {
         "file": "guest/native/wasm/issue65_control.cc",
-        "sha256": "b0a5563777e98d012093147ce1c6b9b11ead4a5acee7f3920c20e9aef2eb8516"
+        "sha256": "89424e128a8fc92e9386cfa86027bbbdff5541d858967dfb840706a858cc0223"
       },
       "wasm/issue65_deadline.h": {
         "file": "guest/native/wasm/issue65_deadline.h",
@@ -281,10 +281,9 @@
       "sha256": "caf8b97c7307d0c5e01b6d7801ff978b9b518d79f9d78b8a0e17c27fbe473d49"
     },
     "overlays": {
-      "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
       "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
-      "input.json": "c4816528743b848cd3a9b14ae3c2ca2a4518b74cc3f348fe8f661f8cc10fdfbd",
+      "input.json": "453a4d2f1ecd99de3726986af8eb6949b52e3c8c02488a66765a8fc440b6d961",
       "prepared_api.inc": "1016496a2f431cb648bb13501996b960c1300b5b20a4501c371d8754a3c97e45",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "prepared_source_patch.json": "59ae2e658478cfe03a67587f74b51103ba9917b1a0f295b2bb7d230dd6c736e9",
@@ -440,13 +439,23 @@
   },
   "toolchain": {
     "archives_sha256": {
-      "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+      "binaryen": "02ac4342e030c85a1849f3d0094c04cfa04c9ec11e5978f70349a588a659eac5",
       "converter": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
       "icu": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
       "llvm": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
       "sysroot": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
       "sysroot_pic": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0",
       "wasixcc": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+    },
+    "binaryen_backport": {
+      "atomic_fence": "PASS",
+      "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "library_sha256": "1dfeaf5266ea65fbde0d85954d83b720b6f0ce32e5c96e9fd2445f415e53d491",
+      "optimizer_sha256": "72342a023b140487936c7a2669c541077dc3b28dc45fd2d8f6f303fbc9e91bde",
+      "patch": "release/toolchain/binaryen-133-9379.patch",
+      "patch_sha256": "b153460cb3ca804ff01c0d6669e5df3c606ee94985ddf0d3c79611a508ad3915",
+      "source_commit": "fba5005a132d85d578be5bd010e0487ed8e2ce3e",
+      "upstream_commit": "c35bddec04ca366d8f307ca5fcec98c358239db0"
     },
     "contract": "generated-go-v1",
     "environment": {
@@ -457,13 +466,13 @@
       "TZ": "UTC"
     },
     "host": "linux-arm64",
-    "pins_sha256": "8f0ebd2edb4fc55fa68c058a77379b284291dd8a2199b6a24b68738ebe895437",
+    "pins_sha256": "fee780309797b772691105cd7309c51492ea1d4898c29d1c4f86997528f05076",
     "sysroot": {
       "entries": 4985,
       "inventory_sha256": "ec9f4eec4cc3f5d019531a8b3d6dbfb524b2661ba5a2046b9d8ce89378bf29dc"
     },
     "versions": {
-      "binaryen": "wasm-opt version 133 (version_133)",
+      "binaryen": "wasm-opt version 133",
       "bison": "bison (GNU Bison) 3.8.2\nWritten by Robert Corbett and Richard Stallman.\n\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
       "cmake": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
       "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
@@ -473,12 +482,12 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
-  "guest_size": 21986494,
-  "linked_guest_sha256": "bf2fc606846e6fd11e86227fcd8e1200033da9e3ed881e7dcd6521223af63b59",
-  "repetitions": 1,
+  "source_commit": "619aa7f6f9bcfd2771a6b91e4a6c555437ff8526",
+  "guest_size": 21988436,
+  "linked_guest_sha256": "764393a3dcf632d0573727cd8eaeb7c3f9db3b278ebf8b30ef9732cb3dfc5a78",
+  "repetitions": 2,
   "completed": true,
-  "full_guest_regeneration": "PASS: fresh Linux arm64 Docker canonical build (zero experimental.patch) + byte-identical Binaryen postopt + macOS arm64 generated-Go install. Two-repetition & both-OS CI qualification pending.",
+  "full_guest_regeneration": "PASS: two fresh Linux arm64 source builds produced identical linked and optimized WASM. Both-OS CI qualification pending.",
   "ci_evidence": null,
   "previous_canonical_evidence": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
@@ -497,10 +506,10 @@
     }
   },
   "incoming_guest_origin": {
-    "source_commit": "aaa3a28ba2e1d45f9a9364381aff410c3a569f73",
-    "contract": "development-unqualified-v1",
-    "independent_source_builds": 1,
-    "use": "Local canonical Linux arm64 source bootstrap; two-repetition & both-OS CI qualification pending."
+    "source_commit": "619aa7f6f9bcfd2771a6b91e4a6c555437ff8526",
+    "contract": "generated-go-v1",
+    "independent_source_builds": 2,
+    "use": "Local canonical source bootstrap for #256 event-driven control threads in issue65_control.cc."
   },
   "previous_12_3_3_ci_evidence": {
     "run_id": 43569024494,
@@ -516,9 +525,10 @@
   "local_generated_go_replay": {
     "result": "PASS",
     "generated_and_owned_files": 136,
-    "inventory_sha256": "fbef57428fa4a40df34998c0a2f5e7357b1dd633f85f3b9fd933052b00820c35",
-    "generated_provenance_sha256": "e0fec5067c0e24bafd702fc3064824de71652fdebdb77a44a4c1fa55c50ba63d",
-    "second_converter_manifest_sha256": "d64ec9abe39c5d3650de724835bac733176068592ddec13deeed26e94bae9d3e",
+    "inventory_sha256": "4a59264b514296f989ba14e8133ab3ddb3fa8c5e0933cd5cf2e7e7e904873172",
+    "generated_provenance_sha256": "31ab8c100c28ef2b144a93e90f6e77b27980b6d4924b187159566d5a0d06c892",
+    "second_converter_manifest_sha256": "e16d886fa09e1671ae17626ab3023b1d2d6d488556d5bc1c6441ae6832a7e324",
+    "regeneration_receipt_sha256": "31cd81300d0cfacf81dbc3e27faa2f1f7ea3bf40573bea6939bc62d1feb5a0a0",
     "memory32_cases": 2472,
     "memory32_expected_traps": 1693
   }
