@@ -13,11 +13,13 @@ importing `mariamem.routing` alone do not install hooks or load optional drivers
 ## Direct binding
 
 Install the optional `routing-pymysql` extra for `PyMySQL>=1.1,<2`, `routing-sqlalchemy` for
-`SQLAlchemy>=2.0,<2.2` with `PyMySQL>=1.1,<2`, or `routing-mysql-connector` for
-`mysql-connector-python>=9.0,<27`. Select the driver explicitly when installing the router;
-PyMySQL is the default. Out-of-range, prerelease, or structurally incompatible driver/adapter
-versions receive an actionable refusal; explicit child configuration is available without
-interception. Existing [Prepared exceptions](decisions/prepared-consumer-exceptions.md)
+`SQLAlchemy>=2.0,<2.2` with `PyMySQL>=1.1,<2`, `routing-mysql-connector` for
+`mysql-connector-python>=9.0,<27`, or `routing-mysqlclient` for `mysqlclient>=2.2.7,<3`
+(runtime accepts `mysqlclient>=2.2,<3`; combine with `routing-sqlalchemy` or your existing
+`SQLAlchemy>=2.0,<2.2` for `mysql+mysqldb`). Select the driver explicitly when installing the
+router; PyMySQL is the default. Out-of-range, prerelease, or structurally incompatible
+driver/adapter versions receive an actionable refusal; explicit child configuration is
+available without interception. Existing [Prepared exceptions](decisions/prepared-consumer-exceptions.md)
 remain applicable.
 
 ```python
@@ -52,13 +54,26 @@ Previously saved factory aliases with advanced options can preprocess work
 before our hook; they are outside this initial support boundary. Import/extension
 problems are reported as driver availability failures, not guest SQL failures.
 
+For `mysqlclient` (`MySQLdb`), use `drivers=("MySQLdb",)` (or
+`mariamem_route_drivers = ["MySQLdb"]` in pytest). Routing hooks
+`MySQLdb.connections.Connection.__init__`, covering `MySQLdb.connect`,
+`MySQLdb.Connect`, saved aliases, positional/keyword arguments (`db`/`passwd`
+aliases included), and SQLAlchemy `mysql+mysqldb` default `QueuePool`
+enrollment. `ssl_mode="PREFERRED"` / `"DISABLED"` and `ssl=False` are allowed;
+required TLS (`ssl=True`, `ssl={...}`, `ssl_mode="REQUIRED"`/`"VERIFY_CA"`/
+`"VERIFY_IDENTITY"`), `unix_socket`, `named_pipe`, `read_default_file`,
+`read_default_group`, `compress`, `local_infile`, `local_infile_dir`,
+`server_public_key_path`, and `auth_plugin` receive explicit refusals before
+dial. Direct C-extension calls (`MySQLdb._mysql.connect()`) and deprecated
+`ping(reconnect=True)` are outside this support boundary.
+
 ## Existing SQLAlchemy engines
 
 ```python
 routes.register_engine(application.engine, profile="app", ownership="test")
 ```
 
-Register the default `mysql+pymysql` QueuePool before application activity. The
+Register the default `mysql+pymysql` or `mysql+mysqldb` QueuePool before application activity (with the matching `"pymysql"` or `"MySQLdb"` routing driver enabled). The
 caller hands off a quiescent, test-owned engine: enrollment may discard its idle
 pool, but an active checkout/transaction refuses the transition and is preserved.
 Use `routes.create_engine(url, profile="app", **options)` at an application test
@@ -201,7 +216,7 @@ is explicit and restores only hooks it still owns.
 
 On successful binding exit, `mariamem.routing.UnusedRoutingWarning` reports
 “routed 0 connections” if that binding opened no successful routed connection.
-An unsupported driver (such as Django's mysqlclient), a mismatched profile or a
+An unenrolled or unsupported driver (such as an async driver or `MySQLdb` when only `pymysql` is enabled), a mismatched profile or a
 test that never opens a DB connection can produce this warning. It is a signal
 to check driver/profile enrollment, not proof that an original connection was
 used or a connection failure diagnosis. The count belongs to that binding,
