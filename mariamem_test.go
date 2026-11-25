@@ -908,3 +908,186 @@ func TestDialContextPreconditions(t *testing.T) {
 		t.Fatal("capacity classification lost")
 	}
 }
+
+func TestSnapshotFollowerCancelsWhileLeaderInFlight(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		consumed bool
+		err      error
+	}{
+		{name: "leader_consumes", consumed: true, err: nil},
+		{name: "leader_busy_preserves_db", consumed: false, err: ErrBusy},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			entered := make(chan struct{})
+			release := make(chan struct{})
+			var releaseOnce sync.Once
+			t.Cleanup(func() { releaseOnce.Do(func() { close(release) }) })
+
+			var calls atomic.Int32
+			f := &fakeBackend{
+				snapshot: func(context.Context, bool) (*stored.Owned, bool, error) {
+					if calls.Add(1) == 1 {
+						close(entered)
+						<-release
+						if tc.err != nil {
+							return nil, tc.consumed, tc.err
+						}
+						return goodBacking(t), tc.consumed, nil
+					}
+					t.Errorf("unexpected second backend snapshot call")
+					return nil, false, errors.New("unexpected second call")
+				},
+			}
+			db := testDB(t, f)
+
+			type snapResult struct {
+				s   *Snapshot
+				err error
+			}
+			leaderCh := make(chan snapResult, 1)
+			go func() {
+				s, err := db.Snapshot(context.Background(), SnapshotOptions{MaxForks: 1})
+				leaderCh <- snapResult{s: s, err: err}
+			}()
+
+			select {
+			case <-entered:
+			case <-time.After(2 * time.Second):
+				t.Fatal("leader did not enter backend snapshot")
+			}
+
+			// Follower must return with DeadlineExceeded BEFORE release is closed.
+			followerCtx, cancel := context.WithTimeout(context.Background(), 20*time.Millisecond)
+			defer cancel()
+			followerDone := make(chan error, 1)
+			go func() {
+				s, err := db.Snapshot(followerCtx, SnapshotOptions{MaxForks: 1})
+				if s != nil {
+					_ = s.Close()
+					followerDone <- errors.New("canceled follower unexpectedly returned snapshot")
+					return
+				}
+				followerDone <- err
+			}()
+
+			select {
+			case err := <-followerDone:
+				if !errors.Is(err, context.DeadlineExceeded) {
+					t.Fatalf("follower returned %v, want context.DeadlineExceeded", err)
+				}
+			case <-time.After(180 * time.Millisecond):
+				t.Fatal("follower blocked past deadline while leader was in flight")
+			}
+
+			if got := calls.Load(); got != 1 {
+				t.Fatalf("backend snapshot calls before leader release = %d, want 1", got)
+			}
+
+			releaseOnce.Do(func() { close(release) })
+			res := <-leaderCh
+			if tc.err != nil {
+				if !errors.Is(res.err, tc.err) || res.s != nil {
+					t.Fatalf("leader result = (%v, %v), want (nil, %v)", res.s, res.err, tc.err)
+				}
+				if db.Closed() {
+					t.Fatal("source DB closed after non-consuming busy snapshot")
+				}
+			} else {
+				if res.err != nil || res.s == nil {
+					t.Fatalf("leader result = (%v, %v), want valid snapshot", res.s, res.err)
+				}
+				t.Cleanup(func() { _ = res.s.Close() })
+				if !db.Closed() {
+					t.Fatal("source DB stayed open after consuming snapshot")
+				}
+			}
+			if got := calls.Load(); got != 1 {
+				t.Fatalf("total backend snapshot calls = %d, want 1", got)
+			}
+		})
+	}
+}
+
+func TestCloseDuringInFlightSnapshotSerializesBackendClose(t *testing.T) {
+	for _, consumed := range []bool{false, true} {
+		t.Run(map[bool]string{false: "non_consuming", true: "consuming"}[consumed], func(t *testing.T) {
+			entered := make(chan struct{})
+			release := make(chan struct{})
+			var releaseOnce sync.Once
+			t.Cleanup(func() { releaseOnce.Do(func() { close(release) }) })
+
+			var inSnapshot atomic.Bool
+			var closeDuringSnapshot atomic.Bool
+			f := &fakeBackend{
+				snapshot: func(context.Context, bool) (*stored.Owned, bool, error) {
+					inSnapshot.Store(true)
+					close(entered)
+					<-release
+					inSnapshot.Store(false)
+					if consumed {
+						return goodBacking(t), true, nil
+					}
+					return nil, false, ErrBusy
+				},
+			}
+			wrapped := &closeCheckBackend{
+				fakeBackend: f,
+				onClose: func() {
+					if inSnapshot.Load() {
+						closeDuringSnapshot.Store(true)
+					}
+				},
+			}
+			db := &Database{server: wrapped, opts: Options{ShutdownTimeout: time.Second}}
+			t.Cleanup(func() { _ = db.Close() })
+
+			leaderDone := make(chan error, 1)
+			go func() {
+				s, err := db.Snapshot(context.Background(), SnapshotOptions{MaxForks: 1})
+				if s != nil {
+					_ = s.Close()
+				}
+				leaderDone <- err
+			}()
+			<-entered
+
+			closeDone := make(chan error, 1)
+			go func() {
+				closeDone <- db.Close()
+			}()
+			time.Sleep(20 * time.Millisecond)
+			if closeDuringSnapshot.Load() {
+				t.Fatal("backend Close ran concurrently with in-flight Snapshot")
+			}
+
+			releaseOnce.Do(func() { close(release) })
+			<-leaderDone
+			if err := <-closeDone; err != nil {
+				t.Fatalf("Close returned %v", err)
+			}
+			if closeDuringSnapshot.Load() {
+				t.Fatal("backend Close ran concurrently with in-flight Snapshot")
+			}
+			wantCloses := 1
+			if consumed {
+				wantCloses = 0
+			}
+			if wrapped.closes != wantCloses {
+				t.Fatalf("backend closes = %d, want %d", wrapped.closes, wantCloses)
+			}
+		})
+	}
+}
+
+type closeCheckBackend struct {
+	*fakeBackend
+	onClose func()
+}
+
+func (b *closeCheckBackend) Close(ctx context.Context) error {
+	if b.onClose != nil {
+		b.onClose()
+	}
+	return b.fakeBackend.Close(ctx)
+}

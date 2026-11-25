@@ -86,6 +86,7 @@ type Database struct {
 	lease       *forklimit.Lease
 	captureDebt error
 	closing     *closeOperation
+	snapDone    chan struct{}
 }
 
 // Start creates one database. Its context governs startup, not the lifetime of a
@@ -211,12 +212,33 @@ func (db *Database) beginCloseLocked() *closeOperation {
 		close(op.done)
 		return op
 	}
-	if failure := db.invalidLocked(); failure != nil {
-		db.failure = failure
+	waitSnap := db.snapDone
+	if waitSnap == nil {
+		if failure := db.invalidLocked(); failure != nil {
+			db.failure = failure
+		}
+		db.closed = true
 	}
-	db.closed = true
-	server, debt, timeout := db.server, db.captureDebt, db.opts.ShutdownTimeout
+	server, timeout := db.server, db.opts.ShutdownTimeout
 	go func() {
+		if waitSnap != nil {
+			<-waitSnap
+			db.mu.Lock()
+			if db.closed {
+				// Leading Snapshot consumed the DB while Close was waiting.
+				result := db.closeErr
+				op.notifyStopped(result)
+				op.err = result
+				close(op.done)
+				db.mu.Unlock()
+				return
+			}
+			if failure := db.invalidLocked(); failure != nil {
+				db.failure = failure
+			}
+			db.closed = true
+			db.mu.Unlock()
+		}
 		var err error
 		if server != nil {
 			ctx, cancel := context.WithTimeout(context.Background(), timeout)
@@ -231,9 +253,9 @@ func (db *Database) beginCloseLocked() *closeOperation {
 		}
 		// Fallback, and failure before a backend could publish its stopped result.
 		op.notifyStopped(err)
-		result := hostError(errors.Join(err, debt), "close", true)
 		db.mu.Lock()
 		defer db.mu.Unlock()
+		result := hostError(errors.Join(err, db.captureDebt), "close", true)
 		db.closeErr = result
 		db.settleFork(result, db.disposalComplete())
 		op.err = result
