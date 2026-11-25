@@ -57,27 +57,27 @@ struct Manager {
  std::deque<std::shared_ptr<Session>> killQueue;
  std::atomic<bool> controlOverflow{false};bool fenced=false,closing=false,poisoned=false,timerStop=false,reaperStop=false,killerStop=false,writerStop=false;
  std::string cause;uint64_t epoch=0,captureID=0;bool cleanupFailed=false;unsigned injectFailure=0;
- uint64_t rollbackReports=0,started=0,joined=0,stale=0,denied=0,controlPeak=0;size_t retiredInputPeak=0,retiredOutputPeak=0;
- std::thread writer,timer,reaper,killer;
+ uint64_t rollbackReports=0,started=0,joined=0,stale=0,denied=0,controlPeak=0,outSeq=0,progressSeq=0;size_t retiredInputPeak=0,retiredOutputPeak=0;
+ std::thread writer,monitor,killer;
  Manager(){
   const char *text=std::getenv("MARIAMEM_CONTROL_EPOCH");need(text&&*text,"host instance epoch required");
   for(const unsigned char *p=(const unsigned char*)text;*p;++p){need(*p>='0'&&*p<='9',"instance epoch decimal");unsigned digit=*p-'0';need(epoch<=(UINT64_MAX-digit)/10,"instance epoch overflow");epoch=epoch*10+digit;}
   need(epoch!=0,"nonzero instance epoch");
  }
  Frame frame(int kind,uint32_t request=0,const std::shared_ptr<Session>& s={},uint64_t value=0,std::string text=""){Frame f;f.kind=kind;f.request=request;f.epoch=epoch;f.value=value;f.data=bytes(text);if(s){f.slot=s->slot;f.generation=s->generation;}return f;}
- void emit(Frame f){std::lock_guard<std::mutex> l(outMu);size_t n=33+f.data.size();if(f.kind==POISON){urgent=std::make_unique<Frame>(std::move(f));}else if(controlBytes+n>65536){controlOverflow=true;}else{controlBytes+=n;controlPeak=std::max<uint64_t>(controlPeak,controlBytes);controls.push_back(std::move(f));}outReady.notify_all();}
- void state(const std::shared_ptr<Session>& s){s->statePending=true;outReady.notify_all();progress.notify_all();}
- void scheduleKill(const std::shared_ptr<Session>& s){std::lock_guard<std::mutex> l(killMu);killQueue.push_back(s);killReady.notify_all();}
+ void wakeWriter(){std::lock_guard<std::mutex> l(outMu);++outSeq;outReady.notify_one();}
+ void wakeProgressLocked(){++progressSeq;progress.notify_all();}
+ void emit(Frame f){bool overflowed=false;{std::lock_guard<std::mutex> l(outMu);size_t n=33+f.data.size();if(f.kind==POISON){urgent=std::make_unique<Frame>(std::move(f));}else if(controlBytes+n>65536){controlOverflow.store(true,std::memory_order_release);overflowed=true;}else{controlBytes+=n;controlPeak=std::max<uint64_t>(controlPeak,controlBytes);controls.push_back(std::move(f));}++outSeq;outReady.notify_one();}if(overflowed)progress.notify_all();}
+ void state(const std::shared_ptr<Session>& s){s->statePending=true;wakeWriter();wakeProgressLocked();}
+ void scheduleKill(const std::shared_ptr<Session>& s){std::lock_guard<std::mutex> l(killMu);if(killerStop)return;killQueue.push_back(s);if(!killer.joinable()){killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>k;{std::unique_lock<std::mutex> ql(killMu);killReady.wait(ql,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;k=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(k->handle);if(k->thd)mariamem_spike_kill(k->thd);}mysql_thread_end();});}killReady.notify_all();}
  // gate held; queue closing never waits for external I/O or THD engine locks.
- void cancelLocked(int err){for(auto &s:slots)if(s){s->closeIO(err);scheduleKill(s);}progress.notify_all();outReady.notify_all();}
+ void cancelLocked(int err){for(auto &s:slots)if(s){s->closeIO(err);scheduleKill(s);}wakeProgressLocked();wakeWriter();}
  void poisonLocked(const std::string &why){if(poisoned||closing)return;poisoned=true;fenced=true;cause=why;emit(frame(POISON,0,{},0,why));cancelLocked(why.find("deadline")!=std::string::npos?ETIMEDOUT:ECONNRESET);}
  std::shared_ptr<Session> match(const Frame &f){if(f.epoch!=epoch||f.slot>=16||!slots[f.slot]||slots[f.slot]->generation!=f.generation){++stale;emit(frame(REJECTED,f.request,{},5,"stale"));return {};}return slots[f.slot];}
  void start(){
+  send_frame(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":3,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
   writer=std::thread([this]{writeLoop();});
-  killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(killMu);killReady.wait(l,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;s=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(s->handle);if(s->thd)mariamem_spike_kill(s->thd);}mysql_thread_end();});
-  timer=std::thread([this]{std::unique_lock<std::mutex> l(gate);while(!timerStop){progress.wait_for(l,std::chrono::milliseconds(5));if(controlOverflow.exchange(false))poisonLocked("control_queue_overflow");if(poisoned||closing)continue;auto now=Clock::now();for(auto &s:slots){if(!s)continue;if(s->eofResponseGrace&&s->phase==EXECUTING&&now-s->eofResponseAt>=std::chrono::milliseconds(200)){poisonLocked("unexpected_peer_eof");break;}if(s->deadline.expired(now)){if(s->command==0){s->phase=RETIRING;s->deadline.disarm();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);}else{poisonLocked("deadline");break;}}}}});
-  reaper=std::thread([this]{reapLoop();});
-  emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":3,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
+  monitor=std::thread([this]{monitorLoop();});
  }
  bool admit(Session *raw){
   for(;;){
@@ -147,9 +147,9 @@ struct Manager {
  static size_t readCb(void *p,unsigned char *to,size_t n){
   auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->inputEOF||!s->input.empty();});if(s->closed)return size_t(-1);if(s->input.empty()&&s->inputEOF)return 0;
   if(s->armed){l.unlock();if(!s->owner->admit(s))return size_t(-1);l.lock();if(s->closed)return size_t(-1);}
-  n=std::min({n,s->input.size(),CHUNK});for(size_t i=0;i<n;++i){to[i]=s->input.front();s->input.pop_front();}s->consumed+=n;s->creditPending=true;l.unlock();s->owner->outReady.notify_all();return n;
+  n=std::min({n,s->input.size(),CHUNK});for(size_t i=0;i<n;++i){to[i]=s->input.front();s->input.pop_front();}s->consumed+=n;s->creditPending=true;l.unlock();s->owner->wakeWriter();return n;
  }
- static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->eofDuringResponse||s->produced-s->acked<OUTPUT_LIMIT;});if(s->closed)return size_t(-1);if(s->eofDuringResponse&&n>0){s->closed=true;s->error=EPIPE;s->changed.notify_all();l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->poisonLocked("peer_output_error");}return size_t(-1);}n=std::min({n,size_t(OUTPUT_LIMIT-(s->produced-s->acked)),CHUNK});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->outReady.notify_all();return n;}
+ static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->eofDuringResponse||s->produced-s->acked<OUTPUT_LIMIT;});if(s->closed)return size_t(-1);if(s->eofDuringResponse&&n>0){s->closed=true;s->error=EPIPE;s->changed.notify_all();l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->poisonLocked("peer_output_error");}return size_t(-1);}n=std::min({n,size_t(OUTPUT_LIMIT-(s->produced-s->acked)),CHUNK});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->wakeWriter();return n;}
  static int errorCb(void *p){auto *s=(Session*)p;std::lock_guard<std::mutex> l(s->io);return s->error?s->error:EIO;}
  static void closeCb(void *p){((Session*)p)->closeIO(ECANCELED);}
  static int waitCb(void *p,int kind,int ms){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);auto ready=[&]{return s->closed||(kind==0?(s->inputEOF||!s->input.empty()):s->produced-s->acked<OUTPUT_LIMIT);};if(ms<0)s->changed.wait(l,ready);else if(!s->changed.wait_for(l,std::chrono::milliseconds(ms),ready)){s->error=ETIMEDOUT;return 0;}return s->closed?-1:1;}
@@ -162,8 +162,8 @@ struct Manager {
   if(!issue65_deadline::valid(f.value)){reject(9,"timeout_configuration");return;}
   auto s=std::make_shared<Session>(this,f.slot,f.generation,f.value);
   // A replay watermark only: host chooses the slot and issues the generation.
-  generations[f.slot]=f.generation;slots[f.slot]=s;++started;emit(frame(OPENED,f.request,s));
-  s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->deadline.disarm();s->workerDone=true;progress.notify_all();}});
+  generations[f.slot]=f.generation;slots[f.slot]=s;++started;emit(frame(OPENED,f.request,s));wakeProgressLocked();
+  s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->deadline.disarm();s->workerDone=true;wakeProgressLocked();}});
  }
  void input(const Frame &f){
   std::lock_guard<std::mutex> l(gate);
@@ -193,11 +193,11 @@ struct Manager {
  // Input framing errors are escalated immediately by the reader after releasing I/O locks.
  std::string pendingPoison;
  void poisonLockedAfterIO(const std::shared_ptr<Session>&,const std::lock_guard<std::mutex>&){pendingPoison="input_offset";}
- void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}outReady.notify_all();}
+ void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}wakeWriter();}
  void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||s->overflowed||(fenced&&captureID))return;
   bool responseSent=false;{std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;responseSent=s->sent>s->cmdProducedStart;if(!f.value&&!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)&&responseSent)s->eofDuringResponse=true;s->changed.notify_all();}
   if(f.value){if(s->command&&s->phase!=IDLE){poisonLocked("peer_output_error");return;}s->phase=RETIRING;s->deadline.disarm();s->closeIO(ECANCELED);scheduleKill(s);state(s);return;}
-  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)){if(!responseSent)poisonLocked("unexpected_peer_eof");else{s->eofResponseGrace=true;s->eofResponseAt=Clock::now();progress.notify_all();}}
+  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&!allows_peer_eof_during_exec(s->nativeCommand)){if(!responseSent)poisonLocked("unexpected_peer_eof");else{s->eofResponseGrace=true;s->eofResponseAt=Clock::now();wakeProgressLocked();}}
  }
  void tryCapture(const Frame &f){std::lock_guard<std::mutex> l(gate);
   if(f.epoch!=epoch||!f.value||f.generation>1){emit(frame(REJECTED,f.request,{},5,"capture_identity"));return;}
@@ -230,19 +230,73 @@ struct Manager {
   else if(f.kind==STATS){emit(frame(STATS_REPLY,f.request,{},0,stats()));}
   else if(f.kind==HOLD){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(s){std::lock_guard<std::mutex> q(s->io);s->hold=f.value;s->changed.notify_all();emit(frame(REPLY,f.request,s,0,"hold_set"));}}
   else if(f.kind==EXPIRE){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(s){if(s->command!=f.value||s->phase==IDLE||s->phase==RETIRING){++stale;emit(frame(REJECTED,f.request,s,5,"stale_timer"));}else poisonLocked("deadline_injected");}}
-  {std::lock_guard<std::mutex> l(gate);if(!pendingPoison.empty()){auto why=pendingPoison;pendingPoison.clear();poisonLocked(why);}}
+  {std::lock_guard<std::mutex> l(gate);if(controlOverflow.exchange(false,std::memory_order_acq_rel))poisonLocked("control_queue_overflow");if(!pendingPoison.empty()){auto why=pendingPoison;pendingPoison.clear();poisonLocked(why);}}
  }
- void reapLoop(){for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(gate);progress.wait_for(l,std::chrono::milliseconds(5),[&]{if(reaperStop)return true;for(auto &p:slots)if(p&&p->workerDone&&!p->joining)return true;return false;});for(auto &p:slots)if(p&&p->workerDone&&!p->joining){s=p;p->joining=true;break;}if(!s&&reaperStop)return;}if(!s)continue;s->worker.join();{std::lock_guard<std::mutex> l(gate);std::lock_guard<std::mutex> q(s->io);retiredInputPeak=std::max(retiredInputPeak,s->inputPeak);retiredOutputPeak=std::max(retiredOutputPeak,s->outputPeak);s->phase=DEAD;slots[s->slot].reset();++joined;emit(frame(RETIRED,0,s,s->result,"{\"net_error\":"+std::to_string(s->netError)+",\"executions\":"+std::to_string(s->executions)+",\"input_peak\":"+std::to_string(s->inputPeak)+",\"output_peak\":"+std::to_string(s->outputPeak)+"}"));progress.notify_all();}}}
+ void monitorLoop(){
+  for(;;){
+   std::shared_ptr<Session> reap;
+   {
+    std::unique_lock<std::mutex> l(gate);
+    for(;;){
+     if(controlOverflow.exchange(false,std::memory_order_acq_rel))poisonLocked("control_queue_overflow");
+     for(auto &p:slots)if(p&&p->workerDone&&!p->joining){reap=p;p->joining=true;break;}
+     if(reap)break;
+     if(!poisoned&&!closing){
+      auto now=Clock::now();bool acted=false,haveDeadline=false;std::chrono::nanoseconds minRem{0};
+      for(auto &s:slots){
+       if(!s)continue;
+       if(s->eofResponseGrace&&s->phase==EXECUTING){
+        auto elapsed=now-s->eofResponseAt;constexpr auto grace=std::chrono::milliseconds(200);
+        if(elapsed>=grace){poisonLocked("unexpected_peer_eof");acted=true;break;}
+        auto rem=std::chrono::duration_cast<std::chrono::nanoseconds>(grace-elapsed);
+        if(!haveDeadline||rem<minRem){haveDeadline=true;minRem=rem;}
+       }
+       if(s->deadline.armed){
+        uint64_t nowT=issue65_deadline::ticks(now);
+        if(issue65_deadline::elapsed(nowT,s->deadline.start,s->deadline.limit)){
+         if(s->command==0){s->phase=RETIRING;s->deadline.disarm();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);acted=true;}
+         else{poisonLocked("deadline");acted=true;break;}
+        }else{
+         uint64_t remU=s->deadline.limit-(nowT-s->deadline.start);
+         constexpr uint64_t maxWaitNs=60000000000ULL;
+         auto rem=std::chrono::nanoseconds(int64_t(std::min(remU,maxWaitNs)));
+         if(!haveDeadline||rem<minRem){haveDeadline=true;minRem=rem;}
+        }
+       }
+      }
+      if(acted)continue;
+      if(reaperStop&&timerStop)return;
+      if(controlOverflow.load(std::memory_order_acquire))continue;
+      uint64_t seq=progressSeq;
+      auto pred=[&]{return progressSeq!=seq||controlOverflow.load(std::memory_order_acquire)||(reaperStop&&timerStop);};
+      if(haveDeadline)progress.wait_for(l,minRem,pred);else progress.wait(l,pred);
+     }else{
+      if(reaperStop&&timerStop)return;
+      uint64_t seq=progressSeq;
+      progress.wait(l,[&]{return progressSeq!=seq||(reaperStop&&timerStop);});
+     }
+    }
+   }
+   reap->worker.join();
+   {
+    std::lock_guard<std::mutex> l(gate);std::lock_guard<std::mutex> q(reap->io);
+    retiredInputPeak=std::max(retiredInputPeak,reap->inputPeak);retiredOutputPeak=std::max(retiredOutputPeak,reap->outputPeak);
+    reap->phase=DEAD;slots[reap->slot].reset();++joined;
+    emit(frame(RETIRED,0,reap,reap->result,"{\"net_error\":"+std::to_string(reap->netError)+",\"executions\":"+std::to_string(reap->executions)+",\"input_peak\":"+std::to_string(reap->inputPeak)+",\"output_peak\":"+std::to_string(reap->outputPeak)+"}"));
+    wakeProgressLocked();
+   }
+  }
+ }
  bool pickData(Frame &f,size_t &cursor){std::vector<std::shared_ptr<Session>> v;{std::lock_guard<std::mutex> l(gate);for(auto &s:slots)if(s)v.push_back(s);}for(size_t n=0;n<v.size();++n){auto s=v[(cursor+n)%v.size()];std::lock_guard<std::mutex> q(s->io);if(!s->opened||s->output.empty())continue;size_t k=std::min(CHUNK,s->output.size());f=frame(OUTPUT,0,s,s->sent);for(size_t i=0;i<k;++i){f.data.push_back(s->output.front());s->output.pop_front();}s->sent+=k;cursor=(cursor+n+1)%v.size();return true;}return false;}
  bool pickControl(Frame &f){ {std::lock_guard<std::mutex> l(outMu);if(urgent){f=std::move(*urgent);urgent.reset();return true;}if(!controls.empty()){f=std::move(controls.front());controls.pop_front();controlBytes-=33+f.data.size();return true;}}
   std::lock_guard<std::mutex> l(gate);for(auto &s:slots)if(s){if(s->statePending){s->statePending=false;f=frame(STATE,0,s,s->command,phase_name(s->phase));return true;}std::lock_guard<std::mutex> q(s->io);if(s->creditPending){s->creditPending=false;f=frame(CREDIT,0,s,s->consumed);return true;}}return false;
  }
- void writeLoop(){size_t cursor=0;unsigned quota=0;for(;;){Frame f;bool have=false;if(quota>=8){have=pickData(f,cursor);if(have)quota=0;}if(!have&&pickControl(f)){have=true;++quota;}if(!have&&pickData(f,cursor)){have=true;quota=0;}if(have){send_frame(f);if(f.kind==OPENED){std::lock_guard<std::mutex> g(gate);auto s=slots[f.slot];if(s&&s->generation==f.generation){std::lock_guard<std::mutex> q(s->io);s->opened=true;}}continue;}{std::unique_lock<std::mutex> l(outMu);if(writerStop&&controls.empty()&&!urgent)break;outReady.wait_for(l,std::chrono::milliseconds(2));}}}
+ void writeLoop(){size_t cursor=0;unsigned quota=0;for(;;){uint64_t seen;{std::lock_guard<std::mutex> l(outMu);seen=outSeq;}Frame f;bool have=false;if(quota>=8){have=pickData(f,cursor);if(have)quota=0;}if(!have&&pickControl(f)){have=true;++quota;}if(!have&&pickData(f,cursor)){have=true;quota=0;}if(have){send_frame(f);if(f.kind==OPENED){std::lock_guard<std::mutex> g(gate);auto s=slots[f.slot];if(s&&s->generation==f.generation){std::lock_guard<std::mutex> q(s->io);s->opened=true;}}continue;}{std::unique_lock<std::mutex> l(outMu);if(writerStop&&controls.empty()&&!urgent&&outSeq==seen)break;outReady.wait(l,[&]{return outSeq!=seen||writerStop||!controls.empty()||urgent;});}}}
  void shutdown(){ {std::lock_guard<std::mutex> l(gate);closing=true;fenced=true;cancelLocked(ECANCELED);}
-  {std::unique_lock<std::mutex> l(gate);progress.wait(l,[&]{for(auto &s:slots)if(s)return false;return true;});timerStop=true;reaperStop=true;progress.notify_all();}
-  timer.join();reaper.join();{std::lock_guard<std::mutex> l(killMu);killerStop=true;killReady.notify_all();}killer.join();
+  {std::unique_lock<std::mutex> l(gate);progress.wait(l,[&]{for(auto &s:slots)if(s)return false;return true;});timerStop=true;reaperStop=true;wakeProgressLocked();}
+  monitor.join();{std::lock_guard<std::mutex> l(killMu);killerStop=true;killReady.notify_all();}if(killer.joinable())killer.join();
  }
- void stopWriter(){ {std::lock_guard<std::mutex> l(outMu);writerStop=true;outReady.notify_all();}writer.join();}
+ void stopWriter(){ {std::lock_guard<std::mutex> l(outMu);writerStop=true;++outSeq;outReady.notify_all();}writer.join();}
 };
 extern "C" int issue65_bootstrap(void);
 extern "C" int issue65_shutdown(int fast_shutdown_mode);
