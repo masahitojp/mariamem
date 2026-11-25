@@ -101,7 +101,7 @@ func TestCRC32CPageValidation(t *testing.T) {
 				}
 				before := append([]byte(nil), page...)
 				old := originalCRCValidator(m, 0, int32(addr), 16)
-				fast := p4.Fn18168(m, 0, int32(addr), 16)
+				fast := p4.Fn18166(m, 0, int32(addr), 16)
 				if old != fast || (mutation == "valid" && old != 0) || (mutation != "valid" && old == 0) || !bytes.Equal(before, page) || m.ExcPending != 0 {
 					t.Fatalf("size=%d offset=%d mutation=%s old=%d fast=%d", size, off, mutation, old, fast)
 				}
@@ -109,5 +109,5 @@ func TestCRC32CPageValidation(t *testing.T) {
 			}
 		}
 	}
-	t.Logf("%d actual Fn18168 valid/corrupt/LSN cases PASS", cases)
+	t.Logf("%d actual Fn18166 valid/corrupt/LSN cases PASS", cases)
 }
