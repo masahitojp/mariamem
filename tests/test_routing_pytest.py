@@ -394,6 +394,7 @@ def test_public_names_and_python_floor():
     assert 'routing-pymysql' in config['options.extras_require']
     assert 'routing-sqlalchemy' in config['options.extras_require']
     assert 'routing-mysql-connector' in config['options.extras_require']
+    assert 'routing-mysqlclient' in config['options.extras_require']
     assert 'routing' not in config['options.extras_require']
     assert 'routing-connector' not in config['options.extras_require']
     pymysql_spec = SpecifierSet(config['options.extras_require']['routing-pymysql'].split('PyMySQL', 1)[1].strip())
@@ -408,3 +409,69 @@ def test_public_names_and_python_floor():
     mc_spec = SpecifierSet(config['options.extras_require']['routing-mysql-connector'].split('mysql-connector-python', 1)[1].strip())
     assert '9.0.0' in mc_spec and '26.7.0' in mc_spec and '26.10.0' in mc_spec
     assert '8.4.0' not in mc_spec and '27.0.0' not in mc_spec
+    client_spec = SpecifierSet(config['options.extras_require']['routing-mysqlclient'].split('mysqlclient', 1)[1].strip())
+    assert '2.2.7' in client_spec and '2.3.2' in client_spec
+    assert '2.2.6' not in client_spec and '3.0.0' not in client_spec
+
+
+def test_pytest_early_guard_supports_mysqldb_driver(tmp_path):
+    (tmp_path / "pytest.ini").write_text(CONFIG + "mariamem_route_drivers = MySQLdb\n")
+    (tmp_path / "sitecustomize.py").write_text(textwrap.dedent('''
+        import importlib.metadata, sys, types
+
+        class ProgrammingError(Exception):
+            pass
+
+        class Connection:
+            def __init__(self, *args, **kwargs):
+                self.open = True
+            def close(self):
+                if not self.open:
+                    raise ProgrammingError("closing a closed connection")
+                self.open = False
+
+        def Connect(*args, **kwargs):
+            return Connection(*args, **kwargs)
+
+        mod = types.ModuleType("MySQLdb")
+        conns = types.ModuleType("MySQLdb.connections")
+        conns.Connection = Connection
+        mod.connections = conns
+        mod.ProgrammingError = ProgrammingError
+        mod.Connect = mod.connect = mod.Connection = Connect
+        sys.modules["MySQLdb"] = mod
+        sys.modules["MySQLdb.connections"] = conns
+
+        _orig_version = importlib.metadata.version
+        def _version(pkg):
+            if pkg == "mysqlclient":
+                return "2.2.7"
+            return _orig_version(pkg)
+        importlib.metadata.version = _version
+    '''))
+    (tmp_path / "test_mysqldb.py").write_text(textwrap.dedent('''
+        import MySQLdb
+        from mariamem.routing import RoutingError
+
+        try:
+            MySQLdb.connect(host="127.0.0.1", port=3307, database="app", user="u", password="do-not-print")
+        except RoutingError as error:
+            assert error.code == "missing_target"
+        else:
+            raise AssertionError("original MySQLdb endpoint attempted")
+
+        def test_ok():
+            pass
+    '''))
+    env = dict(os.environ, PYTHONPATH=str(tmp_path) + os.pathsep + str(PYTHON), PYTEST_DISABLE_PLUGIN_AUTOLOAD="1")
+    env.pop("PYTEST_ADDOPTS", None)
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", "-p", "mariamem.pytest_plugin", "-q"],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "do-not-print" not in result.stderr

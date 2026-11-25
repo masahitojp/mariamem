@@ -9,7 +9,17 @@ _STABLE_VERSION_RE = re.compile(
 
 PYMYSQL_RANGE = ((1, 1, 0), (2, 0, 0), ">=1.1,<2")
 CONNECTOR_RANGE = ((9, 0, 0), (27, 0, 0), ">=9.0,<27")
+MYSQLCLIENT_RANGE = ((2, 2, 0), (3, 0, 0), ">=2.2,<3")
 SQLALCHEMY_RANGE = ((2, 0, 0), (2, 2, 0), ">=2.0,<2.2")
+
+_MYSQLDB_POS_ARGS = (
+    "host", "user", "password", "database", "port",
+    "unix_socket", "conv", "connect_timeout", "compress",
+    "named_pipe", "init_command", "read_default_file", "read_default_group",
+    "client_flag", "ssl", "ssl_mode", "local_infile",
+    "read_timeout", "write_timeout", "charset", "auth_plugin",
+    "server_public_key_path", "local_infile_dir",
+)
 
 
 def _parse_stable_version(text):
@@ -112,8 +122,14 @@ def install_driver(registry, name):
         _pymysql(registry)
     elif name == "mysql.connector":
         _connector(registry)
+    elif name == "MySQLdb":
+        _mysqldb(registry)
     else:
-        raise registry._error("unsupported_driver", "Select pymysql or mysql.connector, or use explicit configuration.", driver=name)
+        raise registry._error(
+            "unsupported_driver",
+            "Select pymysql, mysql.connector, or MySQLdb, or use explicit configuration.",
+            driver=name,
+        )
 
 
 def _pymysql(registry):
@@ -216,3 +232,89 @@ def _connector(registry):
 
     registry._patch(abstract, "connect", connect)
     registry._patch(driver, "connect", factory)
+
+
+def _normalize_mysqldb_args(args, kw):
+    merged = dict(kw)
+    if "db" in merged:
+        merged["database"] = merged.pop("db")
+    if "passwd" in merged:
+        merged["password"] = merged.pop("passwd")
+    conflict = len(args) > len(_MYSQLDB_POS_ARGS)
+    for key, value in zip(_MYSQLDB_POS_ARGS, args):
+        if key in merged:
+            conflict = True
+        else:
+            merged[key] = value
+    return merged, conflict
+
+
+def _mysqldb(registry):
+    driver = _load(registry, "mysqlclient", "MySQLdb", MYSQLCLIENT_RANGE)
+    spec = MYSQLCLIENT_RANGE[2]
+    try:
+        connections_mod = importlib.import_module("MySQLdb.connections")
+    except (ImportError, AttributeError, OSError) as error:
+        raise registry._error(
+            "driver_unavailable",
+            "Inspect the driver import cause or use explicit child configuration.",
+            driver="MySQLdb",
+        ) from error
+    cls = getattr(connections_mod, "Connection", None)
+    prog_err = getattr(driver, "ProgrammingError", None)
+    if not isinstance(cls, type) or not isinstance(prog_err, type):
+        raise registry._error(
+            "unsupported_driver_version",
+            f"Installed mysqlclient lacks expected Connection/ProgrammingError classes; use mysqlclient{spec} or explicit child configuration.",
+            driver="MySQLdb",
+        )
+    original_init = _require_callable(registry, cls, "__init__", package="mysqlclient", spec=spec, driver="MySQLdb")
+    _require_callable(registry, cls, "close", package="mysqlclient", spec=spec, driver="MySQLdb")
+
+    def initialize(connection, *args, **kw):
+        merged, conflict = _normalize_mysqldb_args(args, kw)
+        if conflict:
+            return original_init(connection, *args, **kw)
+        if not _selected(registry, connection, merged.get("host"), merged.get("port"), merged.get("database")):
+            return original_init(connection, *args, **kw)
+        if merged.get("read_default_file") or merged.get("read_default_group"):
+            raise registry._error("option_file", "Resolve this profile to explicit test settings.", driver="MySQLdb")
+        if merged.get("unix_socket") or merged.get("named_pipe"):
+            raise registry._error("transport_conflict", "Use the registered TCP profile explicitly.", driver="MySQLdb")
+        ssl_mode = merged.get("ssl_mode")
+        if ssl_mode is not None and ssl_mode not in ("DISABLED", "PREFERRED"):
+            raise registry._error("tls_unavailable", "This child has no TLS; select an explicit local test profile.", driver="MySQLdb")
+        ssl = merged.get("ssl")
+        if ssl is not None and ssl is not False and ssl_mode != "DISABLED":
+            raise registry._error("tls_unavailable", "This child has no TLS; select an explicit local test profile.", driver="MySQLdb")
+        if (
+            merged.get("compress")
+            or merged.get("local_infile")
+            or merged.get("local_infile_dir")
+            or merged.get("server_public_key_path")
+            or merged.get("auth_plugin")
+        ):
+            raise registry._error("unsupported_options", "Use explicit local TCP test settings.", driver="MySQLdb")
+
+        def close():
+            if not getattr(connection, "open", False):
+                return
+            try:
+                connection.close()
+            except prog_err as error:
+                if "closing a closed connection" not in str(error):
+                    raise
+
+        def redirected(info):
+            rewritten = dict(merged)
+            rewritten.update(
+                host=info["host"],
+                port=info["port"],
+                user=info["user"],
+                password=info["password"],
+            )
+            return original_init(connection, **rewritten)
+
+        return registry._connect(connection, redirected, close, "MySQLdb")
+
+    registry._patch(cls, "__init__", initialize)
