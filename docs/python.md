@@ -1,9 +1,10 @@
 # Python usage
 
-Use Python `0.7.0` on a [supported platform](../README.md#installation).
+Use Python `0.7.1` on a [supported platform](../README.md#installation).
 Python 3.11+ is required. Use the [installation commands](../README.md#python)
-for your host. The macOS arm64 wheel is distributed through PyPI. The Ubuntu
-24.04 x86_64 wheel is a GitHub Release asset.
+for your host. Prebuilt wheels for macOS arm64, Linux x86_64/aarch64, and
+Windows x86_64/arm64 are distributed through PyPI; the Ubuntu 24.04 x86_64
+wheel and corresponding source are also published on GitHub Releases.
 Start with one database, then share preparation when setup becomes expensive.
 For Django, use the [dedicated guide](django-prepared.md).
 
@@ -313,7 +314,7 @@ allows metadata, or retained through the cause chain for read-only exceptions;
 source/baseline/test teardown still attempts remaining finalizers.
 Explicitly overriding a supplied fixture transfers that boundary's ownership to
 your implementation, including admission and cleanup. See the
-[release notes](../release/NOTES-v0.7.0.md).
+[release notes](../release/NOTES-v0.7.1.md).
 
 ## Share preparation, isolate mutations
 

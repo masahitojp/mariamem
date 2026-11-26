@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-This guide covers `v0.7.0`; the Python version is `0.7.0`.
-Its [versioned notes](../release/NOTES-v0.7.0.md) describe shipped scope and
+This guide covers `v0.7.1`; the Python version is `0.7.1`.
+Its [versioned notes](../release/NOTES-v0.7.1.md) describe shipped scope and
 limitations; [project status](project-status.md#additional-062-distribution-169) records
 its successful Release CI and public smoke. The procedure below applies to
 the next human-selected candidate; preparation alone is not qualification.
