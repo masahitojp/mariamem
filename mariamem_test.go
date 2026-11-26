@@ -1280,7 +1280,17 @@ func (b *closeCheckBackend) Close(ctx context.Context) error {
 }
 
 func TestSnapshotFailureRetainsParentLeaseUntilDisposal(t *testing.T) {
-	parent := controlledSnapshot(t, 1)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	root, err := Start(ctx, Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = root.Close() })
+	parent, err := root.Snapshot(ctx, SnapshotOptions{MaxForks: 1})
+	if err != nil {
+		t.Fatal(err)
+	}
 	t.Cleanup(func() { _ = parent.Close() })
 	pool := parent.forkLimit()
 	lease, err := pool.TryAcquire(false)
@@ -1306,34 +1316,16 @@ func TestSnapshotFailureRetainsParentLeaseUntilDisposal(t *testing.T) {
 	if !errors.Is(err, cause) || !errors.As(err, &detail) || !detail.Closed || !child.Closed() {
 		t.Fatalf("expected a consuming error that preserves the cause: %v", err)
 	}
-	if _, err := pool.TryAcquire(false); !errors.Is(err, forklimit.ErrCleanup) {
-		t.Fatalf("expected pending cleanup to block admission: %v", err)
+	if _, err := pool.TryAcquire(false); !errors.Is(err, forklimit.ErrFull) {
+		t.Fatalf("expected pending cleanup to occupy the only slot: %v", err)
 	}
 
 	releaseGuest()
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
-	if err := disposal.Wait(ctx, owner.Done()); err != nil {
+	next, err := parent.Fork(ctx)
+	if err != nil {
+		t.Fatalf("ordinary Fork could not reuse the parent after cleanup: %v", err)
+	}
+	if err := next.Close(); err != nil {
 		t.Fatal(err)
 	}
-	for {
-		if _, occupied := pool.Usage(); occupied == 0 {
-			break
-		}
-		select {
-		case <-ctx.Done():
-			t.Fatal("parent Fork slot was not released after cleanup")
-		case <-time.After(time.Millisecond):
-		}
-	}
-	// Disposing the child frees its slot. The pool still requires explicit
-	// recovery to reopen admission after cleanup debt.
-	if _, err := pool.TryAcquire(false); !errors.Is(err, forklimit.ErrCleanup) {
-		t.Fatalf("expected admission to stay closed until explicit recovery: %v", err)
-	}
-	next, err := pool.TryAcquire(true)
-	if err != nil {
-		t.Fatalf("explicit recovery could not reserve the released slot: %v", err)
-	}
-	next.Settle(nil)
 }

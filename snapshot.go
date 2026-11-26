@@ -129,6 +129,10 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	db.mu.Unlock()
 
 	backing, consumed, e := server.SnapshotHeap(ctx, opts.Rollback)
+	pendingDisposal := disposal.PendingOwner(e)
+	if backend, ok := server.(interface{ CaptureDebt() error }); pendingDisposal != nil && ok && backend.CaptureDebt() != nil {
+		pendingDisposal = nil
+	}
 
 	db.mu.Lock()
 	defer func() {
@@ -158,7 +162,11 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 			}
 		}
 		if consumed {
-			db.settleFork(e, cleanup == nil && db.disposalComplete())
+			if db.lease != nil && pendingDisposal != nil && db.captureDebt == nil {
+				db.lease.TrackPendingDisposal(e, pendingDisposal)
+			} else {
+				db.settleFork(e, cleanup == nil && db.disposalComplete())
+			}
 		}
 		var rejected *host.Rejected
 		if !consumed && cleanup == nil && errors.As(e, &rejected) && rejected.Code == "busy" {

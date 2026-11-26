@@ -104,6 +104,16 @@ func Retain(cause, cleanup error, owner *Owner) error {
 	return &pending{cause: cause, cleanup: cleanup, owner: owner}
 }
 
+// PendingOwner returns the owner when the reported cleanup result is only
+// pending. An operation error that happens to wrap ErrPending is insufficient.
+func PendingOwner(err error) *Owner {
+	var retained *pending
+	if errors.As(err, &retained) && retained.cleanup == ErrPending {
+		return retained.owner
+	}
+	return nil
+}
+
 // Owners follows wrappers and joins. A parent owner already owns the cleanup
 // dependencies in its cause, so those are not retried independently here.
 func Owners(err error) []*Owner {
