@@ -1,0 +1,25 @@
+{
+  "question": "Compare same current source/harness P1 on Mac and Ubuntu; does generated memory-access CPU cost explain observed difference?",
+  "source_commit": "e00b3ec41f9c5d4ca3f85db4ff73198dbf3613e9",
+  "harness_source_commit": "1977fff480c2f976bc23f4d2e1b8ff8db36ad128",
+  "harness_tar_gz_sha256": "557af9482490c30a431d78f9d4e80f4cd984b357006363d198fb2dc49bc0d628",
+  "campaign": "Mac P1/GMP8: semantic precheck, warmup1, ordinary3, CPU profile1; compare retained Ubuntu current/GMP8 three observations and P1 profile",
+  "metrics": [
+    "suite/process/CPU ms",
+    "peak RSS KiB",
+    "sample/Fork phase medians ms",
+    "MemoryEA CPU samples and disassembly"
+  ],
+  "budgets": {
+    "active_minutes": 60,
+    "tooling_minutes": 30,
+    "heavy_CI_limit": 1,
+    "scratch_GiB": 8,
+    "free_floor_GiB": 8
+  },
+  "exit": "six processes pass; fixed-source timing/CPU comparison with machine limits; retain all runs. Otherwise INCONCLUSIVE with missing access/evidence",
+  "status": "CI_SUBMISSION_PREPARED",
+  "host": "GitHub macos-15 arm64; distinct from original M1 and Ubuntu Ryzen",
+  "scope": "No product changes, guest rebuilds, optimization spikes or release workflow",
+  "authorized_by": "Human selected GitHub macOS runner"
+}
