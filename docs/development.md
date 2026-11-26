@@ -834,7 +834,7 @@ No force-kill or guest race adaptation is added by runtime retirement.
 
 WASM is a build intermediate; WASIX libc/sysroot and LLVM runtime sources remain
 required. Retiring the Wasmer execution engine does not retire those sources,
-thread imports, converter or notices. The canonical guest input is now MariaDB 12.3.3; the v0.4.7 converter and
+thread imports, converter or notices. The canonical guest input is now MariaDB 12.3.4; the v0.4.7 converter and
 toolchain pins remain unchanged. See the [integration record](decisions/guest-patch-management.md).
 Canonical commands:
 
