@@ -11,6 +11,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/prepared"
 )
 
@@ -590,5 +591,103 @@ func TestSnapshotHeapCancelDuringInFlightFenceRemainsConsuming(t *testing.T) {
 	close(f.holdFence)
 	if owned != nil || !consumed || !errors.Is(err, context.Canceled) {
 		t.Fatalf("expected uncertain in-flight fence cancel to remain consuming, got owned=%v consumed=%v err=%v", owned, consumed, err)
+	}
+}
+
+func TestSnapshotHeapFailureReturnsBeforeGuestDisposal(t *testing.T) {
+	for _, stopAccepted := range []bool{false, true} {
+		name := "fence_reply_pending"
+		if stopAccepted {
+			name = "stop_accepted"
+		}
+		t.Run(name, func(t *testing.T) {
+			cause := errors.New("injected guest failure")
+			waiting := make(chan struct{})
+			release := make(chan struct{})
+			finishGuest := sync.OnceFunc(func() { close(release) })
+			defer finishGuest()
+
+			var notifyFailure func(error)
+			runner := func(x Execution) <-chan error {
+				notifyFailure = x.Failure
+				done := make(chan error, 1)
+				go func() {
+					reply := func(f frame) error {
+						f.epoch = x.Epoch
+						return writeFrame(x.Output, f)
+					}
+					err := reply(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+					if err == nil {
+						var fence frame
+						fence, err = readFrame(x.Input)
+						if err == nil && stopAccepted {
+							err = reply(frame{kind: kindFenced, request: fence.request, value: fence.value})
+							if err == nil {
+								var stop frame
+								stop, err = readFrame(x.Input)
+								if err == nil {
+									err = reply(frame{kind: kindStopAccepted, request: stop.request, value: stop.value})
+								}
+							}
+						}
+					}
+					if err == nil {
+						close(waiting)
+						<-release
+						err = cause
+					}
+					done <- err
+				}()
+				return done
+			}
+
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			b, err := Start(ctx, Config{Runner: runner, Build: "fake-guest"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			type result struct {
+				consumed bool
+				err      error
+			}
+			results := make(chan result, 1)
+			go func() {
+				backing, consumed, err := b.SnapshotHeap(context.Background(), true)
+				if backing != nil {
+					_ = backing.Close()
+					err = errors.New("failed Snapshot unexpectedly returned backing")
+				}
+				results <- result{consumed, err}
+			}()
+			waitFor(t, waiting)
+			if stopAccepted {
+				for {
+					b.mu.Lock()
+					stopping := b.stopAcked && b.stopping
+					b.mu.Unlock()
+					if stopping {
+						break
+					}
+					select {
+					case <-ctx.Done():
+						t.Fatal("host did not enter the stop completion wait")
+					case <-time.After(time.Millisecond):
+					}
+				}
+			}
+			notifyFailure(cause)
+			select {
+			case got := <-results:
+				owners := disposal.Owners(got.err)
+				if !got.consumed || !errors.Is(got.err, cause) || len(owners) != 1 || owners[0].Complete() {
+					t.Fatalf("expected consuming failure with a pending owner: %+v", got)
+				}
+			case <-ctx.Done():
+				t.Fatal("Snapshot did not return before guest completion")
+			}
+			finishGuest()
+			waitFor(t, b.disposer.Done())
+		})
 	}
 }

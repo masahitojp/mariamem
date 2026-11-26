@@ -15,7 +15,7 @@ The visibility rule is an explicit abstraction. The model has no competing owner
 
 ## Run
 
-Use the [official TLC v1.8.0 jar](https://github.com/tlaplus/tlaplus/releases/tag/v1.8.0) with Java 11 or later. The tested jar SHA-256 is `fdffef247f563ef6edbfd44958d2a82db79e7564e07cb673262d896353fa6713`.
+Use the [official TLC v1.8.0 jar](https://github.com/tlaplus/tlaplus/releases/tag/v1.8.0) with Java 11 or later. The tested jar SHA-256 is `67f9575c3b9ef7a0787b1bded34812862ffe79d711298e5a75b1a77720b19928`.
 
 ```sh
 sh tests/formal/thread-list-lock/check.sh /absolute/path/to/tla2tools.jar

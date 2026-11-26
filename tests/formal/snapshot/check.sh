@@ -5,7 +5,7 @@ jar=${1:?usage: sh check.sh /absolute/path/to/tla2tools.jar}
 cd "$(dirname "$0")"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
-cp Snapshot.tla SharedTransport.tla "$scratch/"
+cp Snapshot.tla SharedTransport.tla FailureCleanup.tla "$scratch/"
 cd "$scratch"
 
 run() {
@@ -69,3 +69,21 @@ CONFIG
 run_transport independent-reader FALSE 'PROPERTIES CaptureReturns PeerReturns' pass
 run_transport coupled-reader-capture TRUE 'PROPERTY CaptureReturns' 'Temporal property CaptureReturns was violated.'
 run_transport coupled-reader-peer TRUE 'PROPERTY PeerReturns' 'Temporal property PeerReturns was violated.'
+
+run_cleanup() {
+    name=$1 early=$2 finishes=$3 expected=$4
+    cat > Case.cfg <<CONFIG
+SPECIFICATION Spec
+CONSTANTS
+    ReturnBeforeJoin = $early
+    GuestCanFinish = $finishes
+INVARIANT Ownership
+PROPERTIES ReturnsOnFailure DisposesAfterJoin
+CHECK_DEADLOCK FALSE
+CONFIG
+    check_model FailureCleanup "$name" "$expected"
+}
+
+run_cleanup failure-old-stalled FALSE FALSE 'Temporal property ReturnsOnFailure was violated.'
+run_cleanup failure-returns-stalled TRUE FALSE pass
+run_cleanup failure-disposes-after-join TRUE TRUE pass

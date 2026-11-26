@@ -7,7 +7,7 @@ sh tests/formal/snapshot/check.sh /absolute/path/to/tla2tools.jar
 ```
 
 The run used [tla2tools.jar from v1.8.0](https://github.com/tlaplus/tlaplus/releases/tag/v1.8.0), SHA-256
-`fdffef247f563ef6edbfd44958d2a82db79e7564e07cb673262d896353fa6713`.
+`67f9575c3b9ef7a0787b1bded34812862ffe79d711298e5a75b1a77720b19928`.
 Development checks run the script for changes to the model and Snapshot
 transport boundary, or when the changed paths cannot be determined.
 The script checks for specific expected violations in the counterexample cases.
@@ -41,3 +41,12 @@ and Fork after the first client drains its results.
 ```sh
 go test -tags=integration -p 1 -count=1 -run '^TestSnapshotActualGuestBusyMultiResultStalledWriteAndTransactionActive$/^stalled_host_write_busy$' ./tests/gointegration
 ```
+
+`FailureCleanup.tla` starts at the failure boundary shared by a lost fence
+reply and a failure after stop acceptance. It separates failure detection,
+returning the consuming error, guest completion and disposal. The old policy
+cannot return if the guest never completes. The new policy can return with
+a retained owner and can release resources only after completion. The model
+assumes weak fairness for enabled host actions and checks eventual disposal
+when guest completion is enabled. The Go tests exercise both failure points
+and the public API's parent Fork lease.

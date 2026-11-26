@@ -1278,3 +1278,54 @@ func (b *closeCheckBackend) Close(ctx context.Context) error {
 	}
 	return b.fakeBackend.Close(ctx)
 }
+
+func TestSnapshotFailureRetainsParentLeaseUntilDisposal(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	root, err := Start(ctx, Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = root.Close() })
+	parent, err := root.Snapshot(ctx, SnapshotOptions{MaxForks: 1})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = parent.Close() })
+	pool := parent.forkLimit()
+	lease, err := pool.TryAcquire(false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := lease.Activate(); err != nil {
+		t.Fatal(err)
+	}
+
+	guestDone := make(chan struct{})
+	releaseGuest := sync.OnceFunc(func() { close(guestDone) })
+	defer releaseGuest()
+	owner := disposal.New(func(ctx context.Context) error { return disposal.Wait(ctx, guestDone) })
+	cause := errors.New("snapshot guest failed")
+	child := testDB(t, &fakeBackend{snapshot: func(context.Context, bool) (*stored.Owned, bool, error) {
+		return nil, true, disposal.Retain(cause, disposal.ErrPending, owner)
+	}})
+	child.lease = lease
+
+	_, err = child.Snapshot(context.Background(), SnapshotOptions{})
+	var detail *HostError
+	if !errors.Is(err, cause) || !errors.As(err, &detail) || !detail.Closed || !child.Closed() {
+		t.Fatalf("expected a consuming error that preserves the cause: %v", err)
+	}
+	if _, err := pool.TryAcquire(false); !errors.Is(err, forklimit.ErrFull) {
+		t.Fatalf("expected pending cleanup to occupy the only slot: %v", err)
+	}
+
+	releaseGuest()
+	next, err := parent.Fork(ctx)
+	if err != nil {
+		t.Fatalf("ordinary Fork could not reuse the parent after cleanup: %v", err)
+	}
+	if err := next.Close(); err != nil {
+		t.Fatal(err)
+	}
+}

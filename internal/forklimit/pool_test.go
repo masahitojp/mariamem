@@ -7,6 +7,8 @@ import (
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/masahitojp/mariamem/internal/disposal"
 )
 
 func pool(t *testing.T, n int) *Pool {
@@ -371,5 +373,48 @@ func TestUsageIncludesReservationsAndUnconfirmedCleanupWithoutReopening(t *testi
 	}
 	if p.Describe(nil) != nil {
 		t.Fatal("nil became a diagnostic error")
+	}
+}
+
+func TestPendingDisposalFailureStopsAdmission(t *testing.T) {
+	p := pool(t, 2)
+	lease := active(t, p)
+	finish := make(chan struct{})
+	allowRetry := make(chan struct{})
+	cleanupErr := errors.New("cleanup failed")
+	owner := disposal.New(func(ctx context.Context) error {
+		if err := disposal.Wait(ctx, finish); err != nil {
+			return err
+		}
+		select {
+		case <-allowRetry:
+			return nil
+		default:
+			return cleanupErr
+		}
+	})
+	t.Cleanup(func() {
+		close(allowRetry)
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel()
+		if err := owner.Retry(ctx); err != nil {
+			t.Error(err)
+		}
+	})
+	lease.TrackPendingDisposal(errors.New("snapshot failed"), owner)
+	p.mu.Lock()
+	changed := p.changed
+	p.mu.Unlock()
+	close(finish)
+	select {
+	case <-changed:
+	case <-time.After(3 * time.Second):
+		t.Fatal("cleanup failure did not stop admission")
+	}
+	if _, err := p.TryAcquire(false); !errors.Is(err, ErrCleanup) || !errors.Is(err, cleanupErr) {
+		t.Fatalf("expected cleanup failure to stop admission with a spare slot: %v", err)
+	}
+	if _, occupied := p.Usage(); occupied != 1 || owner.Complete() {
+		t.Fatalf("unconfirmed cleanup released its slot: occupied=%d", occupied)
 	}
 }
