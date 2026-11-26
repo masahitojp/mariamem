@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -475,6 +476,10 @@ func TestSnapshotActualGuestBusyMultiResultStalledWriteAndTransactionActive(t *t
 		if !errors.Is(err, mariamem.ErrBusy) || !errors.As(err, &hostErr) || hostErr.Closed || db.Closed() {
 			t.Fatalf("expected non-consuming ErrBusy during SLEEP(3), got %v", err)
 		}
+		if message := err.Error(); !strings.Contains(message, "Wait for active SQL to finish") ||
+			!strings.Contains(message, "If results are unread") {
+			t.Fatalf("expected guidance for active SQL and conditional guidance for unread results, got %q", message)
+		}
 		if elapsed > time.Second {
 			t.Fatalf("long SQL Snapshot waited too long: %v", elapsed)
 		}
@@ -572,12 +577,44 @@ func TestSnapshotActualGuestBusyMultiResultStalledWriteAndTransactionActive(t *t
 		}
 		defer reader.Close()
 
-		rows, err := reader.QueryContext(ctx, "SELECT id, body FROM big_stalled")
+		conn, err := reader.Conn(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer conn.Close()
+
+		peerPool, err := sql.Open("mysql", db.DSN())
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer peerPool.Close()
+		peerPool.SetMaxIdleConns(0)
+		peer, err := peerPool.Conn(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer peer.Close()
+
+		rows, err := conn.QueryContext(ctx, "SELECT id, body FROM big_stalled")
 		if err != nil {
 			t.Fatal(err)
 		}
 		defer rows.Close()
 		time.Sleep(100 * time.Millisecond)
+
+		peerCtx, cancelPeer := context.WithTimeout(ctx, 2*time.Second)
+		defer cancelPeer()
+		var peerValue int
+		if err := peer.QueryRowContext(peerCtx, "SELECT 1").Scan(&peerValue); err != nil || peerValue != 1 {
+			t.Fatalf("peer SQL while first connection has unread output: value=%d err=%v", peerValue, err)
+		}
+		// With no idle pool slots, closing this connection sends COM_QUIT.
+		if err := peer.Close(); err != nil {
+			t.Fatal(err)
+		}
+		if err := peerPool.QueryRowContext(peerCtx, "SELECT 2").Scan(&peerValue); err != nil || peerValue != 2 {
+			t.Fatalf("replacement peer SQL after disconnect: value=%d err=%v", peerValue, err)
+		}
 
 		start := time.Now()
 		snap, err := db.Snapshot(ctx, mariamem.SnapshotOptions{Rollback: true})
@@ -593,11 +630,37 @@ func TestSnapshotActualGuestBusyMultiResultStalledWriteAndTransactionActive(t *t
 		if elapsed > time.Second {
 			t.Fatalf("stalled host Write Snapshot waited too long: %v", elapsed)
 		}
-		// Drain and verify source DB remains usable.
-		_ = rows.Close()
+		for _, hint := range []string{"The source database is still usable", "read them to completion or close the rows", "before retrying"} {
+			if !strings.Contains(err.Error(), hint) {
+				t.Errorf("missing guidance %q in %q", hint, err)
+			}
+		}
+		if err := rows.Close(); err != nil {
+			t.Fatal(err)
+		}
 		var n int
-		if err := reader.QueryRowContext(ctx, "SELECT COUNT(*) FROM big_stalled").Scan(&n); err != nil || n != 8 {
+		if err := conn.QueryRowContext(ctx, "SELECT COUNT(*) FROM big_stalled").Scan(&n); err != nil || n != 8 {
 			t.Fatalf("source unusable after stalled-Write ErrBusy: n=%d err=%v", n, err)
+		}
+
+		retried, err := db.Snapshot(ctx, mariamem.SnapshotOptions{Rollback: true})
+		if err != nil {
+			t.Fatalf("Snapshot retry after closing rows: %v", err)
+		}
+		defer retried.Close()
+		fork, err := retried.Fork(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer fork.Close()
+		forkClient, err := sql.Open("mysql", fork.DSN())
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer forkClient.Close()
+		var got int
+		if err := forkClient.QueryRowContext(ctx, "SELECT COUNT(*) FROM big_stalled").Scan(&got); err != nil || got != n {
+			t.Fatalf("Fork after Snapshot retry: expected %d rows, got %d, err=%v", n, got, err)
 		}
 	})
 

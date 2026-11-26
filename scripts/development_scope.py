@@ -275,6 +275,11 @@ def select(paths, *, fallback=None, root=ROOT, verified_deletions=frozenset()):
                 'scripts/wheel_metadata.py', 'scripts/pypi_smoke.py', 'scripts/development_scope.py',
                 'tests/test_linux_distribution.py'} for path in paths),
             'integration': full,
+            'snapshot_model': bool(fallback or not paths or any(
+                path.startswith(('tests/formal/snapshot/', 'internal/nativewire/', 'guest/native/'))
+                or path in {'.github/workflows/check.yml', 'scripts/development_scope.py',
+                            'snapshot.go', 'tests/gointegration/capture_settle_test.go'}
+                for path in paths)),
             'check_release_notes': check_release_notes,
             'check_python_readme': check_python_readme,
             'check_v047_evidence': check_v047_evidence,
@@ -326,6 +331,7 @@ def main():
             output.write('check_scope=' + result['check_scope'] + '\n')
             output.write('linux_wheel=' + str(result['linux_wheel']).lower() + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
+            output.write('snapshot_model=' + str(result['snapshot_model']).lower() + '\n')
             output.write('check_release_notes=' + str(result['check_release_notes']).lower() + '\n')
             output.write('check_python_readme=' + str(result['check_python_readme']).lower() + '\n')
             output.write('check_v047_evidence=' + str(result['check_v047_evidence']).lower() + '\n')

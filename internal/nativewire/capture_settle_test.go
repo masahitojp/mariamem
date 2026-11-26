@@ -264,6 +264,21 @@ func TestSnapshotHeapSettlesHeldAckBeforeFence(t *testing.T) {
 	}
 	<-ackEntered
 
+	waitCtx, stopWaiting := context.WithTimeout(context.Background(), 25*time.Millisecond)
+	owned, consumed, err := b.SnapshotHeap(waitCtx, true)
+	stopWaiting()
+	if owned != nil || consumed || !errors.Is(err, context.DeadlineExceeded) || b.Failure() != nil {
+		close(releaseAck)
+		t.Fatalf("expected a non-consuming deadline before the fence: owned=%v consumed=%v err=%v backend failure=%v",
+			owned != nil, consumed, err, b.Failure())
+	}
+	select {
+	case <-f.fenceSeen:
+		close(releaseAck)
+		t.Fatal("Snapshot sent a fence while ACK was pending")
+	default:
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	type res struct {
