@@ -9,7 +9,7 @@ The [product contract](decisions/snapshot-product-contract.md) records WHY;
 
 ## Execution and distribution
 
-Generated-Go is the only supported production runtime. MariaDB 12.3.3 / WASIX
+Generated-Go is the only supported production runtime. MariaDB 12.3.4 / WASIX
 is built into pinned Wasm, translated by pinned patched wasm2go, and compiled
 as ordinary Go source. Wasm is a build intermediate. Ordinary startup needs no
 Wasmer runtime, native-bundle provisioner or runtime download.

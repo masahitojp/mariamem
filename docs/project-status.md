@@ -796,8 +796,8 @@ rejection worker. There is no Node SDK or listener-free startup promise.
 
 ## Supported scope and limitations
 
-- Supported hosts: macOS 15+ arm64 and Ubuntu 24.04 x86_64. MariaDB remains
-  12.3.3. Package minimums: Python 3.11 and Go 1.26.0. Release build pin is
+- Supported hosts: macOS 15+ arm64 and Ubuntu 24.04 x86_64. Embedded MariaDB
+  on main is 12.3.4 (published v0.6.2 remains 12.3.3). Package minimums: Python 3.11 and Go 1.26.0. Release build pin is
   Go 1.26.11, forward-compatibility pin 1.27.3. Python feature profiles use
   3.11/3.14; Django profiles use 5.2/6.1 respectively. Minimums are not a full
   version cross-product. See [Go compatibility](go-compatibility.md) and

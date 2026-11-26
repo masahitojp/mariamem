@@ -1,12 +1,12 @@
 # Versioned embedded source preparation
 
-`registry.json` pins complete descriptors for the current 12.3.3 legacy input
+`registry.json` pins complete descriptors for the frozen 12.3.3 legacy input
 and a frozen historical 13.0.2 legacy input. This is source preparation only:
 13.0.2 is neither the product default nor an adopted runtime. The future target
 is 13.3 LTS; registering or preparing a version does not accept that version.
 No native protocol profile is registered.
 
-The existing command remains the canonical 12.3.3 preparation path:
+The existing command remains the canonical 12.3.4 preparation path:
 
 ```sh
 python3 scripts/prepare_guest.py
@@ -62,8 +62,8 @@ acceptance result. Build and release consumers are not switched to this path.
    actually adopting that version. Those upgrade obligations remain.
 
 The 13.0.2 entry preserves its original observation patch and old includes for
-source reproduction; they are not silently applied to current 12.3.3 or treated
-as production-approved 13.x changes. Current 12.3.3 retains UCA, lexer and startup
+source reproduction; they are not silently applied to 12.3.3 or treated
+as production-approved 13.x changes. The registered 12.3.3 profile retains UCA, lexer and startup
 concurrency preparation; historical 13.0.2 uses only its original UCA stage.
 The copied lexer generator in a staged input view is used for provenance hashing;
 execution uses maintained scripts. UCA's existing pinned checker is preserved.
