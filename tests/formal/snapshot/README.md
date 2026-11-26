@@ -41,3 +41,12 @@ and Fork after the first client drains its results.
 ```sh
 go test -tags=integration -p 1 -count=1 -run '^TestSnapshotActualGuestBusyMultiResultStalledWriteAndTransactionActive$/^stalled_host_write_busy$' ./tests/gointegration
 ```
+
+`FailureCleanup.tla` starts at the failure boundary shared by a lost fence
+reply and a failure after stop acceptance. It separates failure detection,
+returning the consuming error, guest completion and disposal. The old policy
+cannot return if the guest never completes. The new policy can return with
+a retained owner and can release resources only after completion. The model
+assumes weak fairness for enabled host actions and checks eventual disposal
+when guest completion is enabled. The Go tests exercise both failure points
+and the public API's parent Fork lease.
