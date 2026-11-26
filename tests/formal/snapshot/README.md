@@ -7,7 +7,7 @@ sh tests/formal/snapshot/check.sh /absolute/path/to/tla2tools.jar
 ```
 
 The run used [tla2tools.jar from v1.8.0](https://github.com/tlaplus/tlaplus/releases/tag/v1.8.0), SHA-256
-`fdffef247f563ef6edbfd44958d2a82db79e7564e07cb673262d896353fa6713`.
+`67f9575c3b9ef7a0787b1bded34812862ffe79d711298e5a75b1a77720b19928`.
 Development checks run the script for changes to the model and Snapshot
 transport boundary, or when the changed paths cannot be determined.
 The script checks for specific expected violations in the counterexample cases.
