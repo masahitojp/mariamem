@@ -1,6 +1,6 @@
 # Go usage
 
-Use `v0.7.0` on macOS 15+ arm64 or Ubuntu 24.04 x86_64.
+Use `v0.7.1` on macOS 15+ arm64 or Ubuntu 24.04 x86_64.
 The additional Python Linux/Windows wheels do not expand this Go tag's support.
 Start with the [README test](../README.md#go), then prepare schema and seed
 once with `mariamemtest` as shown below.
@@ -207,14 +207,14 @@ not SQL/wire work, and adds no compatibility or performance guarantee.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.7.0
-gh release download v0.7.0 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.7.0-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.7.1
+gh release download v0.7.1 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.7.1-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, [release notes](../release/NOTES-v0.7.0.md)
+development checks, [release notes](../release/NOTES-v0.7.1.md)
 and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.

@@ -6,13 +6,14 @@ Connect with an ordinary MySQL driver, commit normally, and discard the database
 when the test ends. For expensive migrations or fixtures, prepare once and give
 each test an independent database from that initial state.
 
-Version documented here: Python `0.7.0` / Go `v0.7.0` ([release notes](release/NOTES-v0.7.0.md)).
+Version documented here: Python `0.7.1` / Go `v0.7.1` ([release notes](release/NOTES-v0.7.1.md)).
 
 ## Installation
 
-Python **0.7.0** targets Python **3.11+** on **macOS 15+ arm64** and
-**Ubuntu 24.04 x86_64**. Go **v0.7.0** targets the same platforms and requires
-Go **1.26.0+**.
+Python **0.7.1** targets Python **3.11+** on **macOS 15+ arm64**, **Linux
+x86_64 / aarch64** (glibc 2.28+ or musl 1.2+), and **Windows build 22000+
+x86_64 / arm64**. Go **v0.7.1** targets **macOS 15+ arm64** and **Ubuntu 24.04
+x86_64** and requires Go **1.26.0+**.
 
 ### Python
 
@@ -21,18 +22,19 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-On macOS arm64, install from PyPI:
+Install from PyPI (macOS, Linux, or Windows):
 
 ```sh
-python -m pip install 'mariamem[test]==0.7.0'
+python -m pip install 'mariamem[test]==0.7.1'
 ```
 
-On Ubuntu 24.04 x86_64, download and install the wheel from GitHub Release:
+On Ubuntu 24.04 x86_64, you can also download and install the Ubuntu-specific
+wheel from GitHub Release:
 
 ```sh
-gh release download v0.7.0 --repo masahitojp/mariamem \
-  --pattern 'mariamem-0.7.0-py3-none-linux_x86_64.whl'
-python -m pip install './mariamem-0.7.0-py3-none-linux_x86_64.whl[test]'
+gh release download v0.7.1 --repo masahitojp/mariamem \
+  --pattern 'mariamem-0.7.1-py3-none-linux_x86_64.whl'
+python -m pip install './mariamem-0.7.1-py3-none-linux_x86_64.whl[test]'
 ```
 
 For library use without pytest tools, omit the `[test]` extra.
@@ -60,7 +62,7 @@ In a new directory:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.7.0
+go get github.com/masahitojp/mariamem@v0.7.1
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -121,7 +123,7 @@ Next: [prepare migrations and seed once](docs/go.md#prepare-once-fork-independen
 
 ## Before using it
 
-Use mariamem for disposable test data. It runs MariaDB 12.3.3 with a bounded
+Use mariamem for disposable test data. It runs MariaDB 12.3.4 with a bounded
 MySQL protocol profile; it does not authenticate credentials or reproduce every
 MySQL feature. Read [SQL and driver compatibility](docs/compatibility.md) when
 choosing a client. Interrupted active SQL invalidates the database; close it and
@@ -139,12 +141,12 @@ including failure paths that require a fresh lineage.
 <summary>Release audit files</summary>
 
 ```sh
-gh release download v0.7.0 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.7.0-corresponding-source.tar.gz'
+gh release download v0.7.1 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.7.1-corresponding-source.tar.gz'
 ```
 
 For a manual wheel audit, match the platform-specific asset, such as
-`mariamem-0.7.0-py3-none-macosx_15_0_arm64.whl`, against `SHA256SUMS`.
+`mariamem-0.7.1-py3-none-macosx_15_0_arm64.whl`, against `SHA256SUMS`.
 
 Build/forward-compatibility pins and historical results are in
 [Go compatibility](docs/go-compatibility.md).
