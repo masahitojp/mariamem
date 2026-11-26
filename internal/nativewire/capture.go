@@ -37,14 +37,15 @@ type Rejected struct {
 
 func (e *Rejected) Error() string { return e.Message }
 
-func (r *Backend) captureFailure(ctx context.Context, cause error) (*stored.Owned, bool, error) {
+func (r *Backend) captureFailure(cause error) (*stored.Owned, bool, error) {
 	r.mu.Lock()
 	r.consumed = true
 	r.checking = false
 	r.owner.EndCaptureLocked()
 	r.mu.Unlock()
 	r.fail(cause)
-	e := r.disposer.Retry(ctx)
+	// The failure is final even if the guest still owns resources.
+	e := r.disposer.Probe()
 	if e != nil {
 		return nil, true, disposal.Retain(cause, e, r.disposer)
 	}
@@ -215,7 +216,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 	id, e := Next32(&r.sequence)
 	if e != nil {
 		r.mu.Unlock()
-		return r.captureFailure(ctx, e)
+		return r.captureFailure(e)
 	}
 	r.captureID = uint64(id)
 	r.mu.Unlock()
@@ -246,7 +247,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 				r.endCheck()
 				return nil, false, e
 			}
-			return r.captureFailure(ctx, e)
+			return r.captureFailure(e)
 		}
 		if reply.kind == kindRejected && reply.value == 2 {
 			r.endCheck()
@@ -275,7 +276,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 					return nil, false, ctx.Err()
 				}
 				if f := r.Failure(); f != nil {
-					return r.captureFailure(ctx, f)
+					return r.captureFailure(f)
 				}
 				r.endCheck()
 				return nil, false, &Rejected{"busy", string(reply.body)}
@@ -312,7 +313,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 				case <-r.failed:
 					timer.Stop()
 					if f := r.Failure(); f != nil {
-						return r.captureFailure(ctx, f)
+						return r.captureFailure(f)
 					}
 					r.endCheck()
 					return nil, false, ErrClosed
@@ -351,7 +352,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 				case <-r.failed:
 					timer.Stop()
 					if f := r.Failure(); f != nil {
-						return r.captureFailure(ctx, f)
+						return r.captureFailure(f)
 					}
 					r.endCheck()
 					return nil, false, ErrClosed
@@ -388,7 +389,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 				case <-r.failed:
 					timer.Stop()
 					if f := r.Failure(); f != nil {
-						return r.captureFailure(ctx, f)
+						return r.captureFailure(f)
 					}
 					r.endCheck()
 					return nil, false, ErrClosed
@@ -412,7 +413,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 			}
 		}
 		if reply.kind != kindFenced || reply.value != uint64(id) {
-			return r.captureFailure(ctx, errors.New("invalid capture fence"))
+			return r.captureFailure(errors.New("invalid capture fence"))
 		}
 		break
 	}
@@ -422,13 +423,13 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 	r.capture.Request()
 	reply, e := r.rpcContext(ctx, frame{kind: kindCaptureStop, value: uint64(id)})
 	if e != nil {
-		return r.captureFailure(ctx, e)
+		return r.captureFailure(e)
 	}
 	if reply.kind != kindStopAccepted || reply.value != uint64(id) {
-		return r.captureFailure(ctx, errors.New("invalid capture kindStop acceptance"))
+		return r.captureFailure(errors.New("invalid capture kindStop acceptance"))
 	}
 	if e = ctx.Err(); e != nil {
-		return r.captureFailure(ctx, e)
+		return r.captureFailure(e)
 	}
 	r.mu.Lock()
 	r.stopAcked = true
@@ -438,15 +439,23 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 		r.resolve(nil)
 	}
 	r.stopIngress()
-	if e = disposal.Wait(ctx, r.done); e != nil {
-		return r.captureFailure(ctx, e)
+	select {
+	case <-r.done:
+	default:
+		select {
+		case <-r.done:
+		case <-r.failed:
+			return r.captureFailure(r.Failure())
+		case <-ctx.Done():
+			return r.captureFailure(ctx.Err())
+		}
 	}
 	if e = r.Failure(); e != nil {
-		return r.captureFailure(ctx, e)
+		return r.captureFailure(e)
 	}
 	image, e := r.capture.TakeRoot(r.build)
 	if e != nil {
-		return r.captureFailure(ctx, e)
+		return r.captureFailure(e)
 	}
 	owned, e := stored.OwnRoot(image, r.build)
 	for key, v := range image.Counts() {
@@ -462,7 +471,7 @@ func (r *Backend) SnapshotHeap(ctx context.Context, rollback bool) (*stored.Owne
 		r.captureDebt = fmt.Errorf("captured root ownership: %w", e)
 		debt := r.captureDebt
 		r.mu.Unlock()
-		return r.captureFailure(ctx, debt)
+		return r.captureFailure(debt)
 	}
 	if e = r.disposer.Retry(ctx); e != nil {
 		return owned, true, disposal.Retain(nil, e, r.disposer)

@@ -207,6 +207,27 @@ func (l *Lease) Settle(cleanup error) {
 	p.signal()
 }
 
+// TrackPendingDisposal keeps the active slot while cleanup is still running.
+// A successful disposal releases the slot. A cleanup error closes admission
+// under the same policy as any other unconfirmed cleanup.
+func (l *Lease) TrackPendingDisposal(cause error, owner *disposal.Owner) {
+	p := l.pool
+	p.mu.Lock()
+	if _, ok := p.leases[l]; !ok || l.tracking {
+		p.mu.Unlock()
+		return
+	}
+	l.tracking = true
+	p.mu.Unlock()
+	go func() {
+		if err := owner.Retry(context.Background()); err != nil {
+			l.Settle(disposal.Retain(cause, err, owner))
+			<-owner.Done()
+		}
+		l.Settle(nil)
+	}()
+}
+
 // TrackCleanup retains an uncertain child's slot through the actual disposal
 // owners' completion. Only one watcher belongs to a lease, not one per retry.
 // An untyped cleanup error remains blocked: never infer disposal from its text.

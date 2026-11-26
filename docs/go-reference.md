@@ -85,7 +85,9 @@ later Fork. Capacity errors include `max_forks`, observed `occupied_slots` and
 live and unconfirmed-cleanup owners; they can change after sampling. Go's
 underlying context error remains available through `errors.Is`.
 Closing the baseline wakes capacity waiters while existing children
-remain usable. Cleanup uncertainty stops admission; later disposal alone does
+remain usable. When a consuming Snapshot returns an error while its child is
+still shutting down, the slot remains occupied until disposal succeeds. A cleanup
+failure or unresolved cleanup debt stops admission; later disposal alone does
 not automatically resume it. Prepare a new baseline or use an explicit Live
 Reset that confirms all cleanup debt. There is no unlimited Snapshot/Fork setting.
 
