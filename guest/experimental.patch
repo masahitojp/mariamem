@@ -1,0 +1,116 @@
+--- a/tpool/tpool.h
++++ b/tpool/tpool.h
+@@ -312,6 +312,8 @@
+   int submit_io(aiocb *cb) { return m_aio->submit_io(cb); }
+   virtual void wait_begin() {};
+   virtual void wait_end() {};
++  /** Start a scoped wait only for an executing, not-yet-waiting worker. */
++  virtual bool wait_begin_if_needed() { return false; }
+   virtual ~thread_pool() {}
+ };
+ 
+@@ -334,6 +336,20 @@
+                            int max_threads= DEFAULT_MAX_POOL_THREADS);
+ extern "C" void tpool_wait_begin();
+ extern "C" void tpool_wait_end();
++/** Return the pool whose waiting count this call acquired, or nullptr. */
++extern "C" thread_pool *tpool_wait_begin_if_needed();
++
++/** Balanced, non-nesting notification for a single blocking operation. */
++class scoped_wait
++{
++  thread_pool *m_pool;
++public:
++  scoped_wait() : m_pool(tpool_wait_begin_if_needed()) {}
++  ~scoped_wait() { if (m_pool) m_pool->wait_end(); }
++  scoped_wait(const scoped_wait&)= delete;
++  scoped_wait& operator=(const scoped_wait&)= delete;
++};
++
+ #ifdef _WIN32
+ extern thread_pool *
+ create_thread_pool_win(int min_threads= DEFAULT_MIN_POOL_THREADS,
+--- a/tpool/tpool_generic.cc
++++ b/tpool/tpool_generic.cc
+@@ -255,6 +255,7 @@
+   ~thread_pool_generic() override;
+   void wait_begin() override;
+   void wait_end() override;
++  bool wait_begin_if_needed() override;
+   void submit_task(task *task) override;
+ #ifdef _WIN32
+   aio *create_native_aio(int max_io, aio_implementation) override
+@@ -860,6 +861,32 @@
+ }
+ 
+ 
++/* A scoped caller must never consume an enclosing wait notification. */
++bool thread_pool_generic::wait_begin_if_needed()
++{
++  if (!tls_worker_data)
++    return false;
++  std::unique_lock<std::mutex> lk(m_mtx);
++  if (!tls_worker_data->is_executing_task() ||
++      tls_worker_data->is_long_task() || tls_worker_data->is_waiting())
++    return false;
++
++  tls_worker_data->m_state |= worker_data::WAITING;
++  m_waiting_task_count++;
++  try
++  {
++    maybe_wake_or_create_thread();
++  }
++  catch (...)
++  {
++    tls_worker_data->m_state &= ~worker_data::WAITING;
++    m_waiting_task_count--;
++    throw;
++  }
++  return true;
++}
++
++
+ void thread_pool_generic::wait_end()
+ {
+   if (tls_worker_data && tls_worker_data->is_waiting())
+--- a/tpool/wait_notification.cc
++++ b/tpool/wait_notification.cc
+@@ -16,6 +16,14 @@
+ }
+ 
+ 
++extern "C" thread_pool *tpool_wait_begin_if_needed()
++{
++  if (tls_thread_pool && tls_thread_pool->wait_begin_if_needed())
++    return tls_thread_pool;
++  return nullptr;
++}
++
++
+ extern "C" void tpool_wait_end()
+ {
+   if (tls_thread_pool)
+--- a/storage/innobase/trx/trx0sys.cc
++++ b/storage/innobase/trx/trx0sys.cc
+@@ -25,6 +25,7 @@
+ *******************************************************/
+ 
+ #include "trx0sys.h"
++#include <tpool.h>
+ #include "mysqld.h"
+ #include "sql_error.h"
+ 
+@@ -182,7 +183,12 @@
+   size_t size= 0;
+   for (auto &rseg : rseg_array)
+   {
+-    rseg.latch.rd_lock(SRW_LOCK_CALL);
++    if (!rseg.latch.rd_lock_try())
++    {
++      /* Keep I/O progressing while a purge worker holds this rseg. */
++      tpool::scoped_wait waiting;
++      rseg.latch.rd_lock(SRW_LOCK_CALL);
++    }
+     size+= rseg.history_size;
+   }
+   for (auto &rseg : rseg_array)

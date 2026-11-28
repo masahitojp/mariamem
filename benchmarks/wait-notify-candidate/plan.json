@@ -1,0 +1,26 @@
+{
+  "decision": "Prepare production-quality narrow history_size waiting-notification candidate using supported C++ APIs and real generated guest;verify semantics and ordinary full P8 benchmark before recommending integration",
+  "authorization": "Human accepted switch from unsuccessful scheduling gates tosmallproductioncandidate;no mainintegration or release",
+  "sources": {
+    "baseline_source_commit": "e00b3ec41f9c5d4ca3f85db4ff73198dbf3613e9",
+    "mariadb_source_commit": "e4549ea60c98a8743ed4743d7f92174d8a0005d9",
+    "harness_source_commit": "1977fff480c2f976bc23f4d2e1b8ff8db36ad128"
+  },
+  "retained": "wholeparallelP8completion goal,matched70case MaxForks16 SQL audit/preaggON syncClose,inprocess;400ms maintenance;nonworker/nested/long waits and exception balance",
+  "replaced": "No more scheduling gates/private-offset production helper;nativeC++ narrow slowpath candidate and deterministic waitingcontract tests",
+  "finite_evidence": "Read pinned APIs/callers;compile targeted C++ waiting tests;freshguest+translation on supportedarm64 build runner via explicitUNQUALIFIED route;focusedruntimechecks andfixedordinaryP8 comparison(original unchanged harness,no added diag).20C/20K full in10balancedgroups,allfirstresults retained;noextra sampling",
+  "result_columns": [
+    "C++ API/correctness guard/fastpath behavior",
+    "source+guest+translation identity",
+    "runtime SQL/Close/Fork semantics pass",
+    "full process/suite CPU RSS/sample>=400ms byarm;pairedtime and balancedposition"
+  ],
+  "budgets": {
+    "active_minutes": 120,
+    "measurement_tooling_minutes": 30,
+    "heavy_CI_submissions": 2,
+    "scratch_GiB": 24,
+    "min_free_GiB": 16
+  },
+  "exit": "Finish candidate diff and feasibleverification;if API/correctness/build fails reportexactremaining;noeffectguarantee fromnorecurrence;no furthergatework. Atbudgetboundary preservecandidate/evidence and reportcost/uncertainty;noautomaticintegration/release."
+}
