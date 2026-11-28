@@ -492,8 +492,9 @@
   "previous_canonical_evidence": {
     "source_commit": "e00b3ec41f9c5d4ca3f85db4ff73198dbf3613e9",
     "guest_sha256": "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0",
-    "record_sha256": "8579dd9105b1e13a53c34287a42c3c782fba3dc4066536d94fbc45de18fb698f",
-    "record": "release/generated-go-build.json at baseline source commit"
+    "record_sha256": "cc79c91b9644c0241d2c7833d8e5e81917d4f6c2b9dded32c9bca2159f8bd4e7",
+    "record": "release/evidence/history-wait-previous-build.json",
+    "original_record_sha256": "8579dd9105b1e13a53c34287a42c3c782fba3dc4066536d94fbc45de18fb698f"
   },
   "incoming_guest_origin": {
     "source_commit": "d9f8bc50bcd14ac5ea0dc1a01f7d29bdc1248398",
