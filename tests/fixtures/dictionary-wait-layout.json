@@ -1,22 +1,22 @@
 {
-  "guest_sha256": "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0",
-  "data_sha256": "14660265eb7af54f1d3b261d18958bb5615702d3add9f7574edf3809966fe014",
+  "guest_sha256": "e6d0570841d79b82cfee1a87070080febeb08da6dba1727c5341e53ae6463c9b",
+  "data_sha256": "25729bbe18075ebc42b4b525828ab777a27b32195345600b4067968bcdd37e14",
   "functions": {
-    "Fn16643": {
+    "Fn16644": {
       "file": "internal/generatedgo/code/p3/p3_pure.go",
-      "normalized_sha256": "14c0e3586f55e64d33364b61c20e30e441f4ef8ea1fa0717bb07b3845edc679a"
+      "normalized_sha256": "bed490410b7158e037865ad04d04e16b105481e3dec94fb016061cc68aa33db4"
     },
     "Fn16635": {
       "file": "internal/generatedgo/code/p5/p5_pure.go",
-      "normalized_sha256": "d22d2233644009fbfe22f634475443afaa76d0f06d2f27cae1a45222166cd049"
+      "normalized_sha256": "20c1089b853f222bb6b72a89792489ef19bb37f8b1e07dc77bca86aea9acea5c"
     },
     "Fn16637": {
       "file": "internal/generatedgo/code/p7/p7_pure.go",
       "normalized_sha256": "582faaf01a910f0be596f12dc2415deb6b90c243c29bf9e066cdc1008bef46dc"
     },
-    "Fn16642": {
+    "Fn16643": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "95aa466404c8af485671623883e56632fb38238fa9eed0b76835dcc3eac1a9a0"
+      "normalized_sha256": "5004e655abe8aea8c236b6eb541f06ba7ecbbea62487fbd015c42bdabcff9b1a"
     },
     "Fn16613": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
@@ -38,25 +38,25 @@
       "file": "internal/generatedgo/code/p8/p8_pure.go",
       "normalized_sha256": "76a24defd9a6bceffcd34385b9ef26a63fd6f2f3031392b27fae8367d5ff291f"
     },
-    "Fn18045": {
+    "Fn18046": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
-      "normalized_sha256": "f76eeb46b12aba8beca861bdad5e2117e15fd9be24d509a0f1690477a355428e"
+      "normalized_sha256": "c3d500f96904386677cfb99e2a4d4a2f9b2d34019fac830b93ca76766024d698"
     },
     "Fn16620": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
       "normalized_sha256": "58216301850bfd15f8179bfa0678570bacdfd67003669d62b7dfe942b7cb202a"
     },
-    "Fn18055": {
+    "Fn18056": {
       "file": "internal/generatedgo/code/p6/p6_pure.go",
-      "normalized_sha256": "5e100c74ac356f15ca208d082e9ab10f75f3984a7ec9a72773d7a8ff2b61f346"
+      "normalized_sha256": "7898e71d68fe5ef56c9350ba89b5b3020dd8f4c3524b7bc56b7b8d4f87497725"
     },
     "Fn16639": {
       "file": "internal/generatedgo/code/p7/p7_pure.go",
       "normalized_sha256": "4237fb4e1b930168680c3046d3dec24922f0ca2795ef85655dca643f10bae539"
     },
-    "Fn16640": {
+    "Fn16641": {
       "file": "internal/generatedgo/code/p8/p8_pure.go",
-      "normalized_sha256": "233717ef8dc49ca55ddf071abaa7e36d7257201bed460159392d44809d631f6f"
+      "normalized_sha256": "f701711437aed3a3562a86e4a1795701f8292252a88853b927010e35ac4af1eb"
     }
   },
   "scope": "Actual guest contention regression; helper bodies and data remain exact. No injected notification.",

@@ -3,9 +3,9 @@
   "metadata_files": [
     {
       "path": "image/layout.json",
-      "reason": "Derived image layout metadata; restore its audited hash when reconstructing provenance.",
-      "approval": "Existing metadata-only attribution contract; issue #179",
-      "before": "19761e92f1fcd287158d56991c4d648f3aeb97c08c5d436df50953c6e2d39c2f",
+      "reason": "Derived image metadata for the freshly audited canonical history-wait guest.",
+      "approval": "Human approved canonical history-wait integration and acceptance2026-11-29; new exact guest audit retains historical facts separately.",
+      "before": "b98af18085d5adc39026daaedc997558add3407f4fe68046f5ef30916efa2e7e",
       "audit_field": "audited_image_metadata_sha256"
     }
   ],

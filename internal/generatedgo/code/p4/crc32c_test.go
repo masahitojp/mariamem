@@ -78,7 +78,7 @@ func TestCRC32CPageValidation(t *testing.T) {
 	rng := rand.New(rand.NewSource(117))
 	cases := 0
 	for _, size := range []int{4096, 8192, 16384, 32768, 65536} {
-		binary.LittleEndian.PutUint32(m.Memory[27619104:], uint32(size))
+		binary.LittleEndian.PutUint32(m.Memory[27619168:], uint32(size))
 		for _, off := range []int{0, 1, 7, 15} {
 			addr := (2 << 20) + off
 			page := m.Memory[addr : addr+size]
@@ -101,7 +101,7 @@ func TestCRC32CPageValidation(t *testing.T) {
 				}
 				before := append([]byte(nil), page...)
 				old := originalCRCValidator(m, 0, int32(addr), 16)
-				fast := p4.Fn18166(m, 0, int32(addr), 16)
+				fast := p4.Fn18167(m, 0, int32(addr), 16)
 				if old != fast || (mutation == "valid" && old != 0) || (mutation != "valid" && old == 0) || !bytes.Equal(before, page) || m.ExcPending != 0 {
 					t.Fatalf("size=%d offset=%d mutation=%s old=%d fast=%d", size, off, mutation, old, fast)
 				}
@@ -109,5 +109,5 @@ func TestCRC32CPageValidation(t *testing.T) {
 			}
 		}
 	}
-	t.Logf("%d actual Fn18166 valid/corrupt/LSN cases PASS", cases)
+	t.Logf("%d actual Fn18167 valid/corrupt/LSN cases PASS", cases)
 }

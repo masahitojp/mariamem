@@ -165,6 +165,11 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
     # Frozen profiles without this header retain their original preparation.
     if (source / 'strings/mariamem_uca_copy_prepared.h').exists():
         generated_files.append('strings/mariamem_uca_copy_prepared.h')
+    history_wait_files = ()
+    from check_history_wait_source import BOUNDARY, FILES, source as check_history_wait
+    if (root/'guest/source.patch').is_file() and BOUNDARY in (root/'guest/source.patch').read_bytes():
+        check_history_wait(root)
+        history_wait_files = FILES
     native_wire_files = [name for patch in native_wire_series for name in patch["after_sha256"]]
     native_glue_files = list(native_glue.keys()) if (native_glue and canonical_native_glue) else []
     manifest = {"guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
@@ -176,7 +181,7 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
                                     "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", "wasm/prepared_api.inc", routine_schema["header"], auth_header, *auth_files,
                                     "include/mariamem_init_diagnostics.h", *generated_files, *diagnostic_files,
                                     "storage/innobase/dict/dict0dict.cc",
-                                    "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
+                                    "cmake/pcre.cmake", "cmake/libfmt.cmake", *history_wait_files, *experimental_files)}}
     if native_wire_series:
         manifest["native_wire_patch"] = native_wire_series[0]
     if selected is None or 'lexer' in features:

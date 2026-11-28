@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 BOUNDARY = b'--- a/tpool/tpool.h\n'
 BASE_SHA256 = '0826197caa46c8d1e389e9883e752749b99eb84a56b0afee48b7ba6dd2465288'
 DELTA_SHA256 = '5b9aaf3417bce2cf59d78ae388e72ef8d8abae0ab0990c11361c7bc9af7a480f'
+FILES = ('tpool/tpool.h', 'tpool/tpool_generic.cc', 'tpool/wait_notification.cc',
+         'storage/innobase/trx/trx0sys.cc')
 
 
 def source(root=ROOT):

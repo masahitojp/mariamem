@@ -320,7 +320,11 @@
       "storage/innobase/handler/ha_innodb.cc": "1bb4033eaca3817f1fbea8665fa3dee0f62386094bf221b88048464f980ab2c6",
       "storage/innobase/srv/srv0start.cc": "c7948518e26be7e19c2c3d557d35240b622b223e6c153fd995ee63f2ad30490d",
       "storage/innobase/dict/dict0dict.cc": "68abba5af765e4eac441a72883fc010641501a3215ff74431a771a2b0c6bf4cc",
-      "cmake/libfmt.cmake": "7ee74e50434b54119933bd12789cfb8fae76ceb155b8d56b149fecb2f1e41f5a"
+      "cmake/libfmt.cmake": "7ee74e50434b54119933bd12789cfb8fae76ceb155b8d56b149fecb2f1e41f5a",
+      "tpool/tpool.h": "15271052483556e6661ae5822c611757637243f21594fa1fdf59dd9921e6e8f0",
+      "tpool/tpool_generic.cc": "8ec4dc67a5cfc6f02c5513244ffc665196479ddc88dc1e6779f5668fc6fd283b",
+      "tpool/wait_notification.cc": "fc3bee787a766085d39dadf82ec6461224daaba713e2bd8ce4203903879320ca",
+      "storage/innobase/trx/trx0sys.cc": "c0e8943445254fd25a6016de23d7c3ef26419381c0272ef5abbbe2b915d95224"
     },
     "native_wire_patch": {
       "file": "guest/patches/12.3.4-native-wire.patch",
@@ -485,9 +489,6 @@
     }
   },
   "source_commit": "3401a35add5345c1252f5ec731a9e8d527d711ca",
-  "repetitions": [],
-  "completed": false,
-  "full_guest_regeneration": "PENDING: canonical double-source build and both-platform acceptance; expected bytes independently checked against UNQUALIFIED preparation input only.",
   "previous_canonical_evidence": {
     "source_commit": "e00b3ec41f9c5d4ca3f85db4ff73198dbf3613e9",
     "guest_sha256": "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0",
@@ -500,5 +501,6 @@
     "result": "UNQUALIFIED",
     "ci_run": 46128641933,
     "role": "preparation only; not canonical qualification"
-  }
+  },
+  "role": "Expected canonical build inputs, not an acceptance receipt. Exact-source CI must independently rebuild twice and verify both product platforms."
 }

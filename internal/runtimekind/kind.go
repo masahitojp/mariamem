@@ -4,4 +4,4 @@ package runtimekind
 type Kind string
 
 const GeneratedGo Kind = "generated-go"
-const GuestSHA256 = "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0"
+const GuestSHA256 = "e6d0570841d79b82cfee1a87070080febeb08da6dba1727c5341e53ae6463c9b"

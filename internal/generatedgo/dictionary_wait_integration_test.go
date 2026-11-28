@@ -23,7 +23,7 @@ import (
 )
 
 // The source guard pins these actual guest bodies and their unchanged data.
-const dictionaryLatch int32 = 18739648
+const dictionaryLatch int32 = 18739712
 
 type dictionaryWriter struct {
 	base.Wasi_snapshot_preview1Imports
@@ -32,7 +32,7 @@ type dictionaryWriter struct {
 }
 
 func (w *dictionaryWriter) Fd_write(m *base.Module, fd, iov, n, out int32) int32 {
-	if fd == 1 && *dictionaryWord(m, 27749720) != 0 {
+	if fd == 1 && *dictionaryWord(m, 27749784) != 0 {
 		w.once.Do(func() { w.run(m) })
 	}
 	return w.Wasi_snapshot_preview1Imports.Fd_write(m, fd, iov, n, out)
@@ -71,13 +71,13 @@ func dictionaryFlags(m *base.Module) int32 {
 }
 func dictionaryLock(m *base.Module) {
 	if base.AtomicRmwCmpxchg32(m, dictionaryLatch, 0, 0, 2147483647) != 0 {
-		p6.Fn18045(m)
+		p6.Fn18046(m)
 	}
 	dictionaryRequire(m.ExcPending == 0, "owner lock exception")
 }
 
 // Same exclusive CAS/wake as the guest. Only the harness owner uses this;
-// Fn18055 retains its own original lock and unlock implementation.
+// Fn18056 retains its own original lock and unlock implementation.
 func dictionaryUnlock(m *base.Module) {
 	for {
 		waiters := atomic.LoadInt32(dictionaryWord(m, dictionaryLatch+4))
@@ -113,7 +113,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 						// Suppress only this controlled pool's periodic rescue timer via
 						// its existing virtual start method. No notification is injected.
 						m.T0 = append([]any(nil), m.T0...)
-						timerIndex := *dictionaryWord(m, 16856284)
+						timerIndex := *dictionaryWord(m, 16856292)
 						dictionaryRequire(timerIndex == 12351, "timer virtual method binding")
 						originalTimer := m.T0[timerIndex]
 						starts := 0
@@ -122,7 +122,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							starts++
 							poolAddress.Store(*dictionaryWord(c, timer+164))
 						}
-						pool := p3.Fn16643(m)
+						pool := p3.Fn16644(m)
 						m.T0[timerIndex] = originalTimer
 						dictionaryRequire(pool != 0 && m.ExcPending == 0 && starts == 1 && poolAddress.Load() == pool, "controlled pool constructor")
 						p8.Fn16636(m, pool, int32(concurrency))
@@ -143,7 +143,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 								dictionaryUnlock(m)
 							}
 							if pool != 0 {
-								p8.Fn16642(m, pool)
+								p8.Fn16643(m, pool)
 							}
 						}()
 						var created, retired, refs atomic.Int32
@@ -176,11 +176,11 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							p8.Fn597(c, pool+184)
 							return n
 						}
-						dictionaryRequire(*dictionaryWord(m, 18739724) < *dictionaryWord(m, 27749720), "dictionary below eviction threshold")
+						dictionaryRequire(*dictionaryWord(m, 18739788) < *dictionaryWord(m, 27749784), "dictionary below eviction threshold")
 						evict := func(c *base.Module) {
 							tls.Store(c.G1)
 							dictionaryRequire(dictionaryFlags(c)&6 == 0, "caller is neither WAITING nor LONG")
-							n := p6.Fn18055(c, 0) // Actual patched C guest; no begin/end supplied here.
+							n := p6.Fn18056(c, 0) // Actual patched C guest; no begin/end supplied here.
 							dictionaryRequire(c.ExcPending == 0 && n == 0, "normal eviction without dictionary mutation")
 							dictionaryRequire(dictionaryFlags(c)&6 == 0, "WAITING/LONG restored by guest")
 						}
@@ -245,7 +245,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 							bOnce.Do(func() { close(bRelease) })
 						}
 						// Join before checking retirement, refs, or releasing task storage.
-						p8.Fn16642(m, pool)
+						p8.Fn16643(m, pool)
 						// Prevent the deferred failure cleanup from disposing twice.
 						pool = 0
 						expectedWorkers := int32(2)

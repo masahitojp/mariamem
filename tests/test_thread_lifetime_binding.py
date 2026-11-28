@@ -49,8 +49,8 @@ def test_bound_function_change_is_rejected(name):
 
 
 @pytest.mark.parametrize('name,address', [
-    ('code/p3/p3_pure.go', '18771404'),
-    ('code/p5/p5_pure.go', '18769985'),
+    ('code/p3/p3_pure.go', '18771468'),
+    ('code/p5/p5_pure.go', '18770049'),
 ])
 @pytest.mark.parametrize('earlier_same_literal', [False, True])
 def test_another_address_relocation_is_not_accepted(name, address, earlier_same_literal):
@@ -92,6 +92,12 @@ def test_guest_and_required_file_identity():
     for file in files:
         with pytest.raises(ValueError, match='unreviewed'):
             binding.validate_inputs(binding.GUEST_SHA256, files-{file})
+
+
+def test_previous_main_guest_is_not_an_alternate_binding():
+    files = {'generated/base/base.go', *('generated/'+p.removeprefix('code/') for p in binding.FUNCTIONS)}
+    with pytest.raises(ValueError, match='unreviewed'):
+        binding.validate_inputs('8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0', files)
 
 
 @pytest.mark.parametrize('old_identity', ['baseline_guest_sha256', 'previous_guest_sha256', 'p1_guest_sha256', 'initial_p2_guest_sha256', 'type_repair_guest_sha256', 'p2_guest_sha256', 'p3_guest_sha256', 'long_data_guest_sha256', 'prior_alignment_guest_sha256', 'prior_uca_prepared_guest_sha256', 'prior_lexer_prepared_guest_sha256', 'prior_uca_copy_guest_sha256', 'prior_dictionary_guest_sha256', 'prior_prepared_output_guest_sha256'])

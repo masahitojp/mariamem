@@ -187,6 +187,10 @@ def main():
         if not development and prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')
         if not development:
+            observed_run([sys.executable, ROOT/'scripts/check_dictionary_wait_source.py',
+                          '--prepared-source', ROOT/'build/source'],
+                         env=env, check=True, phase=f'guest:dictionary-wait-source:{trial}',
+                         inputs=[ROOT/'guest/source.patch'])
             observed_run([sys.executable, ROOT/'scripts/check_history_wait_source.py'],
                          env=env, check=True, phase=f'guest:history-wait-source:{trial}',
                          inputs=[ROOT/'guest/source.patch'])
@@ -194,10 +198,6 @@ def main():
                           ROOT/'build/source', ROOT/'build'/f'history-wait-contract-{trial}'],
                          env=env, check=True, phase=f'guest:history-wait-contract:{trial}',
                          inputs=[ROOT/'guest/source.patch', ROOT/'tests/history_wait_contract.py'])
-            observed_run([sys.executable, ROOT/'scripts/check_dictionary_wait_source.py',
-                          '--prepared-source', ROOT/'build/source'],
-                         env=env, check=True, phase=f'guest:dictionary-wait-source:{trial}',
-                         inputs=[ROOT/'guest/source.patch'])
         # Exercise the actual prepared C allocator contract before compilation.
         allocator_check = ROOT/'build'/f'buffer-pool-contract-{trial}.json'
         observed_run([sys.executable, ROOT/'tests/buffer_pool_alignment_check.py',

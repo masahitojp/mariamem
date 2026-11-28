@@ -25,6 +25,11 @@ def data():
     return bytes(crc.TABLE_OFFSET) + table
 
 
+def test_previous_main_guest_is_not_an_alternate_binding():
+    with pytest.raises(ValueError, match='unreviewed'):
+        crc.validate_inputs('8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0', data())
+
+
 def compact(s):
     return re.sub(r'\s+', '', s)
 

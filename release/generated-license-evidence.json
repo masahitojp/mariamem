@@ -7,347 +7,49 @@
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
   "audit_source_commit": "619aa7f6f9bcfd2771a6b91e4a6c555437ff8526",
-  "guest_sha256": "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0",
-  "linked_sha256": "764393a3dcf632d0573727cd8eaeb7c3f9db3b278ebf8b30ef9732cb3dfc5a78",
-  "symbol_map_sha256": "149e569abbcb101f44495ec508b54c629c44eba79a51262957b86d22b9e248af",
-  "symbol_map_entries": 21798,
-  "generated_provenance_sha256": "31ab8c100c28ef2b144a93e90f6e77b27980b6d4924b187159566d5a0d06c892",
+  "guest_sha256": "e6d0570841d79b82cfee1a87070080febeb08da6dba1727c5341e53ae6463c9b",
+  "linked_sha256": "b5624008c7d14ee7426761429db3cda5eb8a5c7c8b4f6895aa750c5793aa25a6",
+  "symbol_map_sha256": "626b3399d75b687aef316286f59a06ee3319441ae772ad007eed7a89a7400f2e",
+  "symbol_map_entries": 21799,
+  "generated_provenance_sha256": "6f1c2d329c2b59b96454781099bde192641c319918df922c63b2a435d12ed035",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
-      "pattern": "^(mysql_server_init|mysql_real_query)$",
-      "named_matches": 2,
-      "generated_definitions": 2,
-      "host_named_definitions": 2,
-      "examples": [
-        {
-          "index": 6041,
-          "symbol": "mysql_server_init",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn6041",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 6103,
-          "symbol": "mysql_real_query",
-          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn6103",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^(mysql_server_init|mysql_real_query)$"
     },
     "lite4mariadb": {
       "pattern": "^(l4m_|mariamem_init_|routine_(scalar|statement|failure|result)$)",
-      "named_matches": 6,
-      "generated_definitions": 6,
-      "host_named_definitions": 6,
-      "examples": [
-        {
-          "index": 199,
-          "symbol": "mariamem_init_mark",
-          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
-          "generated_function": "Fn199",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 200,
-          "symbol": "mariamem_init_plugin_mark",
-          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn200",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 216,
-          "symbol": "routine_scalar",
-          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn216",
-          "host_symbol_retained": true
-        }
-      ],
       "note": "Modified wasm/lite4mariadb.c compiles l4m_open/l4m_close (inlined by Binaryen into native-wire bootstrap) plus retained mariamem_init_* and routine_* helpers."
     },
     "WASIX libc": {
-      "pattern": "^(pthread_|__pthread|__wasi|__wasilibc|__imported_wasix_)",
-      "named_matches": 79,
-      "generated_definitions": 51,
-      "host_named_definitions": 40,
-      "examples": [
-        {
-          "index": 66,
-          "symbol": "__pthread_self_internal",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn66",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 67,
-          "symbol": "__pthread_mutex_trylock",
-          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn67",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 69,
-          "symbol": "__wasi_clock_time_get",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn69",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^(pthread_|__pthread|__wasi|__wasilibc|__imported_wasix_)"
     },
     "wolfSSL": {
-      "pattern": "^(wolfSSL_|wc_|wolfCrypt)",
-      "named_matches": 1982,
-      "generated_definitions": 1982,
-      "host_named_definitions": 345,
-      "examples": [
-        {
-          "index": 1574,
-          "symbol": "wolfSSL_ResourceFree",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn1574",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 1652,
-          "symbol": "wolfSSL_ERR_func_error_string",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1652",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 1706,
-          "symbol": "wolfSSL_CTX_set_groups",
-          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn1706",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^(wolfSSL_|wc_|wolfCrypt)"
     },
     "zlib": {
-      "pattern": "^(deflate|inflate|crc32|adler32)",
-      "named_matches": 15,
-      "generated_definitions": 15,
-      "host_named_definitions": 14,
-      "examples": [
-        {
-          "index": 4795,
-          "symbol": "crc32_z",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn4795",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 7030,
-          "symbol": "adler32",
-          "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-          "generated_function": "Fn7030",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 7038,
-          "symbol": "deflateInit_",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7038",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^(deflate|inflate|crc32|adler32)"
     },
     "PCRE2": {
-      "pattern": "^_?pcre2_",
-      "named_matches": 23,
-      "generated_definitions": 23,
-      "host_named_definitions": 8,
-      "examples": [
-        {
-          "index": 7526,
-          "symbol": "pcre2_match_data_free_8",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7526",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 7529,
-          "symbol": "_pcre2_strncmp_8",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7529",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 7534,
-          "symbol": "_pcre2_compile_process_capture_list",
-          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
-          "generated_function": "Fn7534",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^_?pcre2_"
     },
     "fmt": {
-      "pattern": "^_ZN3fmt",
-      "named_matches": 62,
-      "generated_definitions": 62,
-      "host_named_definitions": 59,
-      "examples": [
-        {
-          "index": 10908,
-          "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500E12my_allocatorIcEE4growERNS0_6detail6bufferIcEEm",
-          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn10908",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 11279,
-          "symbol": "_ZN3fmt3v126detail5valueINS0_7contextEE13format_customI6StringEEvPvRNS0_13parse_contextIcEERS3_",
-          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn11279",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 11280,
-          "symbol": "_ZN3fmt3v126detail18parse_format_specsIcEEPKT_S5_S5_RNS1_20dynamic_format_specsIS3_EERNS0_13parse_contextIS3_EENS1_4typeE",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn11280",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^_ZN3fmt"
     },
     "libc++": {
-      "pattern": "^_ZNSt3__2",
-      "named_matches": 778,
-      "generated_definitions": 778,
-      "host_named_definitions": 379,
-      "examples": [
-        {
-          "index": 360,
-          "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn360",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 362,
-          "symbol": "_ZNSt3__212basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE21__grow_by_and_replaceEmmmmmmPKc",
-          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn362",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 363,
-          "symbol": "_ZNSt3__212basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_out_of_rangeB8ne200100Ev",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn363",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^_ZNSt3__2"
     },
     "libc++abi": {
-      "pattern": "^__cxa_",
-      "named_matches": 27,
-      "generated_definitions": 27,
-      "host_named_definitions": 14,
-      "examples": [
-        {
-          "index": 235,
-          "symbol": "__cxa_pure_virtual",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn235",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 273,
-          "symbol": "__cxa_allocate_exception",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn273",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 274,
-          "symbol": "__cxa_free_exception",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn274",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^__cxa_"
     },
     "libunwind": {
-      "pattern": "^_Unwind_",
-      "named_matches": 8,
-      "generated_definitions": 8,
-      "host_named_definitions": 8,
-      "examples": [
-        {
-          "index": 263,
-          "symbol": "_Unwind_CallPersonality",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn263",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 264,
-          "symbol": "_Unwind_RaiseException",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn264",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 265,
-          "symbol": "_Unwind_DeleteException",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn265",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^_Unwind_"
     },
     "compiler-rt": {
-      "pattern": "^__(ashlti3|fixunstfsi|floatunsitf|fixtfsi|floatsitf|udivti3|multi3)$",
-      "named_matches": 5,
-      "generated_definitions": 5,
-      "host_named_definitions": 3,
-      "examples": [
-        {
-          "index": 111,
-          "symbol": "__ashlti3",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn111",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 168,
-          "symbol": "__udivti3",
-          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
-          "generated_function": "Fn168",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 169,
-          "symbol": "__multi3",
-          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn169",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^__(ashlti3|fixunstfsi|floatunsitf|fixtfsi|floatsitf|udivti3|multi3)$"
     },
     "dlmalloc": {
-      "pattern": "^(dlmalloc|dlfree|dlrealloc)",
-      "named_matches": 2,
-      "generated_definitions": 2,
-      "host_named_definitions": 2,
-      "examples": [
-        {
-          "index": 150,
-          "symbol": "dlmalloc",
-          "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
-          "generated_function": "Fn150",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 151,
-          "symbol": "dlfree",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn151",
-          "host_symbol_retained": true
-        }
-      ]
+      "pattern": "^(dlmalloc|dlfree|dlrealloc)"
     }
   },
   "historical_evidence": {
@@ -355,7 +57,7 @@
     "path": "release/generated-license-evidence.json",
     "sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067"
   },
-  "result": "PASS: positive retained-function evidence for every recorded component family",
+  "result": "PENDING: new exact guest retained-function audit; old facts retained separately",
   "previous_attribution": {
     "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
     "path": "release/generated-license-evidence.json",
@@ -581,12 +283,6 @@
       "note": "Diagnostic attribution, not new release approval."
     }
   },
-  "host_check": {
-    "source_commit": "619aa7f6f9bcfd2771a6b91e4a6c555437ff8526",
-    "sha256": "665614bbcc8eed2949e5d402a4ab3cc783a581097e7f011209a313acb1f7da50",
-    "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.0.0-20261125073250-619aa7f6f9bc\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=619aa7f6f9bcfd2771a6b91e4a6c555437ff8526\n\tbuild\tvcs.time=2026-11-25T07:32:50Z\n\tbuild\tvcs.modified=false\n",
-    "note": "Diagnostic attribution, not new release approval."
-  },
   "previous_candidate_audit": {
     "guest_sha256": "7a98604b367501326f2895d7e9896a7be8c01f1539e9df48d974ae19c661c0c4",
     "record_sha256": "eed8f8badde5290bbd46d701486d14d9933c84bd4070e55060d5ae2b0f2f3308",
@@ -625,5 +321,26 @@
     "previous_evidence_sha256": "94c144eb7d9db5210be5922b1a3d8a6639e050608b34b1a56aad80d8c0a89038",
     "previous_guest_sha256": "67fbc6f0d16360383fbf5a033abd5ba0d3bd272c3384c4bbd077e61efd54ca5d",
     "scope": "Native control-plane refactor in guest/native/wasm/issue65_control.cc (#256). Re-audited retained functions without changing upstream libraries or notices."
-  }
+  },
+  "previous_history_wait_audit": {
+    "source_commit": "e00b3ec41f9c5d4ca3f85db4ff73198dbf3613e9",
+    "record": "release/generated-license-evidence.json at baseline source commit",
+    "record_sha256": "0556fd888bf6baa4ce6ec6e55da8de852e96418e7a3f1e792aade4dcf715a169",
+    "audit_facts": {
+      "audit_source_commit": "619aa7f6f9bcfd2771a6b91e4a6c555437ff8526",
+      "guest_sha256": "8e10bc39d017a18dd6043c0e77678cf2061486a3006c5ab236d8e1df2e4b1bb0",
+      "linked_sha256": "764393a3dcf632d0573727cd8eaeb7c3f9db3b278ebf8b30ef9732cb3dfc5a78",
+      "symbol_map_sha256": "149e569abbcb101f44495ec508b54c629c44eba79a51262957b86d22b9e248af",
+      "symbol_map_entries": 21798,
+      "generated_provenance_sha256": "31ab8c100c28ef2b144a93e90f6e77b27980b6d4924b187159566d5a0d06c892",
+      "result": "PASS: positive retained-function evidence for every recorded component family",
+      "host_check": {
+        "source_commit": "619aa7f6f9bcfd2771a6b91e4a6c555437ff8526",
+        "sha256": "665614bbcc8eed2949e5d402a4ab3cc783a581097e7f011209a313acb1f7da50",
+        "buildinfo": "mariamem-host: go1.26.11\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.0.0-20261125073250-619aa7f6f9bc\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=619aa7f6f9bcfd2771a6b91e4a6c555437ff8526\n\tbuild\tvcs.time=2026-11-25T07:32:50Z\n\tbuild\tvcs.modified=false\n",
+        "note": "Diagnostic attribution, not new release approval."
+      }
+    }
+  },
+  "audited_image_metadata_sha256": "b98af18085d5adc39026daaedc997558add3407f4fe68046f5ef30916efa2e7e"
 }
