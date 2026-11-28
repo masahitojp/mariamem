@@ -167,8 +167,11 @@ def prepare(root, lock, build, fetch_input, *, selected=None, features=None):
         generated_files.append('strings/mariamem_uca_copy_prepared.h')
     history_wait_files = ()
     from check_history_wait_source import BOUNDARY, FILES, source as check_history_wait
-    if (root/'guest/source.patch').is_file() and BOUNDARY in (root/'guest/source.patch').read_bytes():
-        check_history_wait(root)
+    if ('source_overlay' not in guest_input and (root/'guest/source.patch').is_file()
+            and BOUNDARY in (root/'guest/source.patch').read_bytes()):
+        # Preparation still permits a separately recorded development overlay;
+        # canonical build/release guards reject that overlay before acceptance.
+        check_history_wait(root, allow_experimental=True)
         history_wait_files = FILES
     native_wire_files = [name for patch in native_wire_series for name in patch["after_sha256"]]
     native_glue_files = list(native_glue.keys()) if (native_glue and canonical_native_glue) else []

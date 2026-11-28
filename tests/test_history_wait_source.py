@@ -13,6 +13,16 @@ def test_canonical_history_wait_source():
     assert guard.source()['history_delta_sha256'] == guard.DELTA_SHA256
 
 
+def test_preparation_preserves_separate_experimental_overlay(tmp_path):
+    target = tmp_path/'guest'
+    target.mkdir()
+    (target/'source.patch').write_bytes((ROOT/'guest/source.patch').read_bytes())
+    (target/'experimental.patch').write_text('separately tracked experiment')
+    with pytest.raises(ValueError, match='must be canonical'):
+        guard.source(tmp_path)
+    assert guard.source(tmp_path, allow_experimental=True)['history_delta_sha256'] == guard.DELTA_SHA256
+
+
 @pytest.mark.parametrize('old,new', [
     (b'!rseg.latch.rd_lock_try()', b'true'),
     (b'tpool::scoped_wait waiting;', b'/* no notification */'),

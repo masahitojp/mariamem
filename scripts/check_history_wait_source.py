@@ -10,9 +10,9 @@ FILES = ('tpool/tpool.h', 'tpool/tpool_generic.cc', 'tpool/wait_notification.cc'
          'storage/innobase/trx/trx0sys.cc')
 
 
-def source(root=ROOT):
+def source(root=ROOT, *, allow_experimental=False):
     root = Path(root)
-    if (root/'guest/experimental.patch').exists():
+    if not allow_experimental and (root/'guest/experimental.patch').exists():
         raise ValueError('history wait must be canonical')
     patch = (root/'guest/source.patch').read_bytes()
     if patch.count(BOUNDARY) != 1:

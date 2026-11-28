@@ -114,7 +114,7 @@ func TestDictionaryWaitActualGuest(t *testing.T) {
 						// its existing virtual start method. No notification is injected.
 						m.T0 = append([]any(nil), m.T0...)
 						timerIndex := *dictionaryWord(m, 16856292)
-						dictionaryRequire(timerIndex == 12351, "timer virtual method binding")
+						dictionaryRequire(timerIndex == 12353, "timer virtual method binding")
 						originalTimer := m.T0[timerIndex]
 						starts := 0
 						m.T0[timerIndex] = func(c *base.Module, timer, delay, period int32) {
