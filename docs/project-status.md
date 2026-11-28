@@ -6,6 +6,22 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## History wait notification adoption (2026-11-29)
+
+The Human approved canonical integration and acceptance of the narrow native
+`history_size` wait notification. The candidate uses the supported C++ pool and
+reader-lock APIs, with ownership, nesting and exception guards. Experimental
+patches and the private-offset Go helper are excluded. Canonical preparation,
+exact allocator/CRC/dictionary bindings and retained-symbol evidence are updated
+for the new guest. Exact-source independent builds, Go regeneration and current
+daily/full relevant runtime checks on Linux amd64 and macOS arm64 own acceptance;
+the manual history-wait workflow performs those checks without publication.
+
+The previous normal P8 comparison did not demonstrate a speedup or removal of
+the intermittent 400ms wait. That uncertainty is retained; no new unguided
+sampling or scheduling gates are added. Main integration review and release
+approval are separate. See the [decision and finite acceptance boundary](decisions/history-wait-notification.md).
+
 
 
 ## B1 native wire (MariaDB 12.3.4) — adopted on main (2026-11-24)
