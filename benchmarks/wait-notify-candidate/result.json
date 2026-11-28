@@ -1,0 +1,117 @@
+{
+  "arms": {
+    "control": {
+      "n": 20,
+      "process_median_ms": 512.5472700165119,
+      "process_max_ms": 617.8408649866469,
+      "suite_median_ms": 505.126,
+      "cpu_median_ms": 2630.0,
+      "rss_median_kib": 643874.0,
+      "rss_max_kib": 650960.0,
+      "sample_ge400": 0,
+      "samples": 420,
+      "sample_max_ms": 194.86800000000002
+    },
+    "candidate": {
+      "n": 20,
+      "process_median_ms": 522.2000005014706,
+      "process_max_ms": 601.6454990021884,
+      "suite_median_ms": 515.155,
+      "cpu_median_ms": 2660.0,
+      "rss_median_kib": 643666.0,
+      "rss_max_kib": 655232.0,
+      "sample_ge400": 0,
+      "samples": 420,
+      "sample_max_ms": 131.907
+    }
+  },
+  "blocks": [
+    {
+      "block": 0,
+      "control": 584.9756549869198,
+      "candidate": 545.6812935008202,
+      "candidate_percent": -6.717264411110968
+    },
+    {
+      "block": 1,
+      "control": 559.553433500696,
+      "candidate": 497.91510848444887,
+      "candidate_percent": -11.015628057292659
+    },
+    {
+      "block": 2,
+      "control": 483.5526284878142,
+      "candidate": 492.4282010179013,
+      "candidate_percent": 1.8354925621732576
+    },
+    {
+      "block": 3,
+      "control": 536.0396890318953,
+      "candidate": 545.4815640114248,
+      "candidate_percent": 1.7614134126116454
+    },
+    {
+      "block": 4,
+      "control": 483.41068704030477,
+      "candidate": 506.6808089904953,
+      "candidate_percent": 4.813737588770017
+    },
+    {
+      "block": 5,
+      "control": 508.6141729843803,
+      "candidate": 559.3838354980107,
+      "candidate_percent": 9.981959845068978
+    },
+    {
+      "block": 6,
+      "control": 498.9070204901509,
+      "candidate": 540.2584870171268,
+      "candidate_percent": 8.288411433126374
+    },
+    {
+      "block": 7,
+      "control": 537.1421785093844,
+      "candidate": 512.9884680209216,
+      "candidate_percent": -4.49670710192438
+    },
+    {
+      "block": 8,
+      "control": 508.1179765111301,
+      "candidate": 499.82268299208954,
+      "candidate_percent": -1.6325526555856618
+    },
+    {
+      "block": 9,
+      "control": 492.3024000017904,
+      "candidate": 530.413469998166,
+      "candidate_percent": 7.741394312974492
+    }
+  ],
+  "paired_geometric_percent": 0.8363529258187841,
+  "paired_median_percent": 1.7984529873924515,
+  "faster_blocks": 4,
+  "full_suites": 40,
+  "case_bodies": 2800,
+  "prechecks": [
+    {
+      "arm": "control",
+      "process_ms": 302.5016510509886,
+      "suite_ms": 295.281,
+      "returncode": 0,
+      "sample_ge400": 0,
+      "max_sample_ms": 126.37999999999997
+    },
+    {
+      "arm": "candidate",
+      "process_ms": 298.69941499782726,
+      "suite_ms": 292.559,
+      "returncode": 0,
+      "sample_ge400": 0,
+      "max_sample_ms": 113.626
+    }
+  ],
+  "all_pass": true,
+  "limitation": "No sample>=400ms in either measured arm is not evidence of tail resolution; shared host, no cache reset; rebuilt guest shifts globals64bytes and data16bytes; timing changes cannot be uniquely attributed to notification.",
+  "recommendation": "Advance the narrow native waiting-notification candidate to canonical integration verification after Human adoption decision, based on observed missing notification and explicit wait ownership contract; do not claim performance improvement or tail resolution. Do not repeat unguided timing or add scheduling gates.",
+  "strongest_objection": "No >=400ms recurrence in either measured arm, and no causal notification-to-same-WRITE recovery proof from this normal campaign; candidate may be insufficient for all tails."
+}
