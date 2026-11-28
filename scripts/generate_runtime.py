@@ -17,6 +17,29 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
+
+def development_wait_binding(pins):
+    """Exact experimental guest relocation review; canonical bindings stay fixed."""
+    if pins['guest_sha256'] != 'e6d0570841d79b82cfee1a87070080febeb08da6dba1727c5341e53ae6463c9b':
+        return None
+    raw = (ROOT/'tests/fixtures/wait-notify-binding.json').read_bytes()
+    if hashlib.sha256(raw).hexdigest() != '943f374f398cbeef198459adadac435344b8b7a972b7f5d122df50c96c9b00d8':
+        raise ValueError('development waiting candidate profile changed')
+    profile = json.loads(raw)
+    import runtime_thread_lifetime as thread
+    import runtime_crc32c as crc
+    if (profile['guest_sha256'] != pins['guest_sha256'] or
+            thread.GUEST_SHA256 != profile['baseline_guest_sha256'] or
+            crc.GUEST_SHA256 != profile['baseline_guest_sha256']):
+        raise ValueError('development waiting candidate binding origin changed')
+    thread.GUEST_SHA256 = crc.GUEST_SHA256 = profile['guest_sha256']
+    thread.FUNCTIONS = {p: tuple(row) for p, row in profile['thread_functions'].items()}
+    crc.FUNCTION = profile['crc_function']
+    crc.BODY_SHA256 = profile['crc_body_sha256']
+    crc.TABLE_OFFSET = profile['crc_table_offset']
+    crc.TABLE_SHA256 = profile['crc_table_sha256']
+    return profile
+
 # Canonical installer ownership boundary; the verifier consumes this same list.
 HANDWRITTEN_FILES = (
     'code/base/static_pages.go',
@@ -157,6 +180,7 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    dev_binding = development_wait_binding(pins) if args.development_input else None
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
     thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
@@ -228,7 +252,15 @@ def main():
     for name in HANDWRITTEN_FILES:
         owner = handwritten_owner(ROOT, name)
         (out/name).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(owner, out/name)
+        if dev_binding and name == 'code/p4/crc32c_test.go':
+            if hashlib.sha256(owner.read_bytes()).hexdigest() != dev_binding['crc_test_sha256']:
+                raise ValueError('CRC differential test preimage changed')
+            text = owner.read_text()
+            if text.count('p4.Fn18166(') != 1:
+                raise ValueError('CRC differential test callsites changed')
+            (out/name).write_text(text.replace('p4.Fn18166(', 'p4.'+dev_binding['crc_function']+'('))
+        else:
+            shutil.copy2(owner, out/name)
     generate_static_image(out, go_root/'bin/go')
     inventory['image/layout.json'] = hashlib.sha256((out/'image/layout.json').read_bytes()).hexdigest()
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
