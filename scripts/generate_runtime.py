@@ -256,9 +256,10 @@ def main():
             if hashlib.sha256(owner.read_bytes()).hexdigest() != dev_binding['crc_test_sha256']:
                 raise ValueError('CRC differential test preimage changed')
             text = owner.read_text()
-            if text.count('p4.Fn18166(') != 1:
+            if text.count('Fn18166') != 2 or text.count('m.Memory[27619104:]') != 1:
                 raise ValueError('CRC differential test callsites changed')
-            (out/name).write_text(text.replace('p4.Fn18166(', 'p4.'+dev_binding['crc_function']+'('))
+            text = text.replace('Fn18166', dev_binding['crc_function'])
+            (out/name).write_text(text.replace('m.Memory[27619104:]', 'm.Memory[27619168:]'))
         else:
             shutil.copy2(owner, out/name)
     generate_static_image(out, go_root/'bin/go')
